@@ -617,7 +617,7 @@ namespace Kucoin.Net
             if (!desResult.Success)
             {
                 log.Write(LogVerbosity.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
-                return default;
+                return default(T);
             }
             return desResult.Data.Data;
         }
