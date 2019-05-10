@@ -7,7 +7,7 @@ using Kucoin.Net.Objects.Sockets;
 
 namespace Kucoin.Net.Interfaces
 {
-    public interface IKucoinSocketClient
+    public interface IKucoinSocketClient: ISocketClient
     {
         /// <summary>
         /// Subscribe to updates for a market ticker

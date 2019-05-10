@@ -37,6 +37,15 @@ namespace Kucoin.Net
 
         #region methods
         /// <summary>
+        /// Sets the default options to use for new clients
+        /// </summary>
+        /// <param name="options">The options to use for new clients</param>
+        public static void SetDefaultOptions(KucoinClientOptions options)
+        {
+            defaultOptions = options;
+        }
+
+        /// <summary>
         /// Gets the server time
         /// </summary>
         /// <returns>The time of the server</returns>

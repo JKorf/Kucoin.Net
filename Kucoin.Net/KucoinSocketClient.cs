@@ -49,6 +49,15 @@ namespace Kucoin.Net
         #region methods    
         #region public
         /// <summary>
+        /// Sets the default options to use for new clients
+        /// </summary>
+        /// <param name="options">The options to use for new clients</param>
+        public static void SetDefaultOptions(KucoinSocketClientOptions options)
+        {
+            defaultOptions = options;
+        }
+
+        /// <summary>
         /// Subscribe to updates for a market ticker
         /// </summary>
         /// <param name="market">The market to subscribe to</param>

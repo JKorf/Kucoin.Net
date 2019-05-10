@@ -8,7 +8,7 @@ using Kucoin.Net.Objects;
 
 namespace Kucoin.Net.Interfaces
 {
-    public interface IKucoinClient
+    public interface IKucoinClient: IRestClient
     {
         /// <summary>
         /// Gets the server time
