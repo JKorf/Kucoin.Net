@@ -7,7 +7,7 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
 	<Authors>JKorf</Authors>
-    <PackageVersion>0.0.1</PackageVersion>
+    <PackageVersion>0.0.2</PackageVersion>
 	<Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -16,7 +16,7 @@
 	<PackageLicenseUrl>https://github.com/JKorf/Kucoin.Net/blob/master/LICENSE</PackageLicenseUrl>
 	<NeutralLanguage>en</NeutralLanguage>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<PackageReleaseNotes>0.0.1 - Initial release</PackageReleaseNotes>
+	<PackageReleaseNotes>0.0.2 - Added an order book implementation for easily keeping an updated order book, added additional constructor to ApiCredentials to be able to read from file, added ConfigureAwait calls to prevent deadlocks</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
