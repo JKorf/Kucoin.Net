@@ -6,8 +6,10 @@ A .Net wrapper for the Kucoin API as described on [Kucoin](https://docs.kucoin.c
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Kucoin.Net/issues)**
 
----
-Also check out my other exchange API wrappers:
+## CryptoExchange.Net
+Implementation is build upon the CryptoExchange.Net library, make sure to also check out the documentation on that: [docs](https://github.com/JKorf/CryptoExchange.Net)
+
+Other CryptoExchange.Net implementations:
 <table>
 <tr>
 <td><a href="https://github.com/JKorf/Bittrex.Net"><img src="https://github.com/JKorf/Bittrex.Net/blob/master/Resources/icon.png?raw=true"></a>
@@ -32,7 +34,7 @@ Also check out my other exchange API wrappers:
 </td>
 </table>
 
-And other API wrappers based on CryptoExchange.Net:
+Implementations from third parties:
 <table>
 <tr>
 <td><a href="https://github.com/Zaliro/Switcheo.Net"><img src="https://github.com/Zaliro/Switcheo.Net/blob/master/Resources/switcheo-coin.png?raw=true"></a>
@@ -74,110 +76,6 @@ After doing either of above steps you should now be ready to actually start usin
 After installing it's time to actually use it. To get started you have to add the Kucoin.Net namespace: `using Kucoin.Net;`.
 
 Kucoin.Net provides two clients to interact with the Kucoin API. The `KucoinClient` provides all rest API calls. The  `KucoinSocketClient`  provides functions to interact with the websocket provided by the Kucoin API. Both clients are disposable and as such can be used in a `using` statement.
-
-Most API methods are available in two flavors, sync and async:
-````C#
-public void NonAsyncMethod()
-{
-    using(var client = new KucoinClient())
-    {
-        var result = client.GetMarkets();
-    }
-}
-
-public async Task AsyncMethod()
-{
-    using(var client = new KucoinClient())
-    {
-        var result2 = await client.GetMarketsAsync();
-    }
-}
-````
-
-## Response handling
-All API requests will respond with a (Web)CallResult object. This object contains whether the call was successful, the data returned from the call and an error if the call wasn't successful. As such, one should always check the Success flag when processing a response.
-For example:
-```C#
-using(var client = new KucoinClient())
-{
-	var result = client.GetSymbols();
-	if (result.Success)
-		Console.WriteLine($"First symbol: {result.Data[0].Name}");
-	else
-		Console.WriteLine($"Error: {result.Error.Message}");
-}
-```
-## Options & Authentication
-The default behavior of the clients can be changed by providing options to the constructor, or using the `SetDefaultOptions` before creating a new client. Api credentials can be provided in the options.
-
-## Websockets
-The Kucoin.Net socket client provides several socket endpoint to which can be subscribed and follow this function structure
-
-```C#
-var client = new KucoinSocketClient();
-
-var subscribeResult = client.SubscribeToAllTickerUpdates(data =>
-{
-	// handle data
-});
-```
-
-**Handling socket events**
-
-Subscribing to a socket stream returns a UpdateSubscription object. This object can be used to be notified when a socket is disconnected or reconnected:
-````C#
-var subscriptionResult = client.SubscribeToAllTickerUpdates(data =>
-{
-	Console.WriteLine("Received ticker update");
-});
-
-if(subscriptionResult.Success){
-	sub.Data.Disconnected += () =>
-	{
-		Console.WriteLine("Socket disconnected");
-	};
-
-	sub.Data.Reconnected += (e) =>
-	{
-		Console.WriteLine("Socket reconnected after " + e);
-	};
-}
-````
-
-**Unsubscribing from socket endpoints:**
-
-Sockets streams can be unsubscribed by using the `client.Unsubscribe` method in combination with the stream subscription received from subscribing:
-```C#
-var client = new KucoinSocketClient();
-
-var successSubscribe = client.SubscribeToAllTickerUpdates((data) =>
-{
-	// handle data
-});
-
-client.Unsubscribe(successSubscribe.Data);
-```
-
-Additionaly, all sockets can be closed with the `UnsubscribeAll` method. Beware that when a client is disposed the sockets are automatically disposed. This means that if the code is no longer in the using statement the eventhandler won't fire anymore. To prevent this from happening make sure the code doesn't leave the using statement or don't use the socket client in a using statement:
-```C#
-// Doesn't leave the using block
-using(var client = new KucoinSocketClient())
-{
-	var successSubscribe = client.SubscribeToAllTickerUpdates((data) =>
-	{
-		// handle data
-	});
-
-	Console.ReadLine();
-}
-
-// Without using block
-var client = new KucoinSocketClient();
-client.SubscribeToAllTickerUpdates((data) =>
-{
-	// handle data
-});
-```
 
 ## Release notes
 * Version 0.0.2 - 14 may 2019
