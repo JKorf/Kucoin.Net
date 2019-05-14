@@ -19,7 +19,7 @@ namespace Kucoin.Net.Objects
         {
             var copy = Copy<KucoinClientOptions>();
             if (ApiCredentials != null)
-                copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key.GetString(), ApiCredentials.Secret.GetString(), ApiCredentials.Passphrase.GetString());
+                copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key.GetString(), ApiCredentials.Secret.GetString(), ApiCredentials.PassPhrase.GetString());
             return copy;
         }
     }
@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects
             var copy = Copy<KucoinSocketClientOptions>();
             copy.SocketSubscriptionsCombineTarget = SocketSubscriptionsCombineTarget;
             if (ApiCredentials != null)
-                copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key.GetString(), ApiCredentials.Secret.GetString(), ApiCredentials.Passphrase.GetString());
+                copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key.GetString(), ApiCredentials.Secret.GetString(), ApiCredentials.PassPhrase.GetString());
             return copy;
         }
     }

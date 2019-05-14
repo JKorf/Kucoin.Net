@@ -1,13 +1,14 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.OrderBook;
 
 namespace Kucoin.Net.Objects
 {
     public class KucoinFullOrderBook
     {
         /// <summary>
-        /// The last sequnece number of this order book state
+        /// The last sequence number of this order book state
         /// </summary>
         public long Sequence { get; set; }
         /// <summary>
@@ -47,7 +48,7 @@ namespace Kucoin.Net.Objects
     }
 
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinFullOrderBookEntry
+    public class KucoinFullOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>
         /// The order id of the entry
@@ -67,7 +68,7 @@ namespace Kucoin.Net.Objects
     }
 
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinOrderBookEntry
+    public class KucoinOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>
         /// The price of the entry

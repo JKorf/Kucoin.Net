@@ -29,7 +29,7 @@ namespace Kucoin.Net
             var result = new Dictionary<string, string>();
             result["KC-API-KEY"] = Credentials.Key.GetString();
             result["KC-API-TIMESTAMP"] = Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture);
-            result["KC-API-PASSPHRASE"] = ((KucoinApiCredentials)Credentials).Passphrase.GetString();
+            result["KC-API-PASSPHRASE"] = ((KucoinApiCredentials)Credentials).PassPhrase.GetString();
 
             string jsonContent = "";
             if (method != Constants.GetMethod && method != Constants.DeleteMethod)

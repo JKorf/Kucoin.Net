@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.OrderBook;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Sockets
@@ -36,7 +37,7 @@ namespace Kucoin.Net.Objects.Sockets
     }
 
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinStreamOrderBookEntry
+    public class KucoinStreamOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>
         /// The price of the change

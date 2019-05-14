@@ -100,7 +100,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/ticker:" + string.Join(",", markets), false);
-            return await Subscribe(request, null, false, innerHandler);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/ticker:all", false);
-            return await Subscribe(request, null, false, innerHandler);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
 
@@ -153,7 +153,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/snapshot:" + market, false);
-            return await Subscribe(request, null, false, innerHandler);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/level2:" + string.Join(",", markets), false);
-            return await Subscribe(request, null, false, innerHandler);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/match:" + market, false);
-            return await Subscribe(request, null, false, innerHandler);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/level3:" + string.Join(",", markets), false);
-            return await Subscribe(request, null, false, innerHandler);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/level3:" + string.Join(",", markets), true);
-            return await Subscribe(request, null, true, innerHandler);
+            return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(), "subscribe", "/account/balance", true);
-            return await Subscribe(request, null, true, innerHandler);
+            return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
         #endregion
         #region private
@@ -415,8 +415,9 @@ namespace Kucoin.Net
                     KucoinToken token;
                     var clientOptions = KucoinClient.DefaultOptions.Copy();
                     var thisCredentials = (KucoinApiCredentials)authProvider?.Credentials;
-                    if(thisCredentials != null)
-                        clientOptions.ApiCredentials = thisCredentials != null ? new KucoinApiCredentials(thisCredentials.Key.GetString(), thisCredentials.Secret.GetString(), thisCredentials.Passphrase.GetString()): null;
+                    if (thisCredentials != null)
+                        clientOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key.GetString(),
+                            thisCredentials.Secret.GetString(), thisCredentials.PassPhrase.GetString());
                     using (var restClient = new KucoinClient(clientOptions))
                     {
                         var tokenResult = restClient.GetWebsocketToken(authenticated).Result;
@@ -607,7 +608,7 @@ namespace Kucoin.Net
 
                 success = true;
                 return true;
-            });
+            }).ConfigureAwait(false);
 
             return success;
         }
