@@ -709,40 +709,5 @@ namespace Kucoin.Net.Interfaces
         /// </summary>
         /// <returns>List of fills</returns>
         Task<WebCallResult<KucoinFill[]>> GetRecentFillsAsync();
-
-        /// <summary>
-        /// The factory for creating requests. Used for unit testing
-        /// </summary>
-        IRequestFactory RequestFactory { get; set; }
-
-        RateLimitingBehaviour RateLimitBehaviour { get; }
-        IEnumerable<IRateLimiter> RateLimiters { get; }
-        int TotalRequestsMade { get; }
-        string BaseAddress { get; }
-
-        /// <summary>
-        /// Adds a rate limiter to the client. There are 2 choices, the <see cref="RateLimiterTotal"/> and the <see cref="RateLimiterPerEndpoint"/>.
-        /// </summary>
-        /// <param name="limiter">The limiter to add</param>
-        void AddRateLimiter(IRateLimiter limiter);
-
-        /// <summary>
-        /// Removes all rate limiters from this client
-        /// </summary>
-        void RemoveRateLimiters();
-
-        /// <summary>
-        /// Ping to see if the server is reachable
-        /// </summary>
-        /// <returns>The roundtrip time of the ping request</returns>
-        CallResult<long> Ping();
-
-        /// <summary>
-        /// Ping to see if the server is reachable
-        /// </summary>
-        /// <returns>The roundtrip time of the ping request</returns>
-        Task<CallResult<long>> PingAsync();
-
-        void Dispose();
     }
 }

@@ -237,17 +237,6 @@ namespace Kucoin.Net.Interfaces
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBalanceChangesAsync(Action<KucoinBalanceUpdate> onBalanceChange);
 
-        /// <summary>
-        /// The factory for creating sockets. Used for unit testing
-        /// </summary>
-        IWebsocketFactory SocketFactory { get; set; }
-
-        /// <inheritdoc cref="SocketClientOptions.ReconnectInterval"/>
-        TimeSpan ReconnectInterval { get; }
-
-        /// <inheritdoc cref="SocketClientOptions.AutoReconnect"/>
-        bool AutoReconnect { get; }
-
         /// <inheritdoc cref="SocketClientOptions.SocketResponseTimeout"/>
         TimeSpan ResponseTimeout { get; }
 
@@ -262,31 +251,11 @@ namespace Kucoin.Net.Interfaces
         /// <inheritdoc cref="SocketClientOptions.SocketSubscriptionsCombineTarget"/>
         int SocketCombineTarget { get; }
 
-        string BaseAddress { get; }
-
         /// <summary>
         /// Periodically sends an object to a socket
         /// </summary>
         /// <param name="interval">How often</param>
         /// <param name="objGetter">Method returning the object to send</param>
         void SendPeriodic(TimeSpan interval, Func<SocketConnection, object> objGetter);
-
-        /// <summary>
-        /// Unsubscribe from a stream
-        /// </summary>
-        /// <param name="subscription">The subscription to unsubscribe</param>
-        /// <returns></returns>
-        Task Unsubscribe(UpdateSubscription subscription);
-
-        /// <summary>
-        /// Unsubscribe all subscriptions
-        /// </summary>
-        /// <returns></returns>
-        Task UnsubscribeAll();
-
-        /// <summary>
-        /// Dispose the client
-        /// </summary>
-        void Dispose();
     }
 }
