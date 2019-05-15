@@ -2,7 +2,7 @@ language: csharp
 mono: none
 solution: Kucoin.Net.sln
 dotnet: 2.0.0
-dist: trusty
+dist: xenial
 script:
  - dotnet build Kucoin.Net/Kucoin.Net.csproj --framework "netstandard2.0"
  - dotnet test Kucoin.Net.UnitTests/Kucoin.Net.UnitTests.csproj
