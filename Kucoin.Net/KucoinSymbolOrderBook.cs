@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Sockets;
 
 namespace Kucoin.Net
@@ -15,7 +14,12 @@ namespace Kucoin.Net
         private readonly KucoinClient restClient;
         private readonly KucoinSocketClient socketClient;
 
-        public KucoinSymbolOrderBook(string symbol, LogVerbosity logVerbosity = LogVerbosity.Info, IEnumerable<TextWriter> logWriters = null) : base("Kucoin", symbol, true, logVerbosity, logWriters)
+        /// <summary>
+        /// Create a new order book instance
+        /// </summary>
+        /// <param name="symbol">The symbol the order book is for</param>
+        /// <param name="options">The options for the order book</param>
+        public KucoinSymbolOrderBook(string symbol, KucoinOrderBookOptions options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
         {
             restClient = new KucoinClient();
             socketClient = new KucoinSocketClient();

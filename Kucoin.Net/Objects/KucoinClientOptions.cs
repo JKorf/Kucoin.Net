@@ -3,7 +3,7 @@ using CryptoExchange.Net.Objects;
 
 namespace Kucoin.Net.Objects
 {
-    public class KucoinClientOptions: ClientOptions
+    public class KucoinClientOptions: RestClientOptions
     {
         /// <summary>
         /// The api credentials
@@ -51,6 +51,13 @@ namespace Kucoin.Net.Objects
             if (ApiCredentials != null)
                 copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key.GetString(), ApiCredentials.Secret.GetString(), ApiCredentials.PassPhrase.GetString());
             return copy;
+        }
+    }
+
+    public class KucoinOrderBookOptions : OrderBookOptions
+    {
+        public KucoinOrderBookOptions() : base("Kucoin", true)
+        {
         }
     }
 }
