@@ -1,0 +1,3400 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Kucoin.Net</name>
+    </assembly>
+    <members>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTime">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns>The time of the server</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTimeAsync">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns>The time of the server</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbols(System.String)">
+            <summary>
+            Gets a list of symbols supported by the server
+            </summary>
+            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <returns>List of symbols</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolsAsync(System.String)">
+            <summary>
+            Gets a list of symbols supported by the server
+            </summary>
+            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <returns>List of symbols</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTicker(System.String)">
+            <summary>
+            Gets ticker info of a symbol
+            </summary>
+            <param name="symbol">The symbol to get info for</param>
+            <returns>Ticker info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickerAsync(System.String)">
+            <summary>
+            Gets ticker info of a symbol
+            </summary>
+            <param name="symbol">The symbol to get info for</param>
+            <returns>Ticker info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickers">
+            <summary>
+            Gets the ticker for all trading pairs
+            </summary>
+            <returns>List of tickers</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickersAsync">
+            <summary>
+            Gets the ticker for all trading pairs
+            </summary>
+            <returns>List of tickers</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Get24HourStats(System.String)">
+            <summary>
+            Gets the 24 hour stats of a symbol
+            </summary>
+            <param name="symbol">The symbol to get stats for</param>
+            <returns>24 hour stats</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Get24HourStatsAsync(System.String)">
+            <summary>
+            Gets the 24 hour stats of a symbol
+            </summary>
+            <param name="symbol">The symbol to get stats for</param>
+            <returns>24 hour stats</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarkets">
+            <summary>
+            Gets a list of supported markets
+            </summary>
+            <returns>List of markets</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarketsAsync">
+            <summary>
+            Gets a list of supported markets
+            </summary>
+            <returns>List of markets</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32)">
+            <summary>
+            Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <param name="limit">The limit of results (20 / 100)</param>
+            <returns>Partial aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedPartialOrderBookAsync(System.String,System.Int32)">
+            <summary>
+            Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <param name="limit">The limit of results (20 / 100)</param>
+            <returns>Partial aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedFullOrderBook(System.String)">
+            <summary>
+            Get a full aggregated order book for a symbol. Orders for the same price are combined.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedFullOrderBookAsync(System.String)">
+            <summary>
+            Get a full aggregated order book for a symbol. Orders for the same price are combined.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFullOrderBook(System.String)">
+            <summary>
+            Get a full order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFullOrderBookAsync(System.String)">
+            <summary>
+            Get a full order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTradeHistory(System.String)">
+            <summary>
+            Gets the recent trade history for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trade history for</param>
+            <returns>List of trades for the symbol</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTradeHistoryAsync(System.String)">
+            <summary>
+            Gets the recent trade history for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trade history for</param>
+            <returns>List of trades for the symbol</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+            <summary>
+            Get kline data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get klines for</param>
+            <param name="interval">The interval of a kline</param>
+            <param name="startTime">The start time of the data</param>
+            <param name="endTime">The end time of the data</param>
+            <returns>List of klines</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+            <summary>
+            Get kline data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get klines for</param>
+            <param name="interval">The interval of a kline</param>
+            <param name="startTime">The start time of the data</param>
+            <param name="endTime">The end time of the data</param>
+            <returns>List of klines</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrencies">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns>List of currencies</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrenciesAsync">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns>List of currencies</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrency(System.String)">
+            <summary>
+            Get info on a specific currency
+            </summary>
+            <param name="name">The currency to get</param>
+            <returns>Currency info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrencyAsync(System.String)">
+            <summary>
+            Get info on a specific currency
+            </summary>
+            <param name="name">The currency to get</param>
+            <returns>Currency info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFiatPrices(System.String,System.String[])">
+            <summary>
+            Gets a list of prices for all 
+            </summary>
+            <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
+            <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <returns>List of prices</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFiatPricesAsync(System.String,System.String[])">
+            <summary>
+            Gets a list of prices for all 
+            </summary>
+            <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
+            <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <returns>List of prices</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetUserInfo">
+            <summary>
+            Gets a list of sub users
+            </summary>
+            <returns>List of sub users</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetUserInfoAsync">
+            <summary>
+            Gets a list of sub users
+            </summary>
+            <returns>List of sub users</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccounts(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+            <summary>
+            Gets a list of accounts
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <returns>List of accounts</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+            <summary>
+            Gets a list of accounts
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <returns>List of accounts</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccount(System.String)">
+            <summary>
+            Get a specific account
+            </summary>
+            <param name="accountId">The id of the account to get</param>
+            <returns>Account info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountAsync(System.String)">
+            <summary>
+            Get a specific account
+            </summary>
+            <param name="accountId">The id of the account to get</param>
+            <returns>Account info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateAccount(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+            <summary>
+            Create a new account
+            </summary>
+            <param name="type">The type of the account</param>
+            <param name="currency">The currency of the account</param>
+            <returns>The id of the account</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountAsync(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+            <summary>
+            Create a new account
+            </summary>
+            <param name="type">The type of the account</param>
+            <param name="currency">The currency of the account</param>
+            <returns>The id of the account</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="accountId">The account id to get the activities for</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="accountId">The account id to get the activities for</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets hold information
+            </summary>
+            <param name="accountId">The account to get info for</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on current holds</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHoldsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets hold information
+            </summary>
+            <param name="accountId">The account to get info for</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on current holds</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositAddress(System.String)">
+            <summary>
+            Gets the deposit address for a currency
+            </summary>
+            <param name="currency">The currency to get the address for</param>
+            <returns>The deposit address for the currency</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositAddressAsync(System.String)">
+            <summary>
+            Gets the deposit address for a currency
+            </summary>
+            <param name="currency">The currency to get the address for</param>
+            <returns>The deposit address for the currency</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateDepositAddress(System.String)">
+            <summary>
+            Creates a new deposit address for a currency
+            </summary>
+            <param name="currency">The currency to create the address for</param>
+            <returns>The address that was created</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateDepositAddressAsync(System.String)">
+            <summary>
+            Creates a new deposit address for a currency
+            </summary>
+            <param name="currency">The currency to create the address for</param>
+            <returns>The address that was created</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalQuotas(System.String)">
+            <summary>
+            Get the withdrawal quota for a currency
+            </summary>
+            <param name="currency">The currency to get the quota for</param>
+            <returns>Quota info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalQuotasAsync(System.String)">
+            <summary>
+            Get the withdrawal quota for a currency
+            </summary>
+            <param name="currency">The currency to get the quota for</param>
+            <returns>Quota info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Withdraw(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Withdraw a currency to an address
+            </summary>
+            <param name="currency">The currency to withdraw</param>
+            <param name="toAddress">The address to withdraw to</param>
+            <param name="quantity">The quantity to withdraw</param>
+            <param name="memo">The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
+            <param name="isInner">Internal withdrawal or not. Default false.</param>
+            <param name="remark">Remark for the withdrawal</param>
+            <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <returns>Id of the withdrawal</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Withdraw a currency to an address
+            </summary>
+            <param name="currency">The currency to withdraw</param>
+            <param name="toAddress">The address to withdraw to</param>
+            <param name="quantity">The quantity to withdraw</param>
+            <param name="memo">The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
+            <param name="isInner">Internal withdrawal or not. Default false.</param>
+            <param name="remark">Remark for the withdrawal</param>
+            <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <returns>Id of the withdrawal</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelWithdrawal(System.String)">
+            <summary>
+            Cancel a withdrawal
+            </summary>
+            <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <returns>Null</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelWithdrawalAsync(System.String)">
+            <summary>
+            Cancel a withdrawal
+            </summary>
+            <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <returns>Null</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrder(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+            <summary>
+            Places an order
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="stop">Type of stop order</param>
+            <param name="stopPrice">The price for a stop order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+            <summary>
+            Places an order
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="stop">Type of stop order</param>
+            <param name="stopPrice">The price for a stop order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrder(System.String)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrderAsync(System.String)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrders(System.String)">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <param name="symbol">Only cancel orders for this symbol</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrdersAsync(System.String)">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <param name="symbol">Only cancel orders for this symbol</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by order status. Defaults to done</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by order status. Defaults to done</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentOrders">
+            <summary>
+            Gets a list of max 1000 orders in the last 24 hours
+            </summary>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentOrdersAsync">
+            <summary>
+            Gets a list of max 1000 orders in the last 24 hours
+            </summary>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrder(System.String)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="orderId">The id of the order</param>
+            <returns>Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrderAsync(System.String)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="orderId">The id of the order</param>
+            <returns>Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFills(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of fills
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="orderId">Filter list by order id</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of fills
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="orderId">Filter list by order id</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentFills">
+            <summary>
+            Gets a list of max 1000 fills in the last 24 hours
+            </summary>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentFillsAsync">
+            <summary>
+            Gets a list of max 1000 fills in the last 24 hours
+            </summary>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="market">The market to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="market">The market to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="markets">The markets to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="markets">The markets to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAllTickerUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for all market tickers
+            </summary>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAllTickerUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for all market tickers
+            </summary>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToSnapshotUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for market snapshots
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for market snapshots
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="market">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="market">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTradeUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatch})">
+            <summary>
+            Subscribe to trade updates
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatch})">
+            <summary>
+            Subscribe to trade updates
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToBalanceChanges(System.Action{Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate})">
+            <summary>
+            Subscribe to balance updates
+            </summary>
+            <param name="onBalanceChange">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToBalanceChangesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate})">
+            <summary>
+            Subscribe to balance updates
+            </summary>
+            <param name="onBalanceChange">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.ResponseTimeout">
+            <inheritdoc cref="P:CryptoExchange.Net.Objects.SocketClientOptions.SocketResponseTimeout"/>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.SocketNoDataTimeout">
+            <inheritdoc cref="P:CryptoExchange.Net.Objects.SocketClientOptions.SocketNoDataTimeout"/>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.MaxSocketConnections">
+            <summary>
+            The max amount of concurrent socket connections
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.SocketCombineTarget">
+            <inheritdoc cref="P:CryptoExchange.Net.Objects.SocketClientOptions.SocketSubscriptionsCombineTarget"/>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SendPeriodic(System.TimeSpan,System.Func{CryptoExchange.Net.Sockets.SocketConnection,System.Object})">
+            <summary>
+            Periodically sends an object to a socket
+            </summary>
+            <param name="interval">How often</param>
+            <param name="objGetter">Method returning the object to send</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.#ctor">
+            <summary>
+            Create a new instance of the KucoinClient using the default options
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.#ctor(Kucoin.Net.Objects.KucoinClientOptions)">
+            <summary>
+            Create a new instance of the KucoinClient with the provided options
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.SetDefaultOptions(Kucoin.Net.Objects.KucoinClientOptions)">
+            <summary>
+            Sets the default options to use for new clients
+            </summary>
+            <param name="options">The options to use for new clients</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetServerTime">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns>The time of the server</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetServerTimeAsync">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns>The time of the server</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbols(System.String)">
+            <summary>
+            Gets a list of symbols supported by the server
+            </summary>
+            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <returns>List of symbols</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolsAsync(System.String)">
+            <summary>
+            Gets a list of symbols supported by the server
+            </summary>
+            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <returns>List of symbols</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTicker(System.String)">
+            <summary>
+            Gets ticker info of a symbol
+            </summary>
+            <param name="symbol">The symbol to get info for</param>
+            <returns>Ticker info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTickerAsync(System.String)">
+            <summary>
+            Gets ticker info of a symbol
+            </summary>
+            <param name="symbol">The symbol to get info for</param>
+            <returns>Ticker info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTickers">
+            <summary>
+            Gets the ticker for all trading pairs
+            </summary>
+            <returns>List of tickers</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTickersAsync">
+            <summary>
+            Gets the ticker for all trading pairs
+            </summary>
+            <returns>List of tickers</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.Get24HourStats(System.String)">
+            <summary>
+            Gets the 24 hour stats of a symbol
+            </summary>
+            <param name="symbol">The symbol to get stats for</param>
+            <returns>24 hour stats</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.Get24HourStatsAsync(System.String)">
+            <summary>
+            Gets the 24 hour stats of a symbol
+            </summary>
+            <param name="symbol">The symbol to get stats for</param>
+            <returns>24 hour stats</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetMarkets">
+            <summary>
+            Gets a list of supported markets
+            </summary>
+            <returns>List of markets</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetMarketsAsync">
+            <summary>
+            Gets a list of supported markets
+            </summary>
+            <returns>List of markets</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32)">
+            <summary>
+            Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <param name="limit">The limit of results (20 / 100)</param>
+            <returns>Partial aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBookAsync(System.String,System.Int32)">
+            <summary>
+            Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <param name="limit">The limit of results (20 / 100)</param>
+            <returns>Partial aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedFullOrderBook(System.String)">
+            <summary>
+            Get a full aggregated order book for a symbol. Orders for the same price are combined.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedFullOrderBookAsync(System.String)">
+            <summary>
+            Get a full aggregated order book for a symbol. Orders for the same price are combined.
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full aggregated order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetFullOrderBook(System.String)">
+            <summary>
+            Get a full order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetFullOrderBookAsync(System.String)">
+            <summary>
+            Get a full order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get order book for</param>
+            <returns>Full order book</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTradeHistory(System.String)">
+            <summary>
+            Gets the recent trade history for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trade history for</param>
+            <returns>List of trades for the symbol</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTradeHistoryAsync(System.String)">
+            <summary>
+            Gets the recent trade history for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trade history for</param>
+            <returns>List of trades for the symbol</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+            <summary>
+            Get kline data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get klines for</param>
+            <param name="interval">The interval of a kline</param>
+            <param name="startTime">The start time of the data</param>
+            <param name="endTime">The end time of the data</param>
+            <returns>List of klines</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+            <summary>
+            Get kline data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get klines for</param>
+            <param name="interval">The interval of a kline</param>
+            <param name="startTime">The start time of the data</param>
+            <param name="endTime">The end time of the data</param>
+            <returns>List of klines</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrencies">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns>List of currencies</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrenciesAsync">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns>List of currencies</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrency(System.String)">
+            <summary>
+            Get info on a specific currency
+            </summary>
+            <param name="name">The currency to get</param>
+            <returns>Currency info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrencyAsync(System.String)">
+            <summary>
+            Get info on a specific currency
+            </summary>
+            <param name="name">The currency to get</param>
+            <returns>Currency info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetFiatPrices(System.String,System.String[])">
+            <summary>
+            Gets a list of prices for all 
+            </summary>
+            <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
+            <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <returns>List of prices</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetFiatPricesAsync(System.String,System.String[])">
+            <summary>
+            Gets a list of prices for all 
+            </summary>
+            <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
+            <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <returns>List of prices</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetUserInfo">
+            <summary>
+            Gets a list of sub users
+            </summary>
+            <returns>List of sub users</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetUserInfoAsync">
+            <summary>
+            Gets a list of sub users
+            </summary>
+            <returns>List of sub users</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccounts(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+            <summary>
+            Gets a list of accounts
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <returns>List of accounts</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+            <summary>
+            Gets a list of accounts
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <returns>List of accounts</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccount(System.String)">
+            <summary>
+            Get a specific account
+            </summary>
+            <param name="accountId">The id of the account to get</param>
+            <returns>Account info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountAsync(System.String)">
+            <summary>
+            Get a specific account
+            </summary>
+            <param name="accountId">The id of the account to get</param>
+            <returns>Account info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CreateAccount(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+            <summary>
+            Create a new account
+            </summary>
+            <param name="type">The type of the account</param>
+            <param name="currency">The currency of the account</param>
+            <returns>The id of the account</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountAsync(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+            <summary>
+            Create a new account
+            </summary>
+            <param name="type">The type of the account</param>
+            <param name="currency">The currency of the account</param>
+            <returns>The id of the account</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="accountId">The account id to get the activities for</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="accountId">The account id to get the activities for</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets hold information
+            </summary>
+            <param name="accountId">The account to get info for</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on current holds</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHoldsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets hold information
+            </summary>
+            <param name="accountId">The account to get info for</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>Info on current holds</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical deposits
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical deposits</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetDepositAddress(System.String)">
+            <summary>
+            Gets the deposit address for a currency
+            </summary>
+            <param name="currency">The currency to get the address for</param>
+            <returns>The deposit address for the currency</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetDepositAddressAsync(System.String)">
+            <summary>
+            Gets the deposit address for a currency
+            </summary>
+            <param name="currency">The currency to get the address for</param>
+            <returns>The deposit address for the currency</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CreateDepositAddress(System.String)">
+            <summary>
+            Creates a new deposit address for a currency
+            </summary>
+            <param name="currency">The currency to create the address for</param>
+            <returns>The address that was created</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CreateDepositAddressAsync(System.String)">
+            <summary>
+            Creates a new deposit address for a currency
+            </summary>
+            <param name="currency">The currency to create the address for</param>
+            <returns>The address that was created</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical withdrawals
+            </summary>
+            <param name="currency">Filter list by currency</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by deposit status</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalQuotas(System.String)">
+            <summary>
+            Get the withdrawal quota for a currency
+            </summary>
+            <param name="currency">The currency to get the quota for</param>
+            <returns>Quota info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalQuotasAsync(System.String)">
+            <summary>
+            Get the withdrawal quota for a currency
+            </summary>
+            <param name="currency">The currency to get the quota for</param>
+            <returns>Quota info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.Withdraw(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Withdraw a currency to an address
+            </summary>
+            <param name="currency">The currency to withdraw</param>
+            <param name="toAddress">The address to withdraw to</param>
+            <param name="quantity">The quantity to withdraw</param>
+            <param name="memo">The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
+            <param name="isInner">Internal withdrawal or not. Default false.</param>
+            <param name="remark">Remark for the withdrawal</param>
+            <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <returns>Id of the withdrawal</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Withdraw a currency to an address
+            </summary>
+            <param name="currency">The currency to withdraw</param>
+            <param name="toAddress">The address to withdraw to</param>
+            <param name="quantity">The quantity to withdraw</param>
+            <param name="memo">The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
+            <param name="isInner">Internal withdrawal or not. Default false.</param>
+            <param name="remark">Remark for the withdrawal</param>
+            <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <returns>Id of the withdrawal</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelWithdrawal(System.String)">
+            <summary>
+            Cancel a withdrawal
+            </summary>
+            <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <returns>Null</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelWithdrawalAsync(System.String)">
+            <summary>
+            Cancel a withdrawal
+            </summary>
+            <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <returns>Null</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.PlaceOrder(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+            <summary>
+            Places an order
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="stop">Type of stop order</param>
+            <param name="stopPrice">The price for a stop order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+            <summary>
+            Places an order
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="stop">Type of stop order</param>
+            <param name="stopPrice">The price for a stop order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelOrder(System.String)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelOrderAsync(System.String)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelAllOrders(System.String)">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <param name="symbol">Only cancel orders for this symbol</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelAllOrdersAsync(System.String)">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <param name="symbol">Only cancel orders for this symbol</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by order status. Defaults to done</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="status">Filter list by order status. Defaults to done</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentOrders">
+            <summary>
+            Gets a list of max 1000 orders in the last 24 hours
+            </summary>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentOrdersAsync">
+            <summary>
+            Gets a list of max 1000 orders in the last 24 hours
+            </summary>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetOrder(System.String)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="orderId">The id of the order</param>
+            <returns>Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetOrderAsync(System.String)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="orderId">The id of the order</param>
+            <returns>Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical orders
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of historical orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetFills(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of fills
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="orderId">Filter list by order id</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of fills
+            </summary>
+            <param name="symbol">Filter list by symbol</param>
+            <param name="type">Filter list by order type</param>
+            <param name="side">Filter list by order side</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="orderId">Filter list by order id</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentFills">
+            <summary>
+            Gets a list of max 1000 fills in the last 24 hours
+            </summary>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentFillsAsync">
+            <summary>
+            Gets a list of max 1000 fills in the last 24 hours
+            </summary>
+            <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.#ctor">
+            <summary>
+            Create a new instance of the KucoinSocketClient with the default options
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.#ctor(Kucoin.Net.Objects.KucoinSocketClientOptions)">
+            <summary>
+            Create a new instance of the KucoinSocketClient with the provided options
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SetDefaultOptions(Kucoin.Net.Objects.KucoinSocketClientOptions)">
+            <summary>
+            Sets the default options to use for new clients
+            </summary>
+            <param name="options">The options to use for new clients</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="market">The market to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="market">The market to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="markets">The markets to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for a market ticker
+            </summary>
+            <param name="markets">The markets to subscribe to</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAllTickerUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for all market tickers
+            </summary>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAllTickerUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+            <summary>
+            Subscribe to updates for all market tickers
+            </summary>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for market snapshots
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for market snapshots
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="market">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="market">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+            <summary>
+            Subscribe to aggregated order book updates
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTradeUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatch})">
+            <summary>
+            Subscribe to trade updates
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatch})">
+            <summary>
+            Subscribe to trade updates
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="market">The market to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+            <summary>
+            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            </summary>
+            <param name="markets">The markets to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToBalanceChanges(System.Action{Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate})">
+            <summary>
+            Subscribe to balance updates
+            </summary>
+            <param name="onBalanceChange">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToBalanceChangesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate})">
+            <summary>
+            Subscribe to balance updates
+            </summary>
+            <param name="onBalanceChange">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.#ctor(System.String,Kucoin.Net.Objects.KucoinOrderBookOptions)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="options">The options for the order book</param>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.Symbol">
+            <summary>
+            The symbol the stat is for
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.High">
+            <summary>
+            The highest price in the last 24 hours
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.Low">
+            <summary>
+            The lowest price in the last 24 hours
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.Volume">
+            <summary>
+            The volume of the past 24 hours
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.VolumeValue">
+            <summary>
+            The value of the volume in the past 24 hours
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.Last">
+            <summary>
+            The last trade price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.BestAsk">
+            <summary>
+            The best ask price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.BestBid">
+            <summary>
+            The best bid price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.ChangePrice">
+            <summary>
+            The price change since 24 hours ago
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.ChangePercentage">
+            <summary>
+            The percentage change since 24 hours ago
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccount.Id">
+            <summary>
+            The id of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccount.Currency">
+            <summary>
+            The currency of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccount.Type">
+            <summary>
+            The type of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccount.Balance">
+            <summary>
+            The total balance of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccount.Available">
+            <summary>
+            The available balance of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccount.Holds">
+            <summary>
+            The amount of balance that's in hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Amount">
+            <summary>
+            The amount of the activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Balance">
+            <summary>
+            The remaining balance after the activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Fee">
+            <summary>
+            The fee of the activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.BizType">
+            <summary>
+            The type of activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Context">
+            <summary>
+            Additional info for this activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Currency">
+            <summary>
+            The currency of the activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Direction">
+            <summary>
+            The direction of the activity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.OrderId">
+            <summary>
+            The id for the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.TradeId">
+            <summary>
+            The id for the trade (for trades)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.Symbol">
+            <summary>
+            The symbol of the order (for trades)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.TransactionId">
+            <summary>
+            The transaction id (for withdrawal/deposit)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountSingle.Currency">
+            <summary>
+            The currency of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountSingle.Balance">
+            <summary>
+            The total balance of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountSingle.Available">
+            <summary>
+            the available amount in the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountSingle.Holds">
+            <summary>
+            The amount in hold of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.Symbol">
+            <summary>
+            The symbol of the tick
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.BestAsk">
+            <summary>
+            The best ask price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.BestBid">
+            <summary>
+            The best bid price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.ChangePercentage">
+            <summary>
+            The prentage change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.ChangePrice">
+            <summary>
+            The price change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.High">
+            <summary>
+            The higest price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.Low">
+            <summary>
+            The lowest price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.Volume">
+            <summary>
+            The volume in this tick
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.VolumeValue">
+            <summary>
+            The value of the volume in this tick
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAllTick.Last">
+            <summary>
+            The last trade price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinApiCredentials.PassPhrase">
+            <summary>
+            The pass phrase
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates new api credentials. Keep this information safe.
+            </summary>
+            <param name="apiKey">The API key</param>
+            <param name="apiSecret">The API secret</param>
+            <param name="apiPassPhrase">The API passPhrase</param>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.#ctor(System.IO.Stream,System.String,System.String,System.String)">
+            <summary>
+            Create Api credentials providing a stream containing json data. The json data should include three values: apiKey, apiSecret and apiPassPhrase
+            </summary>
+            <param name="inputStream">The stream containing the json data</param>
+            <param name="identifierKey">A key to identify the credentials for the API. For example, when set to `binanceKey` the json data should contain a value for the property `binanceKey`. Defaults to 'apiKey'.</param>
+            <param name="identifierSecret">A key to identify the credentials for the API. For example, when set to `binanceSecret` the json data should contain a value for the property `binanceSecret`. Defaults to 'apiSecret'.</param>
+            <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCancelledOrders.CancelledOrderIds">
+            <summary>
+            List of canceled order ids
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinClientOptions.ApiCredentials">
+            <summary>
+            The api credentials
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSocketClientOptions.ApiCredentials">
+            <summary>
+            The api credentials
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSocketClientOptions.SocketSubscriptionsCombineTarget">
+            <summary>
+            The amount of subscriptions that should be made on a single socket connection.
+            Setting this to a higher number increases subscription speed, but having more subscriptions on a single connection will also increase the amount of traffic on that single connection.
+            Make sure the socket doesn't overflow, and consider combining multiple markets on a subscription instead of increasing this number.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.Currency">
+            <summary>
+            The currency identifier
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.Name">
+            <summary>
+            The name of the currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.FullName">
+            <summary>
+            The full name of the currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.Precision">
+            <summary>
+            The precision of the currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.WithdrawalMinSize">
+            <summary>
+            The minimum size of a withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.WithdrawalMinFee">
+            <summary>
+            The minimum fee of a withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.IsWithdrawEnabled">
+            <summary>
+            Is withdrawing enabled for this currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCurrency.IsDepositEnabled">
+            <summary>
+            Is dpositing enabled for this currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.Address">
+            <summary>
+            The deposit address
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.Memo">
+            <summary>
+            A memo for this deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.Amount">
+            <summary>
+            The amount of the deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.Fee">
+            <summary>
+            The fee of the deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.Currency">
+            <summary>
+            The currency of the deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.IsInner">
+            <summary>
+            Whether it is an internal deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.WalletTransactionId">
+            <summary>
+            The wallet transaction id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.Status">
+            <summary>
+            The deposit status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.CreatedAt">
+            <summary>
+            When the deposit was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDeposit.UpdatedAt">
+            <summary>
+            When the deposit was last updated
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDepositAddress.Address">
+            <summary>
+            The address
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDepositAddress.Memo">
+            <summary>
+            A memo for the address
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinDepositAddress.Chain">
+            <summary>
+            The chain of the address
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Symbol">
+            <summary>
+            The symbol the fill is for
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Side">
+            <summary>
+            The side of the fill
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Price">
+            <summary>
+            The price of the fill
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Quantity">
+            <summary>
+            The quantity of the fill
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Funds">
+            <summary>
+            The funds of the fill
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Fee">
+            <summary>
+            The amount of fee of the fill
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.FeeRate">
+            <summary>
+            The rate of the fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.FeeCurrency">
+            <summary>
+            The currency of the fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Stop">
+            <summary>
+            The stop condition of the fill
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.CreatedAt">
+            <summary>
+            The time the fill was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.TradeId">
+            <summary>
+            The id of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.OrderId">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.CounterOrderId">
+            <summary>
+            The id of the counter order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.Liquidity">
+            <summary>
+            Maker or taker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFill.ForceTaker">
+            <summary>
+            Was forced to become taker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.Currency">
+            <summary>
+            The currency of the deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.Status">
+            <summary>
+            The status of the deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.WalletTransactionId">
+            <summary>
+            The wallet transaction id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.CreateAt">
+            <summary>
+            The time the deposit was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.IsInner">
+            <summary>
+            Wheter is is an internal deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.Quantity">
+            <summary>
+            The amount of the deposit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Id">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Symbol">
+            <summary>
+            The symbol of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Value">
+            <summary>
+            The value of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Fee">
+            <summary>
+            The fee of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Side">
+            <summary>
+            The side of the order
+            </summary>        
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.CreatedAt">
+            <summary>
+            The time the order was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.Currency">
+            <summary>
+            The currency of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.Address">
+            <summary>
+            The address the withdrawal was to
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.Status">
+            <summary>
+            The status of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.WalletTransactionId">
+            <summary>
+            The wallet transaction id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.CreateAt">
+            <summary>
+            The time the withdrawal was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.IsInner">
+            <summary>
+            Wheter it was an internal withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.Quantity">
+            <summary>
+            The quantity of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHold.Currency">
+            <summary>
+            The currency of the hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHold.Quantity">
+            <summary>
+            The quantity of the hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHold.BizType">
+            <summary>
+            The type the hold is for
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHold.OrderId">
+            <summary>
+            The order id of the hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHold.CreatedAt">
+            <summary>
+            The time the hold was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinHold.UpdatedAt">
+            <summary>
+            The time the hold was last updated
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.StartTime">
+            <summary>
+            The start time of the kline
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.Open">
+            <summary>
+            The open price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.Close">
+            <summary>
+            The close price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.High">
+            <summary>
+            The highest price during this kline
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.Low">
+            <summary>
+            The lowest price during this kline
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.Amount">
+            <summary>
+            The amount of the kline
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinKline.Volume">
+            <summary>
+            The volume of the kline
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinNewAccount.Id">
+            <summary>
+            The id of the new account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinNewOrder.OrderId">
+            <summary>
+            The id of the new order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinNewWithdrawal.WithdrawalId">
+            <summary>
+            The id of the new withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Id">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Symbol">
+            <summary>
+            the symbol of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.OperationType">
+            <summary>
+            The operation type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Funds">
+            <summary>
+            The funds of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.DealFunds">
+            <summary>
+            The funds of the deal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.DealQuantity">
+            <summary>
+            The quantity of the deal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Fee">
+            <summary>
+            The fee of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.FeeCurrency">
+            <summary>
+            The currency of the fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.SelfTradePrevention">
+            <summary>
+            The self trade prevention type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Stop">
+            <summary>
+            The stop condition
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.StopTriggered">
+            <summary>
+            Whether the stop condition is triggered
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.StopPrice">
+            <summary>
+            The stop price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.TimeInForce">
+            <summary>
+            The time in force of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.PostOnly">
+            <summary>
+            Whether the order is post only
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Hidden">
+            <summary>
+            Whether the order is hidden
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Iceberg">
+            <summary>
+            Whether it is an iceberg order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.VisibleIcebergSize">
+            <summary>
+            The max visible size of the iceberg
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.CancelAfter">
+            <summary>
+            Time after which the order is cancelled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Channel">
+            <summary>
+            The source of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.ClientOrderId">
+            <summary>
+            The client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Remark">
+            <summary>
+            Remark for the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.Tags">
+            <summary>
+            Tags for the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.IsActive">
+            <summary>
+            Whether the order is active
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.CancelExist">
+            <summary>
+            If there is a cancel request for this order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.CreatedAt">
+            <summary>
+            The time the order was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBook.Sequence">
+            <summary>
+            The last sequence number of this order book state
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBook.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBook.Asks">
+            <summary>
+            The list of asks
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBook.Bids">
+            <summary>
+            The list of bids
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBook.Sequence">
+            <summary>
+            The last sequnece number of this order book state
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBook.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBook.Asks">
+            <summary>
+            The list of asks
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBook.Bids">
+            <summary>
+            The list of bids
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBookEntry.OrderId">
+            <summary>
+            The order id of the entry
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBookEntry.Price">
+            <summary>
+            The price of the entry
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinFullOrderBookEntry.Quantity">
+            <summary>
+            The quantity of the entry
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBookEntry.Price">
+            <summary>
+            The price of the entry
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBookEntry.Quantity">
+            <summary>
+            The quantity of the entry
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinPaginated`1.TotalItems">
+            <summary>
+            The total number of results
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinPaginated`1.TotalPages">
+            <summary>
+            The total number of pages
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinPaginated`1.PageSize">
+            <summary>
+            The amount of items per page
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinPaginated`1.CurrentPage">
+            <summary>
+            The current page
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinPaginated`1.Items">
+            <summary>
+            The items on this page
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSubUser.UserId">
+            <summary>
+            The sub user id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSubUser.SubName">
+            <summary>
+            The sub user name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSubUser.Remarks">
+            <summary>
+            Remarks for this sub user
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.Symbol">
+            <summary>
+            The symbol identifier
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.Name">
+            <summary>
+            The name of the symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.Market">
+            <summary>
+            The market the symbol is on
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.BaseCurrency">
+            <summary>
+            The base currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.QuoteCurrency">
+            <summary>
+            The quote currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.BaseMinSize">
+            <summary>
+            The min order size in the base currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.QuoteMinSize">
+            <summary>
+            The min order size in the quote currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.BaseMaxSize">
+            <summary>
+            The max order size in the base currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.QuoteMaxSize">
+            <summary>
+            The max order size in the qoute currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.BaseIncrement">
+            <summary>
+            The quantity of an order when using the quantity field must be a multiple of this
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.QuoteIncrement">
+            <summary>
+            The funds of an order when using the funds field must be a multiple of this
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.PriceIncrement">
+            <summary>
+            The price of an order must be a multiple of this
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.FeeCurrency">
+            <summary>
+            The currency the fee will be on
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinSymbol.EnableTrading">
+            <summary>
+            Whether trading is enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.Sequence">
+            <summary>
+            The sequence of the tick
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.LastTradePrice">
+            <summary>
+            The price of the last trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.LastTradeQuantity">
+            <summary>
+            The quantity of the last trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.BestAsk">
+            <summary>
+            The best ask price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.BestAskQuantity">
+            <summary>
+            The quantity of the best ask price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.BestBid">
+            <summary>
+            The best bid price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.BestBidQuantity">
+            <summary>
+            The quantity of the best bid
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTick.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTicks.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTicks.Data">
+            <summary>
+            The ticker data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTrade.Sequence">
+            <summary>
+            The sequence number of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTrade.Price">
+            <summary>
+            The price of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTrade.Quantity">
+            <summary>
+            The quantity of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTrade.Side">
+            <summary>
+            The side of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTrade.Timestamp">
+            <summary>
+            The timestamp of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Id">
+            <summary>
+            The id of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Address">
+            <summary>
+            The address the withdrawal is to
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Memo">
+            <summary>
+            The memo for the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Currency">
+            <summary>
+            The currency of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Quantity">
+            <summary>
+            The quantity of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Fee">
+            <summary>
+            The fee of the withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.WalletTransactionId">
+            <summary>
+            The wallet transacion id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.IsInner">
+            <summary>
+            Whether it is an internal withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Status">
+            <summary>
+            Status of the converter
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.CreatedAt">
+            <summary>
+            The time the withdrawal was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.UpdatedAt">
+            <summary>
+            The time the withdrawal was last updated
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.Currency">
+            <summary>
+            The currency the quota is for
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.LimitBTCAmount">
+            <summary>
+            The max BTC value that can be withdrawn
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.UsedBTCAmount">
+            <summary>
+            The used BTC value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.RemainingAmount">
+            <summary>
+            The remaining amount which can be withdrawn
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.AvailableAmount">
+            <summary>
+            The current amount available for withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.WithdrawMinFee">
+            <summary>
+            The minimum fee for withdrawing
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.InnerWithdrawMinFee">
+            <summary>
+            The minimum fee for an internal withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.WithdrawMinSize">
+            <summary>
+            The min size of a withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.IsWithdrawEnabled">
+            <summary>
+            Whether withdrawing is enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.WithdrawPrecision">
+            <summary>
+            The precision of a withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.Chain">
+            <summary>
+            The chain
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.Total">
+            <summary>
+            The total balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.Available">
+            <summary>
+            The available balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.AvailableChange">
+            <summary>
+            The change in available balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.Currency">
+            <summary>
+            The currency this update is for
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.Hold">
+            <summary>
+            The amount currently in hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.HoldChange">
+            <summary>
+            The change in holding
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.RelationEvent">
+            <summary>
+            The event that caused the change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.RelationEventId">
+            <summary>
+            The cause id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.Timestamp">
+            <summary>
+            The timestamp of the update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.AccountId">
+            <summary>
+            The id of the changed account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Sequence">
+            <summary>
+            The sequence of the match
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Symbol">
+            <summary>
+            The symbol the match is for
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Side">
+            <summary>
+            The side of the match
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Quantity">
+            <summary>
+            The quantity of the match
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Price">
+            <summary>
+            The price of the match
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.TakerOrderId">
+            <summary>
+            The taker order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.MakerOrderId">
+            <summary>
+            The maker order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Timestamp">
+            <summary>
+            The timestamp of the match
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Type">
+            <summary>
+            The type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.TradeId">
+            <summary>
+            The id of the trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook.SequenceStart">
+            <summary>
+            The sequence id of the first event this order book update covers
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook.SequenceEnd">
+            <summary>
+            The sequence id of the last event this order book update covers
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook.Symbol">
+            <summary>
+            The symbol of the order book
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook.Changes">
+            <summary>
+            The changes
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged.Bids">
+            <summary>
+            The changes in bids
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged.Asks">
+            <summary>
+            The changes in asks
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookEntry.Price">
+            <summary>
+            The price of the change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookEntry.Quantity">
+            <summary>
+            The quantity of the change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookEntry.Sequence">
+            <summary>
+            The sequence of the change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Sequence">
+            <summary>
+            The sequence of the update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Symbol">
+            <summary>
+            The symbol of the update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Timestamp">
+            <summary>
+            The timestamp of the event
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.UpdateType">
+            <summary>
+            The type of the update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.OrderId">
+            <summary>
+            The order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.ClientOrderid">
+            <summary>
+            The client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.OrderType">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.OrderId">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Reason">
+            <summary>
+            The reason for the done update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.OrderId">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.TakerOrderId">
+            <summary>
+            The order id of the taker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.MakerOrderId">
+            <summary>
+            The orer id of the maker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.TradeId">
+            <summary>
+            The trade id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.OrderId">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.NewQuantity">
+            <summary>
+            The new quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.OldQuantity">
+            <summary>
+            The old quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.OrderId">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.Funds">
+            <summary>
+            The funds of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.StopType">
+            <summary>
+            The stop type of ther order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshotWrapper.Sequence">
+            <summary>
+            The sequence number of the update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshotWrapper.Data">
+            <summary>
+            The data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Trading">
+            <summary>
+            Whether the symbol is trading
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.BestBid">
+            <summary>
+            The current best bid
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.BestAsk">
+            <summary>
+            The current best ask
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Sort">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.VolumeValue">
+            <summary>
+            The value of the volume
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Volume">
+            <summary>
+            The volume
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.BaseCurrency">
+            <summary>
+            The base currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Market">
+            <summary>
+            The market name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.QuoteCurrency">
+            <summary>
+            The quote currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.SymbolCode">
+            <summary>
+            The symbol code
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.High">
+            <summary>
+            The highest price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Low">
+            <summary>
+            The lowest price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.LastPrice">
+            <summary>
+            The last price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.ChangePrice">
+            <summary>
+            The change price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.ChangePercentage">
+            <summary>
+            The change percentage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Board">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Mark">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamTick.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+    </members>
+</doc>
