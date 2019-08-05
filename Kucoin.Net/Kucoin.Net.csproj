@@ -17,7 +17,7 @@
     <PackageReleaseNotes>1.0.1 - added code docs xml</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DocumentationFile>Kucoin.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
