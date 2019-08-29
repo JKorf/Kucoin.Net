@@ -32,6 +32,11 @@ Other CryptoExchange.Net implementations:
 <br />
 <a href="https://github.com/JKorf/Huobi.Net">Huobi</a>
 </td>
+<td><a href="https://github.com/JKorf/Kraken.Net"><img src="https://github.com/JKorf/Kraken.Net/blob/master/Resources/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Kraken.Net">Kraken</a>
+</td>
+</tr>
 </table>
 
 Implementations from third parties:
