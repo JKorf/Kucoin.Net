@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class TimeInForceConverter : BaseConverter<KucoinTimeInForce>
+    internal class TimeInForceConverter : BaseConverter<KucoinTimeInForce>
     {
         public TimeInForceConverter() : this(true) { }
         public TimeInForceConverter(bool quotes) : base(quotes) { }

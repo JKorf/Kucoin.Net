@@ -7,6 +7,9 @@ using Kucoin.Net.Objects.Sockets;
 
 namespace Kucoin.Net.Interfaces
 {
+    /// <summary>
+    /// Interface for the Kucoin socket client
+    /// </summary>
     public interface IKucoinSocketClient: ISocketClient
     {
         /// <summary>

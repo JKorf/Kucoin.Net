@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class SelfTradePreventionConverter : BaseConverter<KucoinSelfTradePrevention>
+    internal class SelfTradePreventionConverter : BaseConverter<KucoinSelfTradePrevention>
     {
         public SelfTradePreventionConverter() : this(true) { }
         public SelfTradePreventionConverter(bool quotes) : base(quotes) { }

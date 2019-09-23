@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// New withdrawal id
+    /// </summary>
     public class KucoinNewWithdrawal
     {
         /// <summary>

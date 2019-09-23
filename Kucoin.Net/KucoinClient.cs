@@ -14,6 +14,9 @@ using Kucoin.Net.Interfaces;
 
 namespace Kucoin.Net
 {
+    /// <summary>
+    /// Client to interact with the Kucoin REST API
+    /// </summary>
     public class KucoinClient: RestClient, IKucoinClient
     {
         private static KucoinClientOptions defaultOptions = new KucoinClientOptions();
@@ -1031,6 +1034,7 @@ namespace Kucoin.Net
             return await Execute<KucoinToken>(GetUri(authenticated ? "bullet-private": "bullet-public"), method: Constants.PostMethod, signed:authenticated).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         protected override Error ParseErrorResponse(JToken error)
         {
             if (error["code"] != null && error["msg"] != null)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class LiquidityTypeConverter : BaseConverter<KucoinLiquidityType>
+    internal class LiquidityTypeConverter : BaseConverter<KucoinLiquidityType>
     {
         public LiquidityTypeConverter() : this(true) { }
         public LiquidityTypeConverter(bool quotes) : base(quotes) { }

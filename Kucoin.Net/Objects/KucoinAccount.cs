@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Account info
+    /// </summary>
     public class KucoinAccount
     {
         /// <summary>

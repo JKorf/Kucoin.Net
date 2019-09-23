@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class OrderSideConverter : BaseConverter<KucoinOrderSide>
+    internal class OrderSideConverter : BaseConverter<KucoinOrderSide>
     {
         public OrderSideConverter() : this(true) { }
         public OrderSideConverter(bool quotes) : base(quotes) { }

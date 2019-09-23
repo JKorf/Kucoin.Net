@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Symbol info
+    /// </summary>
     public class KucoinSymbol
     {
         /// <summary>

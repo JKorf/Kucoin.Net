@@ -5,6 +5,9 @@ using CryptoExchange.Net.OrderBook;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Order book
+    /// </summary>
     public class KucoinFullOrderBook
     {
         /// <summary>
@@ -26,10 +29,13 @@ namespace Kucoin.Net.Objects
         public KucoinFullOrderBookEntry[] Bids { get; set; }
     }
 
+    /// <summary>
+    /// Order book
+    /// </summary>
     public class KucoinOrderBook
     {
         /// <summary>
-        /// The last sequnece number of this order book state
+        /// The last sequence number of this order book state
         /// </summary>
         public long Sequence { get; set; }
         /// <summary>
@@ -47,6 +53,9 @@ namespace Kucoin.Net.Objects
         public KucoinOrderBookEntry[] Bids { get; set; }
     }
 
+    /// <summary>
+    /// Order book entry
+    /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
     public class KucoinFullOrderBookEntry: ISymbolOrderBookEntry
     {
@@ -67,6 +76,9 @@ namespace Kucoin.Net.Objects
         public decimal Quantity { get; set; }
     }
 
+    /// <summary>
+    /// Order book entry
+    /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
     public class KucoinOrderBookEntry : ISymbolOrderBookEntry
     {

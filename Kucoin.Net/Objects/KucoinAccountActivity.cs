@@ -5,8 +5,14 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Account activity info
+    /// </summary>
     public class KucoinAccountActivity
     {
+        /// <summary>
+        /// Creation timestamp
+        /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         public DateTime CreatedAt { get; set; }
         /// <summary>
@@ -42,6 +48,9 @@ namespace Kucoin.Net.Objects
         public KucoinAccountDirection Direction { get; set; }
     }
 
+    /// <summary>
+    /// Account activity details
+    /// </summary>
     public class KucoinAccountActivityContext
     {
         /// <summary>

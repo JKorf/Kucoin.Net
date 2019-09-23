@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Kucoin.Net
 {
-    public class KucoinAuthenticationProvider : AuthenticationProvider
+    internal class KucoinAuthenticationProvider : AuthenticationProvider
     {
         HMACSHA256 encryptor;
 

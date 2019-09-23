@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Deposit info
+    /// </summary>
     public class KucoinDeposit
     {
         /// <summary>

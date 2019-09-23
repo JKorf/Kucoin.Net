@@ -4,6 +4,9 @@ using System;
 
 namespace Kucoin.Net.Objects.Sockets
 {
+    /// <summary>
+    /// Stream snapshot wrapper
+    /// </summary>
     public class KucoinStreamSnapshotWrapper
     {
         /// <summary>
@@ -16,6 +19,9 @@ namespace Kucoin.Net.Objects.Sockets
         public KucoinStreamSnapshot Data { get; set; }
     }
 
+    /// <summary>
+    /// Stream snapshot
+    /// </summary>
     public class KucoinStreamSnapshot
     {
         /// <summary>

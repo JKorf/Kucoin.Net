@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class KlineIntervalConverter : BaseConverter<KucoinKlineInterval>
+    internal class KlineIntervalConverter : BaseConverter<KucoinKlineInterval>
     {
         public KlineIntervalConverter() : this(true) { }
         public KlineIntervalConverter(bool quotes) : base(quotes) { }

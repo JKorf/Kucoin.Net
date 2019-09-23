@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Credentials for the Kucoin API
+    /// </summary>
     public class KucoinApiCredentials : ApiCredentials
     {
         /// <summary>

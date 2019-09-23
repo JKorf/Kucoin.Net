@@ -4,6 +4,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Hold info
+    /// </summary>
     public class KucoinHold
     {
         /// <summary>

@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects.Sockets
 {
+    /// <summary>
+    /// Match info
+    /// </summary>
     public class KucoinStreamMatch
     {
         /// <summary>

@@ -4,6 +4,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// 24 hours stats
+    /// </summary>
     public class Kucoin24HourStat
     {
         /// <summary>

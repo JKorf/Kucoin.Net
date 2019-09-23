@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects.Sockets
 {
+    /// <summary>
+    /// Base class for a stream update
+    /// </summary>
     public class KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -27,6 +30,9 @@ namespace Kucoin.Net.Objects.Sockets
         public KucoinMatchUpdateType UpdateType { get; set; }
     }
 
+    /// <summary>
+    /// Stream order update (received)
+    /// </summary>
     public class KucoinStreamOrderReceivedUpdate: KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -54,6 +60,9 @@ namespace Kucoin.Net.Objects.Sockets
         public KucoinOrderType OrderType { get; set; }
     }
 
+    /// <summary>
+    /// Stream order update (open)
+    /// </summary>
     public class KucoinStreamOrderOpenUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -76,6 +85,9 @@ namespace Kucoin.Net.Objects.Sockets
         public decimal Price { get; set; }
     }
 
+    /// <summary>
+    /// Stream order update (done)
+    /// </summary>
     public class KucoinStreamOrderDoneUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -99,6 +111,9 @@ namespace Kucoin.Net.Objects.Sockets
         public string OrderId { get; set; }
     }
 
+    /// <summary>
+    /// Stream order update (match)
+    /// </summary>
     public class KucoinStreamOrderMatchUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -129,6 +144,9 @@ namespace Kucoin.Net.Objects.Sockets
         public decimal Price { get; set; }
     }
 
+    /// <summary>
+    /// Stream order update (change)
+    /// </summary>
     public class KucoinStreamOrderChangeUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -156,6 +174,9 @@ namespace Kucoin.Net.Objects.Sockets
         public decimal Price { get; set; }
     }
 
+    /// <summary>
+    /// Stream order update (stop)
+    /// </summary>
     public class KucoinStreamOrderStopUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>

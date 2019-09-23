@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Ids of cancelled orders
+    /// </summary>
     public class KucoinCancelledOrders
     {
         /// <summary>

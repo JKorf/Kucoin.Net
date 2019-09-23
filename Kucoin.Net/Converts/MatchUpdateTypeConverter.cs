@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class MatchUpdateTypeConverter : BaseConverter<KucoinMatchUpdateType>
+    internal class MatchUpdateTypeConverter : BaseConverter<KucoinMatchUpdateType>
     {
         public MatchUpdateTypeConverter() : this(true) { }
         public MatchUpdateTypeConverter(bool quotes) : base(quotes) { }

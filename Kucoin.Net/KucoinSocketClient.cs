@@ -13,6 +13,9 @@ using Kucoin.Net.Interfaces;
 
 namespace Kucoin.Net
 {
+    /// <summary>
+    /// Client for interacting with the Kucoin websocket API
+    /// </summary>
     public class KucoinSocketClient: SocketClient, IKucoinSocketClient
     {
         #region fields
@@ -401,6 +404,7 @@ namespace Kucoin.Net
         #endregion
         #region private
 
+        /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> Subscribe<T>(string url, object request, string identifier, bool authenticated, Action<T> dataHandler)
         {
             SocketConnection socket;
@@ -471,6 +475,7 @@ namespace Kucoin.Net
             return new CallResult<UpdateSubscription>(new UpdateSubscription(socket, handler), null);
         }
 
+        /// <inheritdoc />
         protected override SocketConnection GetWebsocket(string address, bool authenticated)
         {
             var socketResult = sockets.Where(s => (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.HandlerCount).FirstOrDefault();
@@ -487,11 +492,13 @@ namespace Kucoin.Net
             return null;
         }
 
+        /// <inheritdoc />
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
         {
             callResult = null;
@@ -523,6 +530,7 @@ namespace Kucoin.Net
             return true;
         }
 
+        /// <inheritdoc />
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
             if (message["type"] == null || (string)message["type"] != "message")
@@ -556,6 +564,7 @@ namespace Kucoin.Net
             return false;
         }
 
+        /// <inheritdoc />
         protected override bool MessageMatchesHandler(JToken message, string identifier)
         {
             if (message["type"] != null)
@@ -571,11 +580,13 @@ namespace Kucoin.Net
             return false;
         }
 
+        /// <inheritdoc />
         protected override Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
         {
             return Task.FromResult(new CallResult<bool>(true, null));
         }
 
+        /// <inheritdoc />
         protected override async Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
         {
             var kRequest = (KucoinRequest)s.Request;

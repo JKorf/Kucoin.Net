@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Sockets
 {
+    /// <summary>
+    /// Order book info
+    /// </summary>
     public class KucoinStreamOrderBook
     {
         /// <summary>
@@ -24,6 +27,9 @@ namespace Kucoin.Net.Objects.Sockets
         public KucoinStreamOrderBookChanged Changes { get; set; }
     }
 
+    /// <summary>
+    /// Order book changes
+    /// </summary>
     public class KucoinStreamOrderBookChanged
     {
         /// <summary>
@@ -36,6 +42,9 @@ namespace Kucoin.Net.Objects.Sockets
         public KucoinStreamOrderBookEntry[] Asks { get; set; }
     }
 
+    /// <summary>
+    /// Order book entry
+    /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
     public class KucoinStreamOrderBookEntry: ISymbolOrderBookEntry
     {

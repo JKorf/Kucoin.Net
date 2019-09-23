@@ -2,6 +2,9 @@
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Tick info
+    /// </summary>
     public class KucoinAllTick
     {
         /// <summary>

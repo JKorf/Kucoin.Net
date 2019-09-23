@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class StopConditionConverter : BaseConverter<KucoinStopCondition>
+    internal class StopConditionConverter : BaseConverter<KucoinStopCondition>
     {
         public StopConditionConverter() : this(true) { }
         public StopConditionConverter(bool quotes) : base(quotes) { }

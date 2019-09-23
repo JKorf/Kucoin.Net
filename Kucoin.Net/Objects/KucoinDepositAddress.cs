@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Deposit address
+    /// </summary>
     public class KucoinDepositAddress
     {
         /// <summary>

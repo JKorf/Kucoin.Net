@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Currency info
+    /// </summary>
     public class KucoinCurrency
     {
         /// <summary>

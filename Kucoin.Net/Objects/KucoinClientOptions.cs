@@ -3,6 +3,9 @@ using CryptoExchange.Net.Objects;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Options for the KucoinClient
+    /// </summary>
     public class KucoinClientOptions: RestClientOptions
     {
         /// <summary>
@@ -10,11 +13,18 @@ namespace Kucoin.Net.Objects
         /// </summary>
         public new KucoinApiCredentials ApiCredentials { get; set; }
 
+        /// <summary>
+        /// ctor
+        /// </summary>
         public KucoinClientOptions()
         {
             BaseAddress = "https://api.kucoin.com/api/";
         }
 
+        /// <summary>
+        /// Make a copy of the options
+        /// </summary>
+        /// <returns></returns>
         public KucoinClientOptions Copy()
         {
             var copy = Copy<KucoinClientOptions>();
@@ -24,6 +34,9 @@ namespace Kucoin.Net.Objects
         }
     }
 
+    /// <summary>
+    /// Options for the KucoinSocketClient
+    /// </summary>
     public class KucoinSocketClientOptions: SocketClientOptions
     {
         /// <summary>
@@ -38,12 +51,18 @@ namespace Kucoin.Net.Objects
         /// </summary>
         public new int SocketSubscriptionsCombineTarget { get; set; }
 
-
+        /// <summary>
+        /// ctor
+        /// </summary>
         public KucoinSocketClientOptions()
         {
             SocketSubscriptionsCombineTarget = 1;
         }
 
+        /// <summary>
+        /// Create a copy of the options
+        /// </summary>
+        /// <returns></returns>
         public KucoinSocketClientOptions Copy()
         {
             var copy = Copy<KucoinSocketClientOptions>();
@@ -54,8 +73,14 @@ namespace Kucoin.Net.Objects
         }
     }
 
+    /// <summary>
+    /// Options for the KucoinSymbolOrderBook
+    /// </summary>
     public class KucoinOrderBookOptions : OrderBookOptions
     {
+        /// <summary>
+        /// ctor
+        /// </summary>
         public KucoinOrderBookOptions() : base("Kucoin", true)
         {
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class WithdrawalStatusConverter : BaseConverter<KucoinWithdrawalStatus>
+    internal class WithdrawalStatusConverter : BaseConverter<KucoinWithdrawalStatus>
     {
         public WithdrawalStatusConverter() : this(true) { }
         public WithdrawalStatusConverter(bool quotes) : base(quotes) { }

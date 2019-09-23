@@ -8,6 +8,9 @@ using Kucoin.Net.Objects;
 
 namespace Kucoin.Net.Interfaces
 {
+    /// <summary>
+    /// Interface for the Kucoin client
+    /// </summary>
     public interface IKucoinClient: IRestClient
     {
         /// <summary>

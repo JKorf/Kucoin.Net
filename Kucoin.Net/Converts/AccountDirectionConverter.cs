@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converts
 {
-    public class AccountDirectionConverter : BaseConverter<KucoinAccountDirection>
+    internal class AccountDirectionConverter : BaseConverter<KucoinAccountDirection>
     {
         public AccountDirectionConverter() : this(true) { }
         public AccountDirectionConverter(bool quotes) : base(quotes) { }

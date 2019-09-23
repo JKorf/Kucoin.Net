@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Trade info
+    /// </summary>
     public class KucoinTrade
     {
         /// <summary>

@@ -4,6 +4,9 @@ using System;
 
 namespace Kucoin.Net.Objects.Sockets
 {
+    /// <summary>
+    /// Balance update info
+    /// </summary>
     public class KucoinBalanceUpdate
     {
         /// <summary>

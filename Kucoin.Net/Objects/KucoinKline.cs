@@ -4,6 +4,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Kline info
+    /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
     public class KucoinKline
     {

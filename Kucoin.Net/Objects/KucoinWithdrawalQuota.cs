@@ -2,6 +2,9 @@
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Withdrawal quota info
+    /// </summary>
     public class KucoinWithdrawalQuota
     {
         /// <summary>

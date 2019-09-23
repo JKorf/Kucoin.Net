@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Historical order info
+    /// </summary>
     public class KucoinHistoricalOrder
     {
         /// <summary>

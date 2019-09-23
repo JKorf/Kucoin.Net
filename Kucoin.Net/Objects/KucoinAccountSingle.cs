@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Account info
+    /// </summary>
     public class KucoinAccountSingle
     {
         /// <summary>

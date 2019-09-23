@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Fill info
+    /// </summary>
     public class KucoinFill
     {
         /// <summary>

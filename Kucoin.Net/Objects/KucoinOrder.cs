@@ -6,6 +6,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Order info
+    /// </summary>
     public class KucoinOrder
     {
         /// <summary>

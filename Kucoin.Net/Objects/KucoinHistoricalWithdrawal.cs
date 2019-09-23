@@ -5,6 +5,9 @@ using System;
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Historical withdrawal info
+    /// </summary>
     public class KucoinHistoricalWithdrawal
     {
         /// <summary>

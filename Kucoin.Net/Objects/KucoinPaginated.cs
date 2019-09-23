@@ -2,6 +2,10 @@
 
 namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// Page with results
+    /// </summary>
+    /// <typeparam name="T">Type of the items in the book</typeparam>
     public class KucoinPaginated<T>
     {
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace Kucoin.Net.Objects
 {
+    /// <summary>
+    /// New order id
+    /// </summary>
     public class KucoinNewOrder
     {
         /// <summary>

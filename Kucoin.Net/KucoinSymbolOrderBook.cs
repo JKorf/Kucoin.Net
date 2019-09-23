@@ -9,6 +9,9 @@ using Kucoin.Net.Objects.Sockets;
 
 namespace Kucoin.Net
 {
+    /// <summary>
+    /// Kucoin order book implementation
+    /// </summary>
     public class KucoinSymbolOrderBook: SymbolOrderBook
     {
         private readonly KucoinClient restClient;
@@ -25,6 +28,7 @@ namespace Kucoin.Net
             socketClient = new KucoinSocketClient();
         }
 
+        /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
         {
             var subResult = await socketClient.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleUpdate);
@@ -43,6 +47,7 @@ namespace Kucoin.Net
             return new CallResult<UpdateSubscription>(subResult.Data, null);
         }
 
+        /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResync()
         {
             var bookResult = await restClient.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
@@ -61,6 +66,7 @@ namespace Kucoin.Net
             UpdateOrderBook(data.SequenceStart, data.SequenceEnd, updates);
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             processBuffer.Clear();
