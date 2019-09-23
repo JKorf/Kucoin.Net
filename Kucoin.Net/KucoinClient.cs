@@ -961,7 +961,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await Execute<KucoinPaginated<KucoinHistoricalOrder>>(GetUri($"hist-orders"), signed: true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHistoricalOrder>>(GetUri($"hist-orders"), signed: true, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1008,7 +1008,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await Execute<KucoinPaginated<KucoinFill>>(GetUri($"fills"), signed: true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinFill>>(GetUri($"fills"), signed: true, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
