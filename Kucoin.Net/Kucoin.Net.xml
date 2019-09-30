@@ -4,6 +4,11 @@
         <name>Kucoin.Net</name>
     </assembly>
     <members>
+        <member name="T:Kucoin.Net.Interfaces.IKucoinClient">
+            <summary>
+            Interface for the Kucoin client
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTime">
             <summary>
             Gets the server time
@@ -670,6 +675,11 @@
             </summary>
             <returns>List of fills</returns>
         </member>
+        <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClient">
+            <summary>
+            Interface for the Kucoin socket client
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
             Subscribe to updates for a market ticker
@@ -918,6 +928,11 @@
             </summary>
             <param name="interval">How often</param>
             <param name="objGetter">Method returning the object to send</param>
+        </member>
+        <member name="T:Kucoin.Net.KucoinClient">
+            <summary>
+            Client to interact with the Kucoin REST API
+            </summary>
         </member>
         <member name="M:Kucoin.Net.KucoinClient.#ctor">
             <summary>
@@ -1601,6 +1616,14 @@
             </summary>
             <returns>List of fills</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.KucoinSocketClient">
+            <summary>
+            Client for interacting with the Kucoin websocket API
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.#ctor">
             <summary>
             Create a new instance of the KucoinSocketClient with the default options
@@ -1845,12 +1868,55 @@
             <param name="onBalanceChange">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.Subscribe``1(System.String,System.Object,System.String,System.Boolean,System.Action{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.GetWebsocket(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.AuthenticateSocket(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.Unsubscribe(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.KucoinSymbolOrderBook">
+            <summary>
+            Kucoin order book implementation
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.KucoinSymbolOrderBook.#ctor(System.String,Kucoin.Net.Objects.KucoinOrderBookOptions)">
             <summary>
             Create a new order book instance
             </summary>
             <param name="symbol">The symbol the order book is for</param>
             <param name="options">The options for the order book</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoStart">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoResync">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.Objects.Kucoin24HourStat">
+            <summary>
+            24 hours stats
+            </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Kucoin24HourStat.Symbol">
             <summary>
@@ -1907,6 +1973,11 @@
             The timestamp of the data
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAccount">
+            <summary>
+            Account info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinAccount.Id">
             <summary>
             The id of the account
@@ -1935,6 +2006,16 @@
         <member name="P:Kucoin.Net.Objects.KucoinAccount.Holds">
             <summary>
             The amount of balance that's in hold
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAccountActivity">
+            <summary>
+            Account activity info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.CreatedAt">
+            <summary>
+            Creation timestamp
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Amount">
@@ -1972,6 +2053,11 @@
             The direction of the activity
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAccountActivityContext">
+            <summary>
+            Account activity details
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.OrderId">
             <summary>
             The id for the order
@@ -1992,6 +2078,11 @@
             The transaction id (for withdrawal/deposit)
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAccountSingle">
+            <summary>
+            Account info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinAccountSingle.Currency">
             <summary>
             The currency of the account
@@ -2010,6 +2101,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinAccountSingle.Holds">
             <summary>
             The amount in hold of the account
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAllTick">
+            <summary>
+            Tick info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinAllTick.Symbol">
@@ -2062,6 +2158,11 @@
             The last trade price
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinApiCredentials">
+            <summary>
+            Credentials for the Kucoin API
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinApiCredentials.PassPhrase">
             <summary>
             The pass phrase
@@ -2084,14 +2185,40 @@
             <param name="identifierSecret">A key to identify the credentials for the API. For example, when set to `binanceSecret` the json data should contain a value for the property `binanceSecret`. Defaults to 'apiSecret'.</param>
             <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinCancelledOrders">
+            <summary>
+            Ids of cancelled orders
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinCancelledOrders.CancelledOrderIds">
             <summary>
             List of canceled order ids
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinClientOptions">
+            <summary>
+            Options for the KucoinClient
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinClientOptions.ApiCredentials">
             <summary>
             The api credentials
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinClientOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinClientOptions.Copy">
+            <summary>
+            Make a copy of the options
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinSocketClientOptions">
+            <summary>
+            Options for the KucoinSocketClient
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinSocketClientOptions.ApiCredentials">
@@ -2104,6 +2231,32 @@
             The amount of subscriptions that should be made on a single socket connection.
             Setting this to a higher number increases subscription speed, but having more subscriptions on a single connection will also increase the amount of traffic on that single connection.
             Make sure the socket doesn't overflow, and consider combining multiple markets on a subscription instead of increasing this number.
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinSocketClientOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinSocketClientOptions.Copy">
+            <summary>
+            Create a copy of the options
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderBookOptions">
+            <summary>
+            Options for the KucoinSymbolOrderBook
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinOrderBookOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinCurrency">
+            <summary>
+            Currency info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinCurrency.Currency">
@@ -2144,6 +2297,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinCurrency.IsDepositEnabled">
             <summary>
             Is dpositing enabled for this currency
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinDeposit">
+            <summary>
+            Deposit info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinDeposit.Address">
@@ -2196,6 +2354,11 @@
             When the deposit was last updated
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinDepositAddress">
+            <summary>
+            Deposit address
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinDepositAddress.Address">
             <summary>
             The address
@@ -2209,6 +2372,386 @@
         <member name="P:Kucoin.Net.Objects.KucoinDepositAddress.Chain">
             <summary>
             The chain of the address
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinKlineInterval">
+            <summary>
+            The time for each candlestick
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.OneMinute">
+            <summary>
+            1m
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.ThreeMinutes">
+            <summary>
+            3m
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.FiveMinutes">
+            <summary>
+            5m
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.FifteenMinutes">
+            <summary>
+            15m
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.ThirtyMinutes">
+            <summary>
+            30m
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.OneHour">
+            <summary>
+            1h
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.TwoHours">
+            <summary>
+            2h
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.FourHours">
+            <summary>
+            4h
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.SixHours">
+            <summary>
+            6h
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.EightHours">
+            <summary>
+            8h
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.TwelfHours">
+            <summary>
+            12h
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.OneDay">
+            <summary>
+            1d
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.OneWeek">
+            <summary>
+            1w
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinAccountType.Main">
+            <summary>
+            Main account
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinAccountType.Trade">
+            <summary>
+            Trade account
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinDepositStatus">
+            <summary>
+            Status of a deposit
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinDepositStatus.Processing">
+            <summary>
+            In progress
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinDepositStatus.Success">
+            <summary>
+            Successful
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinDepositStatus.Failure">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinWithdrawalStatus">
+            <summary>
+            Status of a withdrawal
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinWithdrawalStatus.Processing">
+            <summary>
+            In progress
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinWithdrawalStatus.WalletProcessing">
+            <summary>
+            In progress
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinWithdrawalStatus.Success">
+            <summary>
+            Successful
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinWithdrawalStatus.Failure">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderSide.Buy">
+            <summary>
+            Buy order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderSide.Sell">
+            <summary>
+            Sell order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinNewOrderType">
+            <summary>
+            New order type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinNewOrderType.Limit">
+            <summary>
+            Limit order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinNewOrderType.Market">
+            <summary>
+            Market order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderType.Limit">
+            <summary>
+            Limit order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderType.Market">
+            <summary>
+            Market order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderType.LimitStop">
+            <summary>
+            Limit stop order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderType.MarketStop">
+            <summary>
+            Market stop order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTimeInForce">
+            <summary>
+            Time the order is valid for
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinTimeInForce.GoodTillCancelled">
+            <summary>
+            Good until cancelled by user
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinTimeInForce.GoodTillTime">
+            <summary>
+            Good until a certain time
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinTimeInForce.ImmediateOrCancel">
+            <summary>
+            Immediately has to be (partially) filled or it will be cancelled
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinTimeInForce.FillOrKill">
+            <summary>
+            Immediately has to be full filled or it will be cancelled
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinSelfTradePrevention">
+            <summary>
+            Self trade prevention types
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinSelfTradePrevention.None">
+            <summary>
+            No self trade prevention
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinSelfTradePrevention.DecreaseAndCancel">
+            <summary>
+            Decrease the amount of the existing order by the amount of the new order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinSelfTradePrevention.CancelOldest">
+            <summary>
+            Cancel the oldest order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinSelfTradePrevention.CancelNewest">
+            <summary>
+            Cancel the newest order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinSelfTradePrevention.CancelBoth">
+            <summary>
+            Cancel both orders
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinStopCondition">
+            <summary>
+            Stop condition
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinStopCondition.None">
+            <summary>
+            No stop condition
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinStopCondition.Loss">
+            <summary>
+            Loss condition
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinStopCondition.Entry">
+            <summary>
+            Entry condition
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderStatus.Active">
+            <summary>
+            Order is active
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderStatus.Done">
+            <summary>
+            Order is done
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinAccountDirection">
+            <summary>
+            Direction
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinAccountDirection.In">
+            <summary>
+            In
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinAccountDirection.Out">
+            <summary>
+            Out
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinLiquidityType">
+            <summary>
+            Liquidity type of a trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinLiquidityType.Maker">
+            <summary>
+            Maker, order was on the order book and got filled
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinLiquidityType.Taker">
+            <summary>
+            Taker, trade filled an existing order on the order book
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderOperationType">
+            <summary>
+            Order operation type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderOperationType.Deal">
+            <summary>
+            Matched
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderOperationType.Cancel">
+            <summary>
+            Cancelled
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinMatchUpdateReason">
+            <summary>
+            Reason for an update
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateReason.Cancelled">
+            <summary>
+            Cancelled
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateReason.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinMatchUpdateType">
+            <summary>
+            Match update type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Received">
+            <summary>
+            Received
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Open">
+            <summary>
+            Open
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Done">
+            <summary>
+            Done
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Match">
+            <summary>
+            Match
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Change">
+            <summary>
+            Change
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Stop">
+            <summary>
+            Stop
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Activate">
+            <summary>
+            Activate
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinFill">
+            <summary>
+            Fill info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinFill.Symbol">
@@ -2291,6 +2834,11 @@
             Was forced to become taker
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinHistoricalDeposit">
+            <summary>
+            Historical deposit info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.Currency">
             <summary>
             The currency of the deposit
@@ -2319,6 +2867,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.Quantity">
             <summary>
             The amount of the deposit
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinHistoricalOrder">
+            <summary>
+            Historical order info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalOrder.Id">
@@ -2361,6 +2914,11 @@
             The time the order was created
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinHistoricalWithdrawal">
+            <summary>
+            Historical withdrawal info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.Currency">
             <summary>
             The currency of the withdrawal
@@ -2396,6 +2954,11 @@
             The quantity of the withdrawal
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinHold">
+            <summary>
+            Hold info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinHold.Currency">
             <summary>
             The currency of the hold
@@ -2424,6 +2987,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinHold.UpdatedAt">
             <summary>
             The time the hold was last updated
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinKline">
+            <summary>
+            Kline info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinKline.StartTime">
@@ -2461,9 +3029,19 @@
             The volume of the kline
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinNewAccount">
+            <summary>
+            New account id
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinNewAccount.Id">
             <summary>
             The id of the new account
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinNewOrder">
+            <summary>
+            New order id
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinNewOrder.OrderId">
@@ -2471,9 +3049,19 @@
             The id of the new order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinNewWithdrawal">
+            <summary>
+            New withdrawal id
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinNewWithdrawal.WithdrawalId">
             <summary>
             The id of the new withdrawal
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrder">
+            <summary>
+            Order info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinOrder.Id">
@@ -2621,6 +3209,11 @@
             The time the order was created
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinFullOrderBook">
+            <summary>
+            Order book
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinFullOrderBook.Sequence">
             <summary>
             The last sequence number of this order book state
@@ -2641,9 +3234,14 @@
             The list of bids
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderBook">
+            <summary>
+            Order book
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinOrderBook.Sequence">
             <summary>
-            The last sequnece number of this order book state
+            The last sequence number of this order book state
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinOrderBook.Timestamp">
@@ -2661,6 +3259,11 @@
             The list of bids
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinFullOrderBookEntry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinFullOrderBookEntry.OrderId">
             <summary>
             The order id of the entry
@@ -2676,6 +3279,11 @@
             The quantity of the entry
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinOrderBookEntry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinOrderBookEntry.Price">
             <summary>
             The price of the entry
@@ -2685,6 +3293,12 @@
             <summary>
             The quantity of the entry
             </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinPaginated`1">
+            <summary>
+            Page with results
+            </summary>
+            <typeparam name="T">Type of the items in the book</typeparam>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinPaginated`1.TotalItems">
             <summary>
@@ -2711,6 +3325,11 @@
             The items on this page
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinSubUser">
+            <summary>
+            Sub user info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinSubUser.UserId">
             <summary>
             The sub user id
@@ -2724,6 +3343,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinSubUser.Remarks">
             <summary>
             Remarks for this sub user
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinSymbol">
+            <summary>
+            Symbol info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinSymbol.Symbol">
@@ -2796,6 +3420,11 @@
             Whether trading is enabled
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTick">
+            <summary>
+            Tick info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinTick.Sequence">
             <summary>
             The sequence of the tick
@@ -2836,6 +3465,11 @@
             The timestamp of the data
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTicks">
+            <summary>
+            Tick info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinTicks.Timestamp">
             <summary>
             The timestamp of the data
@@ -2844,6 +3478,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinTicks.Data">
             <summary>
             The ticker data
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTrade">
+            <summary>
+            Trade info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinTrade.Sequence">
@@ -2869,6 +3508,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinTrade.Timestamp">
             <summary>
             The timestamp of the trade
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinWithdrawal">
+            <summary>
+            Withdrawal info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.Id">
@@ -2926,6 +3570,11 @@
             The time the withdrawal was last updated
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinWithdrawalQuota">
+            <summary>
+            Withdrawal quota info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinWithdrawalQuota.Currency">
             <summary>
             The currency the quota is for
@@ -2981,6 +3630,11 @@
             The chain
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate">
+            <summary>
+            Balance update info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.Total">
             <summary>
             The total balance
@@ -3029,6 +3683,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate.AccountId">
             <summary>
             The id of the changed account
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatch">
+            <summary>
+            Match info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.Sequence">
@@ -3081,6 +3740,11 @@
             The id of the trade
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook">
+            <summary>
+            Order book info
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook.SequenceStart">
             <summary>
             The sequence id of the first event this order book update covers
@@ -3101,6 +3765,11 @@
             The changes
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged">
+            <summary>
+            Order book changes
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged.Bids">
             <summary>
             The changes in bids
@@ -3109,6 +3778,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged.Asks">
             <summary>
             The changes in asks
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookEntry">
+            <summary>
+            Order book entry
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookEntry.Price">
@@ -3124,6 +3798,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookEntry.Sequence">
             <summary>
             The sequence of the change
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate">
+            <summary>
+            Base class for a stream update
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Sequence">
@@ -3144,6 +3823,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.UpdateType">
             <summary>
             The type of the update
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate">
+            <summary>
+            Stream order update (received)
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.Side">
@@ -3171,6 +3855,11 @@
             The type of the order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate">
+            <summary>
+            Stream order update (open)
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Side">
             <summary>
             The side of the order
@@ -3191,6 +3880,11 @@
             The price of the order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate">
+            <summary>
+            Stream order update (done)
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Reason">
             <summary>
             The reason for the done update
@@ -3209,6 +3903,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.OrderId">
             <summary>
             The id of the order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate">
+            <summary>
+            Stream order update (match)
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.TakerOrderId">
@@ -3241,6 +3940,11 @@
             The price of the order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate">
+            <summary>
+            Stream order update (change)
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.OrderId">
             <summary>
             The id of the order
@@ -3266,6 +3970,11 @@
             The price of the order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate">
+            <summary>
+            Stream order update (stop)
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.OrderId">
             <summary>
             The id of the order
@@ -3286,6 +3995,11 @@
             The stop type of ther order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshotWrapper">
+            <summary>
+            Stream snapshot wrapper
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshotWrapper.Sequence">
             <summary>
             The sequence number of the update
@@ -3294,6 +4008,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshotWrapper.Data">
             <summary>
             The data
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot">
+            <summary>
+            Stream snapshot
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Trading">
@@ -3389,6 +4108,11 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Mark">
             <summary>
             Unknown
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamTick">
+            <summary>
+            Stream tick
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamTick.Symbol">

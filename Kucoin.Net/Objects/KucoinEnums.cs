@@ -198,6 +198,10 @@
     public enum KucoinSelfTradePrevention
     {
         /// <summary>
+        /// No self trade prevention
+        /// </summary>
+        None,
+        /// <summary>
         /// Decrease the amount of the existing order by the amount of the new order
         /// </summary>
         DecreaseAndCancel,

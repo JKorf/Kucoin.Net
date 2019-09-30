@@ -14,12 +14,12 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The best ask price
         /// </summary>
-        [JsonProperty("buy")]
+        [JsonProperty("sell")]
         public decimal BestAsk { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
-        [JsonProperty("sell")]
+        [JsonProperty("buy")]
         public decimal BestBid { get; set; }
         /// <summary>
         /// The prentage change
