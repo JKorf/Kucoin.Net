@@ -1126,6 +1126,12 @@ namespace Kucoin.Net
         /// <inheritdoc />
         protected override Error ParseErrorResponse(JToken error)
         {
+            if (!error.HasValues)
+            {
+                var errorBody = error.ToString();
+                return new ServerError(string.IsNullOrEmpty(errorBody) ? "Unknown error": errorBody);
+            }
+
             if (error["code"] != null && error["msg"] != null)
             {
                 var result = error.ToObject<KucoinResult<object>>();
@@ -1139,7 +1145,7 @@ namespace Kucoin.Net
         {
             var result = await SendRequest<KucoinResult<T>>(uri, method, ct, parameters, signed).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<T>.CreateErrorResult(result.Error!);
+                return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
             if (result.Data.Code != 200000)
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));

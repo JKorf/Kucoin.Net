@@ -1744,6 +1744,12 @@
         <member name="M:Kucoin.Net.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.KucoinHelpers.ValidateKucoinSymbol(System.String)">
+            <summary>
+            Validate the string is a valid Kucoin symbol.
+            </summary>
+            <param name="symbolString">string to validate</param>
+        </member>
         <member name="T:Kucoin.Net.KucoinSocketClient">
             <summary>
             Client for interacting with the Kucoin websocket API

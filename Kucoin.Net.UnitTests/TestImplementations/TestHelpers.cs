@@ -151,7 +151,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return client;
         }
 
-        public static void SetResponse(RestClient client, string responseData)
+        public static void SetResponse(RestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
             var responseStream = new MemoryStream();
@@ -159,7 +159,8 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             responseStream.Seek(0, SeekOrigin.Begin);
 
             var response = new Mock<IResponse>();
-            response.Setup(c => c.IsSuccessStatusCode).Returns(true);
+            response.Setup(c => c.StatusCode).Returns(statusCode);
+            response.Setup(c => c.IsSuccessStatusCode).Returns(statusCode == HttpStatusCode.OK);
             response.Setup(c => c.GetResponseStream()).Returns(Task.FromResult((Stream)responseStream));
 
             var request = new Mock<IRequest>();

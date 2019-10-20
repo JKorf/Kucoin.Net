@@ -9,6 +9,7 @@ using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
+using CryptoExchange.Net;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -59,6 +60,85 @@ namespace Kucoin.Net.UnitTests
             };
 
             return JsonConvert.SerializeObject(result);
+        }
+
+        [TestCase()]
+        public void ReceivingError_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            var resultObj = new KucoinResult<object>()
+            {
+                Code = 400001,
+                Data = default,
+                Message = "Error occured"
+            };
+
+            TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj));
+
+            // act
+            var result = client.GetCurrencies();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsNotNull(result.Error);
+            Assert.IsTrue(result.Error.Code == 400001);
+            Assert.IsTrue(result.Error.Message == "Error occured");
+        }
+
+        [TestCase()]
+        public void ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            TestHelpers.SetResponse((RestClient)client, "", System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = client.GetCurrencies();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsNotNull(result.Error);
+        }
+
+        [TestCase()]
+        public void ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            var resultObj = new KucoinResult<object>()
+            {
+                Code = 400001,
+                Data = default,
+                Message = "Error occured"
+            };
+
+            TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = client.GetCurrencies();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsNotNull(result.Error);
+            Assert.IsTrue(result.Error.Code == 400001);
+            Assert.IsTrue(result.Error.Message == "Error occured");
+        }
+
+        [TestCase("BTC-USDT", true)]
+        [TestCase("NANO-USDT", true)]
+        [TestCase("NANO-BTC", true)]
+        [TestCase("ETH-BTC", true)]
+        [TestCase("BE-ETC", false)]
+        [TestCase("NANO-USDTD", false)]
+        [TestCase("BTCUSDT", false)]
+        [TestCase("BTCUSD", false)]
+        public void CheckValidKucoinSymbol(string symbol, bool isValid)
+        {
+            if (isValid)
+                Assert.DoesNotThrow(() => symbol.ValidateKucoinSymbol());
+            else
+                Assert.Throws(typeof(ArgumentException), () => symbol.ValidateKucoinSymbol());
         }
     }
 }
