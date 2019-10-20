@@ -8,6 +8,6 @@
         /// <summary>
         /// The id of the new account
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
     }
 }

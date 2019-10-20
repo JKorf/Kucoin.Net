@@ -8,6 +8,6 @@
         /// <summary>
         /// The id of the new withdrawal
         /// </summary>
-        public string WithdrawalId { get; set; }
+        public string WithdrawalId { get; set; } = "";
     }
 }

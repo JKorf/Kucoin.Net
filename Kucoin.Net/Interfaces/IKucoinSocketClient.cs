@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
@@ -34,7 +35,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe to</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToTickerUpdates(string[] markets, Action<KucoinStreamTick> onData);
+        CallResult<UpdateSubscription> SubscribeToTickerUpdates(IEnumerable<string> markets, Action<KucoinStreamTick> onData);
 
         /// <summary>
         /// Subscribe to updates for a market ticker
@@ -42,7 +43,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe to</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string[] markets, Action<KucoinStreamTick> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> markets, Action<KucoinStreamTick> onData);
 
         /// <summary>
         /// Subscribe to updates for all market tickers
@@ -96,7 +97,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToAggregatedOrderBookUpdates(string[] markets, Action<KucoinStreamOrderBook> onData);
+        CallResult<UpdateSubscription> SubscribeToAggregatedOrderBookUpdates(IEnumerable<string> markets, Action<KucoinStreamOrderBook> onData);
 
         /// <summary>
         /// Subscribe to aggregated order book updates
@@ -104,7 +105,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string[] markets, Action<KucoinStreamOrderBook> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> markets, Action<KucoinStreamOrderBook> onData);
 
         /// <summary>
         /// Subscribe to trade updates
@@ -159,7 +160,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToMatchEngineUpdates(string[] markets, Action<KucoinStreamOrderBaseUpdate> onData);
+        CallResult<UpdateSubscription> SubscribeToMatchEngineUpdates(IEnumerable<string> markets, Action<KucoinStreamOrderBaseUpdate> onData);
 
         /// <summary>
         /// <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
@@ -172,7 +173,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(string[] markets, Action<KucoinStreamOrderBaseUpdate> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumerable<string> markets, Action<KucoinStreamOrderBaseUpdate> onData);
 
         /// <summary>
         /// <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
@@ -211,7 +212,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToOwnMatchEngineUpdates(string[] markets, Action<KucoinStreamOrderBaseUpdate> onData);
+        CallResult<UpdateSubscription> SubscribeToOwnMatchEngineUpdates(IEnumerable<string> markets, Action<KucoinStreamOrderBaseUpdate> onData);
 
         /// <summary>
         /// <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
@@ -224,7 +225,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="markets">The markets to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOwnMatchEngineUpdatesAsync(string[] markets, Action<KucoinStreamOrderBaseUpdate> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToOwnMatchEngineUpdatesAsync(IEnumerable<string> markets, Action<KucoinStreamOrderBaseUpdate> onData);
 
         /// <summary>
         /// Subscribe to balance updates
@@ -239,26 +240,5 @@ namespace Kucoin.Net.Interfaces
         /// <param name="onBalanceChange">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBalanceChangesAsync(Action<KucoinBalanceUpdate> onBalanceChange);
-
-        /// <inheritdoc cref="SocketClientOptions.SocketResponseTimeout"/>
-        TimeSpan ResponseTimeout { get; }
-
-        /// <inheritdoc cref="SocketClientOptions.SocketNoDataTimeout"/>
-        TimeSpan SocketNoDataTimeout { get; }
-
-        /// <summary>
-        /// The max amount of concurrent socket connections
-        /// </summary>
-        int MaxSocketConnections { get; }
-
-        /// <inheritdoc cref="SocketClientOptions.SocketSubscriptionsCombineTarget"/>
-        int SocketCombineTarget { get; }
-
-        /// <summary>
-        /// Periodically sends an object to a socket
-        /// </summary>
-        /// <param name="interval">How often</param>
-        /// <param name="objGetter">Method returning the object to send</param>
-        void SendPeriodic(TimeSpan interval, Func<SocketConnection, object> objGetter);
     }
 }

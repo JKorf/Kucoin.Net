@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The symbol the match is for
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The side of the match
         /// </summary>
@@ -35,11 +35,11 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The taker order id
         /// </summary>
-        public string TakerOrderId { get; set; }
+        public string TakerOrderId { get; set; } = "";
         /// <summary>
         /// The maker order id
         /// </summary>
-        public string MakerOrderId { get; set; }
+        public string MakerOrderId { get; set; } = "";
         /// <summary>
         /// The timestamp of the match
         /// </summary>
@@ -48,10 +48,10 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The type
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
         /// <summary>
         /// The id of the trade
         /// </summary>
-        public string TradeId { get; set; }
+        public string TradeId { get; set; } = "";
     }
 }

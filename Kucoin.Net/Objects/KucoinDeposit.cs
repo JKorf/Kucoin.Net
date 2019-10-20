@@ -13,11 +13,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The deposit address
         /// </summary>
-        public string Address { get; set; }
+        public string Address { get; set; } = "";
         /// <summary>
         /// A memo for this deposit
         /// </summary>
-        public string Memo { get; set; }
+        public string Memo { get; set; } = "";
         /// <summary>
         /// The amount of the deposit
         /// </summary>
@@ -29,7 +29,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the deposit
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// Whether it is an internal deposit
         /// </summary>
@@ -38,7 +38,7 @@ namespace Kucoin.Net.Objects
         /// The wallet transaction id
         /// </summary>
         [JsonProperty("walletTxId")]
-        public string WalletTransactionId { get; set; }
+        public string WalletTransactionId { get; set; } = "";
         /// <summary>
         /// The deposit status
         /// </summary>

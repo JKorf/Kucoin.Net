@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+	<LangVersion>8.0</LangVersion>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
@@ -11,7 +13,7 @@
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
     <PackageProjectUrl>https://github.com/JKorf/Kucoin.Net</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/JKorf/Kucoin.Net/master/Resources/icon.png</PackageIconUrl>
-    <PackageLicenseUrl>https://github.com/JKorf/Kucoin.Net/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>1.0.4 - Fixed Bid/Ask reversed in tick, Fixed error on empty self trade prevention field</PackageReleaseNotes>
@@ -21,7 +23,6 @@
     <DocumentationFile>Kucoin.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CryptoExchange.Net" Version="2.1.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <ProjectReference Include="..\..\CryptoExchange.Net\CryptoExchange.Net\CryptoExchange.Net.csproj" />
   </ItemGroup>
 </Project>

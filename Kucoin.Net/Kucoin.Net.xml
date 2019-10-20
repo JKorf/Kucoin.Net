@@ -9,143 +9,161 @@
             Interface for the Kucoin client
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTime">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTime(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
             </summary>
             <returns>The time of the server</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTimeAsync">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
             </summary>
             <returns>The time of the server</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbols(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbols(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets a list of symbols supported by the server
             </summary>
             <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolsAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets a list of symbols supported by the server
             </summary>
             <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTicker(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTicker(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets ticker info of a symbol
             </summary>
             <param name="symbol">The symbol to get info for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Ticker info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickerAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets ticker info of a symbol
             </summary>
             <param name="symbol">The symbol to get info for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Ticker info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickers">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickers(System.Threading.CancellationToken)">
             <summary>
             Gets the ticker for all trading pairs
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of tickers</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickersAsync">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the ticker for all trading pairs
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of tickers</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Get24HourStats(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Get24HourStats(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the 24 hour stats of a symbol
             </summary>
             <param name="symbol">The symbol to get stats for</param>
+            <param name="ct">Cancellation token</param>
             <returns>24 hour stats</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Get24HourStatsAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Get24HourStatsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the 24 hour stats of a symbol
             </summary>
             <param name="symbol">The symbol to get stats for</param>
+            <param name="ct">Cancellation token</param>
             <returns>24 hour stats</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarkets">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarkets(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported markets
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of markets</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarketsAsync">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarketsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported markets
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of markets</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
             <param name="limit">The limit of results (20 / 100)</param>
+            <param name="ct">Cancellation token</param>
             <returns>Partial aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedPartialOrderBookAsync(System.String,System.Int32)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedPartialOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
             <param name="limit">The limit of results (20 / 100)</param>
+            <param name="ct">Cancellation token</param>
             <returns>Partial aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedFullOrderBook(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedFullOrderBook(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full aggregated order book for a symbol. Orders for the same price are combined.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedFullOrderBookAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAggregatedFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full aggregated order book for a symbol. Orders for the same price are combined.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFullOrderBook(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFullOrderBook(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full order book for a symbol
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFullOrderBookAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full order book for a symbol
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTradeHistory(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTradeHistory(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the recent trade history for a symbol
             </summary>
             <param name="symbol">The symbol to get trade history for</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTradeHistoryAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the recent trade history for a symbol
             </summary>
             <param name="symbol">The symbol to get trade history for</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -153,9 +171,10 @@
             <param name="interval">The interval of a kline</param>
             <param name="startTime">The start time of the data</param>
             <param name="endTime">The end time of the data</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of klines</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -163,109 +182,123 @@
             <param name="interval">The interval of a kline</param>
             <param name="startTime">The start time of the data</param>
             <param name="endTime">The end time of the data</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of klines</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrencies">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrencies(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns>List of currencies</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrenciesAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies
             </summary>
             <returns>List of currencies</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrenciesAsync">
-            <summary>
-            Gets a list of supported currencies
-            </summary>
-            <returns>List of currencies</returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrency(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrency(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific currency
             </summary>
             <param name="name">The currency to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrencyAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetCurrencyAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific currency
             </summary>
             <param name="name">The currency to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFiatPrices(System.String,System.String[])">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFiatPrices(System.String,System.Threading.CancellationToken,System.String[])">
             <summary>
             Gets a list of prices for all 
             </summary>
             <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
             <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of prices</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFiatPricesAsync(System.String,System.String[])">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFiatPricesAsync(System.String,System.Threading.CancellationToken,System.String[])">
             <summary>
             Gets a list of prices for all 
             </summary>
             <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
             <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of prices</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetUserInfo">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetUserInfo(System.Threading.CancellationToken)">
             <summary>
             Gets a list of sub users
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of sub users</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetUserInfoAsync">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetUserInfoAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of sub users
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of sub users</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccounts(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccounts(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType},System.Threading.CancellationToken)">
             <summary>
             Gets a list of accounts
             </summary>
             <param name="currency">Get the accounts for a specific currency</param>
             <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of accounts</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType},System.Threading.CancellationToken)">
             <summary>
             Gets a list of accounts
             </summary>
             <param name="currency">Get the accounts for a specific currency</param>
             <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of accounts</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccount(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccount(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a specific account
             </summary>
             <param name="accountId">The id of the account to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Account info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a specific account
             </summary>
             <param name="accountId">The id of the account to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Account info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateAccount(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateAccount(Kucoin.Net.Objects.KucoinAccountType,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new account
             </summary>
             <param name="type">The type of the account</param>
             <param name="currency">The currency of the account</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the account</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountAsync(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountAsync(Kucoin.Net.Objects.KucoinAccountType,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new account
             </summary>
             <param name="type">The type of the account</param>
             <param name="currency">The currency of the account</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the account</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
             </summary>
@@ -274,9 +307,10 @@
             <param name="endTime">Filter by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
             </summary>
@@ -285,27 +319,30 @@
             <param name="endTime">Filter by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets hold information
             </summary>
             <param name="accountId">The account to get info for</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on current holds</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHoldsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHoldsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets hold information
             </summary>
             <param name="accountId">The account to get info for</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on current holds</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of deposits
             </summary>
@@ -315,9 +352,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of deposits
             </summary>
@@ -327,9 +365,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical deposits
             </summary>
@@ -339,9 +378,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical deposits
             </summary>
@@ -351,37 +391,42 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositAddress(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositAddress(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the deposit address for a currency
             </summary>
             <param name="currency">The currency to get the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The deposit address for the currency</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositAddressAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the deposit address for a currency
             </summary>
             <param name="currency">The currency to get the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The deposit address for the currency</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateDepositAddress(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateDepositAddress(System.String,System.Threading.CancellationToken)">
             <summary>
             Creates a new deposit address for a currency
             </summary>
             <param name="currency">The currency to create the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateDepositAddressAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CreateDepositAddressAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Creates a new deposit address for a currency
             </summary>
             <param name="currency">The currency to create the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of withdrawals
             </summary>
@@ -391,9 +436,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of withdrawals
             </summary>
@@ -403,9 +449,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical withdrawals
             </summary>
@@ -415,9 +462,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical withdrawals
             </summary>
@@ -427,23 +475,26 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalQuotas(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalQuotas(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal quota for a currency
             </summary>
             <param name="currency">The currency to get the quota for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalQuotasAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetWithdrawalQuotasAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal quota for a currency
             </summary>
             <param name="currency">The currency to get the quota for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Withdraw(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.Withdraw(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw a currency to an address
             </summary>
@@ -454,9 +505,10 @@
             <param name="isInner">Internal withdrawal or not. Default false.</param>
             <param name="remark">Remark for the withdrawal</param>
             <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <param name="ct">Cancellation token</param>
             <returns>Id of the withdrawal</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw a currency to an address
             </summary>
@@ -467,23 +519,26 @@
             <param name="isInner">Internal withdrawal or not. Default false.</param>
             <param name="remark">Remark for the withdrawal</param>
             <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <param name="ct">Cancellation token</param>
             <returns>Id of the withdrawal</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelWithdrawal(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelWithdrawal(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a withdrawal
             </summary>
             <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelWithdrawalAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a withdrawal
             </summary>
             <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrder(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrder(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -504,9 +559,10 @@
             <param name="stopPrice">The price for a stop order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -527,37 +583,42 @@
             <param name="stopPrice">The price for a stop order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrder(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrder(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
             </summary>
             <param name="orderId">The id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrderAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
             </summary>
             <param name="orderId">The id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrders(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrders(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
             </summary>
             <param name="symbol">Only cancel orders for this symbol</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrdersAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
             </summary>
             <param name="symbol">Only cancel orders for this symbol</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of orders
             </summary>
@@ -569,9 +630,10 @@
             <param name="status">Filter list by order status. Defaults to done</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of orders
             </summary>
@@ -583,35 +645,40 @@
             <param name="status">Filter list by order status. Defaults to done</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentOrders">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentOrders(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 orders in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentOrdersAsync">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentOrdersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 orders in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrder(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrder(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific order
             </summary>
             <param name="orderId">The id of the order</param>
+            <param name="ct">Cancellation token</param>
             <returns>Order info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrderAsync(System.String)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific order
             </summary>
             <param name="orderId">The id of the order</param>
+            <param name="ct">Cancellation token</param>
             <returns>Order info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical orders
             </summary>
@@ -621,9 +688,10 @@
             <param name="endTime">Filter list by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical orders
             </summary>
@@ -633,9 +701,10 @@
             <param name="endTime">Filter list by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFills(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFills(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of fills
             </summary>
@@ -647,9 +716,10 @@
             <param name="orderId">Filter list by order id</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of fills
             </summary>
@@ -661,18 +731,21 @@
             <param name="orderId">Filter list by order id</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentFills">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentFills(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 fills in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentFillsAsync">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetRecentFillsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 fills in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClient">
@@ -696,7 +769,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
             Subscribe to updates for a market ticker
             </summary>
@@ -704,7 +777,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
             Subscribe to updates for a market ticker
             </summary>
@@ -758,7 +831,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
             <summary>
             Subscribe to aggregated order book updates
             </summary>
@@ -766,7 +839,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
             <summary>
             Subscribe to aggregated order book updates
             </summary>
@@ -816,7 +889,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -829,7 +902,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -868,7 +941,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -881,7 +954,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -908,27 +981,6 @@
             <param name="onBalanceChange">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.ResponseTimeout">
-            <inheritdoc cref="P:CryptoExchange.Net.Objects.SocketClientOptions.SocketResponseTimeout"/>
-        </member>
-        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.SocketNoDataTimeout">
-            <inheritdoc cref="P:CryptoExchange.Net.Objects.SocketClientOptions.SocketNoDataTimeout"/>
-        </member>
-        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.MaxSocketConnections">
-            <summary>
-            The max amount of concurrent socket connections
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.SocketCombineTarget">
-            <inheritdoc cref="P:CryptoExchange.Net.Objects.SocketClientOptions.SocketSubscriptionsCombineTarget"/>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SendPeriodic(System.TimeSpan,System.Func{CryptoExchange.Net.Sockets.SocketConnection,System.Object})">
-            <summary>
-            Periodically sends an object to a socket
-            </summary>
-            <param name="interval">How often</param>
-            <param name="objGetter">Method returning the object to send</param>
-        </member>
         <member name="T:Kucoin.Net.KucoinClient">
             <summary>
             Client to interact with the Kucoin REST API
@@ -950,143 +1002,161 @@
             </summary>
             <param name="options">The options to use for new clients</param>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetServerTime">
+        <member name="M:Kucoin.Net.KucoinClient.GetServerTime(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
             </summary>
             <returns>The time of the server</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetServerTimeAsync">
+        <member name="M:Kucoin.Net.KucoinClient.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
             </summary>
             <returns>The time of the server</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetSymbols(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbols(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets a list of symbols supported by the server
             </summary>
             <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetSymbolsAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets a list of symbols supported by the server
             </summary>
             <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetTicker(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetTicker(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets ticker info of a symbol
             </summary>
             <param name="symbol">The symbol to get info for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Ticker info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetTickerAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets ticker info of a symbol
             </summary>
             <param name="symbol">The symbol to get info for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Ticker info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetTickers">
+        <member name="M:Kucoin.Net.KucoinClient.GetTickers(System.Threading.CancellationToken)">
             <summary>
             Gets the ticker for all trading pairs
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of tickers</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetTickersAsync">
+        <member name="M:Kucoin.Net.KucoinClient.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the ticker for all trading pairs
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of tickers</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.Get24HourStats(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.Get24HourStats(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the 24 hour stats of a symbol
             </summary>
             <param name="symbol">The symbol to get stats for</param>
+            <param name="ct">Cancellation token</param>
             <returns>24 hour stats</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.Get24HourStatsAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.Get24HourStatsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the 24 hour stats of a symbol
             </summary>
             <param name="symbol">The symbol to get stats for</param>
+            <param name="ct">Cancellation token</param>
             <returns>24 hour stats</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetMarkets">
+        <member name="M:Kucoin.Net.KucoinClient.GetMarkets(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported markets
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of markets</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetMarketsAsync">
+        <member name="M:Kucoin.Net.KucoinClient.GetMarketsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported markets
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of markets</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
             <param name="limit">The limit of results (20 / 100)</param>
+            <param name="ct">Cancellation token</param>
             <returns>Partial aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBookAsync(System.String,System.Int32)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
             <param name="limit">The limit of results (20 / 100)</param>
+            <param name="ct">Cancellation token</param>
             <returns>Partial aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedFullOrderBook(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedFullOrderBook(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full aggregated order book for a symbol. Orders for the same price are combined.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedFullOrderBookAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAggregatedFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full aggregated order book for a symbol. Orders for the same price are combined.
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full aggregated order book</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetFullOrderBook(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetFullOrderBook(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full order book for a symbol
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full order book</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetFullOrderBookAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a full order book for a symbol
             </summary>
             <param name="symbol">The symbol to get order book for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Full order book</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetTradeHistory(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetTradeHistory(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the recent trade history for a symbol
             </summary>
             <param name="symbol">The symbol to get trade history for</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetTradeHistoryAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the recent trade history for a symbol
             </summary>
             <param name="symbol">The symbol to get trade history for</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+        <member name="M:Kucoin.Net.KucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -1094,9 +1164,10 @@
             <param name="interval">The interval of a kline</param>
             <param name="startTime">The start time of the data</param>
             <param name="endTime">The end time of the data</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of klines</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime)">
+        <member name="M:Kucoin.Net.KucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -1104,109 +1175,123 @@
             <param name="interval">The interval of a kline</param>
             <param name="startTime">The start time of the data</param>
             <param name="endTime">The end time of the data</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of klines</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetCurrencies">
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrencies(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns>List of currencies</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrenciesAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies
             </summary>
             <returns>List of currencies</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetCurrenciesAsync">
-            <summary>
-            Gets a list of supported currencies
-            </summary>
-            <returns>List of currencies</returns>
-        </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetCurrency(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrency(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific currency
             </summary>
             <param name="name">The currency to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetCurrencyAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetCurrencyAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific currency
             </summary>
             <param name="name">The currency to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetFiatPrices(System.String,System.String[])">
+        <member name="M:Kucoin.Net.KucoinClient.GetFiatPrices(System.String,System.Threading.CancellationToken,System.String[])">
             <summary>
             Gets a list of prices for all 
             </summary>
             <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
             <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of prices</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetFiatPricesAsync(System.String,System.String[])">
+        <member name="M:Kucoin.Net.KucoinClient.GetFiatPricesAsync(System.String,System.Threading.CancellationToken,System.String[])">
             <summary>
             Gets a list of prices for all 
             </summary>
             <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
             <param name="currencies">The currencies to get price for. Defaults to all</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of prices</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetUserInfo">
+        <member name="M:Kucoin.Net.KucoinClient.GetUserInfo(System.Threading.CancellationToken)">
             <summary>
             Gets a list of sub users
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of sub users</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetUserInfoAsync">
+        <member name="M:Kucoin.Net.KucoinClient.GetUserInfoAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of sub users
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of sub users</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccounts(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccounts(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType},System.Threading.CancellationToken)">
             <summary>
             Gets a list of accounts
             </summary>
             <param name="currency">Get the accounts for a specific currency</param>
             <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of accounts</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType})">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountType},System.Threading.CancellationToken)">
             <summary>
             Gets a list of accounts
             </summary>
             <param name="currency">Get the accounts for a specific currency</param>
             <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of accounts</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccount(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccount(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a specific account
             </summary>
             <param name="accountId">The id of the account to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Account info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccountAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a specific account
             </summary>
             <param name="accountId">The id of the account to get</param>
+            <param name="ct">Cancellation token</param>
             <returns>Account info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CreateAccount(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CreateAccount(Kucoin.Net.Objects.KucoinAccountType,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new account
             </summary>
             <param name="type">The type of the account</param>
             <param name="currency">The currency of the account</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the account</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccountAsync(Kucoin.Net.Objects.KucoinAccountType,System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountAsync(Kucoin.Net.Objects.KucoinAccountType,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new account
             </summary>
             <param name="type">The type of the account</param>
             <param name="currency">The currency of the account</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the account</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
             </summary>
@@ -1215,9 +1300,10 @@
             <param name="endTime">Filter by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedgerAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
             </summary>
@@ -1226,27 +1312,30 @@
             <param name="endTime">Filter by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets hold information
             </summary>
             <param name="accountId">The account to get info for</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on current holds</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHoldsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHoldsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets hold information
             </summary>
             <param name="accountId">The account to get info for</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>Info on current holds</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of deposits
             </summary>
@@ -1256,9 +1345,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of deposits
             </summary>
@@ -1268,9 +1358,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalDeposits(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical deposits
             </summary>
@@ -1280,9 +1371,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinDepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical deposits
             </summary>
@@ -1292,37 +1384,42 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetDepositAddress(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetDepositAddress(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the deposit address for a currency
             </summary>
             <param name="currency">The currency to get the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The deposit address for the currency</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetDepositAddressAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the deposit address for a currency
             </summary>
             <param name="currency">The currency to get the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The deposit address for the currency</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CreateDepositAddress(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CreateDepositAddress(System.String,System.Threading.CancellationToken)">
             <summary>
             Creates a new deposit address for a currency
             </summary>
             <param name="currency">The currency to create the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CreateDepositAddressAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CreateDepositAddressAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Creates a new deposit address for a currency
             </summary>
             <param name="currency">The currency to create the address for</param>
+            <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of withdrawals
             </summary>
@@ -1332,9 +1429,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of withdrawals
             </summary>
@@ -1344,9 +1442,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalWithdrawals(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical withdrawals
             </summary>
@@ -1356,9 +1455,10 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinWithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical withdrawals
             </summary>
@@ -1368,23 +1468,26 @@
             <param name="status">Filter list by deposit status</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalQuotas(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalQuotas(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal quota for a currency
             </summary>
             <param name="currency">The currency to get the quota for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalQuotasAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetWithdrawalQuotasAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal quota for a currency
             </summary>
             <param name="currency">The currency to get the quota for</param>
+            <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.Withdraw(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.Withdraw(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw a currency to an address
             </summary>
@@ -1395,9 +1498,10 @@
             <param name="isInner">Internal withdrawal or not. Default false.</param>
             <param name="remark">Remark for the withdrawal</param>
             <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <param name="ct">Cancellation token</param>
             <returns>Id of the withdrawal</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw a currency to an address
             </summary>
@@ -1408,23 +1512,26 @@
             <param name="isInner">Internal withdrawal or not. Default false.</param>
             <param name="remark">Remark for the withdrawal</param>
             <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <param name="ct">Cancellation token</param>
             <returns>Id of the withdrawal</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CancelWithdrawal(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CancelWithdrawal(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a withdrawal
             </summary>
             <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CancelWithdrawalAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a withdrawal
             </summary>
             <param name="withdrawalId">The id of the withdrawal to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.PlaceOrder(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.PlaceOrder(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -1445,9 +1552,10 @@
             <param name="stopPrice">The price for a stop order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -1468,37 +1576,42 @@
             <param name="stopPrice">The price for a stop order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CancelOrder(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CancelOrder(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
             </summary>
             <param name="orderId">The id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CancelOrderAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
             </summary>
             <param name="orderId">The id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CancelAllOrders(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CancelAllOrders(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
             </summary>
             <param name="symbol">Only cancel orders for this symbol</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.CancelAllOrdersAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
             </summary>
             <param name="symbol">Only cancel orders for this symbol</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of orders
             </summary>
@@ -1510,9 +1623,10 @@
             <param name="status">Filter list by order status. Defaults to done</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Objects.KucoinOrderStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of orders
             </summary>
@@ -1524,35 +1638,40 @@
             <param name="status">Filter list by order status. Defaults to done</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetRecentOrders">
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentOrders(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 orders in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetRecentOrdersAsync">
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentOrdersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 orders in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetOrder(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetOrder(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific order
             </summary>
             <param name="orderId">The id of the order</param>
+            <param name="ct">Cancellation token</param>
             <returns>Order info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetOrderAsync(System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.GetOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific order
             </summary>
             <param name="orderId">The id of the order</param>
+            <param name="ct">Cancellation token</param>
             <returns>Order info</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalOrders(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical orders
             </summary>
@@ -1562,9 +1681,10 @@
             <param name="endTime">Filter list by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of historical orders
             </summary>
@@ -1574,9 +1694,10 @@
             <param name="endTime">Filter list by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetFills(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetFills(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of fills
             </summary>
@@ -1588,9 +1709,10 @@
             <param name="orderId">Filter list by order id</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Kucoin.Net.KucoinClient.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of fills
             </summary>
@@ -1602,18 +1724,21 @@
             <param name="orderId">Filter list by order id</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetRecentFills">
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentFills(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 fills in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetRecentFillsAsync">
+        <member name="M:Kucoin.Net.KucoinClient.GetRecentFillsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 fills in the last 24 hours
             </summary>
+            <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
@@ -1656,7 +1781,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
             Subscribe to updates for a market ticker
             </summary>
@@ -1664,7 +1789,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
             Subscribe to updates for a market ticker
             </summary>
@@ -1718,7 +1843,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
             <summary>
             Subscribe to aggregated order book updates
             </summary>
@@ -1726,7 +1851,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook})">
             <summary>
             Subscribe to aggregated order book updates
             </summary>
@@ -1776,7 +1901,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -1789,7 +1914,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -1828,7 +1953,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -1841,7 +1966,7 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String[],System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
             <summary>
             <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
@@ -2861,7 +2986,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.IsInner">
             <summary>
-            Wheter is is an internal deposit
+            Whether is is an internal deposit
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalDeposit.Quantity">
@@ -2946,7 +3071,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.IsInner">
             <summary>
-            Wheter it was an internal withdrawal
+            Whether it was an internal withdrawal
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinHistoricalWithdrawal.Quantity">
@@ -3392,7 +3517,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinSymbol.QuoteMaxSize">
             <summary>
-            The max order size in the qoute currency
+            The max order size in the quote currency
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinSymbol.BaseIncrement">
@@ -3547,7 +3672,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.WalletTransactionId">
             <summary>
-            The wallet transacion id
+            The wallet transaction id
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinWithdrawal.IsInner">

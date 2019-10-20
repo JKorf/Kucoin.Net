@@ -8,7 +8,7 @@
         /// <summary>
         /// The currency of the account
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The total balance of the account
         /// </summary>

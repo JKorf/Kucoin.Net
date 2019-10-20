@@ -22,7 +22,7 @@ namespace Kucoin.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public KucoinSymbolOrderBook(string symbol, KucoinOrderBookOptions options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
+        public KucoinSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
         {
             restClient = new KucoinClient();
             socketClient = new KucoinSocketClient();
@@ -32,12 +32,12 @@ namespace Kucoin.Net
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
         {
             var subResult = await socketClient.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleUpdate);
-            if(!subResult.Success)
+            if(!subResult)
                 return new CallResult<UpdateSubscription>(null, subResult.Error);
 
             Status = OrderBookStatus.Syncing;
             var bookResult = await restClient.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
-            if (!bookResult.Success)
+            if (!bookResult)
             {
                 await socketClient.UnsubscribeAll().ConfigureAwait(false);
                 return new CallResult<UpdateSubscription>(null, bookResult.Error);
@@ -51,7 +51,7 @@ namespace Kucoin.Net
         protected override async Task<CallResult<bool>> DoResync()
         {
             var bookResult = await restClient.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
-            if (!bookResult.Success)
+            if (!bookResult)
                 return new CallResult<bool>(false, bookResult.Error);
 
             SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Asks, bookResult.Data.Bids);
