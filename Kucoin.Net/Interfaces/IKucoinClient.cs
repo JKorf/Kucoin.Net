@@ -205,18 +205,18 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Get info on a specific currency
         /// </summary>
-        /// <param name="name">The currency to get</param>
+        /// <param name="currency">The currency to get</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Currency info</returns>
-        WebCallResult<KucoinCurrency> GetCurrency(string name, CancellationToken ct = default);
+        WebCallResult<KucoinCurrency> GetCurrency(string currency, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific currency
         /// </summary>
-        /// <param name="name">The currency to get</param>
+        /// <param name="currency">The currency to get</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Currency info</returns>
-        Task<WebCallResult<KucoinCurrency>> GetCurrencyAsync(string name, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCurrency>> GetCurrencyAsync(string currency, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of prices for all 

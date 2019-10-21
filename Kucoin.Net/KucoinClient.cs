@@ -312,12 +312,13 @@ namespace Kucoin.Net
         /// <summary>
         /// Get info on a specific currency
         /// </summary>
-        /// <param name="name">The currency to get</param>
+        /// <param name="currency">The currency to get</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Currency info</returns>
-        public async Task<WebCallResult<KucoinCurrency>> GetCurrencyAsync(string name, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCurrency>> GetCurrencyAsync(string currency, CancellationToken ct = default)
         {
-            return await Execute<KucoinCurrency>(GetUri($"currencies/{name}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            currency.ValidateNotNull(nameof(currency));
+            return await Execute<KucoinCurrency>(GetUri($"currencies/{currency}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -403,6 +404,7 @@ namespace Kucoin.Net
         /// <returns>Account info</returns>
         public async Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, CancellationToken ct = default)
         {
+            accountId.ValidateNotNull(nameof(accountId));
             return await Execute<KucoinAccountSingle>(GetUri("accounts/" + accountId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
@@ -424,6 +426,8 @@ namespace Kucoin.Net
         /// <returns>The id of the account</returns>
         public async Task<WebCallResult<KucoinNewAccount>> GetAccountAsync(KucoinAccountType type, string currency, CancellationToken ct = default)
         {
+            currency.ValidateNotNull(nameof(currency));
+
             var parameters = new Dictionary<string, object>
             {
                 { "type", JsonConvert.SerializeObject(type, new AccountTypeConverter(false)) },
@@ -457,6 +461,7 @@ namespace Kucoin.Net
         /// <returns>Info on account activity</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
+            accountId.ValidateNotNull(nameof(accountId));
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
@@ -488,6 +493,7 @@ namespace Kucoin.Net
         /// <returns>Info on current holds</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinHold>>> GetHoldsAsync(string accountId, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
+            accountId.ValidateNotNull(nameof(accountId));
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
@@ -590,6 +596,7 @@ namespace Kucoin.Net
         /// <returns>The deposit address for the currency</returns>
         public async Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string currency, CancellationToken ct = default)
         {
+            currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
             return await Execute<KucoinDepositAddress>(GetUri($"deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
@@ -610,6 +617,7 @@ namespace Kucoin.Net
         /// <returns>The address that was created</returns>
         public async Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string currency, CancellationToken ct = default)
         {
+            currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
             return await Execute<KucoinDepositAddress>(GetUri($"deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
@@ -708,6 +716,8 @@ namespace Kucoin.Net
         /// <returns>Quota info</returns>
         public async Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string currency, CancellationToken ct = default)
         {
+            currency.ValidateNotNull(nameof(currency));
+
             var parameters = new Dictionary<string, object> { { "currency", currency } };
             return await Execute<KucoinWithdrawalQuota>(GetUri($"withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
@@ -741,6 +751,8 @@ namespace Kucoin.Net
         /// <returns>Id of the withdrawal</returns>
         public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string currency, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? chain = null, CancellationToken ct = default)
         {
+            currency.ValidateNotNull(nameof(currency));
+            toAddress.ValidateNotNull(nameof(toAddress));
             var parameters = new Dictionary<string, object> {
                 { "currency", currency },
                 { "address", toAddress },
@@ -769,6 +781,7 @@ namespace Kucoin.Net
         /// <returns>Null</returns>
         public async Task<WebCallResult<object>> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default)
         {
+            withdrawalId.ValidateNotNull(nameof(withdrawalId));
             return await Execute<object>(GetUri($"withdrawals/{withdrawalId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
@@ -909,6 +922,7 @@ namespace Kucoin.Net
         /// <returns>List of cancelled orders</returns>
         public async Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
+            orderId.ValidateNotNull(nameof(orderId));
             return await Execute<KucoinCancelledOrders>(GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
@@ -1014,6 +1028,7 @@ namespace Kucoin.Net
         /// <returns>Order info</returns>
         public async Task<WebCallResult<KucoinOrder>> GetOrderAsync(string orderId, CancellationToken ct = default)
         {
+            orderId.ValidateNotNull(nameof(orderId));
             return await Execute<KucoinOrder>(GetUri($"orders/{orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 

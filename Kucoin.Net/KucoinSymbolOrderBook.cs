@@ -60,10 +60,7 @@ namespace Kucoin.Net
 
         private void HandleUpdate(KucoinStreamOrderBook data)
         {
-            var updates = new List<ProcessEntry>();
-            updates.AddRange(data.Changes.Asks.Select(a => new ProcessEntry(OrderBookEntryType.Ask, a)));
-            updates.AddRange(data.Changes.Bids.Select(b => new ProcessEntry(OrderBookEntryType.Bid, b)));
-            UpdateOrderBook(data.SequenceStart, data.SequenceEnd, updates);
+            UpdateOrderBook(data.SequenceStart, data.SequenceEnd, data.Changes.Bids, data.Changes.Asks);
         }
 
         /// <inheritdoc />

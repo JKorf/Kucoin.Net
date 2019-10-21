@@ -93,6 +93,7 @@ namespace Kucoin.Net
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamTick> onData)
         {
+            symbols.ValidateNotNull(nameof(symbols));
             foreach(var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
@@ -196,6 +197,7 @@ namespace Kucoin.Net
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamOrderBook> onData)
         {
+            symbols.ValidateNotNull(nameof(symbols));
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
                     
@@ -285,6 +287,7 @@ namespace Kucoin.Net
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamOrderBaseUpdate> onData)
         {
+            symbols.ValidateNotNull(nameof(symbols));
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
@@ -369,6 +372,7 @@ namespace Kucoin.Net
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToOwnMatchEngineUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamOrderBaseUpdate> onData)
         {
+            symbols.ValidateNotNull(nameof(symbols));
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 

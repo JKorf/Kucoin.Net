@@ -202,7 +202,7 @@
             <summary>
             Get info on a specific currency
             </summary>
-            <param name="name">The currency to get</param>
+            <param name="currency">The currency to get</param>
             <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
@@ -210,7 +210,7 @@
             <summary>
             Get info on a specific currency
             </summary>
-            <param name="name">The currency to get</param>
+            <param name="currency">The currency to get</param>
             <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
@@ -1203,7 +1203,7 @@
             <summary>
             Get info on a specific currency
             </summary>
-            <param name="name">The currency to get</param>
+            <param name="currency">The currency to get</param>
             <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
