@@ -22,6 +22,8 @@ namespace Kucoin.Net.UnitTests
             var ignoreMethods = new []{"GetServerTime", "GetFiatPrices"};
             var defaultParameterValues = new Dictionary<string, object>
             {
+                { "symbol", "ETH-BTC" },
+                { "symbols", new [] { "ETH-BTC" }},
                 { "pageSize", 10 },
                 { "funds", null },
                 { "limit", 20 }

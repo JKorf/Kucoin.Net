@@ -29,7 +29,7 @@ namespace Kucoin.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("test", test => { });
+            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
@@ -46,7 +46,7 @@ namespace Kucoin.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("test", test => { });
+            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
             socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
             var subResult = subTask.Result;
 
@@ -66,7 +66,7 @@ namespace Kucoin.Net.UnitTests
             KucoinStreamTick result = null;
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("test", test => result = test);
+            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
@@ -75,7 +75,7 @@ namespace Kucoin.Net.UnitTests
             {
                 Type = "message",
                 Subject = "trade.ticker",
-                Topic = "/market/ticker:test",
+                Topic = "/market/ticker:ETH-BTC",
                 Data = expected
             };
             socket.InvokeMessage(JsonConvert.SerializeObject(update));
@@ -95,7 +95,7 @@ namespace Kucoin.Net.UnitTests
             KucoinStreamSnapshot result = null;
 
             // act
-            var subTask = client.SubscribeToSnapshotUpdatesAsync("test", test => result = test);
+            var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
@@ -104,7 +104,7 @@ namespace Kucoin.Net.UnitTests
             {
                 Type = "message",
                 Subject = "trade.ticker",
-                Topic = "/market/snapshot:test",
+                Topic = "/market/snapshot:ETH-BTC",
                 Data = new KucoinStreamSnapshotWrapper()
                 {
                     Data = expected,

@@ -25,7 +25,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -33,7 +33,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -757,7 +757,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="market">The market to subscribe to</param>
+            <param name="symbol">The market to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -765,7 +765,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="market">The market to subscribe to</param>
+            <param name="symbol">The market to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -773,7 +773,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="markets">The markets to subscribe to</param>
+            <param name="symbols">The markets to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -781,7 +781,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="markets">The markets to subscribe to</param>
+            <param name="symbols">The markets to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -803,7 +803,7 @@
             <summary>
             Subscribe to updates for market snapshots
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -811,7 +811,7 @@
             <summary>
             Subscribe to updates for market snapshots
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -819,7 +819,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="market">The markets to subscribe on</param>
+            <param name="symbol">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -827,7 +827,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="market">The markets to subscribe on</param>
+            <param name="symbol">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -835,7 +835,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -843,7 +843,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -851,7 +851,7 @@
             <summary>
             Subscribe to trade updates
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -859,7 +859,7 @@
             <summary>
             Subscribe to trade updates
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -872,7 +872,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -885,7 +885,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -898,7 +898,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -911,7 +911,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -924,7 +924,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -937,7 +937,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -950,7 +950,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -963,7 +963,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1018,7 +1018,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -1026,7 +1026,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -1775,7 +1775,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="market">The market to subscribe to</param>
+            <param name="symbol">The market to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1783,7 +1783,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="market">The market to subscribe to</param>
+            <param name="symbol">The market to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1791,7 +1791,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="markets">The markets to subscribe to</param>
+            <param name="symbols">The markets to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1799,7 +1799,7 @@
             <summary>
             Subscribe to updates for a market ticker
             </summary>
-            <param name="markets">The markets to subscribe to</param>
+            <param name="symbols">The markets to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1821,7 +1821,7 @@
             <summary>
             Subscribe to updates for market snapshots
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1829,7 +1829,7 @@
             <summary>
             Subscribe to updates for market snapshots
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1837,7 +1837,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="market">The markets to subscribe on</param>
+            <param name="symbol">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1845,7 +1845,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="market">The markets to subscribe on</param>
+            <param name="symbol">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1853,7 +1853,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1861,7 +1861,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1869,7 +1869,7 @@
             <summary>
             Subscribe to trade updates
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1877,7 +1877,7 @@
             <summary>
             Subscribe to trade updates
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1890,7 +1890,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1903,7 +1903,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1916,7 +1916,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1929,7 +1929,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1942,7 +1942,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1955,7 +1955,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="market">The market to subscribe on</param>
+            <param name="symbol">The market to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1968,7 +1968,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1981,7 +1981,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="markets">The markets to subscribe on</param>
+            <param name="symbols">The markets to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>

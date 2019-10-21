@@ -69,21 +69,22 @@ namespace Kucoin.Net
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        public WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? market = null, CancellationToken ct = default) => GetSymbolsAsync(market, ct).Result;
+        public WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? symbol = null, CancellationToken ct = default) => GetSymbolsAsync(symbol, ct).Result;
 
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
         {
+            symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("market", market);
+            parameters.AddOptionalParameter("market", symbol);
             return await Execute<IEnumerable<KucoinSymbol>>(GetUri("symbols"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
@@ -103,6 +104,7 @@ namespace Kucoin.Net
         /// <returns>Ticker info</returns>
         public async Task<WebCallResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
             return await Execute<KucoinTick>(GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
@@ -140,6 +142,7 @@ namespace Kucoin.Net
         /// <returns>24 hour stats</returns>
         public async Task<WebCallResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
             return await Execute<Kucoin24HourStat>(GetUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
@@ -179,9 +182,9 @@ namespace Kucoin.Net
         /// <returns>Partial aggregated order book</returns>
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int limit, CancellationToken ct = default)
         {
-            if (limit != 20 && limit != 100)
-                return WebCallResult<KucoinOrderBook>.CreateErrorResult(new ArgumentError("Limit should be either 20 or 100"));
-
+            symbol.ValidateKucoinSymbol();
+            limit.ValidateIntValues(nameof(limit), 20, 100);
+            
             return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2_{limit}?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
@@ -201,6 +204,7 @@ namespace Kucoin.Net
         /// <returns>Full aggregated order book</returns>
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
             return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2?symbol={symbol}", 2), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
@@ -220,6 +224,8 @@ namespace Kucoin.Net
         /// <returns>Full order book</returns>
         public async Task<WebCallResult<KucoinFullOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
+
             return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
@@ -239,6 +245,8 @@ namespace Kucoin.Net
         /// <returns>List of trades for the symbol</returns>
         public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
+
             return await Execute<IEnumerable<KucoinTrade>>(GetUri($"market/histories?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
@@ -265,6 +273,8 @@ namespace Kucoin.Net
         /// <returns>List of klines</returns>
         public async Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KucoinKlineInterval interval, DateTime startTime, DateTime endTime, CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
+
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
@@ -447,8 +457,7 @@ namespace Kucoin.Net
         /// <returns>Info on account activity</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinAccountActivity>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()): null);
@@ -479,8 +488,7 @@ namespace Kucoin.Net
         /// <returns>Info on current holds</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinHold>>> GetHoldsAsync(string accountId, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinHold>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currentPage", currentPage);
@@ -515,8 +523,7 @@ namespace Kucoin.Net
         /// <returns>List of deposits</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositsAsync(string? currency = null, DateTime? startTime = null, DateTime? endTime = null, KucoinDepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinDeposit>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
@@ -555,8 +562,7 @@ namespace Kucoin.Net
         /// <returns>List of historical deposits</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalDeposit>>> GetHistoricalDepositsAsync(string? currency = null, DateTime? startTime = null, DateTime? endTime = null, KucoinDepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinHistoricalDeposit>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
@@ -635,8 +641,7 @@ namespace Kucoin.Net
         /// <returns>List of withdrawals</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawalsAsync(string? currency = null, DateTime? startTime = null, DateTime? endTime = null, KucoinWithdrawalStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinWithdrawal>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
@@ -675,8 +680,7 @@ namespace Kucoin.Net
         /// <returns>List of historical withdrawals</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalWithdrawal>>> GetHistoricalWithdrawalsAsync(string? currency = null, DateTime? startTime = null, DateTime? endTime = null, KucoinWithdrawalStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinHistoricalWithdrawal>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
@@ -852,18 +856,19 @@ namespace Kucoin.Net
             string? clientOrderId = null, 
             CancellationToken ct = default)
         {
+            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case KucoinNewOrderType.Limit when !quantity.HasValue:
-                    return WebCallResult<KucoinNewOrder>.CreateErrorResult(new ArgumentError("Limit order needs a quantity"));
+                    throw new ArgumentException("Limit order needs a quantity");
                 case KucoinNewOrderType.Market when !quantity.HasValue && !funds.HasValue:
-                    return WebCallResult<KucoinNewOrder>.CreateErrorResult(new ArgumentError("Market order needs quantity or funds specified"));
+                    throw new ArgumentException("Market order needs quantity or funds specified");
                 case KucoinNewOrderType.Market when quantity.HasValue && funds.HasValue:
-                    return WebCallResult<KucoinNewOrder>.CreateErrorResult(new ArgumentError("Market order cant have both quantity and funds specified"));
+                    throw new ArgumentException("Market order cant have both quantity and funds specified");
             }
 
             if (stop.HasValue && stop != KucoinStopCondition.None && !stopPrice.HasValue)
-                return WebCallResult<KucoinNewOrder>.CreateErrorResult(new ArgumentError("Stop orders need stop price to be specified"));
+                throw new ArgumentException("Stop orders need stop price to be specified");
 
             var parameters = new Dictionary<string, object>
             {
@@ -923,6 +928,7 @@ namespace Kucoin.Net
         /// <returns>List of cancelled orders</returns>
         public async Task<WebCallResult<KucoinCancelledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
+            symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
             return await Execute<KucoinCancelledOrders>(GetUri($"orders"), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
@@ -959,8 +965,8 @@ namespace Kucoin.Net
         /// <returns>List of orders</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, KucoinOrderStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinOrder>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            symbol?.ValidateKucoinSymbol();
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
@@ -1037,8 +1043,8 @@ namespace Kucoin.Net
         /// <returns>List of historical orders</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersAsync(string? symbol = null, KucoinOrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            symbol?.ValidateKucoinSymbol();
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
@@ -1082,11 +1088,11 @@ namespace Kucoin.Net
         /// <returns>List of fills</returns>
         public async Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetFillsAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            if (pageSize < 10 || pageSize > 500)
-                return WebCallResult<KucoinPaginated<KucoinFill>>.CreateErrorResult(new ArgumentError("Page size should be between 10 and 500"));
+            symbol?.ValidateKucoinSymbol();
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             if (endTime.HasValue && startTime.HasValue && (endTime.Value - startTime.Value).TotalDays > 7)
-                return WebCallResult<KucoinPaginated<KucoinFill>>.CreateErrorResult(new ArgumentError("Difference between start and end time can be a maximum of 1 week"));
+                throw new ArgumentException("Difference between start and end time can be a maximum of 1 week");
             
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);

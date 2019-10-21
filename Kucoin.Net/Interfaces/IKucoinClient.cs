@@ -28,18 +28,18 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? market = null, CancellationToken ct = default);
+        WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="market">Only get symbols for a specific market, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets ticker info of a symbol
