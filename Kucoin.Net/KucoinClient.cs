@@ -19,7 +19,7 @@ namespace Kucoin.Net
     /// <summary>
     /// Client to interact with the Kucoin REST API
     /// </summary>
-    public class KucoinClient: RestClient //IKucoinClient
+    public class KucoinClient: RestClient, IKucoinClient
     {
         private static KucoinClientOptions defaultOptions = new KucoinClientOptions();
         internal static KucoinClientOptions DefaultOptions => defaultOptions.Copy();
@@ -148,17 +148,17 @@ namespace Kucoin.Net
         }
 
         /// <summary>
-        /// Gets a list of supported symbols
+        /// Gets a list of supported markets
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>List of symbols</returns>
+        /// <returns>List of markets</returns>
         public WebCallResult<IEnumerable<string>> GetMarkets(CancellationToken ct = default) => GetMarketsAsync(ct).Result;
 
         /// <summary>
-        /// Gets a list of supported symbols
+        /// Gets a list of supported markets
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>List of symbols</returns>
+        /// <returns>List of markets</returns>
         public async Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = default)
         {
             return await Execute<IEnumerable<string>>(GetUri("markets"), HttpMethod.Get, ct).ConfigureAwait(false);
@@ -214,7 +214,7 @@ namespace Kucoin.Net
         /// <param name="symbol">The symbol to get order book for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Full order book</returns>
-        public WebCallResult<KucoinFullOrderBook> GetFullOrderBook(string symbol, CancellationToken ct = default) => GetFullOrderBookAsync(symbol, ct).Result;
+        public WebCallResult<KucoinFullOrderBook> GetOrderBook(string symbol, CancellationToken ct = default) => GetOrderBookAsync(symbol, ct).Result;
 
         /// <summary>
         /// Get a full order book for a symbol
@@ -222,7 +222,7 @@ namespace Kucoin.Net
         /// <param name="symbol">The symbol to get order book for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Full order book</returns>
-        public async Task<WebCallResult<KucoinFullOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFullOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
 
@@ -235,7 +235,7 @@ namespace Kucoin.Net
         /// <param name="symbol">The symbol to get trade history for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades for the symbol</returns>
-        public WebCallResult<IEnumerable<KucoinTrade>> GetTradeHistory(string symbol, CancellationToken ct = default) => GetTradeHistoryAsync(symbol, ct).Result;
+        public WebCallResult<IEnumerable<KucoinTrade>> GetSymbolTrades(string symbol, CancellationToken ct = default) => GetSymbolTradesAsync(symbol, ct).Result;
 
         /// <summary>
         /// Gets the recent trade history for a symbol
@@ -243,7 +243,7 @@ namespace Kucoin.Net
         /// <param name="symbol">The symbol to get trade history for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades for the symbol</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetSymbolTradesAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
 
@@ -415,7 +415,7 @@ namespace Kucoin.Net
         /// <param name="currency">The currency of the account</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the account</returns>
-        public WebCallResult<KucoinNewAccount> CreateAccount(KucoinAccountType type, string currency, CancellationToken ct = default) => GetAccountAsync(type, currency, ct).Result;
+        public WebCallResult<KucoinNewAccount> CreateAccount(KucoinAccountType type, string currency, CancellationToken ct = default) => CreateAccountAsync(type, currency, ct).Result;
 
         /// <summary>
         /// Create a new account
@@ -424,7 +424,7 @@ namespace Kucoin.Net
         /// <param name="currency">The currency of the account</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the account</returns>
-        public async Task<WebCallResult<KucoinNewAccount>> GetAccountAsync(KucoinAccountType type, string currency, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(KucoinAccountType type, string currency, CancellationToken ct = default)
         {
             currency.ValidateNotNull(nameof(currency));
 
