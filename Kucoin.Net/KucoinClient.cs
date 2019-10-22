@@ -19,7 +19,7 @@ namespace Kucoin.Net
     /// <summary>
     /// Client to interact with the Kucoin REST API
     /// </summary>
-    public class KucoinClient: RestClient, IKucoinClient
+    public class KucoinClient: RestClient //IKucoinClient
     {
         private static KucoinClientOptions defaultOptions = new KucoinClientOptions();
         internal static KucoinClientOptions DefaultOptions => defaultOptions.Copy();
@@ -69,7 +69,7 @@ namespace Kucoin.Net
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
         public WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? symbol = null, CancellationToken ct = default) => GetSymbolsAsync(symbol, ct).Result;
@@ -77,7 +77,7 @@ namespace Kucoin.Net
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
         public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
@@ -148,17 +148,17 @@ namespace Kucoin.Net
         }
 
         /// <summary>
-        /// Gets a list of supported markets
+        /// Gets a list of supported symbols
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>List of markets</returns>
+        /// <returns>List of symbols</returns>
         public WebCallResult<IEnumerable<string>> GetMarkets(CancellationToken ct = default) => GetMarketsAsync(ct).Result;
 
         /// <summary>
-        /// Gets a list of supported markets
+        /// Gets a list of supported symbols
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>List of markets</returns>
+        /// <returns>List of symbols</returns>
         public async Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = default)
         {
             return await Execute<IEnumerable<string>>(GetUri("markets"), HttpMethod.Get, ct).ConfigureAwait(false);

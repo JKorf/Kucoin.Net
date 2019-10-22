@@ -46,7 +46,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The amount of subscriptions that should be made on a single socket connection.
         /// Setting this to a higher number increases subscription speed, but having more subscriptions on a single connection will also increase the amount of traffic on that single connection.
-        /// Make sure the socket doesn't overflow, and consider combining multiple markets on a subscription instead of increasing this number.
+        /// Make sure the socket doesn't overflow, and consider combining multiple symbols on a subscription instead of increasing this number.
         /// </summary>
         public new int SocketSubscriptionsCombineTarget { get; set; }
 

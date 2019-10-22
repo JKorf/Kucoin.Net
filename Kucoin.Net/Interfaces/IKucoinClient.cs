@@ -92,14 +92,14 @@ namespace Kucoin.Net.Interfaces
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
-        WebCallResult<IEnumerable<string>> GetMarkets(CancellationToken ct = default);
+        WebCallResult<IEnumerable<string>> GetSymbols(CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of supported markets
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
-        Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<string>>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.

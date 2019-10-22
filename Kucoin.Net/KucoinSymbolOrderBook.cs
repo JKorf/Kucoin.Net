@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
@@ -43,7 +41,7 @@ namespace Kucoin.Net
                 return new CallResult<UpdateSubscription>(null, bookResult.Error);
             }
 
-            SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Asks, bookResult.Data.Bids);
+            SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<UpdateSubscription>(subResult.Data, null);
         }
 
@@ -54,7 +52,7 @@ namespace Kucoin.Net
             if (!bookResult)
                 return new CallResult<bool>(false, bookResult.Error);
 
-            SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Asks, bookResult.Data.Bids);
+            SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true, null);
         }
 

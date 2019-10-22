@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects.Sockets
     /// Order book entry
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinStreamOrderBookEntry: ISymbolOrderBookEntry
+    public class KucoinStreamOrderBookEntry: ISymbolOrderSequencedBookEntry
     {
         /// <summary>
         /// The price of the change

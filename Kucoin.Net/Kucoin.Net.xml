@@ -83,14 +83,14 @@
             <param name="ct">Cancellation token</param>
             <returns>24 hour stats</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarkets(System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbols(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported markets
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>List of markets</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetMarketsAsync(System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported markets
             </summary>
@@ -1018,7 +1018,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -1026,7 +1026,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="symbol">Only get symbols for a specific market, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -1078,17 +1078,17 @@
         </member>
         <member name="M:Kucoin.Net.KucoinClient.GetMarkets(System.Threading.CancellationToken)">
             <summary>
-            Gets a list of supported markets
+            Gets a list of supported symbols
             </summary>
             <param name="ct">Cancellation token</param>
-            <returns>List of markets</returns>
+            <returns>List of symbols</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinClient.GetMarketsAsync(System.Threading.CancellationToken)">
             <summary>
-            Gets a list of supported markets
+            Gets a list of supported symbols
             </summary>
             <param name="ct">Cancellation token</param>
-            <returns>List of markets</returns>
+            <returns>List of symbols</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinClient.GetAggregatedPartialOrderBook(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
@@ -1773,63 +1773,63 @@
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
-            Subscribe to updates for a market ticker
+            Subscribe to updates for a symbol ticker
             </summary>
-            <param name="symbol">The market to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
-            Subscribe to updates for a market ticker
+            Subscribe to updates for a symbol ticker
             </summary>
-            <param name="symbol">The market to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
-            Subscribe to updates for a market ticker
+            Subscribe to updates for a symbol ticker
             </summary>
-            <param name="symbols">The markets to subscribe to</param>
+            <param name="symbols">The symbols to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
-            Subscribe to updates for a market ticker
+            Subscribe to updates for a symbol ticker
             </summary>
-            <param name="symbols">The markets to subscribe to</param>
+            <param name="symbols">The symbols to subscribe to</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAllTickerUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
-            Subscribe to updates for all market tickers
+            Subscribe to updates for all symbol tickers
             </summary>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToAllTickerUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
             <summary>
-            Subscribe to updates for all market tickers
+            Subscribe to updates for all symbol tickers
             </summary>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
             <summary>
-            Subscribe to updates for market snapshots
+            Subscribe to updates for symbol snapshots
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
             <summary>
-            Subscribe to updates for market snapshots
+            Subscribe to updates for symbol snapshots
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1837,7 +1837,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="symbol">The markets to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1845,7 +1845,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="symbol">The markets to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1853,7 +1853,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="symbols">The markets to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1861,7 +1861,7 @@
             <summary>
             Subscribe to aggregated order book updates
             </summary>
-            <param name="symbols">The markets to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1869,7 +1869,7 @@
             <summary>
             Subscribe to trade updates
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1877,7 +1877,7 @@
             <summary>
             Subscribe to trade updates
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1890,7 +1890,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1903,7 +1903,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1916,7 +1916,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbols">The markets to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1929,7 +1929,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbols">The markets to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1942,7 +1942,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1955,7 +1955,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbol">The market to subscribe on</param>
+            <param name="symbol">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1968,7 +1968,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbols">The markets to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1981,7 +1981,7 @@
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
             <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbols">The markets to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -2361,7 +2361,7 @@
             <summary>
             The amount of subscriptions that should be made on a single socket connection.
             Setting this to a higher number increases subscription speed, but having more subscriptions on a single connection will also increase the amount of traffic on that single connection.
-            Make sure the socket doesn't overflow, and consider combining multiple markets on a subscription instead of increasing this number.
+            Make sure the socket doesn't overflow, and consider combining multiple symbols on a subscription instead of increasing this number.
             </summary>
         </member>
         <member name="M:Kucoin.Net.Objects.KucoinSocketClientOptions.#ctor">
