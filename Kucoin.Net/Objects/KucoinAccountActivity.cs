@@ -30,17 +30,17 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The type of activity
         /// </summary>
-        public string BizType { get; set; }
+        public string BizType { get; set; } = "";
 
         /// <summary>
         /// Additional info for this activity
         /// </summary>
-        public KucoinAccountActivityContext Context { get; set; }
+        public KucoinAccountActivityContext Context { get; set; } = default!;
 
         /// <summary>
         /// The currency of the activity
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The direction of the activity
         /// </summary>
@@ -56,18 +56,18 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id for the order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The id for the trade (for trades)
         /// </summary>
-        public string TradeId { get; set; }
+        public string TradeId { get; set; } = "";
         /// <summary>
         /// The symbol of the order (for trades)
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The transaction id (for withdrawal/deposit)
         /// </summary>
-        public string TransactionId { get; set; }
+        public string TransactionId { get; set; } = "";
     }
 }

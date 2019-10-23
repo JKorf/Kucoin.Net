@@ -12,7 +12,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the hold
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The quantity of the hold
         /// </summary>
@@ -21,11 +21,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The type the hold is for
         /// </summary>
-        public string BizType { get; set; }
+        public string BizType { get; set; } = "";
         /// <summary>
         /// The order id of the hold
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The time the hold was created
         /// </summary>

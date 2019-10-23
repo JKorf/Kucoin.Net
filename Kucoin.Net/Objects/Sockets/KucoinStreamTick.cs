@@ -8,6 +8,6 @@
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
     }
 }

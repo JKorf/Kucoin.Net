@@ -3,6 +3,7 @@ using System.IO;
 using CryptoExchange.Net.Authentication;
 using System.Security;
 using System.Text;
+using CryptoExchange.Net;
 using Newtonsoft.Json.Linq;
 
 namespace Kucoin.Net.Objects
@@ -25,7 +26,7 @@ namespace Kucoin.Net.Objects
         /// <param name="apiPassPhrase">The API passPhrase</param>
         public KucoinApiCredentials(string apiKey, string apiSecret, string apiPassPhrase): base(apiKey, apiSecret)
         {
-            PassPhrase = CreateSecureString(apiPassPhrase);
+            PassPhrase = apiPassPhrase.ToSecureString();
         }
 
         /// <summary>
@@ -35,9 +36,9 @@ namespace Kucoin.Net.Objects
         /// <param name="identifierKey">A key to identify the credentials for the API. For example, when set to `binanceKey` the json data should contain a value for the property `binanceKey`. Defaults to 'apiKey'.</param>
         /// <param name="identifierSecret">A key to identify the credentials for the API. For example, when set to `binanceSecret` the json data should contain a value for the property `binanceSecret`. Defaults to 'apiSecret'.</param>
         /// <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
-        public KucoinApiCredentials(Stream inputStream, string identifierKey = null, string identifierSecret = null, string identifierPassPhrase = null) : base(inputStream, identifierKey, identifierSecret)
+        public KucoinApiCredentials(Stream inputStream, string? identifierKey = null, string? identifierSecret = null, string? identifierPassPhrase = null) : base(inputStream, identifierKey, identifierSecret)
         {
-            string pass;
+            string? pass;
             using (var reader = new StreamReader(inputStream, Encoding.ASCII, false, 512, true))
             {
                 var stringData = reader.ReadToEnd();
@@ -49,7 +50,7 @@ namespace Kucoin.Net.Objects
             }
 
             inputStream.Seek(0, SeekOrigin.Begin);
-            PassPhrase = CreateSecureString(pass);
+            PassPhrase = pass.ToSecureString();
         }
     }
 }

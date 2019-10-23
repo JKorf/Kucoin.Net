@@ -11,11 +11,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the account
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
         /// <summary>
         /// The currency of the account
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The type of the account
         /// </summary>

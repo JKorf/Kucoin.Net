@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The symbol of the update
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The timestamp of the event
         /// </summary>
@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The order id
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The price of the order
         /// </summary>
@@ -52,7 +52,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// The client order id
         /// </summary>
         [JsonProperty("clientOid")]
-        public string ClientOrderid { get; set; }
+        public string ClientOrderid { get; set; } = "";
         /// <summary>
         /// The type of the order
         /// </summary>
@@ -78,7 +78,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The price of the order
         /// </summary>
@@ -108,7 +108,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
     }
 
     /// <summary>
@@ -119,15 +119,15 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The order id of the taker
         /// </summary>
-        public string TakerOrderId { get; set; }
+        public string TakerOrderId { get; set; } = "";
         /// <summary>
         /// The orer id of the maker
         /// </summary>
-        public string MakerOrderId { get; set; }
+        public string MakerOrderId { get; set; } = "";
         /// <summary>
         /// The trade id
         /// </summary>
-        public string TradeId { get; set; }
+        public string TradeId { get; set; } = "";
         /// <summary>
         /// The side of the order
         /// </summary>
@@ -152,7 +152,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The side of the order
         /// </summary>
@@ -182,7 +182,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The side of the order
         /// </summary>

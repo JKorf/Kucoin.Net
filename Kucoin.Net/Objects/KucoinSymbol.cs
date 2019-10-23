@@ -8,23 +8,23 @@
         /// <summary>
         /// The symbol identifier
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The name of the symbol
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         /// <summary>
         /// The market the symbol is on
         /// </summary>
-        public string Market { get; set; }
+        public string Market { get; set; } = "";
         /// <summary>
         /// The base currency
         /// </summary>
-        public string BaseCurrency { get; set; }
+        public string BaseCurrency { get; set; } = "";
         /// <summary>
         /// The quote currency
         /// </summary>
-        public string QuoteCurrency { get; set; }
+        public string QuoteCurrency { get; set; } = "";
         /// <summary>
         /// The min order size in the base currency
         /// </summary>
@@ -38,7 +38,7 @@
         /// </summary>
         public decimal BaseMaxSize { get; set; }
         /// <summary>
-        /// The max order size in the qoute currency
+        /// The max order size in the quote currency
         /// </summary>
         public decimal QuoteMaxSize { get; set; }
         /// <summary>
@@ -56,7 +56,7 @@
         /// <summary>
         /// The currency the fee will be on
         /// </summary>
-        public string FeeCurrency { get; set; }
+        public string FeeCurrency { get; set; } = "";
         /// <summary>
         /// Whether trading is enabled
         /// </summary>

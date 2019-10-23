@@ -1,4 +1,4 @@
-# ![Icon](https://github.com/JKorf/Kucoin.Net/blob/master/Resources/icon.png?raw=true) Kucoin.Net 
+# ![Icon](https://github.com/JKorf/Kucoin.Net/blob/master/Kucoin.Net/Icon/icon.png?raw=true) Kucoin.Net 
 
 ![Build status](https://travis-ci.org/JKorf/Kucoin.Net.svg?branch=master)
 
@@ -83,6 +83,13 @@ After installing it's time to actually use it. To get started you have to add th
 Kucoin.Net provides two clients to interact with the Kucoin API. The `KucoinClient` provides all rest API calls. The  `KucoinSocketClient`  provides functions to interact with the websocket provided by the Kucoin API. Both clients are disposable and as such can be used in a `using` statement.
 
 ## Release notes
+* Version 2.0.0 - 23 Oct 2019
+	* See CryptoExchange.Net 3.0 release notes
+	* Added input validation
+	* Added CancellationToken support to all requests
+	* Now using IEnumerable<> for collections	
+	* Renamed Market -> Symbol	
+
 * Version 1.0.4 - 30 Sep 2019
     * Fixed Bid/Ask reversed in tick
     * Fixed error on empty self trade prevention field

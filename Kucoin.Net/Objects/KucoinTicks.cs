@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects
 {
@@ -19,6 +20,6 @@ namespace Kucoin.Net.Objects
         /// The ticker data
         /// </summary>
         [JsonProperty("ticker")]
-        public KucoinAllTick[] Data { get; set; }
+        public IEnumerable<KucoinAllTick> Data { get; set; } = new List<KucoinAllTick>();
     }
 }

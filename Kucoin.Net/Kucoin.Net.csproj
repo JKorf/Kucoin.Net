@@ -1,27 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+	<LangVersion>8.0</LangVersion>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>1.0.4</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
     <PackageProjectUrl>https://github.com/JKorf/Kucoin.Net</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/JKorf/Kucoin.Net/master/Resources/icon.png</PackageIconUrl>
-    <PackageLicenseUrl>https://github.com/JKorf/Kucoin.Net/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>1.0.4 - Fixed Bid/Ask reversed in tick, Fixed error on empty self trade prevention field</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.0 - 
+	* See CryptoExchange.Net 3.0 release notes
+	* Added input validation
+	* Added CancellationToken support to all requests
+	* Now using IEnumerable for collections	
+	* Renamed Market -> Symbol</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DocumentationFile>Kucoin.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CryptoExchange.Net" Version="2.1.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <None Include="icon\icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CryptoExchange.Net" Version="3.0.0" />
   </ItemGroup>
 </Project>

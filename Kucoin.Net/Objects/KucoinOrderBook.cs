@@ -1,7 +1,8 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
-using CryptoExchange.Net.OrderBook;
+using System.Collections.Generic;
+using CryptoExchange.Net.Interfaces;
 
 namespace Kucoin.Net.Objects
 {
@@ -22,11 +23,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The list of asks
         /// </summary>
-        public KucoinFullOrderBookEntry[] Asks { get; set; }
+        public IEnumerable<KucoinFullOrderBookEntry> Asks { get; set; } = new List<KucoinFullOrderBookEntry>();
         /// <summary>
         /// The list of bids
         /// </summary>
-        public KucoinFullOrderBookEntry[] Bids { get; set; }
+        public IEnumerable<KucoinFullOrderBookEntry> Bids { get; set; } = new List<KucoinFullOrderBookEntry>();
     }
 
     /// <summary>
@@ -46,11 +47,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The list of asks
         /// </summary>
-        public KucoinOrderBookEntry[] Asks { get; set; }
+        public IEnumerable<KucoinOrderBookEntry> Asks { get; set; } = new List<KucoinOrderBookEntry>();
         /// <summary>
         /// The list of bids
         /// </summary>
-        public KucoinOrderBookEntry[] Bids { get; set; }
+        public IEnumerable<KucoinOrderBookEntry> Bids { get; set; } = new List<KucoinOrderBookEntry>();
     }
 
     /// <summary>
@@ -63,7 +64,7 @@ namespace Kucoin.Net.Objects
         /// The order id of the entry
         /// </summary>
         [ArrayProperty(0)]
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
         /// <summary>
         /// The price of the entry
         /// </summary>

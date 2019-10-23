@@ -8,6 +8,6 @@
         /// <summary>
         /// The id of the new order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = "";
     }
 }

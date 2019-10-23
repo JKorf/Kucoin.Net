@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Objects
+﻿using System.Collections.Generic;
+
+namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Ids of cancelled orders
@@ -8,6 +10,6 @@
         /// <summary>
         /// List of canceled order ids
         /// </summary>
-        public string[] CancelledOrderIds { get; set; }
+        public IEnumerable<string> CancelledOrderIds { get; set; } = new List<string>();
     }
 }

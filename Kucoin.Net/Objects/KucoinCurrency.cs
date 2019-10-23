@@ -8,15 +8,15 @@
         /// <summary>
         /// The currency identifier
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The name of the currency
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         /// <summary>
         /// The full name of the currency
         /// </summary>
-        public string FullName { get; set; }
+        public string FullName { get; set; } = "";
         /// <summary>
         /// The precision of the currency
         /// </summary>
