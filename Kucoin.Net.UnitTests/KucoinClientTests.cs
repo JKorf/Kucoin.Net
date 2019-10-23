@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
@@ -138,9 +136,9 @@ namespace Kucoin.Net.UnitTests
         public void CheckValidKucoinSymbol(string symbol, bool isValid)
         {
             if (isValid)
-                Assert.DoesNotThrow(() => symbol.ValidateKucoinSymbol());
+                Assert.DoesNotThrow(symbol.ValidateKucoinSymbol);
             else
-                Assert.Throws(typeof(ArgumentException), () => symbol.ValidateKucoinSymbol());
+                Assert.Throws(typeof(ArgumentException), symbol.ValidateKucoinSymbol);
         }
     }
 }

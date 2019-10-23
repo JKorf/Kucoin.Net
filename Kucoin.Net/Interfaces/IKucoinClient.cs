@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.RateLimiter;
 using Kucoin.Net.Objects;
 
 namespace Kucoin.Net.Interfaces

@@ -282,7 +282,7 @@ namespace Kucoin.Net
                 { "startAt", JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) },
                 { "endAt", JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) },
             };
-            return await Execute<IEnumerable<KucoinKline>>(GetUri($"market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinKline>>(GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -538,7 +538,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)): null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await Execute<KucoinPaginated<KucoinDeposit>>(GetUri($"deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinDeposit>>(GetUri("deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -577,7 +577,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await Execute<KucoinPaginated<KucoinHistoricalDeposit>>(GetUri($"hist-deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHistoricalDeposit>>(GetUri("hist-deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -598,7 +598,7 @@ namespace Kucoin.Net
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
-            return await Execute<KucoinDepositAddress>(GetUri($"deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinDepositAddress>(GetUri("deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -619,7 +619,7 @@ namespace Kucoin.Net
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
-            return await Execute<KucoinDepositAddress>(GetUri($"deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinDepositAddress>(GetUri("deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -658,7 +658,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await Execute<KucoinPaginated<KucoinWithdrawal>>(GetUri($"withdrawals"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinWithdrawal>>(GetUri("withdrawals"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -719,7 +719,7 @@ namespace Kucoin.Net
             currency.ValidateNotNull(nameof(currency));
 
             var parameters = new Dictionary<string, object> { { "currency", currency } };
-            return await Execute<KucoinWithdrawalQuota>(GetUri($"withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinWithdrawalQuota>(GetUri("withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -762,7 +762,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("isInner", isInner);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", chain);
-            return await Execute<KucoinNewWithdrawal>(GetUri($"withdrawals/quotas"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewWithdrawal>(GetUri("withdrawals/quotas"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -903,7 +903,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("stop", stop.HasValue && stop != KucoinStopCondition.None ? JsonConvert.SerializeObject(stop.Value, new StopConditionConverter(false)) : null);
             parameters.AddOptionalParameter("stopPrice", stopPrice);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            return await Execute<KucoinNewOrder>(GetUri($"orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewOrder>(GetUri("orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -945,7 +945,7 @@ namespace Kucoin.Net
             symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            return await Execute<KucoinCancelledOrders>(GetUri($"orders"), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinCancelledOrders>(GetUri("orders"), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -992,7 +992,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await Execute<KucoinPaginated<KucoinOrder>>(GetUri($"orders"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinOrder>>(GetUri("orders"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1009,7 +1009,7 @@ namespace Kucoin.Net
         /// <returns>List of orders</returns>
         public async Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default)
         {
-            return await Execute<IEnumerable<KucoinOrder>>(GetUri($"limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinOrder>>(GetUri("limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1069,7 +1069,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await Execute<KucoinPaginated<KucoinHistoricalOrder>>(GetUri($"hist-orders"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHistoricalOrder>>(GetUri("hist-orders"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1119,7 +1119,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await Execute<KucoinPaginated<KucoinFill>>(GetUri($"fills"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinFill>>(GetUri("fills"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1136,7 +1136,7 @@ namespace Kucoin.Net
         /// <returns>List of fills</returns>
         public async Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentFillsAsync(CancellationToken ct = default)
         {
-            return await Execute<IEnumerable<KucoinFill>>(GetUri($"limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinFill>>(GetUri("limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
