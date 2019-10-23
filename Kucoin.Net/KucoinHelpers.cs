@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Kucoin.Net
 {
-    internal static class KucoinHelpers
+    public static class KucoinHelpers
     {
         /// <summary>
         /// Validate the string is a valid Kucoin symbol.
@@ -14,7 +14,7 @@ namespace Kucoin.Net
             if (string.IsNullOrEmpty(symbolString))
                 throw new ArgumentException("Symbol is not provided");
 
-            if (!Regex.IsMatch(symbolString, "^(([A-Z]{3,4})[-]([A-Z]{3,4}))$"))
+            if (!Regex.IsMatch(symbolString, "^((([A-Z]|[0-9]){1,10})[-](([A-Z]|[0-9]){1,10}))$"))
                 throw new ArgumentException($"{symbolString} is not a valid Kucoin symbol. Should be [QuoteCurrency]-[BaseCurrency] e.g. ETH-BTC");
         }
     }
