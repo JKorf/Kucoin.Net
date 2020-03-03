@@ -14,7 +14,7 @@ namespace Kucoin.Net
             if (string.IsNullOrEmpty(symbolString))
                 throw new ArgumentException("Symbol is not provided");
 
-            if (!Regex.IsMatch(symbolString, "^((([A-Z]|[0-9]){1,10})[-](([A-Z]|[0-9]){1,10}))$"))
+            if (!Regex.IsMatch(symbolString, "^((([A-Z]|[0-9]){1,})[-](([A-Z]|[0-9]){1,}))$"))
                 throw new ArgumentException($"{symbolString} is not a valid Kucoin symbol. Should be [QuoteCurrency]-[BaseCurrency] e.g. ETH-BTC");
         }
     }
