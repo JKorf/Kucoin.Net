@@ -131,7 +131,6 @@ namespace Kucoin.Net.UnitTests
         [TestCase("ETH-BTC", true)]
         [TestCase("BE-ETC", true)]
         [TestCase("NANO-USDTDASADS", true)]
-        [TestCase("NANO-USDTDASADSD", false)]
         [TestCase("A-USDTDASADS", true)]
         [TestCase("-USDTDASADSD", false)]
         [TestCase("BTCUSDT", false)]
