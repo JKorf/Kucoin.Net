@@ -107,7 +107,7 @@ namespace Kucoin.Net
                 InvokeHandler(data, onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
             return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
@@ -135,7 +135,7 @@ namespace Kucoin.Net
                 InvokeHandler(data, onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/ticker:all", false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:all", false);
             return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
@@ -161,7 +161,7 @@ namespace Kucoin.Net
                 InvokeHandler(GetData<KucoinStreamSnapshotWrapper>(tokenData)?.Data, onData!);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/snapshot:" + symbol, false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/snapshot:" + symbol, false);
             return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
@@ -205,7 +205,7 @@ namespace Kucoin.Net
                 InvokeHandler(GetData<KucoinStreamOrderBook>(tokenData), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
             return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
@@ -231,7 +231,7 @@ namespace Kucoin.Net
                 InvokeHandler(GetData<KucoinStreamMatch>(tokenData), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/match:" + symbol, false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/match:" + symbol, false);
             return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
@@ -316,7 +316,7 @@ namespace Kucoin.Net
                 InvokeHandler(data, onData!);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/level3:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level3:" + string.Join(",", symbols), false);
             return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
@@ -405,7 +405,7 @@ namespace Kucoin.Net
                 InvokeHandler(data, onData!);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/market/level3:" + string.Join(",", symbols), true);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level3:" + string.Join(",", symbols), true);
             return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
 
@@ -434,7 +434,7 @@ namespace Kucoin.Net
                 onBalanceChange(desResult.Data.Data);
             });
 
-            var request = new KucoinRequest(NextId().ToString(), "subscribe", "/account/balance", true);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/account/balance", true);
             return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
         #endregion
@@ -631,7 +631,7 @@ namespace Kucoin.Net
         protected override async Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
         {
             var kRequest = (KucoinRequest)s.Request!;
-            var request = new KucoinRequest(NextId().ToString(), "unsubscribe", kRequest.Topic, false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
 
             var success = false;
             await connection.SendAndWait(request, TimeSpan.FromSeconds(5), message =>
