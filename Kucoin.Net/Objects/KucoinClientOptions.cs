@@ -80,7 +80,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// ctor
         /// </summary>
-        public KucoinOrderBookOptions() : base("Kucoin", true)
+        public KucoinOrderBookOptions() : base("Kucoin", true, false)
         {
         }
     }
