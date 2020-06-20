@@ -585,7 +585,7 @@ namespace Kucoin.Net
             if (kRequest.Topic == topic)
                 return true;
 
-            if((kRequest.Topic.StartsWith("/market/ticker:") && (string)message["subject"] == "trade.ticker")
+            if((kRequest.Topic.StartsWith("/market/ticker:") && message["subject"] != null && (string)message["subject"] == "trade.ticker")
             || (kRequest.Topic.StartsWith("/market/level2:") && ((string)message["topic"]).StartsWith("/market/level2"))
             || (kRequest.Topic.StartsWith("/market/level3:") && ((string)message["topic"]).StartsWith("/market/level3")))
             {
@@ -599,7 +599,7 @@ namespace Kucoin.Net
                 }
             }
 
-            if (kRequest.Topic == "/account/balance" && (string)message["subject"] == "account.balance")
+            if (kRequest.Topic == "/account/balance" && message["subject"] != null && (string)message["subject"] == "account.balance")
                 return true;
             
             return false;
