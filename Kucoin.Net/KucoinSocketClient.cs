@@ -378,8 +378,8 @@ namespace Kucoin.Net
 
             var innerHandler = new Action<JToken>(tokenData => {
                 KucoinStreamOrderBaseUpdate? data = null;
-                var subject = (string)tokenData["subject"]["data"]["type"];
-                var type = (string)tokenData["subject"];
+                var subject = (string)tokenData["subject"];
+                var type = (string)tokenData["data"]["type"];
                 switch (subject)
                 {
                     case "trade.l3received" when type == "stop" || type == "activate":
