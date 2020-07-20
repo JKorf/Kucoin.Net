@@ -22,35 +22,35 @@ namespace Kucoin.Net.Objects
         [JsonProperty("buy")]
         public decimal BestBid { get; set; }
         /// <summary>
-        /// The prentage change
+        /// The percentage change
         /// </summary>
         [JsonProperty("changeRate")]
-        public decimal ChangePercentage { get; set; }
+        public decimal? ChangePercentage { get; set; }
         /// <summary>
         /// The price change
         /// </summary>
-        public decimal ChangePrice { get; set; }
+        public decimal? ChangePrice { get; set; }
         /// <summary>
-        /// The higest price
+        /// The highest price
         /// </summary>
-        public decimal High { get; set; }
+        public decimal? High { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        public decimal Low { get; set; }
+        public decimal? Low { get; set; }
         /// <summary>
         /// The volume in this tick
         /// </summary>
         [JsonProperty("vol")]
-        public decimal Volume { get; set; }
+        public decimal? Volume { get; set; }
         /// <summary>
         /// The value of the volume in this tick
         /// </summary>
         [JsonProperty("volValue")]
-        public decimal VolumeValue { get; set; }
+        public decimal? VolumeValue { get; set; }
         /// <summary>
         /// The last trade price
         /// </summary>
-        public decimal Last { get; set; }
+        public decimal? Last { get; set; }
     }
 }
