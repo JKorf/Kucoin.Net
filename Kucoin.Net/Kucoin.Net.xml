@@ -2256,7 +2256,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinAllTick.ChangePercentage">
             <summary>
-            The prentage change
+            The percentage change
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinAllTick.ChangePrice">
@@ -2266,7 +2266,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinAllTick.High">
             <summary>
-            The higest price
+            The highest price
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinAllTick.Low">
