@@ -2427,7 +2427,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinCurrency.IsDepositEnabled">
             <summary>
-            Is dpositing enabled for this currency
+            Is depositing enabled for this currency
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinDeposit">
