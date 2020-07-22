@@ -34,7 +34,7 @@
         /// </summary>
         public bool IsWithdrawEnabled { get; set; }
         /// <summary>
-        /// Is dpositing enabled for this currency
+        /// Is depositing enabled for this currency
         /// </summary>
         public bool IsDepositEnabled { get; set; }
     }
