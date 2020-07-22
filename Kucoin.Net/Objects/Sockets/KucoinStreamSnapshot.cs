@@ -37,12 +37,12 @@ namespace Kucoin.Net.Objects.Sockets
         /// The current best bid
         /// </summary>
         [JsonProperty("buy")]
-        public decimal BestBid { get; set; }
+        public decimal? BestBid { get; set; }
         /// <summary>
         /// The current best ask
         /// </summary>
         [JsonProperty("sell")]
-        public decimal BestAsk { get; set; }
+        public decimal? BestAsk { get; set; }
 
         /// <summary>
         /// Unknown
@@ -82,25 +82,25 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The highest price
         /// </summary>
-        public decimal High { get; set; }
+        public decimal? High { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        public decimal Low { get; set; }
+        public decimal? Low { get; set; }
         /// <summary>
         /// The last price
         /// </summary>
         [JsonProperty("lastTradedPrice")]
-        public decimal LastPrice { get; set; }
+        public decimal? LastPrice { get; set; }
         /// <summary>
         /// The change price
         /// </summary>
-        public decimal ChangePrice { get; set; }
+        public decimal? ChangePrice { get; set; }
         /// <summary>
         /// The change percentage
         /// </summary>
         [JsonProperty("changeRate")]
-        public decimal ChangePercentage { get; set; }
+        public decimal? ChangePercentage { get; set; }
         /// <summary>
         /// Unknown
         /// </summary>
