@@ -1315,6 +1315,48 @@
             <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTransferable(System.String,Kucoin.Net.Objects.KucoinAccountType,System.Threading.CancellationToken)">
+            <summary>
+            Gets a transferable balance of a specified account.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on transferable account balance</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetTransferableAsync(System.String,Kucoin.Net.Objects.KucoinAccountType,System.Threading.CancellationToken)">
+            <summary>
+            Gets a transferable balance of a specified account.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on transferable account balance</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.InnerTransfer(System.String,Kucoin.Net.Objects.KucoinAccountType,Kucoin.Net.Objects.KucoinAccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfers assets between the accounts of a user.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="from">The type of the account</param>
+            <param name="to">The type of the account</param>
+            <param name="quantity">The quantity to transfer</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The order ID of a funds transfer</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.InnerTransferAsync(System.String,Kucoin.Net.Objects.KucoinAccountType,Kucoin.Net.Objects.KucoinAccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfers assets between the accounts of a user.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="from">The type of the account</param>
+            <param name="to">The type of the account</param>
+            <param name="quantity">The quantity to transfer</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The order ID of a funds transfer</returns>
+        </member>
         <member name="M:Kucoin.Net.KucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets hold information
@@ -3120,6 +3162,16 @@
             The time the hold was last updated
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinInnerTransfer">
+            <summary>
+            Sub transfer info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinInnerTransfer.OrderId">
+            <summary>
+            The id of the new sub transfer
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.KucoinKline">
             <summary>
             Kline info
@@ -3639,6 +3691,36 @@
         <member name="P:Kucoin.Net.Objects.KucoinTrade.Timestamp">
             <summary>
             The timestamp of the trade
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTransferableAccount">
+            <summary>
+            Transferable Account info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTransferableAccount.Currency">
+            <summary>
+            The currency of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTransferableAccount.Balance">
+            <summary>
+            The total balance of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTransferableAccount.Available">
+            <summary>
+            The available balance of the account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTransferableAccount.Holds">
+            <summary>
+            The amount of balance that's in hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTransferableAccount.Transferable">
+            <summary>
+            The amount of transferable balance
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinWithdrawal">
