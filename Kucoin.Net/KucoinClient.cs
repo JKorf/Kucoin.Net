@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converts;
@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -465,8 +466,8 @@ namespace Kucoin.Net
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()): null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()): null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             return await Execute<KucoinPaginated<KucoinAccountActivity>>(GetUri($"accounts/{accountId}/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
@@ -533,8 +534,8 @@ namespace Kucoin.Net
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)): null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
@@ -572,8 +573,8 @@ namespace Kucoin.Net
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
@@ -653,8 +654,8 @@ namespace Kucoin.Net
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
@@ -692,8 +693,8 @@ namespace Kucoin.Net
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
@@ -986,8 +987,8 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new OrderStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
@@ -1064,8 +1065,8 @@ namespace Kucoin.Net
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
@@ -1113,8 +1114,8 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime.HasValue ? JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) : null);
-            parameters.AddOptionalParameter("endAt", startTime.HasValue ? JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("orderId", orderId);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
@@ -1160,6 +1161,11 @@ namespace Kucoin.Net
             }
 
             return new ServerError(error.ToString());
+        }
+
+        private static long ToUnixTimestamp(DateTime time)
+        {
+	        return ((DateTimeOffset)time).ToUnixTimeMilliseconds();
         }
 
         private async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
