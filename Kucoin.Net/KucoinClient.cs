@@ -829,7 +829,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("isInner", isInner);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", chain);
-            return await Execute<KucoinNewWithdrawal>(GetUri("withdrawals/quotas"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewWithdrawal>(GetUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
