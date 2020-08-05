@@ -472,6 +472,72 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("pageSize", pageSize);
             return await Execute<KucoinPaginated<KucoinAccountActivity>>(GetUri($"accounts/{accountId}/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
+        
+		/// <summary>
+		/// Gets a transferable balance of a specified account.
+		/// </summary>
+		/// <param name="currency">Get the accounts for a specific currency</param>
+		/// <param name="accountType">Filter on type of account</param>
+		/// <param name="ct">Cancellation token</param>
+		/// <returns>Info on transferable account balance</returns>
+		public WebCallResult<KucoinTransferableAccount> GetTransferable(string currency, KucoinAccountType accountType, CancellationToken ct = default) =>
+			GetTransferableAsync(currency, accountType, ct).Result;
+
+		/// <summary>
+		/// Gets a transferable balance of a specified account.
+		/// </summary>
+		/// <param name="currency">Get the accounts for a specific currency</param>
+		/// <param name="accountType">Filter on type of account</param>
+		/// <param name="ct">Cancellation token</param>
+		/// <returns>Info on transferable account balance</returns>
+		public async Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string currency, KucoinAccountType accountType, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+	            { "currency", currency },
+	            { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
+            };
+            return await Execute<KucoinTransferableAccount>(GetUri("accounts/transferable"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+
+        }
+
+        /// <summary>
+        /// Transfers assets between the accounts of a user.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="from">The type of the account</param>
+        /// <param name="to">The type of the account</param>
+        /// <param name="quantity">The quantity to transfer</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The order ID of a funds transfer</returns>
+        public WebCallResult<KucoinInnerTransfer> InnerTransfer(string currency, KucoinAccountType from, KucoinAccountType to, decimal quantity, string? clientOrderId = null, CancellationToken ct = default) =>
+			InnerTransferAsync(currency, from, to, quantity, clientOrderId, ct).Result;
+
+        /// <summary>
+        /// Transfers assets between the accounts of a user.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="from">The type of the account</param>
+        /// <param name="to">The type of the account</param>
+        /// <param name="quantity">The quantity to transfer</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The order ID of a funds transfer</returns>
+        public async Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string currency, KucoinAccountType from, KucoinAccountType to, decimal quantity, string? clientOrderId = null, CancellationToken ct = default)
+		{
+			currency.ValidateNotNull(nameof(currency));
+			var parameters = new Dictionary<string, object>
+			{
+                { "currency", currency },
+                { "from", JsonConvert.SerializeObject(from, new AccountTypeConverter(false))},
+                { "to", JsonConvert.SerializeObject(to, new AccountTypeConverter(false))},
+                { "amount", quantity },
+                { "clientOid", clientOrderId ?? Guid.NewGuid().ToString()},
+            };
+
+			return await Execute<KucoinInnerTransfer>(GetUri("accounts/inner-transfer", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+		}
 
         /// <summary>
         /// Gets hold information
@@ -763,7 +829,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("isInner", isInner);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", chain);
-            return await Execute<KucoinNewWithdrawal>(GetUri("withdrawals/quotas"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewWithdrawal>(GetUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
