@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Kucoin.Net
 {
+    /// <summary>
+    /// Helpers for Kucoin
+    /// </summary>
     public static class KucoinHelpers
     {
         /// <summary>

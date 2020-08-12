@@ -882,7 +882,7 @@ namespace Kucoin.Net
             decimal? quantity = null, 
             decimal? funds = null,
             KucoinTimeInForce? timeInForce = null,
-            DateTime? cancelAfter = null,
+            TimeSpan? cancelAfter = null,
             bool? postOnly = null,
             bool? hidden = null,
             bool? iceBerg = null,
@@ -924,7 +924,7 @@ namespace Kucoin.Net
             decimal? quantity = null,
             decimal? funds = null,
             KucoinTimeInForce? timeInForce = null,
-            DateTime? cancelAfter = null,
+            TimeSpan? cancelAfter = null,
             bool? postOnly = null,
             bool? hidden = null,
             bool? iceBerg = null,
@@ -961,7 +961,7 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("size", quantity);
             parameters.AddOptionalParameter("funds", funds);
             parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
-            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? JsonConvert.SerializeObject(cancelAfter.Value, new TimestampConverter()) : null);
+            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceBerg", iceBerg);
