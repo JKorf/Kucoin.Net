@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net;
+﻿using System.Net.Http;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 
 namespace Kucoin.Net.Objects
@@ -14,10 +15,28 @@ namespace Kucoin.Net.Objects
         public new KucoinApiCredentials? ApiCredentials { get; set; }
 
         /// <summary>
-        /// ctor
+        /// Create new client options
         /// </summary>
-        public KucoinClientOptions(): base("https://api.kucoin.com/api/")
+        public KucoinClientOptions() : this(null, "https://api.kucoin.com/api/")
         {
+        }
+
+        /// <summary>
+        /// Create new client options
+        /// </summary>
+        /// <param name="client">HttpClient to use for requests from this client</param>
+        public KucoinClientOptions(HttpClient client) : this(client, "https://api.kucoin.com/api/")
+        {
+        }
+
+        /// <summary>
+        /// Create new client options
+        /// </summary>
+        /// <param name="apiAddress">Custom API address to use</param>
+        /// <param name="client">HttpClient to use for requests from this client</param>
+        public KucoinClientOptions(HttpClient? client, string apiAddress) : base(apiAddress)
+        {
+            HttpClient = client;
         }
 
         /// <summary>
