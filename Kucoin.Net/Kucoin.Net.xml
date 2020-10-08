@@ -1018,7 +1018,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific market, for example 'ALTS'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -1026,7 +1026,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+            <param name="symbol">Only get symbols for a specific symbol, for example 'ALTS'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>

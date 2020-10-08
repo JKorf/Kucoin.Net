@@ -70,22 +70,21 @@ namespace Kucoin.Net
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        public WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? symbol = null, CancellationToken ct = default) => GetSymbolsAsync(symbol, ct).Result;
+        public WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? market = null, CancellationToken ct = default) => GetSymbolsAsync(market, ct).Result;
 
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+        /// <param name="symbol">Only get symbols for a specific symbol, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("market", symbol);
+            parameters.AddOptionalParameter("market", market);
             return await Execute<IEnumerable<KucoinSymbol>>(GetUri("symbols"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
