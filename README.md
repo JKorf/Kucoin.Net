@@ -54,6 +54,10 @@ Implementations from third parties:
 <br />
 <a href="https://github.com/burakoner/OKEx.Net">OKEx</a>
 </td>
+<td><a href="https://github.com/intelligences/HitBTC.Net"><img src="https://github.com/intelligences/HitBTC.Net/blob/master/src/HitBTC.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/intelligences/HitBTC.Net">HitBTC</a>
+</td>
 </tr>
 </table>
 
