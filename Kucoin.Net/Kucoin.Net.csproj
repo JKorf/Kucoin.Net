@@ -7,7 +7,7 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>2.0.14</PackageVersion>
+    <PackageVersion>2.0.15</PackageVersion>
     <AssemblyVersion>2.0.0</AssemblyVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>2.0.14 - Fixed incorrect paramter on GetSymbols, Updated CryptoExchange.Net</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.15 - Fixed order model to allow null values, Updated CryptoExchange.Net</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
