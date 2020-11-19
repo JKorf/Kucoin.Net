@@ -37,7 +37,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The price of the order
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         /// <summary>
         /// The quantity of the order
         /// </summary>
@@ -46,11 +46,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The funds of the order
         /// </summary>
-        public decimal Funds { get; set; }
+        public decimal? Funds { get; set; }
         /// <summary>
         /// The funds of the deal
         /// </summary>
-        public decimal DealFunds { get; set; }
+        public decimal? DealFunds { get; set; }
         /// <summary>
         /// The quantity of the deal
         /// </summary>
@@ -68,7 +68,7 @@ namespace Kucoin.Net.Objects
         /// The self trade prevention type
         /// </summary>
         [JsonProperty("stp"), JsonConverter(typeof(SelfTradePreventionConverter))]
-        public KucoinSelfTradePrevention SelfTradePrevention { get; set; }
+        public KucoinSelfTradePrevention? SelfTradePrevention { get; set; }
         /// <summary>
         /// The stop condition
         /// </summary>
@@ -103,7 +103,7 @@ namespace Kucoin.Net.Objects
         /// The max visible size of the iceberg
         /// </summary>
         [JsonProperty("visibleSize")]
-        public decimal VisibleIcebergSize { get; set; }
+        public decimal? VisibleIcebergSize { get; set; }
         /// <summary>
         /// Time after which the order is cancelled
         /// </summary>

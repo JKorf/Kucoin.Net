@@ -70,7 +70,7 @@ namespace Kucoin.Net
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific market, for example 'ALTS'</param>
+        /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
         public WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? market = null, CancellationToken ct = default) => GetSymbolsAsync(market, ct).Result;
@@ -78,7 +78,7 @@ namespace Kucoin.Net
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific symbol, for example 'ALTS'</param>
+        /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
         public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default)
