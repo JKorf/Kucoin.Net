@@ -2,13 +2,14 @@
 using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Fill info
     /// </summary>
-    public class KucoinFill
+    public class KucoinFill: ICommonTrade
     {
         /// <summary>
         /// The symbol the fill is for
@@ -80,5 +81,11 @@ namespace Kucoin.Net.Objects
         /// Was forced to become taker
         /// </summary>
         public bool ForceTaker { get; set; }
+
+        string ICommonTrade.CommonId => TradeId;
+        decimal ICommonTrade.CommonPrice => Price;
+        decimal ICommonTrade.CommonQuantity => Quantity;
+        decimal ICommonTrade.CommonFee => Fee;
+        string? ICommonTrade.CommonFeeAsset => FeeCurrency;
     }
 }

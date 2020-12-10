@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinAllTick
+    public class KucoinAllTick: ICommonTicker
     {
         /// <summary>
         /// The symbol of the tick
@@ -52,5 +53,10 @@ namespace Kucoin.Net.Objects
         /// The last trade price
         /// </summary>
         public decimal? Last { get; set; }
+
+        string ICommonTicker.CommonSymbol => Symbol;
+        decimal ICommonTicker.CommonHigh => High ?? 0;
+        decimal ICommonTicker.CommonLow => Low ?? 0;
+        decimal ICommonTicker.CommonVolume => Volume ?? 0;
     }
 }

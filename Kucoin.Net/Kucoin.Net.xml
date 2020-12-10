@@ -163,7 +163,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -174,7 +174,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of klines</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -1156,7 +1156,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.KucoinClient.GetKlines(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>
@@ -1167,7 +1167,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of klines</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.KucoinClient.GetKlinesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get kline data for a symbol
             </summary>

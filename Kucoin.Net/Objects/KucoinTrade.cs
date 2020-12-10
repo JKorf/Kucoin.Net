@@ -2,13 +2,14 @@
 using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Trade info
     /// </summary>
-    public class KucoinTrade
+    public class KucoinTrade: ICommonRecentTrade
     {
         /// <summary>
         /// The sequence number of the trade
@@ -33,5 +34,9 @@ namespace Kucoin.Net.Objects
         /// </summary>
         [JsonConverter(typeof(TimestampNanoSecondsConverter)), JsonProperty("time")]
         public DateTime Timestamp { get; set; }
+
+        decimal ICommonRecentTrade.CommonPrice => Price;
+        decimal ICommonRecentTrade.CommonQuantity => Quantity;
+        DateTime ICommonRecentTrade.CommonTradeTime => Timestamp;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Kucoin.Net.Objects
 {
@@ -8,7 +9,7 @@ namespace Kucoin.Net.Objects
     /// Kline info
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinKline
+    public class KucoinKline: ICommonKline
     {
         /// <summary>
         /// The start time of the kline
@@ -45,5 +46,10 @@ namespace Kucoin.Net.Objects
         /// </summary>
         [ArrayProperty(6)]
         public decimal Volume { get; set; }
+
+        decimal ICommonKline.CommonHigh => High;
+        decimal ICommonKline.CommonLow => Low;
+        decimal ICommonKline.CommonOpen => Open;
+        decimal ICommonKline.CommonClose => Close;
     }
 }

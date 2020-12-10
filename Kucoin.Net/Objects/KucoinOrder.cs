@@ -3,13 +3,14 @@ using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinOrder
+    public class KucoinOrder: ICommonOrder
     {
         /// <summary>
         /// The id of the order
@@ -142,5 +143,21 @@ namespace Kucoin.Net.Objects
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         public DateTime CreatedAt { get; set; }
+
+        string ICommonOrderId.CommonId => Id;
+        string ICommonOrder.CommonSymbol => Symbol;
+        decimal ICommonOrder.CommonPrice => Price ?? 0;
+        decimal ICommonOrder.CommonQuantity => Quantity;
+        string ICommonOrder.CommonStatus => IsActive == true ? "Open" : "-"; // TODO
+        bool ICommonOrder.IsActive => IsActive ?? false;
+
+        IExchangeClient.OrderSide ICommonOrder.CommonSide => Side == KucoinOrderSide.Sell
+            ? IExchangeClient.OrderSide.Sell
+            : IExchangeClient.OrderSide.Buy;
+
+        IExchangeClient.OrderType ICommonOrder.CommonType =>
+            Type == KucoinOrderType.Limit || Type == KucoinOrderType.LimitStop
+                ? IExchangeClient.OrderType.Limit
+                : IExchangeClient.OrderType.Market;
     }
 }

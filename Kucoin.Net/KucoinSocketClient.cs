@@ -35,7 +35,7 @@ namespace Kucoin.Net
         /// <summary>
         /// Create a new instance of the KucoinSocketClient with the provided options
         /// </summary>
-        public KucoinSocketClient(KucoinSocketClientOptions options) : base(options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
+        public KucoinSocketClient(KucoinSocketClientOptions options) : base("Kucoin", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
             MaxSocketConnections = 10;
 

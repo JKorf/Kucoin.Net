@@ -1,9 +1,12 @@
-﻿namespace Kucoin.Net.Objects
+﻿using System.Globalization;
+using CryptoExchange.Net.ExchangeInterfaces;
+
+namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Symbol info
     /// </summary>
-    public class KucoinSymbol
+    public class KucoinSymbol: ICommonSymbol
     {
         /// <summary>
         /// The symbol identifier
@@ -61,5 +64,8 @@
         /// Whether trading is enabled
         /// </summary>
         public bool EnableTrading { get; set; }
+
+        string ICommonSymbol.CommonName => Symbol;
+        decimal ICommonSymbol.CommonMinimumTradeSize => BaseMinSize;
     }
 }

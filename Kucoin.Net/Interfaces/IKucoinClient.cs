@@ -176,7 +176,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="endTime">The end time of the data</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of klines</returns>
-        WebCallResult<IEnumerable<KucoinKline>> GetKlines(string symbol, KucoinKlineInterval interval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+        WebCallResult<IEnumerable<KucoinKline>> GetKlines(string symbol, KucoinKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data for a symbol
@@ -187,7 +187,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="endTime">The end time of the data</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of klines</returns>
-        Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KucoinKlineInterval interval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KucoinKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of supported currencies

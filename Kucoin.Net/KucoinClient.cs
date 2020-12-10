@@ -13,6 +13,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Interfaces;
 
 namespace Kucoin.Net
@@ -20,7 +21,7 @@ namespace Kucoin.Net
     /// <summary>
     /// Client to interact with the Kucoin REST API
     /// </summary>
-    public class KucoinClient: RestClient, IKucoinClient
+    public class KucoinClient: RestClient, IKucoinClient, IExchangeClient
     {
         private static KucoinClientOptions defaultOptions = new KucoinClientOptions();
         internal static KucoinClientOptions DefaultOptions => defaultOptions.Copy();
@@ -36,7 +37,7 @@ namespace Kucoin.Net
         /// <summary>
         /// Create a new instance of the KucoinClient with the provided options
         /// </summary>
-        public KucoinClient(KucoinClientOptions options) : base(options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
+        public KucoinClient(KucoinClientOptions options) : base("Kucoin", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
         }
         #endregion
@@ -259,7 +260,7 @@ namespace Kucoin.Net
         /// <param name="endTime">The end time of the data</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of klines</returns>
-        public WebCallResult<IEnumerable<KucoinKline>> GetKlines(string symbol, KucoinKlineInterval interval, DateTime startTime, DateTime endTime, CancellationToken ct = default) => 
+        public WebCallResult<IEnumerable<KucoinKline>> GetKlines(string symbol, KucoinKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default) => 
             GetKlinesAsync(symbol, interval, startTime, endTime, ct).Result;
 
         /// <summary>
@@ -271,17 +272,18 @@ namespace Kucoin.Net
         /// <param name="endTime">The end time of the data</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of klines</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KucoinKlineInterval interval, DateTime startTime, DateTime endTime, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KucoinKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
 
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
-                { "type", JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false)) },
-                { "startAt", JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()) },
-                { "endAt", JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()) },
+                { "type", JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false)) }
             };
+            parameters.AddOptionalParameter("startAt", JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()));
+            parameters.AddOptionalParameter("endAt", JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()));
+
             return await Execute<IEnumerable<KucoinKline>>(GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
@@ -1248,6 +1250,98 @@ namespace Kucoin.Net
         private Uri GetUri(string path, int apiVersion = 1)
         {
             return new Uri(Path.Combine(BaseAddress, "v"+ apiVersion, path));
+        }
+        #endregion
+
+        #region common interface
+
+        public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + "-" + quoteAsset).ToUpperInvariant();
+
+        async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
+        {
+            var symbols = await GetSymbolsAsync();
+            return WebCallResult<IEnumerable<ICommonSymbol>>.CreateFrom(symbols);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
+        {
+            var symbols = await GetTickersAsync();
+            return new WebCallResult<IEnumerable<ICommonTicker>>(symbols.ResponseStatusCode, symbols.ResponseHeaders, symbols.Data?.Data, symbols.Error);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan)
+        {
+            var symbols = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan));
+            return WebCallResult<IEnumerable<ICommonKline>>.CreateFrom(symbols);
+        }
+
+        async Task<WebCallResult<ICommonOrderBook>> IExchangeClient.GetOrderBookAsync(string symbol)
+        {
+            var book = await GetOrderBookAsync(symbol);
+            return WebCallResult<ICommonOrderBook>.CreateFrom(book);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonRecentTrade>>> IExchangeClient.GetRecentTradesAsync(string symbol)
+        {
+            var book = await GetSymbolTradesAsync(symbol);
+            return WebCallResult<IEnumerable<ICommonRecentTrade>>.CreateFrom(book);
+        }
+
+        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.PlaceOrderAsync(string symbol, IExchangeClient.OrderSide side, IExchangeClient.OrderType type, decimal quantity, decimal? price = null, string? accountId = null)
+        {
+            var order = await PlaceOrderAsync(symbol, 
+                side == IExchangeClient.OrderSide.Sell? KucoinOrderSide.Sell: KucoinOrderSide.Buy, 
+                type == IExchangeClient.OrderType.Limit ? KucoinNewOrderType.Limit: KucoinNewOrderType.Market,
+                price, quantity);
+            return WebCallResult<ICommonOrderId>.CreateFrom(order);
+        }
+
+        async Task<WebCallResult<ICommonOrder>> IExchangeClient.GetOrderAsync(string orderId, string? symbol)
+        {
+            var order = await GetOrderAsync(orderId);
+            return WebCallResult<ICommonOrder>.CreateFrom(order);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
+        {
+            var trades = await GetFillsAsync(orderId: orderId);
+            return new WebCallResult<IEnumerable<ICommonTrade>>(trades.ResponseStatusCode, trades.ResponseHeaders, trades.Data?.Items, trades.Error);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetOpenOrdersAsync(string? symbol)
+        {
+            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Active);
+            return new WebCallResult<IEnumerable<ICommonOrder>>(orders.ResponseStatusCode, orders.ResponseHeaders, orders.Data?.Items, orders.Error);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetClosedOrdersAsync(string? symbol)
+        {
+            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Done);
+            return new WebCallResult<IEnumerable<ICommonOrder>>(orders.ResponseStatusCode, orders.ResponseHeaders, orders.Data?.Items, orders.Error);
+        }
+
+        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.CancelOrderAsync(string orderId, string? symbol)
+        {
+            var result = await CancelOrderAsync(orderId);
+            return WebCallResult<ICommonOrderId>.CreateFrom(result);
+        }
+
+        private static KucoinKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
+        {
+            if (timeSpan == TimeSpan.FromMinutes(1)) return KucoinKlineInterval.OneMinute;
+            if (timeSpan == TimeSpan.FromMinutes(5)) return KucoinKlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return KucoinKlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(30)) return KucoinKlineInterval.ThirtyMinutes;
+            if (timeSpan == TimeSpan.FromHours(1)) return KucoinKlineInterval.OneHour;
+            if (timeSpan == TimeSpan.FromHours(2)) return KucoinKlineInterval.TwoHours;
+            if (timeSpan == TimeSpan.FromHours(4)) return KucoinKlineInterval.FourHours;
+            if (timeSpan == TimeSpan.FromHours(6)) return KucoinKlineInterval.SixHours;
+            if (timeSpan == TimeSpan.FromHours(8)) return KucoinKlineInterval.EightHours;
+            if (timeSpan == TimeSpan.FromHours(12)) return KucoinKlineInterval.TwelfHours;
+            if (timeSpan == TimeSpan.FromDays(1)) return KucoinKlineInterval.OneDay;
+            if (timeSpan == TimeSpan.FromDays(7)) return KucoinKlineInterval.OneWeek;
+
+            throw new ArgumentException("Unsupported timespan for Kucoin kline interval, check supported intervals using Kucoin.Net.Objects.KucoinKlineInterval");
         }
         #endregion
     }
