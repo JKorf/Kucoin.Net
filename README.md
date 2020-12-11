@@ -59,6 +59,10 @@ Implementations from third parties:
 <a href="https://github.com/intelligences/HitBTC.Net">HitBTC</a>
 </td>
 </tr>
+<td><a href="https://github.com/EricGarnier/LiveCoin.Net"><img src="https://github.com/EricGarnier/LiveCoin.Net/blob/master/LiveCoin.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/EricGarnier/LiveCoin.Net">LiveCoin</a>
+</td>
 </table>
 
 
