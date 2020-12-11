@@ -281,8 +281,8 @@ namespace Kucoin.Net
                 { "symbol", symbol },
                 { "type", JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false)) }
             };
-            parameters.AddOptionalParameter("startAt", JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()));
-            parameters.AddOptionalParameter("endAt", JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()));
+            parameters.AddOptionalParameter("startAt", startTime == null ? null: JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()));
+            parameters.AddOptionalParameter("endAt", endTime == null ? null : JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()));
 
             return await Execute<IEnumerable<KucoinKline>>(GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
