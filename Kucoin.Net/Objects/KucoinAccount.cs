@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Converts;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects
@@ -6,7 +7,7 @@ namespace Kucoin.Net.Objects
     /// <summary>
     /// Account info
     /// </summary>
-    public class KucoinAccount
+    public class KucoinAccount : ICommonBalance
     {
         /// <summary>
         /// The id of the account
@@ -33,5 +34,9 @@ namespace Kucoin.Net.Objects
         /// The amount of balance that's in hold
         /// </summary>
         public decimal Holds { get; set; }
+
+        string ICommonBalance.CommonAsset => Currency;
+        decimal ICommonBalance.CommonAvailable => Available;
+        decimal ICommonBalance.CommonTotal => Balance;
     }
 }

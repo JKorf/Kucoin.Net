@@ -1263,15 +1263,25 @@ namespace Kucoin.Net
             return WebCallResult<IEnumerable<ICommonSymbol>>.CreateFrom(symbols);
         }
 
+        async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
+        {
+            var result = await GetTickerAsync(symbol);
+            return new WebCallResult<ICommonTicker>(result.ResponseStatusCode, result.ResponseHeaders, (ICommonTicker?)result.Data, result.Error);
+        }
+
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
         {
             var symbols = await GetTickersAsync();
             return new WebCallResult<IEnumerable<ICommonTicker>>(symbols.ResponseStatusCode, symbols.ResponseHeaders, symbols.Data?.Data, symbols.Error);
         }
 
-        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan)
+        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)
         {
-            var symbols = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan));
+            if (limit != null)
+                return WebCallResult<IEnumerable<ICommonKline>>.CreateErrorResult(new ArgumentError(
+                    $"Kucoin doesn't support the {nameof(limit)} parameter for the method {nameof(IExchangeClient.GetKlinesAsync)}"));
+
+            var symbols = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), startTime, endTime);
             return WebCallResult<IEnumerable<ICommonKline>>.CreateFrom(symbols);
         }
 
@@ -1324,6 +1334,12 @@ namespace Kucoin.Net
         {
             var result = await CancelOrderAsync(orderId);
             return WebCallResult<ICommonOrderId>.CreateFrom(result);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonBalance>>> IExchangeClient.GetBalancesAsync(string? accountId = null)
+        {
+            var result = await GetAccountsAsync();
+            return WebCallResult<IEnumerable<ICommonBalance>>.CreateFrom(result);
         }
 
         private static KucoinKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
