@@ -13,7 +13,8 @@ namespace Kucoin.Net.Converts
             new KeyValuePair<KucoinOrderType, string>(KucoinOrderType.Limit, "limit"),
             new KeyValuePair<KucoinOrderType, string>(KucoinOrderType.Market, "market"),
             new KeyValuePair<KucoinOrderType, string>(KucoinOrderType.LimitStop, "limit_stop"),
-            new KeyValuePair<KucoinOrderType, string>(KucoinOrderType.MarketStop, "market_stop")
+            new KeyValuePair<KucoinOrderType, string>(KucoinOrderType.MarketStop, "market_stop"),
+            new KeyValuePair<KucoinOrderType, string>(KucoinOrderType.Stop, "stop"),
         };
     }
 }

@@ -750,7 +750,7 @@
         </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClient">
             <summary>
-            Interface for the Kucoin socket client
+            Kucoin socket client interface
             </summary>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToTickerUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamTick})">
@@ -801,17 +801,33 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToSnapshotUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
             <summary>
-            Subscribe to updates for symbol snapshots
+            Subscribe to updates for symbol or market snapshots
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
             <summary>
-            Subscribe to updates for symbol snapshots
+            Subscribe to updates for symbol or market snapshots
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToSnapshotUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for symbol or market snapshots
+            </summary>
+            <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for symbol or market snapshots
+            </summary>
+            <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -863,108 +879,126 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToKlineUpdates(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamCandle})">
+            <summary>
+            Subscribe to kline updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="interval">Interval of the klines</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToKlineUpdatesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamCandle})">
+            <summary>
+            Subscribe to kline updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="interval">Interval of the klines</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOrderBookUpdates(System.String,System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbol">The symbol to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOrderBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbols">The symbols to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbol">The symbol to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbols">The symbols to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbols">The symbols to subscribe on</param>
+            <param name="symbols">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
             <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOrderUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate})">
             <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            Subscribe to order updates for your own orders 
             </summary>
-            <param name="symbol">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
+            <param name="onOrderData">Data handler for order updates</param>
+            <param name="onTradeData">Data handler for trade updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOrderUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate})">
             <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            Subscribe to order updates for your own orders 
             </summary>
-            <param name="symbol">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
-            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
-            <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
-            </summary>
-            <param name="symbols">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
-            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
-            <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
-            </summary>
-            <param name="symbols">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
+            <param name="onOrderData">Data handler for order updates</param>
+            <param name="onTradeData">Data handler for trade updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToBalanceChanges(System.Action{Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate})">
@@ -979,6 +1013,20 @@
             Subscribe to balance updates
             </summary>
             <param name="onBalanceChange">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToStopOrderUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate})">
+            <summary>
+            Subscribe to updates for stop orders
+            </summary>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClient.SubscribeToStopOrderUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate})">
+            <summary>
+            Subscribe to updates for stop orders
+            </summary>
+            <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="T:Kucoin.Net.KucoinClient">
@@ -1866,17 +1914,33 @@
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
             <summary>
-            Subscribe to updates for symbol snapshots
+            Subscribe to updates for symbol or market snapshots
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
             <summary>
-            Subscribe to updates for symbol snapshots
+            Subscribe to updates for symbol or market snapshots
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for symbol or market snapshots
+            </summary>
+            <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
+            <param name="onData">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot})">
+            <summary>
+            Subscribe to updates for symbol or market snapshots
+            </summary>
+            <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -1928,108 +1992,126 @@
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToKlineUpdates(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamCandle})">
+            <summary>
+            Subscribe to kline updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="interval">Interval of the klines</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToKlineUpdatesAsync(System.String,Kucoin.Net.Objects.KucoinKlineInterval,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamCandle})">
+            <summary>
+            Subscribe to kline updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="interval">Interval of the klines</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOrderBookUpdates(System.String,System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbol">The symbol to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOrderBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbols">The symbols to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbol">The symbol to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBookChanged})">
+            <summary>
+            Subscribe to full order book updates
+            </summary>
+            <param name="symbols">The symbols to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
-            <param name="symbols">The symbols to subscribe on</param>
+            <param name="symbols">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
             </summary>
             <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOrderUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate})">
             <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            Subscribe to order updates for your own orders 
             </summary>
-            <param name="symbol">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
+            <param name="onOrderData">Data handler for order updates</param>
+            <param name="onTradeData">Data handler for trade updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOrderUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate})">
             <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+            Subscribe to order updates for your own orders 
             </summary>
-            <param name="symbol">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
-            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
-            <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
-            </summary>
-            <param name="symbols">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
-            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToOwnMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate})">
-            <summary>
-            <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-            <para><see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
-            </summary>
-            <param name="symbols">The symbols to subscribe on</param>
-            <param name="onData">The data handler</param>
+            <param name="onOrderData">Data handler for order updates</param>
+            <param name="onTradeData">Data handler for trade updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToBalanceChanges(System.Action{Kucoin.Net.Objects.Sockets.KucoinBalanceUpdate})">
@@ -2044,6 +2126,20 @@
             Subscribe to balance updates
             </summary>
             <param name="onBalanceChange">The data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToStopOrderUpdates(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate})">
+            <summary>
+            Subscribe to updates for stop orders
+            </summary>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToStopOrderUpdatesAsync(System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate})">
+            <summary>
+            Subscribe to updates for stop orders
+            </summary>
+            <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.Subscribe``1(System.String,System.Object,System.String,System.Boolean,System.Action{``0})">
@@ -2748,6 +2844,11 @@
         <member name="F:Kucoin.Net.Objects.KucoinOrderType.MarketStop">
             <summary>
             Market stop order
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinOrderType.Stop">
+            <summary>
+            Stop order
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinTimeInForce">
@@ -3916,6 +4017,26 @@
             The id of the changed account
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamCandle">
+            <summary>
+            Stream tick
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamCandle.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamCandle.Candles">
+            <summary>
+            Candles
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamCandle.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatch">
             <summary>
             Match info
@@ -3969,6 +4090,121 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatch.TradeId">
             <summary>
             The id of the trade
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate">
+            <summary>
+            Base class for a stream update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate.Symbol">
+            <summary>
+            The symbol of the update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate.Sequence">
+            <summary>
+            Update sequence
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate.Timestamp">
+            <summary>
+            The timestamp of the event
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate.OrderId">
+            <summary>
+            Id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate.ClientOrderId">
+            <summary>
+            Id of the order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate">
+            <summary>
+            Stream order open update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineOpenUpdate.OrderTime">
+            <summary>
+            Order time
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate">
+            <summary>
+            Stream order done update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineDoneUpdate.Reason">
+            <summary>
+            Reason of the done update
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate">
+            <summary>
+            Stream order change update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineChangeUpdate.Quantity">
+            <summary>
+            New quantity of the order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate">
+            <summary>
+            Stream order match update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.Price">
+            <summary>
+            Price of the match
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.Side">
+            <summary>
+            Match side
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.Quantity">
+            <summary>
+            Match quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.RemainingQuantity">
+            <summary>
+            Remaing quantity on the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.TakerOrderId">
+            <summary>
+            Order id of taker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.MakerOrderId">
+            <summary>
+            Order id of maker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineMatchUpdate.TradeId">
+            <summary>
+            Id of the trade
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBook">
@@ -4036,11 +4272,6 @@
             Base class for a stream update
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Sequence">
-            <summary>
-            The sequence of the update
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Symbol">
             <summary>
             The symbol of the update
@@ -4056,84 +4287,44 @@
             The type of the update
             </summary>
         </member>
-        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate">
-            <summary>
-            Stream order update (received)
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.Side">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Side">
             <summary>
             The side of the order
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.OrderId">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.OrderId">
             <summary>
             The order id
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.Price">
-            <summary>
-            The price of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.ClientOrderid">
-            <summary>
-            The client order id
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderReceivedUpdate.OrderType">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.OrderType">
             <summary>
             The type of the order
             </summary>
         </member>
-        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate">
-            <summary>
-            Stream order update (open)
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Side">
-            <summary>
-            The side of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Quantity">
-            <summary>
-            The quantity of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.OrderId">
-            <summary>
-            The id of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderOpenUpdate.Price">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Price">
             <summary>
             The price of the order
             </summary>
         </member>
-        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.ClientOrderid">
             <summary>
-            Stream order update (done)
+            The client order id
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Reason">
-            <summary>
-            The reason for the done update
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Side">
-            <summary>
-            The side of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.Quantity">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.Quantity">
             <summary>
             The quantity of the order
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderDoneUpdate.OrderId">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.FilledQuantity">
             <summary>
-            The id of the order
+            Quantity filled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate.RemainingQuantity">
+            <summary>
+            Quantity remaining
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate">
@@ -4141,89 +4332,24 @@
             Stream order update (match)
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.TakerOrderId">
-            <summary>
-            The order id of the taker
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.MakerOrderId">
-            <summary>
-            The orer id of the maker
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.TradeId">
             <summary>
             The trade id
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Side">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.MatchPrice">
             <summary>
-            The side of the order
+            The price of the match
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Quantity">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.MatchQuantity">
             <summary>
-            The quantity of the order
+            The quantity of the match
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Price">
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderMatchUpdate.Liquidity">
             <summary>
-            The price of the order
-            </summary>
-        </member>
-        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate">
-            <summary>
-            Stream order update (change)
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.OrderId">
-            <summary>
-            The id of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.Side">
-            <summary>
-            The side of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.NewQuantity">
-            <summary>
-            The new quantity
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.OldQuantity">
-            <summary>
-            The old quantity
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderChangeUpdate.Price">
-            <summary>
-            The price of the order
-            </summary>
-        </member>
-        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate">
-            <summary>
-            Stream order update (stop)
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.OrderId">
-            <summary>
-            The id of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.Side">
-            <summary>
-            The side of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.Funds">
-            <summary>
-            The funds of the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamOrderStopUpdate.StopType">
-            <summary>
-            The stop type of ther order
+            The liquidity
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshotWrapper">
@@ -4339,6 +4465,76 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamSnapshot.Mark">
             <summary>
             Unknown
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate">
+            <summary>
+            Stop order update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.CreatedAt">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.Stop">
+            <summary>
+            Stop
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.TradeType">
+            <summary>
+            Trade type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.TriggerSuccess">
+            <summary>
+            Trigger was success
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.Timestamp">
+            <summary>
+            Update timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamStopOrderUpdate.Type">
+            <summary>
+            Update type
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamTick">

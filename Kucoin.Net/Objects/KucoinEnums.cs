@@ -166,7 +166,11 @@
         /// <summary>
         /// Market stop order
         /// </summary>
-        MarketStop
+        MarketStop,
+        /// <summary>
+        /// Stop order
+        /// </summary>
+        Stop
     }
 
     /// <summary>
