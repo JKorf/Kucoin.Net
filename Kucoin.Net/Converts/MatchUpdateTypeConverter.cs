@@ -15,6 +15,7 @@ namespace Kucoin.Net.Converts
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Done, "done"),
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Match, "match"),
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Open, "open"),
+            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Done, "filled"),
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Received, "received"),
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Stop, "stop")
         };
