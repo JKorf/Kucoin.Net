@@ -227,7 +227,7 @@ namespace Kucoin.Net
         {
             symbol.ValidateKucoinSymbol();
 
-            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}", 2), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
