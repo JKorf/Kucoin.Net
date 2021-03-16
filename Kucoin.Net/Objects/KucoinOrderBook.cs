@@ -19,7 +19,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("time"), JsonConverter(typeof(TimestampConverter))]        
+        [JsonProperty("time"), JsonConverter(typeof(TimestampNanoSecondsConverter))]        
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The list of asks
