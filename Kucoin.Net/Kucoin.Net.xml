@@ -25,7 +25,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+            <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -33,7 +33,7 @@
             <summary>
             Gets a list of symbols supported by the server
             </summary>
-            <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+            <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
         </member>
@@ -298,6 +298,52 @@
             <param name="ct">Cancellation token</param>
             <returns>The id of the account</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetBasicUserFee(System.Threading.CancellationToken)">
+            <summary>
+            Get the basic user fees
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetBasicUserFeeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the basic user fees
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolTradingFees(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbol">The symbol to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolTradingFeesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbol">The symbol to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolTradingFees(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbols">The symbols to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetSymbolTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbols">The symbols to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
@@ -321,6 +367,48 @@
             <param name="pageSize">The amount of results per page</param>
             <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTransferable(System.String,Kucoin.Net.Objects.KucoinAccountType,System.Threading.CancellationToken)">
+            <summary>
+            Gets a transferable balance of a specified account.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on transferable account balance</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTransferableAsync(System.String,Kucoin.Net.Objects.KucoinAccountType,System.Threading.CancellationToken)">
+            <summary>
+            Gets a transferable balance of a specified account.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="accountType">Filter on type of account</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on transferable account balance</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.InnerTransfer(System.String,Kucoin.Net.Objects.KucoinAccountType,Kucoin.Net.Objects.KucoinAccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfers assets between the accounts of a user.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="from">The type of the account</param>
+            <param name="to">The type of the account</param>
+            <param name="quantity">The quantity to transfer</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The order ID of a funds transfer</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.InnerTransferAsync(System.String,Kucoin.Net.Objects.KucoinAccountType,Kucoin.Net.Objects.KucoinAccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfers assets between the accounts of a user.
+            </summary>
+            <param name="currency">Get the accounts for a specific currency</param>
+            <param name="from">The type of the account</param>
+            <param name="to">The type of the account</param>
+            <param name="quantity">The quantity to transfer</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The order ID of a funds transfer</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetHolds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
@@ -602,6 +690,22 @@
             <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="clientOrderId">The client order id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="clientOrderId">The client order id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns>List of cancelled orders</returns>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelAllOrders(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
@@ -661,6 +765,22 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="clientOrderId">The client order id of the order</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="clientOrderId">The client order id of the order</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order info</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetOrder(System.String,System.Threading.CancellationToken)">
             <summary>
@@ -1339,6 +1459,52 @@
             <param name="ct">Cancellation token</param>
             <returns>The id of the account</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetBasicUserFee(System.Threading.CancellationToken)">
+            <summary>
+            Get the basic user fees
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetBasicUserFeeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the basic user fees
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolTradingFees(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbol">The symbol to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolTradingFeesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbol">The symbol to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolTradingFees(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbols">The symbols to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the trading fees for symbols
+            </summary>
+            <param name="symbols">The symbols to retrieve fees for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Kucoin.Net.KucoinClient.GetAccountLedger(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
@@ -1685,6 +1851,22 @@
             <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="clientOrderId">The client order id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="clientOrderId">The client order id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns>List of cancelled orders</returns>
+        </member>
         <member name="M:Kucoin.Net.KucoinClient.CancelAllOrders(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
@@ -1744,6 +1926,22 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="clientOrderId">The client order id of the order</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific order
+            </summary>
+            <param name="clientOrderId">The client order id of the order</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order info</returns>
         </member>
         <member name="M:Kucoin.Net.KucoinClient.GetOrder(System.String,System.Threading.CancellationToken)">
             <summary>
@@ -2458,6 +2656,21 @@
             <param name="identifierKey">A key to identify the credentials for the API. For example, when set to `binanceKey` the json data should contain a value for the property `binanceKey`. Defaults to 'apiKey'.</param>
             <param name="identifierSecret">A key to identify the credentials for the API. For example, when set to `binanceSecret` the json data should contain a value for the property `binanceSecret`. Defaults to 'apiSecret'.</param>
             <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinCancelledOrder">
+            <summary>
+            Cancelled order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCancelledOrder.CancelledOrderId">
+            <summary>
+            Order id of the cancelled order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinCancelledOrder.ClientOrderId">
+            <summary>
+            Client order id of the cancelled order
+            </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinCancelledOrders">
             <summary>
@@ -3812,6 +4025,26 @@
             The timestamp of the trade
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTradeFee">
+            <summary>
+            Trade fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTradeFee.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTradeFee.TakerFeeRate">
+            <summary>
+            Fee rate for trades as taker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinTradeFee.MakerFeeRate">
+            <summary>
+            Fee rate for trades as maker
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.KucoinTransferableAccount">
             <summary>
             Transferable Account info
@@ -3840,6 +4073,21 @@
         <member name="P:Kucoin.Net.Objects.KucoinTransferableAccount.Transferable">
             <summary>
             The amount of transferable balance
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinUserFee">
+            <summary>
+            User fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinUserFee.TakerFeeRate">
+            <summary>
+            Fee rate for trades as taker
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinUserFee.MakerFeeRate">
+            <summary>
+            Fee rate for trades as maker
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinWithdrawal">

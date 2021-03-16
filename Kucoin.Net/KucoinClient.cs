@@ -439,6 +439,61 @@ namespace Kucoin.Net
         }
 
         /// <summary>
+        /// Get the basic user fees
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public WebCallResult<KucoinUserFee> GetBasicUserFee(CancellationToken ct = default) => GetBasicUserFeeAsync(ct).Result;
+
+        /// <summary>
+        /// Get the basic user fees
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default)
+        {
+            return await Execute<KucoinUserFee>(GetUri("base-fee"), HttpMethod.Get, ct, signed:true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbol">The symbol to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public WebCallResult<KucoinTradeFee[]> GetSymbolTradingFees(string symbol, CancellationToken ct = default) 
+            => GetSymbolTradingFeesAsync(new [] {symbol}, ct).Result;
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbol">The symbol to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default)
+            => await GetSymbolTradingFeesAsync(new [] { symbol }, ct);
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbols">The symbols to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public WebCallResult<KucoinTradeFee[]> GetSymbolTradingFees(IEnumerable<string> symbols,
+            CancellationToken ct = default) => GetSymbolTradingFeesAsync(symbols, ct).Result;
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbols">The symbols to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default)
+        {
+            return await Execute<KucoinTradeFee[]>(GetUri("trade-fees?symbols=" + string.Join(",", symbols)), HttpMethod.Get, ct, signed:true).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Gets a list of account activity
         /// </summary>
         /// <param name="accountId">The account id to get the activities for</param>
@@ -995,6 +1050,26 @@ namespace Kucoin.Net
         }
 
         /// <summary>
+        /// Cancel an order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>List of cancelled orders</returns>
+        public WebCallResult<KucoinCancelledOrder> CancelOrderByClientOrderId(string clientOrderId, CancellationToken ct = default) => CancelOrderByClientOrderIdAsync(clientOrderId, ct).Result;
+
+        /// <summary>
+        /// Cancel an order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>List of cancelled orders</returns>
+        public async Task<WebCallResult<KucoinCancelledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        {
+            clientOrderId.ValidateNotNull(nameof(clientOrderId));
+            return await Execute<KucoinCancelledOrder>(GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Cancel all open orders
         /// </summary>
         /// <param name="symbol">Only cancel orders for this symbol</param>
@@ -1078,6 +1153,26 @@ namespace Kucoin.Net
         public async Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default)
         {
             return await Execute<IEnumerable<KucoinOrder>>(GetUri("limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get info on a specific order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order info</returns>
+        public WebCallResult<KucoinOrder> GetOrderByClientOrderId (string clientOrderId, CancellationToken ct = default) => GetOrderByClientOrderIdAsync(clientOrderId, ct).Result;
+
+        /// <summary>
+        /// Get info on a specific order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order info</returns>
+        public async Task<WebCallResult<KucoinOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        {
+            clientOrderId.ValidateNotNull(nameof(clientOrderId));
+            return await Execute<KucoinOrder>(GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>

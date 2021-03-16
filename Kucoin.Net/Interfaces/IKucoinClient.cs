@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace Kucoin.Net.Interfaces
     /// <summary>
     /// Interface for the Kucoin client
     /// </summary>
-    public interface IKucoinClient: IRestClient
+    public interface IKucoinClient : IRestClient
     {
         /// <summary>
         /// Gets the server time
@@ -28,18 +28,18 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+        /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? symbol = null, CancellationToken ct = default);
+        WebCallResult<IEnumerable<KucoinSymbol>> GetSymbols(string? market = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of symbols supported by the server
         /// </summary>
-        /// <param name="symbol">Only get symbols for a specific symbol, for example 'BTC'</param>
+        /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets ticker info of a symbol
@@ -303,6 +303,53 @@ namespace Kucoin.Net.Interfaces
         Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(KucoinAccountType type, string currency, CancellationToken ct = default);
 
         /// <summary>
+        /// Get the basic user fees
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<KucoinUserFee> GetBasicUserFee(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the basic user fees
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbol">The symbol to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<KucoinTradeFee[]> GetSymbolTradingFees(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbol">The symbol to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbols">The symbols to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<KucoinTradeFee[]> GetSymbolTradingFees(IEnumerable<string> symbols,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the trading fees for symbols
+        /// </summary>
+        /// <param name="symbols">The symbols to retrieve fees for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of account activity
         /// </summary>
         /// <param name="accountId">The account id to get the activities for</param>
@@ -325,6 +372,48 @@ namespace Kucoin.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
         Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a transferable balance of a specified account.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="accountType">Filter on type of account</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on transferable account balance</returns>
+        WebCallResult<KucoinTransferableAccount> GetTransferable(string currency, KucoinAccountType accountType, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a transferable balance of a specified account.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="accountType">Filter on type of account</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on transferable account balance</returns>
+        Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string currency, KucoinAccountType accountType, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfers assets between the accounts of a user.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="from">The type of the account</param>
+        /// <param name="to">The type of the account</param>
+        /// <param name="quantity">The quantity to transfer</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The order ID of a funds transfer</returns>
+        WebCallResult<KucoinInnerTransfer> InnerTransfer(string currency, KucoinAccountType from, KucoinAccountType to, decimal quantity, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfers assets between the accounts of a user.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="from">The type of the account</param>
+        /// <param name="to">The type of the account</param>
+        /// <param name="quantity">The quantity to transfer</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The order ID of a funds transfer</returns>
+        Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string currency, KucoinAccountType from, KucoinAccountType to, decimal quantity, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets hold information
@@ -643,6 +732,22 @@ namespace Kucoin.Net.Interfaces
         Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel an order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>List of cancelled orders</returns>
+        WebCallResult<KucoinCancelledOrder> CancelOrderByClientOrderId(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel an order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>List of cancelled orders</returns>
+        Task<WebCallResult<KucoinCancelledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel all open orders
         /// </summary>
         /// <param name="symbol">Only cancel orders for this symbol</param>
@@ -701,6 +806,22 @@ namespace Kucoin.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
         Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get info on a specific order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order info</returns>
+        WebCallResult<KucoinOrder> GetOrderByClientOrderId (string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get info on a specific order
+        /// </summary>
+        /// <param name="clientOrderId">The client order id of the order</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order info</returns>
+        Task<WebCallResult<KucoinOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific order
@@ -787,6 +908,5 @@ namespace Kucoin.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
         Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentFillsAsync(CancellationToken ct = default);
-
     }
 }
