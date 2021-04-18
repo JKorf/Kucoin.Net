@@ -359,6 +359,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
+        [Obsolete("Prefers GetAccountLedgers")]
         WebCallResult<KucoinPaginated<KucoinAccountActivity>> GetAccountLedger(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
@@ -371,6 +372,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
+        [Obsolete("Prefers GetAccountLedgersAsync")]
         Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
