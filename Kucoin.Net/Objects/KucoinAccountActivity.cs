@@ -30,13 +30,17 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The type of activity
         /// </summary>
-        public string BizType { get; set; } = "";
-
+        [JsonConverter(typeof(BizTypeConverter))]
+        public KucoinBizType BizType { get; set; } = default!;
+        /// <summary>
+        /// The unique key for this activity 
+        /// </summary>
+        public string Id { get; set; } = "";
         /// <summary>
         /// Additional info for this activity
         /// </summary>
+        [JsonConverter(typeof(AccountActivityContextConverter))]
         public KucoinAccountActivityContext Context { get; set; } = default!;
-
         /// <summary>
         /// The currency of the activity
         /// </summary>
@@ -69,5 +73,15 @@ namespace Kucoin.Net.Objects
         /// The transaction id (for withdrawal/deposit)
         /// </summary>
         public string TransactionId { get; set; } = "";
+        /// <summary>
+        /// The txId (for orders)
+        /// </summary>
+        public string TxId { get; set; } = "";
+        /// <summary>
+        /// The Description (for pool-x staking rewards)
+        /// </summary>
+        public string Description { get; set; } = "";
     }
+
+    //[2] Deserialize JsonSerializationException: Error converting value "{"orderId":"s4369060","description":"pool-x staking rewards(2021/04/13)"}" to type 'Kucoin.Net.Objects.KucoinAccountActivityContext'. Path 'data.items[0].context', line 1, position 376.
 }
