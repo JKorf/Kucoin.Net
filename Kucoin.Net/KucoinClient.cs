@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Interfaces;
+using System.Linq;
 
 namespace Kucoin.Net
 {
@@ -503,6 +504,7 @@ namespace Kucoin.Net
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
+        [Obsolete("Prefers GetAccountLedgers")]
         public WebCallResult<KucoinPaginated<KucoinAccountActivity>> GetAccountLedger(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default) => 
             GetAccountLedgerAsync(accountId, startTime, endTime, currentPage, pageSize, ct).Result;
 
@@ -516,6 +518,7 @@ namespace Kucoin.Net
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
+        [Obsolete("Prefers GetAccountLedgersAsync")]
         public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             accountId.ValidateNotNull(nameof(accountId));
@@ -528,15 +531,72 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("pageSize", pageSize);
             return await Execute<KucoinPaginated<KucoinAccountActivity>>(GetUri($"accounts/{accountId}/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
-        
-		/// <summary>
-		/// Gets a transferable balance of a specified account.
-		/// </summary>
-		/// <param name="currency">Get the accounts for a specific currency</param>
-		/// <param name="accountType">Filter on type of account</param>
-		/// <param name="ct">Cancellation token</param>
-		/// <returns>Info on transferable account balance</returns>
-		public WebCallResult<KucoinTransferableAccount> GetTransferable(string currency, KucoinAccountType accountType, CancellationToken ct = default) =>
+
+        /// <summary>
+        /// Gets a list of account activity
+        /// </summary>
+        /// <param name="currency">The currency to retrieve activity or null</param>
+        /// <param name="direction">Side</param>
+        /// <param name="bizType">Business type</param> 
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="currentPage">The page to retrieve</param>
+        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on account activity</returns>
+        public WebCallResult<KucoinPaginated<KucoinAccountActivity>> GetAccountLedgers(string? currency = null, KucoinAccountDirection? direction = null, KucoinBizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default) =>
+            GetAccountLedgersAsync(currency, direction, bizType, startTime, endTime, currentPage, pageSize, ct).Result;
+
+        /// <summary>
+        /// Gets a list of account activity
+        /// </summary>
+        /// <param name="currency">The currency to retrieve activity or null</param>
+        /// <param name="direction">Side</param>
+        /// <param name="bizType">Business type</param> 
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="currentPage">The page to retrieve</param>
+        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on account activity</returns>
+        public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? currency = null, KucoinAccountDirection? direction = null, KucoinBizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
+
+            string bizTypeString = "";
+            string directionString = "";
+
+            if (bizType.HasValue)
+            {
+                bizTypeString = JsonConvert.SerializeObject(bizType, new BizTypeConverter(true));
+                bizTypeString.ValidateNullOrNotEmpty(nameof(bizType));
+            }
+
+            if (direction.HasValue)
+            {
+                directionString = JsonConvert.SerializeObject(direction, new AccountDirectionConverter(false)).ToLowerInvariant();
+            }
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", currency);
+            parameters.AddOptionalParameter("direction", direction.HasValue ? directionString : null);
+            parameters.AddOptionalParameter("bizType", bizType.HasValue ? bizTypeString : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);            
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinAccountActivity>>(GetUri($"accounts/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a transferable balance of a specified account.
+        /// </summary>
+        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="accountType">Filter on type of account</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on transferable account balance</returns>
+        public WebCallResult<KucoinTransferableAccount> GetTransferable(string currency, KucoinAccountType accountType, CancellationToken ct = default) =>
 			GetTransferableAsync(currency, accountType, ct).Result;
 
 		/// <summary>
@@ -1349,7 +1409,13 @@ namespace Kucoin.Net
         #endregion
 
         #region common interface
-
+        
+        /// <summary>
+        /// Return the Kucoin trade symbol name from base and quote asset 
+        /// </summary>
+        /// <param name="baseAsset"></param>
+        /// <param name="quoteAsset"></param>
+        /// <returns></returns>
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + "-" + quoteAsset).ToUpperInvariant();
 
         async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()

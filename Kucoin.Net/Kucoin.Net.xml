@@ -368,6 +368,34 @@
             <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedgers(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountDirection},System.Nullable{Kucoin.Net.Objects.KucoinBizType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="currency">The currency to retrieve activity or null</param>
+            <param name="direction">Side</param>
+            <param name="bizType">Business type</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountDirection},System.Nullable{Kucoin.Net.Objects.KucoinBizType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="currency">The currency to retrieve activity or null</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="direction">Side</param>
+            <param name="bizType">Business type</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on account activity</returns>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetTransferable(System.String,Kucoin.Net.Objects.KucoinAccountType,System.Threading.CancellationToken)">
             <summary>
             Gets a transferable balance of a specified account.
@@ -1529,6 +1557,34 @@
             <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedgers(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountDirection},System.Nullable{Kucoin.Net.Objects.KucoinBizType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="currency">The currency to retrieve activity or null</param>
+            <param name="direction">Side</param>
+            <param name="bizType">Business type</param> 
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinAccountDirection},System.Nullable{Kucoin.Net.Objects.KucoinBizType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of account activity
+            </summary>
+            <param name="currency">The currency to retrieve activity or null</param>
+            <param name="direction">Side</param>
+            <param name="bizType">Business type</param> 
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on account activity</returns>
+        </member>
         <member name="M:Kucoin.Net.KucoinClient.GetTransferable(System.String,Kucoin.Net.Objects.KucoinAccountType,System.Threading.CancellationToken)">
             <summary>
             Gets a transferable balance of a specified account.
@@ -2032,6 +2088,14 @@
         <member name="M:Kucoin.Net.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetSymbolName(System.String,System.String)">
+            <summary>
+            Return the Kucoin trade symbol name from base and quote asset 
+            </summary>
+            <param name="baseAsset"></param>
+            <param name="quoteAsset"></param>
+            <returns></returns>
+        </member>
         <member name="T:Kucoin.Net.KucoinHelpers">
             <summary>
             Helpers for Kucoin
@@ -2510,6 +2574,11 @@
             The type of activity
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Id">
+            <summary>
+            The unique key for this activity 
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.KucoinAccountActivity.Context">
             <summary>
             Additional info for this activity
@@ -2548,6 +2617,16 @@
         <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.TransactionId">
             <summary>
             The transaction id (for withdrawal/deposit)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.TxId">
+            <summary>
+            The txId (for orders)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinAccountActivityContext.Description">
+            <summary>
+            The Description (for pool-x staking rewards)
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinAccountSingle">
@@ -3252,6 +3331,211 @@
         <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Activate">
             <summary>
             Activate
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinBizType">
+            <summary>
+            BizType Description
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.AssetsTransferred">
+            <summary>
+            Assets Transferred in After V1 to V2 Upgrading
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Deposit">
+            <summary>
+            Deposit
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Withdrawal">
+            <summary>
+            Withdrawal
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Transfer">
+            <summary>
+            Transfer
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Trade">
+            <summary>
+            Trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Exchange">
+            <summary>
+            Exchange
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.VoteForCoin">
+            <summary>
+            Vote for Coin
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.KuCoinBonus">
+            <summary>
+            KuCoin Bonus
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.ReferralBonus">
+            <summary>
+            Referal Bonus
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Rewards">
+            <summary>
+            Activities Rewards
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Distribution">
+            <summary>
+            Distribution (such as get GAS by holding NEO)
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.AirdropFork">
+            <summary>
+            Airdrop/Fork
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.OtherRewards">
+            <summary>
+            Other rewards, except Vote, Airdrop, Fork
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.FeeRebate">
+            <summary>
+            Fee Rebate
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.BuyCrypto">
+            <summary>
+            Use credit card to buy crypto
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.SellCrypto">
+            <summary>
+            Use credit card to sell crypto
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.PublicOfferingPurchase">
+            <summary>
+            Public Offering Purchase for Spotlight
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.SendRedEnvelope">
+            <summary>
+            Send red envelope
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.OpenRedEnvelope">
+            <summary>
+            Open red envelope
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Staking">
+            <summary>
+            Staking
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.LockDropVesting">
+            <summary>
+            LockDrop Vesting
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.StakingProfits">
+            <summary>
+            Staking Profits
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Redemption">
+            <summary>
+            Redemption
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.RefundedFees">
+            <summary>
+            Refunded Fees
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.KCSPayFees">
+            <summary>
+            KCS Pay Fees
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.MarginTrade">
+            <summary>
+            Margin Trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Loans">
+            <summary>
+            Loans
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Borrowings">
+            <summary>
+            Borrowings
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.DebtRepayment">
+            <summary>
+            Debt Repayment
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.LoansRepaid">
+            <summary>
+            Loans Repaid
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Lendings">
+            <summary>
+            Lendings
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.PoolTransactions">
+            <summary>
+            Pool-X transactions
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.InstantExchange">
+            <summary>
+            Instant Exchange
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.SubAccountTransfer">
+            <summary>
+            Sub-account transfer
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.LiquidationFees">
+            <summary>
+            Liquidation Fees
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.SoftStakingProfits">
+            <summary>
+            Soft Staking Profits
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.VotingEarnings">
+            <summary>
+            Voting Earnings on Pool-X
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.RedemptionOfVoting">
+            <summary>
+            Redemption of Voting on Pool-X
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.Voting">
+            <summary>
+            Voting on Pool-X
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBizType.ConvertToKCS">
+            <summary>
+            Convert to KCS
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinFill">

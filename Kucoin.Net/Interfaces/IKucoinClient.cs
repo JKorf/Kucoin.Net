@@ -359,6 +359,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
+        [Obsolete("Prefers GetAccountLedgers")]
         WebCallResult<KucoinPaginated<KucoinAccountActivity>> GetAccountLedger(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
@@ -371,7 +372,36 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
+        [Obsolete("Prefers GetAccountLedgersAsync")]
         Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a list of account activity
+        /// </summary>
+        /// <param name="currency">The currency to retrieve activity or null</param>
+        /// <param name="direction">Side</param>
+        /// <param name="bizType">Business type</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="currentPage">The page to retrieve</param>
+        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on account activity</returns>
+        WebCallResult<KucoinPaginated<KucoinAccountActivity>> GetAccountLedgers(string? currency = null, KucoinAccountDirection? direction = null, KucoinBizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a list of account activity
+        /// </summary>
+        /// <param name="currency">The currency to retrieve activity or null</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="direction">Side</param>
+        /// <param name="bizType">Business type</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="currentPage">The page to retrieve</param>
+        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on account activity</returns>
+        Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? currency = null, KucoinAccountDirection? direction = null, KucoinBizType? bizType = null, DateTime ? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a transferable balance of a specified account.
