@@ -720,7 +720,7 @@ namespace Kucoin.Net
                 if (id == null)
                     return false;
 
-                if ((string)id != kRequest.Id)
+                if ((string)id != request.Id)
                     return false;
 
                 var result = Deserialize<KucoinSubscribeResponse>(message, false);
