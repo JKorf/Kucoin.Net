@@ -2407,7 +2407,7 @@
         <member name="M:Kucoin.Net.KucoinSocketClient.Subscribe``1(System.String,System.Object,System.String,System.Boolean,System.Action{``0})">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.GetWebsocket(System.String,System.Boolean)">
+        <member name="M:Kucoin.Net.KucoinSocketClient.GetSocketConnection(System.String,System.Boolean)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">

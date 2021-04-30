@@ -520,14 +520,14 @@ namespace Kucoin.Net
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> Subscribe<T>(string url, object? request, string? identifier, bool authenticated, Action<T> dataHandler)
         {
-            SocketConnection? socket;
-            SocketSubscription handler;
+            SocketConnection? socketConnection;
+            SocketSubscription subscription;
             var released = false;
             await semaphoreSlim.WaitAsync().ConfigureAwait(false);
             try
             {
-                socket = GetWebsocket(url, authenticated);
-                if (socket == null)
+                socketConnection = GetSocketConnection(url, authenticated);
+                if (socketConnection == null)
                 {
                     KucoinToken token;
                     var clientOptions = KucoinClient.DefaultOptions.Copy();
@@ -548,12 +548,12 @@ namespace Kucoin.Net
 
                     // Create new socket
                     var s = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
-                    socket = new SocketConnection(this, s);
+                    socketConnection = new SocketConnection(this, s);
                     foreach (var kvp in genericHandlers)
-                        socket.AddHandler(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
+                        socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
                 }
 
-                handler = AddHandler(request, identifier, true, socket, dataHandler);
+                subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler);
                 if (SocketCombineTarget == 1)
                 {
                     // Can release early when only a single sub per connection
@@ -561,7 +561,7 @@ namespace Kucoin.Net
                     released = true;
                 }
 
-                var connectResult = await ConnectIfNeeded(socket, authenticated).ConfigureAwait(false);
+                var connectResult = await ConnectIfNeeded(socketConnection, authenticated).ConfigureAwait(false);
                 if (!connectResult)
                     return new CallResult<UpdateSubscription>(null, connectResult.Error);
             }
@@ -576,31 +576,31 @@ namespace Kucoin.Net
 
             if (request != null)
             {
-                var subResult = await SubscribeAndWait(socket, request, handler).ConfigureAwait(false);
+                var subResult = await SubscribeAndWait(socketConnection, request, subscription).ConfigureAwait(false);
                 if (!subResult)
                 {
-                    await socket.Close(handler).ConfigureAwait(false);
+                    await socketConnection.Close(subscription).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, subResult.Error);
                 }
 
             }
             else
             {
-                handler.Confirmed = true;
+                subscription.Confirmed = true;
             }
 
-            socket.ShouldReconnect = true;
-            return new CallResult<UpdateSubscription>(new UpdateSubscription(socket, handler), null);
+            socketConnection.ShouldReconnect = true;
+            return new CallResult<UpdateSubscription>(new UpdateSubscription(socketConnection, subscription), null);
         }
 
         /// <inheritdoc />
-        protected override SocketConnection GetWebsocket(string address, bool authenticated)
+        protected override SocketConnection GetSocketConnection(string address, bool authenticated)
         {
-            var socketResult = sockets.Where(s => (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.HandlerCount).FirstOrDefault();
+            var socketResult = sockets.Where(s => (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.HandlerCount < SocketCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.HandlerCount >= SocketCombineTarget)))
+                if (result.SubscriptionCount < SocketCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= SocketCombineTarget)))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
