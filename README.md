@@ -115,6 +115,9 @@ After installing it's time to actually use it. To get started you have to add th
 Kucoin.Net provides two clients to interact with the Kucoin API. The `KucoinClient` provides all rest API calls. The  `KucoinSocketClient`  provides functions to interact with the websocket provided by the Kucoin API. Both clients are disposable and as such can be used in a `using` statement.
 
 ## Release notes
+* Version 2.3.8 - 04 mei 2021
+    * Added some margin socket subscriptions
+
 * Version 2.3.7 - 28 apr 2021
     * Added new GetAccountLedgers
     * Changed GetAccountLedger to [Obsolete]
