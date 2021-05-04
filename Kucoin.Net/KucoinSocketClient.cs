@@ -341,6 +341,137 @@ namespace Kucoin.Net
         }
 
         /// <summary>
+        /// Subscribe to index price updates
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public CallResult<UpdateSubscription> SubscribeToIndexPriceUpdates(string symbol, Action<KucoinStreamIndicatorPrice> onData) => SubscribeToIndexPriceUpdates(new string[] { symbol }, onData);
+
+        /// <summary>
+        /// Subscribe to index price updates
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<KucoinStreamIndicatorPrice> onData) => SubscribeToIndexPriceUpdatesAsync(new string[] { symbol }, onData);
+
+        /// <summary>
+        /// Subscribe to index price updates
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public CallResult<UpdateSubscription> SubscribeToIndexPriceUpdates(IEnumerable<string> symbols, Action<KucoinStreamIndicatorPrice> onData) => SubscribeToIndexPriceUpdatesAsync(symbols, onData).Result;
+
+        /// <summary>
+        /// Subscribe to index price updates
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamIndicatorPrice> onData)
+        {
+            foreach (var symbol in symbols)
+                symbol.ValidateKucoinSymbol();
+
+            var innerHandler = new Action<JToken>(tokenData => {
+                InvokeHandler(GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
+            });
+
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/index:" + string.Join(",", symbols), false);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Subscribe to mark price updates
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public CallResult<UpdateSubscription> SubscribeToMarkPriceUpdates(string symbol, Action<KucoinStreamIndicatorPrice> onData) => SubscribeToMarkPriceUpdates(new string[] { symbol }, onData);
+
+        /// <summary>
+        /// Subscribe to mark price updates
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<KucoinStreamIndicatorPrice> onData) => SubscribeToMarkPriceUpdatesAsync(new string[] { symbol }, onData);
+
+        /// <summary>
+        /// Subscribe to mark price updates
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public CallResult<UpdateSubscription> SubscribeToMarkPriceUpdates(IEnumerable<string> symbols, Action<KucoinStreamIndicatorPrice> onData) => SubscribeToMarkPriceUpdatesAsync(symbols, onData).Result;
+
+        /// <summary>
+        /// Subscribe to mark price updates
+        /// </summary>
+        /// <param name="symbols">Currency to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamIndicatorPrice> onData)
+        {
+            foreach (var symbol in symbols)
+                symbol.ValidateKucoinSymbol();
+
+            var innerHandler = new Action<JToken>(tokenData => {
+                InvokeHandler(GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
+            });
+
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/markPrice:" + string.Join(",", symbols), false);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Subscribe to funding book updates
+        /// </summary>
+        /// <param name="currency">Currency to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public CallResult<UpdateSubscription> SubscribeToFundingBookUpdates(string currency, Action<KucoinStreamFundingBookUpdate> onData) => SubscribeToFundingBookUpdates(new string[] { currency }, onData);
+
+        /// <summary>
+        /// Subscribe to funding book updates
+        /// </summary>
+        /// <param name="currency">Currencies to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string currency, Action<KucoinStreamFundingBookUpdate> onData) => SubscribeToFundingBookUpdatesAsync(new string[] { currency }, onData);
+
+        /// <summary>
+        /// Subscribe to funding book updates
+        /// </summary>
+        /// <param name="currencies">Symbols to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public CallResult<UpdateSubscription> SubscribeToFundingBookUpdates(IEnumerable<string> currencies, Action<KucoinStreamFundingBookUpdate> onData) => SubscribeToFundingBookUpdatesAsync(currencies, onData).Result;
+
+        /// <summary>
+        /// Subscribe to funding book updates
+        /// </summary>
+        /// <param name="currencies">Currencies to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(IEnumerable<string> currencies, Action<KucoinStreamFundingBookUpdate> onData)
+        {
+            foreach (var currency in currencies)
+                currency.ValidateNotNull(currency);
+
+            var innerHandler = new Action<JToken>(tokenData => {
+                InvokeHandler(GetData<KucoinStreamFundingBookUpdate>(tokenData), onData);
+            });
+
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/margin/fundingBook:" + string.Join(",", currencies), false);
+            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
+        }
+
+
+
+        /// <summary>
         /// <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
         /// <para><see cref="KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
         /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
@@ -667,6 +798,8 @@ namespace Kucoin.Net
             || (kRequest.Topic.StartsWith("/spotMarket/level3:") && ((string)message["topic"]).StartsWith("/spotMarket/level3"))
             || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth5"))
             || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth20"))
+            || (kRequest.Topic.StartsWith("/indicator/index:") && ((string)message["topic"]).StartsWith("/indicator/index"))
+            || (kRequest.Topic.StartsWith("/indicator/markPrice:") && ((string)message["topic"]).StartsWith("/indicator/markPrice"))
             || (kRequest.Topic.StartsWith("/market/snapshot:") && ((string)message["topic"]).StartsWith("/market/snapshot")))
             {
                 var marketSplit = topic.Split(':');

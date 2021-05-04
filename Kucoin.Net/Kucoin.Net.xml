@@ -2308,6 +2308,102 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToIndexPriceUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to index price updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to index price updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToIndexPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to index price updates
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToIndexPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to index price updates
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMarkPriceUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to mark price updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to mark price updates
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMarkPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to mark price updates
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMarkPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice})">
+            <summary>
+            Subscribe to mark price updates
+            </summary>
+            <param name="symbols">Currency to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToFundingBookUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate})">
+            <summary>
+            Subscribe to funding book updates
+            </summary>
+            <param name="currency">Currency to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate})">
+            <summary>
+            Subscribe to funding book updates
+            </summary>
+            <param name="currency">Currencies to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToFundingBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate})">
+            <summary>
+            Subscribe to funding book updates
+            </summary>
+            <param name="currencies">Symbols to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate})">
+            <summary>
+            Subscribe to funding book updates
+            </summary>
+            <param name="currencies">Currencies to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeToMatchEngineUpdates(System.String,System.Action{Kucoin.Net.Objects.Sockets.KucoinStreamMatchEngineUpdate})">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Sockets.KucoinStreamOrderBaseUpdate" /></para>
@@ -4567,6 +4663,76 @@
         <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamCandle.Timestamp">
             <summary>
             The timestamp of the data
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate">
+            <summary>
+            Stream funding book update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.Currency">
+            <summary>
+            The currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.Sequence">
+            <summary>
+            Sequence number
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.DailyInterestRate">
+            <summary>
+            The daily interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.AnnualInterestRate">
+            <summary>
+            The anual interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.Term">
+            <summary>
+            Term (days)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.Size">
+            <summary>
+            Current total size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.Side">
+            <summary>
+            Lend or borrow
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamFundingBookUpdate.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice">
+            <summary>
+            Index price update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice.Granularity">
+            <summary>
+            Granularity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Sockets.KucoinStreamIndicatorPrice.Value">
+            <summary>
+            Value
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Sockets.KucoinStreamMatch">
