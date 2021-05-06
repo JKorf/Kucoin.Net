@@ -472,7 +472,7 @@ namespace Kucoin.Net
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         public async Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default)
-            => await GetSymbolTradingFeesAsync(new [] { symbol }, ct);
+            => await GetSymbolTradingFeesAsync(new [] { symbol }, ct).ConfigureAwait(false);
 
         /// <summary>
         /// Get the trading fees for symbols
@@ -1420,19 +1420,19 @@ namespace Kucoin.Net
 
         async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
         {
-            var symbols = await GetSymbolsAsync();
+            var symbols = await GetSymbolsAsync().ConfigureAwait(false);
             return WebCallResult<IEnumerable<ICommonSymbol>>.CreateFrom(symbols);
         }
 
         async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
         {
-            var result = await GetTickerAsync(symbol);
+            var result = await GetTickerAsync(symbol).ConfigureAwait(false);
             return new WebCallResult<ICommonTicker>(result.ResponseStatusCode, result.ResponseHeaders, (ICommonTicker?)result.Data, result.Error);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
         {
-            var symbols = await GetTickersAsync();
+            var symbols = await GetTickersAsync().ConfigureAwait(false);
             return new WebCallResult<IEnumerable<ICommonTicker>>(symbols.ResponseStatusCode, symbols.ResponseHeaders, symbols.Data?.Data, symbols.Error);
         }
 
@@ -1442,19 +1442,19 @@ namespace Kucoin.Net
                 return WebCallResult<IEnumerable<ICommonKline>>.CreateErrorResult(new ArgumentError(
                     $"Kucoin doesn't support the {nameof(limit)} parameter for the method {nameof(IExchangeClient.GetKlinesAsync)}"));
 
-            var symbols = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), startTime, endTime);
+            var symbols = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), startTime, endTime).ConfigureAwait(false);
             return WebCallResult<IEnumerable<ICommonKline>>.CreateFrom(symbols);
         }
 
         async Task<WebCallResult<ICommonOrderBook>> IExchangeClient.GetOrderBookAsync(string symbol)
         {
-            var book = await GetOrderBookAsync(symbol);
+            var book = await GetOrderBookAsync(symbol).ConfigureAwait(false);
             return WebCallResult<ICommonOrderBook>.CreateFrom(book);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonRecentTrade>>> IExchangeClient.GetRecentTradesAsync(string symbol)
         {
-            var book = await GetSymbolTradesAsync(symbol);
+            var book = await GetSymbolTradesAsync(symbol).ConfigureAwait(false);
             return WebCallResult<IEnumerable<ICommonRecentTrade>>.CreateFrom(book);
         }
 
@@ -1463,43 +1463,43 @@ namespace Kucoin.Net
             var order = await PlaceOrderAsync(symbol, 
                 side == IExchangeClient.OrderSide.Sell? KucoinOrderSide.Sell: KucoinOrderSide.Buy, 
                 type == IExchangeClient.OrderType.Limit ? KucoinNewOrderType.Limit: KucoinNewOrderType.Market,
-                price, quantity);
+                price, quantity).ConfigureAwait(false);
             return WebCallResult<ICommonOrderId>.CreateFrom(order);
         }
 
         async Task<WebCallResult<ICommonOrder>> IExchangeClient.GetOrderAsync(string orderId, string? symbol)
         {
-            var order = await GetOrderAsync(orderId);
+            var order = await GetOrderAsync(orderId).ConfigureAwait(false);
             return WebCallResult<ICommonOrder>.CreateFrom(order);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
         {
-            var trades = await GetFillsAsync(orderId: orderId);
+            var trades = await GetFillsAsync(orderId: orderId).ConfigureAwait(false);
             return new WebCallResult<IEnumerable<ICommonTrade>>(trades.ResponseStatusCode, trades.ResponseHeaders, trades.Data?.Items, trades.Error);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetOpenOrdersAsync(string? symbol)
         {
-            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Active);
+            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Active).ConfigureAwait(false);
             return new WebCallResult<IEnumerable<ICommonOrder>>(orders.ResponseStatusCode, orders.ResponseHeaders, orders.Data?.Items, orders.Error);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetClosedOrdersAsync(string? symbol)
         {
-            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Done);
+            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Done).ConfigureAwait(false);
             return new WebCallResult<IEnumerable<ICommonOrder>>(orders.ResponseStatusCode, orders.ResponseHeaders, orders.Data?.Items, orders.Error);
         }
 
         async Task<WebCallResult<ICommonOrderId>> IExchangeClient.CancelOrderAsync(string orderId, string? symbol)
         {
-            var result = await CancelOrderAsync(orderId);
+            var result = await CancelOrderAsync(orderId).ConfigureAwait(false);
             return WebCallResult<ICommonOrderId>.CreateFrom(result);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonBalance>>> IExchangeClient.GetBalancesAsync(string? accountId = null)
         {
-            var result = await GetAccountsAsync();
+            var result = await GetAccountsAsync().ConfigureAwait(false);
             return WebCallResult<IEnumerable<ICommonBalance>>.CreateFrom(result);
         }
 

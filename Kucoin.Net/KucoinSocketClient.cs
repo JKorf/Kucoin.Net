@@ -745,7 +745,7 @@ namespace Kucoin.Net
             return success;
         }
 
-        private void InvokeHandler<T>(T data, Action<T> handler)
+        private static void InvokeHandler<T>(T data, Action<T> handler)
         {
             if (Equals(data, default(T)!))
                 return;
