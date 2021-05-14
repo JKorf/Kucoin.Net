@@ -207,7 +207,7 @@ namespace Kucoin.Net
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
-            return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2?symbol={symbol}", 2), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2?symbol={symbol}", 3), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Kucoin.Net
         {
             symbol.ValidateKucoinSymbol();
 
-            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}", 2), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}", 3), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
