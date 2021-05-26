@@ -55,7 +55,7 @@ namespace Kucoin.Net.UnitTests
             KucoinStreamTick result = null;
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test);
+            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test.Data);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
             var subResult = subTask.Result;
 
@@ -84,7 +84,7 @@ namespace Kucoin.Net.UnitTests
             KucoinStreamSnapshot result = null;
 
             // act
-            var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test);
+            var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test.Data);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
             var subResult = subTask.Result;
 

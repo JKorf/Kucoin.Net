@@ -14,6 +14,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 
@@ -104,7 +105,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         public static KucoinSocketClient CreateSocketClient(IWebsocket socket, KucoinSocketClientOptions options = null)
         {
             KucoinSocketClient client;
-            client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogVerbosity = LogVerbosity.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
+            client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
             Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
             return client;
@@ -113,7 +114,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         public static KucoinSocketClient CreateAuthenticatedSocketClient(IWebsocket socket, KucoinSocketClientOptions options = null)
         {
             KucoinSocketClient client;
-            client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogVerbosity = LogVerbosity.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
+            client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
             Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
             return client;
@@ -122,7 +123,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         public static IKucoinClient CreateClient(KucoinClientOptions options = null)
         {
             IKucoinClient client;
-            client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogVerbosity = LogVerbosity.Debug });
+            client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogLevel = LogLevel.Debug });
             client.RequestFactory = Mock.Of<IRequestFactory>();
             return client;
         }

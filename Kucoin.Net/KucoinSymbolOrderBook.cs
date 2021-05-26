@@ -56,9 +56,9 @@ namespace Kucoin.Net
             return new CallResult<bool>(true, null);
         }
 
-        private void HandleUpdate(KucoinStreamOrderBook data)
+        private void HandleUpdate(DataEvent<KucoinStreamOrderBook> data)
         {
-            UpdateOrderBook(data.SequenceStart, data.SequenceEnd, data.Changes.Bids, data.Changes.Asks);
+            UpdateOrderBook(data.Data.SequenceStart, data.Data.SequenceEnd, data.Data.Changes.Bids, data.Data.Changes.Asks);
         }
 
         /// <inheritdoc />

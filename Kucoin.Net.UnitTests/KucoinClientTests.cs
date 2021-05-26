@@ -8,6 +8,7 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
 using CryptoExchange.Net;
+using System.Threading.Tasks;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -63,7 +64,7 @@ namespace Kucoin.Net.UnitTests
         }
 
         [TestCase()]
-        public void ReceivingError_Should_ReturnErrorAndNotSuccess()
+        public async Task ReceivingError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
             var client = TestHelpers.CreateClient();
@@ -77,7 +78,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj));
 
             // act
-            var result = client.GetCurrencies();
+            var result = await client.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -87,14 +88,14 @@ namespace Kucoin.Net.UnitTests
         }
 
         [TestCase()]
-        public void ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
+        public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
             var client = TestHelpers.CreateClient();
             TestHelpers.SetResponse((RestClient)client, "", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = client.GetCurrencies();
+            var result = await client.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -102,7 +103,7 @@ namespace Kucoin.Net.UnitTests
         }
 
         [TestCase()]
-        public void ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
+        public async Task ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
             var client = TestHelpers.CreateClient();
@@ -116,7 +117,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = client.GetCurrencies();
+            var result = await client.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
