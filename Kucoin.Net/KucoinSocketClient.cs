@@ -643,7 +643,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/advancedOrders", true);
-            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
+            return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
         #endregion
         #region private
@@ -671,7 +671,7 @@ namespace Kucoin.Net
 
                     using (var restClient = new KucoinClient(clientOptions))
                     {
-                        var tokenResult = restClient.GetWebsocketToken(authenticated).Result;
+                        var tokenResult = await restClient.GetWebsocketToken(authenticated).ConfigureAwait(false);
                         if (!tokenResult)
                             return new CallResult<UpdateSubscription>(null, tokenResult.Error);
                         token = tokenResult.Data;
