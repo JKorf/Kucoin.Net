@@ -3,13 +3,14 @@ using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinOrder
+    public class KucoinOrder: ICommonOrder
     {
         /// <summary>
         /// The id of the order
@@ -37,20 +38,20 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The price of the order
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         /// <summary>
         /// The quantity of the order
         /// </summary>
         [JsonProperty("size")]
-        public decimal Quantity { get; set; }
+        public decimal? Quantity { get; set; }
         /// <summary>
         /// The funds of the order
         /// </summary>
-        public decimal Funds { get; set; }
+        public decimal? Funds { get; set; }
         /// <summary>
         /// The funds of the deal
         /// </summary>
-        public decimal DealFunds { get; set; }
+        public decimal? DealFunds { get; set; }
         /// <summary>
         /// The quantity of the deal
         /// </summary>
@@ -68,7 +69,7 @@ namespace Kucoin.Net.Objects
         /// The self trade prevention type
         /// </summary>
         [JsonProperty("stp"), JsonConverter(typeof(SelfTradePreventionConverter))]
-        public KucoinSelfTradePrevention SelfTradePrevention { get; set; }
+        public KucoinSelfTradePrevention? SelfTradePrevention { get; set; }
         /// <summary>
         /// The stop condition
         /// </summary>
@@ -103,7 +104,7 @@ namespace Kucoin.Net.Objects
         /// The max visible size of the iceberg
         /// </summary>
         [JsonProperty("visibleSize")]
-        public decimal VisibleIcebergSize { get; set; }
+        public decimal? VisibleIcebergSize { get; set; }
         /// <summary>
         /// Time after which the order is cancelled
         /// </summary>
@@ -142,5 +143,21 @@ namespace Kucoin.Net.Objects
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         public DateTime CreatedAt { get; set; }
+
+        string ICommonOrderId.CommonId => Id;
+        string ICommonOrder.CommonSymbol => Symbol;
+        decimal ICommonOrder.CommonPrice => Price ?? 0;
+        decimal ICommonOrder.CommonQuantity => Quantity ?? 0;
+        string ICommonOrder.CommonStatus => IsActive == true ? "Open" : "-"; // TODO
+        bool ICommonOrder.IsActive => IsActive ?? false;
+
+        IExchangeClient.OrderSide ICommonOrder.CommonSide => Side == KucoinOrderSide.Sell
+            ? IExchangeClient.OrderSide.Sell
+            : IExchangeClient.OrderSide.Buy;
+
+        IExchangeClient.OrderType ICommonOrder.CommonType =>
+            Type == KucoinOrderType.Limit || Type == KucoinOrderType.LimitStop
+                ? IExchangeClient.OrderType.Limit
+                : IExchangeClient.OrderType.Market;
     }
 }

@@ -16,44 +16,44 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The highest price in the last 24 hours
         /// </summary>
-        public decimal High { get; set; }
+        public decimal? High { get; set; }
         /// <summary>
         /// The lowest price in the last 24 hours
         /// </summary>
-        public decimal Low { get; set; }
+        public decimal? Low { get; set; }
         /// <summary>
         /// The volume of the past 24 hours
         /// </summary>
         [JsonProperty("vol")]
-        public decimal Volume { get; set; }
+        public decimal? Volume { get; set; }
         /// <summary>
         /// The value of the volume in the past 24 hours
         /// </summary>
         [JsonProperty("volValue")]
-        public decimal VolumeValue { get; set; }
+        public decimal? VolumeValue { get; set; }
         /// <summary>
         /// The last trade price
         /// </summary>
-        public decimal Last { get; set; }
+        public decimal? Last { get; set; }
         /// <summary>
         /// The best ask price
         /// </summary>
         [JsonProperty("buy")]
-        public decimal BestAsk { get; set; }
+        public decimal? BestAsk { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
         [JsonProperty("sell")]
-        public decimal BestBid { get; set; }
+        public decimal? BestBid { get; set; }
         /// <summary>
         /// The price change since 24 hours ago
         /// </summary>
-        public decimal ChangePrice { get; set; }
+        public decimal? ChangePrice { get; set; }
         /// <summary>
         /// The percentage change since 24 hours ago
         /// </summary>
         [JsonProperty("changeRate")]
-        public decimal ChangePercentage { get; set; }
+        public decimal? ChangePercentage { get; set; }
         /// <summary>
         /// The timestamp of the data
         /// </summary>

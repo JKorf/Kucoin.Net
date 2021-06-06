@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Sockets;
 
 namespace Kucoin.Net.Interfaces
 {
     /// <summary>
-    /// Interface for the Kucoin socket client
+    /// Kucoin socket client interface
     /// </summary>
     public interface IKucoinSocketClient: ISocketClient
     {
@@ -60,20 +61,39 @@ namespace Kucoin.Net.Interfaces
         Task<CallResult<UpdateSubscription>> SubscribeToAllTickerUpdatesAsync(Action<KucoinStreamTick> onData);
 
         /// <summary>
-        /// Subscribe to updates for symbol snapshots
+        /// Subscribe to updates for symbol or market snapshots
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
+        /// <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToSnapshotUpdates(string symbol, Action<KucoinStreamSnapshot> onData);
+        CallResult<UpdateSubscription> SubscribeToSnapshotUpdates(string symbolOrMarket, Action<KucoinStreamSnapshot> onData);
 
         /// <summary>
-        /// Subscribe to updates for symbol snapshots
+        /// Subscribe to updates for symbol or market snapshots
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
+        /// <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(string symbol, Action<KucoinStreamSnapshot> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(string symbolOrMarket,
+            Action<KucoinStreamSnapshot> onData);
+
+        /// <summary>
+        /// Subscribe to updates for symbol or market snapshots
+        /// </summary>
+        /// <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
+        /// <param name="onData">The data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        CallResult<UpdateSubscription> SubscribeToSnapshotUpdates(
+            IEnumerable<string> symbolOrMarkets, Action<KucoinStreamSnapshot> onData);
+
+        /// <summary>
+        /// Subscribe to updates for symbol or market snapshots
+        /// </summary>
+        /// <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
+        /// <param name="onData">The data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(
+            IEnumerable<string> symbolOrMarkets, Action<KucoinStreamSnapshot> onData);
 
         /// <summary>
         /// Subscribe to aggregated order book updates
@@ -124,108 +144,130 @@ namespace Kucoin.Net.Interfaces
         Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<KucoinStreamMatch> onData);
 
         /// <summary>
+        /// Subscribe to kline updates
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="interval">Interval of the klines</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        CallResult<UpdateSubscription> SubscribeToKlineUpdates(string symbol, KucoinKlineInterval interval,
+            Action<KucoinStreamCandle> onData);
+
+        /// <summary>
+        /// Subscribe to kline updates
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="interval">Interval of the klines</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KucoinKlineInterval interval, Action<KucoinStreamCandle> onData);
+
+        /// <summary>
+        /// Subscribe to full order book updates
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        CallResult<UpdateSubscription> SubscribeToOrderBookUpdates(string symbol, int limit,
+            Action<KucoinStreamOrderBookChanged> onData);
+
+        /// <summary>
+        /// Subscribe to full order book updates
+        /// </summary>
+        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        CallResult<UpdateSubscription> SubscribeToOrderBookUpdates(IEnumerable<string> symbols, int limit,
+            Action<KucoinStreamOrderBookChanged> onData);
+
+        /// <summary>
+        /// Subscribe to full order book updates
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int limit,
+            Action<KucoinStreamOrderBookChanged> onData);
+
+        /// <summary>
+        /// Subscribe to full order book updates
+        /// </summary>
+        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int limit, Action<KucoinStreamOrderBookChanged> onData);
+
+        /// <summary>
         /// <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// <para><see cref="KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+        /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToMatchEngineUpdates(string symbol, Action<KucoinStreamOrderBaseUpdate> onData);
+        CallResult<UpdateSubscription> SubscribeToMatchEngineUpdates(string symbol, Action<KucoinStreamMatchEngineUpdate> onData);
 
         /// <summary>
         /// <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// <para><see cref="KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+        /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(string symbol, Action<KucoinStreamOrderBaseUpdate> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(string symbol, Action<KucoinStreamMatchEngineUpdate> onData);
 
         /// <summary>
         /// <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// <para><see cref="KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+        /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe on</param>
+        /// <param name="symbols">The symbol to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToMatchEngineUpdates(IEnumerable<string> symbols, Action<KucoinStreamOrderBaseUpdate> onData);
+        CallResult<UpdateSubscription> SubscribeToMatchEngineUpdates(IEnumerable<string> symbols, Action<KucoinStreamMatchEngineUpdate> onData);
 
         /// <summary>
         /// <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// <para><see cref="KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
+        /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
+        /// <para><see cref="KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
+        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe on</param>
         /// <param name="onData">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamOrderBaseUpdate> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamMatchEngineUpdate> onData);
 
         /// <summary>
-        /// <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// Subscribe to order updates for your own orders 
         /// </summary>
-        /// <param name="symbol">The symbols to subscribe on</param>
-        /// <param name="onData">The data handler</param>
+        /// <param name="onOrderData">Data handler for order updates</param>
+        /// <param name="onTradeData">Data handler for trade updates</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToOwnMatchEngineUpdates(string symbol, Action<KucoinStreamOrderBaseUpdate> onData);
+        CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<KucoinStreamOrderBaseUpdate> onOrderData, Action<KucoinStreamOrderMatchUpdate> onTradeData);
 
         /// <summary>
-        /// <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// Subscribe to order updates for your own orders 
         /// </summary>
-        /// <param name="symbol">The symbols to subscribe on</param>
-        /// <param name="onData">The data handler</param>
+        /// <param name="onOrderData">Data handler for order updates</param>
+        /// <param name="onTradeData">Data handler for trade updates</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOwnMatchEngineUpdatesAsync(string symbol, Action<KucoinStreamOrderBaseUpdate> onData);
-
-        /// <summary>
-        /// <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
-        /// </summary>
-        /// <param name="symbols">The symbols to subscribe on</param>
-        /// <param name="onData">The data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        CallResult<UpdateSubscription> SubscribeToOwnMatchEngineUpdates(IEnumerable<string> symbols, Action<KucoinStreamOrderBaseUpdate> onData);
-
-        /// <summary>
-        /// <para>Subscribe to match engine updates for your own orders. There are different update types with classes derived from <see cref="KucoinStreamOrderBaseUpdate" /></para>
-        /// <para><see cref="KucoinStreamOrderReceivedUpdate" />: A valid order is received by the matching engine</para>
-        /// <para><see cref="KucoinStreamOrderOpenUpdate" />: A limit order is opened on the order book</para>
-        /// <para><see cref="KucoinStreamOrderDoneUpdate" />: An order is no longer on the order book</para>
-        /// <para><see cref="KucoinStreamOrderMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamOrderChangeUpdate" />: An order is changed (decreased) in size</para>
-        /// </summary>
-        /// <param name="symbols">The symbols to subscribe on</param>
-        /// <param name="onData">The data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOwnMatchEngineUpdatesAsync(IEnumerable<string> symbols, Action<KucoinStreamOrderBaseUpdate> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<KucoinStreamOrderBaseUpdate> onOrderData, Action<KucoinStreamOrderMatchUpdate> onTradeData);
 
         /// <summary>
         /// Subscribe to balance updates
@@ -240,5 +282,19 @@ namespace Kucoin.Net.Interfaces
         /// <param name="onBalanceChange">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBalanceChangesAsync(Action<KucoinBalanceUpdate> onBalanceChange);
+
+        /// <summary>
+        /// Subscribe to updates for stop orders
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        CallResult<UpdateSubscription> SubscribeToStopOrderUpdates(Action<KucoinStreamStopOrderUpdate> onData);
+
+        /// <summary>
+        /// Subscribe to updates for stop orders
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<KucoinStreamStopOrderUpdate> onData);
     }
 }

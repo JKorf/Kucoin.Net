@@ -17,30 +17,30 @@ namespace Kucoin.Net.Objects
         /// The price of the last trade
         /// </summary>
         [JsonProperty("price")]
-        public decimal LastTradePrice { get; set; }
+        public decimal? LastTradePrice { get; set; }
         /// <summary>
         /// The quantity of the last trade
         /// </summary>
         [JsonProperty("size")]
-        public decimal LastTradeQuantity { get; set; }
+        public decimal? LastTradeQuantity { get; set; }
         /// <summary>
         /// The best ask price
         /// </summary>
-        public decimal BestAsk { get; set; }
+        public decimal? BestAsk { get; set; }
         /// <summary>
         /// The quantity of the best ask price
         /// </summary>
         [JsonProperty("bestAskSize")]
-        public decimal BestAskQuantity { get; set; }
+        public decimal? BestAskQuantity { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
-        public decimal BestBid { get; set; }
+        public decimal? BestBid { get; set; }
         /// <summary>
         /// The quantity of the best bid
         /// </summary>
         [JsonProperty("bestBidSize")]
-        public decimal BestBidQuantity { get; set; }
+        public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// The timestamp of the data
         /// </summary>

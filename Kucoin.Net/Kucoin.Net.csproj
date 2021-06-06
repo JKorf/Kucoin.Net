@@ -1,36 +1,48 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-	<LangVersion>8.0</LangVersion>
-	<Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>2.0.0</PackageVersion>
+    <PackageVersion>2.3.9</PackageVersion>
+    <AssemblyVersion>2.3.0</AssemblyVersion>
+    <FileVersion>2.3.9</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/JKorf/Kucoin.Net.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JKorf/Kucoin.Net</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>2.0.0 - 
-	* See CryptoExchange.Net 3.0 release notes
-	* Added input validation
-	* Added CancellationToken support to all requests
-	* Now using IEnumerable for collections	
-	* Renamed Market -> Symbol</PackageReleaseNotes>
+    <PackageReleaseNotes>2.3.9 - Fixed order deserialization when quantity is null</PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  <ItemGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <PropertyGroup>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DocumentationFile>Kucoin.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="icon\icon.png" Pack="true" PackagePath="\" />
-	</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CryptoExchange.Net" Version="3.0.0" />
+    <PackageReference Include="CryptoExchange.Net" Version="3.9.0" />
   </ItemGroup>
 </Project>

@@ -12,27 +12,27 @@ Implementation is build upon the CryptoExchange.Net library, make sure to also c
 Other CryptoExchange.Net implementations:
 <table>
 <tr>
-<td><a href="https://github.com/JKorf/Bittrex.Net"><img src="https://github.com/JKorf/Bittrex.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/JKorf/Bittrex.Net"><img src="https://github.com/JKorf/Bittrex.Net/blob/master/Bittrex.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/JKorf/Bittrex.Net">Bittrex</a>
 </td>
-<td><a href="https://github.com/JKorf/Bitfinex.Net"><img src="https://github.com/JKorf/Bitfinex.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/JKorf/Bitfinex.Net"><img src="https://github.com/JKorf/Bitfinex.Net/blob/master/Bitfinex.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/JKorf/Bitfinex.Net">Bitfinex</a>
 </td>
-<td><a href="https://github.com/JKorf/Binance.Net"><img src="https://github.com/JKorf/Binance.Net/blob/master/Resources/binance-coin.png?raw=true"></a>
+<td><a href="https://github.com/JKorf/Binance.Net"><img src="https://github.com/JKorf/Binance.Net/blob/master/Binance.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/JKorf/Binance.Net">Binance</a>
 </td>
-<td><a href="https://github.com/JKorf/CoinEx.Net"><img src="https://github.com/JKorf/CoinEx.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/JKorf/CoinEx.Net"><img src="https://github.com/JKorf/CoinEx.Net/blob/master/CoinEx.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/JKorf/CoinEx.Net">CoinEx</a>
 </td>
-<td><a href="https://github.com/JKorf/Huobi.Net"><img src="https://github.com/JKorf/Huobi.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/JKorf/Huobi.Net"><img src="https://github.com/JKorf/Huobi.Net/blob/master/Huobi.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/JKorf/Huobi.Net">Huobi</a>
 </td>
-<td><a href="https://github.com/JKorf/Kraken.Net"><img src="https://github.com/JKorf/Kraken.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/JKorf/Kraken.Net"><img src="https://github.com/JKorf/Kraken.Net/blob/master/Kraken.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/JKorf/Kraken.Net">Kraken</a>
 </td>
@@ -46,9 +46,41 @@ Implementations from third parties:
 <br />
 <a href="https://github.com/Zaliro/Switcheo.Net">Switcheo</a>
 </td>
-	<td><a href="https://github.com/ridicoulous/LiquidQuoine.Net"><img src="https://github.com/ridicoulous/LiquidQuoine.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/ridicoulous/LiquidQuoine.Net"><img src="https://github.com/ridicoulous/LiquidQuoine.Net/blob/master/Resources/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/ridicoulous/LiquidQuoine.Net">Liquid</a>
+</td>
+<td><a href="https://github.com/ridicoulous/Bitmex.Net"><img src="https://github.com/ridicoulous/Bitmex.Net/blob/master/Bitmex.Net/Icon/icon.png"></a>
+<br />
+<a href="https://github.com/ridicoulous/Bitmex.Net">Bitmex</a>
+</td>
+<td><a href="https://github.com/intelligences/HitBTC.Net"><img src="https://github.com/intelligences/HitBTC.Net/blob/master/src/HitBTC.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/intelligences/HitBTC.Net">HitBTC</a>
+</td>
+<td><a href="https://github.com/EricGarnier/LiveCoin.Net"><img src="https://github.com/EricGarnier/LiveCoin.Net/blob/master/LiveCoin.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/EricGarnier/LiveCoin.Net">LiveCoin</a>
+</td>
+<td><a href="https://github.com/burakoner/OKEx.Net"><img src="https://github.com/burakoner/OKEx.Net/blob/master/Okex.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/OKEx.Net">OKEx</a>
+</td>
+<td><a href="https://github.com/burakoner/Chiliz.Net"><img src="https://github.com/burakoner/Chiliz.Net/blob/master/Chiliz.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/Chiliz.Net">Chiliz</a>
+</td>
+<td><a href="https://github.com/burakoner/BtcTurk.Net"><img src="https://github.com/burakoner/BtcTurk.Net/blob/master/BtcTurk.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/BtcTurk.Net">BtcTurk</a>
+</td>
+<td><a href="https://github.com/burakoner/Thodex.Net"><img src="https://github.com/burakoner/Thodex.Net/blob/master/Thodex.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/Thodex.Net">Thodex</a>
+</td>
+<td><a href="https://github.com/d-ugarov/Exante.Net"><img src="https://github.com/d-ugarov/Exante.Net/blob/master/Exante.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/d-ugarov/Exante.Net">Exante</a>
 </td>
 </tr>
 </table>
@@ -60,6 +92,9 @@ Donations are greatly appreciated and a motivation to keep improving.
 **Btc**:  12KwZk3r2Y3JZ2uMULcjqqBvXmpDwjhhQS  
 **Eth**:  0x069176ca1a4b1d6e0b7901a6bc0dbf3bb0bf5cc2  
 **Nano**: xrb_1ocs3hbp561ef76eoctjwg85w5ugr8wgimkj8mfhoyqbx4s1pbc74zggw7gs  
+
+## Discord
+A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discussion and/or questions around the CryptoExchange.Net and implementation libraries, feel free to join.
 
 
 ## Installation
@@ -83,6 +118,118 @@ After installing it's time to actually use it. To get started you have to add th
 Kucoin.Net provides two clients to interact with the Kucoin API. The `KucoinClient` provides all rest API calls. The  `KucoinSocketClient`  provides functions to interact with the websocket provided by the Kucoin API. Both clients are disposable and as such can be used in a `using` statement.
 
 ## Release notes
+* Version 2.3.9 - 05 mei 2021
+    * Fixed order deserialization when quantity is null
+
+* Version 2.3.8 - 04 mei 2021
+    * Added some margin socket subscriptions
+
+* Version 2.3.7 - 28 apr 2021
+    * Added new GetAccountLedgers
+    * Changed GetAccountLedger to [Obsolete]
+    * Fixed AccountActivityContext parsing
+    * Updated CryptoExchange.Net
+
+* Version 2.3.6 - 19 apr 2021
+    * Updated CryptoExchange.Net
+
+* Version 2.3.5 - 30 mrt 2021
+    * Updated CryptoExchange.Net
+
+* Version 2.3.4 - 16 mrt 2021
+    * Fixed full order book timestamp deserialization
+
+* Version 2.3.3 - 16 mrt 2021
+    * Fixed orderbook endpoint not found
+
+* Version 2.3.2 - 16 mrt 2021
+    * Added fee endpoints
+    * Added CancelOrderByClientOrderId endpoint
+    * Added GetOrderByClientOrderId endpoint
+    * Updated IKucoinClient interface
+
+* Version 2.3.1 - 05 mrt 2021
+    * Fixed Filled order update parsing
+
+* Version 2.3.0 - 04 mrt 2021
+    * Added socket kline subscription
+    * Added socket order book subscription
+    * Added multiple market support for snapshot subscription
+    * Updated match subscriptions
+
+* Version 2.2.1 - 01 mrt 2021
+    * Added Nuget SymbolPackage
+
+* Version 2.2.0 - 01 mrt 2021
+    * Added config for deterministic build
+    * Updated CryptoExchange.Net
+
+* Version 2.1.2 - 22 jan 2021
+    * Updated for ICommonKline
+
+* Version 2.1.1 - 14 jan 2021
+    * Updated CryptoExchange.Net
+
+* Version 2.1.0 - 21 dec 2020
+    * Update CryptoExchange.Net
+    * Updated to latest IExchangeClient
+
+* Version 2.0.17 - 11 dec 2020
+    * Fix for GetKlines sending null timestamp
+
+* Version 2.0.16 - 11 dec 2020
+    * Updated CryptoExchange.Net
+    * Implemented IExchangeClient
+
+* Version 2.0.15 - 19 nov 2020
+    * Fixed order model to allow null values
+    * Updated CryptoExchange.Net
+
+* Version 2.0.14 - 08 Oct 2020
+    * Fixed incorrect paramter on GetSymbols
+    * Updated CryptoExchange.Net
+
+* Version 2.0.13 - 28 Aug 2020
+    * Updated CryptoExchange.Net
+
+* Version 2.0.12 - 12 Aug 2020
+    * Fixed cancelAfter parameter in PlaceOrder
+    * Updated CryptoExchange.Net
+
+* Version 2.0.11 - 05 Aug 2020
+    * Fixed withdraw endpoint
+    * Added InnerTransfer support
+
+* Version 2.0.10 - 03 Aug 2020
+    * Fixed timestamp parameters
+
+* Version 2.0.9 - 22 Jul 2020
+    * Added missing nullable
+
+* Version 2.0.8 - 22 Jul 2020
+    * More nullable fields for new markets
+
+* Version 2.0.7 - 20 Jul 2020
+    * Made decimals in Tick model nullable to support new markets
+
+* Version 2.0.6 - 07 Jul 2020
+    * Fixed parsing error in MatchEngine updates
+
+* Version 2.0.5 - 21 Jun 2020
+    * Updated CryptoExchange
+
+* Version 2.0.4 - 16 Jun 2020
+    * Updated CryptoExchange.Net
+
+* Version 2.0.3 - 07 Jun 2020
+	* Updated CryptoExchange.Net to fix order book desync
+
+* Version 2.0.2 - 03 Mar 2020
+    * Updated CryptoExchange
+
+* Version 2.0.1 - 23 Oct 2019
+	* Fixed validation length symbols
+
 * Version 2.0.0 - 23 Oct 2019
 	* See CryptoExchange.Net 3.0 release notes
 	* Added input validation

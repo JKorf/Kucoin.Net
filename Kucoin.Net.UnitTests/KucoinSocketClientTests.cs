@@ -19,7 +19,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -36,7 +36,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
-            socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
+            socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId - 1}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -56,7 +56,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test);
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
             var subResult = subTask.Result;
 
             var expected = TestHelpers.CreateObjectWithTestParameters<KucoinStreamTick>();
@@ -85,7 +85,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test);
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
             var subResult = subTask.Result;
 
             var expected = TestHelpers.CreateObjectWithTestParameters<KucoinStreamSnapshot>();
