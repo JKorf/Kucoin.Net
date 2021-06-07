@@ -87,5 +87,6 @@ namespace Kucoin.Net.Objects
         decimal ICommonTrade.CommonQuantity => Quantity;
         decimal ICommonTrade.CommonFee => Fee;
         string? ICommonTrade.CommonFeeAsset => FeeCurrency;
+        DateTime ICommonTrade.CommonTradeTime => CreatedAt;
     }
 }

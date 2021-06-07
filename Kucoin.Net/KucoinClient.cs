@@ -27,6 +27,15 @@ namespace Kucoin.Net
         private static KucoinClientOptions defaultOptions = new KucoinClientOptions();
         internal static KucoinClientOptions DefaultOptions => defaultOptions.Copy();
 
+        /// <summary>
+        /// Event triggered when an order is placed via this client
+        /// </summary>
+        public event Action<ICommonOrderId> OnOrderPlaced;
+        /// <summary>
+        /// Event triggered when an order is cancelled via this client
+        /// </summary>
+        public event Action<ICommonOrderId> OnOrderCanceled;
+
         #region constructor/destructor
         /// <summary>
         /// Create a new instance of the KucoinClient using the default options

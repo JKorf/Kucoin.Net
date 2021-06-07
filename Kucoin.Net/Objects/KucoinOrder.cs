@@ -148,7 +148,17 @@ namespace Kucoin.Net.Objects
         string ICommonOrder.CommonSymbol => Symbol;
         decimal ICommonOrder.CommonPrice => Price ?? 0;
         decimal ICommonOrder.CommonQuantity => Quantity;
-        string ICommonOrder.CommonStatus => IsActive == true ? "Open" : "-"; // TODO
+        IExchangeClient.OrderStatus ICommonOrder.CommonStatus {
+            get
+            {
+                if (IsActive == null)
+                    return IExchangeClient.OrderStatus.Active;
+
+                return !IsActive.Value && DealQuantity != Quantity ? IExchangeClient.OrderStatus.Canceled : !IsActive.Value ? IExchangeClient.OrderStatus.Filled :
+                IExchangeClient.OrderStatus.Active;
+            }
+        }
+        
         bool ICommonOrder.IsActive => IsActive ?? false;
 
         IExchangeClient.OrderSide ICommonOrder.CommonSide => Side == KucoinOrderSide.Sell
@@ -159,5 +169,7 @@ namespace Kucoin.Net.Objects
             Type == KucoinOrderType.Limit || Type == KucoinOrderType.LimitStop
                 ? IExchangeClient.OrderType.Limit
                 : IExchangeClient.OrderType.Market;
+
+        DateTime ICommonOrder.CommonOrderTime => CreatedAt;
     }
 }
