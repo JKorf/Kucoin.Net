@@ -29,7 +29,7 @@ namespace Kucoin.Net
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
         {
-            var subResult = await socketClient.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleUpdate);
+            var subResult = await socketClient.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
             if(!subResult)
                 return new CallResult<UpdateSubscription>(null, subResult.Error);
 

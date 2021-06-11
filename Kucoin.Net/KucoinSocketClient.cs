@@ -281,7 +281,7 @@ namespace Kucoin.Net
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<JToken>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 InvokeHandler(GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
             });
 
@@ -324,7 +324,7 @@ namespace Kucoin.Net
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<JToken>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 InvokeHandler(GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
             });
 
@@ -367,7 +367,7 @@ namespace Kucoin.Net
             foreach (var currency in currencies)
                 currency.ValidateNotNull(currency);
 
-            var innerHandler = new Action<JToken>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 InvokeHandler(GetData<KucoinStreamFundingBookUpdate>(tokenData), onData);
             });
 
