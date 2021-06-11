@@ -130,6 +130,12 @@ Kucoin.Net provides two clients to interact with the Kucoin API. The `KucoinClie
 
 * Version 2.4.0-beta1 - 30 apr 2021
     * Updated to CryptoExchange.Net 4.0.0-beta1, new websocket implementation
+	
+* Version 2.3.9 - 05 mei 2021
+    * Fixed order deserialization when quantity is null
+
+* Version 2.3.8 - 04 mei 2021
+    * Added some margin socket subscriptions
 
 * Version 2.3.7 - 28 apr 2021
     * Added new GetAccountLedgers

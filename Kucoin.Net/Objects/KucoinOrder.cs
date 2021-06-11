@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects
         /// The quantity of the order
         /// </summary>
         [JsonProperty("size")]
-        public decimal Quantity { get; set; }
+        public decimal? Quantity { get; set; }
         /// <summary>
         /// The funds of the order
         /// </summary>
@@ -147,7 +147,7 @@ namespace Kucoin.Net.Objects
         string ICommonOrderId.CommonId => Id;
         string ICommonOrder.CommonSymbol => Symbol;
         decimal ICommonOrder.CommonPrice => Price ?? 0;
-        decimal ICommonOrder.CommonQuantity => Quantity;
+        decimal ICommonOrder.CommonQuantity => Quantity ?? 0;
         IExchangeClient.OrderStatus ICommonOrder.CommonStatus {
             get
             {
