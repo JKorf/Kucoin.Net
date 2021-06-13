@@ -10,14 +10,11 @@ namespace Kucoin.Net.Converts
         public MatchUpdateTypeConverter(bool quotes) : base(quotes) { }
         protected override List<KeyValuePair<KucoinMatchUpdateType, string>> Mapping => new List<KeyValuePair<KucoinMatchUpdateType, string>>
         {
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Activate, "activate"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Change, "change"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Done, "done"),
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Match, "match"),
             new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Open, "open"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Done, "filled"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Received, "received"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Stop, "stop")
+            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Canceled, "canceled"),
+            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Filled, "filled"),
+            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Update, "update"),
         };
     }
 }

@@ -1770,7 +1770,12 @@
             Options for the KucoinSymbolOrderBook
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Objects.KucoinOrderBookOptions.#ctor">
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBookOptions.Limit">
+            <summary>
+            The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinOrderBookOptions.#ctor(System.Nullable{System.Int32})">
             <summary>
             ctor
             </summary>
@@ -2240,19 +2245,9 @@
             Match update type
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Received">
-            <summary>
-            Received
-            </summary>
-        </member>
         <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Open">
             <summary>
             Open
-            </summary>
-        </member>
-        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Done">
-            <summary>
-            Done
             </summary>
         </member>
         <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Match">
@@ -2260,19 +2255,19 @@
             Match
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Change">
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Filled">
             <summary>
-            Change
+            Filled
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Stop">
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Canceled">
             <summary>
-            Stop
+            Canceled
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Activate">
+        <member name="F:Kucoin.Net.Objects.KucoinMatchUpdateType.Update">
             <summary>
-            Activate
+            Update
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinBizType">

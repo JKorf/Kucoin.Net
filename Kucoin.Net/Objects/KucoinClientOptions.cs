@@ -97,10 +97,16 @@ namespace Kucoin.Net.Objects
     public class KucoinOrderBookOptions : OrderBookOptions
     {
         /// <summary>
+        /// The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+        /// </summary>
+        public int? Limit { get; set; }
+
+        /// <summary>
         /// ctor
         /// </summary>
-        public KucoinOrderBookOptions() : base("Kucoin", true, false)
+        public KucoinOrderBookOptions(int? limit = null) : base("Kucoin", limit == null, false)
         {
+            Limit = limit;
         }
     }
 }

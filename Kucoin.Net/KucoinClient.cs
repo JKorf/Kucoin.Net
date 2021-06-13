@@ -26,6 +26,7 @@ namespace Kucoin.Net
     {
         private static KucoinClientOptions defaultOptions = new KucoinClientOptions();
         internal static KucoinClientOptions DefaultOptions => defaultOptions.Copy();
+        internal static bool CredentialsDefaultSet => DefaultOptions.ApiCredentials != null;
 
         /// <summary>
         /// Event triggered when an order is placed via this client

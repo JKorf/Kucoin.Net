@@ -323,33 +323,25 @@
     public enum KucoinMatchUpdateType
     {
         /// <summary>
-        /// Received
-        /// </summary>
-        Received,
-        /// <summary>
         /// Open
         /// </summary>
         Open,
-        /// <summary>
-        /// Done
-        /// </summary>
-        Done,
         /// <summary>
         /// Match
         /// </summary>
         Match,
         /// <summary>
-        /// Change
+        /// Filled
         /// </summary>
-        Change,
+        Filled,
         /// <summary>
-        /// Stop
+        /// Canceled
         /// </summary>
-        Stop,
+        Canceled,
         /// <summary>
-        /// Activate
+        /// Update
         /// </summary>
-        Activate
+        Update
     }
 
     /// <summary>
