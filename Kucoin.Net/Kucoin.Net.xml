@@ -1510,7 +1510,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.Subscribe``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
+        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.KucoinSocketClient.GetSocketConnection(System.String,System.Boolean)">
@@ -1528,10 +1528,10 @@
         <member name="M:Kucoin.Net.KucoinSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.AuthenticateSocket(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Kucoin.Net.KucoinSocketClient.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.Unsubscribe(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+        <member name="M:Kucoin.Net.KucoinSocketClient.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.KucoinSymbolOrderBook">
@@ -1546,10 +1546,10 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="options">The options for the order book</param>
         </member>
-        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoStart">
+        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoStartAsync">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoResync">
+        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoResyncAsync">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.KucoinSymbolOrderBook.Dispose">

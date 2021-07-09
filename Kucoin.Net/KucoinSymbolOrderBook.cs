@@ -29,7 +29,7 @@ namespace Kucoin.Net
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> DoStart()
+        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
         {
             if (!KucoinClient.CredentialsDefaultSet)            
                 return new CallResult<UpdateSubscription>(null, new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
@@ -43,7 +43,7 @@ namespace Kucoin.Net
                 var bookResult = await restClient.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    await socketClient.UnsubscribeAll().ConfigureAwait(false);
+                    await socketClient.UnsubscribeAllAsync().ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, bookResult.Error);
                 }
 
@@ -53,7 +53,7 @@ namespace Kucoin.Net
             {
                 subResult = await socketClient.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
                 Status = OrderBookStatus.Syncing;
-                await WaitForSetOrderBook(10000).ConfigureAwait(false);
+                await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             }
 
             if (!subResult)
@@ -63,10 +63,10 @@ namespace Kucoin.Net
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResync()
+        protected override async Task<CallResult<bool>> DoResyncAsync()
         {
             if (Levels != null)
-                return await WaitForSetOrderBook(10000).ConfigureAwait(false);
+                return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
 
             var bookResult = await restClient.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
