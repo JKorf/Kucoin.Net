@@ -331,7 +331,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceOrderAsync(System.String,System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -348,8 +348,6 @@
             <param name="iceBerg">Order is an iceberg order</param>
             <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
             <param name="remark">Remark on the order</param>
-            <param name="stop">Type of stop order</param>
-            <param name="stopPrice">The price for a stop order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
@@ -451,6 +449,90 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.PlaceStopOrderAsync(System.String,System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,Kucoin.Net.Objects.KucoinStopCondition,System.Decimal,System.String,System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.Nullable{Kucoin.Net.Objects.KucoinTradeType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Place a new stop order
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="orderSide">The side of the order</param>
+            <param name="orderType">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="quoteQuantity">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceberg">Order is an iceberg order</param>
+            <param name="visibleSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="stopCondition">Stop price condition</param>
+            <param name="stopPrice">Price to trigger the order placement</param>
+            <param name="tradeType">Trade type</param>        
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelStopOrderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel a stop order by order id
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelStopOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel a stop order by client order id
+            </summary>
+            <param name="clientOrderId">The client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.CancelStopOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Nullable{Kucoin.Net.Objects.KucoinTradeType},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all stop orders fitting the provided parameters
+            </summary>
+            <param name="symbol">Symbol to cancel orders on</param>
+            <param name="orderIds">Order ids of the orders to cancel</param>
+            <param name="tradeType">Trade type</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetStopOrdersAsync(System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{Kucoin.Net.Objects.KucoinTradeType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get a list of stop orders fitting the provided parameters
+            </summary>
+            <param name="activeOrders">True to return active orders, false for completed orders</param>
+            <param name="symbol">Symbol of the orders</param>
+            <param name="side">Side of the orders</param>
+            <param name="type">Type of the orders</param>
+            <param name="tradeType">Trade type</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="orderIds">Filter list by order ids</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetStopOrderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get a stop order by id
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClient.GetStopOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get a stop order by client order id
+            </summary>
+            <param name="clientOrderId">The client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClient">
             <summary>
@@ -948,7 +1030,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.PlaceOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinStopCondition},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.KucoinClient.PlaceOrderAsync(System.String,System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -965,8 +1047,6 @@
             <param name="iceBerg">Order is an iceberg order</param>
             <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
             <param name="remark">Remark on the order</param>
-            <param name="stop">Type of stop order</param>
-            <param name="stopPrice">The price for a stop order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
@@ -1068,6 +1148,90 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.PlaceStopOrderAsync(System.String,System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,Kucoin.Net.Objects.KucoinStopCondition,System.Decimal,System.String,System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.Nullable{Kucoin.Net.Objects.KucoinTradeType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Place a new stop order
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="orderSide">The side of the order</param>
+            <param name="orderType">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="quoteQuantity">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceberg">Order is an iceberg order</param>
+            <param name="visibleSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="stopCondition">Stop price condition</param>
+            <param name="stopPrice">Price to trigger the order placement</param>
+            <param name="tradeType">Trade type</param>        
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelStopOrderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel a stop order by order id
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelStopOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel a stop order by client order id
+            </summary>
+            <param name="clientOrderId">The client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.CancelStopOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Nullable{Kucoin.Net.Objects.KucoinTradeType},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all stop orders fitting the provided parameters
+            </summary>
+            <param name="symbol">Symbol to cancel orders on</param>
+            <param name="orderIds">Order ids of the orders to cancel</param>
+            <param name="tradeType">Trade type</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetStopOrdersAsync(System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{Kucoin.Net.Objects.KucoinTradeType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get a list of stop orders fitting the provided parameters
+            </summary>
+            <param name="activeOrders">True to return active orders, false for completed orders</param>
+            <param name="symbol">Symbol of the orders</param>
+            <param name="side">Side of the orders</param>
+            <param name="type">Type of the orders</param>
+            <param name="tradeType">Trade type</param>
+            <param name="startTime">Filter list by start time</param>
+            <param name="endTime">Filter list by end time</param>
+            <param name="orderIds">Filter list by order ids</param>
+            <param name="currentPage">The page to retrieve</param>
+            <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetStopOrderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get a stop order by id
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.KucoinClient.GetStopOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get a stop order by client order id
+            </summary>
+            <param name="clientOrderId">The client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:Kucoin.Net.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
@@ -2475,6 +2639,21 @@
             Convert to KCS
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinTradeType">
+            <summary>
+            Type of trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinTradeType.SpotTrade">
+            <summary>
+            Stop trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinTradeType.MarginTrade">
+            <summary>
+            Margin trade
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.KucoinFill">
             <summary>
             Fill info
@@ -2943,6 +3122,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinOrder.CreatedAt">
             <summary>
             The time the order was created
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrder.TradeType">
+            <summary>
+            Trade type
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinFullOrderBook">

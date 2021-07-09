@@ -207,7 +207,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? currency = null, KucoinAccountDirection? direction = null, KucoinBizType? bizType = null, DateTime ? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? currency = null, KucoinAccountDirection? direction = null, KucoinBizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a transferable balance of a specified account.
@@ -354,14 +354,13 @@ namespace Kucoin.Net.Interfaces
         /// <param name="iceBerg">Order is an iceberg order</param>
         /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
         /// <param name="remark">Remark on the order</param>
-        /// <param name="stop">Type of stop order</param>
-        /// <param name="stopPrice">The price for a stop order</param>
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol,
+            string clientOrderId,
             KucoinOrderSide side,
             KucoinNewOrderType type,
             decimal? price = null,
@@ -374,10 +373,8 @@ namespace Kucoin.Net.Interfaces
             bool? iceBerg = null,
             decimal? visibleIceBergSize = null,
             string? remark = null,
-            KucoinStopCondition? stop = null,
-            decimal? stopPrice = null,
             KucoinSelfTradePrevention? selfTradePrevention = null,
-            string? clientOrderId = null, 
+
             CancellationToken ct = default);
 
         /// <summary>
@@ -476,5 +473,111 @@ namespace Kucoin.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
         Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentFillsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new stop order
+        /// </summary>
+        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="orderSide">The side of the order</param>
+        /// <param name="orderType">The type of the order</param>
+        /// <param name="price">The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">The quantity of the order</param>
+        /// <param name="quoteQuantity">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="timeInForce">The time the order is in force</param>
+        /// <param name="cancelAfter">Cancel after a time</param>
+        /// <param name="postOnly">Order is post only</param>
+        /// <param name="hidden">Order is hidden</param>
+        /// <param name="iceberg">Order is an iceberg order</param>
+        /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
+        /// <param name="remark">Remark on the order</param>
+        /// <param name="selfTradePrevention">Self trade prevention setting</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="stopCondition">Stop price condition</param>
+        /// <param name="stopPrice">Price to trigger the order placement</param>
+        /// <param name="tradeType">Trade type</param>        
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(
+            string symbol,
+            string clientOrderId,
+            KucoinOrderSide orderSide,
+            KucoinNewOrderType orderType,
+            KucoinStopCondition stopCondition,
+            decimal stopPrice,
+            string? remark = null,
+            KucoinSelfTradePrevention? selfTradePrevention = null,
+            KucoinTradeType? tradeType = null,
+
+            decimal? price = null,
+            decimal? quantity = null,
+            KucoinTimeInForce? timeInForce = null,
+            DateTime? cancelAfter = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceberg = null,
+            decimal? visibleSize = null,
+
+            decimal? quoteQuantity = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel a stop order by order id
+        /// </summary>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCancelledOrders>> CancelStopOrderAsync(string orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel a stop order by client order id
+        /// </summary>
+        /// <param name="clientOrderId">The client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCancelledOrder>> CancelStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel all stop orders fitting the provided parameters
+        /// </summary>
+        /// <param name="symbol">Symbol to cancel orders on</param>
+        /// <param name="orderIds">Order ids of the orders to cancel</param>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCancelledOrders>> CancelStopOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, KucoinTradeType? tradeType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get a list of stop orders fitting the provided parameters
+        /// </summary>
+        /// <param name="activeOrders">True to return active orders, false for completed orders</param>
+        /// <param name="symbol">Symbol of the orders</param>
+        /// <param name="side">Side of the orders</param>
+        /// <param name="type">Type of the orders</param>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="startTime">Filter list by start time</param>
+        /// <param name="endTime">Filter list by end time</param>
+        /// <param name="orderIds">Filter list by order ids</param>
+        /// <param name="currentPage">The page to retrieve</param>
+        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetStopOrdersAsync(bool? activeOrders = null, string? symbol = null, KucoinOrderSide? side = null,
+            KucoinOrderType? type = null, KucoinTradeType? tradeType = null, DateTime? startTime = null, DateTime? endTime = null, IEnumerable<string>? orderIds = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get a stop order by id
+        /// </summary>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinOrder>> GetStopOrderAsync(string orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get a stop order by client order id
+        /// </summary>
+        /// <param name="clientOrderId">The client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
     }
 }

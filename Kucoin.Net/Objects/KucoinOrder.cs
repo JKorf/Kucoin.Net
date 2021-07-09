@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects
         /// The operation type
         /// </summary>
         [JsonProperty("opType"), JsonConverter(typeof(OperationTypeConverter))]
-        public KucoinOrderOperationType OperationType { get; set; }
+        public KucoinOrderOperationType? OperationType { get; set; }
         /// <summary>
         /// The type of the order
         /// </summary>
@@ -143,6 +143,11 @@ namespace Kucoin.Net.Objects
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         public DateTime CreatedAt { get; set; }
+        /// <summary>
+        /// Trade type
+        /// </summary>
+        [JsonConverter(typeof(TradeTypeConverter))]
+        public KucoinTradeType TradeType { get; set; }
 
         string ICommonOrderId.CommonId => Id;
         string ICommonOrder.CommonSymbol => Symbol;

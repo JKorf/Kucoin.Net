@@ -510,4 +510,19 @@
         /// </summary>
         ConvertToKCS
     }
+
+    /// <summary>
+    /// Type of trade
+    /// </summary>
+    public enum KucoinTradeType
+    {
+        /// <summary>
+        /// Stop trade
+        /// </summary>
+        SpotTrade,
+        /// <summary>
+        /// Margin trade
+        /// </summary>
+        MarginTrade
+    }
 }
