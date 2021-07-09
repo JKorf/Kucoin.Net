@@ -89,6 +89,11 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.0.0-beta1 - 09 Jul 2021
+    * Added stop order endpoints
+    * Added Async postfix for async methods
+    * Updated CryptoExchange.Net
+
 * Version 2.3.9 - 05 mei 2021
     * Fixed order deserialization when quantity is null
 
