@@ -11,38 +11,44 @@ namespace Kucoin.Net.UnitTests
     public class KucoinSocketClientTests
     {
         [Test]
-        public void Subscribe_Should_SucceedIfAckResponse()
-        {
-            // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
-            var client = TestHelpers.CreateSocketClient(socket);
-
-            // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 2}\"}}");
-            var subResult = subTask.Result;
-
-            // assert
-            Assert.IsTrue(subResult.Success);
-        }
-
-        [Test]
-        public void Subscribe_Should_FailIfNotAckResponse()
+        public async Task Subscribe_Should_SucceedIfAckResponse()
         {
             // arrange
             var socket = new TestSocket();
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
             {
-                LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
+                ApiCredentials = null
             });
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
-            Task.Delay(10).Wait();
-            socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId - 2}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
-            var subResult = subTask.Result;
+            await Task.Delay(10);
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
+            var subResult = await subTask;
+
+            // assert
+            Assert.IsTrue(subResult.Success);
+        }
+
+        [Test]
+        public async Task Subscribe_Should_FailIfNotAckResponse()
+        {
+            // arrange
+            var socket = new TestSocket();
+            socket.CanConnect = true;
+            var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
+            {
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
+                ApiCredentials = null
+            });
+
+            // act
+            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
+            await Task.Delay(10);
+            socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
+            var subResult = await subTask;
 
             // assert
             Assert.IsFalse(subResult.Success);
@@ -51,18 +57,23 @@ namespace Kucoin.Net.UnitTests
         }
         
         [Test]
-        public void UpdateTick_Should_TriggerAction()
+        public async Task UpdateTick_Should_TriggerAction()
         {
             // arrange
             var socket = new TestSocket();
             socket.CanConnect = true;
-            var client = TestHelpers.CreateSocketClient(socket);
+            var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
+            {
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
+                ApiCredentials = null
+            });
             KucoinStreamTick result = null;
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test.Data);
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 2}\"}}");
-            var subResult = subTask.Result;
+            await Task.Delay(10);
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
+            var subResult = await subTask;
 
             var expected = TestHelpers.CreateObjectWithTestParameters<KucoinStreamTick>();
             var update = new KucoinUpdateMessage<KucoinStreamTick>()
@@ -80,18 +91,23 @@ namespace Kucoin.Net.UnitTests
         }
 
         [Test]
-        public void UpdateSnapshot_Should_TriggerAction()
+        public async Task UpdateSnapshot_Should_TriggerAction()
         {
             // arrange
             var socket = new TestSocket();
             socket.CanConnect = true;
-            var client = TestHelpers.CreateSocketClient(socket);
+            var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
+            {
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
+                ApiCredentials = null
+            });
             KucoinStreamSnapshot result = null;
 
             // act
             var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test.Data);
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 2}\"}}");
-            var subResult = subTask.Result;
+            await Task.Delay(10);
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
+            var subResult = await subTask;
 
             var expected = TestHelpers.CreateObjectWithTestParameters<KucoinStreamSnapshot>();
             var update = new KucoinUpdateMessage<KucoinStreamSnapshotWrapper>()

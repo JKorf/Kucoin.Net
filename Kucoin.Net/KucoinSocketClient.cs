@@ -13,6 +13,7 @@ using Kucoin.Net.Converts;
 using Kucoin.Net.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using CryptoExchange.Net.Interfaces;
 
 namespace Kucoin.Net
 {
@@ -528,17 +529,24 @@ namespace Kucoin.Net
                             thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
                     }
 
-                    using (var restClient = new KucoinClient(clientOptions))
-                    {
-                        var tokenResult = await restClient.GetWebsocketToken(authenticated).ConfigureAwait(false);
-                        if (!tokenResult)
-                            return new CallResult<UpdateSubscription>(null, tokenResult.Error);
-                        token = tokenResult.Data;
-                    }
-
                     // Create new socket
-                    var s = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
-                    socketConnection = new SocketConnection(this, s);
+                    IWebsocket socket;
+                    if (SocketFactory is WebsocketFactory)
+                    {
+                        using (var restClient = new KucoinClient(clientOptions))
+                        {
+                            var tokenResult = await restClient.GetWebsocketToken(authenticated).ConfigureAwait(false);
+                            if (!tokenResult)
+                                return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                            token = tokenResult.Data;
+                        }
+
+                        socket = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
+                    }
+                    else
+                        socket = CreateSocket("test");
+
+                    socketConnection = new SocketConnection(this, socket);
                     foreach (var kvp in genericHandlers)
                         socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
                 }
