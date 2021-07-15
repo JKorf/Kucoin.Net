@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
@@ -13,7 +12,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
 
         /// <summary>
         /// Sequence number
@@ -44,7 +43,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Lend or borrow
         /// </summary>
-        public string Side { get; set; }
+        public string Side { get; set; } = string.Empty;
 
         /// <summary>
         /// The timestamp of the data

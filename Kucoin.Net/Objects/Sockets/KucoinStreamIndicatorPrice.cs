@@ -1,8 +1,6 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Objects.Sockets
 {
@@ -14,7 +12,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Granularity
         /// </summary>

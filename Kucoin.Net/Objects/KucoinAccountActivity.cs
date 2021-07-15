@@ -35,7 +35,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The unique key for this activity 
         /// </summary>
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Additional info for this activity
         /// </summary>
@@ -44,7 +44,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the activity
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The direction of the activity
         /// </summary>
@@ -60,27 +60,27 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id for the order
         /// </summary>
-        public string OrderId { get; set; } = "";
+        public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// The id for the trade (for trades)
         /// </summary>
-        public string TradeId { get; set; } = "";
+        public string TradeId { get; set; } = string.Empty;
         /// <summary>
         /// The symbol of the order (for trades)
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The transaction id (for withdrawal/deposit)
         /// </summary>
-        public string TransactionId { get; set; } = "";
+        public string TransactionId { get; set; } = string.Empty;
         /// <summary>
         /// The txId (for orders)
         /// </summary>
-        public string TxId { get; set; } = "";
+        public string TxId { get; set; } = string.Empty;
         /// <summary>
         /// The Description (for pool-x staking rewards)
         /// </summary>
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = string.Empty;
     }
 
     //[2] Deserialize JsonSerializationException: Error converting value "{"orderId":"s4369060","description":"pool-x staking rewards(2021/04/13)"}" to type 'Kucoin.Net.Objects.KucoinAccountActivityContext'. Path 'data.items[0].context', line 1, position 376.

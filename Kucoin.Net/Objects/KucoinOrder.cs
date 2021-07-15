@@ -15,11 +15,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// the symbol of the order
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The operation type
         /// </summary>
@@ -64,7 +64,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the fee
         /// </summary>
-        public string FeeCurrency { get; set; } = "";
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The self trade prevention type
         /// </summary>
@@ -113,22 +113,22 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The source of the order
         /// </summary>
-        public string Channel { get; set; } = "";
+        public string Channel { get; set; } = string.Empty;
         /// <summary>
         /// The client order id
         /// </summary>
         [JsonProperty("clientOid")]
-        public string ClientOrderId { get; set; } = "";
+        public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Remark for the order
         /// </summary>
         [JsonOptionalProperty]
-        public string Remark { get; set; } = "";
+        public string Remark { get; set; } = string.Empty;
         /// <summary>
         /// Tags for the order
         /// </summary>
         [JsonOptionalProperty]
-        public string Tags { get; set; } = "";
+        public string Tags { get; set; } = string.Empty;
         /// <summary>
         /// Whether the order is active
         /// </summary>

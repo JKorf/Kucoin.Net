@@ -20,6 +20,6 @@ namespace Kucoin.Net.Objects
         /// The ticker data
         /// </summary>
         [JsonProperty("ticker")]
-        public IEnumerable<KucoinAllTick> Data { get; set; } = new List<KucoinAllTick>();
+        public IEnumerable<KucoinAllTick> Data { get; set; } = Array.Empty<KucoinAllTick>();
     }
 }

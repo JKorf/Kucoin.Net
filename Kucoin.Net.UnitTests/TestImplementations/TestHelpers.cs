@@ -107,7 +107,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             KucoinSocketClient client;
             client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
+            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
             return client;
         }
 
@@ -116,7 +116,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             KucoinSocketClient client;
             client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
+            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
             return client;
         }
 

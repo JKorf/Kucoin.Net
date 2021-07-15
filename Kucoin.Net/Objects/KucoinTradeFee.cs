@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kucoin.Net.Objects
+﻿namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Trade fee
@@ -12,7 +8,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// Symbol
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Fee rate for trades as taker
         /// </summary>

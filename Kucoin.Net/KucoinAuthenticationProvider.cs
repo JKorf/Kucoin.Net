@@ -40,7 +40,7 @@ namespace Kucoin.Net
                 ["KC-API-PASSPHRASE"] = ((KucoinApiCredentials) Credentials).PassPhrase.GetString()
             };
 
-            var jsonContent = "";
+            var jsonContent = string.Empty;
             if (method != HttpMethod.Get && method != HttpMethod.Delete)
                 jsonContent = JsonConvert.SerializeObject(parameters.OrderBy(p => p.Key).ToDictionary(p => p.Key, p => p.Value));
 

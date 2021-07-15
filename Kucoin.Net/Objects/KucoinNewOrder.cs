@@ -10,7 +10,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the new order
         /// </summary>
-        public string OrderId { get; set; } = "";
+        public string OrderId { get; set; } = string.Empty;
 
         string ICommonOrderId.CommonId => OrderId;
     }

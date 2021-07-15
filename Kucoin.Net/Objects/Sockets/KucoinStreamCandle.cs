@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
@@ -13,12 +12,12 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// Candles
         /// </summary>
-        public KucoinKline Candles { get; set; }
+        public KucoinKline Candles { get; set; } = default!;
 
         /// <summary>
         /// The timestamp of the data

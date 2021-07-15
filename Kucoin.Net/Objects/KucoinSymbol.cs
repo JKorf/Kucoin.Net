@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using CryptoExchange.Net.ExchangeInterfaces;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Kucoin.Net.Objects
 {
@@ -11,23 +10,23 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The symbol identifier
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The name of the symbol
         /// </summary>
-        public string Name { get; set; } = "";
+        public string Name { get; set; } = string.Empty;
         /// <summary>
         /// The market the symbol is on
         /// </summary>
-        public string Market { get; set; } = "";
+        public string Market { get; set; } = string.Empty;
         /// <summary>
         /// The base currency
         /// </summary>
-        public string BaseCurrency { get; set; } = "";
+        public string BaseCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The quote currency
         /// </summary>
-        public string QuoteCurrency { get; set; } = "";
+        public string QuoteCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The min order size in the base currency
         /// </summary>
@@ -59,7 +58,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency the fee will be on
         /// </summary>
-        public string FeeCurrency { get; set; } = "";
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// Whether trading is enabled
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects
@@ -30,6 +31,6 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The items on this page
         /// </summary>
-        public IEnumerable<T> Items { get; set; } = new List<T>();
+        public IEnumerable<T> Items { get; set; } = Array.Empty<T>();
     }
 }

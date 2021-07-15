@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kucoin.Net.Objects
+﻿namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// User fee

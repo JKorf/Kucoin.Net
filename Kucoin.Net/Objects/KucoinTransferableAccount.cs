@@ -1,7 +1,4 @@
-﻿using Kucoin.Net.Converts;
-using Newtonsoft.Json;
-
-namespace Kucoin.Net.Objects
+﻿namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Transferable Account info
@@ -11,7 +8,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the account
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The total balance of the account
         /// </summary>

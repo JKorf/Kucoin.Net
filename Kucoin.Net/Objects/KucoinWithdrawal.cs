@@ -13,19 +13,19 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the withdrawal
         /// </summary>
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The address the withdrawal is to
         /// </summary>
-        public string Address { get; set; } = "";
+        public string Address { get; set; } = string.Empty;
         /// <summary>
         /// The memo for the withdrawal
         /// </summary>
-        public string Memo { get; set; } = "";
+        public string Memo { get; set; } = string.Empty;
         /// <summary>
         /// The currency of the withdrawal
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The quantity of the withdrawal
         /// </summary>
@@ -39,7 +39,7 @@ namespace Kucoin.Net.Objects
         /// The wallet transaction id
         /// </summary>
         [JsonProperty("walletTxId")]
-        public string WalletTransactionId { get; set; } = "";
+        public string WalletTransactionId { get; set; } = string.Empty;
         /// <summary>
         /// Whether it is an internal withdrawal
         /// </summary>

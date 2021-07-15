@@ -13,11 +13,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The symbol of the order
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The price of the order
         /// </summary>

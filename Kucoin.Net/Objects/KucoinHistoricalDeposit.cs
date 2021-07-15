@@ -13,7 +13,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the deposit
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The status of the deposit
         /// </summary>
@@ -23,7 +23,7 @@ namespace Kucoin.Net.Objects
         /// The wallet transaction id
         /// </summary>
         [JsonProperty("walletTxId")]
-        public string WalletTransactionId { get; set; } = "";
+        public string WalletTransactionId { get; set; } = string.Empty;
         /// <summary>
         /// The time the deposit was created
         /// </summary>

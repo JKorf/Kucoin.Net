@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
@@ -22,7 +23,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The symbol of the order book
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// The changes
@@ -38,11 +39,11 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The changes in bids
         /// </summary>
-        public IEnumerable<KucoinStreamOrderBookEntry> Bids { get; set; } = new List<KucoinStreamOrderBookEntry>();
+        public IEnumerable<KucoinStreamOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
         /// The changes in asks
         /// </summary>
-        public IEnumerable<KucoinStreamOrderBookEntry> Asks { get; set; } = new List<KucoinStreamOrderBookEntry>();
+        public IEnumerable<KucoinStreamOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
     }
 
     /// <summary>

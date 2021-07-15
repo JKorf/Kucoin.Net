@@ -13,7 +13,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The symbol of the update
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Update sequence
         /// </summary>
@@ -26,12 +26,12 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Id of the order
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Id of the order
         /// </summary>
         [JsonProperty("clientOId")]
-        public string ClientOrderId { get; set; }
+        public string ClientOrderId { get; set; } = string.Empty;
     }
     
     /// <summary>
@@ -111,14 +111,14 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Order id of taker
         /// </summary>
-        public string TakerOrderId { get; set; }
+        public string TakerOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order id of maker
         /// </summary>
-        public string MakerOrderId { get; set; }
+        public string MakerOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Id of the trade
         /// </summary>
-        public string TradeId { get; set; }
+        public string TradeId { get; set; } = string.Empty;
     }
 }

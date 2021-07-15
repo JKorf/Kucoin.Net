@@ -1,10 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converts;
-using Newtonsoft.Json;
-using System;
-
-namespace Kucoin.Net.Objects
+﻿namespace Kucoin.Net.Objects
 {
     /// <summary>
     /// Sub transfer info
@@ -14,6 +8,6 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the new sub transfer
         /// </summary>
-        public string OrderId { get; set; } = "";
+        public string OrderId { get; set; } = string.Empty;
     }
 }

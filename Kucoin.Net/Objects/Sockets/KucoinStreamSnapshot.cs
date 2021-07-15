@@ -32,7 +32,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The current best bid
         /// </summary>
@@ -61,19 +61,19 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The base currency
         /// </summary>
-        public string BaseCurrency { get; set; } = "";
+        public string BaseCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The market name
         /// </summary>
-        public string Market { get; set; } = "";
+        public string Market { get; set; } = string.Empty;
         /// <summary>
         /// The quote currency
         /// </summary>
-        public string QuoteCurrency { get; set; } = "";
+        public string QuoteCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The symbol code
         /// </summary>
-        public string SymbolCode { get; set; } = "";
+        public string SymbolCode { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp of the data
         /// </summary>

@@ -24,11 +24,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The list of asks
         /// </summary>
-        public IEnumerable<KucoinFullOrderBookEntry> Asks { get; set; } = new List<KucoinFullOrderBookEntry>();
+        public IEnumerable<KucoinFullOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
         /// <summary>
         /// The list of bids
         /// </summary>
-        public IEnumerable<KucoinFullOrderBookEntry> Bids { get; set; } = new List<KucoinFullOrderBookEntry>();
+        public IEnumerable<KucoinFullOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
 
         IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonBids => Bids;
         IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonAsks => Asks;
@@ -51,11 +51,11 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The list of asks
         /// </summary>
-        public IEnumerable<KucoinOrderBookEntry> Asks { get; set; } = new List<KucoinOrderBookEntry>();
+        public IEnumerable<KucoinOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinOrderBookEntry>();
         /// <summary>
         /// The list of bids
         /// </summary>
-        public IEnumerable<KucoinOrderBookEntry> Bids { get; set; } = new List<KucoinOrderBookEntry>();
+        public IEnumerable<KucoinOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinOrderBookEntry>();
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ namespace Kucoin.Net.Objects
         /// The order id of the entry
         /// </summary>
         [ArrayProperty(0)]
-        public string OrderId { get; set; } = "";
+        public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// The price of the entry
         /// </summary>

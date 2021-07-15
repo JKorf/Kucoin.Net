@@ -10,7 +10,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency the quota is for
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The max BTC value that can be withdrawn
         /// </summary>
@@ -52,6 +52,6 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The chain
         /// </summary>
-        public string Chain { get; set; } = "";
+        public string Chain { get; set; } = string.Empty;
     }
 }

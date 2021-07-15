@@ -12,7 +12,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The symbol the stat is for
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The highest price in the last 24 hours
         /// </summary>

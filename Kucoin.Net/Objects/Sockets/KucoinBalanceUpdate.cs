@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The currency this update is for
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The amount currently in hold
         /// </summary>
@@ -36,11 +36,11 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The event that caused the change
         /// </summary>
-        public string RelationEvent { get; set; } = "";
+        public string RelationEvent { get; set; } = string.Empty;
         /// <summary>
         /// The cause id
         /// </summary>
-        public string RelationEventId { get; set; } = "";
+        public string RelationEventId { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp of the update
         /// </summary>
@@ -49,6 +49,6 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// The id of the changed account
         /// </summary>
-        public string AccountId { get; set; } = "";
+        public string AccountId { get; set; } = string.Empty;
     }
 }

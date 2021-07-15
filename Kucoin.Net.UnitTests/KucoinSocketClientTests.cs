@@ -3,6 +3,7 @@ using Kucoin.Net.Objects.Sockets;
 using Kucoin.Net.UnitTests.TestImplementations;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -19,7 +20,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 2}\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -32,11 +33,15 @@ namespace Kucoin.Net.UnitTests
             // arrange
             var socket = new TestSocket();
             socket.CanConnect = true;
-            var client = TestHelpers.CreateSocketClient(socket);
+            var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
+            {
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace
+            });
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
-            socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId - 1}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
+            Task.Delay(10).Wait();
+            socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId - 2}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -56,7 +61,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test.Data);
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 2}\"}}");
             var subResult = subTask.Result;
 
             var expected = TestHelpers.CreateObjectWithTestParameters<KucoinStreamTick>();
@@ -85,7 +90,7 @@ namespace Kucoin.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test.Data);
-            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 1}\"}}");
+            socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId - 2}\"}}");
             var subResult = subTask.Result;
 
             var expected = TestHelpers.CreateObjectWithTestParameters<KucoinStreamSnapshot>();

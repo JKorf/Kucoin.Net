@@ -14,7 +14,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The symbol the fill is for
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The type of the order
         /// </summary>
@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The currency of the fee
         /// </summary>
-        public string FeeCurrency { get; set; } = "";
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The stop condition of the fill
         /// </summary>
@@ -63,15 +63,15 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the trade
         /// </summary>
-        public string TradeId { get; set; } = "";
+        public string TradeId { get; set; } = string.Empty;
         /// <summary>
         /// The id of the order
         /// </summary>
-        public string OrderId { get; set; } = "";
+        public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// The id of the counter order
         /// </summary>
-        public string CounterOrderId { get; set; } = "";
+        public string CounterOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Maker or taker
         /// </summary>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converts;
 using Newtonsoft.Json;
@@ -20,7 +18,7 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Order id
         /// </summary>
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order price
         /// </summary>
@@ -43,7 +41,8 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Stop
         /// </summary>
-        public string Stop { get; set; }
+        [JsonConverter(typeof(StopConditionConverter))]
+        public KucoinStopCondition Stop { get; set; }
         /// <summary>
         /// Stop price
         /// </summary>
@@ -51,11 +50,12 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Symbol
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Trade type
         /// </summary>
-        public string TradeType { get; set; }
+        [JsonConverter(typeof(TradeTypeConverter))]
+        public KucoinTradeType TradeType { get; set; }
         /// <summary>
         /// Trigger was success
         /// </summary>
@@ -68,6 +68,6 @@ namespace Kucoin.Net.Objects.Sockets
         /// <summary>
         /// Update type
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
     }
 }

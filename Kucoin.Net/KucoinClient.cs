@@ -15,7 +15,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Interfaces;
-using System.Linq;
 
 namespace Kucoin.Net
 {
@@ -31,11 +30,11 @@ namespace Kucoin.Net
         /// <summary>
         /// Event triggered when an order is placed via this client
         /// </summary>
-        public event Action<ICommonOrderId> OnOrderPlaced;
+        public event Action<ICommonOrderId>? OnOrderPlaced;
         /// <summary>
         /// Event triggered when an order is cancelled via this client
         /// </summary>
-        public event Action<ICommonOrderId> OnOrderCanceled;
+        public event Action<ICommonOrderId>? OnOrderCanceled;
 
         #region constructor/destructor
         /// <summary>
@@ -372,8 +371,8 @@ namespace Kucoin.Net
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            string bizTypeString = "";
-            string directionString = "";
+            string bizTypeString = string.Empty;
+            string directionString = string.Empty;
 
             if (bizType.HasValue)
             {
@@ -707,7 +706,10 @@ namespace Kucoin.Net
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            return await Execute<KucoinNewOrder>(GetUri("orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await Execute<KucoinNewOrder>(GetUri("orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (result)
+                OnOrderPlaced?.Invoke(result.Data);
+            return result;
         }
 
         /// <summary>
@@ -719,7 +721,11 @@ namespace Kucoin.Net
         public async Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            return await Execute<KucoinCancelledOrders>(GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            var result = await Execute<KucoinCancelledOrders>(GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            if (result)
+                OnOrderCanceled?.Invoke(result.Data);
+            return result;
+
         }
 
         /// <summary>
@@ -731,7 +737,10 @@ namespace Kucoin.Net
         public async Task<WebCallResult<KucoinCancelledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
-            return await Execute<KucoinCancelledOrder>(GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            var result = await Execute<KucoinCancelledOrder>(GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            if (result)
+                OnOrderCanceled?.Invoke(result.Data);
+            return result;
         }
 
         /// <summary>

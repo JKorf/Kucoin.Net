@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The symbol of the tick
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The best ask price
         /// </summary>
