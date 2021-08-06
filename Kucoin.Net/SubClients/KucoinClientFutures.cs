@@ -6,6 +6,7 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures;
+using Kucoin.Net.Objects.Sockets;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -812,5 +813,10 @@ namespace Kucoin.Net.SubClients
         }
 
         #endregion
+
+        internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<KucoinToken>(_baseClient.GetFuturesUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
+        }
     }
 }

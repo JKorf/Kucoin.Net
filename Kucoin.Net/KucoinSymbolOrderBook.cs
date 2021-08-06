@@ -37,7 +37,7 @@ namespace Kucoin.Net
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
             {
-                subResult = await socketClient.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
+                subResult = await socketClient.Spot.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
 
                 Status = OrderBookStatus.Syncing;
                 var bookResult = await restClient.Spot.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
@@ -51,7 +51,7 @@ namespace Kucoin.Net
             }
             else
             {
-                subResult = await socketClient.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+                subResult = await socketClient.Spot.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
                 Status = OrderBookStatus.Syncing;
                 await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             }
