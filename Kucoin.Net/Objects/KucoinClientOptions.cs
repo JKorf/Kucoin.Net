@@ -15,9 +15,14 @@ namespace Kucoin.Net.Objects
         public new KucoinApiCredentials? ApiCredentials { get; set; }
 
         /// <summary>
+        /// Base address for the futures API
+        /// </summary>
+        public string FuturesBaseAddress { get; set; }
+
+        /// <summary>
         /// Create new client options
         /// </summary>
-        public KucoinClientOptions() : this(null, "https://api.kucoin.com/api/")
+        public KucoinClientOptions() : this(null, "https://api.kucoin.com/api/", "https://api-futures.kucoin.com/api/")
         {
         }
 
@@ -25,18 +30,38 @@ namespace Kucoin.Net.Objects
         /// Create new client options
         /// </summary>
         /// <param name="client">HttpClient to use for requests from this client</param>
-        public KucoinClientOptions(HttpClient client) : this(client, "https://api.kucoin.com/api/")
+        public KucoinClientOptions(HttpClient client) : this(client, "https://api.kucoin.com/api/", "https://api-futures.kucoin.com/api/")
+        {
+        }
+
+        /// <summary>
+        /// Constructor with custom endpoints
+        /// </summary>
+        /// <param name="addresses">The base addresses to use</param>
+        public KucoinClientOptions(KucoinApiAddresses addresses) : this(null, addresses.SpotAddress, addresses.FuturesAddress)
+        {
+        }
+
+
+        /// <summary>
+        /// Constructor with custom endpoints
+        /// </summary>
+        /// <param name="addresses">The base addresses to use</param>
+        /// <param name="client">HttpClient to use for requests from this client</param>
+        public KucoinClientOptions(KucoinApiAddresses addresses, HttpClient client) : this(client, addresses.SpotAddress, addresses.FuturesAddress)
         {
         }
 
         /// <summary>
         /// Create new client options
         /// </summary>
-        /// <param name="apiAddress">Custom API address to use</param>
+        /// <param name="spotApiAddress">Custom API address to use for the spot API</param>
+        /// <param name="futuresApiAddress">Custom API address to use for the futures API</param>
         /// <param name="client">HttpClient to use for requests from this client</param>
-        public KucoinClientOptions(HttpClient? client, string apiAddress) : base(apiAddress)
+        public KucoinClientOptions(HttpClient? client, string spotApiAddress, string futuresApiAddress) : base(spotApiAddress)
         {
             HttpClient = client;
+            FuturesBaseAddress = futuresApiAddress;
         }
 
         /// <summary>

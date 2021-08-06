@@ -78,7 +78,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj));
 
             // act
-            var result = await client.GetCurrenciesAsync();
+            var result = await client.Spot.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -95,7 +95,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((RestClient)client, "", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.GetCurrenciesAsync();
+            var result = await client.Spot.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -117,7 +117,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.GetCurrenciesAsync();
+            var result = await client.Spot.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);

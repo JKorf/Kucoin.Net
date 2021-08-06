@@ -48,6 +48,12 @@ namespace Kucoin.Net.Objects
         /// </summary>
         [JsonProperty("time"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
+        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        private DateTime TimestampNS
+        {
+            set => Timestamp = value;
+        }
+
         /// <summary>
         /// The list of asks
         /// </summary>

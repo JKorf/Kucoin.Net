@@ -14,6 +14,7 @@ using Kucoin.Net.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Interfaces;
+using Kucoin.Net.SubClients;
 
 namespace Kucoin.Net
 {
@@ -535,7 +536,7 @@ namespace Kucoin.Net
                     {
                         using (var restClient = new KucoinClient(clientOptions))
                         {
-                            var tokenResult = await restClient.GetWebsocketToken(authenticated).ConfigureAwait(false);
+                            var tokenResult = await ((KucoinClientSpot)restClient.Spot).GetWebsocketToken(authenticated).ConfigureAwait(false);
                             if (!tokenResult)
                                 return new CallResult<UpdateSubscription>(null, tokenResult.Error);
                             token = tokenResult.Data;
