@@ -75,7 +75,7 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj));
+            TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj));
 
             // act
             var result = await client.Spot.GetCurrenciesAsync();
@@ -92,7 +92,7 @@ namespace Kucoin.Net.UnitTests
         {
             // arrange
             var client = TestHelpers.CreateClient();
-            TestHelpers.SetResponse((RestClient)client, "", System.Net.HttpStatusCode.BadRequest);
+            TestHelpers.SetResponse((KucoinClient)client, "", System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = await client.Spot.GetCurrenciesAsync();
@@ -114,7 +114,7 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((RestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+            TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = await client.Spot.GetCurrenciesAsync();

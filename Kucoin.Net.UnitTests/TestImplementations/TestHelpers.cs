@@ -106,8 +106,8 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         {
             KucoinSocketClient client;
             client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
-            client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
+            client.Spot.SocketFactory = Mock.Of<IWebsocketFactory>();
+            Mock.Get(client.Spot.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
             return client;
         }
 
@@ -115,8 +115,8 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         {
             KucoinSocketClient client;
             client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
-            client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
+            client.Spot.SocketFactory = Mock.Of<IWebsocketFactory>();
+            Mock.Get(client.Spot.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
             return client;
         }
 
@@ -124,7 +124,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         {
             IKucoinClient client;
             client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogLevel = LogLevel.Debug });
-            client.RequestFactory = Mock.Of<IRequestFactory>();
+            client.Spot.RequestFactory = Mock.Of<IRequestFactory>();
             return client;
         }
 
@@ -150,7 +150,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return client;
         }
 
-        public static void SetResponse(RestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public static void SetResponse(KucoinClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
             var responseStream = new MemoryStream();
@@ -166,7 +166,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             request.Setup(c => c.Uri).Returns(new Uri("http://www.test.com"));
             request.Setup(c => c.GetResponseAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(response.Object));
 
-            var factory = Mock.Get(client.RequestFactory);
+            var factory = Mock.Get(client.Spot.RequestFactory);
             factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(request.Object);
         }

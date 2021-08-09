@@ -432,7 +432,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientFutures.GetUserTradeHistoryAsync(System.String,System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientFutures.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of user trades
             </summary>
@@ -447,7 +447,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of trades</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientFutures.GetRecentUserTradeAsync(System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientFutures.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <summary>
             Get list of 1000 most recent user trades in the last 24 hours
             </summary>        
@@ -711,7 +711,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Full order book</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetSymbolTradesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the recent trade history for a symbol
             </summary>
@@ -1061,7 +1061,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetUserTradeHistoryAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of fills
             </summary>
@@ -1076,7 +1076,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetRecentFillsAsync(System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 fills in the last 24 hours
             </summary>
@@ -1558,7 +1558,7 @@
             Type of the transaction
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinAccountTransaction.Amount">
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinAccountTransaction.Quantity">
             <summary>
             Amount of the transaction
             </summary>
@@ -2103,12 +2103,12 @@
             The currency the quota is for
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinFuturesWithdrawalQuota.RemainingAmount">
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinFuturesWithdrawalQuota.RemainingQuantity">
             <summary>
             The remaining amount which can be withdrawn
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinFuturesWithdrawalQuota.AvailableAmount">
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinFuturesWithdrawalQuota.AvailableQuantity">
             <summary>
             The current amount available for withdrawal
             </summary>
@@ -2459,7 +2459,7 @@
             Status of the transfer
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinTransfer.Amount">
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinTransfer.Quantity">
             <summary>
             Amount of the transfer
             </summary>
@@ -4001,7 +4001,7 @@
             Creation timestamp
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinAccountActivity.Amount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinAccountActivity.Quantity">
             <summary>
             The amount of the activity
             </summary>
@@ -4241,7 +4241,7 @@
             A memo for this deposit
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinDeposit.Amount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinDeposit.Quantity">
             <summary>
             The amount of the deposit
             </summary>
@@ -4526,7 +4526,7 @@
             The lowest price during this kline
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinKline.Amount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinKline.Quantity">
             <summary>
             The amount of the kline
             </summary>
@@ -5031,22 +5031,22 @@
             The currency the quota is for
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.LimitBTCAmount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.LimitBTCQuantity">
             <summary>
             The max BTC value that can be withdrawn
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.UsedBTCAmount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.UsedBTCQuantity">
             <summary>
             The used BTC value
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.RemainingAmount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.RemainingQuantity">
             <summary>
             The remaining amount which can be withdrawn
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.AvailableAmount">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawalQuota.AvailableQuantity">
             <summary>
             The current amount available for withdrawal
             </summary>
@@ -6240,7 +6240,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Order</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.GetUserTradeHistoryAsync(System.String,System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of user trades
             </summary>
@@ -6255,7 +6255,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of trades</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.GetRecentUserTradeAsync(System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <summary>
             Get list of 1000 most recent user trades in the last 24 hours
             </summary>        
@@ -6532,7 +6532,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Full order book</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetSymbolTradesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the recent trade history for a symbol
             </summary>
@@ -6882,9 +6882,9 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetFillsAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetUserTradeHistoryAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of fills
+            Gets a list of your trades
             </summary>
             <param name="symbol">Filter list by symbol</param>
             <param name="type">Filter list by order type</param>
@@ -6897,7 +6897,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetRecentFillsAsync(System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of max 1000 fills in the last 24 hours
             </summary>
