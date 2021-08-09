@@ -89,6 +89,13 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.0.0-beta3 - 09 Aug 2021
+    * Added Futures support
+    * Fixed KucoinSymbolOrderBook
+    * Renamed GetSymbolTradesAsync to GetTradeHistoryAsync
+    * Renamed GetFillsAsync to GetUserTradesAsync
+    * Renamed GetRecentFillsAsync to GetRecentUserTradesAsync
+
 * Version 3.0.0-beta2 - 26 Jul 2021
     * Updated CryptoExchange.Net
 

@@ -1061,7 +1061,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetUserTradeHistoryAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetUserTradesAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of fills
             </summary>
@@ -6882,7 +6882,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical orders</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetUserTradeHistoryAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetUserTradesAsync(System.String,System.Nullable{Kucoin.Net.Objects.KucoinOrderSide},System.Nullable{Kucoin.Net.Objects.KucoinOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of your trades
             </summary>
