@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Withdrawal quota info

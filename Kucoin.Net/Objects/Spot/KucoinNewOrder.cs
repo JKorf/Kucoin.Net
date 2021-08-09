@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// New order id

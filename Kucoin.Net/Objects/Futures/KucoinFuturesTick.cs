@@ -1,7 +1,7 @@
 ﻿using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 using System;
+using Kucoin.Net.Converters;
 
 namespace Kucoin.Net.Objects.Futures
 {

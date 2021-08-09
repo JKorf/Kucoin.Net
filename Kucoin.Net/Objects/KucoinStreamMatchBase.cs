@@ -1,8 +1,5 @@
-﻿using Kucoin.Net.Converts;
+﻿using Kucoin.Net.Converters;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Objects
 {

@@ -2,18 +2,16 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Sockets;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Kucoin.Net.Converts;
 using Kucoin.Net.Interfaces;
-using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Interfaces;
+using Kucoin.Net.Objects.Socket;
 using Kucoin.Net.SubClients;
 using Kucoin.Net.SocketSubClients;
 

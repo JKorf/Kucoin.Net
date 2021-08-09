@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Converts;
+﻿using Kucoin.Net.Converters;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Futures

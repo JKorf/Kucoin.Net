@@ -1,9 +1,10 @@
 ﻿using CryptoExchange.Net;
-using Kucoin.Net.Objects.Sockets;
 using Kucoin.Net.UnitTests.TestImplementations;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using Kucoin.Net.Objects.Socket;
+using Kucoin.Net.Objects.Spot.Socket;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -23,7 +24,7 @@ namespace Kucoin.Net.UnitTests
             });
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
+            var subTask = client.Spot.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
             await Task.Delay(10);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
             var subResult = await subTask;
@@ -45,7 +46,7 @@ namespace Kucoin.Net.UnitTests
             });
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
+            var subTask = client.Spot.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
             await Task.Delay(10);
             socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{BaseClient.LastId}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
             var subResult = await subTask;
@@ -70,7 +71,7 @@ namespace Kucoin.Net.UnitTests
             KucoinStreamTick result = null;
 
             // act
-            var subTask = client.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test.Data);
+            var subTask = client.Spot.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test.Data);
             await Task.Delay(10);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
             var subResult = await subTask;
@@ -104,7 +105,7 @@ namespace Kucoin.Net.UnitTests
             KucoinStreamSnapshot result = null;
 
             // act
-            var subTask = client.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test.Data);
+            var subTask = client.Spot.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test.Data);
             await Task.Delay(10);
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{BaseClient.LastId}\"}}");
             var subResult = await subTask;

@@ -1,8 +1,8 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
-using Kucoin.Net.Converts;
+using Kucoin.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Account info

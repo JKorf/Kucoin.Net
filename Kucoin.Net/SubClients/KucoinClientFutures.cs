@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converts;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures;
-using Kucoin.Net.Objects.Sockets;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Kucoin.Net.Converters;
+using Kucoin.Net.Objects.Socket;
+using Kucoin.Net.Objects.Spot;
 
 namespace Kucoin.Net.SubClients
 {
@@ -784,9 +784,9 @@ namespace Kucoin.Net.SubClients
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<KucoinFuturesServerStatus>> GetServiceStatusAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesServiceStatus>> GetServiceStatusAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinFuturesServerStatus>(_baseClient.GetFuturesUri("status"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinFuturesServiceStatus>(_baseClient.GetFuturesUri("status"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         #endregion

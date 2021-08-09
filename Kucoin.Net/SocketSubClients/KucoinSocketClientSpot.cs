@@ -2,10 +2,8 @@
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Converts;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Sockets;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,8 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Kucoin.Net.Converters;
+using Kucoin.Net.Objects.Futures.Socket;
+using Kucoin.Net.Objects.Socket;
+using Kucoin.Net.Objects.Spot.Socket;
 
 namespace Kucoin.Net.SocketSubClients
 {
@@ -464,11 +465,11 @@ namespace Kucoin.Net.SocketSubClients
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdate>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = _baseClient.GetData<KucoinStreamStopOrderUpdate>(tokenData);
-                _baseClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
+                _baseClient.InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/advancedOrders", true);

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures;
+using Kucoin.Net.Objects.Spot;
 
 namespace Kucoin.Net.Interfaces
 {
@@ -448,7 +448,7 @@ namespace Kucoin.Net.Interfaces
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesServerStatus>> GetServiceStatusAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesServiceStatus>> GetServiceStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data

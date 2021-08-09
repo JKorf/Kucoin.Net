@@ -1,0 +1,21 @@
+﻿namespace Kucoin.Net.Objects.Futures.Socket
+{
+    /// <summary>
+    /// Order book change
+    /// </summary>
+    public class KucoinFuturesOrderBookChange
+    {
+        /// <summary>
+        /// Price
+        /// </summary>
+        public decimal Price { get; set; }
+        /// <summary>
+        /// Side
+        /// </summary>
+        public KucoinOrderSide Side { get; set; }
+        /// <summary>
+        /// Quantity
+        /// </summary>
+        public decimal Quantity { get; set; }
+    }
+}

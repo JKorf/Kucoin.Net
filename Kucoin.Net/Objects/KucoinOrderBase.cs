@@ -1,10 +1,8 @@
 ﻿using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converts;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Kucoin.Net.Converters;
 
 namespace Kucoin.Net.Objects
 {

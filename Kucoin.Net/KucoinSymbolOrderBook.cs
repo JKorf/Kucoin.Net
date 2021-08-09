@@ -4,7 +4,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Sockets;
+using Kucoin.Net.Objects.Spot.Socket;
 
 namespace Kucoin.Net
 {

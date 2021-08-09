@@ -2,20 +2,17 @@
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Converts;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures;
-using Kucoin.Net.Objects.Sockets;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Kucoin.Net.Objects.Futures.Socket;
+using Kucoin.Net.Objects.Socket;
+using Kucoin.Net.Objects.Spot.Socket;
 
 namespace Kucoin.Net.SocketSubClients
 {
@@ -75,8 +72,11 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = _baseClient.GetData<JToken>(tokenData);
-                var change = data["change"].ToString();
-                var items = change.Split(',');
+                var change = data["change"]?.ToString();
+                if (string.IsNullOrEmpty(change))
+                    return;
+
+                var items = change!.Split(',');
                 var result = new KucoinFuturesOrderBookChange
                 {
                     Price = decimal.Parse(items[0]),
@@ -123,7 +123,7 @@ namespace Kucoin.Net.SocketSubClients
             Action<DataEvent<KucoinStreamFuturesFundingRate>> onFundingRateUpdate)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                if (tokenData.Data["subject"].ToString() == "mark.index.price")
+                if (tokenData.Data["subject"]?.ToString() == "mark.index.price")
                 {
                     var data = _baseClient.GetData<KucoinStreamFuturesMarkIndexPrice>(tokenData);
                     _baseClient.InvokeHandler(tokenData.As(data), onMarkIndexPriceUpdate);
@@ -148,7 +148,7 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = _baseClient.GetData<KucoinContractAnnouncement>(tokenData);
-                data.Event = tokenData.Data["subject"].ToString();
+                data.Event = tokenData.Data["subject"]?.ToString() ?? "";
                 _baseClient.InvokeHandler(tokenData.As(data), onData);
             });
 
@@ -167,10 +167,26 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = _baseClient.GetData<KucoinStreamFuturesOrderUpdate>(tokenData);
-                _baseClient.InvokeHandler(tokenData.As(data), onData);
+                _baseClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/tradeOrders" + (symbol == null ? "": ":" +symbol), true);
+            return await _baseClient.SubscribeInternalAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Subscribe to stop order updates
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData)
+        {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+                var data = _baseClient.GetData<KucoinStreamFuturesStopOrderUpdate>(tokenData);
+                _baseClient.InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
+            });
+
+            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/advancedOrders", false);
             return await _baseClient.SubscribeInternalAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 
@@ -204,7 +220,7 @@ namespace Kucoin.Net.SocketSubClients
             Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                var subject = tokenData.Data["subject"].ToString();
+                var subject = tokenData.Data["subject"]?.ToString();
                 if (subject == "orderMargin.change")
                 {
                     var data = _baseClient.GetData<KucoinStreamOrderMarginUpdate>(tokenData);

@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures;
-using Kucoin.Net.Objects.Sockets;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Kucoin.Net.Objects.Futures.Socket;
+using Kucoin.Net.Objects.Spot.Socket;
 
 namespace Kucoin.Net.Interfaces
 {
@@ -101,5 +101,12 @@ namespace Kucoin.Net.Interfaces
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol,
             Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData);
+
+        /// <summary>
+        /// Subscribe to stop order updates
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData);
     }
 }

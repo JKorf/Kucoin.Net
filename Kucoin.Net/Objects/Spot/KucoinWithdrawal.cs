@@ -1,9 +1,9 @@
-﻿using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converts;
+﻿using System;
+using CryptoExchange.Net.Converters;
+using Kucoin.Net.Converters;
 using Newtonsoft.Json;
-using System;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Withdrawal info

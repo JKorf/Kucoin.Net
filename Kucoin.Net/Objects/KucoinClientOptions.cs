@@ -83,23 +83,21 @@ namespace Kucoin.Net.Objects
     public class KucoinSocketClientOptions: SocketClientOptions
     {
         /// <summary>
-        /// The api credentials
+        /// The spot api credentials
         /// </summary>
         public new KucoinApiCredentials? ApiCredentials { get; set; }
 
         /// <summary>
-        /// The amount of subscriptions that should be made on a single socket connection.
-        /// Setting this to a higher number increases subscription speed, but having more subscriptions on a single connection will also increase the amount of traffic on that single connection.
-        /// Make sure the socket doesn't overflow, and consider combining multiple symbols on a subscription instead of increasing this number.
+        /// The futures api credentials
         /// </summary>
-        public new int SocketSubscriptionsCombineTarget { get; set; }
+        public KucoinApiCredentials? FuturesApiCredentials { get; set; }
 
         /// <summary>
         /// ctor
         /// </summary>
         public KucoinSocketClientOptions(): base("https://api.kucoin.com/api/") // Real url is retrieved from rest API
         {
-            SocketSubscriptionsCombineTarget = 1;
+            SocketSubscriptionsCombineTarget = 10;
         }
 
         /// <summary>

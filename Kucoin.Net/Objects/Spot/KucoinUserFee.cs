@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects
+﻿namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// User fee

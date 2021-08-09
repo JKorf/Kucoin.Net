@@ -1,14 +1,9 @@
 using CryptoExchange.Net;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converts;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Sockets;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Threading;

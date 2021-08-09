@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CryptoExchange.Net.ExchangeInterfaces;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Ids of cancelled orders

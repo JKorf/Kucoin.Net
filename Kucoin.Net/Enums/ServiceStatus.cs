@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kucoin.Net.Enums
+﻿namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Service status

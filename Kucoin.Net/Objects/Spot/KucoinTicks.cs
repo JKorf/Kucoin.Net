@@ -1,9 +1,9 @@
-﻿using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CryptoExchange.Net.Converters;
+using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Tick info

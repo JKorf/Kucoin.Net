@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kucoin.Net.Objects.Futures
+﻿namespace Kucoin.Net.Objects.Futures
 {
     /// <summary>
     /// Funding rate info
