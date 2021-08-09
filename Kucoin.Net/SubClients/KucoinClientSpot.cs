@@ -837,7 +837,7 @@ namespace Kucoin.Net.SubClients
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        public async Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetUserTradeHistoryAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetUserTradesAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -1183,7 +1183,7 @@ namespace Kucoin.Net.SubClients
 
         async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
         {
-            var trades = await GetUserTradeHistoryAsync(orderId: orderId).ConfigureAwait(false);
+            var trades = await GetUserTradesAsync(orderId: orderId).ConfigureAwait(false);
             return trades.As<IEnumerable<ICommonTrade>>(trades.Data?.Items);
         }
 

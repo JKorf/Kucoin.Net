@@ -466,7 +466,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetUserTradeHistoryAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetUserTradesAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of max 1000 fills in the last 24 hours
