@@ -474,7 +474,7 @@ namespace Kucoin.Net.SubClients
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradeAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default)
         {
             return await Execute<IEnumerable<KucoinFuturesUserTrade>>(GetUri("recentFills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }

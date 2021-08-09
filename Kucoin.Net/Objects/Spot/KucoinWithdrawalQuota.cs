@@ -14,20 +14,23 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The max BTC value that can be withdrawn
         /// </summary>
-        public decimal LimitBTCAmount { get; set; }
+        [JsonProperty("limitBtcAmount")]
+        public decimal LimitBTCQuantity { get; set; }
         /// <summary>
         /// The used BTC value
         /// </summary>
-        public decimal UsedBTCAmount { get; set; }
+        [JsonProperty("usdBtcAmount")]
+        public decimal UsedBTCQuantity { get; set; }
         /// <summary>
         /// The remaining amount which can be withdrawn
         /// </summary>
         [JsonProperty("remainAmount")]
-        public decimal RemainingAmount { get; set; }
+        public decimal RemainingQuantity { get; set; }
         /// <summary>
         /// The current amount available for withdrawal
         /// </summary>
-        public decimal AvailableAmount { get; set; }
+        [JsonProperty("availableAmount")]
+        public decimal AvailableQuantity { get; set; }
         /// <summary>
         /// The minimum fee for withdrawing
         /// </summary>

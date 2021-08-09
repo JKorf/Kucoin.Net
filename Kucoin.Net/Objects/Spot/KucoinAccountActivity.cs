@@ -18,7 +18,7 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The amount of the activity
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// The remaining balance after the activity
         /// </summary>

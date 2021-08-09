@@ -24,7 +24,8 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Amount of the transaction
         /// </summary>
-        public decimal Amount { get; set; }
+        [JsonProperty("amount")]
+        public decimal Quantity { get; set; }
         /// <summary>
         /// Fee of the transaction
         /// </summary>

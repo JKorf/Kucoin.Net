@@ -21,7 +21,8 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The amount of the deposit
         /// </summary>
-        public decimal Amount { get; set; }
+        [JsonProperty("amount")]
+        public decimal Quantity { get; set; }
         /// <summary>
         /// The fee of the deposit
         /// </summary>

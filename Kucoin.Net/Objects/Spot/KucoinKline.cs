@@ -40,7 +40,7 @@ namespace Kucoin.Net.Objects.Spot
         /// The amount of the kline
         /// </summary>
         [ArrayProperty(5)]
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// The volume of the kline
         /// </summary>

@@ -90,9 +90,9 @@ namespace Kucoin.Net.SocketSubClients
                 var result = new KucoinFuturesOrderBookChange
                 {
                     Sequence = long.Parse(data["sequence"].ToString()),
-                    Price = decimal.Parse(items[0]),
+                    Price = decimal.Parse(items[0], CultureInfo.InvariantCulture),
                     Side = items[1] == "sell" ? KucoinOrderSide.Sell: KucoinOrderSide.Buy,
-                    Quantity = decimal.Parse(items[2])
+                    Quantity = decimal.Parse(items[2], CultureInfo.InvariantCulture)
                 };
 
                 InvokeHandler(tokenData.As(result), onData);

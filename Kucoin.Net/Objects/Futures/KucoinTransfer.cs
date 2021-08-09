@@ -26,7 +26,7 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Amount of the transfer
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// Reason if failed
         /// </summary>

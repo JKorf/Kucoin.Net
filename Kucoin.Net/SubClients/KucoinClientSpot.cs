@@ -152,7 +152,7 @@ namespace Kucoin.Net.SubClients
         /// <param name="symbol">The symbol to get trade history for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades for the symbol</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetSymbolTradesAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
 
@@ -825,7 +825,7 @@ namespace Kucoin.Net.SubClients
         }
 
         /// <summary>
-        /// Gets a list of fills
+        /// Gets a list of your trades
         /// </summary>
         /// <param name="symbol">Filter list by symbol</param>
         /// <param name="type">Filter list by order type</param>
@@ -837,7 +837,7 @@ namespace Kucoin.Net.SubClients
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        public async Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetFillsAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetUserTradeHistoryAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -863,7 +863,7 @@ namespace Kucoin.Net.SubClients
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        public async Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentFillsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentUserTradesAsync(CancellationToken ct = default)
         {
             return await Execute<IEnumerable<KucoinFill>>(GetUri("limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
@@ -1161,7 +1161,7 @@ namespace Kucoin.Net.SubClients
 
         async Task<WebCallResult<IEnumerable<ICommonRecentTrade>>> IExchangeClient.GetRecentTradesAsync(string symbol)
         {
-            var book = await GetSymbolTradesAsync(symbol).ConfigureAwait(false);
+            var book = await GetTradeHistoryAsync(symbol).ConfigureAwait(false);
             return book.As<IEnumerable<ICommonRecentTrade>>(book.Data);
         }
 
@@ -1183,7 +1183,7 @@ namespace Kucoin.Net.SubClients
 
         async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
         {
-            var trades = await GetFillsAsync(orderId: orderId).ConfigureAwait(false);
+            var trades = await GetUserTradeHistoryAsync(orderId: orderId).ConfigureAwait(false);
             return trades.As<IEnumerable<ICommonTrade>>(trades.Data?.Items);
         }
 

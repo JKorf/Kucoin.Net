@@ -15,11 +15,11 @@ namespace Kucoin.Net.Objects.Futures
         /// The remaining amount which can be withdrawn
         /// </summary>
         [JsonProperty("remainAmount")]
-        public decimal RemainingAmount { get; set; }
+        public decimal RemainingQuantity { get; set; }
         /// <summary>
         /// The current amount available for withdrawal
         /// </summary>
-        public decimal AvailableAmount { get; set; }
+        public decimal AvailableQuantity { get; set; }
         /// <summary>
         /// The minimum fee for withdrawing
         /// </summary>

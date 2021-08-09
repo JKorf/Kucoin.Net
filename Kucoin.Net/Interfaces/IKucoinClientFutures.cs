@@ -276,7 +276,7 @@ namespace Kucoin.Net.Interfaces
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradeAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the total value of active orders

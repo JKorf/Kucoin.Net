@@ -91,7 +91,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="symbol">The symbol to get trade history for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades for the symbol</returns>
-        Task<WebCallResult<IEnumerable<KucoinTrade>>> GetSymbolTradesAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data for a symbol
@@ -466,14 +466,14 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetFillsAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinFill>>> GetUserTradeHistoryAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of max 1000 fills in the last 24 hours
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentFillsAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Place a new stop order

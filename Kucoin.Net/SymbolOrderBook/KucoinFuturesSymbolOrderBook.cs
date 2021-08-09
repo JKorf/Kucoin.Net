@@ -55,7 +55,7 @@ namespace Kucoin.Net
             }
             else
             {
-                subResult = await socketClient.Spot.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+                subResult = await socketClient.Futures.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
                 Status = OrderBookStatus.Syncing;
                 await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             }
