@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
@@ -13,7 +14,7 @@ namespace Kucoin.Net.Interfaces
     /// <summary>
     /// Interface for the futures client
     /// </summary>
-    public interface IKucoinClientFutures
+    public interface IKucoinClientFutures : IRestClient
     {
         /// <summary>
         /// Gets account overview

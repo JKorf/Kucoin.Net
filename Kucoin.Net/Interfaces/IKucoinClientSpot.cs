@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Spot;
@@ -11,7 +12,7 @@ namespace Kucoin.Net.Interfaces
     /// <summary>
     /// Interface for the Kucoin client
     /// </summary>
-    public interface IKucoinClientSpot
+    public interface IKucoinClientSpot: IRestClient
     {
         /// <summary>
         /// Gets the server time

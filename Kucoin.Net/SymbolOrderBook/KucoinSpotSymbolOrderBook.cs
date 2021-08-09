@@ -11,7 +11,7 @@ namespace Kucoin.Net
     /// <summary>
     /// Kucoin order book implementation
     /// </summary>
-    public class KucoinSymbolOrderBook: SymbolOrderBook
+    public class KucoinSpotSymbolOrderBook: SymbolOrderBook
     {
         private readonly KucoinClient restClient;
         private readonly KucoinSocketClient socketClient;
@@ -21,7 +21,7 @@ namespace Kucoin.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public KucoinSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
+        public KucoinSpotSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
         {
             Levels = options?.Limit;
             restClient = new KucoinClient();
@@ -43,10 +43,11 @@ namespace Kucoin.Net
                 var bookResult = await restClient.Spot.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    await socketClient.UnsubscribeAllAsync().ConfigureAwait(false);
+                    await socketClient.Spot.UnsubscribeAllAsync().ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, bookResult.Error);
                 }
 
+                log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, "Initial: " + bookResult.Data.Sequence);
                 SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else

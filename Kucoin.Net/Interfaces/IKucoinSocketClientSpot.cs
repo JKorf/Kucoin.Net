@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects;
@@ -12,7 +13,7 @@ namespace Kucoin.Net.Interfaces
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public interface IKucoinSocketClientSpot
+    public interface IKucoinSocketClientSpot : ISocketClient
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

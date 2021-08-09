@@ -10,27 +10,37 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Objects.Futures.Socket;
 using Kucoin.Net.Objects.Socket;
 using Kucoin.Net.Objects.Spot.Socket;
+using CryptoExchange.Net.Interfaces;
+using Kucoin.Net.SubClients;
 
 namespace Kucoin.Net.SocketSubClients
 {
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public class KucoinSocketClientSpot: IKucoinSocketClientSpot
+    public class KucoinSocketClientSpot: SocketClient, IKucoinSocketClientSpot
     {
-        private KucoinSocketClient _baseClient;
-        private Log _log;
-
-        internal KucoinSocketClientSpot(Log log, KucoinSocketClient baseClient)
+        internal KucoinSocketClientSpot(KucoinSocketClientOptions options): base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
-            _log = log;
-            _baseClient = baseClient;
+            MaxSocketConnections = 10;
+
+            SendPeriodic(TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
+            {
+                Id = Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture),
+                Type = "ping"
+            });
+
+            AddGenericHandler("Ping", (messageEvent) => { });
+            AddGenericHandler("Welcome", (messageEvent) => { });
         }
 
         #region public
@@ -56,16 +66,16 @@ namespace Kucoin.Net.SocketSubClients
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
             {
-                var data = _baseClient.GetData<KucoinStreamTick>(tokenData);
+                var data = GetData<KucoinStreamTick>(tokenData);
                 if (data == null)
                     return;
 
                 data.Symbol = ((string)tokenData.Data["topic"]).Split(':').Last();
-                _baseClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
+                InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -77,16 +87,16 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
             {
-                var data = _baseClient.GetData<KucoinStreamTick>(tokenData);
+                var data = GetData<KucoinStreamTick>(tokenData);
                 if (data == null)
                     return;
 
                 data.Symbol = (string)tokenData.Data["subject"];
-                _baseClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
+                InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:all", false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:all", false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -109,12 +119,12 @@ namespace Kucoin.Net.SocketSubClients
             IEnumerable<string> symbolOrMarkets, Action<DataEvent<KucoinStreamSnapshot>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                var data = _baseClient.GetData<KucoinStreamSnapshotWrapper>(tokenData)?.Data;
-                _baseClient.InvokeHandler(tokenData.As(data, data?.Symbol), onData!);
+                var data = GetData<KucoinStreamSnapshotWrapper>(tokenData)?.Data;
+                InvokeHandler(tokenData.As(data, data?.Symbol), onData!);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/snapshot:" + string.Join(",", symbolOrMarkets), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/snapshot:" + string.Join(",", symbolOrMarkets), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -138,11 +148,11 @@ namespace Kucoin.Net.SocketSubClients
                 symbol.ValidateKucoinSymbol();
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                _baseClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamOrderBook>(tokenData)), onData);
+                InvokeHandler(tokenData.As(GetData<KucoinStreamOrderBook>(tokenData)), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -156,11 +166,11 @@ namespace Kucoin.Net.SocketSubClients
             symbol.ValidateKucoinSymbol();
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                _baseClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamMatch>(tokenData), symbol), onData);
+                InvokeHandler(tokenData.As(GetData<KucoinStreamMatch>(tokenData), symbol), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/match:" + symbol, false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/match:" + symbol, false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
 
@@ -176,11 +186,11 @@ namespace Kucoin.Net.SocketSubClients
             symbol.ValidateKucoinSymbol();
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                _baseClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamCandle>(tokenData), symbol), onData);
+                InvokeHandler(tokenData.As(GetData<KucoinStreamCandle>(tokenData), symbol), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}", false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}", false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -208,12 +218,12 @@ namespace Kucoin.Net.SocketSubClients
             limit.ValidateIntValues(nameof(limit), 5, 50);
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                var book = _baseClient.GetData<KucoinStreamOrderBookChanged>(tokenData);
-                _baseClient.InvokeHandler(tokenData.As(book), onData);
+                var book = GetData<KucoinStreamOrderBookChanged>(tokenData);
+                InvokeHandler(tokenData.As(book), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + string.Join(",", symbols), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -252,11 +262,11 @@ namespace Kucoin.Net.SocketSubClients
                 symbol.ValidateKucoinSymbol();
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                _baseClient.InvokeHandler(_baseClient.GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
+                InvokeHandler(GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/index:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/index:" + string.Join(",", symbols), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -295,11 +305,11 @@ namespace Kucoin.Net.SocketSubClients
                 symbol.ValidateKucoinSymbol();
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                _baseClient.InvokeHandler(_baseClient.GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
+                InvokeHandler(GetData<KucoinStreamIndicatorPrice>(tokenData), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/markPrice:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/markPrice:" + string.Join(",", symbols), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -338,11 +348,11 @@ namespace Kucoin.Net.SocketSubClients
                 currency.ValidateNotNull(currency);
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                _baseClient.InvokeHandler(_baseClient.GetData<KucoinStreamFundingBookUpdate>(tokenData), onData);
+                InvokeHandler(GetData<KucoinStreamFundingBookUpdate>(tokenData), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/margin/fundingBook:" + string.Join(",", currencies), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/margin/fundingBook:" + string.Join(",", currencies), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
 
@@ -384,27 +394,27 @@ namespace Kucoin.Net.SocketSubClients
                 switch (subject)
                 {
                     case "received":
-                        data = _baseClient.GetData<KucoinStreamMatchEngineUpdate>(tokenData);
+                        data = GetData<KucoinStreamMatchEngineUpdate>(tokenData);
                         break;
                     case "open":
-                        data = _baseClient.GetData<KucoinStreamMatchEngineOpenUpdate>(tokenData);
+                        data = GetData<KucoinStreamMatchEngineOpenUpdate>(tokenData);
                         break;
                     case "done":
-                        data = _baseClient.GetData<KucoinStreamMatchEngineDoneUpdate>(tokenData);
+                        data = GetData<KucoinStreamMatchEngineDoneUpdate>(tokenData);
                         break;
                     case "match":
-                        data = _baseClient.GetData<KucoinStreamMatchEngineMatchUpdate>(tokenData);
+                        data = GetData<KucoinStreamMatchEngineMatchUpdate>(tokenData);
                         break;
                     case "update":
-                        data = _baseClient.GetData<KucoinStreamMatchEngineChangeUpdate>(tokenData);
+                        data = GetData<KucoinStreamMatchEngineChangeUpdate>(tokenData);
                         break;
                 }
 
-                _baseClient.InvokeHandler(tokenData.As<KucoinStreamMatchEngineUpdate>(data, data.Symbol), onData!);
+                InvokeHandler(tokenData.As<KucoinStreamMatchEngineUpdate>(data, data.Symbol), onData!);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/level3:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(request, null, false, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/level3:" + string.Join(",", symbols), false);
+            return await SubscribeAsync(request, null, false, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -424,18 +434,18 @@ namespace Kucoin.Net.SocketSubClients
                     case "open":
                     case "filled":
                     case "update":
-                        var orderData = _baseClient.GetData<KucoinStreamOrderBaseUpdate>(tokenData);
-                        _baseClient.InvokeHandler(tokenData.As(orderData, orderData.Symbol), onOrderData!);
+                        var orderData = GetData<KucoinStreamOrderBaseUpdate>(tokenData);
+                        InvokeHandler(tokenData.As(orderData, orderData.Symbol), onOrderData!);
                         break;
                     case "match":
-                        var tradeData = _baseClient.GetData<KucoinStreamOrderMatchUpdate>(tokenData);
-                        _baseClient.InvokeHandler(tokenData.As(tradeData, tradeData.Symbol), onTradeData!);
+                        var tradeData = GetData<KucoinStreamOrderMatchUpdate>(tokenData);
+                        InvokeHandler(tokenData.As(tradeData, tradeData.Symbol), onTradeData!);
                         break;
                 }
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/tradeOrders", true);
-            return await _baseClient.SubscribeInternalAsync(request, null, true, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/tradeOrders", true);
+            return await SubscribeAsync(request, null, true, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -447,17 +457,17 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(data =>
             {
-                var desResult = _baseClient.DeserializeInternal<KucoinUpdateMessage<KucoinBalanceUpdate>>(data.Data, false);
+                var desResult = Deserialize<KucoinUpdateMessage<KucoinBalanceUpdate>>(data.Data, false);
                 if (!desResult)
                 {
-                    _log.Write(LogLevel.Warning, "Failed to deserialize balance update: " + desResult.Error);
+                    log.Write(LogLevel.Warning, "Failed to deserialize balance update: " + desResult.Error);
                     return;
                 }
                 onBalanceChange(data.As(desResult.Data.Data, desResult.Data.Data.Currency));
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/account/balance", true);
-            return await _baseClient.SubscribeInternalAsync(request, null, true, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/account/balance", true);
+            return await SubscribeAsync(request, null, true, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -468,13 +478,271 @@ namespace Kucoin.Net.SocketSubClients
         public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                var data = _baseClient.GetData<KucoinStreamStopOrderUpdate>(tokenData);
-                _baseClient.InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
+                var data = GetData<KucoinStreamStopOrderUpdate>(tokenData);
+                InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/advancedOrders", true);
-            return await _baseClient.SubscribeInternalAsync(request, null, true, innerHandler).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/advancedOrders", true);
+            return await SubscribeAsync(request, null, true, innerHandler).ConfigureAwait(false);
         }
         #endregion
+
+
+        /// <inheritdoc />
+        protected override async Task<CallResult<UpdateSubscription>> SubscribeAsync<T>(string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler)
+        {
+            SocketConnection? socketConnection;
+            SocketSubscription subscription;
+            var released = false;
+            await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+            try
+            {
+                socketConnection = GetSocketConnection(url, authenticated);
+                if (socketConnection == null)
+                {
+                    KucoinToken token;
+                    var clientOptions = KucoinClient.DefaultOptions.Copy();
+                    KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)authProvider?.Credentials;
+                    if (thisCredentials != null)
+                    {
+                        clientOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
+                            thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
+                    }
+
+                    // Create new socket
+                    IWebsocket socket;
+                    if (SocketFactory is WebsocketFactory)
+                    {
+                        using (var restClient = new KucoinClient(clientOptions))
+                        {
+                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpot)restClient.Spot).GetWebsocketToken(authenticated).ConfigureAwait(false);
+                            if (!tokenResult)
+                                return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                            token = tokenResult.Data;
+                        }
+
+                        socket = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
+                    }
+                    else
+                        socket = CreateSocket("test");
+
+                    socketConnection = new SocketConnection(this, socket);
+                    foreach (var kvp in genericHandlers)
+                        socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
+                }
+
+                subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler);
+                if (SocketCombineTarget == 1)
+                {
+                    // Can release early when only a single sub per connection
+                    semaphoreSlim.Release();
+                    released = true;
+                }
+
+                var connectResult = await ConnectIfNeededAsync(socketConnection, authenticated).ConfigureAwait(false);
+                if (!connectResult)
+                    return new CallResult<UpdateSubscription>(null, connectResult.Error);
+            }
+            finally
+            {
+                //When the task is ready, release the semaphore. It is vital to ALWAYS release the semaphore when we are ready, or else we will end up with a Semaphore that is forever locked.
+                //This is why it is important to do the Release within a try...finally clause; program execution may crash or take a different path, this way you are guaranteed execution
+                if (!released)
+                    semaphoreSlim.Release();
+            }
+
+
+            if (request != null)
+            {
+                var subResult = await SubscribeAndWaitAsync(socketConnection, request, subscription).ConfigureAwait(false);
+                if (!subResult)
+                {
+                    await socketConnection.CloseAsync(subscription).ConfigureAwait(false);
+                    return new CallResult<UpdateSubscription>(null, subResult.Error);
+                }
+
+            }
+            else
+            {
+                subscription.Confirmed = true;
+            }
+
+            socketConnection.ShouldReconnect = true;
+            return new CallResult<UpdateSubscription>(new UpdateSubscription(socketConnection, subscription), null);
+        }
+
+        /// <inheritdoc />
+        protected override SocketConnection GetSocketConnection(string address, bool authenticated)
+        {
+            var socketResult = sockets.Where(s => (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
+            var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
+            if (result != null)
+            {
+                if (result.SubscriptionCount < SocketCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= SocketCombineTarget)))
+                {
+                    // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
+                    return result;
+                }
+            }
+
+            return null!;
+        }
+
+        /// <inheritdoc />
+        protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object>? callResult)
+        {
+            callResult = null;
+            if (message.Type != JTokenType.Object)
+                return false;
+
+            var id = message["id"];
+            if (id == null)
+                return false;
+
+            var kRequest = (KucoinRequest)request;
+            if ((string)id != kRequest.Id)
+                return false;
+
+            var result = Deserialize<KucoinSubscribeResponse>(message, false);
+            if (!result)
+            {
+                callResult = new CallResult<object>(null, result.Error);
+                return true;
+            }
+
+            if (result.Data.Type != "ack")
+            {
+                callResult = new CallResult<object>(null, new ServerError(result.Data.Code, result.Data.Data));
+                return true;
+            }
+
+            callResult = new CallResult<object>(result.Data, null);
+            return true;
+        }
+
+        /// <inheritdoc />
+        protected override bool MessageMatchesHandler(JToken message, object request)
+        {
+            if (message["type"] == null || (string)message["type"] != "message")
+                return false;
+
+            if (message["topic"] == null)
+                return false;
+
+            var kRequest = (KucoinRequest)request;
+            var topic = (string)message["topic"];
+            if (kRequest.Topic == topic)
+                return true;
+
+            if ((kRequest.Topic.StartsWith("/market/ticker:") && message["subject"] != null && (string)message["subject"] == "trade.ticker")
+            || (kRequest.Topic.StartsWith("/market/level2:") && ((string)message["topic"]).StartsWith("/market/level2"))
+            || (kRequest.Topic.StartsWith("/spotMarket/level3:") && ((string)message["topic"]).StartsWith("/spotMarket/level3"))
+            || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth5"))
+            || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth20"))
+            || (kRequest.Topic.StartsWith("/indicator/index:") && ((string)message["topic"]).StartsWith("/indicator/index"))
+            || (kRequest.Topic.StartsWith("/indicator/markPrice:") && ((string)message["topic"]).StartsWith("/indicator/markPrice"))
+            || (kRequest.Topic.StartsWith("/market/snapshot:") && ((string)message["topic"]).StartsWith("/market/snapshot")))
+            {
+                var marketSplit = topic.Split(':');
+                if (marketSplit.Length > 1)
+                {
+                    var market = marketSplit[1];
+                    var subMarkets = kRequest.Topic.Split(':').Last().Split(',');
+                    if (subMarkets.Contains(market))
+                        return true;
+                }
+            }
+
+            if (kRequest.Topic == "/account/balance" && message["subject"] != null && (string)message["subject"] == "account.balance")
+                return true;
+
+            return false;
+        }
+
+        /// <inheritdoc />
+        protected override bool MessageMatchesHandler(JToken message, string identifier)
+        {
+            if (message["type"] != null)
+            {
+                var type = (string)message["type"];
+                if (type == "pong" && identifier == "Ping")
+                    return true;
+
+                if (type == "welcome" && identifier == "Welcome")
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc />
+        protected override Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
+        {
+            return Task.FromResult(new CallResult<bool>(true, null));
+        }
+
+        /// <inheritdoc />
+        protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
+        {
+            var kRequest = (KucoinRequest)s.Request!;
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
+
+            var success = false;
+            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), message =>
+            {
+                var id = message["id"];
+                if (id == null)
+                    return false;
+
+                if ((string)id != request.Id)
+                    return false;
+
+                var result = Deserialize<KucoinSubscribeResponse>(message, false);
+                if (!result)
+                {
+                    log.Write(LogLevel.Warning, "Failed to unsubscribe: " + result.Error);
+                    success = false;
+                    return true;
+                }
+
+                if (result.Data.Type != "ack")
+                {
+                    log.Write(LogLevel.Warning, "Failed to unsubscribe: " + new ServerError(result.Data.Code, result.Data.Data));
+                    success = false;
+                    return true;
+                }
+
+                success = true;
+                return true;
+            }).ConfigureAwait(false);
+
+            return success;
+        }
+
+        internal void InvokeHandler<T>(T data, Action<T> handler)
+        {
+            if (Equals(data, default(T)!))
+                return;
+
+            handler?.Invoke(data!);
+        }
+
+        internal T GetData<T>(DataEvent<JToken> tokenData)
+        {
+            var desResult = Deserialize<KucoinUpdateMessage<T>>(tokenData.Data, false);
+            if (!desResult)
+            {
+                log.Write(LogLevel.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
+                return default!;
+            }
+            return desResult.Data.Data;
+        }
+
     }
 }

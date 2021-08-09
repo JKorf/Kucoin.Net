@@ -6,6 +6,10 @@
     public class KucoinFuturesOrderBookChange
     {
         /// <summary>
+        /// Sequence number
+        /// </summary>
+        public long Sequence { get; set; }
+        /// <summary>
         /// Price
         /// </summary>
         public decimal Price { get; set; }

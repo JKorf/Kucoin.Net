@@ -10,19 +10,31 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Objects.Socket;
 using Kucoin.Net.Objects.Spot;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Kucoin.Net.SubClients
 {
-    public class KucoinClientSpot: IKucoinClientSpot
+    /// <summary>
+    /// Spot endpoints
+    /// </summary>
+    public class KucoinClientSpot: RestClient, IKucoinClientSpot, IExchangeClient
     {
-        private KucoinClient _baseClient;
+        /// <summary>
+        /// Event triggered when an order is placed via this client
+        /// </summary>
+        public event Action<ICommonOrderId>? OnOrderPlaced;
+        /// <summary>
+        /// Event triggered when an order is cancelled via this client
+        /// </summary>
+        public event Action<ICommonOrderId>? OnOrderCanceled;
 
-        internal KucoinClientSpot(KucoinClient baseClient)
+        internal KucoinClientSpot(KucoinClientOptions options): base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
-            _baseClient = baseClient;
         }
 
         /// <summary>
@@ -31,7 +43,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>The time of the server</returns>
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var result = await _baseClient.Execute<long>(_baseClient.GetSpotUri("timestamp"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var result = await Execute<long>(GetUri("timestamp"), HttpMethod.Get, ct).ConfigureAwait(false);
             return result.As<DateTime>(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new TimestampConverter()) : default);
         }
 
@@ -45,7 +57,7 @@ namespace Kucoin.Net.SubClients
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("market", market);
-            return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetSpotUri("symbols"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinSymbol>>(GetUri("symbols"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -58,7 +70,7 @@ namespace Kucoin.Net.SubClients
         {
             symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await _baseClient.Execute<KucoinTick>(_baseClient.GetSpotUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await Execute<KucoinTick>(GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -68,7 +80,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>List of tickers</returns>
         public async Task<WebCallResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinTicks>(_baseClient.GetSpotUri("market/allTickers"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinTicks>(GetUri("market/allTickers"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -81,7 +93,7 @@ namespace Kucoin.Net.SubClients
         {
             symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await _baseClient.Execute<Kucoin24HourStat>(_baseClient.GetSpotUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await Execute<Kucoin24HourStat>(GetUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -91,7 +103,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>List of markets</returns>
         public async Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<string>>(_baseClient.GetSpotUri("markets"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<IEnumerable<string>>(GetUri("markets"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -106,7 +118,7 @@ namespace Kucoin.Net.SubClients
             symbol.ValidateKucoinSymbol();
             limit.ValidateIntValues(nameof(limit), 20, 100);
 
-            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetSpotUri($"market/orderbook/level2_{limit}?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2_{limit}?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -118,7 +130,7 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
-            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetSpotUri($"market/orderbook/level2?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -131,7 +143,7 @@ namespace Kucoin.Net.SubClients
         {
             symbol.ValidateKucoinSymbol();
 
-            return await _baseClient.Execute<KucoinFullOrderBook>(_baseClient.GetSpotUri($"market/orderbook/level3?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -144,7 +156,7 @@ namespace Kucoin.Net.SubClients
         {
             symbol.ValidateKucoinSymbol();
 
-            return await _baseClient.Execute<IEnumerable<KucoinTrade>>(_baseClient.GetSpotUri($"market/histories?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinTrade>>(GetUri($"market/histories?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -168,7 +180,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("startAt", startTime == null ? null : JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()));
             parameters.AddOptionalParameter("endAt", endTime == null ? null : JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()));
 
-            return await _baseClient.Execute<IEnumerable<KucoinKline>>(_baseClient.GetSpotUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinKline>>(GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -177,7 +189,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>List of currencies</returns>
         public async Task<WebCallResult<IEnumerable<KucoinCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinCurrency>>(_baseClient.GetSpotUri("currencies"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinCurrency>>(GetUri("currencies"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -189,7 +201,7 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinCurrency>> GetCurrencyAsync(string currency, CancellationToken ct = default)
         {
             currency.ValidateNotNull(nameof(currency));
-            return await _baseClient.Execute<KucoinCurrency>(_baseClient.GetSpotUri($"currencies/{currency}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinCurrency>(GetUri($"currencies/{currency}"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -205,7 +217,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("base", fiatBase);
             parameters.AddOptionalParameter("currencies", currencies?.Length > 0 ? string.Join(",", currencies) : null);
 
-            return await _baseClient.Execute<Dictionary<string, decimal>>(_baseClient.GetSpotUri("prices"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await Execute<Dictionary<string, decimal>>(GetUri("prices"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -215,7 +227,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>List of sub users</returns>
         public async Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetUserInfoAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinSubUser>>(_baseClient.GetSpotUri("sub/user"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinSubUser>>(GetUri("sub/user"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -230,7 +242,7 @@ namespace Kucoin.Net.SubClients
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
             parameters.AddOptionalParameter("type", accountType.HasValue ? JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false)) : null);
-            return await _baseClient.Execute<IEnumerable<KucoinAccount>>(_baseClient.GetSpotUri("accounts"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinAccount>>(GetUri("accounts"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -242,7 +254,7 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, CancellationToken ct = default)
         {
             accountId.ValidateNotNull(nameof(accountId));
-            return await _baseClient.Execute<KucoinAccountSingle>(_baseClient.GetSpotUri("accounts/" + accountId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinAccountSingle>(GetUri("accounts/" + accountId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -261,7 +273,7 @@ namespace Kucoin.Net.SubClients
                 { "type", JsonConvert.SerializeObject(type, new AccountTypeConverter(false)) },
                 { "currency", currency },
             };
-            return await _baseClient.Execute<KucoinNewAccount>(_baseClient.GetSpotUri("accounts"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewAccount>(GetUri("accounts"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -271,7 +283,7 @@ namespace Kucoin.Net.SubClients
         /// <returns></returns>
         public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinUserFee>(_baseClient.GetSpotUri("base-fee"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinUserFee>(GetUri("base-fee"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -291,7 +303,7 @@ namespace Kucoin.Net.SubClients
         /// <returns></returns>
         public async Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinTradeFee[]>(_baseClient.GetSpotUri("trade-fees?symbols=" + string.Join(",", symbols)), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinTradeFee[]>(GetUri("trade-fees?symbols=" + string.Join(",", symbols)), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -311,11 +323,11 @@ namespace Kucoin.Net.SubClients
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinAccountActivity>>(_baseClient.GetSpotUri($"accounts/{accountId}/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinAccountActivity>>(GetUri($"accounts/{accountId}/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -352,12 +364,12 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("currency", currency);
             parameters.AddOptionalParameter("direction", direction.HasValue ? directionString : null);
             parameters.AddOptionalParameter("bizType", bizType.HasValue ? bizTypeString : null);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinAccountActivity>>(_baseClient.GetSpotUri($"accounts/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinAccountActivity>>(GetUri($"accounts/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -374,7 +386,7 @@ namespace Kucoin.Net.SubClients
                 { "currency", currency },
                 { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
             };
-            return await _baseClient.Execute<KucoinTransferableAccount>(_baseClient.GetSpotUri("accounts/transferable"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinTransferableAccount>(GetUri("accounts/transferable"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
 
         }
 
@@ -400,7 +412,7 @@ namespace Kucoin.Net.SubClients
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString()},
             };
 
-            return await _baseClient.Execute<KucoinInnerTransfer>(_baseClient.GetSpotUri("accounts/inner-transfer", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinInnerTransfer>(GetUri("accounts/inner-transfer", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -419,7 +431,7 @@ namespace Kucoin.Net.SubClients
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinHold>>(_baseClient.GetSpotUri($"accounts/{accountId}/holds"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHold>>(GetUri($"accounts/{accountId}/holds"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -439,12 +451,12 @@ namespace Kucoin.Net.SubClients
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinDeposit>>(_baseClient.GetSpotUri("deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinDeposit>>(GetUri("deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -464,12 +476,12 @@ namespace Kucoin.Net.SubClients
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinHistoricalDeposit>>(_baseClient.GetSpotUri("hist-deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHistoricalDeposit>>(GetUri("hist-deposits"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -482,7 +494,7 @@ namespace Kucoin.Net.SubClients
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
-            return await _baseClient.Execute<KucoinDepositAddress>(_baseClient.GetSpotUri("deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinDepositAddress>(GetUri("deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -495,7 +507,7 @@ namespace Kucoin.Net.SubClients
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
-            return await _baseClient.Execute<KucoinDepositAddress>(_baseClient.GetSpotUri("deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinDepositAddress>(GetUri("deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -515,12 +527,12 @@ namespace Kucoin.Net.SubClients
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinWithdrawal>>(_baseClient.GetSpotUri("withdrawals"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinWithdrawal>>(GetUri("withdrawals"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -540,12 +552,12 @@ namespace Kucoin.Net.SubClients
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinHistoricalWithdrawal>>(_baseClient.GetSpotUri("hist-withdrawals"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHistoricalWithdrawal>>(GetUri("hist-withdrawals"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -559,7 +571,7 @@ namespace Kucoin.Net.SubClients
             currency.ValidateNotNull(nameof(currency));
 
             var parameters = new Dictionary<string, object> { { "currency", currency } };
-            return await _baseClient.Execute<KucoinWithdrawalQuota>(_baseClient.GetSpotUri("withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinWithdrawalQuota>(GetUri("withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -587,7 +599,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("isInner", isInner);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", chain);
-            return await _baseClient.Execute<KucoinNewWithdrawal>(_baseClient.GetSpotUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewWithdrawal>(GetUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -599,7 +611,7 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<object>> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default)
         {
             withdrawalId.ValidateNotNull(nameof(withdrawalId));
-            return await _baseClient.Execute<object>(_baseClient.GetSpotUri($"withdrawals/{withdrawalId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            return await Execute<object>(GetUri($"withdrawals/{withdrawalId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -669,9 +681,9 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetSpotUri("orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await Execute<KucoinNewOrder>(GetUri("orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderPlaced(result.Data);
+                OnOrderPlaced?.Invoke(result.Data);
             return result;
         }
 
@@ -684,9 +696,9 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            var result = await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetSpotUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            var result = await Execute<KucoinCancelledOrders>(GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderCanceled(result.Data);
+                OnOrderCanceled?.Invoke(result.Data);
             return result;
 
         }
@@ -700,9 +712,9 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinCancelledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
-            var result = await _baseClient.Execute<KucoinCancelledOrder>(_baseClient.GetSpotUri($"order/client-order/{clientOrderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            var result = await Execute<KucoinCancelledOrder>(GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderCanceled(result.Data);
+                OnOrderCanceled?.Invoke(result.Data);
             return result;
         }
 
@@ -717,7 +729,7 @@ namespace Kucoin.Net.SubClients
             symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetSpotUri("orders"), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinCancelledOrders>(GetUri("orders"), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -742,13 +754,13 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new OrderStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinOrder>>(_baseClient.GetSpotUri("orders"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinOrder>>(GetUri("orders"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -758,7 +770,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>List of orders</returns>
         public async Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinOrder>>(_baseClient.GetSpotUri("limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinOrder>>(GetUri("limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -770,7 +782,7 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
-            return await _baseClient.Execute<KucoinOrder>(_baseClient.GetSpotUri($"order/client-order/{clientOrderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinOrder>(GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -782,7 +794,7 @@ namespace Kucoin.Net.SubClients
         public async Task<WebCallResult<KucoinOrder>> GetOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            return await _baseClient.Execute<KucoinOrder>(_baseClient.GetSpotUri($"orders/{orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinOrder>(GetUri($"orders/{orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -804,12 +816,12 @@ namespace Kucoin.Net.SubClients
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinHistoricalOrder>>(_baseClient.GetSpotUri("hist-orders"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinHistoricalOrder>>(GetUri("hist-orders"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -837,13 +849,13 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("orderId", orderId);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinFill>>(_baseClient.GetSpotUri("fills"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinFill>>(GetUri("fills"), HttpMethod.Get, ct, signed: true, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -853,7 +865,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>List of fills</returns>
         public async Task<WebCallResult<IEnumerable<KucoinFill>>> GetRecentFillsAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinFill>>(_baseClient.GetSpotUri("limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinFill>>(GetUri("limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -937,7 +949,7 @@ namespace Kucoin.Net.SubClients
 
             parameters.AddOptionalParameter("funds", quoteQuantity);
 
-            return await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetSpotUri("stop-order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewOrder>(GetUri("stop-order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -948,7 +960,7 @@ namespace Kucoin.Net.SubClients
         /// <returns></returns>
         public async Task<WebCallResult<KucoinCancelledOrders>> CancelStopOrderAsync(string orderId, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetSpotUri("stop-order/" + orderId), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinCancelledOrders>(GetUri("stop-order/" + orderId), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -963,7 +975,7 @@ namespace Kucoin.Net.SubClients
             {
                 { "clientOid", clientOrderId }
             };
-            return await _baseClient.Execute<KucoinCancelledOrder>(_baseClient.GetSpotUri("stop-order/cancelOrderByClientOid"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinCancelledOrder>(GetUri("stop-order/cancelOrderByClientOid"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -981,7 +993,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("orderIds", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
 
-            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetSpotUri("stop-order/cancel"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinCancelledOrders>(GetUri("stop-order/cancel"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1007,14 +1019,14 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", startTime != null ? ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("endAt", endTime != null ? ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
             parameters.AddOptionalParameter("orderIds", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinOrder>>(_baseClient.GetSpotUri("stop-order"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinPaginated<KucoinOrder>>(GetUri("stop-order"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
 
@@ -1026,7 +1038,7 @@ namespace Kucoin.Net.SubClients
         /// <returns></returns>
         public async Task<WebCallResult<KucoinOrder>> GetStopOrderAsync(string orderId, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinOrder>(_baseClient.GetSpotUri("stop-order/" + orderId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await Execute<KucoinOrder>(GetUri("stop-order/" + orderId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1041,12 +1053,181 @@ namespace Kucoin.Net.SubClients
             {
                 { "clientOid", clientOrderId }
             };
-            return await _baseClient.Execute<IEnumerable<KucoinOrder>>(_baseClient.GetSpotUri("stop-order/queryOrderByClientOid"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+            return await Execute<IEnumerable<KucoinOrder>>(GetUri("stop-order/queryOrderByClientOid"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinToken>(_baseClient.GetSpotUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
+            return await Execute<KucoinToken>(GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
         }
+
+
+
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(JToken error)
+        {
+            if (!error.HasValues)
+            {
+                var errorBody = error.ToString();
+                return new ServerError(string.IsNullOrEmpty(errorBody) ? "Unknown error" : errorBody);
+            }
+
+            if (error["code"] != null && error["msg"] != null)
+            {
+                var result = error.ToObject<KucoinResult<object>>();
+                return new ServerError(result.Code, result.Message!);
+            }
+
+            return new ServerError(error.ToString());
+        }
+
+        internal static long ToUnixTimestamp(DateTime time)
+        {
+            return ((DateTimeOffset)time).ToUnixTimeMilliseconds();
+        }
+
+        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
+        {
+            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+
+            if (result.Data.Code != 200000)
+                return WebCallResult.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return new WebCallResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+        }
+
+        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
+        {
+            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+
+            if (result.Data.Code != 200000)
+                return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return result.As<T>(result.Data.Data);
+        }
+
+        internal Uri GetUri(string path, int apiVersion = 1)
+        {
+            return new Uri(Path.Combine(BaseAddress, "v" + apiVersion, path));
+        }
+
+        #region common interface
+
+        /// <summary>
+        /// Return the Kucoin trade symbol name from base and quote asset 
+        /// </summary>
+        /// <param name="baseAsset"></param>
+        /// <param name="quoteAsset"></param>
+        /// <returns></returns>
+        public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + "-" + quoteAsset).ToUpperInvariant();
+
+        async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
+        {
+            var symbols = await GetSymbolsAsync().ConfigureAwait(false);
+            return symbols.As<IEnumerable<ICommonSymbol>>(symbols.Data);
+        }
+
+        async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
+        {
+            var result = await GetTickerAsync(symbol).ConfigureAwait(false);
+            return result.As<ICommonTicker>((ICommonTicker?)result.Data);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
+        {
+            var symbols = await GetTickersAsync().ConfigureAwait(false);
+            return symbols.As<IEnumerable<ICommonTicker>>(symbols.Data?.Data);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)
+        {
+            if (limit != null)
+                return WebCallResult<IEnumerable<ICommonKline>>.CreateErrorResult(new ArgumentError(
+                    $"Kucoin doesn't support the {nameof(limit)} parameter for the method {nameof(IExchangeClient.GetKlinesAsync)}"));
+
+            var symbols = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), startTime, endTime).ConfigureAwait(false);
+            return symbols.As<IEnumerable<ICommonKline>>(symbols.Data);
+        }
+
+        async Task<WebCallResult<ICommonOrderBook>> IExchangeClient.GetOrderBookAsync(string symbol)
+        {
+            var book = await GetOrderBookAsync(symbol).ConfigureAwait(false);
+            return book.As<ICommonOrderBook>(book.Data);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonRecentTrade>>> IExchangeClient.GetRecentTradesAsync(string symbol)
+        {
+            var book = await GetSymbolTradesAsync(symbol).ConfigureAwait(false);
+            return book.As<IEnumerable<ICommonRecentTrade>>(book.Data);
+        }
+
+        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.PlaceOrderAsync(string symbol, IExchangeClient.OrderSide side, IExchangeClient.OrderType type, decimal quantity, decimal? price = null, string? accountId = null)
+        {
+            var order = await PlaceOrderAsync(symbol,
+                Guid.NewGuid().ToString(),
+                side == IExchangeClient.OrderSide.Sell ? KucoinOrderSide.Sell : KucoinOrderSide.Buy,
+                type == IExchangeClient.OrderType.Limit ? KucoinNewOrderType.Limit : KucoinNewOrderType.Market,
+                price, quantity).ConfigureAwait(false);
+            return order.As<ICommonOrderId>(order.Data);
+        }
+
+        async Task<WebCallResult<ICommonOrder>> IExchangeClient.GetOrderAsync(string orderId, string? symbol)
+        {
+            var order = await GetOrderAsync(orderId).ConfigureAwait(false);
+            return order.As<ICommonOrder>(order.Data);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
+        {
+            var trades = await GetFillsAsync(orderId: orderId).ConfigureAwait(false);
+            return trades.As<IEnumerable<ICommonTrade>>(trades.Data?.Items);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetOpenOrdersAsync(string? symbol)
+        {
+            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Active).ConfigureAwait(false);
+            return orders.As<IEnumerable<ICommonOrder>>(orders.Data?.Items);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetClosedOrdersAsync(string? symbol)
+        {
+            var orders = await GetOrdersAsync(status: KucoinOrderStatus.Done).ConfigureAwait(false);
+            return orders.As<IEnumerable<ICommonOrder>>(orders.Data?.Items);
+        }
+
+        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.CancelOrderAsync(string orderId, string? symbol)
+        {
+            var result = await CancelOrderAsync(orderId).ConfigureAwait(false);
+            return result.As<ICommonOrderId>(result.Data);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonBalance>>> IExchangeClient.GetBalancesAsync(string? accountId = null)
+        {
+            var result = await GetAccountsAsync().ConfigureAwait(false);
+            return result.As<IEnumerable<ICommonBalance>>(result.Data);
+        }
+
+        private static KucoinKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
+        {
+            if (timeSpan == TimeSpan.FromMinutes(1)) return KucoinKlineInterval.OneMinute;
+            if (timeSpan == TimeSpan.FromMinutes(5)) return KucoinKlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return KucoinKlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(30)) return KucoinKlineInterval.ThirtyMinutes;
+            if (timeSpan == TimeSpan.FromHours(1)) return KucoinKlineInterval.OneHour;
+            if (timeSpan == TimeSpan.FromHours(2)) return KucoinKlineInterval.TwoHours;
+            if (timeSpan == TimeSpan.FromHours(4)) return KucoinKlineInterval.FourHours;
+            if (timeSpan == TimeSpan.FromHours(6)) return KucoinKlineInterval.SixHours;
+            if (timeSpan == TimeSpan.FromHours(8)) return KucoinKlineInterval.EightHours;
+            if (timeSpan == TimeSpan.FromHours(12)) return KucoinKlineInterval.TwelfHours;
+            if (timeSpan == TimeSpan.FromDays(1)) return KucoinKlineInterval.OneDay;
+            if (timeSpan == TimeSpan.FromDays(7)) return KucoinKlineInterval.OneWeek;
+
+            throw new ArgumentException("Unsupported timespan for Kucoin kline interval, check supported intervals using Kucoin.Net.Objects.KucoinKlineInterval");
+        }
+        #endregion
     }
 }

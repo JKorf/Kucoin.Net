@@ -13,6 +13,11 @@ namespace Kucoin.Net.Objects
         /// The api credentials
         /// </summary>
         public new KucoinApiCredentials? ApiCredentials { get; set; }
+        
+        /// <summary>
+        /// The futures api credentials
+        /// </summary>
+        public KucoinApiCredentials? FuturesApiCredentials { get; set; }
 
         /// <summary>
         /// Base address for the futures API

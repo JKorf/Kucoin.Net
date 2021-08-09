@@ -1177,6 +1177,11 @@
             Spot subscriptions
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinSocketClient.Futures">
+            <summary>
+            Futures subscriptions
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClientFutures">
             <summary>
             Futures subscriptions
@@ -1419,16 +1424,6 @@
             Client to interact with the Kucoin REST API
             </summary>
         </member>
-        <member name="E:Kucoin.Net.KucoinClient.OnOrderPlaced">
-            <summary>
-            Event triggered when an order is placed via this client
-            </summary>
-        </member>
-        <member name="E:Kucoin.Net.KucoinClient.OnOrderCanceled">
-            <summary>
-            Event triggered when an order is cancelled via this client
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.KucoinClient.Spot">
             <inheritdoc />
         </member>
@@ -1451,16 +1446,10 @@
             </summary>
             <param name="options">The options to use for new clients</param>
         </member>
-        <member name="M:Kucoin.Net.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinClient.GetSymbolName(System.String,System.String)">
+        <member name="M:Kucoin.Net.KucoinClient.Dispose">
             <summary>
-            Return the Kucoin trade symbol name from base and quote asset 
+            Dispose the client
             </summary>
-            <param name="baseAsset"></param>
-            <param name="quoteAsset"></param>
-            <returns></returns>
         </member>
         <member name="T:Kucoin.Net.KucoinHelpers">
             <summary>
@@ -1504,50 +1493,10 @@
             </summary>
             <param name="options">The options to use for new clients</param>
         </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.GetSocketConnection(System.String,System.Boolean)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.Object)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSocketClient.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
-            <inheritdoc />
-        </member>
-        <member name="T:Kucoin.Net.KucoinSymbolOrderBook">
+        <member name="M:Kucoin.Net.KucoinSocketClient.Dispose">
             <summary>
-            Kucoin order book implementation
+            Dispose the client
             </summary>
-        </member>
-        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.#ctor(System.String,Kucoin.Net.Objects.KucoinOrderBookOptions)">
-            <summary>
-            Create a new order book instance
-            </summary>
-            <param name="symbol">The symbol the order book is for</param>
-            <param name="options">The options for the order book</param>
-        </member>
-        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoStartAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.DoResyncAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.KucoinSymbolOrderBook.Dispose">
-            <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Objects.Futures.KucoinAccountOverview">
             <summary>
@@ -2575,6 +2524,11 @@
             Order book change
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange.Sequence">
+            <summary>
+            Sequence number
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange.Price">
             <summary>
             Price
@@ -2955,6 +2909,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinClientOptions.ApiCredentials">
             <summary>
             The api credentials
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinClientOptions.FuturesApiCredentials">
+            <summary>
+            The futures api credentials
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinClientOptions.FuturesBaseAddress">
@@ -5766,6 +5725,30 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.GetSocketConnection(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot">
             <summary>
             Spot subscriptions
@@ -6005,9 +5988,38 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.GetSocketConnection(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.SubClients.KucoinClientFutures">
             <summary>
             Futures API endpoints
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.SubClients.KucoinClientFutures.BaseAddress">
+            <summary>
+            Base address for the futures API
             </summary>
         </member>
         <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.GetAccountOverviewAsync(System.String,System.Threading.CancellationToken)">
@@ -6432,6 +6444,24 @@
             <param name="endTime">End time to retrieve klines for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.SubClients.KucoinClientSpot">
+            <summary>
+            Spot endpoints
+            </summary>
+        </member>
+        <member name="E:Kucoin.Net.SubClients.KucoinClientSpot.OnOrderPlaced">
+            <summary>
+            Event triggered when an order is placed via this client
+            </summary>
+        </member>
+        <member name="E:Kucoin.Net.SubClients.KucoinClientSpot.OnOrderCanceled">
+            <summary>
+            Event triggered when an order is cancelled via this client
+            </summary>
         </member>
         <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
@@ -6957,6 +6987,59 @@
             <param name="clientOrderId">The client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetSymbolName(System.String,System.String)">
+            <summary>
+            Return the Kucoin trade symbol name from base and quote asset 
+            </summary>
+            <param name="baseAsset"></param>
+            <param name="quoteAsset"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.KucoinFuturesSymbolOrderBook">
+            <summary>
+            Kucoin order book implementation
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinFuturesSymbolOrderBook.#ctor(System.String,Kucoin.Net.Objects.KucoinOrderBookOptions)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="options">The options for the order book</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinFuturesSymbolOrderBook.DoStartAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinFuturesSymbolOrderBook.DoResyncAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinFuturesSymbolOrderBook.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.KucoinSpotSymbolOrderBook">
+            <summary>
+            Kucoin order book implementation
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSpotSymbolOrderBook.#ctor(System.String,Kucoin.Net.Objects.KucoinOrderBookOptions)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="options">The options for the order book</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinSpotSymbolOrderBook.DoStartAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSpotSymbolOrderBook.DoResyncAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinSpotSymbolOrderBook.Dispose">
+            <inheritdoc />
         </member>
     </members>
 </doc>

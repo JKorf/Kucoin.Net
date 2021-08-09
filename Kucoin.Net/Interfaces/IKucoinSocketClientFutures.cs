@@ -6,13 +6,14 @@ using System;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Futures.Socket;
 using Kucoin.Net.Objects.Spot.Socket;
+using CryptoExchange.Net.Interfaces;
 
 namespace Kucoin.Net.Interfaces
 {
     /// <summary>
     /// Futures subscriptions
     /// </summary>
-    public interface IKucoinSocketClientFutures
+    public interface IKucoinSocketClientFutures: ISocketClient
     {
         /// <summary>
         /// Subscribe to trade updates
