@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>3.0.0-beta3</PackageVersion>
+    <PackageVersion>3.0.0</PackageVersion>
     <AssemblyVersion>3.0.0</AssemblyVersion>
-    <FileVersion>3.0.0-beta3</FileVersion>
+    <FileVersion>3.0.0</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>3.0.0-beta3 - Added Futures support, Fixed KucoinSymbolOrderBook, Renamed GetSymbolTradesAsync to GetTradeHistoryAsync, Renamed GetFillsAsync to GetUserTradesAsync, Renamed GetRecentFillsAsync to GetRecentUserTradesAsync</PackageReleaseNotes>
+    <PackageReleaseNotes>3.0.0 - Updated to CryptoExchange.Net version 4.0.0</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -47,7 +47,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="4.0.0-beta14" />
+    <PackageReference Include="CryptoExchange.Net" Version="4.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
