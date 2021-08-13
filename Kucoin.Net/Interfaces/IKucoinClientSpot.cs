@@ -271,17 +271,27 @@ namespace Kucoin.Net.Interfaces
         /// Gets the deposit address for a currency
         /// </summary>
         /// <param name="currency">The currency to get the address for</param>
+        /// <param name="chain">The chain to get the address for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The deposit address for the currency</returns>
-        Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string currency, CancellationToken ct = default);
+        Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string currency, string? chain = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets the deposit addresses for a currency
+        /// </summary>
+        /// <param name="currency">The currency to get the address for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The deposit address for the currency</returns>
+        Task<WebCallResult<IEnumerable<KucoinDepositAddress>>> GetDepositAddressesAsync(string currency, CancellationToken ct = default);
 
         /// <summary>
         /// Creates a new deposit address for a currency
         /// </summary>
         /// <param name="currency">The currency to create the address for</param>
+        /// <param name="chain">The currency to create the address for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The address that was created</returns>
-        Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string currency, CancellationToken ct = default);
+        Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string currency, string? chain = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of withdrawals

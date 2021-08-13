@@ -19,5 +19,10 @@
         /// The chain of the address
         /// </summary>
         public string Chain { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The token contract address
+        /// </summary>
+        public string ContractAddress { get; set; } = string.Empty;
     }
 }

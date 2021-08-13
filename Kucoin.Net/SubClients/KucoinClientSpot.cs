@@ -488,25 +488,42 @@ namespace Kucoin.Net.SubClients
         /// Gets the deposit address for a currency
         /// </summary>
         /// <param name="currency">The currency to get the address for</param>
+        /// <param name="chain">The chain to get the address for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The deposit address for the currency</returns>
-        public async Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string currency, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string currency, string? chain = null, CancellationToken ct = default)
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
+            parameters.AddOptionalParameter("chain", chain);
             return await Execute<KucoinDepositAddress>(GetUri("deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the deposit address for a currency
+        /// </summary>
+        /// <param name="currency">The currency to get the address for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The deposit address for the currency</returns>
+        public async Task<WebCallResult<IEnumerable<KucoinDepositAddress>>> GetDepositAddressesAsync(string currency, CancellationToken ct = default)
+        {
+            currency.ValidateNotNull(nameof(currency));
+            var parameters = new Dictionary<string, object> { { "currency", currency } };
+            return await Execute<IEnumerable<KucoinDepositAddress>>(GetUri("deposit-addresses", 2), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Creates a new deposit address for a currency
         /// </summary>
         /// <param name="currency">The currency to create the address for</param>
+        /// <param name="chain">The currency to create the address for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The address that was created</returns>
-        public async Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string currency, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string currency, string? chain = null, CancellationToken ct = default)
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object> { { "currency", currency } };
+            parameters.AddOptionalParameter("chain", chain);
             return await Execute<KucoinDepositAddress>(GetUri("deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 

@@ -892,19 +892,29 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the deposit address for a currency
+            </summary>
+            <param name="currency">The currency to get the address for</param>
+            <param name="chain">The chain to get the address for</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The deposit address for the currency</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the deposit addresses for a currency
             </summary>
             <param name="currency">The currency to get the address for</param>
             <param name="ct">Cancellation token</param>
             <returns>The deposit address for the currency</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.CreateDepositAddressAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.CreateDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Creates a new deposit address for a currency
             </summary>
             <param name="currency">The currency to create the address for</param>
+            <param name="chain">The currency to create the address for</param>
             <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
         </member>
@@ -4301,6 +4311,11 @@
             The chain of the address
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinDepositAddress.ContractAddress">
+            <summary>
+            The token contract address
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Spot.KucoinFill">
             <summary>
             Fill info
@@ -6713,7 +6728,16 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical deposits</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the deposit address for a currency
+            </summary>
+            <param name="currency">The currency to get the address for</param>
+            <param name="chain">The chain to get the address for</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The deposit address for the currency</returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the deposit address for a currency
             </summary>
@@ -6721,11 +6745,12 @@
             <param name="ct">Cancellation token</param>
             <returns>The deposit address for the currency</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.CreateDepositAddressAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.CreateDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Creates a new deposit address for a currency
             </summary>
             <param name="currency">The currency to create the address for</param>
+            <param name="chain">The currency to create the address for</param>
             <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
         </member>
