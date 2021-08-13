@@ -1,5 +1,5 @@
 # Kucoin.Net
-![Build status](https://travis-ci.org/JKorf/kucoin.Net.svg?branch=master) ![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)
+![Build status](https://travis-ci.com/JKorf/Kucoin.Net.svg?branch=master) ![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)
 
 Kucoin.Net is a wrapper around the Kucoin API as described on [Kucoin](https://docs.kucoin.com/), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
