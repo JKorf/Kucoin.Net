@@ -83,6 +83,7 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 | Property | Description | Default |
 | ----------- | ----------- | ---------|
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
+
 **KucoinSocketClientOptions**  
 | Property | Description | Default |
 | ----------- | ----------- | ---------|
