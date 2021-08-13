@@ -89,6 +89,10 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.0.1 - 13 Aug 2021
+    * Added GetDepositAddressesAsync to retrieve all deposit addresses for a currency
+    * Added chain parameter to GetDepositAddressAsync and CreateDepositAddressAsync
+
 * Version 3.0.0 - 12 Aug 2021
 	* Release version with new CryptoExchange.Net version 4.0.0
 		* Multiple changes regarding logging and socket connection, see [CryptoExchange.Net release notes](https://github.com/JKorf/CryptoExchange.Net#release-notes)
