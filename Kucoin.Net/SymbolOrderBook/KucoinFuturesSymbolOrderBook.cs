@@ -5,6 +5,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures.Socket;
 using Kucoin.Net.Objects.Spot;
@@ -18,7 +19,7 @@ namespace Kucoin.Net
     public class KucoinFuturesSymbolOrderBook : SymbolOrderBook
     {
         private readonly KucoinClient restClient;
-        private readonly KucoinSocketClient socketClient;
+        private readonly IKucoinSocketClient socketClient;
 
         /// <summary>
         /// Create a new order book instance
@@ -29,7 +30,7 @@ namespace Kucoin.Net
         {
             Levels = options?.Limit;
             restClient = new KucoinClient();
-            socketClient = new KucoinSocketClient();
+            socketClient = options?.Client ?? new KucoinSocketClient();
         }
 
         /// <inheritdoc />

@@ -3005,10 +3005,17 @@
             The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Objects.KucoinOrderBookOptions.#ctor(System.Nullable{System.Int32})">
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBookOptions.Client">
+            <summary>
+            The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.KucoinOrderBookOptions.#ctor(Kucoin.Net.Interfaces.IKucoinSocketClient,System.Nullable{System.Int32})">
             <summary>
             ctor
             </summary>
+            <param name="client">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
+            <param name="limit">Max amount of rows for the book</param>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinKlineInterval">
             <summary>

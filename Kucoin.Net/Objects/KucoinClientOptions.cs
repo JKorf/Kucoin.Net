@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using Kucoin.Net.Interfaces;
 
 namespace Kucoin.Net.Objects
 {
@@ -130,11 +131,19 @@ namespace Kucoin.Net.Objects
         public int? Limit { get; set; }
 
         /// <summary>
+        /// The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
+        /// </summary>
+        public IKucoinSocketClient? Client { get; set; }
+
+        /// <summary>
         /// ctor
         /// </summary>
-        public KucoinOrderBookOptions(int? limit = null) : base("Kucoin", limit == null, false)
+        /// <param name="client">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
+        /// <param name="limit">Max amount of rows for the book</param>
+        public KucoinOrderBookOptions(IKucoinSocketClient? client = null, int? limit = null) : base("Kucoin", limit == null, false)
         {
             Limit = limit;
+            Client = client;
         }
     }
 }
