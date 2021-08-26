@@ -90,6 +90,9 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.0.4 - 26 Aug 2021
+    * Updated CryptoExchange.Net
+
 * Version 3.0.3 - 24 Aug 2021
     * Updated CryptoExchange.Net, improving websocket and SymbolOrderBook performance
 
