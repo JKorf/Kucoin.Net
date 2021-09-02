@@ -1,4 +1,6 @@
-﻿using Kucoin.Net.Converters;
+﻿using System;
+using CryptoExchange.Net.Converters;
+using Kucoin.Net.Converters;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects
@@ -42,5 +44,11 @@ namespace Kucoin.Net.Objects
         /// The id of the trade
         /// </summary>
         public string TradeId { get; set; } = string.Empty;
+        /// <summary>
+        /// Gets time of the trade match
+        /// </summary>
+        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        public DateTime Timestamp { get; set; }
+
     }
 }

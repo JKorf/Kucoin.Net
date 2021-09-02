@@ -298,8 +298,8 @@ namespace Kucoin.Net.SubClients
             parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
             parameters.AddParameter("size", size.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("stop", JsonConvert.SerializeObject(stopType, new StopTypeConverter(false)));
-            parameters.AddOptionalParameter("stopPriceType", JsonConvert.SerializeObject(stopPriceType, new StopPriceTypeConverter(false)));
+            parameters.AddOptionalParameter("stop", stopType != null ? JsonConvert.SerializeObject(stopType, new StopTypeConverter(false)) : null);
+            parameters.AddOptionalParameter("stopPriceType", stopPriceType != null ? JsonConvert.SerializeObject(stopPriceType, new StopPriceTypeConverter(false)) : null);
             parameters.AddOptionalParameter("stopPrice", stopPrice?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
