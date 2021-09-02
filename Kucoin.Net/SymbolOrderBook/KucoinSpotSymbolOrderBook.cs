@@ -14,8 +14,10 @@ namespace Kucoin.Net
     /// </summary>
     public class KucoinSpotSymbolOrderBook: SymbolOrderBook
     {
-        private readonly KucoinClient restClient;
+        private readonly IKucoinClient restClient;
         private readonly IKucoinSocketClient socketClient;
+        private readonly bool _restOwner;
+        private readonly bool _socketOwner;
 
         /// <summary>
         /// Create a new order book instance
@@ -25,8 +27,10 @@ namespace Kucoin.Net
         public KucoinSpotSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
         {
             Levels = options?.Limit;
-            restClient = new KucoinClient();
-            socketClient = options?.Client ?? new KucoinSocketClient();
+            socketClient = options?.SocketClient ?? new KucoinSocketClient();
+            restClient = options?.RestClient ?? new KucoinClient();
+            _restOwner = options?.RestClient == null;
+            _socketOwner = options?.SocketClient == null;
         }
 
         /// <inheritdoc />
@@ -95,8 +99,10 @@ namespace Kucoin.Net
             asks.Clear();
             bids.Clear();
 
-            restClient?.Dispose();
-            socketClient?.Dispose();
+            if(_restOwner)
+                restClient?.Dispose();
+            if(_socketOwner)
+                socketClient?.Dispose();
         }
     }
 }
