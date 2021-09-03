@@ -3789,6 +3789,11 @@
             The id of the trade
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.KucoinStreamMatchBase.Timestamp">
+            <summary>
+            Gets time of the trade match
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase">
             <summary>
             Stop order update
