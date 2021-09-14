@@ -22,7 +22,7 @@ namespace Kucoin.Net.SubClients
     /// <summary>
     /// Spot endpoints
     /// </summary>
-    public class KucoinClientSpot: RestClient, IKucoinClientSpot, IExchangeClient
+    public class KucoinClientSpot : RestClient, IKucoinClientSpot, IExchangeClient
     {
         /// <summary>
         /// Event triggered when an order is placed via this client
@@ -33,7 +33,7 @@ namespace Kucoin.Net.SubClients
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
-        internal KucoinClientSpot(KucoinClientOptions options): base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
+        internal KucoinClientSpot(KucoinClientOptions options) : base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
         }
 
@@ -702,6 +702,85 @@ namespace Kucoin.Net.SubClients
             if (result)
                 OnOrderPlaced?.Invoke(result.Data);
             return result;
+        }
+
+        /// <summary>
+        /// Places a margin order
+        /// </summary>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="side">The side((buy or sell) of the order</param>
+        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="type">The type of the order</param>
+        /// <param name="remark">Remark on the order</param>
+        /// <param name="selfTradePrevention">Self trade prevention setting</param>
+        /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
+        /// <param name="autoBorrow">Auto-borrow to place order.</param>
+        /// <param name="price">The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">amount of base currency to buy or sell of the order</param>
+        /// <param name="timeInForce">The time the order is in force</param>
+        /// <param name="cancelAfter">Cancel after a time</param>
+        /// <param name="postOnly">Order is post only</param>
+        /// <param name="hidden">Order is hidden</param>
+        /// <param name="iceBerg">Order is an iceberg order</param>
+        /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+        /// <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The id of the new order</returns>
+        public async Task<WebCallResult<KucoinNewOrder>> PlaceMarginOrderAsync(
+            string symbol,
+            KucoinOrderSide side,
+            KucoinNewOrderType type,
+            decimal? price = null,
+            decimal? quantity = null,
+            decimal? funds = null,
+            KucoinTimeInForce? timeInForce = null,
+            TimeSpan? cancelAfter = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceBerg = null,
+            decimal? visibleIceBergSize = null,
+            string? remark = null,
+            KucoinMarginMode? marginMode = null,
+            bool? autoBorrow = null,
+            KucoinSelfTradePrevention? selfTradePrevention = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
+        {
+            symbol.ValidateKucoinSymbol();
+            switch (type)
+            {
+                case KucoinNewOrderType.Limit when !quantity.HasValue:
+                    throw new ArgumentException("Limit order needs a quantity");
+                case KucoinNewOrderType.Market when !quantity.HasValue && !funds.HasValue:
+                    throw new ArgumentException("Market order needs quantity or funds specified");
+                case KucoinNewOrderType.Market when quantity.HasValue && funds.HasValue:
+                    throw new ArgumentException("Market order cant have both quantity and funds specified");
+            }
+
+            if (marginMode.HasValue && marginMode.Value != KucoinMarginMode.CrossMode)
+                throw new ArgumentException("Currently, the platform only supports the cross mode");
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol },
+                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
+                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
+                { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
+            };
+            parameters.AddOptionalParameter("price", price);
+            parameters.AddOptionalParameter("size", quantity);
+            parameters.AddOptionalParameter("funds", funds);
+            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
+            parameters.AddOptionalParameter("postOnly", postOnly);
+            parameters.AddOptionalParameter("hidden", hidden);
+            parameters.AddOptionalParameter("iceBerg", iceBerg);
+            parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
+            parameters.AddOptionalParameter("remark", remark);
+            parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
+            parameters.AddOptionalParameter("autoBorrow", autoBorrow);
+            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            return await Execute<KucoinNewOrder>(GetUri("margin/order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
