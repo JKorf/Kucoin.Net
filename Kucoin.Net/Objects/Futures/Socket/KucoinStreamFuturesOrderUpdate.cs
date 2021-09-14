@@ -79,6 +79,7 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// <summary>
         /// Client order id
         /// </summary>
+        [JsonProperty("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order timestamp

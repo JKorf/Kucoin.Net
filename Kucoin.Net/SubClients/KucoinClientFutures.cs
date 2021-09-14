@@ -309,6 +309,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
             parameters.AddOptionalParameter("iceberg", iceberg);
+            parameters.AddOptionalParameter("clientOid", clientOrderId);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
 
             return await Execute(GetUri("orders", 1), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
