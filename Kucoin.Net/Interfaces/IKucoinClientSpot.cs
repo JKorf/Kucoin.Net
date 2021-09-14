@@ -12,7 +12,7 @@ namespace Kucoin.Net.Interfaces
     /// <summary>
     /// Interface for the Kucoin client
     /// </summary>
-    public interface IKucoinClientSpot: IRestClient
+    public interface IKucoinClientSpot : IRestClient
     {
         /// <summary>
         /// Gets the server time
@@ -386,6 +386,48 @@ namespace Kucoin.Net.Interfaces
             string? remark = null,
             KucoinSelfTradePrevention? selfTradePrevention = null,
 
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Places a margin order
+        /// </summary>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="side">The side((buy or sell) of the order</param>
+        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="type">The type of the order</param>
+        /// <param name="remark">Remark on the order</param>
+        /// <param name="selfTradePrevention">Self trade prevention setting</param>
+        /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
+        /// <param name="autoBorrow">Auto-borrow to place order.</param>
+        /// <param name="price">The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">amount of base currency to buy or sell of the order</param>
+        /// <param name="timeInForce">The time the order is in force</param>
+        /// <param name="cancelAfter">Cancel after a time</param>
+        /// <param name="postOnly">Order is post only</param>
+        /// <param name="hidden">Order is hidden</param>
+        /// <param name="iceBerg">Order is an iceberg order</param>
+        /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+        /// <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The id of the new order</returns>
+        Task<WebCallResult<KucoinNewOrder>> PlaceMarginOrderAsync(
+            string symbol,
+            KucoinOrderSide side,
+            KucoinNewOrderType type,
+            decimal? price = null,
+            decimal? quantity = null,
+            decimal? funds = null,
+            KucoinTimeInForce? timeInForce = null,
+            TimeSpan? cancelAfter = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceBerg = null,
+            decimal? visibleIceBergSize = null,
+            string? remark = null,
+            KucoinMarginMode? marginMode = null,
+            bool? autoBorrow = null,
+            KucoinSelfTradePrevention? selfTradePrevention = null,
+            string? clientOrderId = null,
             CancellationToken ct = default);
 
         /// <summary>

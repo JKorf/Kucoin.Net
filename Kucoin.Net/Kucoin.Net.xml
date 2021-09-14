@@ -996,6 +996,30 @@
             <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.PlaceMarginOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinMarginMode},System.Nullable{System.Boolean},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Places a margin order
+            </summary>
+            <param name="clientOrderId">Client order id</param>
+            <param name="side">The side((buy or sell) of the order</param>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="type">The type of the order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
+            <param name="autoBorrow">Auto-borrow to place order.</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">amount of base currency to buy or sell of the order</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
@@ -3611,6 +3635,21 @@
         <member name="F:Kucoin.Net.Objects.KucoinTradeType.MarginTrade">
             <summary>
             Margin trade
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.KucoinMarginMode">
+            <summary>
+            Mode of Margin
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMarginMode.CrossMode">
+            <summary>
+            Cross Mode
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinMarginMode.IsolatedMode">
+            <summary>
+            Isolated Mode, This mode is not supported by platform yet.
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinOrderBase">
@@ -6847,6 +6886,30 @@
             <param name="remark">Remark on the order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.PlaceMarginOrderAsync(System.String,Kucoin.Net.Objects.KucoinOrderSide,Kucoin.Net.Objects.KucoinNewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Objects.KucoinTimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Objects.KucoinMarginMode},System.Nullable{System.Boolean},System.Nullable{Kucoin.Net.Objects.KucoinSelfTradePrevention},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Places a margin order
+            </summary>
+            <param name="clientOrderId">Client order id</param>
+            <param name="side">The side((buy or sell) of the order</param>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="type">The type of the order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
+            <param name="autoBorrow">Auto-borrow to place order.</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">amount of base currency to buy or sell of the order</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="funds">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
             <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
         </member>
