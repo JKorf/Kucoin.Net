@@ -90,6 +90,12 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.0.7 - 14 Sep 2021
+    * Fixed clientOrderId parameter in futures PlaceOrderAsync
+    * Fixed clientOrderId in futures stream order update
+    * Added PlaceMarginOrderAsync endpoint
+    * Fixed PlaceOrderAsync not returning order id
+
 * Version 3.0.6 - 03 Sep 2021
     * Added timestamp to trade update
     * Fixed PlaceOrderAsync optional stopType and stopPriceType parameters not being optional on futures
