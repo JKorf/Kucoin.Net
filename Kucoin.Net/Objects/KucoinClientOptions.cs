@@ -77,8 +77,11 @@ namespace Kucoin.Net.Objects
         public KucoinClientOptions Copy()
         {
             var copy = Copy<KucoinClientOptions>();
+            copy.FuturesBaseAddress = FuturesBaseAddress;
             if (ApiCredentials != null)
                 copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key!.GetString(), ApiCredentials.Secret!.GetString(), ApiCredentials.PassPhrase.GetString());
+            if (FuturesApiCredentials != null)
+                copy.FuturesApiCredentials = new KucoinApiCredentials(FuturesApiCredentials.Key!.GetString(), FuturesApiCredentials.Secret!.GetString(), FuturesApiCredentials.PassPhrase.GetString());
             return copy;
         }
     }
@@ -116,6 +119,8 @@ namespace Kucoin.Net.Objects
             copy.SocketSubscriptionsCombineTarget = SocketSubscriptionsCombineTarget;
             if (ApiCredentials != null)
                 copy.ApiCredentials = new KucoinApiCredentials(ApiCredentials.Key!.GetString(), ApiCredentials.Secret!.GetString(), ApiCredentials.PassPhrase.GetString());
+            if (FuturesApiCredentials != null)
+                copy.FuturesApiCredentials = new KucoinApiCredentials(FuturesApiCredentials.Key!.GetString(), FuturesApiCredentials.Secret!.GetString(), FuturesApiCredentials.PassPhrase.GetString());
             return copy;
         }
     }
