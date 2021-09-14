@@ -267,7 +267,7 @@ namespace Kucoin.Net.SubClients
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        public async Task<WebCallResult> PlaceOrderAsync(
+        public async Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol, 
             KucoinOrderSide side, 
             KucoinNewOrderType type, 
@@ -312,7 +312,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("clientOid", clientOrderId);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
 
-            return await Execute(GetUri("orders", 1), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await Execute<KucoinNewOrder>(GetUri("orders", 1), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>

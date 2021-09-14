@@ -156,7 +156,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        Task<WebCallResult> PlaceOrderAsync(
+        Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol,
             KucoinOrderSide side,
             KucoinNewOrderType type,
