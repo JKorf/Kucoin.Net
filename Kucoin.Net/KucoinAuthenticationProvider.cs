@@ -25,7 +25,7 @@ namespace Kucoin.Net
             encryptor = new HMACSHA256(Encoding.UTF8.GetBytes(credentials.Secret.GetString()));
         }
 
-        public override Dictionary<string, string> AddAuthenticationToHeaders(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization)
+        public override Dictionary<string, string> AddAuthenticationToHeaders(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization)
         {
             if (!signed)
                 return new Dictionary<string, string>();
@@ -41,7 +41,7 @@ namespace Kucoin.Net
             };
 
             var jsonContent = string.Empty;
-            if (method != HttpMethod.Get && method != HttpMethod.Delete)
+            if (parameterPosition == HttpMethodParameterPosition.InBody)
                 jsonContent = JsonConvert.SerializeObject(parameters.OrderBy(p => p.Key).ToDictionary(p => p.Key, p => p.Value));
 
             uri = uri.Substring(uri.IndexOf(".com", StringComparison.InvariantCulture) + 4);

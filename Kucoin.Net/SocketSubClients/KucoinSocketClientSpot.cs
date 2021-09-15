@@ -528,7 +528,7 @@ namespace Kucoin.Net.SocketSubClients
 
                     socketConnection = new SocketConnection(this, socket);
                     foreach (var kvp in genericHandlers)
-                        socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
+                        socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(NextId(), kvp.Key, false, kvp.Value));
                 }
 
                 subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler);
