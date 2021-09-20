@@ -16,7 +16,9 @@ namespace Kucoin.Net.Converters
         protected override List<KeyValuePair<KucoinAccountType, string>> Mapping => new List<KeyValuePair<KucoinAccountType, string>>
         {
             new KeyValuePair<KucoinAccountType, string>(KucoinAccountType.Main, _useCaps ? "MAIN" : "main"),
-            new KeyValuePair<KucoinAccountType, string>(KucoinAccountType.Trade, _useCaps ? "TRADE" : "trade")
+            new KeyValuePair<KucoinAccountType, string>(KucoinAccountType.Trade, _useCaps ? "TRADE" : "trade"),
+            new KeyValuePair<KucoinAccountType, string>(KucoinAccountType.Margin, _useCaps ? "MARGIN" : "margin"),
+            new KeyValuePair<KucoinAccountType, string>(KucoinAccountType.Pool, _useCaps ? "POOL" : "pool"),
         };
     }
 }

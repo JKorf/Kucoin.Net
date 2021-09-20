@@ -71,7 +71,15 @@
         /// <summary>
         /// Trade account
         /// </summary>
-        Trade
+        Trade,
+        /// <summary>
+        /// Margin account
+        /// </summary>
+        Margin,
+        /// <summary>
+        /// Pool account
+        /// </summary>
+        Pool
     }
 
     /// <summary>
