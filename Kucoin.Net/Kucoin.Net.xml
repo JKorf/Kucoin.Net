@@ -214,6 +214,14 @@
             Interface for the futures client
             </summary>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientFutures.SetApiCredentials(System.String,System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+            <param name="apiPass">The api passphrase</param>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClientFutures.GetAccountOverviewAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets account overview
@@ -641,6 +649,14 @@
             <summary>
             Interface for the Kucoin client
             </summary>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.SetApiCredentials(System.String,System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+            <param name="apiPass">The api passphrase</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
@@ -6104,6 +6120,14 @@
             Base address for the futures API
             </summary>
         </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.SetApiCredentials(System.String,System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+            <param name="apiPass">The api passphrase</param>
+        </member>
         <member name="M:Kucoin.Net.SubClients.KucoinClientFutures.GetAccountOverviewAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets account overview
@@ -6544,6 +6568,14 @@
             <summary>
             Event triggered when an order is cancelled via this client
             </summary>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.SetApiCredentials(System.String,System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+            <param name="apiPass">The api passphrase</param>
         </member>
         <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>

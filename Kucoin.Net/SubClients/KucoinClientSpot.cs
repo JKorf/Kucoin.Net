@@ -16,6 +16,7 @@ using Kucoin.Net.Objects.Socket;
 using Kucoin.Net.Objects.Spot;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.SubClients
 {
@@ -35,6 +36,17 @@ namespace Kucoin.Net.SubClients
 
         internal KucoinClientSpot(KucoinClientOptions options) : base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
+        }
+
+        /// <summary>
+        /// Set the API key and secret
+        /// </summary>
+        /// <param name="apiKey">The api key</param>
+        /// <param name="apiSecret">The api secret</param>
+        /// <param name="apiPass">The api passphrase</param>
+        public void SetApiCredentials(string apiKey, string apiSecret, string apiPass)
+        {
+            SetAuthenticationProvider(new KucoinAuthenticationProvider(new KucoinApiCredentials(apiKey, apiSecret, apiPass)));
         }
 
         /// <summary>

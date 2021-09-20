@@ -35,6 +35,17 @@ namespace Kucoin.Net.SubClients
             BaseAddress = options.FuturesBaseAddress;
         }
 
+        /// <summary>
+        /// Set the API key and secret
+        /// </summary>
+        /// <param name="apiKey">The api key</param>
+        /// <param name="apiSecret">The api secret</param>
+        /// <param name="apiPass">The api passphrase</param>
+        public void SetApiCredentials(string apiKey, string apiSecret, string apiPass)
+        {
+            SetAuthenticationProvider(new KucoinAuthenticationProvider(new KucoinApiCredentials(apiKey, apiSecret, apiPass)));
+        }
+
         #region Account
         /// <summary>
         /// Gets account overview

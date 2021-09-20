@@ -15,6 +15,14 @@ namespace Kucoin.Net.Interfaces
     public interface IKucoinClientSpot : IRestClient
     {
         /// <summary>
+        /// Set the API key and secret
+        /// </summary>
+        /// <param name="apiKey">The api key</param>
+        /// <param name="apiSecret">The api secret</param>
+        /// <param name="apiPass">The api passphrase</param>
+        void SetApiCredentials(string apiKey, string apiSecret, string apiPass);
+
+        /// <summary>
         /// Gets the server time
         /// </summary>
         /// <returns>The time of the server</returns>
