@@ -95,7 +95,7 @@ namespace Kucoin.Net.SocketSubClients
                     Quantity = decimal.Parse(items[2], CultureInfo.InvariantCulture)
                 };
 
-                InvokeHandler(tokenData.As(result), onData);
+                InvokeHandler(tokenData.As(result, symbol), onData);
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2:" + symbol, false);
@@ -115,7 +115,7 @@ namespace Kucoin.Net.SocketSubClients
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var book = GetData<KucoinStreamOrderBookChanged>(tokenData);
-                InvokeHandler(tokenData.As(book), onData);
+                InvokeHandler(tokenData.As(book, symbol), onData);
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2Depth{limit}:" + symbol, false);
@@ -137,12 +137,12 @@ namespace Kucoin.Net.SocketSubClients
                 if (tokenData.Data["subject"]?.ToString() == "mark.index.price")
                 {
                     var data = GetData<KucoinStreamFuturesMarkIndexPrice>(tokenData);
-                    InvokeHandler(tokenData.As(data), onMarkIndexPriceUpdate);
+                    InvokeHandler(tokenData.As(data, symbol), onMarkIndexPriceUpdate);
                 }
                 else
                 {
                     var data = GetData<KucoinStreamFuturesFundingRate>(tokenData);
-                    InvokeHandler(tokenData.As(data), onFundingRateUpdate);
+                    InvokeHandler(tokenData.As(data, symbol), onFundingRateUpdate);
                 }
             });
 
@@ -211,7 +211,7 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinStreamTransactionStatisticsUpdate>(tokenData);
-                InvokeHandler(tokenData.As(data), onData);
+                InvokeHandler(tokenData.As(data, symbol), onData);
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/snapshot:"+symbol, false);
@@ -235,17 +235,17 @@ namespace Kucoin.Net.SocketSubClients
                 if (subject == "orderMargin.change")
                 {
                     var data = GetData<KucoinStreamOrderMarginUpdate>(tokenData);
-                    InvokeHandler(tokenData.As(data), onOrderMarginUpdate);
+                    InvokeHandler(tokenData.As(data, data.Currency), onOrderMarginUpdate);
                 }
                 else if (subject == "availableBalance.change")
                 {
                     var data = GetData<KucoinStreamFuturesBalanceUpdate>(tokenData);
-                    InvokeHandler(tokenData.As(data), onBalanceUpdate);
+                    InvokeHandler(tokenData.As(data, data.Currency), onBalanceUpdate);
                 }
                 else if (subject == "withdrawHold.change")
                 {
                     var data = GetData<KucoinStreamFuturesWithdrawableUpdate>(tokenData);
-                    InvokeHandler(tokenData.As(data), onWithdrawableUpdate);
+                    InvokeHandler(tokenData.As(data, data.Currency), onWithdrawableUpdate);
                 }
                 else
                     log.Write(LogLevel.Warning, "Unknown update: " + subject);
@@ -265,7 +265,7 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinPosition>(tokenData);
-                InvokeHandler(tokenData.As(data), onData);
+                InvokeHandler(tokenData.As(data, symbol), onData);
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, false);

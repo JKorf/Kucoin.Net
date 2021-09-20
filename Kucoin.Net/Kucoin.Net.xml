@@ -5916,7 +5916,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdates(System.String,System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdates(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to index price updates
             </summary>
@@ -5924,7 +5924,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to index price updates
             </summary>
@@ -5932,15 +5932,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
-            <summary>
-            Subscribe to index price updates
-            </summary>
-            <param name="symbols">Symbols to subscribe</param>
-            <param name="onData">Data handler</param>
-            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to index price updates
             </summary>
@@ -5948,7 +5940,15 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdates(System.String,System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+            <summary>
+            Subscribe to index price updates
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdates(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to mark price updates
             </summary>
@@ -5956,7 +5956,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to mark price updates
             </summary>
@@ -5964,7 +5964,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to mark price updates
             </summary>
@@ -5972,7 +5972,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
             <summary>
             Subscribe to mark price updates
             </summary>
@@ -5980,7 +5980,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdates(System.String,System.Action{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdates(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
             <summary>
             Subscribe to funding book updates
             </summary>
@@ -5988,7 +5988,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
             <summary>
             Subscribe to funding book updates
             </summary>
@@ -5996,7 +5996,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
             <summary>
             Subscribe to funding book updates
             </summary>
@@ -6004,7 +6004,7 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
             <summary>
             Subscribe to funding book updates
             </summary>
