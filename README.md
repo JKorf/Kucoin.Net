@@ -90,6 +90,9 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.0.10 - 20 Sep 2021
+    * upl kucoin
+
 * Version 3.0.9 - 15 Sep 2021
     * Updated CryptoExchange.Net
 

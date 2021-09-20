@@ -3132,6 +3132,16 @@
             Trade account
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Objects.KucoinAccountType.Margin">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinAccountType.Pool">
+            <summary>
+            Pool account
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.KucoinDepositStatus">
             <summary>
             Status of a deposit
