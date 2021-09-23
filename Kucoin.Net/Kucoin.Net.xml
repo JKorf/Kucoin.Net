@@ -1217,6 +1217,36 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.PlaceBorrowOrderAsync(System.String,Kucoin.Net.Objects.KucoinBorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
+            </summary>
+            <param name="currency">Currency to Borrow e.g USDT etc</param>
+            <param name="type">The type of the order (FOK, IOC)</param>
+            <param name="quantity">Total size</param>
+            <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
+            <param name="term">erm (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetBorrowOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
+            </summary>
+            <param name="clientOrderId">The client order id of the borrow order</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Borrow Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.RepaySingleBorrowOrderAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
+            </summary>
+            <param name="currency">Currency to Pay e.g USDT etc</param>
+            <param name="tradeId">Trade ID of borrow order</param>
+            <param name="quantity">Repayment size</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClient">
             <summary>
             Kucoin socket client interface
@@ -3263,6 +3293,21 @@
             Stop order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.KucoinBorrowOrderType">
+            <summary>
+            Borrow order type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBorrowOrderType.FOK">
+            <summary>
+            FOK
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinBorrowOrderType.IOC">
+            <summary>
+            IOC
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.KucoinTimeInForce">
             <summary>
             Time the order is valid for
@@ -4249,6 +4294,76 @@
             The last trade price
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Spot.KucoinBorrowOrder">
+            <summary>
+            Kucoin Borrow Order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrder.OrderId">
+            <summary>
+            The OrderId of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrder.Currency">
+            <summary>
+            The currency of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrder.Quantity">
+            <summary>
+            Total size of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrder.Filled">
+            <summary>
+            Size executed
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrder.ExecutionDetails">
+            <summary>
+            The list of Borrow Order Details
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrder.Status">
+            <summary>
+            Status of request
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails">
+            <summary>
+            Kucoin Borrow Execution details
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails.Currency">
+            <summary>
+            The currency of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails.DailyIntRate">
+            <summary>
+            Daily interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails.Quantity">
+            <summary>
+            Total size of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails.Term">
+            <summary>
+            Total size of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinBorrowOrderDetails.TradeId">
+            <summary>
+            The trade id of the borrow order
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Spot.KucoinCancelledOrder">
             <summary>
             Cancelled order
@@ -4642,6 +4757,21 @@
         <member name="P:Kucoin.Net.Objects.Spot.KucoinNewAccount.Id">
             <summary>
             The id of the new account
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Spot.KucoinNewBorrowOrder">
+            <summary>
+            New Borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinNewBorrowOrder.OrderId">
+            <summary>
+            The id of the new borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinNewBorrowOrder.Currency">
+            <summary>
+            Currency of current Order
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Spot.KucoinNewOrder">
@@ -7135,6 +7265,36 @@
             <param name="clientOrderId">The client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.PlaceBorrowOrderAsync(System.String,Kucoin.Net.Objects.KucoinBorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
+            </summary>
+            <param name="currency">Currency to Borrow e.g USDT etc</param>
+            <param name="type">The type of the order (FOK, IOC)</param>
+            <param name="quantity">Total size</param>
+            <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
+            <param name="term">erm (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetBorrowOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
+            </summary>
+            <param name="clientOrderId">The client order id of the borrow order</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Borrow Order info</returns>
+        </member>
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.RepaySingleBorrowOrderAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
+            </summary>
+            <param name="currency">Currency to Pay e.g USDT etc</param>
+            <param name="tradeId">Trade ID of borrow order</param>
+            <param name="quantity">Repayment size</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
         </member>
         <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />

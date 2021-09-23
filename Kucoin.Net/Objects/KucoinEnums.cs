@@ -182,6 +182,21 @@
     }
 
     /// <summary>
+    /// Borrow order type
+    /// </summary>
+    public enum KucoinBorrowOrderType
+    {
+        /// <summary>
+        /// FOK
+        /// </summary>
+        FOK,
+        /// <summary>
+        /// IOC
+        /// </summary>
+        IOC
+    }
+
+    /// <summary>
     /// Time the order is valid for
     /// </summary>
     public enum KucoinTimeInForce
