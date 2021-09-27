@@ -13,7 +13,7 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// The timestamp of the match
         /// </summary>
         [JsonProperty("time"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
-        public DateTime Timestamp { get; set; }
+        public new DateTime Timestamp { get; set; }
         /// <summary>
         /// The type
         /// </summary>

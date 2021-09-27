@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Futures
@@ -17,6 +18,6 @@ namespace Kucoin.Net.Objects.Futures
         /// Data list
         /// </summary>
         [JsonProperty("dataList")]
-        public IEnumerable<T> Data { get; set; }
+        public IEnumerable<T> Data { get; set; } = Array.Empty<T>();
     }
 }

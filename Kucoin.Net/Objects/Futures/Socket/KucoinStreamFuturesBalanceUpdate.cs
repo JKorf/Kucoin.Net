@@ -21,6 +21,9 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// Currency
         /// </summary>
         public string Currency { get; set; } = string.Empty;
+        /// <summary>
+        /// Timestamp
+        /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
     }

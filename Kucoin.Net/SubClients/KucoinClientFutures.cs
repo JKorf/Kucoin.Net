@@ -848,7 +848,7 @@ namespace Kucoin.Net.SubClients
             if (error["code"] != null && error["msg"] != null)
             {
                 var result = error.ToObject<KucoinResult<object>>();
-                return new ServerError(result.Code, result.Message!);
+                return new ServerError(result!.Code, result.Message!);
             }
 
             return new ServerError(error.ToString());

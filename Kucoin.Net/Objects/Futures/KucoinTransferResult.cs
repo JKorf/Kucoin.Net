@@ -8,6 +8,6 @@
         /// <summary>
         /// Transfer id
         /// </summary>
-        public string ApplyId { get; set; }
+        public string ApplyId { get; set; } = string.Empty;
     }
 }

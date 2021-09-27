@@ -40,6 +40,6 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Settlement currency
         /// </summary>
-        public string SettleCurrency { get; set; }
+        public string SettleCurrency { get; set; } = string.Empty;
     }
 }

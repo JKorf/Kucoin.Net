@@ -70,7 +70,7 @@ namespace Kucoin.Net.SocketSubClients
                 if (data == null)
                     return;
 
-                data.Symbol = TryGetSymbolFromTopic(tokenData);
+                data.Symbol = TryGetSymbolFromTopic(tokenData)!;
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
@@ -91,7 +91,7 @@ namespace Kucoin.Net.SocketSubClients
                 if (data == null)
                     return;
 
-                data.Symbol = (string)tokenData.Data["subject"];
+                data.Symbol = (string)tokenData.Data["subject"]!;
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
@@ -120,6 +120,12 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinStreamSnapshotWrapper>(tokenData)?.Data;
+                if(data == null)
+                {
+                    log.Write(LogLevel.Warning, "Failed to process snapshot update");
+                    return;
+                }
+
                 InvokeHandler(tokenData.As(data, data?.Symbol), onData!);
             });
 
@@ -394,7 +400,7 @@ namespace Kucoin.Net.SocketSubClients
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 KucoinStreamMatchEngineUpdate? data = null;
-                var subject = (string)tokenData.Data["subject"];
+                var subject = tokenData.Data["subject"]?.ToString();
                 switch (subject)
                 {
                     case "received":
@@ -412,6 +418,9 @@ namespace Kucoin.Net.SocketSubClients
                     case "update":
                         data = GetData<KucoinStreamMatchEngineChangeUpdate>(tokenData);
                         break;
+                    default:
+                        log.Write(LogLevel.Warning, "Unknown match engine update type: " + subject);
+                        return;
                 }
 
                 InvokeHandler(tokenData.As<KucoinStreamMatchEngineUpdate>(data, data.Symbol), onData!);
@@ -431,7 +440,15 @@ namespace Kucoin.Net.SocketSubClients
             Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                var type = (string)tokenData.Data["data"]["type"];
+                
+                if(tokenData.Data["data"] == null || tokenData.Data["data"]!["type"] == null)
+                {
+                    log.Write(LogLevel.Warning, "Order update without type value");
+                    return;
+                }    
+
+
+                var type = tokenData.Data["data"]!["type"]!.ToString();
                 switch (type)
                 {
                     case "canceled":
@@ -610,7 +627,7 @@ namespace Kucoin.Net.SocketSubClients
                 return false;
 
             var kRequest = (KucoinRequest)request;
-            if ((string)id != kRequest.Id)
+            if (id!.ToString() != kRequest.Id)
                 return false;
 
             var result = Deserialize<KucoinSubscribeResponse>(message, false);
@@ -633,37 +650,41 @@ namespace Kucoin.Net.SocketSubClients
         /// <inheritdoc />
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
-            if (message["type"] == null || (string)message["type"] != "message")
+            if (message["type"] == null || message["type"]?.ToString() != "message")
                 return false;
 
             if (message["topic"] == null)
                 return false;
 
             var kRequest = (KucoinRequest)request;
-            var topic = (string)message["topic"];
+            var topic = message["topic"]?.ToString();
             if (kRequest.Topic == topic)
                 return true;
 
-            if ((kRequest.Topic.StartsWith("/market/ticker:") && message["subject"] != null && (string)message["subject"] == "trade.ticker")
-            || (kRequest.Topic.StartsWith("/market/level2:") && ((string)message["topic"]).StartsWith("/market/level2"))
-            || (kRequest.Topic.StartsWith("/spotMarket/level3:") && ((string)message["topic"]).StartsWith("/spotMarket/level3"))
-            || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth5"))
-            || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth20"))
-            || (kRequest.Topic.StartsWith("/indicator/index:") && ((string)message["topic"]).StartsWith("/indicator/index"))
-            || (kRequest.Topic.StartsWith("/indicator/markPrice:") && ((string)message["topic"]).StartsWith("/indicator/markPrice"))
-            || (kRequest.Topic.StartsWith("/market/snapshot:") && ((string)message["topic"]).StartsWith("/market/snapshot")))
+            var subject = message["subject"]?.ToString();
+            if (topic != null)
             {
-                var marketSplit = topic.Split(':');
-                if (marketSplit.Length > 1)
+                if ((kRequest.Topic.StartsWith("/market/ticker:") && subject != null && subject == "trade.ticker")
+                || (kRequest.Topic.StartsWith("/market/level2:") && topic.StartsWith("/market/level2"))
+                || (kRequest.Topic.StartsWith("/spotMarket/level3:") && topic.StartsWith("/spotMarket/level3"))
+                || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && topic.StartsWith("/spotMarket/level2Depth5"))
+                || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && topic.StartsWith("/spotMarket/level2Depth20"))
+                || (kRequest.Topic.StartsWith("/indicator/index:") && topic.StartsWith("/indicator/index"))
+                || (kRequest.Topic.StartsWith("/indicator/markPrice:") && topic.StartsWith("/indicator/markPrice"))
+                || (kRequest.Topic.StartsWith("/market/snapshot:") && topic.StartsWith("/market/snapshot")))
                 {
-                    var market = marketSplit[1];
-                    var subMarkets = kRequest.Topic.Split(':').Last().Split(',');
-                    if (subMarkets.Contains(market))
-                        return true;
+                    var marketSplit = topic.Split(':');
+                    if (marketSplit.Length > 1)
+                    {
+                        var market = marketSplit[1];
+                        var subMarkets = kRequest.Topic.Split(':').Last().Split(',');
+                        if (subMarkets.Contains(market))
+                            return true;
+                    }
                 }
             }
 
-            if (kRequest.Topic == "/account/balance" && message["subject"] != null && (string)message["subject"] == "account.balance")
+            if (kRequest.Topic == "/account/balance" && subject != null && subject == "account.balance")
                 return true;
 
             return false;
@@ -674,7 +695,7 @@ namespace Kucoin.Net.SocketSubClients
         {
             if (message["type"] != null)
             {
-                var type = (string)message["type"];
+                var type = message["type"]!.ToString();
                 if (type == "pong" && identifier == "Ping")
                     return true;
 
@@ -704,7 +725,7 @@ namespace Kucoin.Net.SocketSubClients
                 if (id == null)
                     return false;
 
-                if ((string)id != request.Id)
+                if (id!.ToString() != request.Id)
                     return false;
 
                 var result = Deserialize<KucoinSubscribeResponse>(message, false);
@@ -729,7 +750,7 @@ namespace Kucoin.Net.SocketSubClients
             return success;
         }
 
-        internal void InvokeHandler<T>(T data, Action<T> handler)
+        internal static void InvokeHandler<T>(T data, Action<T> handler)
         {
             if (Equals(data, default(T)!))
                 return;
@@ -748,7 +769,7 @@ namespace Kucoin.Net.SocketSubClients
             return desResult.Data.Data;
         }
 
-        private string? TryGetSymbolFromTopic(DataEvent<JToken> data)
+        private static string? TryGetSymbolFromTopic(DataEvent<JToken> data)
         {
             string? symbol = null;
             var topic = data.Data["topic"]?.ToString();

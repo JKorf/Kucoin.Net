@@ -83,13 +83,14 @@ namespace Kucoin.Net.SocketSubClients
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<JToken>(tokenData);
                 var change = data["change"]?.ToString();
-                if (string.IsNullOrEmpty(change))
+                var sequence = data["sequence"]?.ToString();
+                if (string.IsNullOrEmpty(change) || string.IsNullOrEmpty(sequence))
                     return;
 
                 var items = change!.Split(',');
                 var result = new KucoinFuturesOrderBookChange
                 {
-                    Sequence = long.Parse(data["sequence"].ToString()),
+                    Sequence = long.Parse(sequence),
                     Price = decimal.Parse(items[0], CultureInfo.InvariantCulture),
                     Side = items[1] == "sell" ? KucoinOrderSide.Sell: KucoinOrderSide.Buy,
                     Quantity = decimal.Parse(items[2], CultureInfo.InvariantCulture)
@@ -386,12 +387,12 @@ namespace Kucoin.Net.SocketSubClients
             if (message.Type != JTokenType.Object)
                 return false;
 
-            var id = message["id"];
+            var id = message["id"]?.ToString();
             if (id == null)
                 return false;
 
             var kRequest = (KucoinRequest)request;
-            if ((string)id != kRequest.Id)
+            if (id != kRequest.Id)
                 return false;
 
             var result = Deserialize<KucoinSubscribeResponse>(message, false);
@@ -414,37 +415,41 @@ namespace Kucoin.Net.SocketSubClients
         /// <inheritdoc />
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
-            if (message["type"] == null || (string)message["type"] != "message")
+            if (message["type"] == null || message["type"]?.ToString() != "message")
                 return false;
 
             if (message["topic"] == null)
                 return false;
 
             var kRequest = (KucoinRequest)request;
-            var topic = (string)message["topic"];
+            var topic = message["topic"]?.ToString();
             if (kRequest.Topic == topic)
                 return true;
 
-            if ((kRequest.Topic.StartsWith("/market/ticker:") && message["subject"] != null && (string)message["subject"] == "trade.ticker")
-            || (kRequest.Topic.StartsWith("/market/level2:") && ((string)message["topic"]).StartsWith("/market/level2"))
-            || (kRequest.Topic.StartsWith("/spotMarket/level3:") && ((string)message["topic"]).StartsWith("/spotMarket/level3"))
-            || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth5"))
-            || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && ((string)message["topic"]).StartsWith("/spotMarket/level2Depth20"))
-            || (kRequest.Topic.StartsWith("/indicator/index:") && ((string)message["topic"]).StartsWith("/indicator/index"))
-            || (kRequest.Topic.StartsWith("/indicator/markPrice:") && ((string)message["topic"]).StartsWith("/indicator/markPrice"))
-            || (kRequest.Topic.StartsWith("/market/snapshot:") && ((string)message["topic"]).StartsWith("/market/snapshot")))
+            var subject = message["subject"]?.ToString();
+            if (topic != null)
             {
-                var marketSplit = topic.Split(':');
-                if (marketSplit.Length > 1)
+                if ((kRequest.Topic.StartsWith("/market/ticker:") && subject != null && subject == "trade.ticker")
+                || (kRequest.Topic.StartsWith("/market/level2:") && topic.StartsWith("/market/level2"))
+                || (kRequest.Topic.StartsWith("/spotMarket/level3:") && topic.StartsWith("/spotMarket/level3"))
+                || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && topic.StartsWith("/spotMarket/level2Depth5"))
+                || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && topic.StartsWith("/spotMarket/level2Depth20"))
+                || (kRequest.Topic.StartsWith("/indicator/index:") && topic.StartsWith("/indicator/index"))
+                || (kRequest.Topic.StartsWith("/indicator/markPrice:") && topic.StartsWith("/indicator/markPrice"))
+                || (kRequest.Topic.StartsWith("/market/snapshot:") && topic.StartsWith("/market/snapshot")))
                 {
-                    var market = marketSplit[1];
-                    var subMarkets = kRequest.Topic.Split(':').Last().Split(',');
-                    if (subMarkets.Contains(market))
-                        return true;
+                    var marketSplit = topic.Split(':');
+                    if (marketSplit.Length > 1)
+                    {
+                        var market = marketSplit[1];
+                        var subMarkets = kRequest.Topic.Split(':').Last().Split(',');
+                        if (subMarkets.Contains(market))
+                            return true;
+                    }
                 }
             }
 
-            if (kRequest.Topic == "/account/balance" && message["subject"] != null && (string)message["subject"] == "account.balance")
+            if (kRequest.Topic == "/account/balance" && subject != null && subject == "account.balance")
                 return true;
 
             return false;
@@ -455,7 +460,7 @@ namespace Kucoin.Net.SocketSubClients
         {
             if (message["type"] != null)
             {
-                var type = (string)message["type"];
+                var type = message["type"]!.ToString();
                 if (type == "pong" && identifier == "Ping")
                     return true;
 
@@ -485,7 +490,7 @@ namespace Kucoin.Net.SocketSubClients
                 if (id == null)
                     return false;
 
-                if ((string)id != request.Id)
+                if (id!.ToString() != request.Id)
                     return false;
 
                 var result = Deserialize<KucoinSubscribeResponse>(message, false);
@@ -510,7 +515,7 @@ namespace Kucoin.Net.SocketSubClients
             return success;
         }
 
-        internal void InvokeHandler<T>(T data, Action<T> handler)
+        internal static void InvokeHandler<T>(T data, Action<T> handler)
         {
             if (Equals(data, default(T)!))
                 return;

@@ -2614,6 +2614,11 @@
             Currency
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesFundingRate">
             <summary>
             Market info

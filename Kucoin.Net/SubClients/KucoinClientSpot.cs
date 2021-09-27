@@ -1183,6 +1183,9 @@ namespace Kucoin.Net.SubClients
             if (error["code"] != null && error["msg"] != null)
             {
                 var result = error.ToObject<KucoinResult<object>>();
+                if (result == null)
+                    return new ServerError(error["msg"]!.ToString());
+
                 return new ServerError(result.Code, result.Message!);
             }
 
@@ -1232,6 +1235,8 @@ namespace Kucoin.Net.SubClients
         /// <param name="quoteAsset"></param>
         /// <returns></returns>
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + "-" + quoteAsset).ToUpperInvariant();
+
+#pragma warning disable 1066
 
         async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
         {
@@ -1318,6 +1323,7 @@ namespace Kucoin.Net.SubClients
             var result = await GetAccountsAsync().ConfigureAwait(false);
             return result.As<IEnumerable<ICommonBalance>>(result.Data);
         }
+#pragma warning restore 1066
 
         private static KucoinKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
         {
