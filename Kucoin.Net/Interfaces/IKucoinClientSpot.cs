@@ -133,7 +133,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="currencies">The currencies to get price for. Defaults to all</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of prices</returns>
-        Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, CancellationToken ct = default, params string[] currencies);
+        Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? currencies = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of sub users

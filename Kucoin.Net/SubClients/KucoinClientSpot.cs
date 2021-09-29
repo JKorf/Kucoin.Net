@@ -17,6 +17,7 @@ using Kucoin.Net.Objects.Spot;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using CryptoExchange.Net.Authentication;
+using System.Linq;
 
 namespace Kucoin.Net.SubClients
 {
@@ -223,11 +224,11 @@ namespace Kucoin.Net.SubClients
         /// <param name="currencies">The currencies to get price for. Defaults to all</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of prices</returns>
-        public async Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, CancellationToken ct = default, params string[] currencies)
+        public async Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? currencies = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("base", fiatBase);
-            parameters.AddOptionalParameter("currencies", currencies?.Length > 0 ? string.Join(",", currencies) : null);
+            parameters.AddOptionalParameter("currencies", currencies?.Any() == true ? string.Join(",", currencies) : null);
 
             return await Execute<Dictionary<string, decimal>>(GetUri("prices"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }

@@ -43,21 +43,26 @@ namespace Kucoin.Net
             if (Levels == null)
             {
                 subResult = await socketClient.Spot.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
+                if (!subResult)
+                    return subResult;
 
                 Status = OrderBookStatus.Syncing;
                 var bookResult = await restClient.Spot.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    await socketClient.Spot.UnsubscribeAllAsync().ConfigureAwait(false);
+                    log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
+                    await socketClient.Spot.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, bookResult.Error);
                 }
 
-                log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, "Initial: " + bookResult.Data.Sequence);
                 SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else
             {
                 subResult = await socketClient.Spot.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+                if (!subResult)
+                    return subResult;
+
                 Status = OrderBookStatus.Syncing;
                 await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             }

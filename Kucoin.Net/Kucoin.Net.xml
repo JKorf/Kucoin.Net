@@ -760,7 +760,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetFiatPricesAsync(System.String,System.Threading.CancellationToken,System.String[])">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetFiatPricesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Gets a list of prices for all 
             </summary>
@@ -6684,7 +6684,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Currency info</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetFiatPricesAsync(System.String,System.Threading.CancellationToken,System.String[])">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetFiatPricesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Gets a list of prices for all 
             </summary>
