@@ -23,13 +23,16 @@ namespace Kucoin.Net.UnitTests.TestImplementations
     public class TestHelpers
     {
         [ExcludeFromCodeCoverage]
-        public static bool AreEqual(object self, object to, params string[] ignore)
+        public static bool AreEqual(object? self, object? to, params string[] ignore)
         {
             if (self == null && to == null)
                 return true;
 
             if ((self != null && to == null) || (self == null && to != null))
                 return false;
+
+            if (self == null || to == null)
+                throw new Exception("Null");
 
             var type = self.GetType();
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
@@ -78,8 +81,8 @@ namespace Kucoin.Net.UnitTests.TestImplementations
                 if (ignoreList.Contains(pi.Name))
                     continue;
 
-                var selfValue = type.GetProperty(pi.Name).GetValue(self, null);
-                var toValue = type.GetProperty(pi.Name).GetValue(to, null);
+                var selfValue = type.GetProperty(pi.Name)!.GetValue(self, null);
+                var toValue = type.GetProperty(pi.Name)!.GetValue(to, null);
 
                 if (pi.PropertyType.IsValueType || pi.PropertyType == typeof(string))
                 {
@@ -102,7 +105,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return true;
         }
 
-        public static KucoinSocketClient CreateSocketClient(IWebsocket socket, KucoinSocketClientOptions options = null)
+        public static KucoinSocketClient CreateSocketClient(IWebsocket socket, KucoinSocketClientOptions? options = null)
         {
             KucoinSocketClient client;
             client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
@@ -111,7 +114,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return client;
         }
 
-        public static KucoinSocketClient CreateAuthenticatedSocketClient(IWebsocket socket, KucoinSocketClientOptions options = null)
+        public static KucoinSocketClient CreateAuthenticatedSocketClient(IWebsocket socket, KucoinSocketClientOptions? options = null)
         {
             KucoinSocketClient client;
             client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
@@ -120,7 +123,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return client;
         }
 
-        public static IKucoinClient CreateClient(KucoinClientOptions options = null)
+        public static IKucoinClient CreateClient(KucoinClientOptions? options = null)
         {
             IKucoinClient client;
             client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogLevel = LogLevel.Debug });
@@ -136,14 +139,14 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         }
 
 
-        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions options = null)
+        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions? options = null)
         {
             var client = (KucoinClient)CreateClient(options);
             SetResponse(client, response);
             return client;
         }
 
-        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions options = null)
+        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions? options = null)
         {
             var client = (KucoinClient)CreateClient(options);
             SetResponse(client, JsonConvert.SerializeObject(response));
@@ -178,16 +181,16 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             {
                 var elementType = type.GenericTypeArguments[0];
                 Type listType = typeof(List<>).MakeGenericType(new[] { elementType });
-                IList list = (IList)Activator.CreateInstance(listType);
+                IList list = (IList)Activator.CreateInstance(listType)!;
                 list.Add(GetTestValue(elementType, 0));
                 list.Add(GetTestValue(elementType, 1));
                 return (T)list;
             }
             else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
             {
-                var result = (IDictionary)Activator.CreateInstance(type);
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 0), GetTestValue(type.GetGenericArguments()[1], 0));
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 1), GetTestValue(type.GetGenericArguments()[1], 1));
+                var result = (IDictionary)Activator.CreateInstance(type)!;
+                result.Add(GetTestValue(type.GetGenericArguments()[0], 0)!, GetTestValue(type.GetGenericArguments()[1], 0));
+                result.Add(GetTestValue(type.GetGenericArguments()[0], 1)!, GetTestValue(type.GetGenericArguments()[1], 1));
                 return (T)Convert.ChangeType(result, type);
             }
             else
@@ -206,7 +209,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             {
                 var value = GetTestValue(property.PropertyType, i);
                 Type t = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
-                object safeValue = (value == null) ? null : Convert.ChangeType(value, t);
+                object? safeValue = (value == null) ? null : Convert.ChangeType(value, t);
                 property.SetValue(obj, safeValue, null);
                 i++;
             }
@@ -220,16 +223,16 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             var result = new object[param.Length];
             for (int i = 0; i < param.Length; i++)
             {
-                if (defaultValues.ContainsKey(param[i].Name))
-                    result[i] = defaultValues[param[i].Name];
+                if (defaultValues.ContainsKey(param[i].Name!))
+                    result[i] = defaultValues[param[i].Name!];
                 else
-                    result[i] = GetTestValue(param[i].ParameterType, i);
+                    result[i] = GetTestValue(param[i].ParameterType, i)!;
             }
 
             return result;
         }
 
-        public static object GetTestValue(Type type, int i)
+        public static object? GetTestValue(Type type, int i)
         {
             if (type == typeof(bool))
                 return true;
@@ -268,7 +271,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 
             if (type.IsArray)
             {
-                var elementType = type.GetElementType();
+                var elementType = type.GetElementType()!;
                 var result = Array.CreateInstance(elementType, 2);
                 result.SetValue(GetTestValue(elementType, 0), 0);
                 result.SetValue(GetTestValue(elementType, 1), 1);
@@ -277,7 +280,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 
             if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(List<>)))
             {
-                var result = (IList)Activator.CreateInstance(type);
+                var result = (IList)Activator.CreateInstance(type)!;
                 result.Add(GetTestValue(type.GetGenericArguments()[0], 0));
                 result.Add(GetTestValue(type.GetGenericArguments()[0], 1));
                 return result;
@@ -285,14 +288,16 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
             {
-                var result = (IDictionary)Activator.CreateInstance(type);
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 0), GetTestValue(type.GetGenericArguments()[1], 0));
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 1), GetTestValue(type.GetGenericArguments()[1], 1));
+                var result = (IDictionary)Activator.CreateInstance(type)!;
+                result.Add(GetTestValue(type.GetGenericArguments()[0], 0)!, GetTestValue(type.GetGenericArguments()[1], 0));
+                result.Add(GetTestValue(type.GetGenericArguments()[0], 1)!, GetTestValue(type.GetGenericArguments()[1], 1));
                 return Convert.ChangeType(result, type);
             }
 
             if (type.IsClass)
-                return FillWithTestParameters(Activator.CreateInstance(type));
+#pragma warning disable CS8634 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
+                return FillWithTestParameters(Activator.CreateInstance(type))!;
+#pragma warning restore CS8634 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
 
             return null;
         }

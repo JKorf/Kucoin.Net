@@ -29,7 +29,7 @@ namespace Kucoin.Net.UnitTests
 
             await Task.Delay(10);
 
-            var id = JToken.Parse(socket.LastSendMessage)["id"];
+            var id = JToken.Parse(socket.LastSendMessage!)["id"];
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{id}\"}}");
             var subResult = await subTask;
 
@@ -52,13 +52,13 @@ namespace Kucoin.Net.UnitTests
             // act
             var subTask = client.Spot.SubscribeToTickerUpdatesAsync("ETH-BTC", test => { });
             await Task.Delay(10);
-            var id = JToken.Parse(socket.LastSendMessage)["id"];
+            var id = JToken.Parse(socket.LastSendMessage!)["id"];
             socket.InvokeMessage($"{{\"type\": \"error\", \"id\":\"{id}\", \"data\": \"TestError\", \"code\": \"1234\"}}");
             var subResult = await subTask;
 
             // assert
             Assert.IsFalse(subResult.Success);
-            Assert.IsTrue(subResult.Error.Code == 1234);
+            Assert.IsTrue(subResult.Error!.Code == 1234);
             Assert.IsTrue(subResult.Error.Message == "TestError");
         }
         
@@ -73,12 +73,12 @@ namespace Kucoin.Net.UnitTests
                 LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
                 ApiCredentials = null
             });
-            KucoinStreamTick result = null;
+            KucoinStreamTick? result = null;
 
             // act
             var subTask = client.Spot.SubscribeToTickerUpdatesAsync("ETH-BTC", test => result = test.Data);
             await Task.Delay(10);
-            var id = JToken.Parse(socket.LastSendMessage)["id"];
+            var id = JToken.Parse(socket.LastSendMessage!)["id"];
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{id}\"}}");
             var subResult = await subTask;
 
@@ -108,12 +108,12 @@ namespace Kucoin.Net.UnitTests
                 LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
                 ApiCredentials = null
             });
-            KucoinStreamSnapshot result = null;
+            KucoinStreamSnapshot? result = null;
 
             // act
             var subTask = client.Spot.SubscribeToSnapshotUpdatesAsync("ETH-BTC", test => result = test.Data);
             await Task.Delay(10);
-            var id = JToken.Parse(socket.LastSendMessage)["id"];
+            var id = JToken.Parse(socket.LastSendMessage!)["id"];
             socket.InvokeMessage($"{{\"type\": \"ack\", \"id\":\"{id}\"}}");
             var subResult = await subTask;
 

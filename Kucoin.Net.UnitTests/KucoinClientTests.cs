@@ -24,7 +24,7 @@ namespace Kucoin.Net.UnitTests
                 { "symbol", "ETH-BTC" },
                 { "symbols", new [] { "ETH-BTC" }},
                 { "pageSize", 10 },
-                { "funds", null },
+                { "funds", null! },
                 { "limit", 20 }
             };
 
@@ -36,14 +36,14 @@ namespace Kucoin.Net.UnitTests
                     continue;
 
                 var expectedType = method.ReturnType.GetGenericArguments()[0];
-                var expected = typeof(TestHelpers).GetMethod("CreateObjectWithTestParameters").MakeGenericMethod(expectedType).Invoke(null, null);
+                var expected = typeof(TestHelpers).GetMethod("CreateObjectWithTestParameters")!.MakeGenericMethod(expectedType).Invoke(null, null);
                 var parameters = TestHelpers.CreateParametersForMethod(method, defaultParameterValues);
                 var client = TestHelpers.CreateResponseClient(SerializeExpected(expected), new KucoinClientOptions(){ ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
 
                 // act
                 var result = method.Invoke(client, parameters);
-                var callResult = result.GetType().GetProperty("Success").GetValue(result);
-                var data = result.GetType().GetProperty("Data").GetValue(result);
+                var callResult = result!.GetType().GetProperty("Success")!.GetValue(result);
+                var data = result.GetType().GetProperty("Data")!.GetValue(result);
 
                 // assert
                 Assert.AreEqual(true, callResult);
@@ -71,7 +71,7 @@ namespace Kucoin.Net.UnitTests
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
-                Data = default,
+                Data = default!,
                 Message = "Error occured"
             };
 
@@ -83,7 +83,7 @@ namespace Kucoin.Net.UnitTests
             // assert
             Assert.IsFalse(result.Success);
             Assert.IsNotNull(result.Error);
-            Assert.IsTrue(result.Error.Code == 400001);
+            Assert.IsTrue(result.Error!.Code == 400001);
             Assert.IsTrue(result.Error.Message == "Error occured");
         }
 
@@ -110,7 +110,7 @@ namespace Kucoin.Net.UnitTests
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
-                Data = default,
+                Data = default!,
                 Message = "Error occured"
             };
 
@@ -122,7 +122,7 @@ namespace Kucoin.Net.UnitTests
             // assert
             Assert.IsFalse(result.Success);
             Assert.IsNotNull(result.Error);
-            Assert.IsTrue(result.Error.Code == 400001);
+            Assert.IsTrue(result.Error!.Code == 400001);
             Assert.IsTrue(result.Error.Message == "Error occured");
         }
 
