@@ -331,9 +331,10 @@ namespace Kucoin.Net.Interfaces
         /// Get the withdrawal quota for a currency
         /// </summary>
         /// <param name="currency">The currency to get the quota for</param>
+        /// <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Quota info</returns>
-        Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string currency, CancellationToken ct = default);
+        Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string currency, string? chain = null, CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw a currency to an address
