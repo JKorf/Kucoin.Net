@@ -594,13 +594,15 @@ namespace Kucoin.Net.SubClients
         /// Get the withdrawal quota for a currency
         /// </summary>
         /// <param name="currency">The currency to get the quota for</param>
+        /// <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Quota info</returns>
-        public async Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string currency, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string currency, string? chain = null, CancellationToken ct = default)
         {
             currency.ValidateNotNull(nameof(currency));
 
             var parameters = new Dictionary<string, object> { { "currency", currency } };
+            parameters.AddOptionalParameter("chain", chain);
             return await Execute<KucoinWithdrawalQuota>(GetUri("withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
 

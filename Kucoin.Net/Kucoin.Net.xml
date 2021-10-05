@@ -960,11 +960,12 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetWithdrawalQuotasAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinClientSpot.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal quota for a currency
             </summary>
             <param name="currency">The currency to get the quota for</param>
+            <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
@@ -6884,11 +6885,12 @@
             <param name="ct">Cancellation token</param>
             <returns>List of historical withdrawals</returns>
         </member>
-        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetWithdrawalQuotasAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.SubClients.KucoinClientSpot.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal quota for a currency
             </summary>
             <param name="currency">The currency to get the quota for</param>
+            <param name="chain">The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
