@@ -145,10 +145,12 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Profit-loss ratio of the position
         /// </summary>
+        [JsonProperty("unrealisedPnlPcnt")]
         public decimal UnrealisedPnlPercentage { get; set; }
         /// <summary>
         /// Rate of return on investment
         /// </summary>
+        [JsonProperty("unrealisedRoePcnt")]
         public decimal UnrealisedRoePercentage { get; set; }
         /// <summary>
         /// Average entry price
