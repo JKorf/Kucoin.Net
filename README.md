@@ -90,6 +90,9 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.1.3 - 06 Oct 2021
+    * Updated CryptoExchange.Net, fixing socket issue when calling from .Net Framework
+
 * Version 3.1.2 - 05 Oct 2021
     * Added optional chain parameter to GetWithdrawalQuotasAsync endpoint
     * Fix for Future order StopOrderType deserialization
