@@ -315,7 +315,7 @@ namespace Kucoin.Net.SubClients
             parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
             parameters.AddOptionalParameter("forceHold", forceHold?.ToString());
-            parameters.AddOptionalParameter("price", price?.ToString());
+            parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("timeInForce", JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)));
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
