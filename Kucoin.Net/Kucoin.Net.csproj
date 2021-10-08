@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>3.1.3</PackageVersion>
-    <AssemblyVersion>3.1.3</AssemblyVersion>
-    <FileVersion>3.1.3</FileVersion>
+    <PackageVersion>3.1.4</PackageVersion>
+    <AssemblyVersion>3.1.4</AssemblyVersion>
+    <FileVersion>3.1.4</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>3.1.3 - Updated CryptoExchange.Net, fixing socket issue when calling from .Net Framework</PackageReleaseNotes>
+    <PackageReleaseNotes>3.1.4 - Fixed price serialization new future order, Updated CryptoExchange.Net to fix some socket issues</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -51,6 +51,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="4.2.7" />
+    <PackageReference Include="CryptoExchange.Net" Version="4.2.8" />
   </ItemGroup>
 </Project>
