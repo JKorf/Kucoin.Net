@@ -1171,15 +1171,15 @@ namespace Kucoin.Net.SubClients
         /// <summary>
         /// Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
         /// </summary>
-        /// <param name="currency">Currency to Borrow e.g USDT etc</param>
+        /// <param name="asset">Asset to Borrow e.g USDT etc</param>
         /// <param name="type">The type of the order (FOK, IOC)</param>
         /// <param name="quantity">Total size</param>
         /// <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
-        /// <param name="term">erm (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+        /// <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         public async Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
-            string currency,
+            string asset,
             KucoinBorrowOrderType type,
             decimal quantity,
             decimal? maxRate = null,
@@ -1189,7 +1189,7 @@ namespace Kucoin.Net.SubClients
 
             var parameters = new Dictionary<string, object>
             {
-                { "currency", currency },
+                { "currency", asset },
                 { "type", JsonConvert.SerializeObject(type, new BorrowOrderTypeConverter(false)) },
                 { "size", quantity }
             };
@@ -1201,25 +1201,25 @@ namespace Kucoin.Net.SubClients
         /// <summary>
         /// Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
         /// </summary>
-        /// <param name="clientOrderId">The client order id of the borrow order</param>
+        /// <param name="orderId">The order id of the borrow order</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Borrow Order info</returns>
-        public async Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default)
         {
-            clientOrderId.ValidateNotNull(nameof(clientOrderId));
-            return await Execute<KucoinBorrowOrder>(GetUri($"margin/borrow?orderId={clientOrderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            orderId.ValidateNotNull(nameof(orderId));
+            return await Execute<KucoinBorrowOrder>(GetUri($"margin/borrow?orderId={orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
         /// </summary>
-        /// <param name="currency">Currency to Pay e.g USDT etc</param>
+        /// <param name="asset">Asset to Pay e.g USDT etc</param>
         /// <param name="tradeId">Trade ID of borrow order</param>
         /// <param name="quantity">Repayment size</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>The id of the new order</returns>
+        /// <returns></returns>
         public async Task<WebCallResult> RepaySingleBorrowOrderAsync(
-            string currency,
+            string asset,
             string tradeId,
             decimal quantity,
             CancellationToken ct = default)
@@ -1227,7 +1227,7 @@ namespace Kucoin.Net.SubClients
 
             var parameters = new Dictionary<string, object>
             {
-                { "currency", currency },
+                { "currency", asset },
                 { "tradeId", tradeId },
                 { "size", quantity }
             };

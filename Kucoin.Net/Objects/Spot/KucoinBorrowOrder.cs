@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
+using Kucoin.Net.Converters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,13 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The OrderId of the borrow order
         /// </summary>
-        public string OrderId { get; set; } =  string.Empty;
+        public string OrderId { get; set; } = string.Empty;
 
         /// <summary>
-        /// The currency of the borrow order
+        /// The asset of the borrow order
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
 
         /// <summary>
         /// Total size of the borrow order
@@ -42,7 +44,8 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// Status of request
         /// </summary>
-        public string Status { get; set; } = string.Empty;
+        [JsonConverter(typeof(BorrowStatusConverter))]
+        public KucoinBorrowStatus Status { get; set; }
     }
 
     /// <summary>
@@ -51,14 +54,16 @@ namespace Kucoin.Net.Objects.Spot
     public class KucoinBorrowOrderDetails
     {
         /// <summary>
-        /// The currency of the borrow order
+        /// The Asset of the borrow order
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
 
         /// <summary>
         /// Daily interest rate
         /// </summary>
-        public string DailyIntRate { get; set; } = string.Empty;
+        [JsonProperty("dailyIntRate")]
+        public decimal DailyInterestRate { get; set; }
 
         /// <summary>
         /// Total size of the borrow order
@@ -67,14 +72,14 @@ namespace Kucoin.Net.Objects.Spot
         public decimal Quantity { get; set; }
 
         /// <summary>
-        /// Total size of the borrow order
+        /// Term of the borrow order
         /// </summary>
         public string Term { get; set; } = string.Empty;
 
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("timestamp"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("timestamp"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>

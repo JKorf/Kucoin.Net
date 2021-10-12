@@ -649,15 +649,15 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
         /// </summary>
-        /// <param name="currency">Currency to Borrow e.g USDT etc</param>
+        /// <param name="asset">Currency to Borrow e.g USDT etc</param>
         /// <param name="type">The type of the order (FOK, IOC)</param>
         /// <param name="quantity">Total size</param>
         /// <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
-        /// <param name="term">erm (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+        /// <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
-           string currency,
+           string asset,
            KucoinBorrowOrderType type,
            decimal quantity,
            decimal? maxRate = null,
@@ -667,21 +667,21 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
         /// </summary>
-        /// <param name="clientOrderId">The client order id of the borrow order</param>
+        /// <param name="orderId">The order id of the borrow order</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Borrow Order info</returns>
-        Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
         /// </summary>
-        /// <param name="currency">Currency to Pay e.g USDT etc</param>
+        /// <param name="asset">Asset to Pay e.g USDT etc</param>
         /// <param name="tradeId">Trade ID of borrow order</param>
         /// <param name="quantity">Repayment size</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>The id of the new order</returns>
+        /// <returns></returns>
         Task<WebCallResult> RepaySingleBorrowOrderAsync(
-            string currency,
+            string asset,
             string tradeId,
             decimal quantity,
             CancellationToken ct = default);

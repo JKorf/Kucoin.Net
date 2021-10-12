@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
+using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
 {
@@ -15,7 +16,8 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// Currency of current Order
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("Currency")]
+        public string Asset { get; set; } = string.Empty;
 
         string ICommonOrderId.CommonId => OrderId;
     }

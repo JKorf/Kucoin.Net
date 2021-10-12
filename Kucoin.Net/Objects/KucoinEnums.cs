@@ -125,6 +125,21 @@
     }
 
     /// <summary>
+    /// Status of a Borrow Order
+    /// </summary>
+    public enum KucoinBorrowStatus
+    {
+        /// <summary>
+        /// In progress
+        /// </summary>
+        Processing,
+        /// <summary>
+        /// Done 
+        /// </summary>
+        Done
+    }
+
+    /// <summary>
     /// Order side
     /// </summary>
     public enum KucoinOrderSide
