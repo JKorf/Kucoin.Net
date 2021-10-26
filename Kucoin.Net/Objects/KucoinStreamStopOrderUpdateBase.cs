@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects
 {
@@ -13,17 +14,19 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// Order side
         /// </summary>
-        public abstract KucoinOrderSide OrderSide { get; set; }
+        public abstract OrderSide OrderSide { get; set; }
 
         /// <summary>
         /// Creation time
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// Order id
         /// </summary>
-        public string OrderId { get; set; } = string.Empty;
+        [JsonProperty("orderId")]
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Order price
         /// </summary>
@@ -32,7 +35,7 @@ namespace Kucoin.Net.Objects
         /// Order type
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public KucoinOrderType OrderType { get; set; }
+        public OrderType OrderType { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
@@ -42,7 +45,7 @@ namespace Kucoin.Net.Objects
         /// Stop
         /// </summary>
         [JsonConverter(typeof(StopConditionConverter))]
-        public KucoinStopCondition Stop { get; set; }
+        public StopCondition Stop { get; set; }
         /// <summary>
         /// Stop price
         /// </summary>
@@ -55,7 +58,7 @@ namespace Kucoin.Net.Objects
         /// Trade type
         /// </summary>
         [JsonConverter(typeof(TradeTypeConverter))]
-        public KucoinTradeType TradeType { get; set; }
+        public TradeType TradeType { get; set; }
         /// <summary>
         /// Trigger was success
         /// </summary>

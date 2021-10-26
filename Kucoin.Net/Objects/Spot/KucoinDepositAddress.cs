@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Objects.Spot
+﻿using Newtonsoft.Json;
+
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Deposit address
@@ -18,7 +20,8 @@
         /// <summary>
         /// The chain of the address
         /// </summary>
-        public string Chain { get; set; } = string.Empty;
+        [JsonProperty("chain")]
+        public string Network { get; set; } = string.Empty;
 
         /// <summary>
         /// The token contract address

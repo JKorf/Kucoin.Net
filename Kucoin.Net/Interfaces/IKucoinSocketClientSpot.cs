@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Spot.Socket;
 
@@ -87,7 +88,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="interval">Interval of the klines</param>
         /// <param name="onData">Data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KucoinKlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData);
 
         /// <summary>
         /// Subscribe to full order book updates
@@ -114,7 +115,7 @@ namespace Kucoin.Net.Interfaces
         /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
         /// <para><see cref="KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
         /// <para><see cref="KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in quantity</para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe on</param>
         /// <param name="onData">The data handler</param>
@@ -127,7 +128,7 @@ namespace Kucoin.Net.Interfaces
         /// <para><see cref="KucoinStreamMatchEngineOpenUpdate" />: A limit order is opened on the order book</para>
         /// <para><see cref="KucoinStreamMatchEngineDoneUpdate" />: An order is no longer on the order book</para>
         /// <para><see cref="KucoinStreamMatchEngineMatchUpdate" />: An order is matched with another order</para>
-        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in size</para>
+        /// <para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in quantity</para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe on</param>
         /// <param name="onData">The data handler</param>
@@ -147,7 +148,7 @@ namespace Kucoin.Net.Interfaces
         /// </summary>
         /// <param name="onBalanceChange">The data handler</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBalanceChangesAsync(Action<DataEvent<KucoinBalanceUpdate>> onBalanceChange);
+        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<KucoinBalanceUpdate>> onBalanceChange);
 
         /// <summary>
         /// Subscribe to updates for stop orders

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class TradeTypeConverter : BaseConverter<KucoinTradeType>
+    internal class TradeTypeConverter : BaseConverter<TradeType>
     {
         public TradeTypeConverter() : this(true) { }
 
@@ -12,10 +12,10 @@ namespace Kucoin.Net.Converters
         {
         }
 
-        protected override List<KeyValuePair<KucoinTradeType, string>> Mapping => new List<KeyValuePair<KucoinTradeType, string>>
+        protected override List<KeyValuePair<TradeType, string>> Mapping => new List<KeyValuePair<TradeType, string>>
         {
-            new KeyValuePair<KucoinTradeType, string>(KucoinTradeType.MarginTrade, "MARGIN_TRADE"),
-            new KeyValuePair<KucoinTradeType, string>(KucoinTradeType.SpotTrade, "TRADE")
+            new KeyValuePair<TradeType, string>(TradeType.MarginTrade, "MARGIN_TRADE"),
+            new KeyValuePair<TradeType, string>(TradeType.SpotTrade, "TRADE")
         };
     }
 }

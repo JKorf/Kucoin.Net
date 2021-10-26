@@ -14,21 +14,24 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Value of the order
         /// </summary>
-        public decimal Value { get; set; }
+        [JsonProperty("value")]
+        public decimal QuoteQantity { get; set; }
         /// <summary>
         /// Filled value
         /// </summary>
-        public decimal FilledValue { get; set; }
+        [JsonProperty("filledValue")]
+        public decimal QuoteQuantityFilled { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>
-        public decimal FilledQuantity { get; set; }
+        [JsonProperty("filledSize")]
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// The type of the stop order
         /// </summary>
         [JsonConverter(typeof(StopConditionConverter))]
         [JsonProperty("stop")]
-        public KucoinStopCondition StopOrderType { get; set; }
+        public StopCondition StopOrderType { get; set; }
         /// <summary>
         /// Stop price type
         /// </summary>
@@ -51,13 +54,25 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public bool ReduceOnly { get; set; }
         /// <summary>
-        /// Settle currency
+        /// Settle asset
         /// </summary>
-        public string SettleCurrency { get; set; } = string.Empty;
+        [JsonProperty("settleCurrency")]
+        public string SettleAsset { get; set; } = string.Empty;
         /// <summary>
         /// The time the order was last updated
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime UpdatedAt { get; set; }
+        [JsonProperty("updatedAt")]
+        public DateTime UpdateTime { get; set; }
+        /// <summary>
+        /// Order create time
+        /// </summary>
+        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("orderTime")]
+        public DateTime? OrderTime { get; set; }
+        /// <summary>
+        /// Status
+        /// </summary>
+        public string Status { get; set; } = string.Empty;
     }
 }

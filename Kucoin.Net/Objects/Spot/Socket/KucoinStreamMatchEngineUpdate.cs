@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot.Socket
@@ -43,7 +44,7 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// Order side
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Price
         /// </summary>
@@ -69,7 +70,7 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// Reason of the done update
         /// </summary>
         [JsonConverter(typeof(MatchUpdateReasonConverter))]
-        public KucoinMatchUpdateReason Reason { get; set; }
+        public MatchUpdateReason Reason { get; set; }
     }
 
     /// <summary>
@@ -97,7 +98,7 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// Match side
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Match quantity
         /// </summary>
@@ -107,7 +108,7 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// Remaing quantity on the order
         /// </summary>
         [JsonProperty("remainingSize")]
-        public decimal RemainingQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Order id of taker
         /// </summary>

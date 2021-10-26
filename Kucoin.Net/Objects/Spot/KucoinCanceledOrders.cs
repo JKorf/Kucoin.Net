@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Spot
     /// <summary>
     /// Ids of cancelled orders
     /// </summary>
-    public class KucoinCancelledOrders: ICommonOrderId
+    public class KucoinCanceledOrders: ICommonOrderId
     {
         /// <summary>
         /// List of canceled order ids

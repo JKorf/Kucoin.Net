@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
+using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
 {
@@ -20,29 +21,35 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public string Market { get; set; } = string.Empty;
         /// <summary>
-        /// The base currency
+        /// The base asset
         /// </summary>
-        public string BaseCurrency { get; set; } = string.Empty;
+        [JsonProperty("baseCurrency")]
+        public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// The quote currency
+        /// The quote asset
         /// </summary>
-        public string QuoteCurrency { get; set; } = string.Empty;
+        [JsonProperty("quoteCurrency")]
+        public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// The min order size in the base currency
+        /// The min order quantity in the base asset
         /// </summary>
-        public decimal BaseMinSize { get; set; }
+        [JsonProperty("baseMinSize")]
+        public decimal BaseMinQuantity { get; set; }
         /// <summary>
-        /// The min order size in the quote currency
+        /// The min order quantity in the quote asset
         /// </summary>
-        public decimal QuoteMinSize { get; set; }
+        [JsonProperty("quoteMinSize")]
+        public decimal QuoteMinQuantity { get; set; }
         /// <summary>
-        /// The max order size in the base currency
+        /// The max order quantity in the base asset
         /// </summary>
-        public decimal BaseMaxSize { get; set; }
+        [JsonProperty("baseMaxSize")]
+        public decimal BaseMaxQuantity { get; set; }
         /// <summary>
-        /// The max order size in the quote currency
+        /// The max order quantity in the quote asset
         /// </summary>
-        public decimal QuoteMaxSize { get; set; }
+        [JsonProperty("quoteMaxSize")]
+        public decimal QuoteMaxQuantity { get; set; }
         /// <summary>
         /// The quantity of an order when using the quantity field must be a multiple of this
         /// </summary>
@@ -56,9 +63,18 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public decimal PriceIncrement { get; set; }
         /// <summary>
-        /// The currency the fee will be on
+        /// The price limit rate
         /// </summary>
-        public string FeeCurrency { get; set; } = string.Empty;
+        public decimal PriceLimitRate { get; set; }
+        /// <summary>
+        /// The asset the fee will be on
+        /// </summary>
+        [JsonProperty("feeCurrency")]
+        public string FeeAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// Whether margin is enabled
+        /// </summary>
+        public bool IsMarginEnabled { get; set; }
         /// <summary>
         /// Whether trading is enabled
         /// </summary>
@@ -73,6 +89,6 @@ namespace Kucoin.Net.Objects.Spot
         public decimal PriceLimitRate { get; set; }
 
         string ICommonSymbol.CommonName => Symbol;
-        decimal ICommonSymbol.CommonMinimumTradeSize => BaseMinSize;
+        decimal ICommonSymbol.CommonMinimumTradeQuantity => BaseMinQuantity;
     }
 }

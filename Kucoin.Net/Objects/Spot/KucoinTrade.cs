@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -28,7 +29,7 @@ namespace Kucoin.Net.Objects.Spot
         /// The side of the trade
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The timestamp of the trade
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -27,7 +28,7 @@ namespace Kucoin.Net.Objects.Spot
         /// The value of the order
         /// </summary>
         [JsonProperty("dealValue")]
-        public decimal Value { get; set; }
+        public decimal QuoteQuantity { get; set; }
         /// <summary>
         /// The quantity of the order
         /// </summary>
@@ -41,11 +42,12 @@ namespace Kucoin.Net.Objects.Spot
         /// The side of the order
         /// </summary>        
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The time the order was created
         /// </summary>
         [JsonConverter(typeof(TimestampSecondsConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
     }
 }

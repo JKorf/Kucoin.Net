@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Objects.Futures
+﻿using Newtonsoft.Json;
+
+namespace Kucoin.Net.Objects.Futures
 {
     /// <summary>
     /// Futures account overview
@@ -34,8 +36,9 @@
         /// </summary>
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
     }
 }

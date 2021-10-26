@@ -23,7 +23,7 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// The type of the update
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(MatchUpdateTypeConverter))]
-        public KucoinMatchUpdateType UpdateType { get; set; }
+        public MatchUpdateType UpdateType { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
@@ -42,12 +42,12 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// Order type
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public KucoinOrderType OrderType { get; set; }
+        public OrderType OrderType { get; set; }
         /// <summary>
         /// Order side
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Price
         /// </summary>
@@ -61,17 +61,17 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// Remaining quantity
         /// </summary>
         [JsonProperty("remainSize")]
-        public decimal RemainingQuantitiy { get; set; }
+        public decimal QuantitiyRemaining { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>
         [JsonProperty("filledSize")]
-        public decimal FilledQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Canceled quantity
         /// </summary>
         [JsonProperty("canceledSize")]
-        public decimal CanceledQuantity { get; set; }
+        public decimal QuantityCanceled { get; set; }
         /// <summary>
         /// Trade id
         /// </summary>
@@ -94,7 +94,7 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// <summary>
         /// Trade direction
         /// </summary>
-        public KucoinLiquidityType Liquidity { get; set; }
+        public LiquidityType Liquidity { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>

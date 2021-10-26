@@ -13,15 +13,19 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
+        /// Name of trading pairs, it would change after renaming
+        /// </summary>
+        public string SymbolName { get; set; } = string.Empty;
+        /// <summary>
         /// The best ask price
         /// </summary>
         [JsonProperty("sell")]
-        public decimal? BestAsk { get; set; }
+        public decimal? BestAskPrice { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
         [JsonProperty("buy")]
-        public decimal? BestBid { get; set; }
+        public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// The percentage change
         /// </summary>
@@ -34,11 +38,13 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The highest price
         /// </summary>
-        public decimal? High { get; set; }
+        [JsonProperty("high")]
+        public decimal? HighPrice { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        public decimal? Low { get; set; }
+        [JsonProperty("low")]
+        public decimal? LowPrice { get; set; }
         /// <summary>
         /// The volume in this tick
         /// </summary>
@@ -48,15 +54,37 @@ namespace Kucoin.Net.Objects.Spot
         /// The value of the volume in this tick
         /// </summary>
         [JsonProperty("volValue")]
-        public decimal? VolumeValue { get; set; }
+        public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// The last trade price
         /// </summary>
-        public decimal? Last { get; set; }
+        [JsonProperty("last")]
+        public decimal? LastPrice { get; set; }
+        /// <summary>
+        /// The average trade price in the last 24 hours
+        /// </summary>
+        public decimal? AveragePrice { get; set; }
+
+        /// <summary>
+        /// Basic Taker Fee
+        /// </summary>
+        public decimal? TakerFeeRate { get; set; }
+        /// <summary>
+        /// Basic Maker Fee
+        /// </summary>
+        public decimal? MakerFeeRate { get; set; }
+        /// <summary>
+        /// Taker Fee Coefficient
+        /// </summary>
+        public decimal? TakerCoefficient { get; set; }
+        /// <summary>
+        /// Maker Fee Coefficient
+        /// </summary>
+        public decimal? MakerCoefficient { get; set; }
 
         string ICommonTicker.CommonSymbol => Symbol;
-        decimal ICommonTicker.CommonHigh => High ?? 0;
-        decimal ICommonTicker.CommonLow => Low ?? 0;
+        decimal ICommonTicker.CommonHighPrice => HighPrice ?? 0;
+        decimal ICommonTicker.CommonLowPrice => LowPrice ?? 0;
         decimal ICommonTicker.CommonVolume => Volume ?? 0;
     }
 }

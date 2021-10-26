@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class OrderStatusConverter : BaseConverter<KucoinOrderStatus>
+    internal class OrderStatusConverter : BaseConverter<OrderStatus>
     {
         public OrderStatusConverter() : this(true) { }
         public OrderStatusConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinOrderStatus, string>> Mapping => new List<KeyValuePair<KucoinOrderStatus, string>>
+        protected override List<KeyValuePair<OrderStatus, string>> Mapping => new List<KeyValuePair<OrderStatus, string>>
         {
-            new KeyValuePair<KucoinOrderStatus, string>(KucoinOrderStatus.Active, "active"),
-            new KeyValuePair<KucoinOrderStatus, string>(KucoinOrderStatus.Done, "done"),
+            new KeyValuePair<OrderStatus, string>(OrderStatus.Active, "active"),
+            new KeyValuePair<OrderStatus, string>(OrderStatus.Done, "done"),
         };
     }
 }

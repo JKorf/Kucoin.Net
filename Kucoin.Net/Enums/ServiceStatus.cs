@@ -14,7 +14,7 @@
         /// </summary>
         Close,
         /// <summary>
-        /// Only cancellation available
+        /// Only cancelation available
         /// </summary>
         CancelOnly
     }

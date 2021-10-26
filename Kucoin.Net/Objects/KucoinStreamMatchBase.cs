@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects
@@ -22,7 +23,7 @@ namespace Kucoin.Net.Objects
         /// The side of the match
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The quantity of the match
         /// </summary>
@@ -43,7 +44,8 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The id of the trade
         /// </summary>
-        public string TradeId { get; set; } = string.Empty;
+        [JsonProperty("tradeId")]
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Gets time of the trade match
         /// </summary>

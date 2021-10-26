@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Objects.Futures
+﻿using Newtonsoft.Json;
+
+namespace Kucoin.Net.Objects.Futures
 {
     /// <summary>
     /// Order value info
@@ -22,8 +24,9 @@
         /// </summary>
         public decimal OpenOrderSellCost { get; set; }
         /// <summary>
-        /// settlement currency
+        /// settlement asset
         /// </summary>
-        public string SettleCurrency { get; set; } = string.Empty;
+        [JsonProperty("settleCurrency")]
+        public string SettleAsset { get; set; } = string.Empty;
     }
 }

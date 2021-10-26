@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -14,6 +15,9 @@ namespace Kucoin.Net.Objects.Spot
         /// The id of the withdrawal
         /// </summary>
         public string Id { get; set; } = string.Empty;
+        [JsonProperty("withdrawalId")]
+        private string WithdrawalId { set => Id = value; }
+
         /// <summary>
         /// The address the withdrawal is to
         /// </summary>
@@ -23,9 +27,14 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public string Memo { get; set; } = string.Empty;
         /// <summary>
-        /// The currency of the withdrawal
+        /// The remark for the withdrawal
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        public string Remark { get; set; } = string.Empty;
+        /// <summary>
+        /// The asset of the withdrawal
+        /// </summary>
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The quantity of the withdrawal
         /// </summary>
@@ -48,16 +57,23 @@ namespace Kucoin.Net.Objects.Spot
         /// Status of the converter
         /// </summary>
         [JsonConverter(typeof(WithdrawalStatusConverter))]
-        public KucoinWithdrawalStatus Status { get; set; }
+        public WithdrawalStatus Status { get; set; }
         /// <summary>
         /// The time the withdrawal was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// The time the withdrawal was last updated
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime UpdatedAt { get; set; }
+        [JsonProperty("updatedAt")]
+        public DateTime UpdateTime { get; set; }
+
+        /// <summary>
+        /// Reason
+        /// </summary>
+        public string? Reason { get; set; }
     }
 }

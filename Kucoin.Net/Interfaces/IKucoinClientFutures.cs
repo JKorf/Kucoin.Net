@@ -27,15 +27,15 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Gets account overview
         /// </summary>
-        /// <param name="currency">Get the accounts for a specific currency</param>
+        /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of accounts</returns>
-        Task<WebCallResult<KucoinAccountOverview>> GetAccountOverviewAsync(string? currency = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinAccountOverview>> GetAccountOverviewAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get transaction history
         /// </summary>
-        /// <param name="currency">Filter by currency</param>
+        /// <param name="asset">Filter by asset</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -44,20 +44,20 @@ namespace Kucoin.Net.Interfaces
         /// <param name="forward">Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginatedSlider<KucoinAccountTransaction>>> GetTransactionHistoryAsync(string? currency = null, TransactionType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginatedSlider<KucoinAccountTransaction>>> GetTransactionHistoryAsync(string? asset = null, TransactionType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get the deposit address for a currency
+        /// Get the deposit address for an asset
         /// </summary>
-        /// <param name="currency">The currency to get deposit address for</param>
+        /// <param name="asset">The asset to get deposit address for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Deposit address</returns>
-        Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string currency, CancellationToken ct = default);
+        Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit history
         /// </summary>
-        /// <param name="currency">Filter by currency</param>
+        /// <param name="asset">Filter by asset</param>
         /// <param name="status">Filter by status</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -65,20 +65,20 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">Items per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Deposit history</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositHistoryAsync(string? currency = null, KucoinDepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the withdrawal limit
         /// </summary>
-        /// <param name="currency">The currency to get limits for</param>
+        /// <param name="asset">The asset to get limits for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Withdrawal limit info</returns>
-        Task<WebCallResult<KucoinFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string currency, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw funds
         /// </summary>
-        /// <param name="currency">Currency to withdraw</param>
+        /// <param name="asset">Asset to withdraw</param>
         /// <param name="address">Address to withdraw to</param>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="isInner">Internal transfer (default false)</param>
@@ -87,12 +87,12 @@ namespace Kucoin.Net.Interfaces
         /// <param name="memo">Memo for the withdrawal</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Withdrawal id</returns>
-        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string currency, string address, decimal quantity, bool? isInner = null, string? remark = null, string? chain = null, string? memo = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string address, decimal quantity, bool? isInner = null, string? remark = null, string? chain = null, string? memo = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdraw history
         /// </summary>
-        /// <param name="currency">Filter by currency</param>
+        /// <param name="asset">Filter by asset</param>
         /// <param name="status">Filter by status</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -100,7 +100,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">Items per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Withdrawal history</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? currency = null, KucoinWithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a withdrawal in process
@@ -113,12 +113,12 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Transfer funds from futures to main account
         /// </summary>
-        /// <param name="currency">Currency to withdraw</param>
+        /// <param name="asset">Asset to transfer</param>
         /// <param name="clientId">Client identifier for the operation, needs to be unique. Guid.NewGuid() suggested</param>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Withdrawal id</returns>
-        Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string currency, decimal quantity, string? clientId = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, string? clientId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a transfer from futures account to main account
@@ -131,14 +131,14 @@ namespace Kucoin.Net.Interfaces
         /// <summary>
         /// Get transfer to main account history
         /// </summary>
-        /// <param name="currency">Filter by currency</param>
+        /// <param name="asset">Filter by asset</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="currentPage">Current page</param>
         /// <param name="pageSize">Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string currency, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string asset, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order
@@ -153,7 +153,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
         /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
         /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="size">Amount of contract to buy or sell</param>
+        /// <param name="quantity">Quantity of contract to buy or sell</param>
         /// <param name="remark">Remark for the order</param>
         /// <param name="stopType"></param>
         /// <param name="stopPriceType"></param>
@@ -166,13 +166,13 @@ namespace Kucoin.Net.Interfaces
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol,
-            KucoinOrderSide side,
-            KucoinNewOrderType type,
+            OrderSide side,
+            NewOrderType type,
             int leverage,
-            decimal size,
+            decimal quantity,
 
             decimal? price = null,
-            KucoinTimeInForce? timeInForce = null,
+            TimeInForce? timeInForce = null,
             bool? postOnly = null,
             bool? hidden = null,
             bool? iceberg = null,
@@ -193,24 +193,24 @@ namespace Kucoin.Net.Interfaces
         /// </summary>
         /// <param name="orderId">Id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>Cancelled id</returns>
-        Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
+        /// <returns>Canceled id</returns>
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders
         /// </summary>
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>Cancelled ids</returns>
-        Task<WebCallResult<KucoinCancelledOrders>> CancelAllOpenOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        /// <returns>Canceled ids</returns>
+        Task<WebCallResult<KucoinCanceledOrders>> CancelAllOpenOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open stop orders
         /// </summary>
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>Cancelled ids</returns>
-        Task<WebCallResult<KucoinCancelledOrders>> CancelAllOpenStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        /// <returns>Canceled ids</returns>
+        Task<WebCallResult<KucoinCanceledOrders>> CancelAllOpenStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of orders
@@ -225,7 +225,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, KucoinOrderStatus? status = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of untriggered stop orders
@@ -239,7 +239,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of 1000 most recent orders in the last 24 hours
@@ -277,7 +277,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="pageSize">Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, KucoinOrderSide? side = null, KucoinOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of 1000 most recent user trades in the last 24 hours

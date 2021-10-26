@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -11,14 +12,15 @@ namespace Kucoin.Net.Objects.Spot
     public class KucoinHistoricalDeposit
     {
         /// <summary>
-        /// The currency of the deposit
+        /// The asset of the deposit
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The status of the deposit
         /// </summary>
         [JsonConverter(typeof(DepositStatusConverter))]
-        public KucoinDepositStatus Status { get; set; }
+        public DepositStatus Status { get; set; }
         /// <summary>
         /// The wallet transaction id
         /// </summary>
@@ -28,13 +30,14 @@ namespace Kucoin.Net.Objects.Spot
         /// The time the deposit was created
         /// </summary>
         [JsonConverter(typeof(TimestampSecondsConverter))]
-        public DateTime CreateAt { get; set; }
+        [JsonProperty("createAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// Whether is is an internal deposit
         /// </summary>
         public bool IsInner { get; set; }
         /// <summary>
-        /// The amount of the deposit
+        /// The quantity of the deposit
         /// </summary>
         [JsonProperty("amount")]
         public decimal Quantity { get; set; }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects
 {
@@ -18,7 +19,7 @@ namespace Kucoin.Net.Objects
         /// The side of the fill
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The price of the fill
         /// </summary>
@@ -30,27 +31,31 @@ namespace Kucoin.Net.Objects
         public decimal Quantity { get; set; }
 
         /// <summary>
-        /// The amount of fee of the fill
+        /// The quantity of fee of the fill
         /// </summary>
         public decimal Fee { get; set; }
         /// <summary>
-        /// The rate of the fee
+        /// The price of the fee
         /// </summary>
-        public decimal FeeRate { get; set; }
+        [JsonProperty("feeRate")]
+        public decimal FeePrice { get; set; }
         /// <summary>
-        /// The currency of the fee
+        /// The asset of the fee
         /// </summary>
-        public string FeeCurrency { get; set; } = string.Empty;
+        [JsonProperty("feeCurrency")]
+        public string FeeAsset { get; set; } = string.Empty;
 
         /// <summary>
         /// The time the fill was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime Timestamp { get; set; }
         /// <summary>
         /// The id of the trade
         /// </summary>
-        public string TradeId { get; set; } = string.Empty;
+        [JsonProperty("tradeId")]
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The id of the order
         /// </summary>
@@ -60,6 +65,6 @@ namespace Kucoin.Net.Objects
         /// Maker or taker
         /// </summary>
         [JsonConverter(typeof(LiquidityTypeConverter))]
-        public KucoinLiquidityType Liquidity { get; set; }
+        public LiquidityType Liquidity { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects
 {
@@ -23,12 +24,12 @@ namespace Kucoin.Net.Objects
         /// The type of the order
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public KucoinOrderType Type { get; set; }
+        public OrderType Type { get; set; }
         /// <summary>
         /// The side of the order
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The price of the order
         /// </summary>
@@ -51,7 +52,7 @@ namespace Kucoin.Net.Objects
         /// The time in force of the order
         /// </summary>
         [JsonConverter(typeof(TimeInForceConverter))]
-        public KucoinTimeInForce? TimeInForce { get; set; }
+        public TimeInForce? TimeInForce { get; set; }
         /// <summary>
         /// Whether the order is post only
         /// </summary>
@@ -92,11 +93,12 @@ namespace Kucoin.Net.Objects
         /// The time the order was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// The self trade prevention type
         /// </summary>
         [JsonProperty("stp"), JsonConverter(typeof(SelfTradePreventionConverter))]
-        public KucoinSelfTradePrevention? SelfTradePrevention { get; set; }
+        public SelfTradePrevention? SelfTradePrevention { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -11,9 +12,10 @@ namespace Kucoin.Net.Objects.Spot
     public class KucoinHistoricalWithdrawal
     {
         /// <summary>
-        /// The currency of the withdrawal
+        /// The asset of the withdrawal
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The address the withdrawal was to
         /// </summary>
@@ -22,7 +24,7 @@ namespace Kucoin.Net.Objects.Spot
         /// The status of the withdrawal
         /// </summary>
         [JsonConverter(typeof(WithdrawalStatusConverter))]
-        public KucoinWithdrawalStatus Status { get; set; }
+        public WithdrawalStatus Status { get; set; }
         /// <summary>
         /// The wallet transaction id
         /// </summary>
@@ -32,7 +34,8 @@ namespace Kucoin.Net.Objects.Spot
         /// The time the withdrawal was created
         /// </summary>
         [JsonConverter(typeof(TimestampSecondsConverter))]
-        public DateTime CreateAt { get; set; }
+        [JsonProperty("createAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// Whether it was an internal withdrawal
         /// </summary>

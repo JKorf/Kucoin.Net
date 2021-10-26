@@ -44,8 +44,9 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public decimal Funding { get; set; }
         /// <summary>
-        /// Settlement currency
+        /// Settlement asset
         /// </summary>
-        public string SettleCurrency { get; set; } = string.Empty;
+        [JsonProperty("settleCurrency")]
+        public string SettleAsset { get; set; } = string.Empty;
     }
 }

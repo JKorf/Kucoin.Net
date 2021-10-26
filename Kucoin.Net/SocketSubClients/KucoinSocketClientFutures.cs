@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Interfaces;
@@ -17,6 +16,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
 using Kucoin.Net.SubClients;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.SocketSubClients
 {
@@ -40,12 +40,7 @@ namespace Kucoin.Net.SocketSubClients
             AddGenericHandler("Welcome", (messageEvent) => { });
         }
 
-        /// <summary>
-        /// Subscribe to trade updates
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
-        /// <param name="onData">The data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesMatch>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
@@ -56,12 +51,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to ticker updates
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
-        /// <param name="onData">The data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesTick>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
@@ -72,12 +62,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to full order book updates
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinFuturesOrderBookChange>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
@@ -92,7 +77,7 @@ namespace Kucoin.Net.SocketSubClients
                 {
                     Sequence = long.Parse(sequence),
                     Price = decimal.Parse(items[0], CultureInfo.InvariantCulture),
-                    Side = items[1] == "sell" ? KucoinOrderSide.Sell: KucoinOrderSide.Buy,
+                    Side = items[1] == "sell" ? OrderSide.Sell: OrderSide.Buy,
                     Quantity = decimal.Parse(items[2], CultureInfo.InvariantCulture)
                 };
 
@@ -103,13 +88,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to partial order book updates
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
-        /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData)
         {
             limit.ValidateIntValues(nameof(limit), 5, 50);
@@ -123,13 +102,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to market data updates
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
-        /// <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
-        /// <param name="onFundingRateUpdate">Funding price update handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketUpdatesAsync(string symbol, 
             Action<DataEvent<KucoinStreamFuturesMarkIndexPrice>> onMarkIndexPriceUpdate,
             Action<DataEvent<KucoinStreamFuturesFundingRate>> onFundingRateUpdate)
@@ -151,11 +124,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe system announcement
-        /// </summary>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSystemAnnouncementsAsync(Action<DataEvent<KucoinContractAnnouncement>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
@@ -168,12 +137,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to order updates
-        /// </summary>
-        /// <param name="symbol">[Optional] Symbol</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol, 
             Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData)
         {
@@ -186,11 +150,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to stop order updates
-        /// </summary>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
@@ -202,12 +162,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to snapshot updates
-        /// </summary>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeTo24HourSnapshotUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTransactionStatisticsUpdate>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
@@ -219,13 +174,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to wallet updates
-        /// </summary>
-        /// <param name="onOrderMarginUpdate">Data handler for order margin updates</param>
-        /// <param name="onBalanceUpdate">Data handler for balance updates</param>
-        /// <param name="onWithdrawableUpdate">Data handler for withdrawable funds updates</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync( 
             Action<DataEvent<KucoinStreamOrderMarginUpdate>> onOrderMarginUpdate,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> onBalanceUpdate,
@@ -236,17 +185,17 @@ namespace Kucoin.Net.SocketSubClients
                 if (subject == "orderMargin.change")
                 {
                     var data = GetData<KucoinStreamOrderMarginUpdate>(tokenData);
-                    InvokeHandler(tokenData.As(data, data.Currency), onOrderMarginUpdate);
+                    InvokeHandler(tokenData.As(data, data.Asset), onOrderMarginUpdate);
                 }
                 else if (subject == "availableBalance.change")
                 {
                     var data = GetData<KucoinStreamFuturesBalanceUpdate>(tokenData);
-                    InvokeHandler(tokenData.As(data, data.Currency), onBalanceUpdate);
+                    InvokeHandler(tokenData.As(data, data.Asset), onBalanceUpdate);
                 }
                 else if (subject == "withdrawHold.change")
                 {
                     var data = GetData<KucoinStreamFuturesWithdrawableUpdate>(tokenData);
-                    InvokeHandler(tokenData.As(data, data.Currency), onWithdrawableUpdate);
+                    InvokeHandler(tokenData.As(data, data.Asset), onWithdrawableUpdate);
                 }
                 else
                     log.Write(LogLevel.Warning, "Unknown update: " + subject);
@@ -256,12 +205,7 @@ namespace Kucoin.Net.SocketSubClients
             return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to position updates
-        /// </summary>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinPosition>> onData)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {

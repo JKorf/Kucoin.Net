@@ -1,4 +1,5 @@
 ﻿using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Futures
@@ -25,11 +26,12 @@ namespace Kucoin.Net.Objects.Futures
         /// The side of the trade
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Trade id
         /// </summary>
-        public string TradeId { get; set; } = string.Empty;
+        [JsonProperty("tradeId")]
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Taker order id
         /// </summary>

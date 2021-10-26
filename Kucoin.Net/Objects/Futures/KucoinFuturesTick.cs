@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Futures
 {
@@ -22,7 +23,7 @@ namespace Kucoin.Net.Objects.Futures
         /// Side of liquidity taker
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>

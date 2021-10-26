@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -14,9 +15,10 @@ namespace Kucoin.Net.Objects.Spot
         /// Creation timestamp
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
-        /// The amount of the activity
+        /// The quantity of the activity
         /// </summary>
         [JsonProperty("amount")]
         public decimal Quantity { get; set; }
@@ -32,7 +34,12 @@ namespace Kucoin.Net.Objects.Spot
         /// The type of activity
         /// </summary>
         [JsonConverter(typeof(BizTypeConverter))]
-        public KucoinBizType BizType { get; set; } = default!;
+        public BizType BizType { get; set; } = default!;
+        /// <summary>
+        /// The type of activity
+        /// </summary>
+        [JsonConverter(typeof(AccountTypeConverter))]
+        public AccountType AccountType { get; set; } = default!;
         /// <summary>
         /// The unique key for this activity 
         /// </summary>
@@ -43,14 +50,15 @@ namespace Kucoin.Net.Objects.Spot
         [JsonConverter(typeof(AccountActivityContextConverter))]
         public KucoinAccountActivityContext Context { get; set; } = default!;
         /// <summary>
-        /// The currency of the activity
+        /// The asset of the activity
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The direction of the activity
         /// </summary>
         [JsonConverter(typeof(AccountDirectionConverter))]
-        public KucoinAccountDirection Direction { get; set; }
+        public AccountDirection Direction { get; set; }
     }
 
     /// <summary>

@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class OperationTypeConverter : BaseConverter<KucoinOrderOperationType>
+    internal class OperationTypeConverter : BaseConverter<OrderOperationType>
     {
         public OperationTypeConverter() : this(true) { }
         public OperationTypeConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinOrderOperationType, string>> Mapping => new List<KeyValuePair<KucoinOrderOperationType, string>>
+        protected override List<KeyValuePair<OrderOperationType, string>> Mapping => new List<KeyValuePair<OrderOperationType, string>>
         {
-            new KeyValuePair<KucoinOrderOperationType, string>(KucoinOrderOperationType.Deal, "DEAL"),
-            new KeyValuePair<KucoinOrderOperationType, string>(KucoinOrderOperationType.Cancel, "CANCEL")
+            new KeyValuePair<OrderOperationType, string>(OrderOperationType.Deal, "DEAL"),
+            new KeyValuePair<OrderOperationType, string>(OrderOperationType.Cancel, "CANCEL")
         };
     }
 }

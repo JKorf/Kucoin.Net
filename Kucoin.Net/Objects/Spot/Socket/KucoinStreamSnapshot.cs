@@ -37,12 +37,12 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// The current best bid
         /// </summary>
         [JsonProperty("buy")]
-        public decimal? BestBid { get; set; }
+        public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// The current best ask
         /// </summary>
         [JsonProperty("sell")]
-        public decimal? BestAsk { get; set; }
+        public decimal? BestAskPrice { get; set; }
 
         /// <summary>
         /// Unknown
@@ -59,17 +59,19 @@ namespace Kucoin.Net.Objects.Spot.Socket
         [JsonProperty("vol")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// The base currency
+        /// The base asset
         /// </summary>
-        public string BaseCurrency { get; set; } = string.Empty;
+        [JsonProperty("baseCurrency")]
+        public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
         /// The market name
         /// </summary>
         public string Market { get; set; } = string.Empty;
         /// <summary>
-        /// The quote currency
+        /// The quote asset
         /// </summary>
-        public string QuoteCurrency { get; set; } = string.Empty;
+        [JsonProperty("quoteCurrency")]
+        public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
         /// The symbol code
         /// </summary>
@@ -82,11 +84,13 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// <summary>
         /// The highest price
         /// </summary>
-        public decimal? High { get; set; }
+        [JsonProperty("high")]
+        public decimal? HighPrice { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        public decimal? Low { get; set; }
+        [JsonProperty("low")]
+        public decimal? LowPrice { get; set; }
         /// <summary>
         /// The last price
         /// </summary>

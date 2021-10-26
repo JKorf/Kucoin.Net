@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Objects.Spot
+﻿using Newtonsoft.Json;
+
+namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
     /// Account info
@@ -6,19 +8,21 @@
     public class KucoinAccountSingle
     {
         /// <summary>
-        /// The currency of the account
+        /// The asset of the account
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The total balance of the account
         /// </summary>
-        public decimal Balance { get; set; }
+        [JsonProperty("balance")]
+        public decimal Total { get; set; }
         /// <summary>
-        /// the available amount in the account
+        /// the available quantity in the account
         /// </summary>
         public decimal Available { get; set; }
         /// <summary>
-        /// The amount in hold of the account
+        /// The quantity in hold of the account
         /// </summary>
         public decimal Holds { get; set; }
     }

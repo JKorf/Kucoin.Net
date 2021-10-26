@@ -10,9 +10,10 @@ namespace Kucoin.Net.Objects.Spot
     public class KucoinHold
     {
         /// <summary>
-        /// The currency of the hold
+        /// The asset of the hold
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The quantity of the hold
         /// </summary>
@@ -30,11 +31,13 @@ namespace Kucoin.Net.Objects.Spot
         /// The time the hold was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// The time the hold was last updated
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime UpdatedAt { get; set; }
+        [JsonProperty("updatedAt")]
+        public DateTime UpdateTime { get; set; }
     }
 }

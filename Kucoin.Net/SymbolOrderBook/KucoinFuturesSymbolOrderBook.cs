@@ -5,6 +5,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Futures.Socket;
@@ -93,7 +94,7 @@ namespace Kucoin.Net
                 Quantity = data.Data.Quantity
             };
 
-            if (data.Data.Side == KucoinOrderSide.Buy)
+            if (data.Data.Side == OrderSide.Buy)
                 UpdateOrderBook(data.Data.Sequence, new List<ISymbolOrderBookEntry> { entry }, new List<ISymbolOrderBookEntry>());
             else
                 UpdateOrderBook(data.Data.Sequence, new List<ISymbolOrderBookEntry>(), new List<ISymbolOrderBookEntry> { entry });

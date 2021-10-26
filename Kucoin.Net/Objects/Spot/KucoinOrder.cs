@@ -3,6 +3,7 @@ using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -16,35 +17,38 @@ namespace Kucoin.Net.Objects.Spot
         /// The operation type
         /// </summary>
         [JsonProperty("opType"), JsonConverter(typeof(OperationTypeConverter))]
-        public KucoinOrderOperationType? OperationType { get; set; }        
+        public OrderOperationType? OperationType { get; set; }        
         /// <summary>
         /// The funds of the order
         /// </summary>
-        public decimal? Funds { get; set; }
+        [JsonProperty("funds")]
+        public decimal? QuoteQuantity { get; set; }
         /// <summary>
         /// The funds of the deal
         /// </summary>
-        public decimal? DealFunds { get; set; }
+        [JsonProperty("dealFunds")]
+        public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
         /// The quantity of the deal
         /// </summary>
         [JsonProperty("dealSize")]
-        public decimal DealQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// The fee of the order
         /// </summary>
         public decimal Fee { get; set; }
         /// <summary>
-        /// The currency of the fee
+        /// The asset of the fee
         /// </summary>
-        public string FeeCurrency { get; set; } = string.Empty;
+        [JsonProperty("feeCurrency")]
+        public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
         /// The stop condition
         /// </summary>
         [JsonConverter(typeof(StopConditionConverter))]
-        public KucoinStopCondition Stop { get; set; }        
+        public StopCondition Stop { get; set; }        
         /// <summary>
-        /// Time after which the order is cancelled
+        /// Time after which the order is canceled
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         public DateTime CancelAfter { get; set; }
@@ -61,7 +65,7 @@ namespace Kucoin.Net.Objects.Spot
         /// Trade type
         /// </summary>
         [JsonConverter(typeof(TradeTypeConverter))]
-        public KucoinTradeType TradeType { get; set; }
+        public TradeType TradeType { get; set; }
 
 
         string ICommonOrderId.CommonId => Id;
@@ -74,22 +78,64 @@ namespace Kucoin.Net.Objects.Spot
                 if (IsActive == null)
                     return IExchangeClient.OrderStatus.Active;
 
-                return !IsActive.Value && DealQuantity != Quantity ? IExchangeClient.OrderStatus.Canceled : !IsActive.Value ? IExchangeClient.OrderStatus.Filled :
+                return !IsActive.Value && QuantityFilled != Quantity ? IExchangeClient.OrderStatus.Canceled : !IsActive.Value ? IExchangeClient.OrderStatus.Filled :
                 IExchangeClient.OrderStatus.Active;
             }
         }
         
         bool ICommonOrder.IsActive => IsActive ?? false;
 
-        IExchangeClient.OrderSide ICommonOrder.CommonSide => Side == KucoinOrderSide.Sell
+        IExchangeClient.OrderSide ICommonOrder.CommonSide => Side == OrderSide.Sell
             ? IExchangeClient.OrderSide.Sell
             : IExchangeClient.OrderSide.Buy;
 
         IExchangeClient.OrderType ICommonOrder.CommonType =>
-            Type == KucoinOrderType.Limit || Type == KucoinOrderType.LimitStop
+            Type == OrderType.Limit || Type == OrderType.LimitStop
                 ? IExchangeClient.OrderType.Limit
                 : IExchangeClient.OrderType.Market;
 
-        DateTime ICommonOrder.CommonOrderTime => CreatedAt;
+        DateTime ICommonOrder.CommonOrderTime => CreateTime;
+    }
+
+    /// <summary>
+    /// Stop order info
+    /// </summary>
+    public class KucoinStopOrder: KucoinOrder
+    {
+        /// <summary>
+        /// User id
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+        /// <summary>
+        /// Status
+        /// </summary>
+        [JsonConverter(typeof(StopOrderStatusConverter))]
+        public StopOrderStatus Status { get; set; }
+        /// <summary>
+        /// Time after which the order is canceled
+        /// </summary>
+        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        public DateTime OrderTime { get; set; }
+        /// <summary>
+        /// Domain id
+        /// </summary>
+        public string DomainId { get; set; } = string.Empty;
+        /// <summary>
+        /// Trade source
+        /// </summary>
+        public string TradeSource { get; set; } = string.Empty;
+        /// <summary>
+        /// Taker fee rate
+        /// </summary>
+        public decimal TakerFeeRate { get; set; }
+        /// <summary>
+        /// Taker fee rate
+        /// </summary>
+        public decimal MakerFeeRate { get; set; }
+        /// <summary>
+        /// Time stop order was triggered
+        /// </summary>
+        [JsonConverter(typeof(TimestampConverter))]
+        public DateTime? StopTriggerTime { get; set; }
     }
 }

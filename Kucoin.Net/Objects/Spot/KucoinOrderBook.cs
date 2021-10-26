@@ -55,6 +55,11 @@ namespace Kucoin.Net.Objects.Spot
         }
 
         /// <summary>
+        /// Symbol
+        /// </summary>
+        public string? Symbol { get; set; }
+
+        /// <summary>
         /// The list of asks
         /// </summary>
         public IEnumerable<KucoinOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinOrderBookEntry>();

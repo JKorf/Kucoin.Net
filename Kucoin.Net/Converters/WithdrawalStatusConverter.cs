@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class WithdrawalStatusConverter : BaseConverter<KucoinWithdrawalStatus>
+    internal class WithdrawalStatusConverter : BaseConverter<WithdrawalStatus>
     {
         public WithdrawalStatusConverter() : this(true) { }
         public WithdrawalStatusConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinWithdrawalStatus, string>> Mapping => new List<KeyValuePair<KucoinWithdrawalStatus, string>>
+        protected override List<KeyValuePair<WithdrawalStatus, string>> Mapping => new List<KeyValuePair<WithdrawalStatus, string>>
         {
-            new KeyValuePair<KucoinWithdrawalStatus, string>(KucoinWithdrawalStatus.Processing, "PROCESSING"),
-            new KeyValuePair<KucoinWithdrawalStatus, string>(KucoinWithdrawalStatus.Success, "SUCCESS"),
-            new KeyValuePair<KucoinWithdrawalStatus, string>(KucoinWithdrawalStatus.WalletProcessing, "WALLET_PROCESSING"),
-            new KeyValuePair<KucoinWithdrawalStatus, string>(KucoinWithdrawalStatus.Failure, "FAILURE"),
+            new KeyValuePair<WithdrawalStatus, string>(WithdrawalStatus.Processing, "PROCESSING"),
+            new KeyValuePair<WithdrawalStatus, string>(WithdrawalStatus.Success, "SUCCESS"),
+            new KeyValuePair<WithdrawalStatus, string>(WithdrawalStatus.WalletProcessing, "WALLET_PROCESSING"),
+            new KeyValuePair<WithdrawalStatus, string>(WithdrawalStatus.Failure, "FAILURE"),
         };
     }
 }

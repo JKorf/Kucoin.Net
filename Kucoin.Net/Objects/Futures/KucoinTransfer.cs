@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Futures
 {
@@ -15,17 +16,19 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public string ApplyId { get; set; } = string.Empty;
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Status of the transfer
         /// </summary>
         [JsonConverter(typeof(DepositStatusConverter))]
-        public KucoinDepositStatus Status { get; set; }
+        public DepositStatus Status { get; set; }
         /// <summary>
-        /// Amount of the transfer
+        /// Quantity of the transfer
         /// </summary>
+        [JsonProperty("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Reason if failed
@@ -39,6 +42,7 @@ namespace Kucoin.Net.Objects.Futures
         /// Creation time
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
     }
 }

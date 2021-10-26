@@ -17,16 +17,17 @@ namespace Kucoin.Net.Objects.Spot
         /// The price of the last trade
         /// </summary>
         [JsonProperty("price")]
-        public decimal? LastTradePrice { get; set; }
+        public decimal? LastPrice { get; set; }
         /// <summary>
         /// The quantity of the last trade
         /// </summary>
         [JsonProperty("size")]
-        public decimal? LastTradeQuantity { get; set; }
+        public decimal? LastQuantity { get; set; }
         /// <summary>
         /// The best ask price
         /// </summary>
-        public decimal? BestAsk { get; set; }
+        [JsonProperty("bestAsk")]
+        public decimal? BestAskPrice { get; set; }
         /// <summary>
         /// The quantity of the best ask price
         /// </summary>
@@ -35,7 +36,8 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The best bid price
         /// </summary>
-        public decimal? BestBid { get; set; }
+        [JsonProperty("bestBid")]
+        public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// The quantity of the best bid
         /// </summary>

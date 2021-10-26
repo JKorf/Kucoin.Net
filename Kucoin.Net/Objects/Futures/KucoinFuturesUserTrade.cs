@@ -15,7 +15,7 @@ namespace Kucoin.Net.Objects.Futures
         /// The type of the order
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public KucoinOrderType OrderType { get; set; }
+        public OrderType OrderType { get; set; }
 
         /// <summary>
         /// Trade type
@@ -26,7 +26,8 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Order value
         /// </summary>
-        public decimal Value { get; set; }
+        [JsonProperty("value")]
+        public decimal QuoteQuantity { get; set; }
         /// <summary>
         /// Fixed fee
         /// </summary>
@@ -38,8 +39,9 @@ namespace Kucoin.Net.Objects.Futures
         [JsonConverter(typeof(TimestampNanoSecondsConverter))]
         public DateTime TradeTime { get; set; }
         /// <summary>
-        /// Settlement currency
+        /// Settlement asset
         /// </summary>
-        public string SettleCurrency { get; set; } = string.Empty;
+        [JsonProperty("settleCurrency")]
+        public string SettleAsset { get; set; } = string.Empty;
     }
 }

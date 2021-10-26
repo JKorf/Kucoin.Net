@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -19,7 +20,11 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public string Memo { get; set; } = string.Empty;
         /// <summary>
-        /// The amount of the deposit
+        /// A remark for this deposit
+        /// </summary>
+        public string Remark { get; set; } = string.Empty;
+        /// <summary>
+        /// The quantity of the deposit
         /// </summary>
         [JsonProperty("amount")]
         public decimal Quantity { get; set; }
@@ -28,9 +33,10 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public decimal Fee { get; set; }
         /// <summary>
-        /// The currency of the deposit
+        /// The asset of the deposit
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Whether it is an internal deposit
         /// </summary>
@@ -44,16 +50,18 @@ namespace Kucoin.Net.Objects.Spot
         /// The deposit status
         /// </summary>
         [JsonConverter(typeof(DepositStatusConverter))]
-        public KucoinDepositStatus Status { get; set; }
+        public DepositStatus Status { get; set; }
         /// <summary>
         /// When the deposit was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// When the deposit was last updated
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime UpdatedAt { get; set; }
+        [JsonProperty("updatedAt")]
+        public DateTime UpdateTime { get; set; }
     }
 }

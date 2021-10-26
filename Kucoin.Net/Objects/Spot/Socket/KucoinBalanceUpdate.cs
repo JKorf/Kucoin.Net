@@ -22,11 +22,12 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// </summary>
         public decimal AvailableChange { get; set; }
         /// <summary>
-        /// The currency this update is for
+        /// The asset this update is for
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The amount currently in hold
+        /// The quantity currently in hold
         /// </summary>
         public decimal Hold { get; set; }
         /// <summary>

@@ -1,29 +1,31 @@
 ﻿using System;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
-    /// Fill info
+    /// User trade info
     /// </summary>
-    public class KucoinFill: KucoinTradeBase, ICommonTrade
+    public class KucoinUserTrade: KucoinTradeBase, ICommonTrade
     {        
         /// <summary>
         /// The type of the order
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public KucoinOrderType Type { get; set; }        
+        public OrderType Type { get; set; }        
         /// <summary>
         /// The funds of the fill
         /// </summary>
-        public decimal Funds { get; set; }        
+        [JsonProperty("funds")]
+        public decimal QuoteQuantity { get; set; }        
         /// <summary>
         /// The stop condition of the fill
         /// </summary>
         [JsonConverter(typeof(StopConditionConverter))]
-        public KucoinStopCondition Stop { get; set; }
+        public StopCondition Stop { get; set; }
         /// <summary>
         /// The id of the counter order
         /// </summary>
@@ -32,12 +34,16 @@ namespace Kucoin.Net.Objects.Spot
         /// Was forced to become taker
         /// </summary>
         public bool ForceTaker { get; set; }
+        /// <summary>
+        /// Trade type
+        /// </summary>
+        public string TradeType { get; set; } = string.Empty;
 
-        string ICommonTrade.CommonId => TradeId;
+        string ICommonTrade.CommonId => Id;
         decimal ICommonTrade.CommonPrice => Price;
         decimal ICommonTrade.CommonQuantity => Quantity;
         decimal ICommonTrade.CommonFee => Fee;
-        string? ICommonTrade.CommonFeeAsset => FeeCurrency;
-        DateTime ICommonTrade.CommonTradeTime => CreatedAt;
+        string? ICommonTrade.CommonFeeAsset => FeeAsset;
+        DateTime ICommonTrade.CommonTradeTime => Timestamp;
     }
 }

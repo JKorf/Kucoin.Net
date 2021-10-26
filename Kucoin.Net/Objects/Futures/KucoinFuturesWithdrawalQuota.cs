@@ -3,23 +3,35 @@
 namespace Kucoin.Net.Objects.Futures
 {
     /// <summary>
-    /// WIthdrawal quota
+    /// Withdrawal quota
     /// </summary>
     public class KucoinFuturesWithdrawalQuota
     {
         /// <summary>
-        /// The currency the quota is for
+        /// The asset the quota is for
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The remaining amount which can be withdrawn
+        /// The remaining quantity which can be withdrawn
         /// </summary>
         [JsonProperty("remainAmount")]
-        public decimal RemainingQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// The current amount available for withdrawal
+        /// 24h withdrawal limit
         /// </summary>
-        public decimal AvailableQuantity { get; set; }
+        [JsonProperty("limitAmount")]
+        public decimal LimitQuantity { get; set; }
+        /// <summary>
+        /// 24h withdrawal limit
+        /// </summary>
+        [JsonProperty("usedAmount")]
+        public decimal UsedQuantity { get; set; }
+        /// <summary>
+        /// The current quantity available for withdrawal
+        /// </summary>
+        [JsonProperty("availableAmount")]
+        public decimal QuantityAvailable { get; set; }
         /// <summary>
         /// The minimum fee for withdrawing
         /// </summary>
@@ -29,9 +41,10 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public decimal InnerWithdrawMinFee { get; set; }
         /// <summary>
-        /// The min size of a withdrawal
+        /// The min quantity of a withdrawal
         /// </summary>
-        public decimal WithdrawMinSize { get; set; }
+        [JsonProperty("withdrawMinSize")]
+        public decimal WithdrawMinQuantity { get; set; }
         /// <summary>
         /// Whether withdrawing is enabled
         /// </summary>

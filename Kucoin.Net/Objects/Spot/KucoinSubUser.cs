@@ -14,6 +14,10 @@
         /// </summary>
         public string SubName { get; set; } = string.Empty;
         /// <summary>
+        /// Account type
+        /// </summary>
+        public int Type { get; set; }
+        /// <summary>
         /// Remarks for this sub user
         /// </summary>
         public string Remarks { get; set; } = string.Empty;

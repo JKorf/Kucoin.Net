@@ -18,9 +18,10 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// </summary>
         public decimal HoldBalance { get; set; }
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>

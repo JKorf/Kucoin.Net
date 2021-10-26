@@ -10,9 +10,10 @@ namespace Kucoin.Net.Objects.Spot.Socket
     public class KucoinStreamFundingBookUpdate
     {
         /// <summary>
-        /// The currency
+        /// The asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
 
         /// <summary>
         /// Sequence number

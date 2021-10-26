@@ -8,9 +8,10 @@ namespace Kucoin.Net.Objects.Futures
     public class KucoinContract
     {
         /// <summary>
-        /// Base currency
+        /// Base asset
         /// </summary>
-        public string BaseCurrency { get; set; } = string.Empty;
+        [JsonProperty("baseCurrency")]
+        public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
         /// Fair method
         /// </summary>
@@ -89,9 +90,10 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public decimal Multiplier { get; set; }
         /// <summary>
-        /// Quote currency
+        /// Quote asset
         /// </summary>
-        public string QuoteCurrency { get; set; } = string.Empty;
+        [JsonProperty("quoteCurrency")]
+        public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
         /// Risk limit increment
         /// </summary>

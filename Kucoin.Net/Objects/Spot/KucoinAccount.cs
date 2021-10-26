@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot
@@ -14,29 +15,31 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// The currency of the account
+        /// The asset of the account
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The type of the account
         /// </summary>
         [JsonConverter(typeof(AccountTypeConverter))]
-        public KucoinAccountType Type { get; set; }
+        public AccountType Type { get; set; }
         /// <summary>
         /// The total balance of the account
         /// </summary>
-        public decimal Balance { get; set; }
+        [JsonProperty("balance")]
+        public decimal Total { get; set; }
         /// <summary>
         /// The available balance of the account
         /// </summary>
         public decimal Available { get; set; }
         /// <summary>
-        /// The amount of balance that's in hold
+        /// The quantity of balance that's in hold
         /// </summary>
         public decimal Holds { get; set; }
 
-        string ICommonBalance.CommonAsset => Currency;
+        string ICommonBalance.CommonAsset => Asset;
         decimal ICommonBalance.CommonAvailable => Available;
-        decimal ICommonBalance.CommonTotal => Balance;
+        decimal ICommonBalance.CommonTotal => Total;
     }
 }

@@ -16,11 +16,13 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The highest price in the last 24 hours
         /// </summary>
-        public decimal? High { get; set; }
+        [JsonProperty("high")]
+        public decimal? HighPrice { get; set; }
         /// <summary>
         /// The lowest price in the last 24 hours
         /// </summary>
-        public decimal? Low { get; set; }
+        [JsonProperty("low")]
+        public decimal? LowPrice { get; set; }
         /// <summary>
         /// The volume of the past 24 hours
         /// </summary>
@@ -30,21 +32,22 @@ namespace Kucoin.Net.Objects.Spot
         /// The value of the volume in the past 24 hours
         /// </summary>
         [JsonProperty("volValue")]
-        public decimal? VolumeValue { get; set; }
+        public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// The last trade price
         /// </summary>
-        public decimal? Last { get; set; }
+        [JsonProperty("last")]
+        public decimal? LastPrice { get; set; }
         /// <summary>
         /// The best ask price
         /// </summary>
         [JsonProperty("buy")]
-        public decimal? BestAsk { get; set; }
+        public decimal? BestAskPrice { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
         [JsonProperty("sell")]
-        public decimal? BestBid { get; set; }
+        public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// The price change since 24 hours ago
         /// </summary>
@@ -59,5 +62,26 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         [JsonConverter(typeof(TimestampConverter)), JsonProperty("time")]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// The average trade price in the last 24 hours
+        /// </summary>
+        public decimal? AveragePrice { get; set; }
+
+        /// <summary>
+        /// Basic Taker Fee
+        /// </summary>
+        public decimal? TakerFeeRate { get; set; }
+        /// <summary>
+        /// Basic Maker Fee
+        /// </summary>
+        public decimal? MakerFeeRate { get; set; }
+        /// <summary>
+        /// Taker Fee Coefficient
+        /// </summary>
+        public decimal? TakerCoefficient { get; set; }
+        /// <summary>
+        /// Maker Fee Coefficient
+        /// </summary>
+        public decimal? MakerCoefficient { get; set; }
     }
 }

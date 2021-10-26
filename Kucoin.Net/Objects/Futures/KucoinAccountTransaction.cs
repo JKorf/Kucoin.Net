@@ -15,14 +15,16 @@ namespace Kucoin.Net.Objects.Futures
         /// Event time
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime Time { get; set; }
+        [JsonProperty("time")]
+        public DateTime Timestamp { get; set; }
         /// <summary>
         /// Type of the transaction
         /// </summary>
         [JsonConverter(typeof(TransactionTypeConverter))]
+        [JsonProperty("type")]
         public TransactionType TransactionType { get; set; }
         /// <summary>
-        /// Amount of the transaction
+        /// Quantity of the transaction
         /// </summary>
         [JsonProperty("amount")]
         public decimal Quantity { get; set; }
@@ -47,8 +49,9 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public int Offset { get; set; }
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
     }
 }

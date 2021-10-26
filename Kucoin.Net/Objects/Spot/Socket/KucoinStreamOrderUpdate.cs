@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot.Socket
@@ -23,12 +24,12 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// The type of the update
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(MatchUpdateTypeConverter))]
-        public KucoinMatchUpdateType UpdateType { get; set; }
+        public MatchUpdateType UpdateType { get; set; }
         /// <summary>
         /// The side of the order
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The order id
         /// </summary>
@@ -37,7 +38,7 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// The type of the order
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public KucoinOrderType OrderType { get; set; }
+        public OrderType OrderType { get; set; }
         /// <summary>
         /// The price of the order
         /// </summary>
@@ -56,12 +57,12 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// Quantity filled
         /// </summary>
         [JsonProperty("filledSize")]
-        public decimal FilledQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Quantity remaining
         /// </summary>
         [JsonProperty("remainSize")]
-        public decimal RemainingQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
     }
     
     /// <summary>
@@ -86,6 +87,6 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// The liquidity
         /// </summary>
         [JsonConverter(typeof(LiquidityTypeConverter))]
-        public KucoinLiquidityType Liquidity { get; set; }
+        public LiquidityType Liquidity { get; set; }
     }
 }

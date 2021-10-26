@@ -8,26 +8,27 @@ namespace Kucoin.Net.Objects.Spot
     public class KucoinWithdrawalQuota
     {
         /// <summary>
-        /// The currency the quota is for
+        /// The asset the quota is for
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The max BTC value that can be withdrawn
         /// </summary>
-        [JsonProperty("limitBtcAmount")]
+        [JsonProperty("limitBTCAmount")]
         public decimal LimitBTCQuantity { get; set; }
         /// <summary>
         /// The used BTC value
         /// </summary>
-        [JsonProperty("usdBtcAmount")]
+        [JsonProperty("usedBTCAmount")]
         public decimal UsedBTCQuantity { get; set; }
         /// <summary>
-        /// The remaining amount which can be withdrawn
+        /// The remaining quantity which can be withdrawn
         /// </summary>
         [JsonProperty("remainAmount")]
         public decimal RemainingQuantity { get; set; }
         /// <summary>
-        /// The current amount available for withdrawal
+        /// The current quantity available for withdrawal
         /// </summary>
         [JsonProperty("availableAmount")]
         public decimal AvailableQuantity { get; set; }
@@ -40,9 +41,10 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public decimal InnerWithdrawMinFee { get; set; }
         /// <summary>
-        /// The min size of a withdrawal
+        /// The min quantity of a withdrawal
         /// </summary>
-        public decimal WithdrawMinSize { get; set; }
+        [JsonProperty("withdrawMinSize")]
+        public decimal WithdrawMinQuantity { get; set; }
         /// <summary>
         /// Whether withdrawing is enabled
         /// </summary>
@@ -53,8 +55,9 @@ namespace Kucoin.Net.Objects.Spot
         [JsonProperty("precision")]
         public int WithdrawPrecision { get; set; }
         /// <summary>
-        /// The chain
+        /// The network
         /// </summary>
-        public string Chain { get; set; } = string.Empty;
+        [JsonProperty("chain")]
+        public string Network { get; set; } = string.Empty;
     }
 }

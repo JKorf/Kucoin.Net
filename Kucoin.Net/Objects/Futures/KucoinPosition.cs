@@ -47,12 +47,14 @@ namespace Kucoin.Net.Objects.Futures
         /// Opening time
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime OpeningTimestamp { get; set; }
+        [JsonProperty("openingTimestamp")]
+        public DateTime OpenTime { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        public DateTime CurrentTimestamp { get; set; }
+        [JsonProperty("currentTimestamp")]
+        public DateTime CurrentTime { get; set; }
         /// <summary>
         /// Current position quantity
         /// </summary>
@@ -74,7 +76,7 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Accumulated realised gross profit value
         /// </summary>
-        public decimal UnrealisedGrossCost { get; set; }
+        public decimal RealisedGrossCost { get; set; }
         /// <summary>
         /// Current realised position value
         /// </summary>
@@ -129,6 +131,7 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Position margin
         /// </summary>
+        [JsonProperty("maintMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
         /// Accumulated realised gross profit value
@@ -166,8 +169,9 @@ namespace Kucoin.Net.Objects.Futures
         /// </summary>
         public decimal BankruptPrice { get; set; }
         /// <summary>
-        /// Currency used to clear and settle the trades
+        /// Asset used to clear and settle the trades
         /// </summary>
-        public string SettleCurrency { get; set; } = string.Empty;
+        [JsonProperty("settleCurrency")]
+        public string SettleAsset { get; set; } = string.Empty;
     }
 }

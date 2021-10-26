@@ -4,20 +4,22 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
-    /// Cancelled order
+    /// Canceled order
     /// </summary>
-    public class KucoinCancelledOrder: ICommonOrderId
+    public class KucoinCanceledOrder: ICommonOrderId
     {
         /// <summary>
-        /// Order id of the cancelled order
+        /// Order id of the canceled order
         /// </summary>
-        public string CancelledOrderId { get; set; } = string.Empty;
+        
+        [JsonProperty("cancelledOrderId")]
+        public string CanceledOrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id of the cancelled order
+        /// Client order id of the canceled order
         /// </summary>
         [JsonProperty("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;
 
-        string ICommonOrderId.CommonId => CancelledOrderId;
+        string ICommonOrderId.CommonId => CanceledOrderId;
     }
 }

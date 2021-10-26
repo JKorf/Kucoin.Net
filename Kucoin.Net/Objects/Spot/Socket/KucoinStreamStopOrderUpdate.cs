@@ -1,4 +1,5 @@
 ﻿using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Spot.Socket
@@ -12,6 +13,6 @@ namespace Kucoin.Net.Objects.Spot.Socket
         /// Order side
         /// </summary>
         [JsonConverter(typeof(OrderSideConverter))]
-        public override KucoinOrderSide OrderSide { get; set; }
+        public override OrderSide OrderSide { get; set; }
     }
 }

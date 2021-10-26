@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Objects.Futures.Socket
+﻿using Kucoin.Net.Enums;
+
+namespace Kucoin.Net.Objects.Futures.Socket
 {
     /// <summary>
     /// Order book change
@@ -16,7 +18,7 @@
         /// <summary>
         /// Side
         /// </summary>
-        public KucoinOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
