@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
 using Kucoin.Net.SubClients;
 using Kucoin.Net.Enums;
+using System.Threading;
 
 namespace Kucoin.Net.SocketSubClients
 {
@@ -41,29 +42,29 @@ namespace Kucoin.Net.SocketSubClients
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesMatch>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesMatch>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 InvokeHandler(tokenData.As(GetData<KucoinStreamFuturesMatch>(tokenData), symbol), onData);
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/contractMarket/execution:" + symbol, false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesTick>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesTick>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 InvokeHandler(tokenData.As(GetData<KucoinStreamFuturesTick>(tokenData), symbol), onData);
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/contractMarket/tickerV2:" + symbol, false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinFuturesOrderBookChange>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinFuturesOrderBookChange>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<JToken>(tokenData);
@@ -85,11 +86,11 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2:" + symbol, false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default)
         {
             limit.ValidateIntValues(nameof(limit), 5, 50);
 
@@ -99,13 +100,14 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2Depth{limit}:" + symbol, false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketUpdatesAsync(string symbol, 
             Action<DataEvent<KucoinStreamFuturesMarkIndexPrice>> onMarkIndexPriceUpdate,
-            Action<DataEvent<KucoinStreamFuturesFundingRate>> onFundingRateUpdate)
+            Action<DataEvent<KucoinStreamFuturesFundingRate>> onFundingRateUpdate, 
+            CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 if (tokenData.Data["subject"]?.ToString() == "mark.index.price")
@@ -121,11 +123,11 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/instrument:" + symbol, false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSystemAnnouncementsAsync(Action<DataEvent<KucoinContractAnnouncement>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSystemAnnouncementsAsync(Action<DataEvent<KucoinContractAnnouncement>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinContractAnnouncement>(tokenData);
@@ -134,12 +136,13 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/announcement", false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol, 
-            Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData)
+            Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData, 
+            CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinStreamFuturesOrderUpdate>(tokenData);
@@ -147,11 +150,11 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/tradeOrders" + (symbol == null ? "": ":" +symbol), true);
-            return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinStreamFuturesStopOrderUpdate>(tokenData);
@@ -159,11 +162,11 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/advancedOrders", false);
-            return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeTo24HourSnapshotUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTransactionStatisticsUpdate>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeTo24HourSnapshotUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTransactionStatisticsUpdate>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinStreamTransactionStatisticsUpdate>(tokenData);
@@ -171,14 +174,15 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/snapshot:"+symbol, false);
-            return await SubscribeAsync("futures", request, null, false, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync( 
             Action<DataEvent<KucoinStreamOrderMarginUpdate>> onOrderMarginUpdate,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> onBalanceUpdate,
-            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate)
+            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate, 
+            CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var subject = tokenData.Data["subject"]?.ToString();
@@ -202,11 +206,11 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractAccount/wallet", false);
-            return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinPosition>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinPosition>> onData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
                 var data = GetData<KucoinPosition>(tokenData);
@@ -214,12 +218,12 @@ namespace Kucoin.Net.SocketSubClients
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, false);
-            return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
+            return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> SubscribeAsync<T>(string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler)
+        protected override async Task<CallResult<UpdateSubscription>> SubscribeAsync<T>(string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
         {
             SocketConnection? socketConnection;
             SocketSubscription subscription;
@@ -245,7 +249,7 @@ namespace Kucoin.Net.SocketSubClients
                     {
                         using (var restClient = new KucoinClient(clientOptions))
                         {
-                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFutures)restClient.Futures).GetWebsocketToken(authenticated).ConfigureAwait(false);
+                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFutures)restClient.Futures).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                             if (!tokenResult)
                                 return new CallResult<UpdateSubscription>(null, tokenResult.Error);
                             token = tokenResult.Data;
@@ -261,7 +265,7 @@ namespace Kucoin.Net.SocketSubClients
                         socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(NextId(), kvp.Key, false, kvp.Value));
                 }
 
-                subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler);
+                subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler, ct);
                 if (SocketCombineTarget == 1)
                 {
                     // Can release early when only a single sub per connection
@@ -298,6 +302,14 @@ namespace Kucoin.Net.SocketSubClients
             }
 
             socketConnection.ShouldReconnect = true;
+            if (ct != default)
+            {
+                subscription.CancellationTokenRegistration = ct.Register(async () =>
+                {
+                    log.Write(LogLevel.Debug, $"Socket {socketConnection.Socket.Id} Cancellation token set, closing subscription");
+                    await socketConnection.CloseAsync(subscription).ConfigureAwait(false);
+                }, false);
+            }
             return new CallResult<UpdateSubscription>(new UpdateSubscription(socketConnection, subscription), null);
         }
 

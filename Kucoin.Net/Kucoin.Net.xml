@@ -1858,93 +1858,104 @@
             Futures subscriptions
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMatch}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMatch}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesTick}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to partial order book updates
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToMarketUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMarkIndexPrice}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesFundingRate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToMarketUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMarkIndexPrice}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesFundingRate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to market data updates
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
             <param name="onFundingRateUpdate">Funding price update handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToSystemAnnouncementsAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinContractAnnouncement}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToSystemAnnouncementsAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinContractAnnouncement}},System.Threading.CancellationToken)">
             <summary>
             Subscribe system announcement
             </summary>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeTo24HourSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamTransactionStatisticsUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeTo24HourSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamTransactionStatisticsUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to snapshot updates
             </summary>
             <param name="symbol">Symbol</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to wallet updates
             </summary>
             <param name="onOrderMarginUpdate">Data handler for order margin updates</param>
             <param name="onBalanceUpdate">Data handler for balance updates</param>
             <param name="onWithdrawableUpdate">Data handler for withdrawable funds updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPosition}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPosition}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to position updates
             </summary>
             <param name="symbol">Symbol</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesOrderUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order updates
             </summary>
             <param name="symbol">[Optional] Symbol</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to stop order updates
             </summary>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinSocketClientSpot">
@@ -1952,97 +1963,108 @@
             Spot subscriptions
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for a symbol ticker
             </summary>
             <param name="symbol">The symbol to subscribe to</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for a symbol ticker
             </summary>
             <param name="symbols">The symbols to subscribe to</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToAllTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToAllTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for all symbol tickers
             </summary>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for symbol or market snapshots
             </summary>
             <param name="symbolOrMarket">The symbol (ie KCS-BTC) or market (ie BTC) to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for symbol or market snapshots
             </summary>
             <param name="symbolOrMarkets">The symbols (ie KCS-BTC) or markets (ie BTC) to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to aggregated order book updates
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to aggregated order book updates
             </summary>
             <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatch}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatch}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToKlineUpdatesAsync(System.String,Kucoin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamCandle}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToKlineUpdatesAsync(System.String,Kucoin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamCandle}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="interval">Interval of the klines</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates
             </summary>
             <param name="symbols">The symbols to subscribe</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}},System.Threading.CancellationToken)">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
@@ -2053,9 +2075,10 @@
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}},System.Threading.CancellationToken)">
             <summary>
             <para>Subscribe to match engine updates. There are different update types with classes derived from <see cref="T:Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBaseUpdate" /></para>
             <para><see cref="T:Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate" />: A valid order is received by the matching engine</para>
@@ -2066,28 +2089,32 @@
             </summary>
             <param name="symbols">The symbols to subscribe on</param>
             <param name="onData">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBaseUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMatchUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBaseUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMatchUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order updates for your own orders 
             </summary>
             <param name="onOrderData">Data handler for order updates</param>
             <param name="onTradeData">Data handler for trade updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinBalanceUpdate}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinBalanceUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to balance updates
             </summary>
             <param name="onBalanceChange">The data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for stop orders
             </summary>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="T:Kucoin.Net.KucoinClient">
@@ -5945,40 +5972,40 @@
             Futures subscriptions
             </summary>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMatch}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMatch}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesTick}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesTick}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToMarketUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMarkIndexPrice}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesFundingRate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToMarketUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesMarkIndexPrice}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesFundingRate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToSystemAnnouncementsAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinContractAnnouncement}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToSystemAnnouncementsAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinContractAnnouncement}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesOrderUpdate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeTo24HourSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamTransactionStatisticsUpdate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeTo24HourSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamTransactionStatisticsUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPosition}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPosition}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.GetSocketConnection(System.String,System.Boolean)">
@@ -6007,91 +6034,73 @@
             Spot subscriptions
             </summary>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToAllTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToAllTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamSnapshot}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatch}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatch}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToKlineUpdatesAsync(System.String,Kucoin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamCandle}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToKlineUpdatesAsync(System.String,Kucoin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamCandle}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdates(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToIndexPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdates(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMarkPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamIndicatorPrice}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdates(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBaseUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMatchUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinBalanceUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdates(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToMatchEngineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamMatchEngineUpdate}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderBaseUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamOrderMatchUpdate}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinBalanceUpdate}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.KucoinStreamStopOrderUpdateBase}})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientSpot.GetSocketConnection(System.String,System.Boolean)">
