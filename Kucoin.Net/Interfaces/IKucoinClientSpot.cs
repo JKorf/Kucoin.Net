@@ -641,5 +641,56 @@ namespace Kucoin.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+
+        #region Margin Trade
+
+        #region Borrow & Lend
+
+        /// <summary>
+        /// Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
+        /// </summary>
+        /// <param name="asset">Currency to Borrow e.g USDT etc</param>
+        /// <param name="type">The type of the order (FOK, IOC)</param>
+        /// <param name="quantity">Total size</param>
+        /// <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
+        /// <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The id of the new order</returns>
+        Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
+           string asset,
+           KucoinBorrowOrderType type,
+           decimal quantity,
+           decimal? maxRate = null,
+           string? term = null,
+           CancellationToken ct = default);
+
+        /// <summary>
+        /// Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
+        /// </summary>
+        /// <param name="orderId">The order id of the borrow order</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Borrow Order info</returns>
+        Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
+        /// </summary>
+        /// <param name="asset">Asset to Pay e.g USDT etc</param>
+        /// <param name="tradeId">Trade ID of borrow order</param>
+        /// <param name="quantity">Repayment size</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> RepaySingleBorrowOrderAsync(
+            string asset,
+            string tradeId,
+            decimal quantity,
+            CancellationToken ct = default);
+
+        #endregion Borrow & Lend
+
+        #endregion Margin Trade
+
+
     }
 }

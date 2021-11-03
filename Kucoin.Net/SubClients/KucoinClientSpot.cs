@@ -1167,6 +1167,81 @@ namespace Kucoin.Net.SubClients
             return await Execute<IEnumerable<KucoinOrder>>(GetUri("stop-order/queryOrderByClientOid"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
+        #region Margin Trade
+
+        #region Borrow & Lend
+
+        /// <summary>
+        /// Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
+        /// </summary>
+        /// <param name="asset">Asset to Borrow e.g USDT etc</param>
+        /// <param name="type">The type of the order (FOK, IOC)</param>
+        /// <param name="quantity">Total size</param>
+        /// <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
+        /// <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The id of the new order</returns>
+        public async Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
+            string asset,
+            KucoinBorrowOrderType type,
+            decimal quantity,
+            decimal? maxRate = null,
+            string? term = null,
+            CancellationToken ct = default)
+        {
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "type", JsonConvert.SerializeObject(type, new BorrowOrderTypeConverter(false)) },
+                { "size", quantity }
+            };
+            parameters.AddOptionalParameter("maxRate", maxRate);
+            parameters.AddOptionalParameter("term", term);
+            return await Execute<KucoinNewBorrowOrder>(GetUri("margin/borrow"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
+        /// </summary>
+        /// <param name="orderId">The order id of the borrow order</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Borrow Order info</returns>
+        public async Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default)
+        {
+            orderId.ValidateNotNull(nameof(orderId));
+            return await Execute<KucoinBorrowOrder>(GetUri($"margin/borrow?orderId={orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
+        /// </summary>
+        /// <param name="asset">Asset to Pay e.g USDT etc</param>
+        /// <param name="tradeId">Trade ID of borrow order</param>
+        /// <param name="quantity">Repayment size</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult> RepaySingleBorrowOrderAsync(
+            string asset,
+            string tradeId,
+            decimal quantity,
+            CancellationToken ct = default)
+        {
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "tradeId", tradeId },
+                { "size", quantity }
+            };
+
+            return await Execute(GetUri("margin/repay/single"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #endregion
+
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
         {
             return await Execute<KucoinToken>(GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);

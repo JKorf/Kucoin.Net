@@ -125,6 +125,21 @@
     }
 
     /// <summary>
+    /// Status of a Borrow Order
+    /// </summary>
+    public enum KucoinBorrowStatus
+    {
+        /// <summary>
+        /// In progress
+        /// </summary>
+        Processing,
+        /// <summary>
+        /// Done 
+        /// </summary>
+        Done
+    }
+
+    /// <summary>
     /// Order side
     /// </summary>
     public enum KucoinOrderSide
@@ -179,6 +194,21 @@
         /// Stop order
         /// </summary>
         Stop
+    }
+
+    /// <summary>
+    /// Borrow order type
+    /// </summary>
+    public enum KucoinBorrowOrderType
+    {
+        /// <summary>
+        /// FOK
+        /// </summary>
+        FOK,
+        /// <summary>
+        /// IOC
+        /// </summary>
+        IOC
     }
 
     /// <summary>
