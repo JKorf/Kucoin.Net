@@ -33,7 +33,7 @@ namespace Kucoin.Net.Objects.Futures
         /// Stop price type
         /// </summary>
         [JsonConverter(typeof(StopPriceTypeConverter))]
-        public StopPriceType StopPriceType { get; set; }
+        public StopPriceType? StopPriceType { get; set; }
         /// <summary>
         /// Leverage
         /// </summary>

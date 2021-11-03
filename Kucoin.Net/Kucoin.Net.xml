@@ -4790,7 +4790,7 @@
             The id of the new borrow order
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Spot.KucoinNewBorrowOrder.Currency">
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinNewBorrowOrder.Asset">
             <summary>
             Currency of current Order
             </summary>

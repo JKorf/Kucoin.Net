@@ -45,7 +45,7 @@ namespace Kucoin.Net
                 jsonContent = JsonConvert.SerializeObject(parameters.OrderBy(p => p.Key).ToDictionary(p => p.Key, p => p.Value));
 
             uri = uri.Substring(uri.IndexOf(".com", StringComparison.InvariantCulture) + 4);
-            var signData = result["KC-API-TIMESTAMP"] + method + uri + jsonContent;
+            var signData = result["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri) + jsonContent;
             result["KC-API-SIGN"] = Convert.ToBase64String(encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData)));
             return result;
         }
