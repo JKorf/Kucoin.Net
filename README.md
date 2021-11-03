@@ -90,6 +90,15 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.1.5 - 03 Nov 2021
+    * Added PostBorrowOrder, GetBorrowOrderAsync and RepaySingleBorrowOrderAsync endpoints
+    * Fixed authentication when there are special characters in the parameters
+    * Fixed StopPriceType parsing in Futures order model
+    * Added missing funding book subscription in socket client interface
+    * Fixed futures user trade timestamp deserialization
+    * Fixed futures position AverageEntryPrice deserialization
+    * Added some missing model properties
+
 * Version 3.1.4 - 08 Oct 2021
     * Fixed price serialization new future order
     * Updated CryptoExchange.Net to fix some socket issues

@@ -1500,6 +1500,22 @@
             <param name="onData">Data handler</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
+            <summary>
+            Subscribe to funding book updates
+            </summary>
+            <param name="currency">Currencies to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientSpot.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Spot.Socket.KucoinStreamFundingBookUpdate}})">
+            <summary>
+            Subscribe to funding book updates
+            </summary>
+            <param name="currencies">Currencies to subscribe</param>
+            <param name="onData">Data handler</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
         <member name="T:Kucoin.Net.KucoinClient">
             <summary>
             Client to interact with the Kucoin REST API
@@ -5053,6 +5069,16 @@
         <member name="P:Kucoin.Net.Objects.Spot.KucoinSymbol.EnableTrading">
             <summary>
             Whether trading is enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinSymbol.IsMarginEnabled">
+            <summary>
+            Is margin trading enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinSymbol.PriceLimitRate">
+            <summary>
+            Threshold for price protection
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Spot.KucoinTick">
