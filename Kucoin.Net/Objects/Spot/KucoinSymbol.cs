@@ -63,6 +63,14 @@ namespace Kucoin.Net.Objects.Spot
         /// Whether trading is enabled
         /// </summary>
         public bool EnableTrading { get; set; }
+        /// <summary>
+        /// Is margin trading enabled
+        /// </summary>
+        public bool IsMarginEnabled { get; set; }
+        /// <summary>
+        /// Threshold for price protection
+        /// </summary>
+        public decimal PriceLimitRate { get; set; }
 
         string ICommonSymbol.CommonName => Symbol;
         decimal ICommonSymbol.CommonMinimumTradeSize => BaseMinSize;

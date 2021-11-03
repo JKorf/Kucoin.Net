@@ -35,7 +35,7 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Trade time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
         public DateTime TradeTime { get; set; }
         /// <summary>
         /// Settlement currency

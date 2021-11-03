@@ -18,6 +18,7 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The amount of the activity
         /// </summary>
+        [JsonProperty("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// The remaining balance after the activity
@@ -82,6 +83,4 @@ namespace Kucoin.Net.Objects.Spot
         /// </summary>
         public string Description { get; set; } = string.Empty;
     }
-
-    //[2] Deserialize JsonSerializationException: Error converting value "{"orderId":"s4369060","description":"pool-x staking rewards(2021/04/13)"}" to type 'Kucoin.Net.Objects.KucoinAccountActivityContext'. Path 'data.items[0].context', line 1, position 376.
 }

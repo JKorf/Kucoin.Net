@@ -155,6 +155,7 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Average entry price
         /// </summary>
+        [JsonProperty("avgEntryPrice")]
         public decimal AverageEntryPrice { get; set; }
         /// <summary>
         /// Liquidation price
