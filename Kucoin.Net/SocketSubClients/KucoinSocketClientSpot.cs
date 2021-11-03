@@ -311,7 +311,7 @@ namespace Kucoin.Net.SocketSubClients
         {
             var innerHandler = new Action<DataEvent<JToken>>(data =>
             {
-                var desResult = Deserialize<KucoinUpdateMessage<KucoinBalanceUpdate>>(data.Data, false);
+                var desResult = Deserialize<KucoinUpdateMessage<KucoinBalanceUpdate>>(data.Data);
                 if (!desResult)
                 {
                     log.Write(LogLevel.Warning, "Failed to deserialize balance update: " + desResult.Error);
@@ -381,8 +381,8 @@ namespace Kucoin.Net.SocketSubClients
                         socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(NextId(), kvp.Key, false, kvp.Value));
                 }
 
-                subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler, ct);
-                if (SocketCombineTarget == 1)
+                subscription = AddSubscription(request, identifier, true, socketConnection, dataHandler);
+                if (ClientOptions.SocketSubscriptionsCombineTarget == 1)
                 {
                     // Can release early when only a single sub per connection
                     semaphoreSlim.Release();
@@ -436,7 +436,7 @@ namespace Kucoin.Net.SocketSubClients
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.SubscriptionCount < SocketCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= SocketCombineTarget)))
+                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget)))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
@@ -467,7 +467,7 @@ namespace Kucoin.Net.SocketSubClients
             if (id!.ToString() != kRequest.Id)
                 return false;
 
-            var result = Deserialize<KucoinSubscribeResponse>(message, false);
+            var result = Deserialize<KucoinSubscribeResponse>(message);
             if (!result)
             {
                 callResult = new CallResult<object>(null, result.Error);
@@ -565,7 +565,7 @@ namespace Kucoin.Net.SocketSubClients
                 if (id!.ToString() != request.Id)
                     return false;
 
-                var result = Deserialize<KucoinSubscribeResponse>(message, false);
+                var result = Deserialize<KucoinSubscribeResponse>(message);
                 if (!result)
                 {
                     log.Write(LogLevel.Warning, "Failed to unsubscribe: " + result.Error);
@@ -597,7 +597,7 @@ namespace Kucoin.Net.SocketSubClients
 
         internal T GetData<T>(DataEvent<JToken> tokenData)
         {
-            var desResult = Deserialize<KucoinUpdateMessage<T>>(tokenData.Data, false);
+            var desResult = Deserialize<KucoinUpdateMessage<T>>(tokenData.Data);
             if (!desResult)
             {
                 log.Write(LogLevel.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
