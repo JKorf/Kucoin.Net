@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>3.1.5</PackageVersion>
-    <AssemblyVersion>3.1.5</AssemblyVersion>
-    <FileVersion>3.1.5</FileVersion>
+    <PackageVersion>3.1.6</PackageVersion>
+    <AssemblyVersion>3.1.6</AssemblyVersion>
+    <FileVersion>3.1.6</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>3.1.5 - Added PostBorrowOrder, GetBorrowOrderAsync and RepaySingleBorrowOrderAsync endpoints, Fixed authentication when there are special characters in the parameters, Fixed StopPriceType parsing in Futures order model, Added missing funding book subscription in socket client interface, Fixed futures user trade timestamp deserialization, Fixed futures position AverageEntryPrice deserialization, Added some missing model properties</PackageReleaseNotes>
+    <PackageReleaseNotes>3.1.6 - Fixed futures order deserialization</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
