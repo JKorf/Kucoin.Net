@@ -41,7 +41,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// Whether the stop condition is triggered
         /// </summary>
-        public bool StopTriggered { get; set; }
+        public bool? StopTriggered { get; set; }
         /// <summary>
         /// The stop price
         /// </summary>
@@ -51,7 +51,7 @@ namespace Kucoin.Net.Objects
         /// The time in force of the order
         /// </summary>
         [JsonConverter(typeof(TimeInForceConverter))]
-        public KucoinTimeInForce TimeInForce { get; set; }
+        public KucoinTimeInForce? TimeInForce { get; set; }
         /// <summary>
         /// Whether the order is post only
         /// </summary>
