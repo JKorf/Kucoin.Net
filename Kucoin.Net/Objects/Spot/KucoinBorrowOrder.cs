@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Kucoin.Net.Objects.Spot
         /// Status of request
         /// </summary>
         [JsonConverter(typeof(BorrowStatusConverter))]
-        public KucoinBorrowStatus Status { get; set; }
+        public BorrowStatus Status { get; set; }
     }
 
     /// <summary>

@@ -776,7 +776,7 @@ namespace Kucoin.Net.SubClients
         /// <returns>The id of the new order</returns>
         public async Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
             string asset,
-            KucoinBorrowOrderType type,
+            BorrowOrderType type,
             decimal quantity,
             decimal? maxRate = null,
             string? term = null,
@@ -894,7 +894,7 @@ namespace Kucoin.Net.SubClients
 
         internal Uri GetUri(string path, int apiVersion = 1)
         {
-            return new Uri(Path.Combine(BaseAddress, "v" + apiVersion, path));
+            return new Uri(Path.Combine(ClientOptions.BaseAddress, "v" + apiVersion, path));
         }
 
         #region common interface

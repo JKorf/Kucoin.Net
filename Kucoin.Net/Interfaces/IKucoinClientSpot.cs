@@ -631,7 +631,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="clientOrderId">The client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinStopOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
 
         #region Margin Trade
@@ -650,7 +650,7 @@ namespace Kucoin.Net.Interfaces
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
            string asset,
-           KucoinBorrowOrderType type,
+           BorrowOrderType type,
            decimal quantity,
            decimal? maxRate = null,
            string? term = null,
