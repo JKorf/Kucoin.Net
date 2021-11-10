@@ -11,7 +11,7 @@ using Kucoin.Net.Interfaces.Clients.Socket;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Spot.Socket;
 
-namespace Kucoin.Net
+namespace Kucoin.Net.SymbolOrderBooks
 {
     /// <summary>
     /// Kucoin order book implementation
@@ -57,7 +57,7 @@ namespace Kucoin.Net
                 var bookResult = await restClient.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
+                    log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
                     await socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, bookResult.Error);
                 }

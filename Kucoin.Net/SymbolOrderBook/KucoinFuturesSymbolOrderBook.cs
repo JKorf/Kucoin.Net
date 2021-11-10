@@ -16,7 +16,7 @@ using Kucoin.Net.Objects.Futures.Socket;
 using Kucoin.Net.Objects.Spot;
 using Kucoin.Net.Objects.Spot.Socket;
 
-namespace Kucoin.Net
+namespace Kucoin.Net.SymbolOrderBooks
 {
     /// <summary>
     /// Kucoin order book implementation

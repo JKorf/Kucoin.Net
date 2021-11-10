@@ -31,7 +31,7 @@ namespace Kucoin.Net.Clients.Socket
         {
         }
 
-        internal KucoinSocketClientFutures(KucoinSocketClientFuturesOptions options): base("Kucoin[Futures]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
+        public KucoinSocketClientFutures(KucoinSocketClientFuturesOptions options): base("Kucoin[Futures]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
             MaxSocketConnections = 10;
 
