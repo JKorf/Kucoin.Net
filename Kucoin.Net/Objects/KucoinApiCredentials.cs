@@ -52,5 +52,11 @@ namespace Kucoin.Net.Objects
             inputStream.Seek(0, SeekOrigin.Begin);
             PassPhrase = pass.ToSecureString();
         }
+
+        /// <inheritdoc />
+        public override ApiCredentials Copy()
+        {
+            return new KucoinApiCredentials(Key!.GetString(), Secret!.GetString(), PassPhrase!.GetString());
+        }
     }
 }

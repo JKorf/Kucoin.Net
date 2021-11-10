@@ -15,19 +15,23 @@ using Kucoin.Net.Objects.Spot.Socket;
 using System.Linq;
 using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
-using Kucoin.Net.SubClients;
 using Kucoin.Net.Enums;
 using System.Threading;
+using Kucoin.Net.Clients.Rest.Futures;
+using Kucoin.Net.Interfaces.Clients.Socket;
 
-namespace Kucoin.Net.SocketSubClients
+namespace Kucoin.Net.Clients.Socket
 {
     /// <summary>
     /// Futures subscriptions
     /// </summary>
     public class KucoinSocketClientFutures: SocketClient, IKucoinSocketClientFutures
     {
+        public KucoinSocketClientFutures() : this(KucoinSocketClientFuturesOptions.Default)
+        {
+        }
 
-        internal KucoinSocketClientFutures(KucoinSocketClientOptions options): base("Kucoin[Futures]", options, options.FuturesApiCredentials == null ? null : new KucoinAuthenticationProvider(options.FuturesApiCredentials))
+        internal KucoinSocketClientFutures(KucoinSocketClientFuturesOptions options): base("Kucoin[Futures]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
             MaxSocketConnections = 10;
 
@@ -235,11 +239,11 @@ namespace Kucoin.Net.SocketSubClients
                 if (socketConnection == null)
                 {
                     KucoinToken token;
-                    var clientOptions = KucoinClient.DefaultOptions.Copy();
+                    var clientOptions = new KucoinClientFuturesOptions();
                     KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)authProvider?.Credentials;
                     if (thisCredentials != null)
                     {
-                        clientOptions.FuturesApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
+                        clientOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
                             thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
                     }
 
@@ -247,9 +251,9 @@ namespace Kucoin.Net.SocketSubClients
                     IWebsocket socket;
                     if (SocketFactory is WebsocketFactory)
                     {
-                        using (var restClient = new KucoinClient(clientOptions))
+                        using (var restClient = new KucoinClientFutures(clientOptions))
                         {
-                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFutures)restClient.Futures).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
+                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesAccount)restClient.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                             if (!tokenResult)
                                 return new CallResult<UpdateSubscription>(null, tokenResult.Error);
                             token = tokenResult.Data;

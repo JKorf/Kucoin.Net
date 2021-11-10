@@ -3,7 +3,11 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Clients.Rest.Spot;
+using Kucoin.Net.Clients.Socket;
 using Kucoin.Net.Interfaces;
+using Kucoin.Net.Interfaces.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.Socket;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Spot.Socket;
 
@@ -14,8 +18,8 @@ namespace Kucoin.Net
     /// </summary>
     public class KucoinSpotSymbolOrderBook: SymbolOrderBook
     {
-        private readonly IKucoinClient restClient;
-        private readonly IKucoinSocketClient socketClient;
+        private readonly IKucoinClientSpot restClient;
+        private readonly IKucoinSocketClientSpot socketClient;
         private readonly bool _restOwner;
         private readonly bool _socketOwner;
 
@@ -24,11 +28,14 @@ namespace Kucoin.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public KucoinSpotSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
+        public KucoinSpotSymbolOrderBook(string symbol, KucoinOrderBookSpotOptions? options = null) : base("Kucoin[Spot]", symbol, options ?? new KucoinOrderBookSpotOptions())
         {
+            strictLevels = false;
+            sequencesAreConsecutive = options?.Limit == null;
+
             Levels = options?.Limit;
-            socketClient = options?.SocketClient ?? new KucoinSocketClient();
-            restClient = options?.RestClient ?? new KucoinClient();
+            socketClient = options?.SocketClient ?? new KucoinSocketClientSpot();
+            restClient = options?.RestClient ?? new KucoinClientSpot();
             _restOwner = options?.RestClient == null;
             _socketOwner = options?.SocketClient == null;
         }
@@ -36,22 +43,22 @@ namespace Kucoin.Net
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
         {
-            if (!KucoinClient.CredentialsDefaultSet)            
+            if (KucoinClientSpotOptions.Default.ApiCredentials == null)            
                 return new CallResult<UpdateSubscription>(null, new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
            
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
             {
-                subResult = await socketClient.Spot.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
+                subResult = await socketClient.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
                 Status = OrderBookStatus.Syncing;
-                var bookResult = await restClient.Spot.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
+                var bookResult = await restClient.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
                     log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
-                    await socketClient.Spot.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
+                    await socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, bookResult.Error);
                 }
 
@@ -59,7 +66,7 @@ namespace Kucoin.Net
             }
             else
             {
-                subResult = await socketClient.Spot.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+                subResult = await socketClient.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -79,7 +86,7 @@ namespace Kucoin.Net
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
 
-            var bookResult = await restClient.Spot.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
+            var bookResult = await restClient.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(false, bookResult.Error);
 

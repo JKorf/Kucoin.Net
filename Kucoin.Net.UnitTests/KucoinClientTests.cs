@@ -9,6 +9,7 @@ using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
 using CryptoExchange.Net;
 using System.Threading.Tasks;
+using Kucoin.Net.Clients.Rest.Spot;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -19,7 +20,7 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient();
+            var client = TestHelpers.CreateClient(new KucoinClientSpotOptions());
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
@@ -27,10 +28,10 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj));
+            TestHelpers.SetResponse((KucoinClientSpot)client, JsonConvert.SerializeObject(resultObj));
 
             // act
-            var result = await client.Spot.GetAssetsAsync();
+            var result = await client.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -43,11 +44,11 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient();
-            TestHelpers.SetResponse((KucoinClient)client, "", System.Net.HttpStatusCode.BadRequest);
+            var client = TestHelpers.CreateClient(new KucoinClientSpotOptions());
+            TestHelpers.SetResponse((KucoinClientSpot)client, "", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.Spot.GetAssetsAsync();
+            var result = await client.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -58,7 +59,7 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient();
+            var client = TestHelpers.CreateClient(new KucoinClientSpotOptions());
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
@@ -66,10 +67,10 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+            TestHelpers.SetResponse((KucoinClientSpot)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.Spot.GetAssetsAsync();
+            var result = await client.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);

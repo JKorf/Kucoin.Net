@@ -9,7 +9,7 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Spot.Socket;
 
-namespace Kucoin.Net.Interfaces
+namespace Kucoin.Net.Interfaces.Clients.Socket
 {
 
     /// <summary>

@@ -17,18 +17,23 @@ using Kucoin.Net.Objects.Futures.Socket;
 using Kucoin.Net.Objects.Socket;
 using Kucoin.Net.Objects.Spot.Socket;
 using CryptoExchange.Net.Interfaces;
-using Kucoin.Net.SubClients;
 using Kucoin.Net.Enums;
 using System.Threading;
+using Kucoin.Net.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.Socket;
 
-namespace Kucoin.Net.SocketSubClients
+namespace Kucoin.Net.Clients.Socket
 {
     /// <summary>
     /// Spot subscriptions
     /// </summary>
     public class KucoinSocketClientSpot: SocketClient, IKucoinSocketClientSpot
     {
-        internal KucoinSocketClientSpot(KucoinSocketClientOptions options): base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
+        public KucoinSocketClientSpot(): this(KucoinSocketClientSpotOptions.Default)
+        {
+        }
+
+        public KucoinSocketClientSpot(KucoinSocketClientSpotOptions options): base("Kucoin[Spot]", options, options.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.ApiCredentials))
         {
             MaxSocketConnections = 10;
 
@@ -351,7 +356,7 @@ namespace Kucoin.Net.SocketSubClients
                 if (socketConnection == null)
                 {
                     KucoinToken token;
-                    var clientOptions = KucoinClient.DefaultOptions.Copy();
+                    var clientOptions = new KucoinClientSpotOptions();
                     KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)authProvider?.Credentials;
                     if (thisCredentials != null)
                     {
@@ -363,9 +368,9 @@ namespace Kucoin.Net.SocketSubClients
                     IWebsocket socket;
                     if (SocketFactory is WebsocketFactory)
                     {
-                        using (var restClient = new KucoinClient(clientOptions))
+                        using (var restClient = new KucoinClientSpot(clientOptions))
                         {
-                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpot)restClient.Spot).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
+                            WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotAccount)restClient.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                             if (!tokenResult)
                                 return new CallResult<UpdateSubscription>(null, tokenResult.Error);
                             token = tokenResult.Data;

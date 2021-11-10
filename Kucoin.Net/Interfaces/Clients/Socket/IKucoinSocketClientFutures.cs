@@ -9,7 +9,7 @@ using Kucoin.Net.Objects.Spot.Socket;
 using CryptoExchange.Net.Interfaces;
 using System.Threading;
 
-namespace Kucoin.Net.Interfaces
+namespace Kucoin.Net.Interfaces.Clients.Socket
 {
     /// <summary>
     /// Futures subscriptions

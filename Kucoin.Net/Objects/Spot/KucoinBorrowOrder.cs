@@ -17,7 +17,8 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The OrderId of the borrow order
         /// </summary>
-        public string OrderId { get; set; } = string.Empty;
+        [JsonProperty("orderId")]
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// The asset of the borrow order

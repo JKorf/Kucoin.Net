@@ -11,14 +11,15 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The id of the new borrow order
         /// </summary>
-        public string OrderId { get; set; } = string.Empty;
+        [JsonProperty("orderId")]
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// Currency of current Order
         /// </summary>
-        [JsonProperty("Currency")]
+        [JsonProperty("currency")]
         public string Asset { get; set; } = string.Empty;
 
-        string ICommonOrderId.CommonId => OrderId;
+        string ICommonOrderId.CommonId => Id;
     }
 }
