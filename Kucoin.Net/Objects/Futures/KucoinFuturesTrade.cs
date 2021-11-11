@@ -1,6 +1,8 @@
-﻿using Kucoin.Net.Converters;
+﻿using CryptoExchange.Net.Converters;
+using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
+using System;
 
 namespace Kucoin.Net.Objects.Futures
 {
@@ -40,5 +42,10 @@ namespace Kucoin.Net.Objects.Futures
         /// Maker order id
         /// </summary>
         public string MakerOrderId { get; set; } = string.Empty;
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        public DateTime Timestamp { get; set; }
     }
 }
