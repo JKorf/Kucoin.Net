@@ -7,6 +7,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
+using Kucoin.Net.Objects.Futures.Socket;
 using Kucoin.Net.Objects.Spot.Socket;
 
 namespace Kucoin.Net.Interfaces.Clients.Socket
@@ -179,6 +180,7 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
         /// </summary>
         /// <param name="currency">Currencies to subscribe</param>
         /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string currency, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default);
 
@@ -187,7 +189,44 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
         /// </summary>
         /// <param name="currencies">Currencies to subscribe</param>
         /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(IEnumerable<string> currencies, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to index price updates
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to index price updates
+        /// </summary>
+        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mark price updates
+        /// </summary>
+        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default);
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Kucoin.Net.Clients.Rest.Futures
 {
-    public class KucoinClientFutures: KucoinBaseClient, IKucoinClientFutures//, IExchangeClient
+    public class KucoinClientFutures: KucoinBaseClient, IKucoinClientFutures
     {
         public IKucoinClientFuturesAccount Account { get; }
 
