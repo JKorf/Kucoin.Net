@@ -78,9 +78,9 @@ namespace Kucoin.Net.Clients.Rest
             return new WebCallResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, requestWeight: weight).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 

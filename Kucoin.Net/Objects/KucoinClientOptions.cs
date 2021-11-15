@@ -1,5 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients.Rest.Spot;
@@ -17,7 +20,14 @@ namespace Kucoin.Net.Objects
         /// </summary>
         public static KucoinClientSpotOptions Default { get; set; } = new KucoinClientSpotOptions()
         {
-            BaseAddress = "https://api.kucoin.com/api/"
+            BaseAddress = "https://api.kucoin.com/api/",
+            RateLimiters = new List<IRateLimiter>
+            {
+                new RateLimiter()
+                    .AddPartialEndpointLimit("/api/v1/orders", 180, TimeSpan.FromSeconds(3), null, true, true)
+                    .AddApiKeyLimit(200, TimeSpan.FromSeconds(10), true, true)
+                    .AddTotalRateLimit(100, TimeSpan.FromSeconds(10))
+            }
         };
 
         /// <summary>

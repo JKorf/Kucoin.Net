@@ -78,12 +78,10 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// Remark for the order
         /// </summary>
-        [JsonOptionalProperty]
         public string Remark { get; set; } = string.Empty;
         /// <summary>
         /// Whether the order is active
         /// </summary>
-        [JsonOptionalProperty]
         public bool? IsActive { get; set; }
         /// <summary>
         /// If there is a cancel request for this order

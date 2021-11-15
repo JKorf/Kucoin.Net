@@ -56,10 +56,9 @@ namespace Kucoin.Net.Objects.Spot
         /// The source of the order
         /// </summary>
         public string Channel { get; set; } = string.Empty;
-                /// <summary>
+        /// <summary>
         /// Tags for the order
         /// </summary>
-        [JsonOptionalProperty]
         public string Tags { get; set; } = string.Empty;        
         /// <summary>
         /// Trade type

@@ -74,7 +74,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders"), HttpMethod.Post, ct, parameters, true, weight: 4).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(result.Data);
             return result;
@@ -142,7 +142,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            var result = await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            var result = await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true, weight: 3).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(result.Data);
             return result;
@@ -165,7 +165,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true, weight: 60).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -184,7 +184,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinOrder>>(_baseClient.GetUri("orders"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinPaginated<KucoinOrder>>(_baseClient.GetUri("orders"), HttpMethod.Get, ct, parameters: parameters, signed: true, weight: 6).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
