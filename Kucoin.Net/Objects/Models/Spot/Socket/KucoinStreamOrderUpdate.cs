@@ -4,7 +4,7 @@ using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot.Socket
+namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
     /// Base class for a stream update

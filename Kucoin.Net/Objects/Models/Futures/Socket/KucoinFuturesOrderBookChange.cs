@@ -1,6 +1,6 @@
 ﻿using Kucoin.Net.Enums;
 
-namespace Kucoin.Net.Objects.Futures.Socket
+namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     /// <summary>
     /// Order book change

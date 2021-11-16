@@ -3,15 +3,11 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Futures;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Futures.Socket;
-using Kucoin.Net.Objects.Socket;
-using Kucoin.Net.Objects.Spot.Socket;
 using System.Linq;
 using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
@@ -19,6 +15,11 @@ using Kucoin.Net.Enums;
 using System.Threading;
 using Kucoin.Net.Clients.Rest.Futures;
 using Kucoin.Net.Interfaces.Clients.Socket;
+using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects.Models.Futures.Socket;
+using Kucoin.Net.Objects.Models.Spot.Socket;
 
 namespace Kucoin.Net.Clients.Socket
 {

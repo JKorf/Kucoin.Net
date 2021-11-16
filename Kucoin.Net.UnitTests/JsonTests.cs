@@ -5,6 +5,8 @@ using Kucoin.Net.UnitTests.TestImplementations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces;
+using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -12,10 +14,10 @@ namespace Kucoin.Net.UnitTests
     public class JsonTests
     {
         private JsonToObjectComparer<IKucoinClientSpot> _comparerSpot = new JsonToObjectComparer<IKucoinClientSpot>((json) => TestHelpers.CreateResponseClient(json, new KucoinClientSpotOptions()
-        { ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"),  OutputOriginalData = true }));
+        { ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"),  OutputOriginalData = true, RateLimiters = new List<IRateLimiter>() }));
 
         private JsonToObjectComparer<IKucoinClientFutures> _comparerFutures = new JsonToObjectComparer<IKucoinClientFutures>((json) => TestHelpers.CreateResponseClientFutures(json, new KucoinClientFuturesOptions()
-        { ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"), OutputOriginalData = true }));
+        { ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"), OutputOriginalData = true, RateLimiters = new List<IRateLimiter>() }));
 
         [Test]
         public async Task ValidateSpotAccountCalls()

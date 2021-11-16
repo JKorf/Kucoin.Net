@@ -16,6 +16,7 @@ using Kucoin.Net.Clients.Rest.Futures;
 using Kucoin.Net.Clients.Rest.Spot;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces;
+using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 using Kucoin.Net.Interfaces.Clients.Rest.Spot;
 using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;

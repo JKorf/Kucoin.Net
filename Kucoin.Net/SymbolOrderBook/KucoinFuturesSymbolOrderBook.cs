@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Clients.Rest.Futures;
 using Kucoin.Net.Clients.Socket;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 using Kucoin.Net.Interfaces.Clients.Socket;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Futures.Socket;
-using Kucoin.Net.Objects.Spot;
-using Kucoin.Net.Objects.Spot.Socket;
+using Kucoin.Net.Objects.Models.Futures.Socket;
+using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Objects.Models.Spot.Socket;
 
-namespace Kucoin.Net.SymbolOrderBooks
+namespace Kucoin.Net.SymbolOrderBook
 {
     /// <summary>
     /// Kucoin order book implementation
     /// </summary>
-    public class KucoinFuturesSymbolOrderBook : SymbolOrderBook
+    public class KucoinFuturesSymbolOrderBook : CryptoExchange.Net.OrderBook.SymbolOrderBook
     {
         private readonly IKucoinClientFutures restClient;
         private readonly IKucoinSocketClientFutures socketClient;

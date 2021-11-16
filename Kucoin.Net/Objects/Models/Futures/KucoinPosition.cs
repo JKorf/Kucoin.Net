@@ -1,8 +1,8 @@
-﻿using CryptoExchange.Net.Converters;
+﻿using System;
+using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using System;
 
-namespace Kucoin.Net.Objects.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Position info

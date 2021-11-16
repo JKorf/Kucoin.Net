@@ -1,7 +1,6 @@
-﻿using CryptoExchange.Net.Attributes;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Internal
 {
     internal class KucoinResult<T>
     {

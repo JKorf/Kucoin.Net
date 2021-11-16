@@ -5,6 +5,7 @@ using Kucoin.Net.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 
 namespace Kucoin.Net.Clients.Rest.Futures
 {

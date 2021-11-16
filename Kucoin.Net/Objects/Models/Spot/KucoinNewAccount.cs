@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Spot
+﻿namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// New account id

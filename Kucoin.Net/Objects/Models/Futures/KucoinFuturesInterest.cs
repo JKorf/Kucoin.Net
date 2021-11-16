@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Futures
+﻿namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Interest info

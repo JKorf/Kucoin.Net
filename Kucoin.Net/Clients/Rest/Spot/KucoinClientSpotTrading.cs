@@ -5,8 +5,6 @@ using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.Rest.Spot;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Socket;
-using Kucoin.Net.Objects.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +13,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Clients.Rest.Spot
 {

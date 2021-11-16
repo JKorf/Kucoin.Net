@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Kucoin.Net.Objects.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Index info

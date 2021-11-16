@@ -2,7 +2,7 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot.Socket
+namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
     /// Stream funding book update

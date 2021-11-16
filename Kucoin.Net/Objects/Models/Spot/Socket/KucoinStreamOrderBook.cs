@@ -4,7 +4,7 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot.Socket
+namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
     /// Order book info

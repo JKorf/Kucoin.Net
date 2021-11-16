@@ -1,12 +1,11 @@
 ﻿using System;
-using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Order info

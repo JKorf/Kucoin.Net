@@ -1,13 +1,11 @@
-﻿using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
+﻿using System;
+using System.Collections.Generic;
+using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Kucoin.Net.Objects.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Kucoin Borrow Order

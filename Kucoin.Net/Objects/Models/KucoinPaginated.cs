@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects
+namespace Kucoin.Net.Objects.Models
 {
     /// <summary>
     /// Page with results

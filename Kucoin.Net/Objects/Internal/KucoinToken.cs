@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Socket
+namespace Kucoin.Net.Objects.Internal
 {
     internal class KucoinToken
     {

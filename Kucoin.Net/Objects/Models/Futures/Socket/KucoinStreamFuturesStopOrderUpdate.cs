@@ -2,7 +2,7 @@
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Futures.Socket
+namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     /// <summary>
     /// Futures stop order update

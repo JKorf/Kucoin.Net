@@ -1,13 +1,14 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Futures;
 using System;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Futures.Socket;
-using Kucoin.Net.Objects.Spot.Socket;
 using CryptoExchange.Net.Interfaces;
 using System.Threading;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects.Models.Futures.Socket;
+using Kucoin.Net.Objects.Models.Spot.Socket;
 
 namespace Kucoin.Net.Interfaces.Clients.Socket
 {

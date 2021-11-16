@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Withdrawal quota

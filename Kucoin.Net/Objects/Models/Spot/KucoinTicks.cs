@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Tick info

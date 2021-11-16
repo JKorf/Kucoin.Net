@@ -1,10 +1,10 @@
-﻿using CryptoExchange.Net.Converters;
+﻿using System;
+using CryptoExchange.Net.Converters;
+using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
-using System;
-using Kucoin.Net.Converters;
 
-namespace Kucoin.Net.Objects.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Trade info

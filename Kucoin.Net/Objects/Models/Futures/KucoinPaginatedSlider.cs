@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Data container for paged lists

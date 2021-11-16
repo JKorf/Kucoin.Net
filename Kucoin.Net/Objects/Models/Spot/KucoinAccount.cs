@@ -3,7 +3,7 @@ using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Account info

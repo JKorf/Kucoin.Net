@@ -1,14 +1,13 @@
-﻿using CryptoExchange.Net.Objects;
-using Kucoin.Net.Enums;
-using Kucoin.Net.Objects.Futures;
-using Kucoin.Net.Objects.Spot;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Objects;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects.Models.Spot;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
+namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 {
     public interface IKucoinClientFuturesExchangeData
     {

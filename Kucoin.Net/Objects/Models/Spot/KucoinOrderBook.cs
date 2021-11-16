@@ -5,7 +5,7 @@ using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Order book

@@ -13,14 +13,15 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Kucoin.Net.Converters;
-using Kucoin.Net.Objects.Futures.Socket;
-using Kucoin.Net.Objects.Socket;
-using Kucoin.Net.Objects.Spot.Socket;
 using CryptoExchange.Net.Interfaces;
 using Kucoin.Net.Enums;
 using System.Threading;
 using Kucoin.Net.Clients.Rest.Spot;
 using Kucoin.Net.Interfaces.Clients.Socket;
+using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Futures.Socket;
+using Kucoin.Net.Objects.Models.Spot.Socket;
 
 namespace Kucoin.Net.Clients.Socket
 {

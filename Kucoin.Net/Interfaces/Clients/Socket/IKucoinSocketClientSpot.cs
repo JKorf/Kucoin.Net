@@ -7,8 +7,9 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Futures.Socket;
-using Kucoin.Net.Objects.Spot.Socket;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Futures.Socket;
+using Kucoin.Net.Objects.Models.Spot.Socket;
 
 namespace Kucoin.Net.Interfaces.Clients.Socket
 {
