@@ -50,6 +50,10 @@ namespace Kucoin.Net.Objects.Spot
         [JsonConverter(typeof(WithdrawalStatusConverter))]
         public KucoinWithdrawalStatus Status { get; set; }
         /// <summary>
+        /// The remark of this withdrawal.
+        /// </summary>
+        public string Remark { get; set; } = string.Empty;
+        /// <summary>
         /// The time the withdrawal was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
