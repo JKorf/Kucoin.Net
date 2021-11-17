@@ -12,12 +12,14 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
     {
         /// <summary>
         /// Gets the server time
+        /// <para><a href="https://docs.kucoin.com/#server-time" /></para>
         /// </summary>
         /// <returns>The time of the server</returns>
         Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of symbols supported by the server
+        /// <para><a href="https://docs.kucoin.com/#get-symbols-list" /></para>
         /// </summary>
         /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
@@ -26,6 +28,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets ticker info of a symbol
+        /// <para><a href="https://docs.kucoin.com/#get-ticker" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get info for</param>
         /// <param name="ct">Cancellation token</param>
@@ -34,6 +37,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets the ticker for all trading pairs
+        /// <para><a href="https://docs.kucoin.com/#get-all-tickers" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of tickers</returns>
@@ -42,6 +46,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets the 24 hour stats of a symbol
+        /// <para><a href="https://docs.kucoin.com/#get-24hr-stats" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get stats for</param>
         /// <param name="ct">Cancellation token</param>
@@ -51,6 +56,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of supported markets
+        /// <para><a href="https://docs.kucoin.com/#get-market-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
@@ -58,6 +64,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
+        /// <para><a href="https://docs.kucoin.com/#get-part-order-book-aggregated" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get order book for</param>
         /// <param name="limit">The limit of results (20 / 100)</param>
@@ -67,6 +74,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get a full aggregated order book for a symbol. Orders for the same price are combined.
+        /// <para><a href="https://docs.kucoin.com/#get-full-order-book-aggregated" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get order book for</param>
         /// <param name="ct">Cancellation token</param>
@@ -83,6 +91,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets the recent trade history for a symbol
+        /// <para><a href="https://docs.kucoin.com/#get-trade-histories" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get trade history for</param>
         /// <param name="ct">Cancellation token</param>
@@ -91,6 +100,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get kline data for a symbol
+        /// <para><a href="https://docs.kucoin.com/#get-klines" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get klines for</param>
         /// <param name="interval">The interval of a kline</param>
@@ -102,12 +112,14 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of supported currencies
+        /// <para><a href="https://docs.kucoin.com/#get-currencies" /></para>
         /// </summary>
         /// <returns>List of currencies</returns>
         Task<WebCallResult<IEnumerable<KucoinAsset>>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific asset
+        /// <para><a href="https://docs.kucoin.com/#get-currency-detail" /></para>
         /// </summary>
         /// <param name="asset">The asset to get</param>
         /// <param name="ct">Cancellation token</param>
@@ -116,6 +128,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of prices for all 
+        /// <para><a href="https://docs.kucoin.com/#get-fiat-price" /></para>
         /// </summary>
         /// <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
         /// <param name="assets">The assets to get price for. Defaults to all</param>

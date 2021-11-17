@@ -14,6 +14,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Places an order
+        /// <para><a href="https://docs.kucoin.com/#place-a-new-order" /></para>
         /// </summary>
         /// <param name="symbol">The symbol the order is for</param>
         /// <param name="side">The side of the order</param>
@@ -53,6 +54,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Places a margin order
+        /// <para><a href="https://docs.kucoin.com/#place-a-margin-order" /></para>
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="side">The side((buy or sell) of the order</param>
@@ -95,6 +97,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel an order
+        /// <para><a href="https://docs.kucoin.com/#cancel-an-order" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -103,6 +106,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel an order
+        /// <para><a href="https://docs.kucoin.com/#cancel-single-order-by-clientoid" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client order id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -111,6 +115,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel all open orders
+        /// <para><a href="https://docs.kucoin.com/#cancel-all-orders" /></para>
         /// </summary>
         /// <param name="symbol">Only cancel orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -119,6 +124,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of orders
+        /// <para><a href="https://docs.kucoin.com/#list-orders" /></para>
         /// </summary>
         /// <param name="symbol">Filter list by symbol</param>
         /// <param name="type">Filter list by order type</param>
@@ -134,6 +140,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of max 1000 orders in the last 24 hours
+        /// <para><a href="https://docs.kucoin.com/#get-v1-historical-orders-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
@@ -141,6 +148,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get info on a specific order
+        /// <para><a href="https://docs.kucoin.com/#get-single-active-order-by-clientoid" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client order id of the order</param>
         /// <param name="ct">Cancellation token</param>
@@ -149,6 +157,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get info on a specific order
+        /// <para><a href="https://docs.kucoin.com/#get-an-order" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order</param>
         /// <param name="ct">Cancellation token</param>
@@ -157,6 +166,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of historical orders
+        /// <para><a href="https://docs.kucoin.com/#get-v1-historical-orders-list" /></para>
         /// </summary>
         /// <param name="symbol">Filter list by symbol</param>
         /// <param name="side">Filter list by order side</param>
@@ -170,6 +180,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of fills
+        /// <para><a href="https://docs.kucoin.com/#list-fills" /></para>
         /// </summary>
         /// <param name="symbol">Filter list by symbol</param>
         /// <param name="type">Filter list by order type</param>
@@ -185,6 +196,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of max 1000 fills in the last 24 hours
+        /// <para><a href="https://docs.kucoin.com/#recent-fills" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
@@ -192,6 +204,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Place a new stop order
+        /// <para><a href="https://docs.kucoin.com/#place-a-new-order-2" /></para>
         /// </summary>
         /// <param name="symbol">The symbol the order is for</param>
         /// <param name="orderSide">The side of the order</param>
@@ -238,6 +251,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel a stop order by order id
+        /// <para><a href="https://docs.kucoin.com/#cancel-an-order-2" /></para>
         /// </summary>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -246,6 +260,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel a stop order by client order id
+        /// <para><a href="https://docs.kucoin.com/#cancel-single-order-by-clientoid-2" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -254,6 +269,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel all stop orders fitting the provided parameters
+        /// <para><a href="https://docs.kucoin.com/#cancel-orders" /></para>
         /// </summary>
         /// <param name="symbol">Symbol to cancel orders on</param>
         /// <param name="orderIds">Order ids of the orders to cancel</param>
@@ -264,6 +280,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get a list of stop orders fitting the provided parameters
+        /// <para><a href="https://docs.kucoin.com/#list-stop-orders" /></para>
         /// </summary>
         /// <param name="activeOrders">True to return active orders, false for completed orders</param>
         /// <param name="symbol">Symbol of the orders</param>
@@ -282,6 +299,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get a stop order by id
+        /// <para><a href="https://docs.kucoin.com/#get-single-order-info" /></para>
         /// </summary>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -290,19 +308,18 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get a stop order by client order id
+        /// <para><a href="https://docs.kucoin.com/#get-single-order-by-clientoid" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinStopOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
-
         #region Margin Trade
 
-        #region Borrow & Lend
-
         /// <summary>
-        /// Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
+        /// Places a Borrow order
+        /// <para><a href="https://docs.kucoin.com/#post-borrow-order" /></para>
         /// </summary>
         /// <param name="asset">Currency to Borrow e.g USDT etc</param>
         /// <param name="type">The type of the order (FOK, IOC)</param>
@@ -320,7 +337,8 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
            CancellationToken ct = default);
 
         /// <summary>
-        /// Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
+        /// Get info on a specific borrow order
+        /// <para><a href="https://docs.kucoin.com/#get-borrow-order" /></para>
         /// </summary>
         /// <param name="orderId">The order id of the borrow order</param>
         /// <param name="ct">Cancellation token</param>
@@ -328,7 +346,8 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
         Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
+        /// Repay a Single Order
+        /// <para><a href="https://docs.kucoin.com/#repay-a-single-order" /></para>
         /// </summary>
         /// <param name="asset">Asset to Pay e.g USDT etc</param>
         /// <param name="tradeId">Trade ID of borrow order</param>
@@ -340,8 +359,6 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
             string tradeId,
             decimal quantity,
             CancellationToken ct = default);
-
-        #endregion Borrow & Lend
 
         #endregion Margin Trade
     }

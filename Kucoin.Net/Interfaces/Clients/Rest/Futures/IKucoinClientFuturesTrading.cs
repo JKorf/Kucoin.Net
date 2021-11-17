@@ -12,9 +12,9 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 {
     public interface IKucoinClientFuturesTrading
     {
-
         /// <summary>
         /// Place a new order
+        /// <para><a href="https://docs.kucoin.center/futures/#place-an-order" /></para>
         /// </summary>
         /// <param name="symbol">The contract for the order</param>
         /// <param name="side">Side of the order</param>
@@ -63,6 +63,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Cancel an order
+        /// <para><a href="https://docs.kucoin.center/futures/#cancel-an-order" /></para>
         /// </summary>
         /// <param name="orderId">Id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -71,6 +72,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Cancel all open orders
+        /// <para><a href="https://docs.kucoin.center/futures/#limit-order-mass-cancelation" /></para>
         /// </summary>
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -79,6 +81,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Cancel all open stop orders
+        /// <para><a href="https://docs.kucoin.center/futures/#stop-order-mass-cancelation" /></para>
         /// </summary>
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -87,6 +90,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get list of orders
+        /// <para><a href="https://docs.kucoin.center/futures/#get-order-list" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="status">Filter by status</param>
@@ -102,6 +106,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get list of untriggered stop orders
+        /// <para><a href="https://docs.kucoin.center/futures/#get-untriggered-stop-order-list" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="side">Filter by side</param>
@@ -116,6 +121,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get list of 1000 most recent orders in the last 24 hours
+        /// <para><a href="https://docs.kucoin.center/futures/#get-list-of-orders-completed-in-24h" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
@@ -123,6 +129,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get details on an order
+        /// <para><a href="https://docs.kucoin.center/futures/#get-details-of-a-single-order" /></para>
         /// </summary>
         /// <param name="orderId">Id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -131,6 +138,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get details on an order
+        /// <para><a href="https://docs.kucoin.center/futures/#get-details-of-a-single-order" /></para>
         /// </summary>
         /// <param name="clientOrderId">Client order id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -139,6 +147,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get list of user trades
+        /// <para><a href="https://docs.kucoin.center/futures/#get-fills" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="orderId">Filter by order id</param>
@@ -154,6 +163,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 
         /// <summary>
         /// Get list of 1000 most recent user trades in the last 24 hours
+        /// <para><a href="https://docs.kucoin.center/futures/#recent-fills" /></para>
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
