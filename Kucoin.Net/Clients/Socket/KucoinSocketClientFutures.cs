@@ -1,7 +1,6 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -233,13 +232,20 @@ namespace Kucoin.Net.Clients.Socket
             SocketConnection? socketConnection;
             SocketSubscription subscription;
             var released = false;
-            await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+            try
+            {
+                await semaphoreSlim.WaitAsync(ct).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                return new CallResult<UpdateSubscription>(null, new CancellationRequestedError());
+            }
+
             try
             {
                 socketConnection = GetSocketConnection(url, authenticated);
                 if (socketConnection == null)
                 {
-                    KucoinToken token;
                     var clientOptions = new KucoinClientFuturesOptions();
                     KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)authProvider?.Credentials;
                     if (thisCredentials != null)
@@ -252,11 +258,13 @@ namespace Kucoin.Net.Clients.Socket
                     IWebsocket socket;
                     if (SocketFactory is WebsocketFactory)
                     {
+                        KucoinToken token;
                         using (var restClient = new KucoinClientFutures(clientOptions))
                         {
                             WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesAccount)restClient.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                             if (!tokenResult)
                                 return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+
                             token = tokenResult.Data;
                         }
 

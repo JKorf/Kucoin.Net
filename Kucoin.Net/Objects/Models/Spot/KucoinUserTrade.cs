@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         decimal ICommonTrade.CommonPrice => Price;
         decimal ICommonTrade.CommonQuantity => Quantity;
         decimal ICommonTrade.CommonFee => Fee;
-        string? ICommonTrade.CommonFeeAsset => FeeAsset;
+        string ICommonTrade.CommonFeeAsset => FeeAsset;
         DateTime ICommonTrade.CommonTradeTime => Timestamp;
     }
 }

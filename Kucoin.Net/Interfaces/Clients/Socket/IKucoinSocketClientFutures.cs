@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Objects;
 using System;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;

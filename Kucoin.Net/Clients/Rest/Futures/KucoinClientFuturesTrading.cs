@@ -2,14 +2,11 @@
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Interfaces.Clients.Rest.Futures;
@@ -21,14 +18,13 @@ namespace Kucoin.Net.Clients.Rest.Futures
 {
     public class KucoinClientFuturesTrading: IKucoinClientFuturesTrading
     {
-        private KucoinClientFutures _baseClient;
+        private readonly KucoinClientFutures _baseClient;
 
         internal KucoinClientFuturesTrading(KucoinClientFutures baseClient)
         {
             _baseClient = baseClient;
         }
-
-
+        
         #region Orders
 
         /// <inheritdoc />

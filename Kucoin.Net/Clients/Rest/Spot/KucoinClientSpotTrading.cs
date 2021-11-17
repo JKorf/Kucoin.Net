@@ -4,13 +4,11 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models;
@@ -20,7 +18,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
 {
     public class KucoinClientSpotTrading: IKucoinClientSpotTrading
     {
-        private KucoinClientSpot _baseClient;
+        private readonly KucoinClientSpot _baseClient;
         internal KucoinClientSpotTrading(KucoinClientSpot baseClient)
         {
             _baseClient = baseClient;

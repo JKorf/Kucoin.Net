@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Objects;
 
 namespace Kucoin.Net.Converters
 {

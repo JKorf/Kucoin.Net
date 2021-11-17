@@ -15,6 +15,6 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         public IEnumerable<string> CancelledOrderIds { get; set; } = Array.Empty<string>();
 
-        string ICommonOrderId.CommonId => CancelledOrderIds.FirstOrDefault();
+        string ICommonOrderId.CommonId => CancelledOrderIds.FirstOrDefault() ?? "";
     }
 }

@@ -1,12 +1,11 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients.Rest.Spot;
 using Kucoin.Net.Objects;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.Rest.Spot
@@ -71,8 +70,15 @@ namespace Kucoin.Net.Clients.Rest.Spot
 
         async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
         {
-            var result = await ExchangeData.GetTickerAsync(symbol).ConfigureAwait(false);
-            return result.As<ICommonTicker>((ICommonTicker?)result.Data);
+            var symbols = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
+            if(!symbols)
+                return new WebCallResult<ICommonTicker>(symbols.ResponseStatusCode, symbols.ResponseHeaders, null, symbols.Error);
+
+            var ticker = symbols.Data.Data.SingleOrDefault(s => s.Symbol == symbol);
+            if(ticker == null)
+                return new WebCallResult<ICommonTicker>(symbols.ResponseStatusCode, symbols.ResponseHeaders, null, new ArgumentError("Symbol not found"));
+
+            return symbols.As<ICommonTicker>(ticker);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()

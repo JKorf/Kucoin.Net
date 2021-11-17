@@ -3,13 +3,11 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Internal;
@@ -20,7 +18,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
 {
     public class KucoinClientSpotAccount: IKucoinClientSpotAccount
     {
-        private KucoinClientSpot _baseClient;
+        private readonly KucoinClientSpot _baseClient;
         internal KucoinClientSpotAccount(KucoinClientSpot baseClient)
         {
             _baseClient = baseClient;
@@ -120,7 +118,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            return await _baseClient.Execute<KucoinPaginated<KucoinAccountActivity>>(_baseClient.GetUri($"accounts/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinPaginated<KucoinAccountActivity>>(_baseClient.GetUri("accounts/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

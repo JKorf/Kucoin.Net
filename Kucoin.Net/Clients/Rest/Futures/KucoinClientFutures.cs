@@ -1,10 +1,4 @@
-﻿using CryptoExchange.Net.ExchangeInterfaces;
-using Kucoin.Net.Interfaces;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Objects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Kucoin.Net.Objects;
 using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 
 namespace Kucoin.Net.Clients.Rest.Futures

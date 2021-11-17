@@ -1,8 +1,6 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -195,7 +193,7 @@ namespace Kucoin.Net.Clients.Socket
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/index:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/index:" + string.Join(",", symbols), false);
             return await SubscribeAsync(request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -213,7 +211,7 @@ namespace Kucoin.Net.Clients.Socket
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/indicator/markPrice:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/markPrice:" + string.Join(",", symbols), false);
             return await SubscribeAsync(request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -231,7 +229,7 @@ namespace Kucoin.Net.Clients.Socket
                 InvokeHandler(tokenData.As(data, data.Asset), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/margin/fundingBook:" + string.Join(",", assets), false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/margin/fundingBook:" + string.Join(",", assets), false);
             return await SubscribeAsync(request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -247,7 +245,7 @@ namespace Kucoin.Net.Clients.Socket
                 symbol.ValidateKucoinSymbol();
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                KucoinStreamMatchEngineUpdate? data = null;
+                KucoinStreamMatchEngineUpdate? data;
                 var subject = tokenData.Data["subject"]?.ToString();
                 switch (subject)
                 {
@@ -338,7 +336,7 @@ namespace Kucoin.Net.Clients.Socket
                 InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/advancedOrders", true);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/advancedOrders", true);
             return await SubscribeAsync(request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
         #endregion
@@ -350,13 +348,20 @@ namespace Kucoin.Net.Clients.Socket
             SocketConnection? socketConnection;
             SocketSubscription subscription;
             var released = false;
-            await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+            try
+            {
+                await semaphoreSlim.WaitAsync(ct).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                return new CallResult<UpdateSubscription>(null, new CancellationRequestedError());
+            }
+
             try
             {
                 socketConnection = GetSocketConnection(url, authenticated);
                 if (socketConnection == null)
                 {
-                    KucoinToken token;
                     var clientOptions = new KucoinClientSpotOptions();
                     KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)authProvider?.Credentials;
                     if (thisCredentials != null)
@@ -369,11 +374,13 @@ namespace Kucoin.Net.Clients.Socket
                     IWebsocket socket;
                     if (SocketFactory is WebsocketFactory)
                     {
+                        KucoinToken token;
                         using (var restClient = new KucoinClientSpot(clientOptions))
                         {
                             WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotAccount)restClient.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                             if (!tokenResult)
                                 return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                            
                             token = tokenResult.Data;
                         }
 

@@ -1,7 +1,4 @@
 ﻿using CryptoExchange.Net.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 {
