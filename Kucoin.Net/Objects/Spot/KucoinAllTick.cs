@@ -53,7 +53,26 @@ namespace Kucoin.Net.Objects.Spot
         /// The last trade price
         /// </summary>
         public decimal? Last { get; set; }
-
+        /// <summary>
+        /// Average trading price in the last 24 hours
+        /// </summary>
+        public decimal? AveragePrice { get; set; }
+        /// <summary>
+        /// Basic Maker Fee
+        /// </summary>
+        public decimal? MakerFeeRate { get; set; }
+        /// <summary>
+        /// Basic Taker Fee
+        /// </summary>
+        public decimal? TakerFeeRate { get; set; }
+        /// <summary>
+        /// Taker Fee Coefficient
+        /// </summary>
+        public decimal? TakerCoefficient { get; set; }
+        /// <summary>
+        /// Maker Fee Coefficient
+        /// </summary>
+        public decimal? MakerCoefficient { get; set; }
         string ICommonTicker.CommonSymbol => Symbol;
         decimal ICommonTicker.CommonHigh => High ?? 0;
         decimal ICommonTicker.CommonLow => Low ?? 0;
