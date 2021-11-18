@@ -49,9 +49,9 @@
             Eight hours
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Enums.FuturesKlineInterval.TwelfHours">
+        <member name="F:Kucoin.Net.Enums.FuturesKlineInterval.TwelveHours">
             <summary>
-            Twelf hours
+            Twelve hours
             </summary>
         </member>
         <member name="F:Kucoin.Net.Enums.FuturesKlineInterval.OneDay">
@@ -3170,7 +3170,7 @@
             8h
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.TwelfHours">
+        <member name="F:Kucoin.Net.Objects.KucoinKlineInterval.TwelveHours">
             <summary>
             12h
             </summary>

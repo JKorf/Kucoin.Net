@@ -1414,7 +1414,7 @@ namespace Kucoin.Net.SubClients
             if (timeSpan == TimeSpan.FromHours(4)) return KucoinKlineInterval.FourHours;
             if (timeSpan == TimeSpan.FromHours(6)) return KucoinKlineInterval.SixHours;
             if (timeSpan == TimeSpan.FromHours(8)) return KucoinKlineInterval.EightHours;
-            if (timeSpan == TimeSpan.FromHours(12)) return KucoinKlineInterval.TwelfHours;
+            if (timeSpan == TimeSpan.FromHours(12)) return KucoinKlineInterval.TwelveHours;
             if (timeSpan == TimeSpan.FromDays(1)) return KucoinKlineInterval.OneDay;
             if (timeSpan == TimeSpan.FromDays(7)) return KucoinKlineInterval.OneWeek;
 
