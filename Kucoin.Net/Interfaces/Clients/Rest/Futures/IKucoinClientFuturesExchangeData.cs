@@ -9,9 +9,11 @@ using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 {
+    /// <summary>
+    /// Kucoin Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+    /// </summary>
     public interface IKucoinClientFuturesExchangeData
     {
-
         /// <summary>
         /// Get open contract list
         /// <para><a href="https://docs.kucoin.center/futures/#get-open-contract-list" /></para>

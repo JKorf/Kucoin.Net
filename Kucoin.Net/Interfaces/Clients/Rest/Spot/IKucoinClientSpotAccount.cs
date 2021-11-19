@@ -9,6 +9,9 @@ using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 {
+    /// <summary>
+    /// Kucoin Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+    /// </summary>
     public interface IKucoinClientSpotAccount
     {
         /// <summary>

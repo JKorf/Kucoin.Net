@@ -8,6 +8,9 @@ using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 {
+    /// <summary>
+    /// Kucoin Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+    /// </summary>
     public interface IKucoinClientSpotExchangeData
     {
         /// <summary>

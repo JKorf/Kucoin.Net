@@ -9,9 +9,11 @@ using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 {
+    /// <summary>
+    /// Kucoin Spot trading endpoints, placing and mananging orders.
+    /// </summary>
     public interface IKucoinClientSpotTrading
     {
-
         /// <summary>
         /// Places an order
         /// <para><a href="https://docs.kucoin.com/#place-a-new-order" /></para>
@@ -49,7 +51,6 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
             string? remark = null,
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
-
             CancellationToken ct = default);
 
         /// <summary>
@@ -235,7 +236,6 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
             string? remark = null,
             SelfTradePrevention? selfTradePrevention = null,
             TradeType? tradeType = null,
-
             decimal? price = null,
             decimal? quantity = null,
             TimeInForce? timeInForce = null,
@@ -244,7 +244,6 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
             bool? hidden = null,
             bool? iceberg = null,
             decimal? visibleSize = null,
-
             string? clientOrderId = null,
             decimal? quoteQuantity = null,
             CancellationToken ct = default);
@@ -315,8 +314,6 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinStopOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
-        #region Margin Trade
-
         /// <summary>
         /// Places a Borrow order
         /// <para><a href="https://docs.kucoin.com/#post-borrow-order" /></para>
@@ -359,7 +356,5 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
             string tradeId,
             decimal quantity,
             CancellationToken ct = default);
-
-        #endregion Margin Trade
     }
 }

@@ -10,6 +10,9 @@ using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 {
+    /// <summary>
+    /// Kucoin Futures trading endpoints, placing and mananging orders.
+    /// </summary>
     public interface IKucoinClientFuturesTrading
     {
         /// <summary>
@@ -43,14 +46,12 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
             NewOrderType type,
             int leverage,
             decimal quantity,
-
             decimal? price = null,
             TimeInForce? timeInForce = null,
             bool? postOnly = null,
             bool? hidden = null,
             bool? iceberg = null,
             decimal? visibleSize = null,
-
             string? remark = null,
             StopType? stopType = null,
             StopPriceType? stopPriceType = null,
