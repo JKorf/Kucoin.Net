@@ -91,7 +91,7 @@ namespace Kucoin.Net.Clients.Rest
 
         internal Uri GetUri(string path, int apiVersion = 1)
         {
-            return new Uri(Path.Combine(ClientOptions.BaseAddress, "v" + apiVersion, path));
+            return new Uri(ClientOptions.BaseAddress.AppendPath("v" + apiVersion, path));
         }
     }
 }
