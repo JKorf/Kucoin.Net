@@ -22,7 +22,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The timestamp of the event
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Id of the order
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Order time
         /// </summary>
-        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderTime { get; set; }
     }
 

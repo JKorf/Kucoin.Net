@@ -46,7 +46,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The time the order was created
         /// </summary>
-        [JsonConverter(typeof(TimestampSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createdAt")]
         public DateTime CreateTime { get; set; }
     }

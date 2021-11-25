@@ -54,13 +54,13 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// When the deposit was created
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// When the deposit was last updated
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("updatedAt")]
         public DateTime UpdateTime { get; set; }
     }

@@ -48,7 +48,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// The time the fill was created
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createdAt")]
         public DateTime Timestamp { get; set; }
         /// <summary>

@@ -61,13 +61,13 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// The time the order was last updated
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("updatedAt")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
         /// Order create time
         /// </summary>
-        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("orderTime")]
         public DateTime? OrderTime { get; set; }
         /// <summary>

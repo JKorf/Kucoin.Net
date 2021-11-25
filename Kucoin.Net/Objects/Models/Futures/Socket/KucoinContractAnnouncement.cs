@@ -24,12 +24,12 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Funding time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime FundingTime { get; set; }
         /// <summary>
         /// Event time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The timestamp of the event
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The type of the update

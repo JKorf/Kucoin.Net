@@ -301,7 +301,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)) : null);
-            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? JsonConvert.SerializeObject(cancelAfter, new TimestampSecondsConverter()) : null);
+            parameters.AddOptionalParameter("cancelAfter", DateTimeConverter.ConvertToSeconds(cancelAfter));
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceberg", iceberg);

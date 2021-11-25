@@ -19,7 +19,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Creation time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
@@ -66,7 +66,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Update timestamp
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Update type

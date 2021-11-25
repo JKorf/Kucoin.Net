@@ -14,7 +14,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Event time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>

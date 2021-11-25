@@ -21,7 +21,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

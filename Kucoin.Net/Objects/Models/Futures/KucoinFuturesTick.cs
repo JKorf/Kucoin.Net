@@ -58,7 +58,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Filled time
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

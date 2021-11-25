@@ -79,7 +79,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("dateTime"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("dateTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The highest price

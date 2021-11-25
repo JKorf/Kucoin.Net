@@ -14,7 +14,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// The start time of the kline
         /// </summary>
-        [ArrayProperty(0), JsonConverter(typeof(TimestampConverter))]
+        [ArrayProperty(0), JsonConverter(typeof(DateTimeConverter))]
         public DateTime OpenTime { get; set; }
         /// <summary>
         /// The open price

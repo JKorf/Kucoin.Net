@@ -20,7 +20,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Time point
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime TimePoint { get; set; }
         /// <summary>
         /// Value

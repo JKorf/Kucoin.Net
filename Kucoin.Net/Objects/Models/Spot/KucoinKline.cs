@@ -14,7 +14,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The start time of the kline
         /// </summary>
-        [ArrayProperty(0), JsonConverter(typeof(TimestampSecondsConverter))]
+        [ArrayProperty(0), JsonConverter(typeof(DateTimeConverter))]
         public DateTime OpenTime { get; set; }
         /// <summary>
         /// The open price

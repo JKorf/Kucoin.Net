@@ -29,7 +29,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The time the deposit was created
         /// </summary>
-        [JsonConverter(typeof(TimestampSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>

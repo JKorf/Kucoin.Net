@@ -60,7 +60,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter)), JsonProperty("time")]
+        [JsonConverter(typeof(DateTimeConverter)), JsonProperty("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The average trade price in the last 24 hours

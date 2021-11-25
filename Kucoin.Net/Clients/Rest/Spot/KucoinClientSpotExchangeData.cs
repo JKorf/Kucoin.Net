@@ -27,7 +27,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
             var result = await _baseClient.Execute<long>(_baseClient.GetUri("timestamp"), HttpMethod.Get, ct).ConfigureAwait(false);
-            return result.As<DateTime>(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new TimestampConverter()) : default);
+            return result.As<DateTime>(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new DateTimeConverter()) : default);
         }
 
         /// <inheritdoc />
@@ -108,8 +108,8 @@ namespace Kucoin.Net.Clients.Rest.Spot
                 { "symbol", symbol },
                 { "type", JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false)) }
             };
-            parameters.AddOptionalParameter("startAt", startTime == null ? null : JsonConvert.SerializeObject(startTime, new TimestampSecondsConverter()));
-            parameters.AddOptionalParameter("endAt", endTime == null ? null : JsonConvert.SerializeObject(endTime, new TimestampSecondsConverter()));
+            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToSeconds(startTime));
+            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToSeconds(endTime));
 
             return await _baseClient.Execute<IEnumerable<KucoinKline>>(_baseClient.GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }

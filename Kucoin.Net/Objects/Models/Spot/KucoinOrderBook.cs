@@ -19,7 +19,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("time"), JsonConverter(typeof(TimestampNanoSecondsConverter))]        
+        [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]        
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The list of asks
@@ -46,9 +46,9 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("time"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         private DateTime TimestampNS
         {
             set => Timestamp = value;

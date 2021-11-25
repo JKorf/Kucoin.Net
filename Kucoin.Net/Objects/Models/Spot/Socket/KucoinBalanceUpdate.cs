@@ -45,7 +45,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The timestamp of the update
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The id of the changed account

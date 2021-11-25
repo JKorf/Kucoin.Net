@@ -33,7 +33,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The timestamp of the trade
         /// </summary>
-        [JsonConverter(typeof(TimestampNanoSecondsConverter)), JsonProperty("time")]
+        [JsonConverter(typeof(DateTimeConverter)), JsonProperty("time")]
         public DateTime Timestamp { get; set; }
 
         decimal ICommonRecentTrade.CommonPrice => Price;

@@ -46,13 +46,13 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Opening time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("openingTimestamp")]
         public DateTime OpenTime { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("currentTimestamp")]
         public DateTime CurrentTime { get; set; }
         /// <summary>

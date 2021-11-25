@@ -172,8 +172,8 @@ namespace Kucoin.Net.Clients.Rest.Futures
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("symbol", symbol);
             parameters.AddParameter("granularity", JsonConvert.SerializeObject(interval, new FuturesKlineIntervalConverter(false)));
-            parameters.AddOptionalParameter("from", startTime == null ? null : JsonConvert.SerializeObject(startTime, new TimestampConverter()));
-            parameters.AddOptionalParameter("to", endTime == null ? null : JsonConvert.SerializeObject(endTime, new TimestampConverter()));
+            parameters.AddOptionalParameter("from",  DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("to",  DateTimeConverter.ConvertToMilliseconds(endTime));
             return await _baseClient.Execute<IEnumerable<KucoinFuturesKline>>(_baseClient.GetUri("kline/query"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 

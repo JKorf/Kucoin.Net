@@ -22,7 +22,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("time"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Creation time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createdAt")]
         public DateTime CreateTime { get; set; }
     }

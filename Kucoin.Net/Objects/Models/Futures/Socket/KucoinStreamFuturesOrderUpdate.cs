@@ -84,7 +84,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Order timestamp
         /// </summary>
-        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderTime { get; set; }
         /// <summary>
         /// Quantity before the update
@@ -98,7 +98,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

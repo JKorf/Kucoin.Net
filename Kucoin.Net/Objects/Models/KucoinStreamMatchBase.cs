@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Gets time of the trade match
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
     }

@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CancelAfter { get; set; }
         /// <summary>
         /// The source of the order
@@ -112,7 +112,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
-        [JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderTime { get; set; }
         /// <summary>
         /// Domain id
@@ -133,7 +133,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Time stop order was triggered
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? StopTriggerTime { get; set; }
     }
 }
