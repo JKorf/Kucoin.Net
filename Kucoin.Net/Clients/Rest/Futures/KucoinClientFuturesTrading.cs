@@ -13,6 +13,7 @@ using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
+using CryptoExchange.Net.Converters;
 
 namespace Kucoin.Net.Clients.Rest.Futures
 {
@@ -107,8 +108,8 @@ namespace Kucoin.Net.Clients.Rest.Futures
             parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new OrderStatusConverter(false)));
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("type", type == null ? null : JsonConvert.SerializeObject(type, new OrderTypeConverter(false)));
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinBaseClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinBaseClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             return await _baseClient.Execute<KucoinPaginated<KucoinFuturesOrder>>(_baseClient.GetUri("orders"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
@@ -122,8 +123,8 @@ namespace Kucoin.Net.Clients.Rest.Futures
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("type", type == null ? null : JsonConvert.SerializeObject(type, new OrderTypeConverter(false)));
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinBaseClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinBaseClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             return await _baseClient.Execute<KucoinPaginated<KucoinFuturesOrder>>(_baseClient.GetUri("stopOrders"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
@@ -160,8 +161,8 @@ namespace Kucoin.Net.Clients.Rest.Futures
             parameters.AddOptionalParameter("orderId", orderId);
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("type", type == null ? null : JsonConvert.SerializeObject(type, new OrderTypeConverter(false)));
-            parameters.AddOptionalParameter("startAt", startTime != null ? KucoinBaseClient.ToUnixTimestamp(startTime.Value).ToString(CultureInfo.InvariantCulture) : null);
-            parameters.AddOptionalParameter("endAt", endTime != null ? KucoinBaseClient.ToUnixTimestamp(endTime.Value).ToString(CultureInfo.InvariantCulture) : null);
+            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             return await _baseClient.Execute<KucoinPaginated<KucoinFuturesUserTrade>>(_baseClient.GetUri("fills"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
