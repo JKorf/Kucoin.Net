@@ -1,41 +1,45 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
+using Kucoin.Net.Clients.Rest.Futures;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.Rest.Futures;
+using Kucoin.Net.Interfaces.Clients.Rest.Spot;
+using Kucoin.Net.Objects;
+using Kucoin.Net.Objects.Internal;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Internal;
 
-namespace Kucoin.Net.Clients.Rest
+namespace Kucoin.Net.Clients.Rest.Spot
 {
-    public abstract class KucoinBaseClient: RestClient
+    public class KucoinClient : RestClient, IKucoinClient
     {
-        /// <summary>
-        /// Event triggered when an order is placed via this client. Only available for Spot orders
-        /// </summary>
-        public event Action<ICommonOrderId>? OnOrderPlaced;
-        /// <summary>
-        /// Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
-        /// </summary>
-        public event Action<ICommonOrderId>? OnOrderCanceled;
+        public IKucoinClientSpotMarket SpotMarket { get; }
+        public IKucoinClientFuturesMarket FuturesMarket { get; }
 
-        internal KucoinBaseClient(string name, RestClientOptions options, KucoinAuthenticationProvider? authProvider): base(name, options, authProvider)
+        public KucoinClient() : this(KucoinClientOptions.Default)
         {
 
         }
 
-        internal void InvokeOrderPlaced(ICommonOrderId id)
+        public KucoinClient(KucoinClientOptions options) : base("Kucoin", options)
         {
-            OnOrderPlaced?.Invoke(id);
+            SpotMarket = new KucoinClientSpotMarket(this, options);
+            FuturesMarket = new KucoinClientFuturesMarket(this, options);
         }
 
-        internal void InvokeOrderCanceled(ICommonOrderId id)
+        /// <summary>
+        /// Set the default options to be used when creating new clients
+        /// </summary>
+        /// <param name="options"></param>
+        public static void SetDefaultOptions(KucoinClientOptions options)
         {
-            OnOrderCanceled?.Invoke(id);
+            KucoinClientOptions.Default = options;
         }
 
         /// <inheritdoc />
@@ -59,9 +63,9 @@ namespace Kucoin.Net.Clients.Rest
             return new ServerError(error.ToString());
         }
 
-        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult> Execute(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<object>>(subClient, uri, method, ct, parameters, signed).ConfigureAwait(false);
             if (!result)
                 return WebCallResult.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -71,9 +75,9 @@ namespace Kucoin.Net.Clients.Rest
             return new WebCallResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
+        internal async Task<WebCallResult<T>> Execute<T>(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, requestWeight: weight).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<T>>(subClient, uri, method, ct, parameters, signed, requestWeight: weight).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -81,11 +85,6 @@ namespace Kucoin.Net.Clients.Rest
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As<T>(result.Data.Data);
-        }
-
-        internal Uri GetUri(string path, int apiVersion = 1)
-        {
-            return new Uri(ClientOptions.BaseAddress.AppendPath("v" + apiVersion, path));
         }
     }
 }

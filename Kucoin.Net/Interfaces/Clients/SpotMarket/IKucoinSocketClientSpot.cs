@@ -16,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public interface IKucoinSocketClientSpot : ISocketClient
+    public interface IKucoinSocketClientSpotMarket
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

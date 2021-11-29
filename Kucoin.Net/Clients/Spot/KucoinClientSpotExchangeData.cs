@@ -17,8 +17,8 @@ namespace Kucoin.Net.Clients.Rest.Spot
 {
     public class KucoinClientSpotExchangeData : IKucoinClientSpotExchangeData
     {
-        private readonly KucoinClientSpot _baseClient;
-        internal KucoinClientSpotExchangeData(KucoinClientSpot baseClient)
+        private readonly KucoinClientSpotMarket _baseClient;
+        internal KucoinClientSpotExchangeData(KucoinClientSpotMarket baseClient)
         {
             _baseClient = baseClient;
         }

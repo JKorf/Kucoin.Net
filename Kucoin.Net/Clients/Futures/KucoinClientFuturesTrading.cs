@@ -14,14 +14,15 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using CryptoExchange.Net.Converters;
+using Kucoin.Net.Clients.Rest.Spot;
 
 namespace Kucoin.Net.Clients.Rest.Futures
 {
     public class KucoinClientFuturesTrading: IKucoinClientFuturesTrading
     {
-        private readonly KucoinClientFutures _baseClient;
+        private readonly KucoinClientFuturesMarket _baseClient;
 
-        internal KucoinClientFuturesTrading(KucoinClientFutures baseClient)
+        internal KucoinClientFuturesTrading(KucoinClientFuturesMarket baseClient)
         {
             _baseClient = baseClient;
         }

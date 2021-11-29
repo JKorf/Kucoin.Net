@@ -125,7 +125,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public void CheckSocketInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpot));
+            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotMarket));
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinSocketClientSpot"));
 
             foreach (var clientInterface in clientInterfaces)

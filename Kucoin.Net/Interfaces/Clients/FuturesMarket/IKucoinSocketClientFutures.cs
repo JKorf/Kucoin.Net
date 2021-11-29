@@ -14,7 +14,7 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
     /// <summary>
     /// Futures subscriptions
     /// </summary>
-    public interface IKucoinSocketClientFutures: ISocketClient
+    public interface IKucoinSocketClientFuturesMarket
     {
         /// <summary>
         /// Subscribe to trade updates
