@@ -1,11 +1,12 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using System;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
 {
     /// <summary>
     /// Client for accessing the Kucoin Spot API. 
     /// </summary>
-    public interface IKucoinClientSpotMarket
+    public interface IKucoinClientSpotMarket: IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

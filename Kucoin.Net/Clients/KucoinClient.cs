@@ -86,5 +86,12 @@ namespace Kucoin.Net.Clients.Rest.Spot
 
             return result.As<T>(result.Data.Data);
         }
+
+        public override void Dispose()
+        {
+            SpotMarket.Dispose();
+            FuturesMarket.Dispose();
+            base.Dispose();
+        }
     }
 }

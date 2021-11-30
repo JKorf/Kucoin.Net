@@ -1,11 +1,12 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using System;
 
 namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
 {
     /// <summary>
     /// Client for accessing the Kucoin Futures API. 
     /// </summary>
-    public interface IKucoinClientFuturesMarket
+    public interface IKucoinClientFuturesMarket : IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

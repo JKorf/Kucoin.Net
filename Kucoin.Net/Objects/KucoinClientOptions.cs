@@ -83,7 +83,7 @@ namespace Kucoin.Net.Objects
         }
     }
 
-    public class KucoinSocketSubClientOptions : SocketSubClientOptions
+    public class KucoinSocketSubClientOptions : SubClientOptions
     {
         /// <summary>
         /// The api credentials

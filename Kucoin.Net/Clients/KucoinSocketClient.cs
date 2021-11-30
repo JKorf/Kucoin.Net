@@ -378,5 +378,12 @@ namespace Kucoin.Net.Clients.Socket
             => Deserialize<T>(data, serializer, requestId);
 
         internal int NextIdInternal() => NextId();
+
+        public override void Dispose()
+        {
+            SpotMarket.Dispose();
+            FuturesMarket.Dispose();
+            base.Dispose();
+        }
     }
 }
