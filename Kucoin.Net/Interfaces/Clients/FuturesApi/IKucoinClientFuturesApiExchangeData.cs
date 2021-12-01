@@ -7,12 +7,12 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
+namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// Kucoin Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IKucoinClientFuturesExchangeData
+    public interface IKucoinClientFuturesApiExchangeData
     {
         /// <summary>
         /// Get open contract list

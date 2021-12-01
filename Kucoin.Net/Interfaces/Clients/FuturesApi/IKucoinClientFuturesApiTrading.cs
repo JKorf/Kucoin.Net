@@ -8,12 +8,12 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Futures
+namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// Kucoin Futures trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IKucoinClientFuturesTrading
+    public interface IKucoinClientFuturesApiTrading
     {
         /// <summary>
         /// Place a new order

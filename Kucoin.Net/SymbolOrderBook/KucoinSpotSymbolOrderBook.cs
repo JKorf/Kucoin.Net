@@ -2,11 +2,8 @@
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Clients.Rest.Spot;
-using Kucoin.Net.Clients.Socket;
+using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces.Clients;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Interfaces.Clients.Socket;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 

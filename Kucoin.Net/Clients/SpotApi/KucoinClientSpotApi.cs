@@ -3,7 +3,7 @@ using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects;
 using System;
 using System.Collections.Generic;
@@ -12,9 +12,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.Rest.Spot
+namespace Kucoin.Net.Clients.SpotApi
 {
-    public class KucoinClientSpotMarket: RestApiClient, IExchangeClient, IKucoinClientSpotMarket
+    public class KucoinClientSpotApi : RestApiClient, IExchangeClient, IKucoinClientSpotApi
     {
         private readonly KucoinClient _baseClient;
 
@@ -27,20 +27,20 @@ namespace Kucoin.Net.Clients.Rest.Spot
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
-        public IKucoinClientSpotAccount Account { get; }
+        public IKucoinClientSpotApiAccount Account { get; }
 
-        public IKucoinClientSpotExchangeData ExchangeData { get; }
+        public IKucoinClientSpotApiExchangeData ExchangeData { get; }
 
-        public IKucoinClientSpotTrading Trading { get; }
+        public IKucoinClientSpotApiTrading Trading { get; }
 
-        internal KucoinClientSpotMarket(KucoinClient baseClient, KucoinClientOptions options)
+        internal KucoinClientSpotApi(KucoinClient baseClient, KucoinClientOptions options)
             : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
 
-            Account = new KucoinClientSpotAccount(this);
-            ExchangeData = new KucoinClientSpotExchangeData(this);
-            Trading = new KucoinClientSpotTrading(this);
+            Account = new KucoinClientSpotApiAccount(this);
+            ExchangeData = new KucoinClientSpotApiExchangeData(this);
+            Trading = new KucoinClientSpotApiTrading(this);
         }
 
         public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -67,11 +67,11 @@ namespace Kucoin.Net.Clients.Rest.Spot
         async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
         {
             var symbols = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            if(!symbols)
+            if (!symbols)
                 return new WebCallResult<ICommonTicker>(symbols.ResponseStatusCode, symbols.ResponseHeaders, null, symbols.Error);
 
             var ticker = symbols.Data.Data.SingleOrDefault(s => s.Symbol == symbol);
-            if(ticker == null)
+            if (ticker == null)
                 return new WebCallResult<ICommonTicker>(symbols.ResponseStatusCode, symbols.ResponseHeaders, null, new ArgumentError("Symbol not found"));
 
             return symbols.As<ICommonTicker>(ticker);
@@ -185,7 +185,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
 
         internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
          => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed);
-    
+
         internal Uri GetUri(string path, int apiVersion = 1)
         {
             return new Uri(BaseAddress.AppendPath("v" + apiVersion, path));

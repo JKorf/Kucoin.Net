@@ -8,32 +8,29 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using Kucoin.Net.Converters;
-using CryptoExchange.Net.Interfaces;
 using Kucoin.Net.Enums;
 using System.Threading;
-using Kucoin.Net.Clients.Rest.Spot;
-using Kucoin.Net.Interfaces.Clients.Socket;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Authentication;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 
-namespace Kucoin.Net.Clients.Socket
+namespace Kucoin.Net.Clients.SpotApi
 {
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public class KucoinSocketClientSpotMarket: SocketApiClient, IKucoinSocketClientSpotMarket
+    public class KucoinSocketClientSpotStreams : SocketApiClient, IKucoinSocketClientSpotStreams
     {
         private KucoinSocketClient _baseClient;
         private Log _log;
 
-        public KucoinSocketClientSpotMarket(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
+        public KucoinSocketClientSpotStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(options, options.SpotStreamsOptions)
         {
             _baseClient = baseClient;
@@ -94,9 +91,10 @@ namespace Kucoin.Net.Clients.Socket
         public async Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(
             IEnumerable<string> symbolOrMarkets, Action<DataEvent<KucoinStreamSnapshot>> onData, CancellationToken ct = default)
         {
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var data = _baseClient.GetData<KucoinStreamSnapshotWrapper>(tokenData)?.Data;
-                if(data == null)
+                if (data == null)
                 {
                     _log.Write(LogLevel.Warning, "Failed to process snapshot update");
                     return;
@@ -119,7 +117,8 @@ namespace Kucoin.Net.Clients.Socket
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var data = _baseClient.GetData<KucoinStreamOrderBook>(tokenData);
                 KucoinSocketClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
@@ -133,7 +132,8 @@ namespace Kucoin.Net.Clients.Socket
         {
             symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 KucoinSocketClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamMatch>(tokenData), symbol), onData);
             });
 
@@ -147,7 +147,8 @@ namespace Kucoin.Net.Clients.Socket
         {
             symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 KucoinSocketClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamCandle>(tokenData), symbol), onData);
             });
 
@@ -167,7 +168,8 @@ namespace Kucoin.Net.Clients.Socket
                 symbol.ValidateKucoinSymbol();
             limit.ValidateIntValues(nameof(limit), 5, 50);
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var book = _baseClient.GetData<KucoinStreamOrderBookChanged>(tokenData);
                 KucoinSocketClient.InvokeHandler(tokenData.As(book, _baseClient.TryGetSymbolFromTopic(tokenData)), onData);
             });
@@ -185,7 +187,8 @@ namespace Kucoin.Net.Clients.Socket
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var data = _baseClient.GetData<KucoinStreamIndicatorPrice>(tokenData);
                 KucoinSocketClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
@@ -203,7 +206,8 @@ namespace Kucoin.Net.Clients.Socket
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var data = _baseClient.GetData<KucoinStreamIndicatorPrice>(tokenData);
                 KucoinSocketClient.InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
@@ -221,7 +225,8 @@ namespace Kucoin.Net.Clients.Socket
             foreach (var asset in assets)
                 asset.ValidateNotNull(asset);
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var data = _baseClient.GetData<KucoinStreamFundingBookUpdate>(tokenData);
                 KucoinSocketClient.InvokeHandler(tokenData.As(data, data.Asset), onData);
             });
@@ -241,7 +246,8 @@ namespace Kucoin.Net.Clients.Socket
             foreach (var symbol in symbols)
                 symbol.ValidateKucoinSymbol();
 
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 KucoinStreamMatchEngineUpdate? data;
                 var subject = tokenData.Data["subject"]?.ToString();
                 switch (subject)
@@ -266,7 +272,7 @@ namespace Kucoin.Net.Clients.Socket
                         return;
                 }
 
-                KucoinSocketClient.InvokeHandler(tokenData.As<KucoinStreamMatchEngineUpdate>(data, data.Symbol), onData!);
+                KucoinSocketClient.InvokeHandler(tokenData.As(data, data.Symbol), onData!);
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/level3:" + string.Join(",", symbols), false);
@@ -277,13 +283,14 @@ namespace Kucoin.Net.Clients.Socket
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<KucoinStreamOrderBaseUpdate>> onOrderData,
             Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData, CancellationToken ct = default)
         {
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                
-                if(tokenData.Data["data"] == null || tokenData.Data["data"]!["type"] == null)
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
+
+                if (tokenData.Data["data"] == null || tokenData.Data["data"]!["type"] == null)
                 {
                     _log.Write(LogLevel.Warning, "Order update without type value");
                     return;
-                }    
+                }
 
 
                 var type = tokenData.Data["data"]!["type"]!.ToString();
@@ -328,7 +335,8 @@ namespace Kucoin.Net.Clients.Socket
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData, CancellationToken ct = default)
         {
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
                 var data = _baseClient.GetData<KucoinStreamStopOrderUpdate>(tokenData);
                 KucoinSocketClient.InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });

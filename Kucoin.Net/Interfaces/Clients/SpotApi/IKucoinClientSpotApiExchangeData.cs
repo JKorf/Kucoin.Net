@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
+namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Kucoin Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IKucoinClientSpotExchangeData
+    public interface IKucoinClientSpotApiExchangeData
     {
         /// <summary>
         /// Gets the server time

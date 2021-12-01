@@ -3,7 +3,6 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,13 +11,14 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 
-namespace Kucoin.Net.Clients.Rest.Spot
+namespace Kucoin.Net.Clients.SpotApi
 {
-    public class KucoinClientSpotExchangeData : IKucoinClientSpotExchangeData
+    public class KucoinClientSpotApiExchangeData : IKucoinClientSpotApiExchangeData
     {
-        private readonly KucoinClientSpotMarket _baseClient;
-        internal KucoinClientSpotExchangeData(KucoinClientSpotMarket baseClient)
+        private readonly KucoinClientSpotApi _baseClient;
+        internal KucoinClientSpotApiExchangeData(KucoinClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -27,7 +27,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
             var result = await _baseClient.Execute<long>(_baseClient.GetUri("timestamp"), HttpMethod.Get, ct).ConfigureAwait(false);
-            return result.As<DateTime>(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new DateTimeConverter()) : default);
+            return result.As(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new DateTimeConverter()) : default);
         }
 
         /// <inheritdoc />

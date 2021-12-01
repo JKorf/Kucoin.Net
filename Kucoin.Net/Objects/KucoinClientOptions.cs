@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Interfaces.Clients;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Interfaces.Clients.Socket;
 
 namespace Kucoin.Net.Objects
 {

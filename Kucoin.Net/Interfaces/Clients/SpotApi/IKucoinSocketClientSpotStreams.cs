@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
@@ -10,13 +9,13 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 
-namespace Kucoin.Net.Interfaces.Clients.Socket
+namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
 
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public interface IKucoinSocketClientSpotMarket: IDisposable
+    public interface IKucoinSocketClientSpotStreams : IDisposable
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

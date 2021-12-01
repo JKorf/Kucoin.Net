@@ -1,12 +1,10 @@
-﻿using Kucoin.Net.Interfaces;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
-using Kucoin.Net.Objects;
+﻿using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
+using Kucoin.Net.Interfaces.Clients;
 
 namespace Kucoin.Net.UnitTests
 {

@@ -2,19 +2,18 @@
 using CryptoExchange.Net.Sockets;
 using System;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using System.Threading;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 
-namespace Kucoin.Net.Interfaces.Clients.Socket
+namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// Futures subscriptions
     /// </summary>
-    public interface IKucoinSocketClientFuturesMarket: IDisposable
+    public interface IKucoinSocketClientFuturesStreams : IDisposable
     {
         /// <summary>
         /// Subscribe to trade updates
@@ -63,7 +62,7 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToMarketUpdatesAsync(string symbol,
             Action<DataEvent<KucoinStreamFuturesMarkIndexPrice>> onMarkIndexPriceUpdate,
-            Action<DataEvent<KucoinStreamFuturesFundingRate>> onFundingRateUpdate, 
+            Action<DataEvent<KucoinStreamFuturesFundingRate>> onFundingRateUpdate,
             CancellationToken ct = default);
 
         /// <summary>
@@ -94,7 +93,7 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
         Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
             Action<DataEvent<KucoinStreamOrderMarginUpdate>> onOrderMarginUpdate,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> onBalanceUpdate,
-            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate, 
+            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate,
             CancellationToken ct = default);
 
         /// <summary>
@@ -114,7 +113,7 @@ namespace Kucoin.Net.Interfaces.Clients.Socket
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol,
-            Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData, 
+            Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData,
             CancellationToken ct = default);
 
         /// <summary>

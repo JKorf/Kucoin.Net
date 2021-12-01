@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
+namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Kucoin Spot trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IKucoinClientSpotTrading
+    public interface IKucoinClientSpotApiTrading
     {
         /// <summary>
         /// Places an order

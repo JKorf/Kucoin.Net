@@ -1,26 +1,25 @@
-﻿using CryptoExchange.Net.Interfaces;
-using System;
+﻿using System;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
+namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Client for accessing the Kucoin Spot API. 
     /// </summary>
-    public interface IKucoinClientSpotMarket: IDisposable
+    public interface IKucoinClientSpotApi : IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        IKucoinClientSpotAccount Account { get; }
+        IKucoinClientSpotApiAccount Account { get; }
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
-        IKucoinClientSpotExchangeData ExchangeData { get; }
+        IKucoinClientSpotApiExchangeData ExchangeData { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
-        IKucoinClientSpotTrading Trading { get; }
+        IKucoinClientSpotApiTrading Trading { get; }
     }
 }

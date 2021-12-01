@@ -10,38 +10,34 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Kucoin.Net.Converters;
 using CryptoExchange.Net.Interfaces;
-using Kucoin.Net.Enums;
 using System.Threading;
-using Kucoin.Net.Clients.Rest.Spot;
-using Kucoin.Net.Interfaces.Clients.Socket;
 using Kucoin.Net.Objects.Internal;
-using Kucoin.Net.Objects.Models;
-using Kucoin.Net.Objects.Models.Futures.Socket;
-using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Interfaces.Clients;
-using Kucoin.Net.Clients.Rest.Futures;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
+using Kucoin.Net.Clients.SpotApi;
+using Kucoin.Net.Clients.FuturesApi;
 
-namespace Kucoin.Net.Clients.Socket
+namespace Kucoin.Net.Clients
 {
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public class KucoinSocketClient: BaseSocketClient, IKucoinSocketClient
+    public class KucoinSocketClient : BaseSocketClient, IKucoinSocketClient
     {
         #region Api clients
 
-        public IKucoinSocketClientSpotMarket SpotStreams { get; }
-        public IKucoinSocketClientFuturesMarket FuturesStreams { get; }
+        public IKucoinSocketClientSpotStreams SpotStreams { get; }
+        public IKucoinSocketClientFuturesStreams FuturesStreams { get; }
 
         #endregion
 
-        public KucoinSocketClient(): this(KucoinSocketClientOptions.Default)
+        public KucoinSocketClient() : this(KucoinSocketClientOptions.Default)
         {
         }
 
-        public KucoinSocketClient(KucoinSocketClientOptions options): base("Kucoin", options)
+        public KucoinSocketClient(KucoinSocketClientOptions options) : base("Kucoin", options)
         {
             MaxSocketConnections = 10;
 
@@ -54,8 +50,8 @@ namespace Kucoin.Net.Clients.Socket
             AddGenericHandler("Ping", (messageEvent) => { });
             AddGenericHandler("Welcome", (messageEvent) => { });
 
-            SpotStreams = new KucoinSocketClientSpotMarket(log, this, options);
-            FuturesStreams = new KucoinSocketClientFuturesMarket(log, this, options);
+            SpotStreams = new KucoinSocketClientSpotStreams(log, this, options);
+            FuturesStreams = new KucoinSocketClientFuturesStreams(log, this, options);
         }
 
         internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
@@ -86,7 +82,7 @@ namespace Kucoin.Net.Clients.Socket
                 {
                     var clientOptions = new KucoinClientOptions();
                     KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)apiClient.AuthenticationProvider?.Credentials;
-                    
+
                     // Create new socket
                     IWebsocket socket;
                     if (SocketFactory is WebsocketFactory)
@@ -102,7 +98,7 @@ namespace Kucoin.Net.Clients.Socket
                                         thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
                                 }
 
-                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
+                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
 
@@ -116,12 +112,12 @@ namespace Kucoin.Net.Clients.Socket
                                         thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
                                 }
 
-                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
+                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
 
                                 token = tokenResult.Data;
-                            }                            
+                            }
                         }
 
                         socket = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
@@ -187,12 +183,12 @@ namespace Kucoin.Net.Clients.Socket
         protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
             var socketResult = sockets.Where(s => s.Value.Tag == address
-                                                 && (s.Value.ApiClient.GetType() == apiClient.GetType())
+                                                 && s.Value.ApiClient.GetType() == apiClient.GetType()
                                                  && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget)))
+                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
@@ -257,14 +253,14 @@ namespace Kucoin.Net.Clients.Socket
             var subject = message["subject"]?.ToString();
             if (topic != null)
             {
-                if ((kRequest.Topic.StartsWith("/market/ticker:") && subject != null && subject == "trade.ticker")
-                || (kRequest.Topic.StartsWith("/market/level2:") && topic.StartsWith("/market/level2"))
-                || (kRequest.Topic.StartsWith("/spotMarket/level3:") && topic.StartsWith("/spotMarket/level3"))
-                || (kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && topic.StartsWith("/spotMarket/level2Depth5"))
-                || (kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && topic.StartsWith("/spotMarket/level2Depth20"))
-                || (kRequest.Topic.StartsWith("/indicator/index:") && topic.StartsWith("/indicator/index"))
-                || (kRequest.Topic.StartsWith("/indicator/markPrice:") && topic.StartsWith("/indicator/markPrice"))
-                || (kRequest.Topic.StartsWith("/market/snapshot:") && topic.StartsWith("/market/snapshot")))
+                if (kRequest.Topic.StartsWith("/market/ticker:") && subject != null && subject == "trade.ticker"
+                || kRequest.Topic.StartsWith("/market/level2:") && topic.StartsWith("/market/level2")
+                || kRequest.Topic.StartsWith("/spotMarket/level3:") && topic.StartsWith("/spotMarket/level3")
+                || kRequest.Topic.StartsWith("/spotMarket/level2Depth5:") && topic.StartsWith("/spotMarket/level2Depth5")
+                || kRequest.Topic.StartsWith("/spotMarket/level2Depth20:") && topic.StartsWith("/spotMarket/level2Depth20")
+                || kRequest.Topic.StartsWith("/indicator/index:") && topic.StartsWith("/indicator/index")
+                || kRequest.Topic.StartsWith("/indicator/markPrice:") && topic.StartsWith("/indicator/markPrice")
+                || kRequest.Topic.StartsWith("/market/snapshot:") && topic.StartsWith("/market/snapshot"))
                 {
                     var marketSplit = topic.Split(':');
                     if (marketSplit.Length > 1)

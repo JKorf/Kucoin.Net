@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
+namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Kucoin Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
     /// </summary>
-    public interface IKucoinClientSpotAccount
+    public interface IKucoinClientSpotApiAccount
     {
         /// <summary>
         /// Gets a list of sub users

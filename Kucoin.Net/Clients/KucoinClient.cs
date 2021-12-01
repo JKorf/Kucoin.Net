@@ -1,26 +1,25 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Clients.Rest.Futures;
-using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
+using Kucoin.Net.Clients.FuturesApi;
+using Kucoin.Net.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Internal;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.Rest.Spot
+namespace Kucoin.Net.Clients
 {
     public class KucoinClient : BaseRestClient, IKucoinClient
     {
-        public IKucoinClientSpotMarket SpotApi { get; }
-        public IKucoinClientFuturesMarket FuturesApi { get; }
+        public IKucoinClientSpotApi SpotApi { get; }
+        public IKucoinClientFuturesApi FuturesApi { get; }
 
         public KucoinClient() : this(KucoinClientOptions.Default)
         {
@@ -29,8 +28,8 @@ namespace Kucoin.Net.Clients.Rest.Spot
 
         public KucoinClient(KucoinClientOptions options) : base("Kucoin", options)
         {
-            SpotApi = new KucoinClientSpotMarket(this, options);
-            FuturesApi = new KucoinClientFuturesMarket(this, options);
+            SpotApi = new KucoinClientSpotApi(this, options);
+            FuturesApi = new KucoinClientFuturesApi(this, options);
         }
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             if (result.Data.Code != 200000)
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
-            return result.As<T>(result.Data.Data);
+            return result.As(result.Data.Data);
         }
 
         public override void Dispose()

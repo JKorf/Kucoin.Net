@@ -10,18 +10,17 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
-using Kucoin.Net.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 
-namespace Kucoin.Net.Clients.Rest.Futures
+namespace Kucoin.Net.Clients.FuturesApi
 {
-    public class KucoinClientFuturesExchangeData: IKucoinClientFuturesExchangeData
+    public class KucoinClientFuturesApiExchangeData : IKucoinClientFuturesApiExchangeData
     {
-        private readonly KucoinClientFuturesMarket _baseClient;
+        private readonly KucoinClientFuturesApi _baseClient;
 
-        internal KucoinClientFuturesExchangeData(KucoinClientFuturesMarket baseClient)
+        internal KucoinClientFuturesApiExchangeData(KucoinClientFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -173,8 +172,8 @@ namespace Kucoin.Net.Clients.Rest.Futures
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("symbol", symbol);
             parameters.AddParameter("granularity", JsonConvert.SerializeObject(interval, new FuturesKlineIntervalConverter(false)));
-            parameters.AddOptionalParameter("from",  DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("to",  DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("from", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToMilliseconds(endTime));
             return await _baseClient.Execute<IEnumerable<KucoinFuturesKline>>(_baseClient.GetUri("kline/query"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 

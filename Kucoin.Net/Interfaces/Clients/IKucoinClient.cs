@@ -1,14 +1,15 @@
 ﻿using CryptoExchange.Net.Interfaces;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 
-namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
+namespace Kucoin.Net.Interfaces.Clients
 {
     /// <summary>
     /// Client for accessing the Kucoin Spot API. 
     /// </summary>
     public interface IKucoinClient : IRestClient
     {
-        IKucoinClientSpotMarket SpotApi { get; }
-        IKucoinClientFuturesMarket FuturesApi { get; }
+        IKucoinClientSpotApi SpotApi { get; }
+        IKucoinClientFuturesApi FuturesApi { get; }
     }
 }

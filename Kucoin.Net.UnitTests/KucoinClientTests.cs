@@ -1,19 +1,17 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
-using CryptoExchange.Net;
 using System.Threading.Tasks;
-using Kucoin.Net.Clients.Rest.Spot;
 using System.Diagnostics;
-using Kucoin.Net.Clients.Socket;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Clients;
+using Kucoin.Net.Clients.SpotApi;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -125,7 +123,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public void CheckSocketInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotMarket));
+            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotStreams));
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinSocketClientSpot"));
 
             foreach (var clientInterface in clientInterfaces)

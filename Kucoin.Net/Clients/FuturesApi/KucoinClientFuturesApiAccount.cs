@@ -9,21 +9,20 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 
-namespace Kucoin.Net.Clients.Rest.Futures
+namespace Kucoin.Net.Clients.FuturesApi
 {
-    public class KucoinClientFuturesAccount: IKucoinClientFuturesAccount
+    public class KucoinClientFuturesApiAccount : IKucoinClientFuturesApiAccount
     {
-        private readonly KucoinClientFuturesMarket _baseClient;
+        private readonly KucoinClientFuturesApi _baseClient;
 
-        internal KucoinClientFuturesAccount(KucoinClientFuturesMarket baseClient)
+        internal KucoinClientFuturesApiAccount(KucoinClientFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }

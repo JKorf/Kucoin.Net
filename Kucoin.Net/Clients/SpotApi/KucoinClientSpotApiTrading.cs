@@ -3,7 +3,6 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,13 +12,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 
-namespace Kucoin.Net.Clients.Rest.Spot
+namespace Kucoin.Net.Clients.SpotApi
 {
-    public class KucoinClientSpotTrading: IKucoinClientSpotTrading
+    public class KucoinClientSpotApiTrading : IKucoinClientSpotApiTrading
     {
-        private readonly KucoinClientSpotMarket _baseClient;
-        internal KucoinClientSpotTrading(KucoinClientSpotMarket baseClient)
+        private readonly KucoinClientSpotApi _baseClient;
+        internal KucoinClientSpotApiTrading(KucoinClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -344,7 +344,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
             OrderType? type = null, TradeType? tradeType = null, DateTime? startTime = null, DateTime? endTime = null, IEnumerable<string>? orderIds = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("status", activeOrders.HasValue ? (activeOrders == true ? "active" : "done") : null);
+            parameters.AddOptionalParameter("status", activeOrders.HasValue ? activeOrders == true ? "active" : "done" : null);
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);

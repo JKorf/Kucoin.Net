@@ -2,21 +2,17 @@
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Clients.Rest.Futures;
-using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.Rest.Futures;
-using Kucoin.Net.Interfaces.Clients.Rest.Spot;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.Rest.Spot
+namespace Kucoin.Net.Clients.FuturesApi
 {
-    public class KucoinClientFuturesMarket : RestApiClient, IKucoinClientFuturesMarket
+    public class KucoinClientFuturesApi : RestApiClient, IKucoinClientFuturesApi
     {
         private readonly KucoinClient _baseClient;
 
@@ -29,20 +25,20 @@ namespace Kucoin.Net.Clients.Rest.Spot
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
-        public IKucoinClientFuturesAccount Account { get; }
+        public IKucoinClientFuturesApiAccount Account { get; }
 
-        public IKucoinClientFuturesExchangeData ExchangeData { get; }
+        public IKucoinClientFuturesApiExchangeData ExchangeData { get; }
 
-        public IKucoinClientFuturesTrading Trading { get; }
+        public IKucoinClientFuturesApiTrading Trading { get; }
 
-        internal KucoinClientFuturesMarket(KucoinClient baseClient, KucoinClientOptions options)
+        internal KucoinClientFuturesApi(KucoinClient baseClient, KucoinClientOptions options)
             : base(options, options.FuturesApiOptions)
         {
             _baseClient = baseClient;
 
-            Account = new KucoinClientFuturesAccount(this);
-            ExchangeData = new KucoinClientFuturesExchangeData(this);
-            Trading = new KucoinClientFuturesTrading(this);
+            Account = new KucoinClientFuturesApiAccount(this);
+            ExchangeData = new KucoinClientFuturesApiExchangeData(this);
+            Trading = new KucoinClientFuturesApiTrading(this);
         }
 
         public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
