@@ -9,50 +9,38 @@ using Kucoin.Net.Interfaces.Clients.Socket;
 
 namespace Kucoin.Net.Objects
 {
-    public class KucoinRestSubClientOptions: RestSubClientOptions
-    {
-        /// <summary>
-        /// The api credentials
-        /// </summary>
-        public new KucoinApiCredentials? ApiCredentials { get; set; }
-
-        public new void Copy<T>(T input, T def) where T : KucoinRestSubClientOptions
-        {
-            base.Copy(input, def);
-
-            input.ApiCredentials = (KucoinApiCredentials?)def.ApiCredentials?.Copy();
-        }
-    }
-
     /// <summary>
     /// Options for the KucoinClient
     /// </summary>
-    public class KucoinClientOptions: RestClientOptions
+    public class KucoinClientOptions: BaseRestClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
-        public static KucoinClientOptions Default { get; set; } = new KucoinClientOptions()
+        public static KucoinClientOptions Default { get; set; } = new KucoinClientOptions();
+
+        private KucoinRestApiClientOptions _spotApiOptions = new KucoinRestApiClientOptions("https://api.kucoin.com/api/")
         {
-            OptionsSpot = new KucoinRestSubClientOptions
+            RateLimiters = new List<IRateLimiter>
             {
-                BaseAddress = "https://api.kucoin.com/api/",
-                RateLimiters = new List<IRateLimiter>
-                {
-                    new RateLimiter()
+                     new RateLimiter()
                         .AddPartialEndpointLimit("/api/v1/orders", 180, TimeSpan.FromSeconds(3), null, true, true)
                         .AddApiKeyLimit(200, TimeSpan.FromSeconds(10), true, true)
                         .AddTotalRateLimit(100, TimeSpan.FromSeconds(10))
-                }
-            },
-            OptionsFutures = new KucoinRestSubClientOptions
-            {
-                BaseAddress = "https://api-futures.kucoin.com/api/"
             }
         };
+        public KucoinRestApiClientOptions SpotApiOptions
+        {
+            get => _spotApiOptions;
+            set => _spotApiOptions.Copy(_spotApiOptions, value);
+        }
 
-        public KucoinRestSubClientOptions OptionsSpot { get; set; }
-        public KucoinRestSubClientOptions OptionsFutures { get; set; }
+        private KucoinRestApiClientOptions _futuresApiOptions = new KucoinRestApiClientOptions("https://api-futures.kucoin.com/api/");
+        public KucoinRestApiClientOptions FuturesApiOptions
+        {
+            get => _futuresApiOptions;
+            set => _futuresApiOptions.Copy(_futuresApiOptions, value);
+        }
 
         /// <summary>
         /// ctor
@@ -75,46 +63,36 @@ namespace Kucoin.Net.Objects
         {
             base.Copy(input, def);
 
-            input.OptionsSpot = new KucoinRestSubClientOptions();
-            def.OptionsSpot.Copy(input.OptionsSpot, def.OptionsSpot);
-
-            input.OptionsFutures = new KucoinRestSubClientOptions();
-            def.OptionsFutures.Copy(input.OptionsFutures, def.OptionsFutures);
-        }
-    }
-
-    public class KucoinSocketSubClientOptions : SubClientOptions
-    {
-        /// <summary>
-        /// The api credentials
-        /// </summary>
-        public new KucoinApiCredentials? ApiCredentials { get; set; }
-
-        public new void Copy<T>(T input, T def) where T : KucoinSocketSubClientOptions
-        {
-            base.Copy(input, def);
-
-            input.ApiCredentials = (KucoinApiCredentials?)def.ApiCredentials?.Copy();
+            input.SpotApiOptions = new KucoinRestApiClientOptions(def.SpotApiOptions);
+            input.FuturesApiOptions = new KucoinRestApiClientOptions(def.FuturesApiOptions);
         }
     }
 
     /// <summary>
     /// Options for the KucoinSocketClient
     /// </summary>
-    public class KucoinSocketClientOptions: SocketClientOptions
+    public class KucoinSocketClientOptions: BaseSocketClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
         public static KucoinSocketClientOptions Default { get; set; } = new KucoinSocketClientOptions() {
-            // Base address is requested from REST API
-            OptionsSpot = new KucoinSocketSubClientOptions { },
-            OptionsFutures = new KucoinSocketSubClientOptions { },
             SocketSubscriptionsCombineTarget = 10
         };
 
-        public KucoinSocketSubClientOptions OptionsSpot { get; set; }
-        public KucoinSocketSubClientOptions OptionsFutures { get; set; }
+        private KucoinSocketApiClientOptions _spotStreamsOptions = new KucoinSocketApiClientOptions();
+        public KucoinSocketApiClientOptions SpotStreamsOptions
+        {
+            get => _spotStreamsOptions;
+            set => _spotStreamsOptions.Copy(_spotStreamsOptions, value);
+        }
+
+        private KucoinSocketApiClientOptions _futuresStreamsOptions = new KucoinSocketApiClientOptions();
+        public KucoinSocketApiClientOptions FuturesStreamsOptions
+        {
+            get => _futuresStreamsOptions;
+            set => _futuresStreamsOptions.Copy(_futuresStreamsOptions, value);
+        }
 
         /// <summary>
         /// ctor
@@ -137,50 +115,56 @@ namespace Kucoin.Net.Objects
         {
             base.Copy(input, def);
 
-            input.OptionsSpot = new KucoinSocketSubClientOptions();
-            def.OptionsSpot.Copy(input.OptionsSpot, def.OptionsSpot);
-
-            input.OptionsFutures = new KucoinSocketSubClientOptions();
-            def.OptionsFutures.Copy(input.OptionsFutures, def.OptionsFutures);
+            input.SpotStreamsOptions = new KucoinSocketApiClientOptions(def.SpotStreamsOptions);
+            input.FuturesStreamsOptions = new KucoinSocketApiClientOptions(def.FuturesStreamsOptions);
         }
     }
 
-    /// <summary>
-    /// Options for the KucoinSocketClient
-    /// </summary>
-    public class KucoinSocketClientFuturesOptions : SocketClientOptions
+    public class KucoinRestApiClientOptions : RestApiClientOptions
     {
         /// <summary>
-        /// Default options for the futures client
-        /// </summary>
-        public static KucoinSocketClientFuturesOptions Default { get; set; } = new KucoinSocketClientFuturesOptions()
-        {
-            SocketSubscriptionsCombineTarget = 10
-        };
-
-        /// <summary>
-        /// The spot api credentials
+        /// The api credentials
         /// </summary>
         public new KucoinApiCredentials? ApiCredentials { get; set; }
 
-        /// <summary>
-        /// ctor
-        /// </summary>
-        public KucoinSocketClientFuturesOptions()
+        public KucoinRestApiClientOptions()
         {
-            if (Default == null)
-                return;
-
-            Copy(this, Default);
         }
 
+        public KucoinRestApiClientOptions(string baseAddress) : base(baseAddress)
+        {
+        }
+
+        public KucoinRestApiClientOptions(KucoinRestApiClientOptions baseOn): base(baseOn)
+        {
+            ApiCredentials = (KucoinApiCredentials?)baseOn.ApiCredentials?.Copy();
+        }
+
+        public new void Copy<T>(T input, T def) where T : KucoinRestApiClientOptions
+        {
+            base.Copy(input, def);
+
+            input.ApiCredentials = (KucoinApiCredentials?)def.ApiCredentials?.Copy();
+        }
+    }
+
+    public class KucoinSocketApiClientOptions : ApiClientOptions
+    {
         /// <summary>
-        /// Copy the values of the def to the input
+        /// The api credentials
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <param name="def"></param>
-        public new void Copy<T>(T input, T def) where T : KucoinSocketClientFuturesOptions
+        public new KucoinApiCredentials? ApiCredentials { get; set; }
+
+        public KucoinSocketApiClientOptions()
+        {
+        }
+
+        public KucoinSocketApiClientOptions(KucoinSocketApiClientOptions baseOn) : base(baseOn)
+        {
+            ApiCredentials = (KucoinApiCredentials?)baseOn.ApiCredentials?.Copy();
+        }
+
+        public new void Copy<T>(T input, T def) where T : KucoinSocketApiClientOptions
         {
             base.Copy(input, def);
 

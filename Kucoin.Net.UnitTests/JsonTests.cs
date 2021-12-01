@@ -13,16 +13,18 @@ namespace Kucoin.Net.UnitTests
     [TestFixture]
     public class JsonTests
     {
-        private JsonToObjectComparer<IKucoinClientSpot> _comparerSpot = new JsonToObjectComparer<IKucoinClientSpot>((json) => TestHelpers.CreateResponseClient(json, new KucoinClientSpotOptions()
-        { ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"),  OutputOriginalData = true, RateLimiters = new List<IRateLimiter>() }));
-
-        private JsonToObjectComparer<IKucoinClientFutures> _comparerFutures = new JsonToObjectComparer<IKucoinClientFutures>((json) => TestHelpers.CreateResponseClientFutures(json, new KucoinClientFuturesOptions()
-        { ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"), OutputOriginalData = true, RateLimiters = new List<IRateLimiter>() }));
+        private JsonToObjectComparer<IKucoinClient> _comparerSpot = new JsonToObjectComparer<IKucoinClient>((json) => TestHelpers.CreateResponseClient(json, new KucoinClientOptions()
+        {
+            ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"),
+            OutputOriginalData = true,
+            SpotApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>() },
+            FuturesApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>() }
+        }));
 
         [Test]
         public async Task ValidateSpotAccountCalls()
         {   
-            await _comparerSpot.ProcessSubject("Spot/Account", c => c.Account,
+            await _comparerSpot.ProcessSubject("Spot/Account", c => c.SpotApi.Account,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" } ,
                parametersToSetNull: new [] { "pageSize", "quoteQuantity" }
                 );
@@ -31,7 +33,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateSpotExchangeDataCalls()
         {
-            await _comparerSpot.ProcessSubject("Spot/ExchangeData", c => c.ExchangeData,
+            await _comparerSpot.ProcessSubject("Spot/ExchangeData", c => c.SpotApi.ExchangeData,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize", "quoteQuantity" }
                 );
@@ -40,7 +42,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateSpotTradingCalls()
         {
-            await _comparerSpot.ProcessSubject("Spot/Trading", c => c.Trading,
+            await _comparerSpot.ProcessSubject("Spot/Trading", c => c.SpotApi.Trading,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize", "quoteQuantity" }
                 );
@@ -49,7 +51,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateFuturesAccountCalls()
         {
-            await _comparerFutures.ProcessSubject("Futures/Account", c => c.Account,
+            await _comparerSpot.ProcessSubject("Futures/Account", c => c.FuturesApi.Account,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize", "quoteQuantity" },
                ignoreProperties: new Dictionary<string, List<string>> { 
@@ -61,7 +63,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateFuturesExchangeDataCalls()
         {
-            await _comparerFutures.ProcessSubject("Futures/ExchangeData", c => c.ExchangeData,
+            await _comparerSpot.ProcessSubject("Futures/ExchangeData", c => c.FuturesApi.ExchangeData,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize", "quoteQuantity" },
                ignoreProperties: new Dictionary<string, List<string>> {
@@ -74,7 +76,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateFuturesTradingCalls()
         {
-            await _comparerFutures.ProcessSubject("Futures/Trading", c => c.Trading,
+            await _comparerSpot.ProcessSubject("Futures/Trading", c => c.FuturesApi.Trading,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize", "quoteQuantity" },
                ignoreProperties: new Dictionary<string, List<string>> {

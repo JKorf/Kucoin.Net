@@ -20,23 +20,27 @@ using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using CryptoExchange.Net.Logging;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.Clients.Socket
 {
     /// <summary>
     /// Futures subscriptions
     /// </summary>
-    public class KucoinSocketClientFuturesMarket: SocketSubClient, IKucoinSocketClientFuturesMarket
+    public class KucoinSocketClientFuturesMarket: SocketApiClient, IKucoinSocketClientFuturesMarket
     {
         private KucoinSocketClient _baseClient;
         private Log _log;
 
         public KucoinSocketClientFuturesMarket(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
-            : base(options.OptionsFutures, options.OptionsFutures.ApiCredentials == null? null: new KucoinAuthenticationProvider(options.OptionsFutures.ApiCredentials))
+            : base(options, options.FuturesStreamsOptions)
         {
             _baseClient = baseClient;
             _log = log;
         }
+
+        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesMatch>> onData, CancellationToken ct = default)

@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Clients.Rest.Futures;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.Rest.Spot
 {
-    public class KucoinClientFuturesMarket : RestSubClient, IKucoinClientFuturesMarket
+    public class KucoinClientFuturesMarket : RestApiClient, IKucoinClientFuturesMarket
     {
         private readonly KucoinClient _baseClient;
 
@@ -35,7 +36,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
         public IKucoinClientFuturesTrading Trading { get; }
 
         internal KucoinClientFuturesMarket(KucoinClient baseClient, KucoinClientOptions options)
-            : base(options.OptionsFutures, options.OptionsFutures.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.OptionsFutures.ApiCredentials))
+            : base(options, options.FuturesApiOptions)
         {
             _baseClient = baseClient;
 
@@ -43,6 +44,9 @@ namespace Kucoin.Net.Clients.Rest.Spot
             ExchangeData = new KucoinClientFuturesExchangeData(this);
             Trading = new KucoinClientFuturesTrading(this);
         }
+
+        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         internal Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
          => _baseClient.Execute(this, uri, method, ct, parameters, signed);

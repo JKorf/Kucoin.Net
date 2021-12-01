@@ -21,23 +21,27 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using CryptoExchange.Net.Logging;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.Clients.Socket
 {
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public class KucoinSocketClientSpotMarket: SocketSubClient, IKucoinSocketClientSpotMarket
+    public class KucoinSocketClientSpotMarket: SocketApiClient, IKucoinSocketClientSpotMarket
     {
         private KucoinSocketClient _baseClient;
         private Log _log;
 
         public KucoinSocketClientSpotMarket(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
-            : base(options.OptionsSpot, options.OptionsSpot.ApiCredentials == null ? null : new KucoinAuthenticationProvider(options.OptionsSpot.ApiCredentials))
+            : base(options, options.SpotStreamsOptions)
         {
             _baseClient = baseClient;
             _log = log;
         }
+
+        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         #region public
         /// <inheritdoc />

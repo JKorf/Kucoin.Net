@@ -28,12 +28,12 @@ namespace Kucoin.Net.Clients.Socket
     /// <summary>
     /// Spot subscriptions
     /// </summary>
-    public class KucoinSocketClient: SocketClient, IKucoinSocketClient
+    public class KucoinSocketClient: BaseSocketClient, IKucoinSocketClient
     {
-        #region Subclients
+        #region Api clients
 
-        public IKucoinSocketClientSpotMarket SpotMarket { get; }
-        public IKucoinSocketClientFuturesMarket FuturesMarket { get; }
+        public IKucoinSocketClientSpotMarket SpotStreams { get; }
+        public IKucoinSocketClientFuturesMarket FuturesStreams { get; }
 
         #endregion
 
@@ -54,18 +54,18 @@ namespace Kucoin.Net.Clients.Socket
             AddGenericHandler("Ping", (messageEvent) => { });
             AddGenericHandler("Welcome", (messageEvent) => { });
 
-            SpotMarket = new KucoinSocketClientSpotMarket(log, this, options);
-            FuturesMarket = new KucoinSocketClientFuturesMarket(log, this, options);
+            SpotStreams = new KucoinSocketClientSpotMarket(log, this, options);
+            FuturesStreams = new KucoinSocketClientFuturesMarket(log, this, options);
         }
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketSubClient subClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
-            => SubscribeAsync(subClient, url, request, identifier, authenticated, dataHandler, ct);
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+            => SubscribeAsync(apiClient, url, request, identifier, authenticated, dataHandler, ct);
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketSubClient subClient, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
-            => SubscribeAsync(subClient, request, identifier, authenticated, dataHandler, ct);
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+            => SubscribeAsync(apiClient, request, identifier, authenticated, dataHandler, ct);
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> SubscribeAsync<T>(SocketSubClient subClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+        protected override async Task<CallResult<UpdateSubscription>> SubscribeAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
         {
             SocketConnection? socketConnection;
             SocketSubscription subscription;
@@ -81,18 +81,16 @@ namespace Kucoin.Net.Clients.Socket
 
             try
             {
-                socketConnection = GetSocketConnection(subClient, url, authenticated);
+                socketConnection = GetSocketConnection(apiClient, url, authenticated);
                 if (socketConnection == null)
                 {
                     var clientOptions = new KucoinClientOptions();
-                    KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)subClient.AuthenticationProvider?.Credentials;
+                    KucoinApiCredentials? thisCredentials = (KucoinApiCredentials?)apiClient.AuthenticationProvider?.Credentials;
                     
                     // Create new socket
                     IWebsocket socket;
                     if (SocketFactory is WebsocketFactory)
                     {
-                        // TODO check Spot/Futures
-
                         KucoinToken token;
                         using (var restClient = new KucoinClient(clientOptions))
                         {
@@ -100,11 +98,11 @@ namespace Kucoin.Net.Clients.Socket
                             {
                                 if (thisCredentials != null)
                                 {
-                                    clientOptions.OptionsFutures.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
+                                    clientOptions.FuturesApiOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
                                         thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
                                 }
 
-                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesAccount)restClient.FuturesMarket.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
+                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
 
@@ -114,11 +112,11 @@ namespace Kucoin.Net.Clients.Socket
                             {
                                 if (thisCredentials != null)
                                 {
-                                    clientOptions.OptionsSpot.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
+                                    clientOptions.SpotApiOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
                                         thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
                                 }
 
-                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotAccount)restClient.SpotMarket.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
+                                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
 
@@ -131,7 +129,7 @@ namespace Kucoin.Net.Clients.Socket
                     else
                         socket = CreateSocket("test");
 
-                    socketConnection = new SocketConnection(this, subClient, socket);
+                    socketConnection = new SocketConnection(this, apiClient, socket);
                     socketConnection.Tag = url;
                     foreach (var kvp in genericHandlers)
                         socketConnection.AddSubscription(SocketSubscription.CreateForIdentifier(NextId(), kvp.Key, false, kvp.Value));
@@ -186,10 +184,10 @@ namespace Kucoin.Net.Clients.Socket
         }
 
         /// <inheritdoc />
-        protected override SocketConnection GetSocketConnection(SocketSubClient subClient, string address, bool authenticated)
+        protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
             var socketResult = sockets.Where(s => s.Value.Tag == address
-                                                 && (s.Value.SubClient.GetType() == subClient.GetType())
+                                                 && (s.Value.ApiClient.GetType() == apiClient.GetType())
                                                  && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
@@ -381,8 +379,8 @@ namespace Kucoin.Net.Clients.Socket
 
         public override void Dispose()
         {
-            SpotMarket.Dispose();
-            FuturesMarket.Dispose();
+            SpotStreams.Dispose();
+            FuturesStreams.Dispose();
             base.Dispose();
         }
     }

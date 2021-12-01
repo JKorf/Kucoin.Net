@@ -17,10 +17,10 @@ using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.Rest.Spot
 {
-    public class KucoinClient : RestClient, IKucoinClient
+    public class KucoinClient : BaseRestClient, IKucoinClient
     {
-        public IKucoinClientSpotMarket SpotMarket { get; }
-        public IKucoinClientFuturesMarket FuturesMarket { get; }
+        public IKucoinClientSpotMarket SpotApi { get; }
+        public IKucoinClientFuturesMarket FuturesApi { get; }
 
         public KucoinClient() : this(KucoinClientOptions.Default)
         {
@@ -29,8 +29,8 @@ namespace Kucoin.Net.Clients.Rest.Spot
 
         public KucoinClient(KucoinClientOptions options) : base("Kucoin", options)
         {
-            SpotMarket = new KucoinClientSpotMarket(this, options);
-            FuturesMarket = new KucoinClientFuturesMarket(this, options);
+            SpotApi = new KucoinClientSpotMarket(this, options);
+            FuturesApi = new KucoinClientFuturesMarket(this, options);
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Kucoin.Net.Clients.Rest.Spot
             return new ServerError(error.ToString());
         }
 
-        internal async Task<WebCallResult> Execute(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult> Execute(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(subClient, uri, method, ct, parameters, signed).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<object>>(apiClient, uri, method, ct, parameters, signed).ConfigureAwait(false);
             if (!result)
                 return WebCallResult.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -75,9 +75,9 @@ namespace Kucoin.Net.Clients.Rest.Spot
             return new WebCallResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
+        internal async Task<WebCallResult<T>> Execute<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(subClient, uri, method, ct, parameters, signed, requestWeight: weight).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<T>>(apiClient, uri, method, ct, parameters, signed, requestWeight: weight).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -89,8 +89,8 @@ namespace Kucoin.Net.Clients.Rest.Spot
 
         public override void Dispose()
         {
-            SpotMarket.Dispose();
-            FuturesMarket.Dispose();
+            SpotApi.Dispose();
+            FuturesApi.Dispose();
             base.Dispose();
         }
     }

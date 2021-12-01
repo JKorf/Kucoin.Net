@@ -8,7 +8,7 @@ namespace Kucoin.Net.Interfaces.Clients.Rest.Spot
     /// </summary>
     public interface IKucoinClient : IRestClient
     {
-        IKucoinClientSpotMarket SpotMarket { get; }
-        IKucoinClientFuturesMarket FuturesMarket { get; }
+        IKucoinClientSpotMarket SpotApi { get; }
+        IKucoinClientFuturesMarket FuturesApi { get; }
     }
 }

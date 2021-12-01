@@ -8,7 +8,7 @@ namespace Kucoin.Net.Interfaces.Clients
 {
     public interface IKucoinSocketClient : ISocketClient
     {
-        IKucoinSocketClientSpotMarket SpotMarket { get; }
-        IKucoinSocketClientFuturesMarket FuturesMarket { get; }
+        IKucoinSocketClientSpotMarket SpotStreams { get; }
+        IKucoinSocketClientFuturesMarket FuturesStreams { get; }
     }
 }

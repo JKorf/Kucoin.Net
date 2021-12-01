@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.Rest.Spot
 {
-    public class KucoinClientSpotMarket: RestSubClient, IExchangeClient, IKucoinClientSpotMarket
+    public class KucoinClientSpotMarket: RestApiClient, IExchangeClient, IKucoinClientSpotMarket
     {
         private readonly KucoinClient _baseClient;
 
@@ -33,7 +34,7 @@ namespace Kucoin.Net.Clients.Rest.Spot
         public IKucoinClientSpotTrading Trading { get; }
 
         internal KucoinClientSpotMarket(KucoinClient baseClient, KucoinClientOptions options)
-            : base(options.OptionsSpot, options.OptionsSpot.ApiCredentials == null? null: new KucoinAuthenticationProvider(options.OptionsSpot.ApiCredentials))
+            : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
 
@@ -41,6 +42,9 @@ namespace Kucoin.Net.Clients.Rest.Spot
             ExchangeData = new KucoinClientSpotExchangeData(this);
             Trading = new KucoinClientSpotTrading(this);
         }
+
+        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         #region common interface
 
