@@ -11,7 +11,7 @@ using Kucoin.Net.Objects.Models.Spot.Socket;
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
-    /// Futures subscriptions
+    /// Futures streams
     /// </summary>
     public interface IKucoinSocketClientFuturesStreams : IDisposable
     {

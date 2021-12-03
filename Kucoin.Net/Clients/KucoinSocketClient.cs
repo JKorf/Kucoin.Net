@@ -21,22 +21,29 @@ using Kucoin.Net.Clients.FuturesApi;
 
 namespace Kucoin.Net.Clients
 {
-    /// <summary>
-    /// Spot subscriptions
-    /// </summary>
+    /// <inheritdoc cref="IKucoinSocketClient" />
     public class KucoinSocketClient : BaseSocketClient, IKucoinSocketClient
     {
         #region Api clients
 
+        /// <inheritdoc />
         public IKucoinSocketClientSpotStreams SpotStreams { get; }
+        /// <inheritdoc />
         public IKucoinSocketClientFuturesStreams FuturesStreams { get; }
 
         #endregion
 
+        /// <summary>
+        /// Create a new instance of KucoinSocketClient using the default options
+        /// </summary>
         public KucoinSocketClient() : this(KucoinSocketClientOptions.Default)
         {
         }
 
+        /// <summary>
+        /// Create a new instance of KucoinSocketClient using provided options
+        /// </summary>
+        /// <param name="options">The options to use for this client</param>
         public KucoinSocketClient(KucoinSocketClientOptions options) : base("Kucoin", options)
         {
             MaxSocketConnections = 10;
@@ -52,6 +59,15 @@ namespace Kucoin.Net.Clients
 
             SpotStreams = new KucoinSocketClientSpotStreams(log, this, options);
             FuturesStreams = new KucoinSocketClientFuturesStreams(log, this, options);
+        }
+
+        /// <summary>
+        /// Set the default options to be used when creating new clients
+        /// </summary>
+        /// <param name="options">Options to use as default</param>
+        public static void SetDefaultOptions(KucoinSocketClientOptions options)
+        {
+            KucoinSocketClientOptions.Default = options;
         }
 
         internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
@@ -237,7 +253,7 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        protected override bool MessageMatchesHandler(JToken message, object request)
+        protected override bool MessageMatchesHandler(SocketConnection socketConnection, JToken message, object request)
         {
             if (message["type"] == null || message["type"]?.ToString() != "message")
                 return false;
@@ -280,7 +296,7 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        protected override bool MessageMatchesHandler(JToken message, string identifier)
+        protected override bool MessageMatchesHandler(SocketConnection socketConnection, JToken message, string identifier)
         {
             if (message["type"] != null)
             {
@@ -373,6 +389,7 @@ namespace Kucoin.Net.Clients
 
         internal int NextIdInternal() => NextId();
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             SpotStreams.Dispose();

@@ -16,6 +16,7 @@ using Kucoin.Net.Interfaces.Clients.SpotApi;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
+    /// <inheritdoc />
     public class KucoinClientSpotApiAccount : IKucoinClientSpotApiAccount
     {
         private readonly KucoinClientSpotApi _baseClient;

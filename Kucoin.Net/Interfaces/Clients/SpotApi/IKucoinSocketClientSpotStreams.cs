@@ -13,7 +13,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
 
     /// <summary>
-    /// Spot subscriptions
+    /// Spot streams
     /// </summary>
     public interface IKucoinSocketClientSpotStreams : IDisposable
     {

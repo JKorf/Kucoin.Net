@@ -16,16 +16,26 @@ using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients
 {
+    /// <inheritdoc cref="IKucoinClient" />
     public class KucoinClient : BaseRestClient, IKucoinClient
     {
+        /// <inheritdoc />
         public IKucoinClientSpotApi SpotApi { get; }
+        /// <inheritdoc />
         public IKucoinClientFuturesApi FuturesApi { get; }
 
+        /// <summary>
+        /// Create a new instance of KucoinClient using the default options
+        /// </summary>
         public KucoinClient() : this(KucoinClientOptions.Default)
         {
 
         }
 
+        /// <summary>
+        /// Create a new instance of KucoinClient using provided options
+        /// </summary>
+        /// <param name="options">The options to use for this client</param>
         public KucoinClient(KucoinClientOptions options) : base("Kucoin", options)
         {
             SpotApi = new KucoinClientSpotApi(this, options);
@@ -35,7 +45,7 @@ namespace Kucoin.Net.Clients
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="options">Options to use as default</param>
         public static void SetDefaultOptions(KucoinClientOptions options)
         {
             KucoinClientOptions.Default = options;
@@ -86,6 +96,7 @@ namespace Kucoin.Net.Clients
             return result.As(result.Data.Data);
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             SpotApi.Dispose();

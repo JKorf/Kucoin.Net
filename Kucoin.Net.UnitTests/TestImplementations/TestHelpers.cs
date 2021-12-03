@@ -23,7 +23,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
     public class TestHelpers
     {
         [ExcludeFromCodeCoverage]
-        public static bool AreEqual(object? self, object? to, params string[] ignore)
+        public static bool AreEqual(object self, object to, params string[] ignore)
         {
             if (self == null && to == null)
                 return true;
@@ -105,7 +105,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return true;
         }
 
-        public static IKucoinClient CreateClient(KucoinClientOptions? options = null)
+        public static IKucoinClient CreateClient(KucoinClientOptions options = null)
         {
             IKucoinClient client;
             client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogLevel = LogLevel.Debug });
@@ -114,14 +114,14 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         }
 
 
-        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions? options = null)
+        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions options = null)
         {
             var client = (KucoinClient)CreateClient(options);
             SetResponse(client, response);
             return client;
         }
 
-        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions? options = null)
+        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions options = null)
         {
             var client = (KucoinClient)CreateClient(options);
             SetResponse(client, JsonConvert.SerializeObject(response));
@@ -149,7 +149,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
                 .Returns(request.Object);
         }
 
-        public static object? GetTestValue(Type type, int i)
+        public static object GetTestValue(Type type, int i)
         {
             if (type == typeof(bool))
                 return true;

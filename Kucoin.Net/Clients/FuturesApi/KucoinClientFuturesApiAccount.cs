@@ -18,6 +18,7 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
+    /// <inheritdoc />
     public class KucoinClientFuturesApiAccount : IKucoinClientFuturesApiAccount
     {
         private readonly KucoinClientFuturesApi _baseClient;
@@ -26,7 +27,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             _baseClient = baseClient;
         }
-
 
         #region Account
         /// <inheritdoc />
@@ -151,7 +151,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
         #endregion
 
-
         #region Positions
 
         /// <inheritdoc />
@@ -218,7 +217,5 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             return await _baseClient.Execute<KucoinToken>(_baseClient.GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
         }
-
-
     }
 }

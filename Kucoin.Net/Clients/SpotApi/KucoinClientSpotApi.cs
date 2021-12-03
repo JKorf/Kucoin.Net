@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
+    /// <inheritdoc cref="IKucoinClientSpotApi" />
     public class KucoinClientSpotApi : RestApiClient, IExchangeClient, IKucoinClientSpotApi
     {
         private readonly KucoinClient _baseClient;
@@ -27,10 +28,13 @@ namespace Kucoin.Net.Clients.SpotApi
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
+        /// <inheritdoc />
         public IKucoinClientSpotApiAccount Account { get; }
 
+        /// <inheritdoc />
         public IKucoinClientSpotApiExchangeData ExchangeData { get; }
 
+        /// <inheritdoc />
         public IKucoinClientSpotApiTrading Trading { get; }
 
         internal KucoinClientSpotApi(KucoinClient baseClient, KucoinClientOptions options)
@@ -43,7 +47,8 @@ namespace Kucoin.Net.Clients.SpotApi
             Trading = new KucoinClientSpotApiTrading(this);
         }
 
-        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        /// <inheritdoc />
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         #region common interface

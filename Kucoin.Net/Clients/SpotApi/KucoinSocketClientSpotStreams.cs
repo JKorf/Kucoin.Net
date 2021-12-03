@@ -22,22 +22,21 @@ using Kucoin.Net.Interfaces.Clients.SpotApi;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
-    /// <summary>
-    /// Spot subscriptions
-    /// </summary>
+    /// <inheritdoc cref="IKucoinSocketClientSpotStreams" />
     public class KucoinSocketClientSpotStreams : SocketApiClient, IKucoinSocketClientSpotStreams
     {
         private KucoinSocketClient _baseClient;
         private Log _log;
 
-        public KucoinSocketClientSpotStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
+        internal KucoinSocketClientSpotStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(options, options.SpotStreamsOptions)
         {
             _baseClient = baseClient;
             _log = log;
         }
 
-        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        /// <inheritdoc />
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         #region public

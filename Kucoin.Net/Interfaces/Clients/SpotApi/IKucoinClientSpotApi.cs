@@ -3,7 +3,7 @@
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
-    /// Client for accessing the Kucoin Spot API. 
+    /// Spot API endpoints
     /// </summary>
     public interface IKucoinClientSpotApi : IDisposable
     {

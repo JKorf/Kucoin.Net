@@ -20,22 +20,21 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
-    /// <summary>
-    /// Futures subscriptions
-    /// </summary>
+    /// <inheritdoc cref="IKucoinSocketClientFuturesStreams" />
     public class KucoinSocketClientFuturesStreams : SocketApiClient, IKucoinSocketClientFuturesStreams
     {
         private KucoinSocketClient _baseClient;
         private Log _log;
 
-        public KucoinSocketClientFuturesStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
+        internal KucoinSocketClientFuturesStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(options, options.FuturesStreamsOptions)
         {
             _baseClient = baseClient;
             _log = log;
         }
 
-        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        /// <inheritdoc />
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />

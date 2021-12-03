@@ -9,7 +9,13 @@ namespace Kucoin.Net.Interfaces.Clients
     /// </summary>
     public interface IKucoinClient : IRestClient
     {
+        /// <summary>
+        /// Spot API endpoints
+        /// </summary>
         IKucoinClientSpotApi SpotApi { get; }
+        /// <summary>
+        /// Futures API endpoints
+        /// </summary>
         IKucoinClientFuturesApi FuturesApi { get; }
     }
 }

@@ -12,23 +12,18 @@ using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
+    /// <inheritdoc cref="IKucoinClientFuturesApi" />
     public class KucoinClientFuturesApi : RestApiClient, IKucoinClientFuturesApi
     {
         private readonly KucoinClient _baseClient;
 
-        /// <summary>
-        /// Event triggered when an order is placed via this client. Only available for Spot orders
-        /// </summary>
-        public event Action<ICommonOrderId>? OnOrderPlaced;
-        /// <summary>
-        /// Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
-        /// </summary>
-        public event Action<ICommonOrderId>? OnOrderCanceled;
-
+        /// <inheritdoc />
         public IKucoinClientFuturesApiAccount Account { get; }
 
+        /// <inheritdoc />
         public IKucoinClientFuturesApiExchangeData ExchangeData { get; }
 
+        /// <inheritdoc />
         public IKucoinClientFuturesApiTrading Trading { get; }
 
         internal KucoinClientFuturesApi(KucoinClient baseClient, KucoinClientOptions options)
@@ -41,7 +36,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             Trading = new KucoinClientFuturesApiTrading(this);
         }
 
-        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        /// <inheritdoc />
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         internal Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)

@@ -16,6 +16,7 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
+    /// <inheritdoc />
     public class KucoinClientFuturesApiExchangeData : IKucoinClientFuturesApiExchangeData
     {
         private readonly KucoinClientFuturesApi _baseClient;
@@ -24,7 +25,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             _baseClient = baseClient;
         }
-
 
         #region Symbol
 
