@@ -135,11 +135,6 @@ namespace Kucoin.Net.Objects
     public class KucoinRestApiClientOptions : RestApiClientOptions
     {
         /// <summary>
-        /// The api credentials
-        /// </summary>
-        public new KucoinApiCredentials? ApiCredentials { get; set; }
-
-        /// <summary>
         /// ctor
         /// </summary>
         public KucoinRestApiClientOptions()
@@ -177,11 +172,6 @@ namespace Kucoin.Net.Objects
     /// </summary>
     public class KucoinSocketApiClientOptions : ApiClientOptions
     {
-        /// <summary>
-        /// The api credentials
-        /// </summary>
-        public new KucoinApiCredentials? ApiCredentials { get; set; }
-
         /// <summary>
         /// ctor
         /// </summary>

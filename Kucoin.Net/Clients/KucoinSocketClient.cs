@@ -104,30 +104,34 @@ namespace Kucoin.Net.Clients
                     if (SocketFactory is WebsocketFactory)
                     {
                         KucoinToken token;
-                        using (var restClient = new KucoinClient(clientOptions))
+                        
+                        if (url == "futures")
                         {
-                            if (url == "futures")
+                            if (thisCredentials != null)
                             {
-                                if (thisCredentials != null)
-                                {
-                                    clientOptions.FuturesApiOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
-                                        thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
-                                }
+                                clientOptions.FuturesApiOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
+                                    thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
+                            }
 
+                            using (var restClient = new KucoinClient(clientOptions))
+                            {
                                 WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
 
                                 token = tokenResult.Data;
                             }
-                            else
+                        }
+                        else
+                        {
+                            if (thisCredentials != null)
                             {
-                                if (thisCredentials != null)
-                                {
-                                    clientOptions.SpotApiOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
-                                        thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
-                                }
+                                clientOptions.SpotApiOptions.ApiCredentials = new KucoinApiCredentials(thisCredentials.Key!.GetString(),
+                                    thisCredentials.Secret!.GetString(), thisCredentials.PassPhrase.GetString());
+                            }
 
+                            using (var restClient = new KucoinClient(clientOptions))
+                            {
                                 WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
@@ -135,6 +139,7 @@ namespace Kucoin.Net.Clients
                                 token = tokenResult.Data;
                             }
                         }
+                        
 
                         socket = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
                     }
