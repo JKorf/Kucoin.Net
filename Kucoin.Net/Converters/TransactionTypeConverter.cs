@@ -10,7 +10,7 @@ namespace Kucoin.Net.Converters
         public TransactionTypeConverter(bool quotes) : base(quotes) { }
         protected override List<KeyValuePair<TransactionType, string>> Mapping => new List<KeyValuePair<TransactionType, string>>
         {
-            new KeyValuePair<TransactionType, string>(TransactionType.RealisedPnl, "RealisedPNL"),
+            new KeyValuePair<TransactionType, string>(TransactionType.RealizedPnl, "RealisedPNL"),
             new KeyValuePair<TransactionType, string>(TransactionType.Deposit, "Deposit"),
             new KeyValuePair<TransactionType, string>(TransactionType.Withdrawal, "Withdrawal"),
             new KeyValuePair<TransactionType, string>(TransactionType.TransferIn, "Transferin"),

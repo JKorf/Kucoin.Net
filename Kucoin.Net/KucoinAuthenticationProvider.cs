@@ -15,14 +15,15 @@ namespace Kucoin.Net
 {
     internal class KucoinAuthenticationProvider : AuthenticationProvider
     {
-        private readonly HMACSHA256 encryptor;
+        private readonly object _lock = new object(); 
+        private readonly HMACSHA256 _encryptor;
 
         public KucoinAuthenticationProvider(KucoinApiCredentials credentials): base(credentials)
         {
             if (credentials.Secret == null)
                 throw new ArgumentException("ApiKey/Secret needed");
 
-            encryptor = new HMACSHA256(Encoding.UTF8.GetBytes(credentials.Secret.GetString()));
+            _encryptor = new HMACSHA256(Encoding.UTF8.GetBytes(credentials.Secret.GetString()));
         }
 
         public override Dictionary<string, string> AddAuthenticationToHeaders(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization)
@@ -46,7 +47,8 @@ namespace Kucoin.Net
 
             uri = uri.Substring(uri.IndexOf(".com", StringComparison.InvariantCulture) + 4);
             var signData = result["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri) + jsonContent;
-            result["KC-API-SIGN"] = Convert.ToBase64String(encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData)));
+            lock(_lock)
+                result["KC-API-SIGN"] = Convert.ToBase64String(_encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData)));
             return result;
         }
     }

@@ -48,7 +48,7 @@ namespace Kucoin.Net.Clients
         {
             MaxSocketConnections = 10;
 
-            SendPeriodic(TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
+            SendPeriodic("Ping", TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
             {
                 Id = Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture),
                 Type = "ping"

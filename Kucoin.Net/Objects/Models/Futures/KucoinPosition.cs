@@ -70,17 +70,20 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonProperty("currentComm")]
         public decimal CurrentCommission { get; set; }
         /// <summary>
-        /// Unrealised value
+        /// Unrealized value
         /// </summary>
-        public decimal UnrealisedCost { get; set; }
+        [JsonProperty("unrealisedCost")]
+        public decimal UnrealizedCost { get; set; }
         /// <summary>
-        /// Accumulated realised gross profit value
+        /// Accumulated realized gross profit value
         /// </summary>
-        public decimal RealisedGrossCost { get; set; }
+        [JsonProperty("realisedGrossCost")]
+        public decimal RealizedGrossCost { get; set; }
         /// <summary>
-        /// Current realised position value
+        /// Current realized position value
         /// </summary>
-        public decimal RealisedCost { get; set; }
+        [JsonProperty("realisedCost")]
+        public decimal RealizedCost { get; set; }
         /// <summary>
         /// Is open
         /// </summary>
@@ -134,27 +137,30 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonProperty("maintMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
-        /// Accumulated realised gross profit value
+        /// Accumulated realized gross profit value
         /// </summary>
-        public decimal RealisedGrossPnl { get; set; }
+        [JsonProperty("realisedGrossPnl")]
+        public decimal RealizedGrossPnl { get; set; }
         /// <summary>
-        /// Realised profit and loss
+        /// realized profit and loss
         /// </summary>
-        public decimal RealisedPnl { get; set; }
+        [JsonProperty("realisedPnl")]
+        public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Unrealised profit and loss
+        /// Unrealized profit and loss
         /// </summary>
-        public decimal UnrealisedPnl { get; set; }
+        [JsonProperty("unrealisedPnl")]
+        public decimal UnrealizedPnl { get; set; }
         /// <summary>
         /// Profit-loss ratio of the position
         /// </summary>
         [JsonProperty("unrealisedPnlPcnt")]
-        public decimal UnrealisedPnlPercentage { get; set; }
+        public decimal UnrealizedPnlPercentage { get; set; }
         /// <summary>
         /// Rate of return on investment
         /// </summary>
         [JsonProperty("unrealisedRoePcnt")]
-        public decimal UnrealisedRoePercentage { get; set; }
+        public decimal UnrealizedRoePercentage { get; set; }
         /// <summary>
         /// Average entry price
         /// </summary>

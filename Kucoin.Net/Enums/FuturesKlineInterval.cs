@@ -38,9 +38,9 @@
         /// </summary>
         EightHours,
         /// <summary>
-        /// Twelf hours
+        /// Twelve hours
         /// </summary>
-        TwelfHours,
+        TwelveHours,
         /// <summary>
         /// One day
         /// </summary>

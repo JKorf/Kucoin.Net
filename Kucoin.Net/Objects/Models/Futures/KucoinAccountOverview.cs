@@ -8,13 +8,14 @@ namespace Kucoin.Net.Objects.Models.Futures
     public class KucoinAccountOverview
     {
         /// <summary>
-        /// Account equity = marginBalance + Unrealised PNL 
+        /// Account equity = marginBalance + Unrealized PNL 
         /// </summary>
         public decimal AccountEquity { get; set; }
         /// <summary>
-        /// Unrealised profit and loss
+        /// Unrealized profit and loss
         /// </summary>
-        public decimal UnrealisedPnl { get; set; }
+        [JsonProperty("unrealisedPNL")]
+        public decimal UnrealizedPnl { get; set; }
         /// <summary>
         /// Margin balance = positionMargin + orderMargin + frozenFunds + availableBalance
         /// </summary>

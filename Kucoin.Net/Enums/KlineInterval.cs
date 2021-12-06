@@ -48,7 +48,7 @@
         /// <summary>
         /// 12h
         /// </summary>
-        TwelfHours,
+        TwelveHours,
         /// <summary>
         /// 1d
         /// </summary>

@@ -167,7 +167,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (timeSpan == TimeSpan.FromHours(4)) return KlineInterval.FourHours;
             if (timeSpan == TimeSpan.FromHours(6)) return KlineInterval.SixHours;
             if (timeSpan == TimeSpan.FromHours(8)) return KlineInterval.EightHours;
-            if (timeSpan == TimeSpan.FromHours(12)) return KlineInterval.TwelfHours;
+            if (timeSpan == TimeSpan.FromHours(12)) return KlineInterval.TwelveHours;
             if (timeSpan == TimeSpan.FromDays(1)) return KlineInterval.OneDay;
             if (timeSpan == TimeSpan.FromDays(7)) return KlineInterval.OneWeek;
 

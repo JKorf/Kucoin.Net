@@ -20,7 +20,7 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<KlineInterval, string>(KlineInterval.FourHours, "4hour"),
             new KeyValuePair<KlineInterval, string>(KlineInterval.SixHours, "6hour"),
             new KeyValuePair<KlineInterval, string>(KlineInterval.EightHours, "8hour"),
-            new KeyValuePair<KlineInterval, string>(KlineInterval.TwelfHours, "12hour"),
+            new KeyValuePair<KlineInterval, string>(KlineInterval.TwelveHours, "12hour"),
             new KeyValuePair<KlineInterval, string>(KlineInterval.OneDay, "1day"),
             new KeyValuePair<KlineInterval, string>(KlineInterval.OneWeek, "1week"),
         };

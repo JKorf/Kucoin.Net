@@ -6,9 +6,9 @@
     public enum TransactionType
     {
         /// <summary>
-        /// Realised profit and loss
+        /// Realized profit and loss
         /// </summary>
-        RealisedPnl,
+        RealizedPnl,
         /// <summary>
         /// Deposit
         /// </summary>
