@@ -205,6 +205,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Open order value
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderValuation>> GetOpenOrderValueAsync(string symbol, CancellationToken ct = default)
         {
@@ -213,9 +214,15 @@ namespace Kucoin.Net.Clients.FuturesApi
             return await _baseClient.Execute<KucoinOrderValuation>(_baseClient.GetUri("openOrderStatistics"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Websocket token
+
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
         {
             return await _baseClient.Execute<KucoinToken>(_baseClient.GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
         }
+
+        #endregion
     }
 }
