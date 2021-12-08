@@ -26,6 +26,14 @@ namespace Kucoin.Net.Objects
                         .AddTotalRateLimit(100, TimeSpan.FromSeconds(10))
             }
         };
+        
+        /// <inheritdoc />
+        public new KucoinApiCredentials? ApiCredentials
+        {
+            get => (KucoinApiCredentials?)base.ApiCredentials;
+            set => base.ApiCredentials = value;
+        }
+
         /// <summary>
         /// Spot API options
         /// </summary>
@@ -66,6 +74,7 @@ namespace Kucoin.Net.Objects
         {
             base.Copy(input, def);
 
+            input.ApiCredentials = (KucoinApiCredentials?)def.ApiCredentials?.Copy();
             input.SpotApiOptions = new KucoinRestApiClientOptions(def.SpotApiOptions);
             input.FuturesApiOptions = new KucoinRestApiClientOptions(def.FuturesApiOptions);
         }
@@ -82,6 +91,13 @@ namespace Kucoin.Net.Objects
         public static KucoinSocketClientOptions Default { get; set; } = new KucoinSocketClientOptions() {
             SocketSubscriptionsCombineTarget = 10
         };
+
+        /// <inheritdoc />
+        public new KucoinApiCredentials? ApiCredentials
+        {
+            get => (KucoinApiCredentials?)base.ApiCredentials;
+            set => base.ApiCredentials = value;
+        }
 
         private KucoinSocketApiClientOptions _spotStreamsOptions = new KucoinSocketApiClientOptions();
         /// <summary>
@@ -124,6 +140,7 @@ namespace Kucoin.Net.Objects
         {
             base.Copy(input, def);
 
+            input.ApiCredentials = (KucoinApiCredentials?)def.ApiCredentials?.Copy();
             input.SpotStreamsOptions = new KucoinSocketApiClientOptions(def.SpotStreamsOptions);
             input.FuturesStreamsOptions = new KucoinSocketApiClientOptions(def.FuturesStreamsOptions);
         }
@@ -134,6 +151,13 @@ namespace Kucoin.Net.Objects
     /// </summary>
     public class KucoinRestApiClientOptions : RestApiClientOptions
     {
+        /// <inheritdoc />
+        public new KucoinApiCredentials? ApiCredentials
+        {
+            get => (KucoinApiCredentials?)base.ApiCredentials;
+            set => base.ApiCredentials = value;
+        }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -172,6 +196,13 @@ namespace Kucoin.Net.Objects
     /// </summary>
     public class KucoinSocketApiClientOptions : ApiClientOptions
     {
+        /// <inheritdoc />
+        public new KucoinApiCredentials? ApiCredentials
+        {
+            get => (KucoinApiCredentials?)base.ApiCredentials;
+            set => base.ApiCredentials = value;
+        }
+
         /// <summary>
         /// ctor
         /// </summary>
