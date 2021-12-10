@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
@@ -18,6 +19,10 @@ namespace Kucoin.Net.Clients.SpotApi
     public class KucoinClientSpotApi : RestApiClient, IExchangeClient, IKucoinClientSpotApi
     {
         private readonly KucoinClient _baseClient;
+        private readonly KucoinClientOptions _options;
+        private readonly Log _log;
+
+        internal static TimeSyncState TimeSyncState = new TimeSyncState();
 
         /// <summary>
         /// Event triggered when an order is placed via this client. Only available for Spot orders
@@ -37,10 +42,12 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public IKucoinClientSpotApiTrading Trading { get; }
 
-        internal KucoinClientSpotApi(KucoinClient baseClient, KucoinClientOptions options)
+        internal KucoinClientSpotApi(Log log, KucoinClient baseClient, KucoinClientOptions options)
             : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
+            _options = options;
+            _log = log;
 
             Account = new KucoinClientSpotApiAccount(this);
             ExchangeData = new KucoinClientSpotApiExchangeData(this);
@@ -195,5 +202,18 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             return new Uri(BaseAddress.AppendPath("v" + apiVersion, path));
         }
+
+
+        /// <inheritdoc />
+        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+            => ExchangeData.GetServerTimeAsync();
+
+        /// <inheritdoc />
+        protected override TimeSyncInfo GetTimeSyncInfo()
+            => new TimeSyncInfo(_log, _options.SpotApiOptions.AutoTimestamp, TimeSyncState);
+
+        /// <inheritdoc />
+        public override TimeSpan GetTimeOffset()
+            => TimeSyncState.TimeOffset;
     }
 }

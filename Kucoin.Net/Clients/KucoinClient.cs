@@ -38,8 +38,8 @@ namespace Kucoin.Net.Clients
         /// <param name="options">The options to use for this client</param>
         public KucoinClient(KucoinClientOptions options) : base("Kucoin", options)
         {
-            SpotApi = new KucoinClientSpotApi(this, options);
-            FuturesApi = new KucoinClientFuturesApi(this, options);
+            SpotApi = new KucoinClientSpotApi(log, this, options);
+            FuturesApi = new KucoinClientFuturesApi(log, this, options);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects;
@@ -16,6 +17,10 @@ namespace Kucoin.Net.Clients.FuturesApi
     public class KucoinClientFuturesApi : RestApiClient, IKucoinClientFuturesApi
     {
         private readonly KucoinClient _baseClient;
+        private readonly KucoinClientOptions _options;
+        private readonly Log _log;
+
+        internal static TimeSyncState TimeSyncState = new TimeSyncState();
 
         /// <inheritdoc />
         public IKucoinClientFuturesApiAccount Account { get; }
@@ -26,10 +31,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public IKucoinClientFuturesApiTrading Trading { get; }
 
-        internal KucoinClientFuturesApi(KucoinClient baseClient, KucoinClientOptions options)
+        internal KucoinClientFuturesApi(Log log, KucoinClient baseClient, KucoinClientOptions options)
             : base(options, options.FuturesApiOptions)
         {
             _baseClient = baseClient;
+            _options = options;
+            _log = log;
 
             Account = new KucoinClientFuturesApiAccount(this);
             ExchangeData = new KucoinClientFuturesApiExchangeData(this);
@@ -50,5 +57,17 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             return new Uri(BaseAddress.AppendPath("v" + apiVersion, path));
         }
+
+        /// <inheritdoc />
+        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+            => ExchangeData.GetServerTimeAsync();
+
+        /// <inheritdoc />
+        protected override TimeSyncInfo GetTimeSyncInfo()
+            => new TimeSyncInfo(_log, _options.FuturesApiOptions.AutoTimestamp, TimeSyncState);
+
+        /// <inheritdoc />
+        public override TimeSpan GetTimeOffset()
+            => TimeSyncState.TimeOffset;
     }
 }
