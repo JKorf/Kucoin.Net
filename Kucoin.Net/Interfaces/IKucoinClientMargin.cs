@@ -4,7 +4,6 @@ using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Margin;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

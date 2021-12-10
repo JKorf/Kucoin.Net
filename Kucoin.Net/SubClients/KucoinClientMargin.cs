@@ -6,17 +6,11 @@ using Kucoin.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
-using Kucoin.Net.Objects.Socket;
-using Kucoin.Net.Objects.Spot;
 using System.IO;
-using Newtonsoft.Json.Linq;
-using System.Linq;
 using Kucoin.Net.Objects.Margin;
 
 namespace Kucoin.Net.SubClients

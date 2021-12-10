@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
-using Kucoin.Net.Objects.Margin;
 using Kucoin.Net.Objects.Spot;
 
 namespace Kucoin.Net.Interfaces
