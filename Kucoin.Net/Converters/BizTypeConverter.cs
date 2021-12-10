@@ -8,7 +8,7 @@ namespace Kucoin.Net.Converters
     {
         private readonly bool _useCaps;
 
-        public BizTypeConverter() : base(false) { }        
+        public BizTypeConverter() : base(true) { }        
 
         public BizTypeConverter(bool useCaps) : this() { _useCaps = useCaps; }
 
@@ -27,7 +27,6 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<KucoinBizType, string>(KucoinBizType.StakingProfits, _useCaps ? "" : "Staking Profits"),
             new KeyValuePair<KucoinBizType, string>(KucoinBizType.Transfer, _useCaps ? "TRANSFER" : "Transfer"),
             new KeyValuePair<KucoinBizType, string>(KucoinBizType.Withdrawal, _useCaps ? "WITHDRAW" : "Withdrawal"),
-
             new KeyValuePair<KucoinBizType, string>(KucoinBizType.AssetsTransferred, _useCaps ? "" : "Assets Transferred in After Upgrading"),
             new KeyValuePair<KucoinBizType, string>(KucoinBizType.VoteForCoin, _useCaps ? "" : "Vote for Coin"),
             new KeyValuePair<KucoinBizType, string>(KucoinBizType.KuCoinBonus, _useCaps ? "KUCOIN_BONUS" : "KuCoin Bonus"),

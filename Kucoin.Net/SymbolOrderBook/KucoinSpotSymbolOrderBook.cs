@@ -108,6 +108,8 @@ namespace Kucoin.Net
                 restClient?.Dispose();
             if(_socketOwner)
                 socketClient?.Dispose();
+
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Spot
+namespace Kucoin.Net.Objects.Margin
 {
     /// <summary>
     /// New Borrow order

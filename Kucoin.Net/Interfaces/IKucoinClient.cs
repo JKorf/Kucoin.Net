@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Interfaces;
 using System;
 
 namespace Kucoin.Net.Interfaces
@@ -12,6 +11,11 @@ namespace Kucoin.Net.Interfaces
         /// Spot API endpoints
         /// </summary>
         IKucoinClientSpot Spot { get; }
+
+        /// <summary>
+        /// Margin API endpoints
+        /// </summary>
+        IKucoinClientMargin Margin { get; }
 
         /// <summary>
         /// Futures API endpoints

@@ -59,6 +59,8 @@ namespace Kucoin.Net
         {
             Spot.Dispose();
             Futures.Dispose();
+
+            GC.SuppressFinalize(this);
         }
     }
 }

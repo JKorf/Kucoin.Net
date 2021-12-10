@@ -18,7 +18,7 @@
         /// <summary>
         /// The default addresses to connect to the kucoin.com API
         /// </summary>
-        public static KucoinApiAddresses Default = new KucoinApiAddresses
+        public static readonly KucoinApiAddresses Default = new KucoinApiAddresses
         {
             SpotAddress = "https://api.kucoin.com/api/",
             FuturesAddress = "https://api-futures.kucoin.com/api/",
@@ -27,7 +27,7 @@
         /// <summary>
         /// The addresses to connect to the kucoin.com sandbox API
         /// </summary>
-        public static KucoinApiAddresses TestNet = new KucoinApiAddresses
+        public static readonly KucoinApiAddresses TestNet = new KucoinApiAddresses
         {
             SpotAddress = "https://openapi-sandbox.kucoin.com/api/",
             FuturesAddress = "https://api-sandbox-futures.kucoin.com/api/",

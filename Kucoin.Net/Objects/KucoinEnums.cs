@@ -77,9 +77,13 @@
         /// </summary>
         Margin,
         /// <summary>
+        /// Contract
+        /// </summary>
+        Contract,
+        /// <summary>
         /// Pool account
         /// </summary>
-        Pool
+        Pool,
     }
 
     /// <summary>
@@ -579,4 +583,33 @@
         IsolatedMode,
     }
 
+    /// <summary>
+    /// Order status
+    /// </summary>
+    public enum KucoinLentOrderStatus
+    {
+        /// <summary>
+        /// Filled
+        /// </summary>
+        Filled,
+        /// <summary>
+        /// Canceled
+        /// </summary>
+        Canceled
+    }
+
+    /// <summary>
+    /// Repayment strategy
+    /// </summary>
+    public enum KucoinRepaymentStrategy
+    {
+        /// <summary>
+        /// Time priority, namely to repay the loans of the nearest maturity time first
+        /// </summary>
+        RecentlyExpireFirst,
+        /// <summary>
+        /// Rate Priority: Repay the loans of the highest interest rate first
+        /// </summary>
+        HighestRateFirst
+    }
 }

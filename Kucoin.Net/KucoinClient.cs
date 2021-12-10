@@ -18,6 +18,8 @@ namespace Kucoin.Net
         public IKucoinClientSpot Spot { get; }
         /// <inheritdoc />
         public IKucoinClientFutures Futures { get; }
+        /// <inheritdoc />
+        public IKucoinClientMargin Margin { get; }
 
         #region constructor/destructor
         /// <summary>
@@ -34,6 +36,7 @@ namespace Kucoin.Net
         {
             Spot = new KucoinClientSpot(options);
             Futures = new KucoinClientFutures(options);
+            Margin = new KucoinClientMargin(options);
         }
         #endregion
 
@@ -54,6 +57,8 @@ namespace Kucoin.Net
         {
             Spot.Dispose();
             Futures.Dispose();
+
+            GC.SuppressFinalize(this);
         }
         #endregion
 

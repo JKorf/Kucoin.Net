@@ -11,6 +11,11 @@ namespace Kucoin.Net.Objects.Spot
     public class KucoinAccountActivity
     {
         /// <summary>
+        /// The type of the account
+        /// </summary>
+        [JsonConverter(typeof(AccountTypeConverter))]
+        public KucoinAccountType Type { get; set; }
+        /// <summary>
         /// Creation timestamp
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
@@ -18,8 +23,7 @@ namespace Kucoin.Net.Objects.Spot
         /// <summary>
         /// The amount of the activity
         /// </summary>
-        [JsonProperty("amount")]
-        public decimal Quantity { get; set; }
+        public decimal Amount { get; set; }
         /// <summary>
         /// The remaining balance after the activity
         /// </summary>
@@ -32,7 +36,7 @@ namespace Kucoin.Net.Objects.Spot
         /// The type of activity
         /// </summary>
         [JsonConverter(typeof(BizTypeConverter))]
-        public KucoinBizType BizType { get; set; } = default!;
+        public KucoinBizType BizType { get; set; }
         /// <summary>
         /// The unique key for this activity 
         /// </summary>
@@ -41,7 +45,7 @@ namespace Kucoin.Net.Objects.Spot
         /// Additional info for this activity
         /// </summary>
         [JsonConverter(typeof(AccountActivityContextConverter))]
-        public KucoinAccountActivityContext Context { get; set; } = default!;
+        public KucoinAccountActivityContext? Context { get; set; } = default!;
         /// <summary>
         /// The currency of the activity
         /// </summary>

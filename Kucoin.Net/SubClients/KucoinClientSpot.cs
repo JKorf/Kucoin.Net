@@ -16,8 +16,8 @@ using Kucoin.Net.Objects.Socket;
 using Kucoin.Net.Objects.Spot;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using CryptoExchange.Net.Authentication;
 using System.Linq;
+using Kucoin.Net.Objects.Margin;
 
 namespace Kucoin.Net.SubClients
 {
@@ -83,7 +83,7 @@ namespace Kucoin.Net.SubClients
         {
             symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await Execute<KucoinTick>(GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await Execute<KucoinTick>(GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Kucoin.Net.SubClients
         {
             symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await Execute<Kucoin24HourStat>(GetUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await Execute<Kucoin24HourStat>(GetUri("market/stats"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1169,27 +1169,34 @@ namespace Kucoin.Net.SubClients
 
         #region Margin Trade
 
+        #region Margin Info
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinMarkPrice>> GetMarkPriceAsync(string symbol, CancellationToken ct = default)
+        {
+            symbol.ValidateKucoinSymbol();
+            return await Execute<KucoinMarkPrice>(GetUri($"mark-price/{symbol}/current"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinMarginConfigurationInfo>> GetMarginConfigurationInfoAsync(CancellationToken ct = default)
+        {
+            return await Execute<KucoinMarginConfigurationInfo>(GetUri("margin/config"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken ct = default)
+        {
+            return await Execute<KucoinMarginAccount>(GetUri("margin/account"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Borrow & Lend
 
-        /// <summary>
-        /// Places a Borrow order (https://docs.kucoin.com/#post-borrow-order)
-        /// </summary>
-        /// <param name="asset">Asset to Borrow e.g USDT etc</param>
-        /// <param name="type">The type of the order (FOK, IOC)</param>
-        /// <param name="quantity">Total size</param>
-        /// <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
-        /// <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>The id of the new order</returns>
-        public async Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(
-            string asset,
-            KucoinBorrowOrderType type,
-            decimal quantity,
-            decimal? maxRate = null,
-            string? term = null,
-            CancellationToken ct = default)
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(string asset, KucoinBorrowOrderType type, decimal quantity, decimal? maxRate = null, string? term = null, CancellationToken ct = default)
         {
-
             var parameters = new Dictionary<string, object>
             {
                 { "currency", asset },
@@ -1201,32 +1208,62 @@ namespace Kucoin.Net.SubClients
             return await Execute<KucoinNewBorrowOrder>(GetUri("margin/borrow"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Get info on a specific borrow order (https://docs.kucoin.com/#get-borrow-order)
-        /// </summary>
-        /// <param name="orderId">The order id of the borrow order</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Borrow Order info</returns>
+        /// <inheritdoc/>
         public async Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
             return await Execute<KucoinBorrowOrder>(GetUri($"margin/borrow?orderId={orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Repay a Single Order (https://docs.kucoin.com/#repay-a-single-order)
-        /// </summary>
-        /// <param name="asset">Asset to Pay e.g USDT etc</param>
-        /// <param name="tradeId">Trade ID of borrow order</param>
-        /// <param name="quantity">Repayment size</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        public async Task<WebCallResult> RepaySingleBorrowOrderAsync(
-            string asset,
-            string tradeId,
-            decimal quantity,
-            CancellationToken ct = default)
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinPaginated<KucoinBorrowUnrepaid>>> GetUnrepaidBorrowsAsync(string? asset = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 100);
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinBorrowUnrepaid>>(GetUri("margin/borrow/outstanding"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinPaginated<KucoinBorrowRepaid>>> GetRepaidBorrowsAsync(string? asset = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 100);
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinBorrowRepaid>>(GetUri("margin/borrow/repaid"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult> OneClickRepayment(string asset, KucoinRepaymentStrategy strategy, decimal quantity, CancellationToken ct = default)
+        {
+            asset.ValidateNotNull(nameof(asset));
+            strategy.ValidateNotNull(nameof(strategy));
+            quantity.ValidateNotNull(nameof(quantity));
+
+            var parameters = new Dictionary<string, object>()
+            {
+                { "currency", asset },
+                { "sequence", JsonConvert.SerializeObject(strategy, new RepaymentStrategyConverter(false)) },
+                { "size", quantity }
+            };
+
+            return await Execute(GetUri("margin/repay/all"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult> RepaySingleBorrowOrderAsync(string asset, string tradeId, decimal quantity, CancellationToken ct = default)
+        {
+            asset.ValidateNotNull(nameof(asset));
+            tradeId.ValidateNotNull(nameof(tradeId));
+            quantity.ValidateNotNull(nameof(quantity));
 
             var parameters = new Dictionary<string, object>
             {
@@ -1238,6 +1275,93 @@ namespace Kucoin.Net.SubClients
             return await Execute(GetUri("margin/repay/single"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinNewLendOrder>> PostLendOrderAsync(string asset, string size, string dailyRate, int term, CancellationToken ct = default)
+        {
+            asset.ValidateNotNull(nameof(asset));
+            size.ValidateNotNull(nameof(size));
+            dailyRate.ValidateNotNull(nameof(dailyRate));
+            term.ValidateNotNull(nameof(term));
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "size", size },
+                { "dailyIntRate", dailyRate },
+                { "term", term }
+            };
+
+            return await Execute<KucoinNewLendOrder>(GetUri("margin/lend"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult> CancelLendOrder(string orderId, CancellationToken ct = default)
+        {
+            orderId.ValidateNotNull(nameof(orderId));
+            return await Execute(GetUri($"margin/lend/{orderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetOpenLendOrders(string? asset = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 50);
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinLendOrder>>(GetUri("margin/lend/active"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetLendOrdersHistory(string? asset = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 50);
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinLendOrder>>(GetUri("margin/lend/done"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinPaginated<KucoinLendUnsettled>>> GetUnsettledLends(string? asset = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 50);
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinLendUnsettled>>(GetUri("margin/lend/trade/unsettled"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<KucoinPaginated<KucoinLendSettled>>> GetSettledLends(string? asset = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 50);
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await Execute<KucoinPaginated<KucoinLendSettled>>(GetUri("margin/lend/trade/settled"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task<WebCallResult<IEnumerable<KucoinLendAccount>>> GetAccountLendRecord(string? asset = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+
+            return await Execute<IEnumerable<KucoinLendAccount>>(GetUri("margin/lend/assets"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
         #endregion
 
         #endregion
@@ -1246,8 +1370,6 @@ namespace Kucoin.Net.SubClients
         {
             return await Execute<KucoinToken>(GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
         }
-
-
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(JToken error)

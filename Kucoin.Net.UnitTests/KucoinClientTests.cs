@@ -51,7 +51,7 @@ namespace Kucoin.Net.UnitTests
             }
         }
 
-        public string SerializeExpected<T>(T data)
+        public static string SerializeExpected<T>(T data)
         {
             var result = new KucoinResult<T>()
             {

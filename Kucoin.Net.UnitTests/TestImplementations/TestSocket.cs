@@ -69,8 +69,10 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         {
             throw new NotImplementedException();
         }
+
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
         }
 
         public void InvokeClose()

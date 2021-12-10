@@ -5,6 +5,7 @@ using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
+#pragma warning disable IDE0051
 namespace Kucoin.Net.Objects.Spot
 {
     /// <summary>
@@ -49,6 +50,7 @@ namespace Kucoin.Net.Objects.Spot
         [JsonProperty("time"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
         [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+
         private DateTime TimestampNS
         {
             set => Timestamp = value;
@@ -105,3 +107,4 @@ namespace Kucoin.Net.Objects.Spot
         public decimal Quantity { get; set; }
     }
 }
+#pragma warning restore IDE0051

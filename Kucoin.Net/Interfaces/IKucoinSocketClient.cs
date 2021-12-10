@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using System;
+﻿using System;
 
 namespace Kucoin.Net.Interfaces
 {

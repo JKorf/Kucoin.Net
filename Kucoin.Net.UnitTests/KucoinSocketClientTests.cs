@@ -16,8 +16,10 @@ namespace Kucoin.Net.UnitTests
         public async Task Subscribe_Should_SucceedIfAckResponse()
         {
             // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
+            var socket = new TestSocket
+            {
+                CanConnect = true
+            };
             var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
             {
                 LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
@@ -41,8 +43,10 @@ namespace Kucoin.Net.UnitTests
         public async Task Subscribe_Should_FailIfNotAckResponse()
         {
             // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
+            var socket = new TestSocket
+            {
+                CanConnect = true
+            };
             var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
             {
                 LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
@@ -66,8 +70,10 @@ namespace Kucoin.Net.UnitTests
         public async Task UpdateTick_Should_TriggerAction()
         {
             // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
+            var socket = new TestSocket
+            {
+                CanConnect = true
+            };
             var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
             {
                 LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
@@ -101,8 +107,10 @@ namespace Kucoin.Net.UnitTests
         public async Task UpdateSnapshot_Should_TriggerAction()
         {
             // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
+            var socket = new TestSocket
+            {
+                CanConnect = true
+            };
             var client = TestHelpers.CreateSocketClient(socket, new Objects.KucoinSocketClientOptions
             {
                 LogLevel = Microsoft.Extensions.Logging.LogLevel.Trace,
