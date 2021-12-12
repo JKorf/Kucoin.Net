@@ -23,8 +23,8 @@ namespace Kucoin.Net.Clients.FuturesApi
     /// <inheritdoc cref="IKucoinSocketClientFuturesStreams" />
     public class KucoinSocketClientFuturesStreams : SocketApiClient, IKucoinSocketClientFuturesStreams
     {
-        private KucoinSocketClient _baseClient;
-        private Log _log;
+        private readonly KucoinSocketClient _baseClient;
+        private readonly Log _log;
 
         internal KucoinSocketClientFuturesStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(options, options.FuturesStreamsOptions)

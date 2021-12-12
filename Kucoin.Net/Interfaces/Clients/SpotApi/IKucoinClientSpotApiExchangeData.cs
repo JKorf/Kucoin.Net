@@ -17,6 +17,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets the server time
         /// <para><a href="https://docs.kucoin.com/#server-time" /></para>
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns>The time of the server</returns>
         Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
@@ -117,6 +118,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets a list of supported currencies
         /// <para><a href="https://docs.kucoin.com/#get-currencies" /></para>
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns>List of currencies</returns>
         Task<WebCallResult<IEnumerable<KucoinAsset>>> GetAssetsAsync(CancellationToken ct = default);
 

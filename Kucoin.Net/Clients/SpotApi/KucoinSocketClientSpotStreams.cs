@@ -25,8 +25,8 @@ namespace Kucoin.Net.Clients.SpotApi
     /// <inheritdoc cref="IKucoinSocketClientSpotStreams" />
     public class KucoinSocketClientSpotStreams : SocketApiClient, IKucoinSocketClientSpotStreams
     {
-        private KucoinSocketClient _baseClient;
-        private Log _log;
+        private readonly KucoinSocketClient _baseClient;
+        private readonly Log _log;
 
         internal KucoinSocketClientSpotStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(options, options.SpotStreamsOptions)

@@ -196,7 +196,7 @@ namespace Kucoin.Net.Clients.SpotApi
          => _baseClient.Execute(this, uri, method, ct, parameters, signed);
 
         internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
-         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed);
+         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed, weight);
 
         internal Uri GetUri(string path, int apiVersion = 1)
         {
