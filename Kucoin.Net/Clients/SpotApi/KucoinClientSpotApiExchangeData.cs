@@ -72,31 +72,45 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbol.ValidateKucoinSymbol();
             limit.ValidateIntValues(nameof(limit), 20, 100);
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol }
+            };
 
-            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetUri($"market/orderbook/level2_{limit}?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetUri($"market/orderbook/level2_{limit}"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
-            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetUri($"market/orderbook/level2?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol }
+            };
+            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetUri($"market/orderbook/level2", 3), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinFullOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
-
-            return await _baseClient.Execute<KucoinFullOrderBook>(_baseClient.GetUri($"market/orderbook/level3?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol }
+            };
+            return await _baseClient.Execute<KucoinFullOrderBook>(_baseClient.GetUri($"market/orderbook/level3", 3), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
-
-            return await _baseClient.Execute<IEnumerable<KucoinTrade>>(_baseClient.GetUri($"market/histories?symbol={symbol}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol }
+            };
+            return await _baseClient.Execute<IEnumerable<KucoinTrade>>(_baseClient.GetUri($"market/histories"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

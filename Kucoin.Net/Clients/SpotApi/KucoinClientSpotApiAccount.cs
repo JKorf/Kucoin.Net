@@ -73,7 +73,11 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinTradeFee>>(_baseClient.GetUri("trade-fees?symbols=" + string.Join(",", symbols)), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbols",  string.Join(",", symbols) }
+            };
+            return await _baseClient.Execute<IEnumerable<KucoinTradeFee>>(_baseClient.GetUri("trade-fees"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

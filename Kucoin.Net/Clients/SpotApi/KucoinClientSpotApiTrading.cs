@@ -416,7 +416,11 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            return await _baseClient.Execute<KucoinBorrowOrder>(_baseClient.GetUri($"margin/borrow?orderId={orderId}"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>
+            {
+                { "orderId", orderId }
+            };
+            return await _baseClient.Execute<KucoinBorrowOrder>(_baseClient.GetUri($"margin/borrow"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>

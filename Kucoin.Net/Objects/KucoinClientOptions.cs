@@ -247,18 +247,5 @@ namespace Kucoin.Net.Objects
         /// The client to use for the initial order book request
         /// </summary>
         public IKucoinClient? RestClient { get; set; }
-
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="socketClient">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
-        /// <param name="restClient">The client to use for the initial order book request.</param>
-        /// <param name="limit">Max amount of rows for the book</param>
-        public KucoinOrderBookOptions(IKucoinSocketClient? socketClient = null, IKucoinClient? restClient = null, int? limit = null)
-        {
-            Limit = limit;
-            SocketClient = socketClient;
-            RestClient = restClient;
-        }
     }
 }
