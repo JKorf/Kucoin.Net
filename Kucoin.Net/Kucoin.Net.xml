@@ -4331,6 +4331,31 @@
             The last trade price
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinAllTick.AveragePrice">
+            <summary>
+            Average trading price in the last 24 hours
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinAllTick.MakerFeeRate">
+            <summary>
+            Basic Maker Fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinAllTick.TakerFeeRate">
+            <summary>
+            Basic Taker Fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinAllTick.TakerCoefficient">
+            <summary>
+            Taker Fee Coefficient
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinAllTick.MakerCoefficient">
+            <summary>
+            Maker Fee Coefficient
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Spot.KucoinBorrowOrder">
             <summary>
             Kucoin Borrow Order
@@ -4514,6 +4539,11 @@
         <member name="P:Kucoin.Net.Objects.Spot.KucoinDeposit.Status">
             <summary>
             The deposit status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinDeposit.Remark">
+            <summary>
+            The remark of this deposit.
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Spot.KucoinDeposit.CreatedAt">
@@ -5284,6 +5314,11 @@
         <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawal.Status">
             <summary>
             Status of the converter
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawal.Remark">
+            <summary>
+            The remark of this withdrawal.
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Spot.KucoinWithdrawal.CreatedAt">
