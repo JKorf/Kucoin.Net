@@ -46,6 +46,10 @@ namespace Kucoin.Net.Objects.Spot
         [JsonConverter(typeof(DepositStatusConverter))]
         public KucoinDepositStatus Status { get; set; }
         /// <summary>
+        /// The remark of this deposit.
+        /// </summary>
+        public string Remark { get; set; } = string.Empty;
+        /// <summary>
         /// When the deposit was created
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
