@@ -5,14 +5,10 @@ using System;
 namespace Kucoin.Net.Objects.Futures
 {
     /// <summary>
-    /// Position info
+    /// Base class for position info
     /// </summary>
-    public class KucoinPosition
+    public class KucoinPositionBase
     {
-        /// <summary>
-        /// Position id
-        /// </summary>
-        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Symbol
         /// </summary>
@@ -169,5 +165,27 @@ namespace Kucoin.Net.Objects.Futures
         /// Currency used to clear and settle the trades
         /// </summary>
         public string SettleCurrency { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Position info
+    /// </summary>
+    public class KucoinPosition: KucoinPositionBase
+    {
+        /// <summary>
+        /// Position id
+        /// </summary>
+        public string Id { get; set; } = string.Empty;        
+    }
+
+    /// <summary>
+    /// Position update
+    /// </summary>
+    public class KucoinPositionUpdate: KucoinPositionBase
+    {
+        /// <summary>
+        /// Change reason
+        /// </summary>
+        public string ChangeReason { get; set; } = string.Empty;
     }
 }

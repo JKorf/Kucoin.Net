@@ -260,16 +260,48 @@ namespace Kucoin.Net.SocketSubClients
         /// Subscribe to position updates
         /// </summary>
         /// <param name="symbol">Symbol</param>
-        /// <param name="onData">Data handler</param>
+        /// <param name="onPositionUpdate">Handler for position changes</param>
+        /// <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
+        /// <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
+        /// <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinPosition>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+            string symbol, 
+            Action<DataEvent<KucoinPositionUpdate>> onPositionUpdate,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>> onMarkPriceUpdate,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>> onFundingSettlementUpdate,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> onRiskAdjustUpdate)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
-                var data = GetData<KucoinPosition>(tokenData);
-                InvokeHandler(tokenData.As(data, symbol), onData);
+                var subject = tokenData.Data["subject"]?.ToString();
+                if (subject == "position.change")
+                {
+                    if (tokenData.Data["changeReason"] == null)
+                    {
+                        var data = GetData<KucoinPositionMarkPriceUpdate>(tokenData);
+                        InvokeHandler(tokenData.As(data, symbol), onMarkPriceUpdate);
+                    }
+                    else
+                    {
+                        var data = GetData<KucoinPositionUpdate>(tokenData);
+                        InvokeHandler(tokenData.As(data, symbol), onPositionUpdate);
+                    }
+                }
+                else if (subject == "position.settlement")
+                {
+                    var data = GetData<KucoinPositionFundingSettlementUpdate>(tokenData);
+                    InvokeHandler(tokenData.As(data, symbol), onFundingSettlementUpdate);
+                }
+                else if (subject == "position.adjustRiskLimit")
+                {
+                    var data = GetData<KucoinPositionRiskAdjustResultUpdate>(tokenData);
+                    InvokeHandler(tokenData.As(data, symbol), onRiskAdjustUpdate);
+                }
+                else
+                    log.Write(LogLevel.Warning, $"Unknown update: {subject}, data: {tokenData}");
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, true);
             return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 

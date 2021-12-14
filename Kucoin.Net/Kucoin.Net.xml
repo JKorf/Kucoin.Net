@@ -1334,12 +1334,16 @@
             <param name="onWithdrawableUpdate">Data handler for withdrawable funds updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPosition}})">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}})">
             <summary>
             Subscribe to position updates
             </summary>
             <param name="symbol">Symbol</param>
-            <param name="onData">Data handler</param>
+            <param name="onPositionUpdate">Handler for position changes</param>
+            <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
+            <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
+            <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
+            <param name="onOpenSumUpdate">Handler for open sum changes</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesOrderUpdate}})">
@@ -2346,6 +2350,186 @@
             Data list
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Futures.KucoinPositionBase">
+            <summary>
+            Base class for position info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.AutoDeposit">
+            <summary>
+            Auto deposit margin or not
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.MaintenanceMarginRequirement">
+            <summary>
+            Maintenance margin requirement
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.RiskLimit">
+            <summary>
+            Risk limit 
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.RealLeverage">
+            <summary>
+            Leverage off the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.CrossMode">
+            <summary>
+            Cross mode or not
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.DeleveragePercentage">
+            <summary>
+            ADL ranking percentile
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.OpeningTimestamp">
+            <summary>
+            Opening time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.CurrentTimestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.CurrentQuantity">
+            <summary>
+            Current position quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.CurrentCost">
+            <summary>
+            Current position value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.CurrentCommission">
+            <summary>
+            Current commission
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.UnrealisedCost">
+            <summary>
+            Unrealised value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.UnrealisedGrossCost">
+            <summary>
+            Accumulated realised gross profit value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.RealisedCost">
+            <summary>
+            Current realised position value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.IsOpen">
+            <summary>
+            Is open
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.MarkValue">
+            <summary>
+            Mark value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionValue">
+            <summary>
+            Position value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionCross">
+            <summary>
+            Added margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionInit">
+            <summary>
+            Leverage margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionComm">
+            <summary>
+            Bankruptcy cost
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionLoss">
+            <summary>
+            Funding fees paid out
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionMargin">
+            <summary>
+            Position margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.PositionMaintenance">
+            <summary>
+            Maintenance margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.MaintenanceMargin">
+            <summary>
+            Position margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.RealisedGrossPnl">
+            <summary>
+            Accumulated realised gross profit value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.RealisedPnl">
+            <summary>
+            Realised profit and loss
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.UnrealisedPnl">
+            <summary>
+            Unrealised profit and loss
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.UnrealisedPnlPercentage">
+            <summary>
+            Profit-loss ratio of the position
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.UnrealisedRoePercentage">
+            <summary>
+            Rate of return on investment
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.AverageEntryPrice">
+            <summary>
+            Average entry price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.LiquidationPrice">
+            <summary>
+            Liquidation price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.BankruptPrice">
+            <summary>
+            Bankruptcy price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionBase.SettleCurrency">
+            <summary>
+            Currency used to clear and settle the trades
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Futures.KucoinPosition">
             <summary>
             Position info
@@ -2356,179 +2540,14 @@
             Position id
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.Symbol">
+        <member name="T:Kucoin.Net.Objects.Futures.KucoinPositionUpdate">
             <summary>
-            Symbol
+            Position update
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.AutoDeposit">
+        <member name="P:Kucoin.Net.Objects.Futures.KucoinPositionUpdate.ChangeReason">
             <summary>
-            Auto deposit margin or not
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.MaintenanceMarginRequirement">
-            <summary>
-            Maintenance margin requirement
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.RiskLimit">
-            <summary>
-            Risk limit 
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.RealLeverage">
-            <summary>
-            Leverage off the order
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.CrossMode">
-            <summary>
-            Cross mode or not
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.DeleveragePercentage">
-            <summary>
-            ADL ranking percentile
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.OpeningTimestamp">
-            <summary>
-            Opening time
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.CurrentTimestamp">
-            <summary>
-            Timestamp
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.CurrentQuantity">
-            <summary>
-            Current position quantity
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.CurrentCost">
-            <summary>
-            Current position value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.CurrentCommission">
-            <summary>
-            Current commission
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.UnrealisedCost">
-            <summary>
-            Unrealised value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.UnrealisedGrossCost">
-            <summary>
-            Accumulated realised gross profit value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.RealisedCost">
-            <summary>
-            Current realised position value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.IsOpen">
-            <summary>
-            Is open
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.MarkPrice">
-            <summary>
-            Mark price
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.MarkValue">
-            <summary>
-            Mark value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionValue">
-            <summary>
-            Position value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionCross">
-            <summary>
-            Added margin
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionInit">
-            <summary>
-            Leverage margin
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionComm">
-            <summary>
-            Bankruptcy cost
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionLoss">
-            <summary>
-            Funding fees paid out
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionMargin">
-            <summary>
-            Position margin
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.PositionMaintenance">
-            <summary>
-            Maintenance margin
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.MaintenanceMargin">
-            <summary>
-            Position margin
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.RealisedGrossPnl">
-            <summary>
-            Accumulated realised gross profit value
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.RealisedPnl">
-            <summary>
-            Realised profit and loss
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.UnrealisedPnl">
-            <summary>
-            Unrealised profit and loss
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.UnrealisedPnlPercentage">
-            <summary>
-            Profit-loss ratio of the position
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.UnrealisedRoePercentage">
-            <summary>
-            Rate of return on investment
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.AverageEntryPrice">
-            <summary>
-            Average entry price
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.LiquidationPrice">
-            <summary>
-            Liquidation price
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.BankruptPrice">
-            <summary>
-            Bankruptcy price
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.KucoinPosition.SettleCurrency">
-            <summary>
-            Currency used to clear and settle the trades
+            Change reason
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Futures.KucoinPremiumIndex">
@@ -2639,6 +2658,131 @@
         <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinFuturesOrderBookChange.Quantity">
             <summary>
             Quantity
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate">
+            <summary>
+            Funding settlement update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.FundTime">
+            <summary>
+            Funding time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.Quantity">
+            <summary>
+            Position size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.MarkPrice">
+            <summary>
+            Settlement price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.FundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.FundingFee">
+            <summary>
+            Funding fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate.SettleAsset">
+            <summary>
+            Asset used to clear and settle the trades
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate">
+            <summary>
+            Position change caused by mark price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.MarkValue">
+            <summary>
+            Mark value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.MaintenanceMargin">
+            <summary>
+            Maintenance margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.RealLeverage">
+            <summary>
+            Real leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.UnrealizedPnl">
+            <summary>
+            Unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.UnrealizedRoePercentage">
+            <summary>
+            Unrealized ROE
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.UnrealizedPnlPercentage">
+            <summary>
+            Unrealized profit and loss percentage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.DeleveragePercentage">
+            <summary>
+            Adl ranking percentile
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate.SettleAsset">
+            <summary>
+            Currency used to clear and settle the trades
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate">
+            <summary>
+            Result of updating risk limit level
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate.Success">
+            <summary>
+            Successfull or not
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate.RiskLimitLevel">
+            <summary>
+            Current risk limit level
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate.Message">
+            <summary>
+            Failure reason
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinPositionSumChangeUpdate">
+            <summary>
+            Open position sum update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionSumChangeUpdate.Sum">
+            <summary>
+            New sum
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate">
@@ -6027,12 +6171,15 @@
             <param name="onWithdrawableUpdate">Data handler for withdrawable funds updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPosition}})">
+        <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}})">
             <summary>
             Subscribe to position updates
             </summary>
             <param name="symbol">Symbol</param>
-            <param name="onData">Data handler</param>
+            <param name="onPositionUpdate">Handler for position changes</param>
+            <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
+            <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
+            <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.SocketSubClients.KucoinSocketClientFutures.SubscribeAsync``1(System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}})">
