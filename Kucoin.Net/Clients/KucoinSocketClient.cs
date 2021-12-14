@@ -117,7 +117,10 @@ namespace Kucoin.Net.Clients
                             {
                                 WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
+                                {
+                                    log.Write(LogLevel.Warning, $"Failed to connect new socket, couldn't request websocket url: " + tokenResult.Error);
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                                }
 
                                 token = tokenResult.Data;
                             }
@@ -134,7 +137,10 @@ namespace Kucoin.Net.Clients
                             {
                                 WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated, ct).ConfigureAwait(false);
                                 if (!tokenResult)
+                                {
+                                    log.Write(LogLevel.Warning, $"Failed to connect new socket, couldn't request websocket url: " + tokenResult.Error);
                                     return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                                }
 
                                 token = tokenResult.Data;
                             }

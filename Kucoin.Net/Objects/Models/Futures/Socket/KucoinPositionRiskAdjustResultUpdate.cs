@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Futures.Socket
+namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     /// <summary>
     /// Result of updating risk limit level

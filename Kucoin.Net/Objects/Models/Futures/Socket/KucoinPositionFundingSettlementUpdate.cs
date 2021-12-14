@@ -2,7 +2,7 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Futures.Socket
+namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     /// <summary>
     /// Funding settlement update
@@ -12,7 +12,7 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// <summary>
         /// Funding time
         /// </summary>
-        [JsonProperty("fundingTime"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("fundingTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime FundTime { get; set; }
         /// <summary>
         /// Position size
@@ -34,7 +34,7 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampNanoSecondsConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Asset used to clear and settle the trades

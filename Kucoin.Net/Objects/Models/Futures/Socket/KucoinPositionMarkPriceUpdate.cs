@@ -2,7 +2,7 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Futures.Socket
+namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     /// <summary>
     /// Position change caused by mark price
@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects.Futures.Socket
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("currentTimestamp"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("currentTimestamp"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Currency used to clear and settle the trades

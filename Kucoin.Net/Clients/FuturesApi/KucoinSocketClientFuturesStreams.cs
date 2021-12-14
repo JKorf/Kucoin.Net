@@ -216,15 +216,44 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinPosition>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+            string symbol,
+            Action<DataEvent<KucoinPositionUpdate>> onPositionUpdate,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>> onMarkPriceUpdate,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>> onFundingSettlementUpdate,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> onRiskAdjustUpdate,
+            CancellationToken ct = default)
         {
-            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
-            {
-                var data = _baseClient.GetData<KucoinPosition>(tokenData);
-                KucoinSocketClient.InvokeHandler(tokenData.As(data, symbol), onData);
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData => {
+                var subject = tokenData.Data["subject"]?.ToString();
+                if (subject == "position.change")
+                {
+                    if (tokenData.Data["changeReason"] == null)
+                    {
+                        var data = _baseClient.GetData<KucoinPositionMarkPriceUpdate>(tokenData);
+                        KucoinSocketClient.InvokeHandler(tokenData.As(data, symbol), onMarkPriceUpdate);
+                    }
+                    else
+                    {
+                        var data = _baseClient.GetData<KucoinPositionUpdate>(tokenData);
+                        KucoinSocketClient.InvokeHandler(tokenData.As(data, symbol), onPositionUpdate);
+                    }
+                }
+                else if (subject == "position.settlement")
+                {
+                    var data = _baseClient.GetData<KucoinPositionFundingSettlementUpdate>(tokenData);
+                    KucoinSocketClient.InvokeHandler(tokenData.As(data, symbol), onFundingSettlementUpdate);
+                }
+                else if (subject == "position.adjustRiskLimit")
+                {
+                    var data = _baseClient.GetData<KucoinPositionRiskAdjustResultUpdate>(tokenData);
+                    KucoinSocketClient.InvokeHandler(tokenData.As(data, symbol), onRiskAdjustUpdate);
+                }
+                else
+                    _log.Write(LogLevel.Warning, $"Unknown update: {subject}, data: {tokenData}");
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, false);
+            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, true);
             return await _baseClient.SubscribeInternalAsync(this, "futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
     }
