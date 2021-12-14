@@ -1343,7 +1343,6 @@
             <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
             <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
             <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
-            <param name="onOpenSumUpdate">Handler for open sum changes</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinSocketClientFutures.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesOrderUpdate}})">
@@ -2773,16 +2772,6 @@
         <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionRiskAdjustResultUpdate.Message">
             <summary>
             Failure reason
-            </summary>
-        </member>
-        <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinPositionSumChangeUpdate">
-            <summary>
-            Open position sum update
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Futures.Socket.KucoinPositionSumChangeUpdate.Sum">
-            <summary>
-            New sum
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Futures.Socket.KucoinStreamFuturesBalanceUpdate">

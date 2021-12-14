@@ -90,6 +90,9 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 3.2.0 - 14 Dec 2021
+    * Fix for futures position subscribing triggering with empty updates
+
 * Version 3.1.7 - 13 Dec 2021
     * Updated models
 
