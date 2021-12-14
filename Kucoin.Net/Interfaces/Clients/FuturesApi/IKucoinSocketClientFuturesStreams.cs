@@ -110,10 +110,19 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <para><a href="https://docs.kucoin.cloud/futures/#position-change-events" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
-        /// <param name="onData">Data handler</param>
+        /// <param name="onPositionUpdate">Handler for position changes</param>
+        /// <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
+        /// <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
+        /// <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinPosition>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+            string symbol,
+            Action<DataEvent<KucoinPositionUpdate>> onPositionUpdate,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>> onMarkPriceUpdate,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>> onFundingSettlementUpdate,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> onRiskAdjustUpdate,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order updates

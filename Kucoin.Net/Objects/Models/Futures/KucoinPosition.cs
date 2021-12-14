@@ -5,14 +5,10 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    /// Position info
+    /// Base class for position info
     /// </summary>
-    public class KucoinPosition
+    public class KucoinPositionBase
     {
-        /// <summary>
-        /// Position id
-        /// </summary>
-        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Symbol
         /// </summary>
@@ -179,5 +175,27 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Position info
+    /// </summary>
+    public class KucoinPosition: KucoinPositionBase
+    {
+        /// <summary>
+        /// Position id
+        /// </summary>
+        public string Id { get; set; } = string.Empty;        
+    }
+
+    /// <summary>
+    /// Position update
+    /// </summary>
+    public class KucoinPositionUpdate: KucoinPositionBase
+    {
+        /// <summary>
+        /// Change reason
+        /// </summary>
+        public string ChangeReason { get; set; } = string.Empty;
     }
 }
