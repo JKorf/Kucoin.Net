@@ -198,7 +198,7 @@ namespace Kucoin.Net.SocketSubClients
                 InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/advancedOrders", false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/advancedOrders", true);
             return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 
@@ -252,7 +252,7 @@ namespace Kucoin.Net.SocketSubClients
                     log.Write(LogLevel.Warning, "Unknown update: " + subject);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractAccount/wallet", false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractAccount/wallet", true);
             return await SubscribeAsync("futures", request, null, true, innerHandler).ConfigureAwait(false);
         }
 
@@ -276,7 +276,8 @@ namespace Kucoin.Net.SocketSubClients
                 var subject = tokenData.Data["subject"]?.ToString();
                 if (subject == "position.change")
                 {
-                    if (tokenData.Data["changeReason"] == null)
+                    var changeReason = tokenData.Data["data"]?["changeReason"]?.ToString();
+                    if (changeReason == null || changeReason == "markPriceChange")
                     {
                         var data = GetData<KucoinPositionMarkPriceUpdate>(tokenData);
                         InvokeHandler(tokenData.As(data, symbol), onMarkPriceUpdate);

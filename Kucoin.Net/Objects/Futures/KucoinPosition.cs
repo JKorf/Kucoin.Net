@@ -125,6 +125,7 @@ namespace Kucoin.Net.Objects.Futures
         /// <summary>
         /// Position margin
         /// </summary>
+        [JsonProperty("maintMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
         /// Accumulated realised gross profit value
