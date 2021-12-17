@@ -38,8 +38,8 @@ namespace Kucoin.Net.Clients
         /// <param name="options">The options to use for this client</param>
         public KucoinClient(KucoinClientOptions options) : base("Kucoin", options)
         {
-            SpotApi = new KucoinClientSpotApi(log, this, options);
-            FuturesApi = new KucoinClientFuturesApi(log, this, options);
+            SpotApi = AddApiClient(new KucoinClientSpotApi(log, this, options));
+            FuturesApi = AddApiClient(new KucoinClientFuturesApi(log, this, options));
         }
 
         /// <summary>
@@ -94,14 +94,6 @@ namespace Kucoin.Net.Clients
                 return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
-        }
-
-        /// <inheritdoc />
-        public override void Dispose()
-        {
-            SpotApi.Dispose();
-            FuturesApi.Dispose();
-            base.Dispose();
         }
     }
 }

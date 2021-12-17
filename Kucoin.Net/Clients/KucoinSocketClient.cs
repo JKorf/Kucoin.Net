@@ -57,8 +57,8 @@ namespace Kucoin.Net.Clients
             AddGenericHandler("Ping", (messageEvent) => { });
             AddGenericHandler("Welcome", (messageEvent) => { });
 
-            SpotStreams = new KucoinSocketClientSpotStreams(log, this, options);
-            FuturesStreams = new KucoinSocketClientFuturesStreams(log, this, options);
+            SpotStreams = AddApiClient(new KucoinSocketClientSpotStreams(log, this, options));
+            FuturesStreams = AddApiClient(new KucoinSocketClientFuturesStreams(log, this, options));
         }
 
         /// <summary>
@@ -399,13 +399,5 @@ namespace Kucoin.Net.Clients
             => Deserialize<T>(data, serializer, requestId);
 
         internal int NextIdInternal() => NextId();
-
-        /// <inheritdoc />
-        public override void Dispose()
-        {
-            SpotStreams.Dispose();
-            FuturesStreams.Dispose();
-            base.Dispose();
-        }
     }
 }
