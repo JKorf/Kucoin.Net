@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+using System;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -21,5 +22,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Endpoints related to orders and trades
         /// </summary>
         IKucoinClientSpotApiTrading Trading { get; }
+
+        /// <summary>
+        /// Get the IExchangeClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+        /// </summary>
+        /// <returns></returns>
+        IExchangeClient AsExchangeClient();
     }
 }

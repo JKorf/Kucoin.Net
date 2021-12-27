@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinClientSpotApi" />
-    public class KucoinClientSpotApi : RestApiClient, IExchangeClient, IKucoinClientSpotApi
+    public class KucoinClientSpotApi : RestApiClient, IKucoinClientSpotApi, IExchangeClient
     {
         private readonly KucoinClient _baseClient;
         private readonly KucoinClientOptions _options;
@@ -32,6 +32,9 @@ namespace Kucoin.Net.Clients.SpotApi
         /// Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
+
+        /// <inheritdoc />
+        public string ExchangeName => "Kucoin";
 
         /// <inheritdoc />
         public IKucoinClientSpotApiAccount Account { get; }
@@ -215,5 +218,8 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public override TimeSpan GetTimeOffset()
             => TimeSyncState.TimeOffset;
+
+        /// <inheritdoc />
+        public IExchangeClient AsExchangeClient() => this;
     }
 }
