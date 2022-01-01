@@ -7,7 +7,7 @@ using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 
-namespace Kucoin.Net.SymbolOrderBook
+namespace Kucoin.Net.SymbolOrderBooks
 {
     /// <summary>
     /// Kucoin order book implementation

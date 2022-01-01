@@ -1,6 +1,5 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
@@ -10,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinOrder: KucoinOrderBase, ICommonOrder
+    public class KucoinOrder: KucoinOrderBase
     {        
         /// <summary>
         /// The operation type
@@ -64,35 +63,6 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonConverter(typeof(TradeTypeConverter))]
         public TradeType TradeType { get; set; }
-
-
-        string ICommonOrderId.CommonId => Id;
-        string ICommonOrder.CommonSymbol => Symbol;
-        decimal ICommonOrder.CommonPrice => Price ?? 0;
-        decimal ICommonOrder.CommonQuantity => Quantity ?? 0;
-        IExchangeClient.OrderStatus ICommonOrder.CommonStatus {
-            get
-            {
-                if (IsActive == null)
-                    return IExchangeClient.OrderStatus.Active;
-
-                return !IsActive.Value && QuantityFilled != Quantity ? IExchangeClient.OrderStatus.Canceled : !IsActive.Value ? IExchangeClient.OrderStatus.Filled :
-                IExchangeClient.OrderStatus.Active;
-            }
-        }
-        
-        bool ICommonOrder.IsActive => IsActive ?? false;
-
-        IExchangeClient.OrderSide ICommonOrder.CommonSide => Side == OrderSide.Sell
-            ? IExchangeClient.OrderSide.Sell
-            : IExchangeClient.OrderSide.Buy;
-
-        IExchangeClient.OrderType ICommonOrder.CommonType =>
-            Type == OrderType.Limit || Type == OrderType.LimitStop
-                ? IExchangeClient.OrderType.Limit
-                : IExchangeClient.OrderType.Market;
-
-        DateTime ICommonOrder.CommonOrderTime => CreateTime;
     }
 
     /// <summary>

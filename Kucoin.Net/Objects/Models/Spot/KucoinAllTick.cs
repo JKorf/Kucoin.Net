@@ -1,12 +1,11 @@
-﻿using CryptoExchange.Net.ExchangeInterfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinAllTick: ICommonTicker
+    public class KucoinAllTick
     {
         /// <summary>
         /// The symbol of the tick
@@ -81,10 +80,5 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Maker Fee Coefficient
         /// </summary>
         public decimal? MakerCoefficient { get; set; }
-
-        string ICommonTicker.CommonSymbol => Symbol;
-        decimal ICommonTicker.CommonHighPrice => HighPrice ?? 0;
-        decimal ICommonTicker.CommonLowPrice => LowPrice ?? 0;
-        decimal ICommonTicker.CommonVolume => Volume ?? 0;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
@@ -10,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book
     /// </summary>
-    public class KucoinFullOrderBook: ICommonOrderBook
+    public class KucoinFullOrderBook
     {
         /// <summary>
         /// The last sequence number of this order book state
@@ -29,9 +28,6 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The list of bids
         /// </summary>
         public IEnumerable<KucoinFullOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
-
-        IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonBids => Bids;
-        IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonAsks => Asks;
     }
 
     /// <summary>

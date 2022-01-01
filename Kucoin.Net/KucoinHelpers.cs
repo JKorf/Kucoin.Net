@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Kucoin.Net.Clients;
+using Kucoin.Net.Interfaces.Clients;
+using Kucoin.Net.Objects;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Kucoin.Net
@@ -8,6 +12,28 @@ namespace Kucoin.Net
     /// </summary>
     public static class KucoinHelpers
     {
+        /// <summary>
+        /// Add the IKucoinClient and IKucoinSocketClient to the sevice collection so they can be injected
+        /// </summary>
+        /// <param name="services">The service collection</param>
+        /// <param name="defaultOptionsCallback">Set default options for the client</param>
+        /// <returns></returns>
+        public static IServiceCollection AddKucoin(this IServiceCollection services, Action<KucoinClientOptions, KucoinSocketClientOptions>? defaultOptionsCallback = null)
+        {
+            if (defaultOptionsCallback != null)
+            {
+                var options = new KucoinClientOptions();
+                var socketOptions = new KucoinSocketClientOptions();
+                defaultOptionsCallback?.Invoke(options, socketOptions);
+
+                KucoinClient.SetDefaultOptions(options);
+                KucoinSocketClient.SetDefaultOptions(socketOptions);
+            }
+
+            return services.AddTransient<IKucoinClient, KucoinClient>()
+                           .AddScoped<IKucoinSocketClient, KucoinSocketClient>();
+        }
+
         /// <summary>
         /// Validate the string is a valid Kucoin symbol.
         /// </summary>

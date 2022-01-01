@@ -1,12 +1,11 @@
-﻿using CryptoExchange.Net.ExchangeInterfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// New Borrow order
     /// </summary>
-    public class KucoinNewBorrowOrder : ICommonOrderId
+    public class KucoinNewBorrowOrder
     {
         /// <summary>
         /// The id of the new borrow order
@@ -19,7 +18,5 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("currency")]
         public string Asset { get; set; } = string.Empty;
-
-        string ICommonOrderId.CommonId => Id;
     }
 }

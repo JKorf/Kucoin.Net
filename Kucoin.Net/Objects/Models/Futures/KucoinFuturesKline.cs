@@ -1,6 +1,5 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -9,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// Kline info
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinFuturesKline : ICommonKline
+    public class KucoinFuturesKline
     {
         /// <summary>
         /// The start time of the kline
@@ -41,12 +40,5 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [ArrayProperty(5)]
         public decimal Volume { get; set; }
-
-        decimal ICommonKline.CommonHighPrice => HighPrice;
-        decimal ICommonKline.CommonLowPrice => LowPrice;
-        decimal ICommonKline.CommonOpenPrice => OpenPrice;
-        decimal ICommonKline.CommonClosePrice => ClosePrice;
-        decimal ICommonKline.CommonVolume => Volume;
-        DateTime ICommonKline.CommonOpenTime => OpenTime;
     }
 }

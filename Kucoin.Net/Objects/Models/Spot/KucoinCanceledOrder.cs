@@ -1,12 +1,11 @@
-﻿using CryptoExchange.Net.ExchangeInterfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Canceled order
     /// </summary>
-    public class KucoinCanceledOrder: ICommonOrderId
+    public class KucoinCanceledOrder
     {
         /// <summary>
         /// Order id of the canceled order
@@ -19,7 +18,5 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;
-
-        string ICommonOrderId.CommonId => CanceledOrderId;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
@@ -9,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// User trade info
     /// </summary>
-    public class KucoinUserTrade: KucoinTradeBase, ICommonTrade
+    public class KucoinUserTrade: KucoinTradeBase
     {        
         /// <summary>
         /// The type of the order
@@ -38,12 +37,5 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Trade type
         /// </summary>
         public string TradeType { get; set; } = string.Empty;
-
-        string ICommonTrade.CommonId => Id;
-        decimal ICommonTrade.CommonPrice => Price;
-        decimal ICommonTrade.CommonQuantity => Quantity;
-        decimal ICommonTrade.CommonFee => Fee;
-        string ICommonTrade.CommonFeeAsset => FeeAsset;
-        DateTime ICommonTrade.CommonTradeTime => Timestamp;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoExchange.Net.Interfaces;
+using System;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
@@ -21,5 +22,11 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Endpoints related to orders and trades
         /// </summary>
         IKucoinClientFuturesApiTrading Trading { get; }
+
+        /// <summary>
+        /// Get the IFuturesClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+        /// </summary>
+        /// <returns></returns>
+        public IFuturesClient ComonFuturesClient { get; }
     }
 }

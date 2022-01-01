@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.ComonObjects;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -28,7 +29,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol,
-            OrderSide side,
+            Enums.OrderSide side,
             NewOrderType type,
             decimal? quantity = null,
             decimal? price = null,
@@ -75,14 +76,14 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders"), HttpMethod.Post, ct, parameters, true, weight: 4).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderPlaced(result.Data);
+                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinNewMarginOrder>> PlaceMarginOrderAsync(
             string symbol,
-            OrderSide side,
+            Enums.OrderSide side,
             NewOrderType type,
             decimal? price = null,
             decimal? quantity = null,
@@ -143,7 +144,7 @@ namespace Kucoin.Net.Clients.SpotApi
             orderId.ValidateNotNull(nameof(orderId));
             var result = await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true, weight: 3).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderCanceled(result.Data);
+                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
             return result;
 
         }
@@ -154,7 +155,7 @@ namespace Kucoin.Net.Clients.SpotApi
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
             var result = await _baseClient.Execute<KucoinCanceledOrder>(_baseClient.GetUri($"order/client-order/{clientOrderId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderCanceled(result.Data);
+                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = clientOrderId });
             return result;
         }
 
@@ -168,7 +169,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, OrderStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, Enums.OrderStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -207,7 +208,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersAsync(string? symbol = null, OrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -224,7 +225,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -254,7 +255,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(
             string symbol,
-            OrderSide orderSide,
+            Enums.OrderSide orderSide,
             NewOrderType orderType,
             StopCondition stopCondition,
             decimal stopPrice,
@@ -341,8 +342,8 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinStopOrder>>> GetStopOrdersAsync(bool? activeOrders = null, string? symbol = null, OrderSide? side = null,
-            OrderType? type = null, TradeType? tradeType = null, DateTime? startTime = null, DateTime? endTime = null, IEnumerable<string>? orderIds = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinStopOrder>>> GetStopOrdersAsync(bool? activeOrders = null, string? symbol = null, Enums.OrderSide? side = null,
+            Enums.OrderType? type = null, TradeType? tradeType = null, DateTime? startTime = null, DateTime? endTime = null, IEnumerable<string>? orderIds = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("status", activeOrders.HasValue ? activeOrders == true ? "active" : "done" : null);

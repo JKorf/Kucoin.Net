@@ -1,6 +1,5 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
@@ -10,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Trade info
     /// </summary>
-    public class KucoinTrade: ICommonRecentTrade
+    public class KucoinTrade
     {
         /// <summary>
         /// The sequence number of the trade
@@ -35,9 +34,5 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter)), JsonProperty("time")]
         public DateTime Timestamp { get; set; }
-
-        decimal ICommonRecentTrade.CommonPrice => Price;
-        decimal ICommonRecentTrade.CommonQuantity => Quantity;
-        DateTime ICommonRecentTrade.CommonTradeTime => Timestamp;
     }
 }

@@ -1,12 +1,11 @@
-﻿using CryptoExchange.Net.ExchangeInterfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Symbol info
     /// </summary>
-    public class KucoinSymbol: ICommonSymbol
+    public class KucoinSymbol
     {
         /// <summary>
         /// The symbol identifier
@@ -79,8 +78,5 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Whether trading is enabled
         /// </summary>
         public bool EnableTrading { get; set; }
-
-        string ICommonSymbol.CommonName => Symbol;
-        decimal ICommonSymbol.CommonMinimumTradeQuantity => BaseMinQuantity;
     }
 }
