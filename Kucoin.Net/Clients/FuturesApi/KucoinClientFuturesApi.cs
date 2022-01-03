@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.ComonObjects;
+using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
@@ -192,14 +192,14 @@ namespace Kucoin.Net.Clients.FuturesApi
             }));
         }
 
-        async Task<WebCallResult<OrderId>> IFuturesClient.PlaceOrderAsync(string symbol, CryptoExchange.Net.ComonObjects.OrderSide side, CryptoExchange.Net.ComonObjects.OrderType type, decimal quantity, decimal? price, int? leverage, string? accountId)
+        async Task<WebCallResult<OrderId>> IFuturesClient.PlaceOrderAsync(string symbol, CryptoExchange.Net.CommonObjects.OrderSide side, CryptoExchange.Net.CommonObjects.OrderType type, decimal quantity, decimal? price, int? leverage, string? accountId)
         {
             if (!leverage.HasValue)
                 throw new ArgumentException($"Kucoin required the {nameof(leverage)} parameter for {nameof(IFuturesClient.PlaceOrderAsync)}");
 
             var order = await Trading.PlaceOrderAsync(symbol,
-                side == CryptoExchange.Net.ComonObjects.OrderSide.Sell ? Enums.OrderSide.Sell : Enums.OrderSide.Buy,
-                type == CryptoExchange.Net.ComonObjects.OrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
+                side == CryptoExchange.Net.CommonObjects.OrderSide.Sell ? Enums.OrderSide.Sell : Enums.OrderSide.Buy,
+                type == CryptoExchange.Net.CommonObjects.OrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
                 leverage.Value,
                 quantity,
                 price
@@ -226,9 +226,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 QuantityFilled = order.Data.QuantityFilled,
                 Timestamp = order.Data.CreateTime,
                 Symbol = order.Data.Symbol,
-                Side = order.Data.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.ComonObjects.OrderSide.Buy : CryptoExchange.Net.ComonObjects.OrderSide.Sell,
-                Type = order.Data.Type == Enums.OrderType.Market ? CryptoExchange.Net.ComonObjects.OrderType.Market : order.Data.Type == Enums.OrderType.Limit ? CryptoExchange.Net.ComonObjects.OrderType.Limit : CryptoExchange.Net.ComonObjects.OrderType.Other,
-                Status = order.Data.IsActive == true ? CryptoExchange.Net.ComonObjects.OrderStatus.Active : order.Data.CancelExist ? CryptoExchange.Net.ComonObjects.OrderStatus.Canceled : CryptoExchange.Net.ComonObjects.OrderStatus.Filled
+                Side = order.Data.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.CommonObjects.OrderSide.Buy : CryptoExchange.Net.CommonObjects.OrderSide.Sell,
+                Type = order.Data.Type == Enums.OrderType.Market ? CryptoExchange.Net.CommonObjects.OrderType.Market : order.Data.Type == Enums.OrderType.Limit ? CryptoExchange.Net.CommonObjects.OrderType.Limit : CryptoExchange.Net.CommonObjects.OrderType.Other,
+                Status = order.Data.IsActive == true ? CryptoExchange.Net.CommonObjects.OrderStatus.Active : order.Data.CancelExist ? CryptoExchange.Net.CommonObjects.OrderStatus.Canceled : CryptoExchange.Net.CommonObjects.OrderStatus.Filled
             });
         }
 
@@ -267,9 +267,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 QuantityFilled = d.QuantityFilled,
                 Timestamp = d.CreateTime,
                 Symbol = d.Symbol,
-                Side = d.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.ComonObjects.OrderSide.Buy : CryptoExchange.Net.ComonObjects.OrderSide.Sell,
-                Type = d.Type == Enums.OrderType.Market ? CryptoExchange.Net.ComonObjects.OrderType.Market : d.Type == Enums.OrderType.Limit ? CryptoExchange.Net.ComonObjects.OrderType.Limit : CryptoExchange.Net.ComonObjects.OrderType.Other,
-                Status = d.IsActive == true ? CryptoExchange.Net.ComonObjects.OrderStatus.Active : d.CancelExist ? CryptoExchange.Net.ComonObjects.OrderStatus.Canceled : CryptoExchange.Net.ComonObjects.OrderStatus.Filled
+                Side = d.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.CommonObjects.OrderSide.Buy : CryptoExchange.Net.CommonObjects.OrderSide.Sell,
+                Type = d.Type == Enums.OrderType.Market ? CryptoExchange.Net.CommonObjects.OrderType.Market : d.Type == Enums.OrderType.Limit ? CryptoExchange.Net.CommonObjects.OrderType.Limit : CryptoExchange.Net.CommonObjects.OrderType.Other,
+                Status = d.IsActive == true ? CryptoExchange.Net.CommonObjects.OrderStatus.Active : d.CancelExist ? CryptoExchange.Net.CommonObjects.OrderStatus.Canceled : CryptoExchange.Net.CommonObjects.OrderStatus.Filled
             }));
         }
 
@@ -288,9 +288,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 QuantityFilled = d.QuantityFilled,
                 Timestamp = d.CreateTime,
                 Symbol = d.Symbol,
-                Side = d.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.ComonObjects.OrderSide.Buy : CryptoExchange.Net.ComonObjects.OrderSide.Sell,
-                Type = d.Type == Enums.OrderType.Market ? CryptoExchange.Net.ComonObjects.OrderType.Market : d.Type == Enums.OrderType.Limit ? CryptoExchange.Net.ComonObjects.OrderType.Limit : CryptoExchange.Net.ComonObjects.OrderType.Other,
-                Status = d.IsActive == true ? CryptoExchange.Net.ComonObjects.OrderStatus.Active : d.CancelExist ? CryptoExchange.Net.ComonObjects.OrderStatus.Canceled : CryptoExchange.Net.ComonObjects.OrderStatus.Filled
+                Side = d.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.CommonObjects.OrderSide.Buy : CryptoExchange.Net.CommonObjects.OrderSide.Sell,
+                Type = d.Type == Enums.OrderType.Market ? CryptoExchange.Net.CommonObjects.OrderType.Market : d.Type == Enums.OrderType.Limit ? CryptoExchange.Net.CommonObjects.OrderType.Limit : CryptoExchange.Net.CommonObjects.OrderType.Other,
+                Status = d.IsActive == true ? CryptoExchange.Net.CommonObjects.OrderStatus.Active : d.CancelExist ? CryptoExchange.Net.CommonObjects.OrderStatus.Canceled : CryptoExchange.Net.CommonObjects.OrderStatus.Filled
             }));
         }
 
