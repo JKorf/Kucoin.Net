@@ -17,8 +17,12 @@ namespace Kucoin.Net
         /// </summary>
         /// <param name="services">The service collection</param>
         /// <param name="defaultOptionsCallback">Set default options for the client</param>
+        /// <param name="socketClientLifeTime">The lifetime of the IKucoinSocketClient for the service collection. Defaults to Scoped.</param>
         /// <returns></returns>
-        public static IServiceCollection AddKucoin(this IServiceCollection services, Action<KucoinClientOptions, KucoinSocketClientOptions>? defaultOptionsCallback = null)
+        public static IServiceCollection AddKucoin(
+            this IServiceCollection services, 
+            Action<KucoinClientOptions, KucoinSocketClientOptions>? defaultOptionsCallback = null,
+            ServiceLifetime? socketClientLifeTime = null)
         {
             if (defaultOptionsCallback != null)
             {
@@ -30,8 +34,12 @@ namespace Kucoin.Net
                 KucoinSocketClient.SetDefaultOptions(socketOptions);
             }
 
-            return services.AddTransient<IKucoinClient, KucoinClient>()
-                           .AddScoped<IKucoinSocketClient, KucoinSocketClient>();
+            services.AddTransient<IKucoinClient, KucoinClient>();
+            if (socketClientLifeTime == null)
+                services.AddScoped<IKucoinSocketClient, KucoinSocketClient>();
+            else
+                services.Add(new ServiceDescriptor(typeof(IKucoinSocketClient), typeof(KucoinSocketClient), socketClientLifeTime.Value));
+            return services;
         }
 
         /// <summary>
