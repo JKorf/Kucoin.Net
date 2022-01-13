@@ -30,7 +30,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Order price
         /// </summary>
-        public decimal OrderPrice { get; set; }
+        public decimal? OrderPrice { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
@@ -71,6 +71,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Update type
         /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
         public StopOrderEvent Type { get; set; }
     }
 }
