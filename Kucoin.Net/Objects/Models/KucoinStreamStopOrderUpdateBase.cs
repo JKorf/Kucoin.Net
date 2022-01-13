@@ -71,6 +71,6 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Update type
         /// </summary>
-        public string Type { get; set; } = string.Empty;
+        public StopOrderEvent Type { get; set; }
     }
 }
