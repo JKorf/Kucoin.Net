@@ -301,7 +301,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.As<OrderId>(null);
 
             if (!result.Data.CancelledOrderIds.Any())
-                return new WebCallResult<OrderId>(result.ResponseStatusCode, result.ResponseHeaders, null, new ServerError("Order not canceled"));
+                return result.AsError<OrderId>(new ServerError("Order not canceled"));
 
             return result.As(new OrderId
             {

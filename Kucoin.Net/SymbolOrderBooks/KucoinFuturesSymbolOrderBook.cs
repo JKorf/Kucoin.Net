@@ -45,7 +45,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
         {
             if (KucoinClientOptions.Default.ApiCredentials == null && KucoinClientOptions.Default.FuturesApiOptions.ApiCredentials == null)
-                return new CallResult<UpdateSubscription>(null, new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
+                return new CallResult<UpdateSubscription>(new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
 
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
@@ -57,7 +57,7 @@ namespace Kucoin.Net.SymbolOrderBooks
                 if (!bookResult)
                 {
                     await socketClient.UnsubscribeAllAsync().ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(null, bookResult.Error);
+                    return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
                 SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
@@ -70,9 +70,9 @@ namespace Kucoin.Net.SymbolOrderBooks
             }
 
             if (!subResult)
-                return new CallResult<UpdateSubscription>(null, subResult.Error);
+                return new CallResult<UpdateSubscription>(subResult.Error!);
             
-            return new CallResult<UpdateSubscription>(subResult.Data, null);
+            return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
         /// <inheritdoc />
@@ -83,10 +83,10 @@ namespace Kucoin.Net.SymbolOrderBooks
 
             var bookResult = await restClient.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
-                return new CallResult<bool>(false, bookResult.Error);
+                return new CallResult<bool>(bookResult.Error!);
 
             SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<bool>(true, null);
+            return new CallResult<bool>(true);
         }
 
         private void HandleFullUpdate(DataEvent<KucoinFuturesOrderBookChange> data)

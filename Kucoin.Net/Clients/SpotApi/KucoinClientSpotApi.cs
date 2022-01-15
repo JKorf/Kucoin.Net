@@ -98,7 +98,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var ticker = symbols.Data.Data.SingleOrDefault(s => s.Symbol == symbol);
             if (ticker == null)
-                return new WebCallResult<Ticker>(symbols.ResponseStatusCode, symbols.ResponseHeaders, null, new ArgumentError("Symbol not found"));
+                return symbols.AsError<Ticker>(new ArgumentError("Symbol not found"));
 
             return symbols.As(new Ticker
             {
@@ -287,7 +287,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.As<OrderId>(null);
 
             if (!result.Data.CancelledOrderIds.Any())
-                return new WebCallResult<OrderId>(result.ResponseStatusCode, result.ResponseHeaders, null, new ServerError("Order not canceled"));
+                return result.AsError<OrderId>(new ServerError("Order not canceled"));
 
             return result.As(new OrderId
             {

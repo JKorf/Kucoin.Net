@@ -76,22 +76,22 @@ namespace Kucoin.Net.Clients
         {
             var result = await SendRequestAsync<KucoinResult<object>>(apiClient, uri, method, ct, parameters, signed).ConfigureAwait(false);
             if (!result)
-                return WebCallResult.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsDatalessError(result.Error!);
 
             if (result.Data.Code != 200000)
-                return WebCallResult.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
-            return new WebCallResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            return result.AsDataless();
         }
 
         internal async Task<WebCallResult<T>> Execute<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
         {
             var result = await SendRequestAsync<KucoinResult<T>>(apiClient, uri, method, ct, parameters, signed, requestWeight: weight).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<T>(result.Error!);
 
             if (result.Data.Code != 200000)
-                return WebCallResult<T>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
         }

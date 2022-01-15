@@ -88,7 +88,7 @@ namespace Kucoin.Net.Clients
             }
             catch (OperationCanceledException)
             {
-                return new CallResult<UpdateSubscription>(null, new CancellationRequestedError());
+                return new CallResult<UpdateSubscription>(new CancellationRequestedError());
             }
 
             try
@@ -119,7 +119,7 @@ namespace Kucoin.Net.Clients
                                 if (!tokenResult)
                                 {
                                     log.Write(LogLevel.Warning, $"Failed to connect new socket, couldn't request websocket url: " + tokenResult.Error);
-                                    return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                                    return new CallResult<UpdateSubscription>(tokenResult.Error!);
                                 }
 
                                 token = tokenResult.Data;
@@ -139,7 +139,7 @@ namespace Kucoin.Net.Clients
                                 if (!tokenResult)
                                 {
                                     log.Write(LogLevel.Warning, $"Failed to connect new socket, couldn't request websocket url: " + tokenResult.Error);
-                                    return new CallResult<UpdateSubscription>(null, tokenResult.Error);
+                                    return new CallResult<UpdateSubscription>(tokenResult.Error!);
                                 }
 
                                 token = tokenResult.Data;
@@ -168,7 +168,7 @@ namespace Kucoin.Net.Clients
 
                 var connectResult = await ConnectIfNeededAsync(socketConnection, authenticated).ConfigureAwait(false);
                 if (!connectResult)
-                    return new CallResult<UpdateSubscription>(null, connectResult.Error);
+                    return new CallResult<UpdateSubscription>(connectResult.Error!);
             }
             finally
             {
@@ -185,7 +185,7 @@ namespace Kucoin.Net.Clients
                 if (!subResult)
                 {
                     await socketConnection.CloseAsync(subscription).ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(null, subResult.Error);
+                    return new CallResult<UpdateSubscription>(subResult.Error!);
                 }
 
             }
@@ -203,7 +203,7 @@ namespace Kucoin.Net.Clients
                     await socketConnection.CloseAsync(subscription).ConfigureAwait(false);
                 }, false);
             }
-            return new CallResult<UpdateSubscription>(new UpdateSubscription(socketConnection, subscription), null);
+            return new CallResult<UpdateSubscription>(new UpdateSubscription(socketConnection, subscription));
         }
 
         /// <inheritdoc />
@@ -249,17 +249,17 @@ namespace Kucoin.Net.Clients
             var result = Deserialize<KucoinSubscribeResponse>(message);
             if (!result)
             {
-                callResult = new CallResult<object>(null, result.Error);
+                callResult = new CallResult<object>(result.Error!);
                 return true;
             }
 
             if (result.Data.Type != "ack")
             {
-                callResult = new CallResult<object>(null, new ServerError(result.Data.Code, result.Data.Data));
+                callResult = new CallResult<object>(new ServerError(result.Data.Code, result.Data.Data));
                 return true;
             }
 
-            callResult = new CallResult<object>(result.Data, null);
+            callResult = new CallResult<object>(result.Data);
             return true;
         }
 
@@ -325,7 +325,7 @@ namespace Kucoin.Net.Clients
         /// <inheritdoc />
         protected override Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
-            return Task.FromResult(new CallResult<bool>(true, null));
+            return Task.FromResult(new CallResult<bool>(true));
         }
 
         /// <inheritdoc />
