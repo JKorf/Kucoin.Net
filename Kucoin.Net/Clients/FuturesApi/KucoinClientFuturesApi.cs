@@ -351,7 +351,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public IFuturesClient ComonFuturesClient => this;
+        public IFuturesClient CommonFuturesClient => this;
 
         private static FuturesKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
         {

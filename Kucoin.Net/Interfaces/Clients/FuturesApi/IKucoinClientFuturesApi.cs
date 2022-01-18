@@ -27,6 +27,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get the IFuturesClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
         /// </summary>
         /// <returns></returns>
-        public IFuturesClient ComonFuturesClient { get; }
+        public IFuturesClient CommonFuturesClient { get; }
     }
 }
