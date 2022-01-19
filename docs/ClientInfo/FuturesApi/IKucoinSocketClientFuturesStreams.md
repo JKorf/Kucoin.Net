@@ -18,7 +18,7 @@ parent: Socket API documentation
 *Subscribe to snapshot updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeTo24HourSnapshotUpdatesAsync(/* parameters */);  
 ```  
 
@@ -44,7 +44,7 @@ Task<CallResult<UpdateSubscription>> SubscribeTo24HourSnapshotUpdatesAsync(strin
 *Subscribe to wallet updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToBalanceUpdatesAsync(/* parameters */);  
 ```  
 
@@ -71,7 +71,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataE
 *Subscribe to market data updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToMarketUpdatesAsync(/* parameters */);  
 ```  
 
@@ -98,7 +98,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMarketUpdatesAsync(string symbol
 *Subscribe to full order book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -124,7 +124,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string sym
 *Subscribe to order updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToOrderUpdatesAsync(/* parameters */);  
 ```  
 
@@ -151,7 +151,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol
 *Subscribe to partial order book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToPartialOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -178,7 +178,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(str
 *Subscribe to position updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToPositionUpdatesAsync(/* parameters */);  
 ```  
 
@@ -207,7 +207,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symb
 *Subscribe to stop order updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToStopOrderUpdatesAsync(/* parameters */);  
 ```  
 
@@ -232,7 +232,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<Dat
 *Subscribe system announcement*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToSystemAnnouncementsAsync(/* parameters */);  
 ```  
 
@@ -257,7 +257,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToSystemAnnouncementsAsync(Action<
 *Subscribe to ticker updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -283,7 +283,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol
 *Subscribe to trade updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.FuturesStreams.SubscribeToTradeUpdatesAsync(/* parameters */);  
 ```  
 
