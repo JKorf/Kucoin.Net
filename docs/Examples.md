@@ -13,8 +13,8 @@ Make sure to read the [CryptoExchange.Net documentation](https://jkorf.github.io
 </Summary>
 <BlockQuote>
 
-#### Get market data
-````C#
+### Get market data
+```csharp
 // Getting info on all symbols
 var symbolData = await kucoinClient.SpotApi.ExchangeData.GetSymbolsAsync();
 
@@ -26,15 +26,15 @@ var orderBookData = await kucoinClient.SpotApi.ExchangeData.GetOrderBookAsync("B
 
 // Getting recent trades of a symbol
 var tradeHistoryData = await kucoinClient.SpotApi.ExchangeData.GetTradeHistoryAsync("BTC-USDT");
-````
+```
 
-#### Requesting balances
+### Requesting balances
 Balances are stored in `accounts` on Kucoin, so balances can be retrieved using `GetAccountsAsync`
-````C#
+```csharp
 var accountData = await kucoinClient.SpotApi.Account.GetAccountsAsync();
-````
-#### Placing order
-````C#
+```
+### Placing order
+```csharp
 // Placing a buy limit order for 0.001 BTC at a price of 50000USDT each
 var orderData = await kucoinClient.SpotApi.Trading.PlaceOrderAsync(
 				"BTC-USDT", 
@@ -61,41 +61,41 @@ var orderData = await kucoinClient.SpotApi.Trading.PlaceStopOrderAsync(
 				price: 39000,
 				quantity: 0.001m,
 				timeInForce: TimeInForce.GoodTillCanceled);
-````
+```
 
-#### Requesting a specific order
-````C#
+### Requesting a specific order
+```csharp
 // Request info on order with id `1234`
 var orderData = await kucoinClient.SpotApi.Trading.GetOrderAsync("1234");
-````
+```
 
-#### Requesting order history
-````C#
+### Requesting order history
+```csharp
 // Get all orders conform the parameters. This example gets all BTC-USDT limit orders which are currently active
  var ordersData = await kucoinClient.SpotApi.Trading.GetOrdersAsync("BTC-USDT", type: OrderType.Limit, status: OrderStatus.Active);
-````
+```
 
-#### Cancel order
-````C#
+### Cancel order
+```csharp
 // Cancel order with id `1234`
 var orderData = await kucoinClient.SpotApi.Trading.CancelOrderAsync("1234");
-````
+```
 
-#### Get user trades
-````C#
+### Get user trades
+```csharp
 var userTradesResult = await kucoinClient.SpotApi.Trading.GetUserTradesAsync();
-````
+```
 
-#### Subscribing to market data updates
-````C#
+### Subscribing to market data updates
+```csharp
 var subscribeResult = await kucoinSocketClient.SpotStreams.SubscribeToAllTickerUpdatesAsync(data =>
 {
 	// Handle ticker data
 });
-````
+```
 
-#### Subscribing to order updates
-````C#
+### Subscribing to order updates
+```csharp
 var subscribeResult = await kucoinSocketClient.SpotStreams.SubscribeToOrderUpdatesAsync(data =>
 {
 	// Handle order updates
@@ -104,7 +104,7 @@ data =>
 {
 	// Handle match updates
 });
-````
+```
 </BlockQuote>
 </Details>
 
@@ -115,8 +115,8 @@ data =>
 </Summary>
 <BlockQuote>
 
-#### Get market data
-````C#
+### Get market data
+```csharp
  // Getting info on all contracts
 var contractData = await kucoinClient.FuturesApi.ExchangeData.GetOpenContractsAsync();
 
@@ -125,16 +125,16 @@ var orderBookData = await kucoinClient.FuturesApi.ExchangeData.GetAggregatedFull
 
 // Getting recent trades of a symbol
 var tradeHistoryData = await kucoinClient.FuturesApi.ExchangeData.GetTradeHistoryAsync("XBTUSDM");
-````
+```
 
-#### Requesting positions
-````C#
+### Requesting positions
+```csharp
 // Getting your current positions
 var positionResultData = await kucoinClient.FuturesApi.Account.GetPositionsAsync();
-````
+```
 
-#### Placing order
-````C#
+### Placing order
+```csharp
 // Placing a market buy order for 10 contracts with 10x leverage
 var positionResultData = await kucoinClient.FuturesApi.Trading.PlaceOrderAsync(
 				"XBTUSDM",
@@ -142,35 +142,35 @@ var positionResultData = await kucoinClient.FuturesApi.Trading.PlaceOrderAsync(
 				NewOrderType.Market,
 				10,
 				10);
-````
+```
 
-#### Requesting a specific order
-````C#
+### Requesting a specific order
+```csharp
 // Get info on an order id 1234
 var orderResult = await kucoinClient.FuturesApi.Trading.GetOrderAsync("1234");
 
-````
+```
 
-#### Requesting order history
-````C#
+### Requesting order history
+```csharp
 // Get all orders for the account. Can apply filters as parameters
 var orderResult = await kucoinClient.FuturesApi.Trading.GetOrdersAsync();
-````
+```
 
-#### Cancel order
-````C#
+### Cancel order
+```csharp
 // Cancel order with id 1234
 var orderResult = await kucoinClient.FuturesApi.Trading.CancelOrderAsync("1234");
 
-````
+```
 
-#### Get user trades
-````C#
+### Get user trades
+```csharp
 var userTradesResult = await kucoinClient.FuturesApi.Trading.GetUserTradesAsync();
-````
+```
 
-#### Subscribing to position updates
-````C#
+### Subscribing to position updates
+```csharp
 // Any of the data handler can be passed as `null` to ignore that type of update
 kucoinSocketClient.FuturesStreams.SubscribeToPositionUpdatesAsync("XBTUSDM",
                 data =>
@@ -189,6 +189,6 @@ kucoinSocketClient.FuturesStreams.SubscribeToPositionUpdatesAsync("XBTUSDM",
                 {
 					// Handle risk adjust update
                 });
-````
+```
 </BlockQuote>
 </Details>

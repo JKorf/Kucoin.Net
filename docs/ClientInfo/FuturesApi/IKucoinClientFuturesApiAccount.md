@@ -2,7 +2,7 @@
 title: IKucoinClientFuturesApiAccount
 has_children: false
 parent: IKucoinClientFuturesApi
-grand_parent: IKucoinClient
+grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
 `KucoinClient > FuturesApi > Account`  

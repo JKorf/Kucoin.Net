@@ -8,23 +8,23 @@ nav_order: 2
 There are 2 clients available to interact with the Kucoin API, the `KucoinClient` and `KucoinSocketClient`.
 
 *Create a new rest client*
-````C#
+```csharp
 var kucoinClient = new KucoinClient(new KucoinClientOptions()
 {
 	// Set options here for this client
 });
-````
+```
 
 *Create a new socket client*
-````C#
+```csharp
 var kucoinSocketClient = new KucoinSocketClient(new KucoinSocketClientOptions()
 {
 	// Set options here for this client
 });
-````
+```
 
 Different options are available to set on the clients, see this example
-````C#
+```csharp
 var kucoinClient = new KucoinClient(new KucoinClientOptions()
 {
 	ApiCredentials = new KucoinApiCredentials("API-KEY", "API-SECRET", "API-PASSPHRASE"),
@@ -36,15 +36,15 @@ var kucoinClient = new KucoinClient(new KucoinClientOptions()
 		AutoTimestamp = false
 	}
 });
-````
+```
 Alternatively, options can be provided before creating clients by using `SetDefaultOptions`:
-````C#
+```csharp
 KucoinClient.SetDefaultOptions(new KucoinClientOptions{
 	// Set options here for all new clients
 });
 var kucoinClient = new KucoinClient();
-````
-More info on the specific options can be found on the [CryptoExchange.Net wiki](https://github.com/JKorf/CryptoExchange.Net/wiki/Options)
+```
+More info on the specific options can be found in the [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net/Options.html)
 
 ### Dependency injection
-See [CryptoExchange.Net wiki](https://github.com/JKorf/CryptoExchange.Net/wiki/Clients#dependency-injection)
+See [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net/Clients.html#dependency-injection)

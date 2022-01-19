@@ -1,7 +1,7 @@
 ---
 title: IKucoinSocketClientFuturesStreams
 has_children: true
-parent: IKucoinSocketClient
+parent: Socket API documentation
 ---
 *[generated documentation]*  
 `KucoinSocketClient > FuturesStreams`  

@@ -1,7 +1,7 @@
 ---
 title: IKucoinClientFuturesApi
 has_children: true
-parent: IKucoinClient
+parent: Rest API documentation
 ---
 *[generated documentation]*  
 `KucoinClient > FuturesApi`  

@@ -2,7 +2,7 @@ There are a decent amount of breaking changes when moving from version 3.x.x to 
 Most endpoints are now available under a slightly different name or path, and most data models have remained the same, barring a few renames.
 In this document most changes will be described. If you have any other questions or issues when updating, feel free to open an issue.
 
-Changes related to `IExchangeClient`, options and client structure are also (partially) covered in the [CryptoExchange.Net Migration Guide](https://github.com/JKorf/CryptoExchange.Net/wiki/Migration-Guide)
+Changes related to `IExchangeClient`, options and client structure are also (partially) covered in the [CryptoExchange.Net Migration Guide](https://jkorf.github.io/CryptoExchange.Net/Migration%20Guide.html)
 
 ### Namespaces
 There are a few namespace changes:  
@@ -16,7 +16,7 @@ There are a few namespace changes:
 
 ### Client options
 *V3*
-````C#
+```csharp
 var kucoinClient = new KucoinClient(new KucoinClientOptions
 {
 	LogLevel = LogLevel.Trace,
@@ -24,10 +24,10 @@ var kucoinClient = new KucoinClient(new KucoinClientOptions
 	ApiCredentials = new KucoinApiCredentials("SPOT-API-KEY", "SPOT-API-SECRET", "SPOT-API-PASSPHRASE"),
 	FuturesApiCredentials = new KucoinApiCredentials("FUTURES-API-KEY", "FUTURES-API-SECRET", "FUTURES-API-PASSPHRASE")
 });
-````
+```
 
 *V4*
-````C#
+```csharp
 var kucoinClient = new KucoinClient(new KucoinClientOptions()
 {
 	LogLevel = LogLevel.Trace,
@@ -41,7 +41,7 @@ var kucoinClient = new KucoinClient(new KucoinClientOptions()
 		ApiCredentials = new KucoinApiCredentials("FUTURES-API-KEY", "FUTURES-API-SECRET", "FUTURES-API-PASSPHRASE")
 	},
 });
-````
+```
 
 ### Client structure
 Version 4 splits both spot and futures rest API into 3 topics, `Account`, `ExchangeData` and `Trading`, and adds the `Api` post fix to the sub client. More info on this can be found on the [CryptoExchange.Net wiki](https://github.com/JKorf/CryptoExchange.Net/wiki/Clients). 
@@ -49,7 +49,7 @@ This means that all calls will have changed from for example `client.Spot.GetTic
 For the socket client only the sub client name has changed to have a `Streams` postfix: `socketClient.SpotStreams.Subscribe`.
 
 *V3*
-````C#
+```csharp
  var accounts = await kucoinClient.Spot.GetAccountsAsync();
 var withdrawals = await kucoinClient.Spot.GetWithdrawalsAsync();
 
@@ -58,10 +58,10 @@ var symbols = await kucoinClient.Spot.GetSymbolsAsync();
 
 var order = await kucoinClient.Spot.PlaceOrderAsync();
 var trades = await kucoinClient.Spot.GetUserTradesAsync();
-````
+```
 
 *V4*  
-````C#
+```csharp
 var accounts = await kucoinClient.SpotApi.Account.GetAccountsAsync();
 var withdrawals = await kucoinClient.SpotApi.Account.GetWithdrawalsAsync();
 
@@ -70,7 +70,7 @@ var symbols = await kucoinClient.SpotApi.ExchangeData.GetSymbolsAsync();
 
 var order = await kucoinClient.SpotApi.Trading.PlaceOrderAsync();
 var trades = await kucoinClient.SpotApi.Trading.GetUserTradesAsync();
-````
+```
 
 ### Enum names
 `Kucoin` prefixes have been removed  
@@ -100,7 +100,7 @@ Some names have slightly changed to be consistent across different libraries
 ### Changed methods
 The spot PlaceOrderAsync call has had the price and quantity parameter swapped(!) and has been changed to make the clientOrderId optional, and ordering the parameters to be the same as for the PlaceOrderAsync calls in other libraries:  
 *V3*  
-````C#
+```csharp
 Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol,
             string clientOrderId,
@@ -118,9 +118,9 @@ Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string? remark = null,
             KucoinSelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default);
-````
+```
 *V4*  
-````C#
+```csharp
 async Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
@@ -138,4 +138,4 @@ async Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default);
-````
+```

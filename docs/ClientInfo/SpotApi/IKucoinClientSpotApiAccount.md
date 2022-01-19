@@ -2,7 +2,7 @@
 title: IKucoinClientSpotApiAccount
 has_children: false
 parent: IKucoinClientSpotApi
-grand_parent: IKucoinClient
+grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
 `KucoinClient > SpotApi > Account`  

@@ -1,8 +1,9 @@
 ---
-title: IKucoinSocketClient
+title: Socket API documentation
 has_children: true
 ---
 *[generated documentation]*  
+### KucoinSocketClient  
 *Client for accessing the Kucoin websocket API.*
   
 ***

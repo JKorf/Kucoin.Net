@@ -1,8 +1,9 @@
 ---
-title: IKucoinClient
+title: Rest API documentation
 has_children: true
 ---
 *[generated documentation]*  
+### KucoinClient  
 *Client for accessing the Kucoin Spot API.*
   
 ***
