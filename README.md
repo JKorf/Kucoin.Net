@@ -90,6 +90,10 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
 
 ## Release notes
+* Version 4.0.0-beta3 - 19 Jan 2022
+    * Fixed Futures order deserialization in .Net Framework
+    * Added default clientOrderId for new futures orders if not provided
+
 * Version 4.0.0-beta2 - 19 Jan 2022
     * Fixed futures Balance and SpotOrder update streams not receiving updates
 
