@@ -51,7 +51,7 @@ var kucoinClient = new KucoinClient(new KucoinClientOptions()
 ```
 
 ### Client structure
-Version 4 splits both spot and futures rest API into 3 topics, `Account`, `ExchangeData` and `Trading`, and adds the `Api` post fix to the sub client. More info on this can be found on the [CryptoExchange.Net wiki](https://github.com/JKorf/CryptoExchange.Net/wiki/Clients). 
+Version 4 splits both spot and futures rest API into 3 topics, `Account`, `ExchangeData` and `Trading`, and adds the `Api` post fix to the sub client. More info on this can be found in the [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net/Clients.html).
 This means that all calls will have changed from for example `client.Spot.GetTickersAsync()` to `client.SpotApi.ExchangeData.GetTickersAsync()`.  
 For the socket client only the sub client name has changed to have a `Streams` postfix: `socketClient.SpotStreams.Subscribe`.
 
