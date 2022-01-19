@@ -31,7 +31,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonConverter(typeof(StopConditionConverter))]
         [JsonProperty("stop")]
-        public StopCondition StopOrderType { get; set; }
+        public StopCondition? StopOrderType { get; set; }
         /// <summary>
         /// Stop price type
         /// </summary>

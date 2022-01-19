@@ -60,6 +60,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)));
             parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
             parameters.AddParameter("size", quantity.ToString(CultureInfo.InvariantCulture));
+            parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stop", stopType != null ? JsonConvert.SerializeObject(stopType, new StopTypeConverter(false)) : null);
             parameters.AddOptionalParameter("stopPriceType", stopPriceType != null ? JsonConvert.SerializeObject(stopPriceType, new StopPriceTypeConverter(false)) : null);
@@ -72,7 +73,6 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
             parameters.AddOptionalParameter("iceberg", iceberg);
-            parameters.AddOptionalParameter("clientOid", clientOrderId);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
 
             return await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders", 1), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
