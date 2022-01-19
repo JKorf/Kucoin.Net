@@ -164,6 +164,30 @@
         /// <summary>
         /// Convert to KCS
         /// </summary>
-        ConvertToKCS
+        ConvertToKCS,
+        /// <summary>
+        /// Cross margin
+        /// </summary>
+        CrossMargin,
+        /// <summary>
+        /// Mining income
+        /// </summary>
+        MiningIncome,
+        /// <summary>
+        /// Bank card deal
+        /// </summary>
+        BankCardDeal,
+        /// <summary>
+        /// Margin bonus
+        /// </summary>
+        MarginBonus,
+        /// <summary>
+        /// Liquidation takeover
+        /// </summary>
+        LiquidationTakeover,
+        /// <summary>
+        /// Return of liquidation takeover
+        /// </summary>
+        ReturnOfLiquidationTakeover,
     }
 }

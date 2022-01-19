@@ -8,7 +8,7 @@ namespace Kucoin.Net.Converters
     {
         private readonly bool _useCaps;
 
-        public BizTypeConverter() : base(false) { }        
+        public BizTypeConverter() : base(false) { }
 
         public BizTypeConverter(bool useCaps) : this() { _useCaps = useCaps; }
 
@@ -54,7 +54,14 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<BizType, string>(BizType.LiquidationFees, _useCaps ? "" : "Liquidation Fees"),
             new KeyValuePair<BizType, string>(BizType.VotingEarnings, _useCaps ? "" : "Voting Earnings"),
             new KeyValuePair<BizType, string>(BizType.RedemptionOfVoting, _useCaps ? "" : "Redemption of Voting"),
-            new KeyValuePair<BizType, string>(BizType.Voting, _useCaps ? "" : "Voting"),           
+            new KeyValuePair<BizType, string>(BizType.Voting, _useCaps ? "" : "Voting"),
+
+            new KeyValuePair<BizType, string>(BizType.CrossMargin, _useCaps ? "" : "Cross Margin"),
+            new KeyValuePair<BizType, string>(BizType.MiningIncome, _useCaps ? "" : "Mining Income"),
+            new KeyValuePair<BizType, string>(BizType.BankCardDeal, _useCaps ? "" : "Bank Card Deal"),
+            new KeyValuePair<BizType, string>(BizType.MarginBonus, _useCaps ? "" : "Bonus received"),
+            new KeyValuePair<BizType, string>(BizType.LiquidationTakeover, _useCaps ? "" : "Liquidation Takeover"),
+            new KeyValuePair<BizType, string>(BizType.ReturnOfLiquidationTakeover, _useCaps ? "" : "Return of Liquidation Takeover"),
         };
     }
 }
