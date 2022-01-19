@@ -3,7 +3,6 @@ title: Getting started
 nav_order: 2
 ---
 
-
 ## Creating client
 There are 2 clients available to interact with the Kucoin API, the `KucoinClient` and `KucoinSocketClient`.
 
