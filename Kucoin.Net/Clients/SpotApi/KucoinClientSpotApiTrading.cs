@@ -31,8 +31,8 @@ namespace Kucoin.Net.Clients.SpotApi
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
-            decimal? quantity = null,
             decimal? price = null,
+            decimal? quantity = null,
             decimal? quoteQuantity = null,
             TimeInForce? timeInForce = null,
             TimeSpan? cancelAfter = null,
@@ -41,8 +41,8 @@ namespace Kucoin.Net.Clients.SpotApi
             bool? iceBerg = null,
             decimal? visibleIceBergSize = null,
             string? remark = null,
-            string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
+            string? clientOrderId = null,
             CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
@@ -169,13 +169,14 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, Enums.OrderStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(TradeType tradeType, string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, Enums.OrderStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptionalParameter("tradeType", JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)));
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
@@ -225,7 +226,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(TradeType tradeType, string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -235,6 +236,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptionalParameter("tradeType", JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)));
             parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
             parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));

@@ -44,12 +44,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The stop condition
         /// </summary>
         [JsonConverter(typeof(StopConditionConverter))]
-        public StopCondition Stop { get; set; }        
+        public StopCondition? Stop { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime CancelAfter { get; set; }
+        public DateTime? CancelAfter { get; set; }
         /// <summary>
         /// The source of the order
         /// </summary>

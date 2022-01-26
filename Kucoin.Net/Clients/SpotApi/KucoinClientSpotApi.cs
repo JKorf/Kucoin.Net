@@ -218,9 +218,9 @@ namespace Kucoin.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol = null)
+        async Task<WebCallResult<IEnumerable<UserTrade>>> GetOrderTradesAsync(TradeType tradeType, string orderId, string? symbol = null)
         {
-            var trades = await Trading.GetUserTradesAsync(orderId: orderId).ConfigureAwait(false);
+            var trades = await Trading.GetUserTradesAsync(tradeType, orderId: orderId).ConfigureAwait(false);
             if (!trades)
                 return trades.As<IEnumerable<UserTrade>>(null);
 
@@ -237,10 +237,11 @@ namespace Kucoin.Net.Clients.SpotApi
                 Timestamp = t.Timestamp
             }));
         }
+        async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol = null) { return await GetOrderTradesAsync(TradeType.SpotTrade, orderId, symbol).ConfigureAwait(false); }
 
-        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol)
+        async Task<WebCallResult<IEnumerable<Order>>> GetOpenOrdersAsync(TradeType tradeType, string? symbol)
         {
-            var orders = await Trading.GetOrdersAsync(status: Enums.OrderStatus.Active).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(tradeType, status: Enums.OrderStatus.Active).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
@@ -258,10 +259,11 @@ namespace Kucoin.Net.Clients.SpotApi
                 Status = d.IsActive == true ? CryptoExchange.Net.CommonObjects.OrderStatus.Active : d.CancelExist ? CryptoExchange.Net.CommonObjects.OrderStatus.Canceled : CryptoExchange.Net.CommonObjects.OrderStatus.Filled
             }));
         }
+        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol) { return await GetOpenOrdersAsync(TradeType.SpotTrade, symbol).ConfigureAwait(false); }
 
-        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol)
+        async Task<WebCallResult<IEnumerable<Order>>> GetClosedOrdersAsync(TradeType tradeType, string? symbol)
         {
-            var orders = await Trading.GetOrdersAsync(status: Enums.OrderStatus.Done).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(tradeType, status: Enums.OrderStatus.Done).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
@@ -279,6 +281,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 Status = d.IsActive == true ? CryptoExchange.Net.CommonObjects.OrderStatus.Active : d.CancelExist ? CryptoExchange.Net.CommonObjects.OrderStatus.Canceled : CryptoExchange.Net.CommonObjects.OrderStatus.Filled
             }));
         }
+        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol) { return await GetClosedOrdersAsync(TradeType.SpotTrade, symbol).ConfigureAwait(false); }
 
         async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol)
         {

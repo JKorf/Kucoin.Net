@@ -44,13 +44,13 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await _baseClient.Execute<KucoinTick>(_baseClient.GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinTick>(_baseClient.GetUri($"market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinTicks>(_baseClient.GetUri("market/allTickers"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinTicks>(_baseClient.GetUri($"market/allTickers"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -58,7 +58,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await _baseClient.Execute<Kucoin24HourStat>(_baseClient.GetUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await _baseClient.Execute<Kucoin24HourStat>(_baseClient.GetUri($"market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -126,7 +126,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToSeconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToSeconds(endTime));
 
-            return await _baseClient.Execute<IEnumerable<KucoinKline>>(_baseClient.GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return await _baseClient.Execute<IEnumerable<KucoinKline>>(_baseClient.GetUri($"market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Enums;
+using Newtonsoft.Json;
+using System;
 
 namespace Kucoin.Net.Converters
 {
@@ -16,5 +18,13 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<StopCondition, string>(StopCondition.Loss, "loss"),
             new KeyValuePair<StopCondition, string>(StopCondition.Loss, "down"),
         };
+
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        {
+            object? valueObject = base.ReadJson(reader, objectType, existingValue, serializer);
+            if (valueObject == null)
+                return StopCondition.None;
+            return valueObject;
+        }
     }
 }
