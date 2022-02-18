@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class MatchUpdateTypeConverter : BaseConverter<KucoinMatchUpdateType>
+    internal class MatchUpdateTypeConverter : BaseConverter<MatchUpdateType>
     {
         public MatchUpdateTypeConverter() : this(true) { }
         public MatchUpdateTypeConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinMatchUpdateType, string>> Mapping => new List<KeyValuePair<KucoinMatchUpdateType, string>>
+        protected override List<KeyValuePair<MatchUpdateType, string>> Mapping => new List<KeyValuePair<MatchUpdateType, string>>
         {
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Match, "match"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Open, "open"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Canceled, "canceled"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Filled, "filled"),
-            new KeyValuePair<KucoinMatchUpdateType, string>(KucoinMatchUpdateType.Update, "update"),
+            new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Match, "match"),
+            new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Open, "open"),
+            new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Canceled, "canceled"),
+            new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Filled, "filled"),
+            new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Update, "update"),
         };
     }
 }

@@ -5,8 +5,7 @@ Kucoin.Net is a wrapper around the Kucoin API as described on [Kucoin](https://d
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Kucoin.Net/issues)**
 
-## CryptoExchange.Net
-This library is build upon the CryptoExchange.Net library, make sure to check out the documentation on that for basic usage: [docs](https://github.com/JKorf/CryptoExchange.Net)
+[Documentation](https://jkorf.github.io/Kucoin.Net/)
 
 ## Donations
 I develop and maintain this package on my own for free in my spare time. Donations are greatly appreciated. If you prefer to donate any other currency please contact me.
@@ -18,86 +17,22 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 ## Discord
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
-## Getting started
-Make sure you have installed the Kucoin.Net [Nuget](https://www.nuget.org/packages/Kucoin.Net/) package and add `using Kucoin.Net` to your usings.  You now have access to 2 clients:  
-**KucoinClient**  
-The client to interact with the Kucoin REST API. Getting prices:
-````C#
-var client = new KucoinClient(new KucoinClientOptions(){
- // Specify options for the client
-});
-var callResult = await client.GetTickersAsync();
-// Make sure to check if the call was successful
-if(!callResult.Success)
-{
-  // Call failed, check callResult.Error for more info
-}
-else
-{
-  // Call succeeded, callResult.Data will have the resulting data
-}
-````
-
-Placing an order:
-````C#
-var client = new KucoinClient(new KucoinClientOptions(){
- // Specify options for the client
- ApiCredentials = new KucoinApiCredentials("Key", "Secret", "Pass")
-});
-var callResult = await client.PlaceOrderAsync("BTCUSDT", KucoinOrderSide.Buy, KucoinNewOrderType.Limit, quantity:10, price: 50, timeInForce: KucoinTimeInForce.GoodTillCancelled);
-// Make sure to check if the call was successful
-if(!callResult.Success)
-{
-  // Call failed, check callResult.Error for more info
-}
-else
-{
-  // Call succeeded, callResult.Data will have the resulting data
-}
-````
-
-**KucoinSocketClient**  
-The client to interact with the Kucoin websocket API. Basic usage:
-````C#
-var client = new KucoinSocketClient(new KucoinSocketClientOptions()
-{
-  // Specify options for the client
-});
-var subscribeResult = client.SubscribeToTickerUpdatesAsync("ETHBTC", data => {
-  // Handle data when it is received
-});
-// Make sure to check if the subscritpion was successful
-if(!subscribeResult.Success)
-{
-  // Subscription failed, check callResult.Error for more info
-}
-else
-{
-  // Subscription succeeded, the handler will start receiving data when it is available
-}
-````
-
-## Client options
-For the basic client options see also the CryptoExchange.Net [docs](https://github.com/JKorf/CryptoExchange.Net#client-options). The here listed options are the options specific for Kucoin.Net.  
-**KucoinClientOptions**  
-| Property | Description | Default |
-| ----------- | ----------- | ---------|
-|`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
-
-**KucoinSocketClientOptions**  
-| Property | Description | Default |
-| ----------- | ----------- | ---------|
-|`ApiCredentials`|Overwrite for the default ApiCredentials, changing the type to KucoinApiCredentials which allows for passing in the extra password|`null`
-
 ## Release notes
-* Version 3.2.1 - 14 Dec 2021
-    * Fixed position/balance futures streams
+* Version 4.0.0 - 18 Feb 2022
+	* Added Github.io page for documentation: https://jkorf.github.io/Kucoin.Net/
+	* Added unit tests for parsing the returned JSON for each endpoint and subscription
+	* Added AddKucoin extension method on IServiceCollection for easy dependency injection
+	* Added URL reference to API endpoint documentation for each endpoint
+	* Added default rate limiter
 
-* Version 3.2.0 - 14 Dec 2021
-    * Fix for futures position subscribing triggering with empty updates
+	* Refactored client structure to be consistent across exchange implementations
+	* Renamed various properties to be consistent across exchange implementations
 
-* Version 3.1.7 - 13 Dec 2021
-    * Updated models
+	* Cleaned up project structure
+	* Fixed various models
+
+	* Updated CryptoExchange.Net, see https://github.com/JKorf/CryptoExchange.Net#release-notes
+	* See https://jkorf.github.io/Kucoin.Net/MigrationGuide.html for additional notes for updating from V3 to V4
 
 * Version 3.1.6 - 04 Nov 2021
     * Fixed futures order deserialization

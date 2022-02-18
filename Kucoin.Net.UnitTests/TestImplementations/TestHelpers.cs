@@ -9,10 +9,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Logging;
-using Kucoin.Net.Interfaces;
+using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -23,7 +23,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
     public class TestHelpers
     {
         [ExcludeFromCodeCoverage]
-        public static bool AreEqual(object? self, object? to, params string[] ignore)
+        public static bool AreEqual(object self, object to, params string[] ignore)
         {
             if (self == null && to == null)
                 return true;
@@ -105,48 +105,23 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return true;
         }
 
-        public static KucoinSocketClient CreateSocketClient(IWebsocket socket, KucoinSocketClientOptions? options = null)
-        {
-            KucoinSocketClient client;
-            client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
-            client.Spot.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.Spot.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
-            return client;
-        }
-
-        public static KucoinSocketClient CreateAuthenticatedSocketClient(IWebsocket socket, KucoinSocketClientOptions? options = null)
-        {
-            KucoinSocketClient client;
-            client = options != null ? new KucoinSocketClient(options) : new KucoinSocketClient(new KucoinSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
-            client.Spot.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.Spot.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(() => socket);
-            return client;
-        }
-
-        public static IKucoinClient CreateClient(KucoinClientOptions? options = null)
+        public static IKucoinClient CreateClient(KucoinClientOptions options = null)
         {
             IKucoinClient client;
             client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogLevel = LogLevel.Debug });
-            client.Spot.RequestFactory = Mock.Of<IRequestFactory>();
-            return client;
-        }
-
-        public static IKucoinClient CreateAuthResponseClient(string response)
-        {
-            var client = (KucoinClient)CreateClient(new KucoinClientOptions() { ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
-            SetResponse(client, response);
+            client.RequestFactory = Mock.Of<IRequestFactory>();
             return client;
         }
 
 
-        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions? options = null)
+        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions options = null)
         {
             var client = (KucoinClient)CreateClient(options);
             SetResponse(client, response);
             return client;
         }
 
-        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions? options = null)
+        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions options = null)
         {
             var client = (KucoinClient)CreateClient(options);
             SetResponse(client, JsonConvert.SerializeObject(response));
@@ -169,70 +144,12 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             request.Setup(c => c.Uri).Returns(new Uri("http://www.test.com"));
             request.Setup(c => c.GetResponseAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(response.Object));
 
-            var factory = Mock.Get(client.Spot.RequestFactory);
-            factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<string>(), It.IsAny<int>()))
+            var factory = Mock.Get(client.RequestFactory);
+            factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<Uri>(), It.IsAny<int>()))
                 .Returns(request.Object);
         }
 
-        public static T CreateObjectWithTestParameters<T>() where T : class
-        {
-            var type = typeof(T);
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-            {
-                var elementType = type.GenericTypeArguments[0];
-                Type listType = typeof(List<>).MakeGenericType(new[] { elementType });
-                IList list = (IList)Activator.CreateInstance(listType)!;
-                list.Add(GetTestValue(elementType, 0));
-                list.Add(GetTestValue(elementType, 1));
-                return (T)list;
-            }
-            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
-            {
-                var result = (IDictionary)Activator.CreateInstance(type)!;
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 0)!, GetTestValue(type.GetGenericArguments()[1], 0));
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 1)!, GetTestValue(type.GetGenericArguments()[1], 1));
-                return (T)Convert.ChangeType(result, type);
-            }
-            else
-            {
-                var obj = Activator.CreateInstance<T>();
-                return FillWithTestParameters(obj);
-            }
-        }
-
-        public static T FillWithTestParameters<T>(T obj) where T : class
-        {
-
-            var properties = obj.GetType().GetProperties();
-            int i = 1;
-            foreach (var property in properties)
-            {
-                var value = GetTestValue(property.PropertyType, i);
-                Type t = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
-                object? safeValue = (value == null) ? null : Convert.ChangeType(value, t);
-                property.SetValue(obj, safeValue, null);
-                i++;
-            }
-
-            return obj;
-        }
-
-        public static object[] CreateParametersForMethod(MethodInfo method, Dictionary<string, object> defaultValues)
-        {
-            var param = method.GetParameters();
-            var result = new object[param.Length];
-            for (int i = 0; i < param.Length; i++)
-            {
-                if (defaultValues.ContainsKey(param[i].Name!))
-                    result[i] = defaultValues[param[i].Name!];
-                else
-                    result[i] = GetTestValue(param[i].ParameterType, i)!;
-            }
-
-            return result;
-        }
-
-        public static object? GetTestValue(Type type, int i)
+        public static object GetTestValue(Type type, int i)
         {
             if (type == typeof(bool))
                 return true;
@@ -241,16 +158,19 @@ namespace Kucoin.Net.UnitTests.TestImplementations
                 return (bool?)true;
 
             if (type == typeof(decimal))
-                return i / 10m;
+                return i / 100m;
 
             if (type == typeof(decimal?))
-                return (decimal?)(i / 10m);
+                return (decimal?)(i / 100m);
 
-            if (type == typeof(int) || type == typeof(long))
-                return i;
+            if (type == typeof(int))
+                return 20;
 
             if (type == typeof(int?))
                 return (int?)i;
+
+            if (type == typeof(long))
+                return (long)i;
 
             if (type == typeof(long?))
                 return (long?)i;
@@ -262,7 +182,13 @@ namespace Kucoin.Net.UnitTests.TestImplementations
                 return (DateTime?)new DateTime(2019, 1, Math.Max(i, 1));
 
             if (type == typeof(string))
-                return "string" + i;
+                return "ETH-BTC" + i;
+
+            if (type == typeof(IEnumerable<string>))
+                return new[] { "string" + i };
+
+            if (type == typeof(StopCondition))
+                return StopCondition.Entry;
 
             if (type.IsEnum)
             {
@@ -294,12 +220,15 @@ namespace Kucoin.Net.UnitTests.TestImplementations
                 return Convert.ChangeType(result, type);
             }
 
-            if (type.IsClass)
-#pragma warning disable CS8634 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
-                return FillWithTestParameters(Activator.CreateInstance(type))!;
-#pragma warning restore CS8634 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
-
             return null;
+        }
+
+        public static async Task<object> InvokeAsync(MethodInfo @this, object obj, params object[] parameters)
+        {
+            var task = (Task)@this.Invoke(obj, parameters);
+            await task.ConfigureAwait(false);
+            var resultProperty = task.GetType().GetProperty("Result");
+            return resultProperty.GetValue(task);
         }
     }
 }

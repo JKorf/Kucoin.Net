@@ -1,0 +1,5 @@
+﻿ { 
+    "success": true, // Successful or not 
+    "riskLimitLevel": 1, // Current risk limit level 
+    "msg": "" // Failure reason 
+  }

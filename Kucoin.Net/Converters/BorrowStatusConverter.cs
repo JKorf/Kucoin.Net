@@ -1,19 +1,17 @@
 ﻿using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
-using System;
+using Kucoin.Net.Enums;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Converters
 {
-    internal class BorrowStatusConverter : BaseConverter<KucoinBorrowStatus>
+    internal class BorrowStatusConverter : BaseConverter<BorrowStatus>
     {
         public BorrowStatusConverter() : this(true) { }
         public BorrowStatusConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinBorrowStatus, string>> Mapping => new List<KeyValuePair<KucoinBorrowStatus, string>>
+        protected override List<KeyValuePair<BorrowStatus, string>> Mapping => new List<KeyValuePair<BorrowStatus, string>>
         {
-            new KeyValuePair<KucoinBorrowStatus, string>(KucoinBorrowStatus.Processing, "Processing"),
-            new KeyValuePair<KucoinBorrowStatus, string>(KucoinBorrowStatus.Done, "Done"),
+            new KeyValuePair<BorrowStatus, string>(BorrowStatus.Processing, "Processing"),
+            new KeyValuePair<BorrowStatus, string>(BorrowStatus.Done, "Done"),
         };
     }
 }

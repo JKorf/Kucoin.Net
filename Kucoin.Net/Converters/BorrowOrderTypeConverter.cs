@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class BorrowOrderTypeConverter : BaseConverter<KucoinBorrowOrderType>
+    internal class BorrowOrderTypeConverter : BaseConverter<BorrowOrderType>
     {
         public BorrowOrderTypeConverter() : this(true) { }
         public BorrowOrderTypeConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinBorrowOrderType, string>> Mapping => new List<KeyValuePair<KucoinBorrowOrderType, string>>
+        protected override List<KeyValuePair<BorrowOrderType, string>> Mapping => new List<KeyValuePair<BorrowOrderType, string>>
         {
-            new KeyValuePair<KucoinBorrowOrderType, string>(KucoinBorrowOrderType.FOK, "FOK"),
-            new KeyValuePair<KucoinBorrowOrderType, string>(KucoinBorrowOrderType.IOC, "IOC")
+            new KeyValuePair<BorrowOrderType, string>(BorrowOrderType.FOK, "FOK"),
+            new KeyValuePair<BorrowOrderType, string>(BorrowOrderType.IOC, "IOC")
         };
     }
 }

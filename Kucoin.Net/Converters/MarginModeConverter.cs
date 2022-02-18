@@ -1,19 +1,17 @@
 ﻿using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
-using System;
+using Kucoin.Net.Enums;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Converters
 {
-    internal class MarginModeConverter : BaseConverter<KucoinMarginMode>
+    internal class MarginModeConverter : BaseConverter<MarginMode>
     {
         public MarginModeConverter() : this(true) { }
         public MarginModeConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinMarginMode, string>> Mapping => new List<KeyValuePair<KucoinMarginMode, string>>
+        protected override List<KeyValuePair<MarginMode, string>> Mapping => new List<KeyValuePair<MarginMode, string>>
         {
-            new KeyValuePair<KucoinMarginMode, string>(KucoinMarginMode.CrossMode, "cross"),
-            new KeyValuePair<KucoinMarginMode, string>(KucoinMarginMode.IsolatedMode, "isolated"),
+            new KeyValuePair<MarginMode, string>(MarginMode.CrossMode, "cross"),
+            new KeyValuePair<MarginMode, string>(MarginMode.IsolatedMode, "isolated"),
         };
     }
 }

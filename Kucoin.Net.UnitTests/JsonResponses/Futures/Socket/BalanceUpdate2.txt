@@ -1,0 +1,6 @@
+﻿{
+      "availableBalance": 5923, //Current available amount
+      "holdBalance": 2312, //Frozen amount
+      "currency":"USDT",//Currency
+      "timestamp": 1553842862614
+    }

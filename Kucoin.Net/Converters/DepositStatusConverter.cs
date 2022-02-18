@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class DepositStatusConverter : BaseConverter<KucoinDepositStatus>
+    internal class DepositStatusConverter : BaseConverter<DepositStatus>
     {
         public DepositStatusConverter() : this(true) { }
         public DepositStatusConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinDepositStatus, string>> Mapping => new List<KeyValuePair<KucoinDepositStatus, string>>
+        protected override List<KeyValuePair<DepositStatus, string>> Mapping => new List<KeyValuePair<DepositStatus, string>>
         {
-            new KeyValuePair<KucoinDepositStatus, string>(KucoinDepositStatus.Processing, "PROCESSING"),
-            new KeyValuePair<KucoinDepositStatus, string>(KucoinDepositStatus.Success, "SUCCESS"),
-            new KeyValuePair<KucoinDepositStatus, string>(KucoinDepositStatus.Failure, "FAILURE"),
+            new KeyValuePair<DepositStatus, string>(DepositStatus.Processing, "PROCESSING"),
+            new KeyValuePair<DepositStatus, string>(DepositStatus.Success, "SUCCESS"),
+            new KeyValuePair<DepositStatus, string>(DepositStatus.Failure, "FAILURE"),
         };
     }
 }

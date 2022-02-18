@@ -5,8 +5,6 @@ using Kucoin.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,39 +13,28 @@ namespace Kucoin.Net
 {
     internal class KucoinAuthenticationProvider : AuthenticationProvider
     {
-        private readonly HMACSHA256 encryptor;
-
         public KucoinAuthenticationProvider(KucoinApiCredentials credentials): base(credentials)
         {
-            if (credentials.Secret == null)
-                throw new ArgumentException("ApiKey/Secret needed");
-
-            encryptor = new HMACSHA256(Encoding.UTF8.GetBytes(credentials.Secret.GetString()));
         }
 
-        public override Dictionary<string, string> AddAuthenticationToHeaders(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization)
+        public override void AuthenticateRequest(RestApiClient apiClient, Uri uri, HttpMethod method, Dictionary<string, object> providedParameters, bool auth, ArrayParametersSerialization arraySerialization, HttpMethodParameterPosition parameterPosition, out SortedDictionary<string, object> uriParameters, out SortedDictionary<string, object> bodyParameters, out Dictionary<string, string> headers)
         {
-            if (!signed)
-                return new Dictionary<string, string>();
+            uriParameters = parameterPosition == HttpMethodParameterPosition.InUri ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
+            bodyParameters = parameterPosition == HttpMethodParameterPosition.InBody ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
+            headers = new Dictionary<string, string>();
 
-            if (Credentials.Key == null)
-                throw new ArgumentException("ApiKey/Secret needed");
+            if (!auth)
+                return;
 
-            var result = new Dictionary<string, string>
-            {
-                ["KC-API-KEY"] = Credentials.Key.GetString(),
-                ["KC-API-TIMESTAMP"] = Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture),
-                ["KC-API-PASSPHRASE"] = ((KucoinApiCredentials) Credentials).PassPhrase.GetString()
-            };
+            uri = uri.SetParameters(uriParameters);
+            headers.Add("KC-API-KEY", Credentials.Key!.GetString());
+            headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
+            headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(((KucoinApiCredentials)Credentials).PassPhrase.GetString(), SignOutputType.Base64));
+            headers.Add("KC-API-KEY-VERSION", "2");
 
-            var jsonContent = string.Empty;
-            if (parameterPosition == HttpMethodParameterPosition.InBody)
-                jsonContent = JsonConvert.SerializeObject(parameters.OrderBy(p => p.Key).ToDictionary(p => p.Key, p => p.Value));
-
-            uri = uri.Substring(uri.IndexOf(".com", StringComparison.InvariantCulture) + 4);
-            var signData = result["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri) + jsonContent;
-            result["KC-API-SIGN"] = Convert.ToBase64String(encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData)));
-            return result;
+            var jsonContent = parameterPosition == HttpMethodParameterPosition.InBody ? JsonConvert.SerializeObject(bodyParameters) : string.Empty;
+            var signData = headers["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri.PathAndQuery) + jsonContent;
+            headers.Add("KC-API-SIGN", SignHMACSHA256(signData, SignOutputType.Base64));
         }
     }
 }

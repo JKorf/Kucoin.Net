@@ -18,7 +18,7 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.TwoHours, "120"),
             new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.FourHours, "240"),
             new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.EightHours, "480"),
-            new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.TwelfHours, "720"),
+            new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.TwelveHours, "720"),
             new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.OneDay, "1440"),
             new KeyValuePair<FuturesKlineInterval, string>(FuturesKlineInterval.OneWeek, "10080"),
         };

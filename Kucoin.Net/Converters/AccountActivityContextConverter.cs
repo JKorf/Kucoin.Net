@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Kucoin.Net.Objects.Spot;
+using Kucoin.Net.Objects.Models.Spot;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Converters

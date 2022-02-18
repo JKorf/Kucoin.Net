@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class AccountDirectionConverter : BaseConverter<KucoinAccountDirection>
+    internal class AccountDirectionConverter : BaseConverter<AccountDirection>
     {
         public AccountDirectionConverter() : this(true) { }
         public AccountDirectionConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinAccountDirection, string>> Mapping => new List<KeyValuePair<KucoinAccountDirection, string>>
+        protected override List<KeyValuePair<AccountDirection, string>> Mapping => new List<KeyValuePair<AccountDirection, string>>
         {
-            new KeyValuePair<KucoinAccountDirection, string>(KucoinAccountDirection.In, "in"),
-            new KeyValuePair<KucoinAccountDirection, string>(KucoinAccountDirection.Out, "out")
+            new KeyValuePair<AccountDirection, string>(AccountDirection.In, "in"),
+            new KeyValuePair<AccountDirection, string>(AccountDirection.Out, "out")
         };
     }
 }

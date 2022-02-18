@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
-using CryptoExchange.Net;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Clients;
+using Kucoin.Net.Clients.SpotApi;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -16,58 +19,10 @@ namespace Kucoin.Net.UnitTests
     public class KucoinClientTests
     {
         [TestCase()]
-        public void TestConversions()
-        {
-            var ignoreMethods = new []{"GetServerTime", "GetFiatPrices"};
-            var defaultParameterValues = new Dictionary<string, object>
-            {
-                { "symbol", "ETH-BTC" },
-                { "symbols", new [] { "ETH-BTC" }},
-                { "pageSize", 10 },
-                { "funds", null! },
-                { "limit", 20 }
-            };
-
-            var methods = typeof(KucoinClient).GetMethods(BindingFlags.Public | BindingFlags.Instance);
-            var callResultMethods = methods.Where(m => m.ReturnType.IsGenericType && m.ReturnType.GetGenericTypeDefinition() == typeof(WebCallResult<>));
-            foreach (var method in callResultMethods)
-            {
-                if (ignoreMethods.Contains(method.Name))
-                    continue;
-
-                var expectedType = method.ReturnType.GetGenericArguments()[0];
-                var expected = typeof(TestHelpers).GetMethod("CreateObjectWithTestParameters")!.MakeGenericMethod(expectedType).Invoke(null, null);
-                var parameters = TestHelpers.CreateParametersForMethod(method, defaultParameterValues);
-                var client = TestHelpers.CreateResponseClient(SerializeExpected(expected), new KucoinClientOptions(){ ApiCredentials = new KucoinApiCredentials("Test", "Test", "Test") });
-
-                // act
-                var result = method.Invoke(client, parameters);
-                var callResult = result!.GetType().GetProperty("Success")!.GetValue(result);
-                var data = result.GetType().GetProperty("Data")!.GetValue(result);
-
-                // assert
-                Assert.AreEqual(true, callResult);
-                Assert.IsTrue(TestHelpers.AreEqual(expected, data), method.Name);
-            }
-        }
-
-        public string SerializeExpected<T>(T data)
-        {
-            var result = new KucoinResult<T>()
-            {
-                Code = 200000,
-                Data = data,
-                Message = null
-            };
-
-            return JsonConvert.SerializeObject(result);
-        }
-
-        [TestCase()]
         public async Task ReceivingError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient();
+            var client = TestHelpers.CreateClient(new KucoinClientOptions());
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
@@ -78,7 +33,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj));
 
             // act
-            var result = await client.Spot.GetCurrenciesAsync();
+            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -91,11 +46,11 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient();
+            var client = TestHelpers.CreateClient(new KucoinClientOptions());
             TestHelpers.SetResponse((KucoinClient)client, "", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.Spot.GetCurrenciesAsync();
+            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -106,7 +61,7 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient();
+            var client = TestHelpers.CreateClient(new KucoinClientOptions());
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
@@ -117,7 +72,7 @@ namespace Kucoin.Net.UnitTests
             TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.Spot.GetCurrenciesAsync();
+            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -142,6 +97,47 @@ namespace Kucoin.Net.UnitTests
                 Assert.DoesNotThrow(symbol.ValidateKucoinSymbol);
             else
                 Assert.Throws(typeof(ArgumentException), symbol.ValidateKucoinSymbol);
+        }
+
+        [Test]
+        public void CheckRestInterfaces()
+        {
+            var assembly = Assembly.GetAssembly(typeof(KucoinClient));
+            var ignore = new string[] { "IKucoinClientSpot" };
+            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinClientSpot") && !ignore.Contains(t.Name));
+
+            foreach (var clientInterface in clientInterfaces)
+            {
+                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
+                int methods = 0;
+                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
+                {
+                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
+                    Assert.NotNull(interfaceMethod, $"{method.Name} not found in interface {clientInterface.Name}");
+                    methods++;
+                }
+                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
+            }
+        }
+
+        [Test]
+        public void CheckSocketInterfaces()
+        {
+            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotStreams));
+            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinSocketClientSpot"));
+
+            foreach (var clientInterface in clientInterfaces)
+            {
+                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
+                int methods = 0;
+                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task<CallResult<UpdateSubscription>>))))
+                {
+                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
+                    Assert.NotNull(interfaceMethod);
+                    methods++;
+                }
+                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
+            }
         }
     }
 }

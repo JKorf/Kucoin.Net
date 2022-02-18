@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Kucoin.Net.Objects;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Converters
 {
-    internal class MatchUpdateReasonConverter : BaseConverter<KucoinMatchUpdateReason>
+    internal class MatchUpdateReasonConverter : BaseConverter<MatchUpdateReason>
     {
         public MatchUpdateReasonConverter() : this(true) { }
         public MatchUpdateReasonConverter(bool quotes) : base(quotes) { }
-        protected override List<KeyValuePair<KucoinMatchUpdateReason, string>> Mapping => new List<KeyValuePair<KucoinMatchUpdateReason, string>>
+        protected override List<KeyValuePair<MatchUpdateReason, string>> Mapping => new List<KeyValuePair<MatchUpdateReason, string>>
         {
-            new KeyValuePair<KucoinMatchUpdateReason, string>(KucoinMatchUpdateReason.Cancelled, "canceled"),
-            new KeyValuePair<KucoinMatchUpdateReason, string>(KucoinMatchUpdateReason.Filled, "filled")
+            new KeyValuePair<MatchUpdateReason, string>(MatchUpdateReason.Canceled, "canceled"),
+            new KeyValuePair<MatchUpdateReason, string>(MatchUpdateReason.Filled, "filled")
         };
     }
 }
