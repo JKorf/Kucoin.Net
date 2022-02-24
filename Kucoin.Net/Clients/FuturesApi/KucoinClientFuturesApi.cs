@@ -80,7 +80,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override TimeSyncInfo GetTimeSyncInfo()
-            => new TimeSyncInfo(_log, _options.FuturesApiOptions.AutoTimestamp, TimeSyncState);
+            => new TimeSyncInfo(_log, _options.FuturesApiOptions.AutoTimestamp, _options.FuturesApiOptions.TimestampRecalculationInterval, TimeSyncState);
 
         /// <inheritdoc />
         public override TimeSpan GetTimeOffset()

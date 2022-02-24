@@ -128,17 +128,17 @@ namespace Kucoin.Net.SymbolOrderBooks
             SetInitialOrderBook(DateTime.UtcNow.Ticks, data.Data.Bids, data.Data.Asks);
         }
 
-        /// <inheritdoc />
-        public override void Dispose()
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        protected override void Dispose(bool disposing)
         {
-            processBuffer.Clear();
-            asks.Clear();
-            bids.Clear();
-
-            if (_restOwner)
-                restClient?.Dispose();
             if (_socketOwner)
                 socketClient?.Dispose();
+            if (_restOwner)
+                restClient?.Dispose();
+
+            base.Dispose(disposing);
         }
     }
 }
