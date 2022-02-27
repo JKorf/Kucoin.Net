@@ -66,8 +66,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         internal Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
          => _baseClient.Execute(this, uri, method, ct, parameters, signed);
 
-        internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1)
-         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed, weight);
+        internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false)
+         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed, weight, ignoreRatelimit: ignoreRatelimit);
 
         internal Uri GetUri(string path, int apiVersion = 1)
         {

@@ -27,7 +27,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var result = await _baseClient.Execute<long>(_baseClient.GetUri("timestamp"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var result = await _baseClient.Execute<long>(_baseClient.GetUri("timestamp"), HttpMethod.Get, ct, ignoreRatelimit: true).ConfigureAwait(false);
             return result.As(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new DateTimeConverter()) : default);
         }
 
