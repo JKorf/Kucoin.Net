@@ -185,8 +185,8 @@ namespace Kucoin.Net.Clients.SpotApi
             var order = await Trading.PlaceOrderAsync(symbol,
                 side == CommonOrderSide.Sell ? OrderSide.Sell : OrderSide.Buy,
                 type == CommonOrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
-                price, 
                 quantity,
+                price,
                 clientOrderId: clientOrderId,
                 ct: ct).ConfigureAwait(false);
             if (!order)

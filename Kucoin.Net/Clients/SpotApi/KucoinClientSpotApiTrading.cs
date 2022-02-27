@@ -50,6 +50,8 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 case NewOrderType.Limit when !quantity.HasValue:
                     throw new ArgumentException("Limit order needs a quantity");
+                case NewOrderType.Limit when !price.HasValue:
+                    throw new ArgumentException("Limit order needs a price");
                 case NewOrderType.Market when !quantity.HasValue && !quoteQuantity.HasValue:
                     throw new ArgumentException("Market order needs quantity or quoteQuantity specified");
                 case NewOrderType.Market when quantity.HasValue && quoteQuantity.HasValue:
