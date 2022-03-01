@@ -3643,12 +3643,12 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.PremiumsSymbol1M">
             <summary>
-            Premium symbol
+            Premiums symbol
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.PremiumsSymbol8H">
             <summary>
-            Premium symbol
+            Premiums symbol
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.FundingBaseSymbol1M">

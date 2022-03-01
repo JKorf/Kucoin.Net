@@ -18,6 +18,10 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.0.3 - 01 Mar 2022
+    * Updated KucoinContract model with missing properties
+    * Updated CryptoExchange.Net improving the websocket reconnection robustness
+
 * Version 4.0.2 - 27 Feb 2022
     * Fixed quantity/price parameter issue in ISpotClient PlaceOrderAsync
     * Updated CryptoExchange.Net to fix timestamping issue when request is ratelimiter
