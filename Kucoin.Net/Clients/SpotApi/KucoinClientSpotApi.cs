@@ -24,7 +24,7 @@ namespace Kucoin.Net.Clients.SpotApi
         private readonly KucoinClientOptions _options;
         private readonly Log _log;
 
-        internal static TimeSyncState TimeSyncState = new TimeSyncState();
+        internal static TimeSyncState TimeSyncState = new TimeSyncState("Spot Api");
 
         /// <summary>
         /// Event triggered when an order is placed via this client. Only available for Spot orders
