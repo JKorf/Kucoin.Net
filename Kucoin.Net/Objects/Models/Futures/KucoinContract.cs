@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using CryptoExchange.Net.Converters;
+using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -123,6 +126,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         public decimal TickSize { get; set; }
         /// <summary>
+        /// Minimum index price change
+        /// </summary>
+        public decimal IndexPriceTickSize { get; set; }
+        /// <summary>
         /// Type of contract
         /// </summary>
         public string Type { get; set; } = string.Empty;
@@ -162,5 +169,78 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("priceChg")]
         public decimal PriceChange { get; set; }
+        /// <summary>
+        /// First open time
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? FirstOpenDate { get; set; }
+        /// <summary>
+        /// Expire time
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? ExpireDate { get; set; }
+        /// <summary>
+        /// Settle time
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? SettleDate { get; set; }
+        /// <summary>
+        /// Settle asset
+        /// </summary>
+        [JsonProperty("settleCurrency")]
+        public string? SettleAsset { get; set; }
+        /// <summary>
+        /// Settlement symbol
+        /// </summary>
+        public string? SettlementSymbol { get; set; }
+        /// <summary>
+        /// Settle fee
+        /// </summary>
+        public decimal? SettlementFee { get; set; }
+        /// <summary>
+        /// Funding fee rate
+        /// </summary>
+        public decimal? FundingFeeRate { get; set; }
+        /// <summary>
+        /// Predicted funding fee rate
+        /// </summary>
+        public decimal? PredictedFundingFeeRate { get; set; }
+        /// <summary>
+        /// Next funding rate time
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? NextFundingRateTime { get; set; }
+        /// <summary>
+        /// Source exchanges
+        /// </summary>
+        public IEnumerable<string> SourceExchanges { get; set; } = Array.Empty<string>();
+        /// <summary>
+        /// Mark price
+        /// </summary>
+        public decimal? MarkPrice { get; set; }
+        /// <summary>
+        /// Index price
+        /// </summary>
+        public decimal? IndexPrice { get; set; }
+        /// <summary>
+        /// Last traded price
+        /// </summary>
+        public decimal? LastTradePrice { get; set; }
+        /// <summary>
+        /// Premiums symbol
+        /// </summary>
+        public string? PremiumsSymbol1M { get; set; }
+        /// <summary>
+        /// Premiums symbol
+        /// </summary>
+        public string? PremiumsSymbol8H { get; set; }
+        /// <summary>
+        /// Funding base symbol
+        /// </summary>
+        public string? FundingBaseSymbol1M { get; set; }
+        /// <summary>
+        /// Funding quote symbol
+        /// </summary>
+        public string? FundingQuoteSymbol1M { get; set; }
     }
 }

@@ -3526,6 +3526,11 @@
             Minimum price change
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.IndexPriceTickSize">
+            <summary>
+            Minimum index price change
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.Type">
             <summary>
             Type of contract
@@ -3569,6 +3574,91 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.PriceChange">
             <summary>
             24 hour change
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.FirstOpenDate">
+            <summary>
+            First open time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.ExpireDate">
+            <summary>
+            Expire time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.SettleDate">
+            <summary>
+            Settle time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.SettleAsset">
+            <summary>
+            Settle asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.SettlementSymbol">
+            <summary>
+            Settlement symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.SettlementFee">
+            <summary>
+            Settle fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.FundingFeeRate">
+            <summary>
+            Funding fee rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.PredictedFundingFeeRate">
+            <summary>
+            Predicted funding fee rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.NextFundingRateTime">
+            <summary>
+            Next funding rate time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.SourceExchanges">
+            <summary>
+            Source exchanges
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.LastTradePrice">
+            <summary>
+            Last traded price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.PremiumsSymbol1M">
+            <summary>
+            Premium symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.PremiumsSymbol8H">
+            <summary>
+            Premium symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.FundingBaseSymbol1M">
+            <summary>
+            Funding base symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.FundingQuoteSymbol1M">
+            <summary>
+            Funding quote symbol
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFundingItem">
