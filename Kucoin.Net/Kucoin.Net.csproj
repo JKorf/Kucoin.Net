@@ -40,7 +40,7 @@
     <DocumentationFile>Kucoin.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="icon\icon.png" Pack="true" PackagePath="\" />
+    <None Include="Icon\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0">
