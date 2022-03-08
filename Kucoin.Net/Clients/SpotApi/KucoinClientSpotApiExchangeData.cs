@@ -136,10 +136,10 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinAsset>> GetAssetAsync(string asset, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            return await _baseClient.Execute<KucoinAsset>(_baseClient.GetUri($"currencies/{asset}"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinAssetDetails>(_baseClient.GetUri($"currencies/{asset}", 2), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

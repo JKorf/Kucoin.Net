@@ -2540,7 +2540,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetAssetAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a specific asset
-            <para><a href="https://docs.kucoin.com/#get-currency-detail" /></para>
+            <para><a href="https://docs.kucoin.com/#get-currency-detail-recommend" /></para>
             </summary>
             <param name="asset">The asset to get</param>
             <param name="ct">Cancellation token</param>
@@ -5533,29 +5533,54 @@
             Maker Fee Coefficient
             </summary>
         </member>
-        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAsset">
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase">
             <summary>
             Asset info
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.Asset">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.Asset">
             <summary>
             The asset identifier
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.Name">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.Name">
             <summary>
             The name of the asset
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.FullName">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.FullName">
             <summary>
             The full name of the asset
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.Precision">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.Precision">
             <summary>
             The precision of the asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.Confirms">
+            <summary>
+            Number of block confirmations
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.ContractAddress">
+            <summary>
+            Contract address
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.IsMarginEnabled">
+            <summary>
+            Is margin enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase.IsDebitEnabled">
+            <summary>
+            Is debit enabled
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAsset">
+            <summary>
+            Asset info
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.WithdrawalMinQuantity">
@@ -5578,24 +5603,54 @@
             Is depositing enabled for this asset
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.Confirms">
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetDetails">
             <summary>
-            Number of block confirmations
+            Asset details
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.ContractAddress">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetDetails.Networks">
+            <summary>
+            Networks
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork">
+            <summary>
+            Network details
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.NetworkName">
+            <summary>
+            Network name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawalMinQuantity">
+            <summary>
+            Min withdrawal quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawalMinFee">
+            <summary>
+            Min withdrawal fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.IsWithdrawEnabled">
+            <summary>
+            Is withdrawing enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.IsDepositEnabled">
+            <summary>
+            Is deposit enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.Confirms">
+            <summary>
+            Confirmations needed on the network
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.ContractAddress">
             <summary>
             Contract address
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.IsMarginEnabled">
-            <summary>
-            Is margin enabled
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAsset.IsDebitEnabled">
-            <summary>
-            Is debit enabled
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowOrder">

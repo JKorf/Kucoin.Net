@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Asset info
     /// </summary>
-    public class KucoinAsset
+    public class KucoinAssetBase
     {
         /// <summary>
         /// The asset identifier
@@ -25,6 +27,29 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         public int Precision { get; set; }
         /// <summary>
+        /// Number of block confirmations
+        /// </summary>
+        public int? Confirms { get; set; }
+        /// <summary>
+        /// Contract address
+        /// </summary>
+        public string ContractAddress { get; set; } = string.Empty;
+        /// <summary>
+        /// Is margin enabled
+        /// </summary>
+        public bool IsMarginEnabled { get; set; }
+        /// <summary>
+        /// Is debit enabled
+        /// </summary>
+        public bool IsDebitEnabled { get; set; }
+    }
+
+    /// <summary>
+    /// Asset info
+    /// </summary>
+    public class KucoinAsset: KucoinAssetBase
+    {        
+        /// <summary>
         /// The minimum quantity of a withdrawal
         /// </summary>
         [JsonProperty("withdrawalMinSize")]
@@ -41,21 +66,17 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Is depositing enabled for this asset
         /// </summary>
         public bool IsDepositEnabled { get; set; }
+    }
+
+    /// <summary>
+    /// Asset details
+    /// </summary>
+    public class KucoinAssetDetails: KucoinAssetBase
+    {
         /// <summary>
-        /// Number of block confirmations
+        /// Networks
         /// </summary>
-        public int Confirms { get; set; }
-        /// <summary>
-        /// Contract address
-        /// </summary>
-        public string ContractAddress { get; set; } = string.Empty;
-        /// <summary>
-        /// Is margin enabled
-        /// </summary>
-        public bool IsMarginEnabled { get; set; }
-        /// <summary>
-        /// Is debit enabled
-        /// </summary>
-        public bool IsDebitEnabled { get; set; }
+        [JsonProperty("chains")]
+        public IEnumerable<KucoinAssetNetwork> Networks { get; set; } = Array.Empty<KucoinAssetNetwork>();
     }
 }

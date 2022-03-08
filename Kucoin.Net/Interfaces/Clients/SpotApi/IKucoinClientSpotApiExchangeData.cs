@@ -124,12 +124,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific asset
-        /// <para><a href="https://docs.kucoin.com/#get-currency-detail" /></para>
+        /// <para><a href="https://docs.kucoin.com/#get-currency-detail-recommend" /></para>
         /// </summary>
         /// <param name="asset">The asset to get</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Asset info</returns>
-        Task<WebCallResult<KucoinAsset>> GetAssetAsync(string asset, CancellationToken ct = default);
+        Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of prices for all 
