@@ -152,5 +152,10 @@ namespace Kucoin.Net.Clients.SpotApi
             return await _baseClient.Execute<Dictionary<string, decimal>>(_baseClient.GetUri("prices"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<KucoinMarginConfig>(_baseClient.GetUri("margin/config"), HttpMethod.Get, ct).ConfigureAwait(false);
+        }
     }
 }

@@ -419,6 +419,12 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetMarginAccountAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -462,6 +468,9 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetFiatPricesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginConfigurationAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading">
@@ -2425,6 +2434,21 @@
             <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Get cross or isolated margin risk limit
+            </summary>
+            <param name="isolated">Request isolated info, default cross info is returned</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetMarginAccountAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get margin account info
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData">
             <summary>
             Kucoin Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -2555,6 +2579,13 @@
             <param name="assets">The assets to get price for. Defaults to all</param>
             <param name="ct">Cancellation token</param>
             <returns>List of prices</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginConfigurationAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get margin configuration
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading">
             <summary>
@@ -6038,6 +6069,81 @@
             The volume of the kline
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccount">
+            <summary>
+            Margin account info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccount.Accounts">
+            <summary>
+            Accounts
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccount.DebtRatio">
+            <summary>
+            Debt ratio
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails">
+            <summary>
+            Account details
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails.AvailableBalance">
+            <summary>
+            Available balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails.HoldBalance">
+            <summary>
+            Hold balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails.Liability">
+            <summary>
+            Liability
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails.MaxBorrowQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccountDetails.TotalBalance">
+            <summary>
+            Total balance
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMarginConfig">
+            <summary>
+            Margin configuration
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginConfig.Assets">
+            <summary>
+            Available assets for margin trade
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginConfig.WarningDebtRatio">
+            <summary>
+            Warning debt ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginConfig.LiquidationDebtRatio">
+            <summary>
+            Forced liquidation ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginConfig.MaxLeverage">
+            <summary>
+            Max leverage
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewAccount">
             <summary>
             New account id
@@ -6291,6 +6397,31 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinOrderBookEntry.Quantity">
             <summary>
             The quantity of the entry
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit">
+            <summary>
+            Risk limit info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit.BorrowMaxQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit.BuyMaxQuantity">
+            <summary>
+            Max buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit.Precision">
+            <summary>
+            Prevision
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUser">

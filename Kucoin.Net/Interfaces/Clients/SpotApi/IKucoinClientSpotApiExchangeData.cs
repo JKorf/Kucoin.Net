@@ -141,5 +141,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <returns>List of prices</returns>
         Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? assets = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get margin configuration
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);
     }
 }

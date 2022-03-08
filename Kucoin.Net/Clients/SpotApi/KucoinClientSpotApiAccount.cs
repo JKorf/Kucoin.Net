@@ -274,6 +274,20 @@ namespace Kucoin.Net.Clients.SpotApi
             return await _baseClient.Execute<object>(_baseClient.GetUri($"withdrawals/{withdrawalId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<KucoinMarginAccount>(_baseClient.GetUri($"margin/account"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinRiskLimit>>> GetRiskLimitAsync(bool? isolated = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("marginModel", isolated == true ? "isolated": null);
+            return await _baseClient.Execute<IEnumerable<KucoinRiskLimit>>(_baseClient.GetUri($"risk/limit/strategy"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+        }
+
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
         {
             return await _baseClient.Execute<KucoinToken>(_baseClient.GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
