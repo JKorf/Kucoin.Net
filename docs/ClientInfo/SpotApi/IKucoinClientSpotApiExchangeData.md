@@ -89,7 +89,7 @@ Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string s
 
 ## GetAssetAsync  
 
-[https://docs.kucoin.com/#get-currency-detail](https://docs.kucoin.com/#get-currency-detail)  
+[https://docs.kucoin.com/#get-currency-detail-recommend](https://docs.kucoin.com/#get-currency-detail-recommend)  
 <p>
 
 *Get info on a specific asset*  
@@ -100,7 +100,7 @@ var result = await client.SpotApi.ExchangeData.GetAssetAsync(/* parameters */);
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinAsset>> GetAssetAsync(string asset, CancellationToken ct = default);  
+Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
@@ -184,6 +184,29 @@ Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, Klin
 |interval|The interval of a kline|
 |_[Optional]_ startTime|The start time of the data|
 |_[Optional]_ endTime|The end time of the data|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetMarginConfigurationAsync  
+
+<p>
+
+*Get margin configuration*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginConfigurationAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
 |_[Optional]_ ct|Cancellation token|
 
 </p>

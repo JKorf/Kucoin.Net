@@ -364,6 +364,53 @@ Task<WebCallResult<KucoinPaginated<KucoinHistoricalWithdrawal>>> GetHistoricalWi
 
 ***
 
+## GetMarginAccountAsync  
+
+<p>
+
+*Get margin account info*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Account.GetMarginAccountAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetRiskLimitAsync  
+
+<p>
+
+*Get cross or isolated margin risk limit*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Account.GetRiskLimitAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<KucoinRiskLimit>>> GetRiskLimitAsync(bool? isolated = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ isolated|Request isolated info, default cross info is returned|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetSymbolTradingFeesAsync  
 
 [https://docs.kucoin.com/#actual-fee-rate-of-the-trading-pair](https://docs.kucoin.com/#actual-fee-rate-of-the-trading-pair)  
