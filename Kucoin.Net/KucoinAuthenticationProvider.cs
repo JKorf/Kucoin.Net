@@ -26,7 +26,7 @@ namespace Kucoin.Net
             if (!auth)
                 return;
 
-            uri = uri.SetParameters(uriParameters);
+            uri = uri.SetParameters(uriParameters, arraySerialization);
             headers.Add("KC-API-KEY", Credentials.Key!.GetString());
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
             headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(((KucoinApiCredentials)Credentials).PassPhrase.GetString(), SignOutputType.Base64));
