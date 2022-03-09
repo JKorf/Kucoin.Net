@@ -44,7 +44,6 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Stop
         /// </summary>
-        [JsonConverter(typeof(StopConditionConverter))]
         public StopCondition Stop { get; set; }
         /// <summary>
         /// Stop price

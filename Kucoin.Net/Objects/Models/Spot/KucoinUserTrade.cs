@@ -1,4 +1,5 @@
 ﻿using System;
+using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
@@ -23,7 +24,6 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The stop condition of the fill
         /// </summary>
-        [JsonConverter(typeof(StopConditionConverter))]
         public StopCondition Stop { get; set; }
         /// <summary>
         /// The id of the counter order

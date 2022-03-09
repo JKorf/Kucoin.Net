@@ -296,7 +296,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() },
                 { "side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },
                 { "type", JsonConvert.SerializeObject(orderType, new NewOrderTypeConverter(false)) },
-                { "stop", JsonConvert.SerializeObject(stopCondition,new StopConditionConverter(false)) },
+                { "stop", EnumConverter.GetString(stopCondition) },
                 { "stopPrice", stopPrice.ToString(CultureInfo.InvariantCulture) },
             };
 
