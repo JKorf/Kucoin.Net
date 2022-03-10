@@ -107,7 +107,8 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateFuturesStopOrderUpdateStreamJson()
         {
-            await TestFileToObject<KucoinStreamFuturesStopOrderUpdate>(@"JsonResponses/Futures/Socket/StopOrderUpdate.txt");
+            await TestFileToObject<KucoinStreamFuturesStopOrderUpdate>(@"JsonResponses/Futures/Socket/StopOrderUpdate.txt",
+                new List<string> { "stop" });
         }
 
         [Test]

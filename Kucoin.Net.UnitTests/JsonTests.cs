@@ -42,7 +42,17 @@ namespace Kucoin.Net.UnitTests
         {
             await _comparerSpot.ProcessSubject("Spot/Trading", c => c.SpotApi.Trading,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
-               parametersToSetNull: new[] { "pageSize", "quoteQuantity" }
+               parametersToSetNull: new[] { "pageSize", "quoteQuantity" },
+               ignoreProperties: new Dictionary<string, List<string>>
+               {
+                   { "GetUntriggeredStopOrdersAsync", new List<string> { "stop" } } ,
+                   { "GetOrdersAsync", new List<string> { "stop" } } ,
+                   { "GetOrderAsync", new List<string> { "stop" } } ,
+                   { "GetUserTradesAsync", new List<string> { "stop" } } ,
+                   { "GetRecentUserTradesAsync", new List<string> { "stop" } } ,
+                   { "GetOrderByClientOrderIdAsync", new List<string> { "stop" } } ,
+                   { "GetRecentOrdersAsync", new List<string> { "stop" } } ,
+               }
                 );
         }
 
@@ -78,6 +88,11 @@ namespace Kucoin.Net.UnitTests
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize", "quoteQuantity" },
                ignoreProperties: new Dictionary<string, List<string>> {
+                   { "GetUntriggeredStopOrdersAsync", new List<string> { "stop" } } ,
+                   { "GetOrdersAsync", new List<string> { "stop" } } ,
+                   { "GetOrderAsync", new List<string> { "stop" } } ,
+                   { "GetOrderByClientOrderIdAsync", new List<string> { "stop" } } ,
+                   { "GetClosedOrdersAsync", new List<string> { "stop" } } ,
                    { "GetUserTradesAsync", new List<string> { "stop" } } ,
                    { "GetRecentUserTradesAsync", new List<string> { "stop" } } ,
                }

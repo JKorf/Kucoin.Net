@@ -70,7 +70,6 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Update type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
         public StopOrderEvent Type { get; set; }
     }
 }
