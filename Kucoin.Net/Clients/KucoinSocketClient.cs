@@ -70,6 +70,12 @@ namespace Kucoin.Net.Clients
             KucoinSocketClientOptions.Default = options;
         }
 
+        public void SetApiCredentials(KucoinApiCredentials credentials)
+        {
+            ((KucoinSocketClientSpotStreams)SpotStreams).SetApiCredentials(credentials);
+            ((KucoinSocketClientFuturesStreams)FuturesStreams).SetApiCredentials(credentials);
+        }
+
         internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
             => SubscribeAsync(apiClient, url, request, identifier, authenticated, dataHandler, ct);
 

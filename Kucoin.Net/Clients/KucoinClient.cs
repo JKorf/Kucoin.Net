@@ -44,6 +44,13 @@ namespace Kucoin.Net.Clients
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 
+        /// <inheritdoc />
+        public void SetApiCredentials(KucoinApiCredentials credentials)
+        {
+            ((KucoinClientSpotApi)SpotApi).SetApiCredentials(credentials);
+            ((KucoinClientFuturesApi)FuturesApi).SetApiCredentials(credentials);
+        }
+
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
