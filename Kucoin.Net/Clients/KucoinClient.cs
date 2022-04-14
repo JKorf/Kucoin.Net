@@ -42,6 +42,13 @@ namespace Kucoin.Net.Clients
             FuturesApi = AddApiClient(new KucoinClientFuturesApi(log, this, options));
         }
 
+        /// <inheritdoc />
+        public void SetApiCredentials(KucoinApiCredentials credentials)
+        {
+            ((KucoinClientSpotApi)SpotApi).SetApiCredentials(credentials);
+            ((KucoinClientFuturesApi)FuturesApi).SetApiCredentials(credentials);
+        }
+
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
