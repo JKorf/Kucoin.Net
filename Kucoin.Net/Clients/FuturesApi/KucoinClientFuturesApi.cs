@@ -362,7 +362,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             if (timeSpan == TimeSpan.FromMinutes(1)) return FuturesKlineInterval.OneMinute;
             if (timeSpan == TimeSpan.FromMinutes(5)) return FuturesKlineInterval.FiveMinutes;
-            if (timeSpan == TimeSpan.FromMinutes(15)) return FuturesKlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return FuturesKlineInterval.FifteenMinutes;
             if (timeSpan == TimeSpan.FromMinutes(30)) return FuturesKlineInterval.ThirtyMinutes;
             if (timeSpan == TimeSpan.FromHours(1)) return FuturesKlineInterval.OneHour;
             if (timeSpan == TimeSpan.FromHours(2)) return FuturesKlineInterval.TwoHours;
