@@ -18,6 +18,12 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.0.6 - 14 Apr 2022
+    * Fixed NullReference exception when PlaceOrder on common futures client fails
+    * Fixed deserialization error on PlaceMarginOrderAsync
+    * Fixed Common clients 15 minute klines returning 5 minute klines
+    * Updated CryptoExchange.Net
+
 * Version 4.0.5 - 10 Mar 2022
     * Updated CryptoExchange.Net, fixing order deserialization in .net framework
 
