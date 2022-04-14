@@ -57,6 +57,8 @@ namespace Kucoin.Net.Clients.SpotApi
             Account = new KucoinClientSpotApiAccount(this);
             ExchangeData = new KucoinClientSpotApiExchangeData(this);
             Trading = new KucoinClientSpotApiTrading(this);
+
+            ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 
         /// <inheritdoc />
