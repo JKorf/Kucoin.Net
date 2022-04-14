@@ -209,6 +209,10 @@ namespace Kucoin.Net.Clients.FuturesApi
                 clientOrderId: clientOrderId,
                 ct: ct
                 ).ConfigureAwait(false);
+
+            if(!order)
+                return order.As<OrderId> (null);
+
             return order.As(new OrderId
             {
                 SourceObject = order.Data,
