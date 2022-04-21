@@ -69,7 +69,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
             parameters.AddOptionalParameter("forceHold", forceHold?.ToString());
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("timeInForce", JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)));
+            parameters.AddOptionalParameter("timeInForce", timeInForce != null ? JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)): null);
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
             parameters.AddOptionalParameter("iceberg", iceberg);
