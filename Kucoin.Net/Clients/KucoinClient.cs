@@ -40,8 +40,6 @@ namespace Kucoin.Net.Clients
         {
             SpotApi = AddApiClient(new KucoinClientSpotApi(log, this, options));
             FuturesApi = AddApiClient(new KucoinClientFuturesApi(log, this, options));
-
-            ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 
         /// <inheritdoc />

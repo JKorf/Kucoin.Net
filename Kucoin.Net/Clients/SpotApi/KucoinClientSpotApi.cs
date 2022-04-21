@@ -57,6 +57,8 @@ namespace Kucoin.Net.Clients.SpotApi
             Account = new KucoinClientSpotApiAccount(this);
             ExchangeData = new KucoinClientSpotApiExchangeData(this);
             Trading = new KucoinClientSpotApiTrading(this);
+
+            ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 
         /// <inheritdoc />
@@ -317,7 +319,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             if (timeSpan == TimeSpan.FromMinutes(1)) return KlineInterval.OneMinute;
             if (timeSpan == TimeSpan.FromMinutes(5)) return KlineInterval.FiveMinutes;
-            if (timeSpan == TimeSpan.FromMinutes(15)) return KlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return KlineInterval.FifteenMinutes;
             if (timeSpan == TimeSpan.FromMinutes(30)) return KlineInterval.ThirtyMinutes;
             if (timeSpan == TimeSpan.FromHours(1)) return KlineInterval.OneHour;
             if (timeSpan == TimeSpan.FromHours(2)) return KlineInterval.TwoHours;

@@ -61,7 +61,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// Remaining quantity
         /// </summary>
         [JsonProperty("remainSize")]
-        public decimal QuantitiyRemaining { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>

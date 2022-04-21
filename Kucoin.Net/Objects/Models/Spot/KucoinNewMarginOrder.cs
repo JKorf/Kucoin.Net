@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Borrow quantity
         /// </summary>
         [JsonProperty("borrowSize")]
-        public decimal BorrowQuantity { get; set; }
+        public decimal? BorrowQuantity { get; set; }
         /// <summary>
         /// Loan apply id
         /// </summary>
