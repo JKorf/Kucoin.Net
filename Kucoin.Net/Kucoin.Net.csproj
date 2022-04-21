@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>4.0.6</PackageVersion>
-    <AssemblyVersion>4.0.6</AssemblyVersion>
-    <FileVersion>4.0.6</FileVersion>
+    <PackageVersion>4.0.7</PackageVersion>
+    <AssemblyVersion>4.0.7</AssemblyVersion>
+    <FileVersion>4.0.7</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>4.0.6 - Fixed NullReference exception when PlaceOrder on common futures client fails, Fixed deserialization error on PlaceMarginOrderAsync, Fixed Common clients 15 minute klines returning 5 minute klines, Updated CryptoExchange.Net</PackageReleaseNotes>
+    <PackageReleaseNotes>4.0.7 - Fixed timeInForce parameter being sent as null if not specified, Fixed typo</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
