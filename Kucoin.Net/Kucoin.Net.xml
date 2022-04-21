@@ -4758,7 +4758,7 @@
             Quantity
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesOrderUpdate.QuantitiyRemaining">
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesOrderUpdate.QuantityRemaining">
             <summary>
             Remaining quantity
             </summary>
