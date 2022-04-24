@@ -215,6 +215,11 @@ namespace Kucoin.Net.Objects
         public int? Limit { get; set; }
 
         /// <summary>
+        /// After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
+        /// </summary>
+        public TimeSpan? InitialDataTimeout { get; set; }
+
+        /// <summary>
         /// The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
         /// </summary>
         public IKucoinSocketClient? SocketClient { get; set; }

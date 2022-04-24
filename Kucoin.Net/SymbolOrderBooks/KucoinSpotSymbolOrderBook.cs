@@ -17,6 +17,7 @@ namespace Kucoin.Net.SymbolOrderBooks
     {
         private readonly IKucoinClient restClient;
         private readonly IKucoinSocketClient socketClient;
+        private readonly TimeSpan _initialDataTimeout;
         private readonly bool _restOwner;
         private readonly bool _socketOwner;
 
@@ -31,6 +32,7 @@ namespace Kucoin.Net.SymbolOrderBooks
             sequencesAreConsecutive = options?.Limit == null;
 
             Levels = options?.Limit;
+            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
             socketClient = options?.SocketClient ?? new KucoinSocketClient();
             restClient = options?.RestClient ?? new KucoinClient();
             _restOwner = options?.RestClient == null;
@@ -80,7 +82,7 @@ namespace Kucoin.Net.SymbolOrderBooks
                 }
 
                 Status = OrderBookStatus.Syncing;
-                var setResult = await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
+                var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
                 if(!setResult)
                 {
 
@@ -99,7 +101,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
             if (Levels != null)
-                return await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
+                return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
 
             var bookResult = await restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)

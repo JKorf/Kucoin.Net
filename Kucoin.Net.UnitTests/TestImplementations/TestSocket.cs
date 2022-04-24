@@ -40,6 +40,8 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 
         public double IncomingKbps => 0;
 
+        public Uri Uri => new Uri("");
+
         public Task<bool> ConnectAsync()
         {
             Connected = CanConnect;
@@ -56,7 +58,13 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 
         public void Reset()
         {
-            
+
+        }
+
+        public async Task ProcessAsync()
+        {
+            while (Connected)
+                await Task.Delay(10);
         }
 
         public Task CloseAsync()

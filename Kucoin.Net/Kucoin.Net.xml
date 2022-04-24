@@ -246,6 +246,9 @@
             </summary>
             <param name="options">The options to use for this client</param>
         </member>
+        <member name="M:Kucoin.Net.Clients.KucoinClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.KucoinClient.SetDefaultOptions(Kucoin.Net.Objects.KucoinClientOptions)">
             <summary>
             Set the default options to be used when creating new clients
@@ -2155,6 +2158,12 @@
             Futures API endpoints
             </summary>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient">
             <summary>
             Client for accessing the Kucoin websocket API. 
@@ -2169,6 +2178,12 @@
             <summary>
             Futures streams
             </summary>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi">
             <summary>
@@ -3305,6 +3320,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinOrderBookOptions.Limit">
             <summary>
             The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinOrderBookOptions.InitialDataTimeout">
+            <summary>
+            After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.KucoinOrderBookOptions.SocketClient">
