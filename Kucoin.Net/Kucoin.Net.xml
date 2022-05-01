@@ -284,6 +284,12 @@
             </summary>
             <param name="options">Options to use as default</param>
         </member>
+        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
+            <summary>
+            Set the API credentials to use in this client
+            </summary>
+            <param name="credentials">Credentials to use</param>
+        </member>
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.SubscribeAsync``1(CryptoExchange.Net.SocketApiClient,System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1049,7 +1055,7 @@
         </member>
         <member name="T:Kucoin.Net.Enums.KlineInterval">
             <summary>
-            The time for each candlestick
+            The time for each candlestick, the int value represent the time in seconds
             </summary>
         </member>
         <member name="F:Kucoin.Net.Enums.KlineInterval.OneMinute">
