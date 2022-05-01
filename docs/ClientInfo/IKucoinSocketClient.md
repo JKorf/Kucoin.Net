@@ -10,5 +10,8 @@ has_children: true
 *Futures streams*  
 **[IKucoinSocketClientFuturesStreams](FuturesApi/IKucoinSocketClientFuturesStreams.html) FuturesStreams { get; }**  
 ***
+*Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.*  
+**void SetApiCredentials(KucoinApiCredentials credentials);**  
+***
 *Spot streams*  
 **[IKucoinSocketClientSpotStreams](SpotApi/IKucoinSocketClientSpotStreams.html) SpotStreams { get; }**  
