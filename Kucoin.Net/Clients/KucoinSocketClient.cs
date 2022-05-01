@@ -70,6 +70,10 @@ namespace Kucoin.Net.Clients
             KucoinSocketClientOptions.Default = options;
         }
 
+        /// <summary>
+        /// Set the API credentials to use in this client
+        /// </summary>
+        /// <param name="credentials">Credentials to use</param>
         public void SetApiCredentials(KucoinApiCredentials credentials)
         {
             ((KucoinSocketClientSpotStreams)SpotStreams).SetApiCredentials(credentials);
