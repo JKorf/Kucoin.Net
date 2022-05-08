@@ -92,17 +92,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFullOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default)
-        {
-            symbol.ValidateKucoinSymbol();
-            var parameters = new Dictionary<string, object>
-            {
-                { "symbol", symbol }
-            };
-            return await _baseClient.Execute<KucoinFullOrderBook>(_baseClient.GetUri($"market/orderbook/level3", 3), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();

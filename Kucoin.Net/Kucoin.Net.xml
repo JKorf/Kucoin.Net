@@ -461,9 +461,6 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetAggregatedFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2544,14 +2541,6 @@
             <param name="symbol">The symbol to get order book for</param>
             <param name="ct">Cancellation token</param>
             <returns>Full aggregated order book</returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Get a full order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to get order book for</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Full order book</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
