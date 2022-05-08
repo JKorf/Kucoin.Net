@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>4.0.8</PackageVersion>
-    <AssemblyVersion>4.0.8</AssemblyVersion>
-    <FileVersion>4.0.8</FileVersion>
+    <PackageVersion>4.0.9</PackageVersion>
+    <AssemblyVersion>4.0.9</AssemblyVersion>
+    <FileVersion>4.0.9</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>4.0.8 - Updated CryptoExchange.Net which fixed an timing related issue in the websocket reconnection logic, Added seconds representation to KlineInterval enum</PackageReleaseNotes>
+    <PackageReleaseNotes>4.0.9 - Removed deprecated spot GetOrderBookAsync endpoint and fixed the CommonSpotClient order book endpoint, Updated CryptoExchange.Net</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
