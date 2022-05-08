@@ -154,7 +154,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<OrderBook>> IBaseRestClient.GetOrderBookAsync(string symbol, CancellationToken ct)
         {
-            var book = await ExchangeData.GetOrderBookAsync(symbol, ct: ct).ConfigureAwait(false);
+            var book = await ExchangeData.GetAggregatedFullOrderBookAsync(symbol, ct: ct).ConfigureAwait(false);
             if (!book)
                 return book.As<OrderBook>(null);
 

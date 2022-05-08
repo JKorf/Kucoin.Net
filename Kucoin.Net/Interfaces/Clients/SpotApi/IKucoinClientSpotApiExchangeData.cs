@@ -86,14 +86,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get a full order book for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get order book for</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Full order book</returns>
-        Task<WebCallResult<KucoinFullOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
-
-        /// <summary>
         /// Gets the recent trade history for a symbol
         /// <para><a href="https://docs.kucoin.com/#get-trade-histories" /></para>
         /// </summary>
