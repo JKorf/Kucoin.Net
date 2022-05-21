@@ -46,7 +46,7 @@ namespace Kucoin.Net.Clients
         /// <param name="options">The options to use for this client</param>
         public KucoinSocketClient(KucoinSocketClientOptions options) : base("Kucoin", options)
         {
-            MaxSocketConnections = 10;
+            MaxSocketConnections = 50;
 
             SendPeriodic("Ping", TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
             {
