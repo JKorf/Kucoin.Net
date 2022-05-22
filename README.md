@@ -18,6 +18,11 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.0.10 - 22 May 2022
+    * Fixed MaxSocketConnections incorrectly being set to 10 instead of 50
+    * Added TradeType filter to CancelAllOrdersAsync
+    * Updated CryptoExchange.Net
+
 * Version 4.0.9 - 08 May 2022
     * Removed deprecated spot GetOrderBookAsync endpoint and fixed the CommonSpotClient order book endpoint
     * Updated CryptoExchange.Net
