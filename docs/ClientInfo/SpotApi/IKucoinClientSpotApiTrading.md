@@ -24,12 +24,13 @@ var result = await client.SpotApi.Trading.CancelAllOrdersAsync();
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = default, TradeType? tradeType = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
 |_[Optional]_ symbol|Only cancel orders for this symbol|
+|_[Optional]_ tradeType|Only cancel orders for this type|
 |_[Optional]_ ct|Cancellation token|
 
 </p>

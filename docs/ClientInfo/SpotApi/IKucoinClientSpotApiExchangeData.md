@@ -237,30 +237,6 @@ Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = 
 
 ***
 
-## GetOrderBookAsync  
-
-<p>
-
-*Get a full order book for a symbol*  
-
-```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.ExchangeData.GetOrderBookAsync(/* parameters */);  
-```  
-
-```csharp  
-Task<WebCallResult<KucoinFullOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);  
-```  
-
-|Parameter|Description|
-|---|---|
-|symbol|The symbol to get order book for|
-|_[Optional]_ ct|Cancellation token|
-
-</p>
-
-***
-
 ## GetServerTimeAsync  
 
 [https://docs.kucoin.com/#server-time](https://docs.kucoin.com/#server-time)  
