@@ -162,11 +162,12 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, TradeType? type = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptionalParameter("tradeType", type);
             return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true, weight: 60).ConfigureAwait(false);
         }
 

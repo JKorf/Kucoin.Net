@@ -494,7 +494,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.TradeType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Enums.OrderStatus},System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -2668,12 +2668,13 @@
             <param name="ct">Cancellation token</param>
             <returns>List of canceled orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.TradeType},System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
             <para><a href="https://docs.kucoin.com/#cancel-all-orders" /></para>
             </summary>
             <param name="symbol">Only cancel orders for this symbol</param>
+            <param name="tradeType">Only cancel orders for this type</param>
             <param name="ct">Cancellation token</param>
             <returns>List of canceled orders</returns>
         </member>

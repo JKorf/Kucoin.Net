@@ -119,9 +119,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://docs.kucoin.com/#cancel-all-orders" /></para>
         /// </summary>
         /// <param name="symbol">Only cancel orders for this symbol</param>
+        /// <param name="tradeType">Only cancel orders for this type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of canceled orders</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, TradeType? tradeType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of orders
