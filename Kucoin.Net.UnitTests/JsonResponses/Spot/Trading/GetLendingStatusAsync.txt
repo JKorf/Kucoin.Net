@@ -1,0 +1,14 @@
+{
+  "code": "200000",
+  "data": [
+    {
+        "currency": "BTC",
+        "outstanding": "1.02",
+        "filledSize": "0.91000213",
+        "accruedInterest": "0.00000213",
+        "realizedProfit": "0.000045261",
+        "isAutoLend": false
+    }
+]
+}
+

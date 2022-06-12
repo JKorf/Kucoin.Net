@@ -84,7 +84,8 @@ namespace Kucoin.Net.Objects
         /// Default options for the spot client
         /// </summary>
         public static KucoinSocketClientOptions Default { get; set; } = new KucoinSocketClientOptions() {
-            SocketSubscriptionsCombineTarget = 10
+            SocketSubscriptionsCombineTarget = 10,
+            MaxSocketConnections = 50
         };
 
         /// <inheritdoc />

@@ -476,7 +476,16 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetFiatPricesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginMarkPriceAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginConfigurationAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetLendMarketDataAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading">
@@ -546,6 +555,39 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.RepaySingleBorrowOrderAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetOpenBorrowRecordsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetClosedBorrowRecordsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.RepayAllAsync(System.String,Kucoin.Net.Enums.RepaymentStrategy,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceLendOrderAsync(System.String,System.Decimal,System.Decimal,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.CancelLendOrderAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.SetAutoLendAsync(System.String,System.Boolean,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetOpenLendOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetClosedLendOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetOpenLendsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetClosedLendsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetLendingStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams">
@@ -1120,6 +1162,21 @@
             1w
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.LendStatus">
+            <summary>
+            Lend order status
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.LendStatus.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.LendStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.LiquidityType">
             <summary>
             Liquidity type of a trade
@@ -1283,6 +1340,21 @@
         <member name="F:Kucoin.Net.Enums.OrderType.Stop">
             <summary>
             Stop order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.RepaymentStrategy">
+            <summary>
+            Repayment strategy
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.RepaymentStrategy.RecentlyExpireFirst">
+            <summary>
+            Time priority, repay nearest maturity first
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.RepaymentStrategy.HighestRateFirst">
+            <summary>
+            Rate priority, repay highest interest rate first
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.SelfTradePrevention">
@@ -2597,6 +2669,31 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginMarkPriceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the mark price of a symbol
+            </summary>
+            <param name="symbol">The symbol to retrieve</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetLendMarketDataAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get lending market data
+            </summary>
+            <param name="asset">Asset</param>
+            <param name="term">Filter by term</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the last 300 fills for borrow/lending orders
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading">
             <summary>
             Kucoin Spot trading endpoints, placing and mananging orders.
@@ -2882,6 +2979,126 @@
             <param name="tradeId">Trade ID of borrow order</param>
             <param name="quantity">Repayment size</param>
             <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetOpenBorrowRecordsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get outstanding borrow records
+            <para><a href="https://docs.kucoin.com/#get-repay-record" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetClosedBorrowRecordsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get repaid borrow records
+            <para><a href="https://docs.kucoin.com/#get-repayment-record" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.RepayAllAsync(System.String,Kucoin.Net.Enums.RepaymentStrategy,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay all borrowed for an asset
+            <para><a href="https://docs.kucoin.com/#one-click-repayment" /></para>
+            </summary>
+            <param name="asset">Asset to repay for</param>
+            <param name="strategy">Repayment strategy</param>
+            <param name="quantity">Quantity to repay</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceLendOrderAsync(System.String,System.Decimal,System.Decimal,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Place a new lend order
+            <para><a href="https://docs.kucoin.com/#post-lend-order" /></para>
+            </summary>
+            <param name="asset">Asset to lend</param>
+            <param name="quantity">Quantity to lend</param>
+            <param name="dailyInterestRate">Daily interest rate. 0.01 = 1%</param>
+            <param name="term">The term in days</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.CancelLendOrderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an active lend order
+            <para><a href="https://docs.kucoin.com/#cancel-lend-order" /></para>
+            </summary>
+            <param name="orderId">Id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.SetAutoLendAsync(System.String,System.Boolean,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Set up automatic lending for an asset
+            <para><a href="https://docs.kucoin.com/#set-auto-lend" /></para>
+            </summary>
+            <param name="asset">The asset to lend</param>
+            <param name="isEnabled">Is enabled or not</param>
+            <param name="retainQuantity">Reserved quantity in main account</param>
+            <param name="dailyInterestRate">Daily interest rate. 0.01 = 1%</param>
+            <param name="term">The term in days</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetOpenLendOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open lend orders
+            <para><a href="https://docs.kucoin.com/#get-active-order" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetClosedLendOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get closed lend orders
+            <para><a href="https://docs.kucoin.com/#get-lent-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetOpenLendsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get active lends
+            <para><a href="https://docs.kucoin.com/#get-active-lend-order-list" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetClosedLendsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get active lends
+            <para><a href="https://docs.kucoin.com/#get-settled-lend-order-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetLendingStatusAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get lending status per asset
+            <para><a href="https://docs.kucoin.com/#get-account-lend-record" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="ct">Cancellation token</param> 
             <returns></returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotStreams">
@@ -6085,6 +6302,176 @@
             The volume of the kline
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinLend">
+            <summary>
+            Lend info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLend.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLend.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLend.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLend.Repaid">
+            <summary>
+            Repaid
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLend.Term">
+            <summary>
+            Term
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLend.DailyInterestRate">
+            <summary>
+            Daily interest rate
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinOpenLend">
+            <summary>
+            Open lend info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinOpenLend.MaturityTime">
+            <summary>
+            Maturity time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinOpenLend.AccruedInterest">
+            <summary>
+            Accrued interest
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinClosedLend">
+            <summary>
+            Closed lend info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinClosedLend.Interest">
+            <summary>
+            Interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinClosedLend.SettleTime">
+            <summary>
+            Settle time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinClosedLend.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory">
+            <summary>
+            Lend history info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory.Asset">
+            <summary>
+            Asset lend
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory.Outstanding">
+            <summary>
+            Outstanding
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory.AccruedInterest">
+            <summary>
+            Accrued interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory.RealizedProfit">
+            <summary>
+            Realized profits
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendHistory.IsAutoLend">
+            <summary>
+            Auto lend enabled
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinLendingMarketEntry">
+            <summary>
+            Lending open market entry
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendingMarketEntry.DailyInterestRate">
+            <summary>
+            Daily interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendingMarketEntry.Term">
+            <summary>
+            Term in days
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendingMarketEntry.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder">
+            <summary>
+            Lend order info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.Asset">
+            <summary>
+            Asset being lend
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.FilledQuantity">
+            <summary>
+            Filled quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.DailyInterestRate">
+            <summary>
+            Daily interest rate, 0.01 = 1%
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.Term">
+            <summary>
+            Term in days
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.Status">
+            <summary>
+            Status of the order
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccount">
             <summary>
             Margin account info
@@ -6413,6 +6800,61 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinOrderBookEntry.Quantity">
             <summary>
             The quantity of the entry
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord">
+            <summary>
+            Repayment record
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.AccruedInterest">
+            <summary>
+            Accrued interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.DailyInterestRate">
+            <summary>
+            Daily interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.Liability">
+            <summary>
+            Liability
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.MaturityTime">
+            <summary>
+            Maturity time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.Principal">
+            <summary>
+            Principal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.RepaidSize">
+            <summary>
+            Repaid size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.Term">
+            <summary>
+            Term
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord.CreateTime">
+            <summary>
+            Create time
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit">

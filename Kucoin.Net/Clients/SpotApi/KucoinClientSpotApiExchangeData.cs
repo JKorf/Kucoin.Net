@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Objects.Models.Futures;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -142,9 +143,36 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<KucoinIndexBase>(_baseClient.GetUri($"mark-price/{symbol}/current"), HttpMethod.Get, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default)
         {
             return await _baseClient.Execute<KucoinMarginConfig>(_baseClient.GetUri("margin/config"), HttpMethod.Get, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsync(string asset, int? term = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset }
+            };
+            parameters.AddOptionalParameter("term", term);
+            return await _baseClient.Execute<IEnumerable<KucoinLendingMarketEntry>>(_baseClient.GetUri("margin/market"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset }
+            };
+            return await _baseClient.Execute<IEnumerable<KucoinBorrowOrderDetails>>(_baseClient.GetUri("margin/trade/last"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
     }
 }

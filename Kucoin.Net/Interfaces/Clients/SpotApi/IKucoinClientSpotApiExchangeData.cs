@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Objects.Models.Futures;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -139,5 +140,30 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the mark price of a symbol
+        /// </summary>
+        /// <param name="symbol">The symbol to retrieve</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get lending market data
+        /// </summary>
+        /// <param name="asset">Asset</param>
+        /// <param name="term">Filter by term</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsync(string asset, int? term = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the last 300 fills for borrow/lending orders
+        /// </summary>
+        /// <param name="asset">The asset</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default);
     }
 }

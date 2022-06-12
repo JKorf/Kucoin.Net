@@ -150,7 +150,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Open interest
         /// </summary>
-        public decimal OpenInterest { get; set; }//TODO
+        public decimal? OpenInterest { get; set; }
         /// <summary>
         /// 24 hour low price
         /// </summary>
