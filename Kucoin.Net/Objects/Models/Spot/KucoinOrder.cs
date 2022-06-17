@@ -9,13 +9,13 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinOrder: KucoinOrderBase
-    {        
+    public class KucoinOrder : KucoinOrderBase
+    {
         /// <summary>
         /// The operation type
         /// </summary>
         [JsonProperty("opType"), JsonConverter(typeof(OperationTypeConverter))]
-        public OrderOperationType? OperationType { get; set; }        
+        public OrderOperationType? OperationType { get; set; }
         /// <summary>
         /// The funds of the order
         /// </summary>
@@ -39,7 +39,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The asset of the fee
         /// </summary>
         [JsonProperty("feeCurrency")]
-        public string FeeAsset { get; set; } = string.Empty;
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The stop condition
         /// </summary>
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Tags for the order
         /// </summary>
-        public string Tags { get; set; } = string.Empty;        
+        public string Tags { get; set; } = string.Empty;
         /// <summary>
         /// Trade type
         /// </summary>
@@ -68,7 +68,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Stop order info
     /// </summary>
-    public class KucoinStopOrder: KucoinOrder
+    public class KucoinStopOrder : KucoinOrder
     {
         /// <summary>
         /// User id
@@ -78,12 +78,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Status
         /// </summary>
         [JsonConverter(typeof(StopOrderStatusConverter))]
-        public StopOrderStatus Status { get; set; }
+        public StopOrderStatus? Status { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime OrderTime { get; set; }
+        public DateTime? OrderTime { get; set; }
         /// <summary>
         /// Domain id
         /// </summary>
@@ -95,11 +95,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Taker fee rate
         /// </summary>
-        public decimal TakerFeeRate { get; set; }
+        public decimal? TakerFeeRate { get; set; }
         /// <summary>
         /// Taker fee rate
         /// </summary>
-        public decimal MakerFeeRate { get; set; }
+        public decimal? MakerFeeRate { get; set; }
         /// <summary>
         /// Time stop order was triggered
         /// </summary>

@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The asset of the account
         /// </summary>
         [JsonProperty("currency")]
-        public string Asset { get; set; } = string.Empty;
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The type of the account
         /// </summary>
@@ -27,7 +27,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The total balance of the account
         /// </summary>
         [JsonProperty("balance")]
-        public decimal Total { get; set; }
+        public decimal Balance { get; set; }
         /// <summary>
         /// The available balance of the account
         /// </summary>

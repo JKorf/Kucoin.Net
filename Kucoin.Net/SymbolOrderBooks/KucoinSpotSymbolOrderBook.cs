@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
@@ -12,7 +13,7 @@ namespace Kucoin.Net.SymbolOrderBooks
     /// <summary>
     /// Kucoin order book implementation
     /// </summary>
-    public class KucoinSpotSymbolOrderBook: CryptoExchange.Net.OrderBook.SymbolOrderBook
+    public class KucoinSpotSymbolOrderBook : CryptoExchange.Net.OrderBook.SymbolOrderBook
     {
         private readonly IKucoinClient restClient;
         private readonly IKucoinSocketClient socketClient;
@@ -37,7 +38,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
+        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct = default)
         {
             if (KucoinClientOptions.Default.ApiCredentials == null && KucoinClientOptions.Default.SpotApiOptions.ApiCredentials == null)
                 return new CallResult<UpdateSubscription>(new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
@@ -67,20 +68,20 @@ namespace Kucoin.Net.SymbolOrderBooks
                     return subResult;
 
                 Status = OrderBookStatus.Syncing;
-                await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
             }
 
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
-            
+
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync()
+        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct = default)
         {
             if (Levels != null)
-                return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                return await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
 
             var bookResult = await restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
@@ -107,9 +108,9 @@ namespace Kucoin.Net.SymbolOrderBooks
             asks.Clear();
             bids.Clear();
 
-            if(_restOwner)
+            if (_restOwner)
                 restClient?.Dispose();
-            if(_socketOwner)
+            if (_socketOwner)
                 socketClient?.Dispose();
         }
     }

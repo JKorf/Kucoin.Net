@@ -23,32 +23,32 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The base asset
         /// </summary>
         [JsonProperty("baseCurrency")]
-        public string BaseAsset { get; set; } = string.Empty;
+        public string BaseCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The quote asset
         /// </summary>
         [JsonProperty("quoteCurrency")]
-        public string QuoteAsset { get; set; } = string.Empty;
+        public string QuoteCurrency { get; set; } = string.Empty;
         /// <summary>
         /// The min order quantity in the base asset
         /// </summary>
         [JsonProperty("baseMinSize")]
-        public decimal BaseMinQuantity { get; set; }
+        public decimal BaseMinSize { get; set; }
         /// <summary>
         /// The min order quantity in the quote asset
         /// </summary>
         [JsonProperty("quoteMinSize")]
-        public decimal QuoteMinQuantity { get; set; }
+        public decimal QuoteMinSize { get; set; }
         /// <summary>
         /// The max order quantity in the base asset
         /// </summary>
         [JsonProperty("baseMaxSize")]
-        public decimal BaseMaxQuantity { get; set; }
+        public decimal BaseMaxSize { get; set; }
         /// <summary>
         /// The max order quantity in the quote asset
         /// </summary>
         [JsonProperty("quoteMaxSize")]
-        public decimal QuoteMaxQuantity { get; set; }
+        public decimal QuoteMaxSize { get; set; }
         /// <summary>
         /// The quantity of an order when using the quantity field must be a multiple of this
         /// </summary>
@@ -69,7 +69,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The asset the fee will be on
         /// </summary>
         [JsonProperty("feeCurrency")]
-        public string FeeAsset { get; set; } = string.Empty;
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// Whether margin is enabled
         /// </summary>

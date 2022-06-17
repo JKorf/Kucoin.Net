@@ -62,7 +62,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinTransaction>>> GetDepositHistoryAsync(string? asset = null, TransactionStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", asset);
@@ -70,8 +70,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new DepositStatusConverter(false)));
-            return await _baseClient.Execute<KucoinPaginated<KucoinDeposit>>(_baseClient.GetUri("deposit-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new TransactionStatusConverter(false)));
+            return await _baseClient.Execute<KucoinPaginated<KucoinTransaction>>(_baseClient.GetUri("deposit-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
         #endregion
 
@@ -100,7 +100,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinTransaction>>> GetWithdrawHistoryAsync(string? asset = null, TransactionStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", asset);
@@ -108,8 +108,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)));
-            return await _baseClient.Execute<KucoinPaginated<KucoinWithdrawal>>(_baseClient.GetUri("withdrawal-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new TransactionStatusConverter(false)));
+            return await _baseClient.Execute<KucoinPaginated<KucoinTransaction>>(_baseClient.GetUri("withdrawal-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

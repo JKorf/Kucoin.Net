@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Enums;
+using Newtonsoft.Json;
 
 namespace Kucoin.Net.Converters
 {

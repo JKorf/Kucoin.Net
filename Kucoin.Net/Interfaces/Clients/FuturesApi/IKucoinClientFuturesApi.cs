@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Interfaces;
 using System;
+using CryptoExchange.Net.Interfaces.CommonClients;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {

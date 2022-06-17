@@ -79,26 +79,26 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders/" + orderId, 1), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri("orders/" + orderId, 1), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri("orders", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
         }
 
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("stopOrders", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri("stopOrders", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

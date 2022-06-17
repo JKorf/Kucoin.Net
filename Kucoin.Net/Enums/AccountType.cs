@@ -14,9 +14,13 @@
         /// </summary>
         Trade,
         /// <summary>
-        /// Margin account
+        /// Cross margin account
         /// </summary>
-        Margin,
+        CrossMargin,
+        /// <summary>
+        /// Isolated margin account
+        /// </summary>
+        IsolatedMargin,
         /// <summary>
         /// Pool account
         /// </summary>

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net.Interfaces.CommonClients;
 using System;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi

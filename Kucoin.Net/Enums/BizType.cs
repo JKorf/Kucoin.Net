@@ -189,5 +189,21 @@
         /// Return of liquidation takeover
         /// </summary>
         ReturnOfLiquidationTakeover,
+        /// <summary>
+        /// EARN - Profits
+        /// </summary>
+        EarnProfits,
+        /// <summary>
+        /// EARN - Redemption
+        /// </summary>
+        EarnRedemption,
+        /// <summary>
+        /// EARN - Subscription
+        /// </summary>
+        EarnSubscription,
+        /// <summary>
+        /// Isolated Margin
+        /// </summary>
+        IsolatedMargin,
     }
 }

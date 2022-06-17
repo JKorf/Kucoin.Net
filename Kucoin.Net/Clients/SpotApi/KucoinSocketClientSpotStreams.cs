@@ -36,12 +36,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials) =>
+            new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         #region public
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default) => SubscribeToTickerUpdatesAsync(new[] { symbol }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default) =>
+            await SubscribeToTickerUpdatesAsync(new[] { symbol }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default)
@@ -82,9 +83,8 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(string symbolOrMarket,
-            Action<DataEvent<KucoinStreamSnapshot>> onData, CancellationToken ct = default)
-            => SubscribeToSnapshotUpdatesAsync(new[] { symbolOrMarket }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(string symbolOrMarket, Action<DataEvent<KucoinStreamSnapshot>> onData, CancellationToken ct = default)
+            => await SubscribeToSnapshotUpdatesAsync(new[] { symbolOrMarket }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(
@@ -107,7 +107,8 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default) => SubscribeToAggregatedOrderBookUpdatesAsync(new[] { symbol }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default) =>
+            await SubscribeToAggregatedOrderBookUpdatesAsync(new[] { symbol }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default)
@@ -140,25 +141,25 @@ namespace Kucoin.Net.Clients.SpotApi
             return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
-
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
+            var intervalString = JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false));
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
             {
-                KucoinSocketClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamCandle>(tokenData), symbol), onData);
+                //KucoinSocketClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamCandle>(tokenData), symbol + "_" + intervalString), onData);
+                KucoinSocketClient.InvokeHandler(tokenData.As(_baseClient.GetData<KucoinStreamCandle>(tokenData), symbol + "_" + interval.ToString()), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}", false);
+            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{intervalString}", false);
             return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int limit,
-            Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default) =>
-            SubscribeToOrderBookUpdatesAsync(new[] { symbol }, limit, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default) =>
+            await SubscribeToOrderBookUpdatesAsync(new[] { symbol }, limit, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default)
@@ -178,7 +179,8 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default) => SubscribeToIndexPriceUpdatesAsync(new string[] { symbol }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default) =>
+            await SubscribeToIndexPriceUpdatesAsync(new string[] { symbol }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
@@ -197,7 +199,8 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default) => SubscribeToMarkPriceUpdatesAsync(new string[] { symbol }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default) =>
+            await SubscribeToMarkPriceUpdatesAsync(new string[] { symbol }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
@@ -216,7 +219,8 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string asset, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default) => SubscribeToFundingBookUpdatesAsync(new string[] { asset }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string asset, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default) =>
+            await SubscribeToFundingBookUpdatesAsync(new string[] { asset }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(IEnumerable<string> assets, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default)
@@ -235,11 +239,11 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamMatchEngineUpdate>> onData, CancellationToken ct = default) => SubscribeToMatchEngineUpdatesAsync(new[] { symbol }, onData, ct);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamMatchEngineUpdate>> onData, CancellationToken ct = default) =>
+            await SubscribeToMatchEngineUpdatesAsync(new[] { symbol }, onData, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumerable<string> symbols,
-            Action<DataEvent<KucoinStreamMatchEngineUpdate>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamMatchEngineUpdate>> onData, CancellationToken ct = default)
         {
             symbols.ValidateNotNull(nameof(symbols));
             foreach (var symbol in symbols)
@@ -279,18 +283,15 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<KucoinStreamOrderBaseUpdate>> onOrderData,
-            Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<KucoinStreamOrderBaseUpdate>> onOrderData, Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData, CancellationToken ct = default)
         {
             var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
             {
-
                 if (tokenData.Data["data"] == null || tokenData.Data["data"]!["type"] == null)
                 {
                     _log.Write(LogLevel.Warning, "Order update without type value");
                     return;
                 }
-
 
                 var type = tokenData.Data["data"]!["type"]!.ToString();
                 switch (type)

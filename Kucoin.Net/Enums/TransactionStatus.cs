@@ -1,25 +1,25 @@
 ﻿namespace Kucoin.Net.Enums
 {
     /// <summary>
-    /// Status of a withdrawal
+    /// Status of a transaction
     /// </summary>
-    public enum WithdrawalStatus
+    public enum TransactionStatus : byte
     {
         /// <summary>
         /// In progress
         /// </summary>
-        Processing,
+        Processing = 0,
         /// <summary>
-        /// In progress
+        /// Withdrawal in progress
         /// </summary>
-        WalletProcessing,
+        WalletProcessing = 1,
         /// <summary>
         /// Successful
         /// </summary>
-        Success,
+        Success = 2,
         /// <summary>
         /// Failed
         /// </summary>
-        Failure
+        Failure = 3
     }
 }

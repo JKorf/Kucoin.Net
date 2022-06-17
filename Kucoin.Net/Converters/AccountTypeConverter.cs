@@ -17,7 +17,8 @@ namespace Kucoin.Net.Converters
         {
             new KeyValuePair<AccountType, string>(AccountType.Main, _useCaps ? "MAIN" : "main"),
             new KeyValuePair<AccountType, string>(AccountType.Trade, _useCaps ? "TRADE" : "trade"),
-            new KeyValuePair<AccountType, string>(AccountType.Margin, _useCaps ? "MARGIN" : "margin"),
+            new KeyValuePair<AccountType, string>(AccountType.CrossMargin, _useCaps ? "MARGIN" : "margin"),
+            new KeyValuePair<AccountType, string>(AccountType.IsolatedMargin, _useCaps ? "ISOLATED" : "isolated"),
             new KeyValuePair<AccountType, string>(AccountType.Pool, _useCaps ? "POOL" : "pool"),
         };
     }

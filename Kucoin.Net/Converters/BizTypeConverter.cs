@@ -62,6 +62,11 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<BizType, string>(BizType.MarginBonus, _useCaps ? "" : "Bonus received"),
             new KeyValuePair<BizType, string>(BizType.LiquidationTakeover, _useCaps ? "" : "Liquidation Takeover"),
             new KeyValuePair<BizType, string>(BizType.ReturnOfLiquidationTakeover, _useCaps ? "" : "Return of Liquidation Takeover"),
+
+            new KeyValuePair<BizType, string>(BizType.EarnProfits, _useCaps ? "" : "EARN - Profits"),
+            new KeyValuePair<BizType, string>(BizType.EarnRedemption, _useCaps ? "" : "EARN - Redemption"),
+            new KeyValuePair<BizType, string>(BizType.EarnSubscription, _useCaps ? "" : "EARN - Subscription"),
+            new KeyValuePair<BizType, string>(BizType.IsolatedMargin, _useCaps ? "" : "Isolated Margin"),
         };
     }
 }

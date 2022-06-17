@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The asset identifier
         /// </summary>
         [JsonProperty("currency")]
-        public string Asset { get; set; } = string.Empty;
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The name of the asset
         /// </summary>
@@ -28,7 +28,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The minimum quantity of a withdrawal
         /// </summary>
         [JsonProperty("withdrawalMinSize")]
-        public decimal WithdrawalMinQuantity { get; set; }
+        public decimal WithdrawalMinSize { get; set; }
         /// <summary>
         /// The minimum fee of a withdrawal
         /// </summary>

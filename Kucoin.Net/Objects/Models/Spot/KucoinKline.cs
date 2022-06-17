@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// Kline info
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinKline
+    public partial class KucoinKline
     {
         /// <summary>
         /// The start time of the kline

@@ -36,9 +36,7 @@ namespace Kucoin.Net.Clients
         /// <summary>
         /// Create a new instance of KucoinSocketClient using the default options
         /// </summary>
-        public KucoinSocketClient() : this(KucoinSocketClientOptions.Default)
-        {
-        }
+        public KucoinSocketClient() : this(KucoinSocketClientOptions.Default) { }
 
         /// <summary>
         /// Create a new instance of KucoinSocketClient using provided options
@@ -70,11 +68,11 @@ namespace Kucoin.Net.Clients
             KucoinSocketClientOptions.Default = options;
         }
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
-            => SubscribeAsync(apiClient, url, request, identifier, authenticated, dataHandler, ct);
+        internal async Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+            => await SubscribeAsync(apiClient, url, request, identifier, authenticated, dataHandler, ct).ConfigureAwait(false);
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
-            => SubscribeAsync(apiClient, request, identifier, authenticated, dataHandler, ct);
+        internal async Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+            => await SubscribeAsync(apiClient, request, identifier, authenticated, dataHandler, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> SubscribeAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
@@ -104,7 +102,7 @@ namespace Kucoin.Net.Clients
                     if (SocketFactory is WebsocketFactory)
                     {
                         KucoinToken token;
-                        
+
                         if (url == "futures")
                         {
                             if (thisCredentials != null)
@@ -145,7 +143,7 @@ namespace Kucoin.Net.Clients
                                 token = tokenResult.Data;
                             }
                         }
-                        
+
 
                         socket = CreateSocket(token.Servers.First().Endpoint + "?token=" + token.Token);
                     }
@@ -323,9 +321,9 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        protected override Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
+        protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
-            return Task.FromResult(new CallResult<bool>(true));
+            return await Task.FromResult(new CallResult<bool>(true)).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

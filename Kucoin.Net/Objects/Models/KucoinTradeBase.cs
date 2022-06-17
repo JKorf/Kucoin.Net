@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Models
         /// The asset of the fee
         /// </summary>
         [JsonProperty("feeCurrency")]
-        public string FeeAsset { get; set; } = string.Empty;
+        public string FeeCurrency { get; set; } = string.Empty;
 
         /// <summary>
         /// The time the fill was created

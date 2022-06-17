@@ -12,6 +12,10 @@
         /// <summary>
         /// Margin trade
         /// </summary>
-        MarginTrade
+        MarginTrade,
+        /// <summary>
+        /// Isolated margin trade
+        /// </summary>
+        IsolatedMarginTrade
     }
 }

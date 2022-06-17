@@ -135,14 +135,14 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri($"margin/order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            var result = await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true, weight: 3).ConfigureAwait(false);
+            var result = await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri($"orders/{orderId}"), HttpMethod.Delete, ct, signed: true, weight: 3).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
             return result;
@@ -160,12 +160,12 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
             symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true, weight: 60).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true, weight: 60).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -191,7 +191,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinOrder>>(_baseClient.GetUri("limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<IEnumerable<KucoinOrder>>(_baseClient.GetUri($"limit/orders"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -251,7 +251,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinUserTrade>>(_baseClient.GetUri("limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<IEnumerable<KucoinUserTrade>>(_baseClient.GetUri($"limit/fills"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -317,9 +317,9 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelStopOrderAsync(string orderId, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelStopOrderAsync(string orderId, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("stop-order/" + orderId), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri($"stop-order/" + orderId), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -329,18 +329,18 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "clientOid", clientOrderId }
             };
-            return await _baseClient.Execute<KucoinCanceledOrder>(_baseClient.GetUri("stop-order/cancelOrderByClientOid"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCanceledOrder>(_baseClient.GetUri($"stop-order/cancelOrderByClientOid"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelStopOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, TradeType? tradeType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCancelledOrders>> CancelStopOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, TradeType? tradeType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("orderIds", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
 
-            return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("stop-order/cancel"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinCancelledOrders>(_baseClient.GetUri($"stop-order/cancel"), HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -366,7 +366,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinStopOrder>> GetStopOrderAsync(string orderId, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinStopOrder>(_baseClient.GetUri("stop-order/" + orderId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinStopOrder>(_baseClient.GetUri($"stop-order/" + orderId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -376,7 +376,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "clientOid", clientOrderId }
             };
-            return await _baseClient.Execute<IEnumerable<KucoinStopOrder>>(_baseClient.GetUri("stop-order/queryOrderByClientOid"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<IEnumerable<KucoinStopOrder>>(_baseClient.GetUri($"stop-order/queryOrderByClientOid"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
 
@@ -407,7 +407,7 @@ namespace Kucoin.Net.Clients.SpotApi
             };
             parameters.AddOptionalParameter("maxRate", maxRate);
             parameters.AddOptionalParameter("term", term);
-            return await _baseClient.Execute<KucoinNewBorrowOrder>(_baseClient.GetUri("margin/borrow"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinNewBorrowOrder>(_baseClient.GetUri($"margin/borrow"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -424,6 +424,20 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "orderId", orderId }
             };
             return await _baseClient.Execute<KucoinBorrowOrder>(_baseClient.GetUri($"margin/borrow"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get info on outstanding borrow orders (https://docs.kucoin.com/#get-repay-record)
+        /// </summary>
+        /// <param name="asset">Asset of the borrow orders</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Borrow Order info</returns>
+        public async Task<WebCallResult<KucoinPaginated<KucoinBorrowOrderDetails>>> GetBorrowOrdersAsync(string? asset, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("pageSize", 50);
+            return await _baseClient.Execute<KucoinPaginated<KucoinBorrowOrderDetails>>(_baseClient.GetUri($"margin/borrow/outstanding"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -448,7 +462,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "size", quantity }
             };
 
-            return await _baseClient.Execute(_baseClient.GetUri("margin/repay/single"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute(_baseClient.GetUri($"margin/repay/single"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
     }
 }

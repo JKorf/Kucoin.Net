@@ -36,6 +36,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Trade type
         /// </summary>
-        public string TradeType { get; set; } = string.Empty;
+        [JsonConverter(typeof(TradeTypeConverter))]
+        public TradeType TradeType { get; set; } = TradeType.SpotTrade;
     }
 }

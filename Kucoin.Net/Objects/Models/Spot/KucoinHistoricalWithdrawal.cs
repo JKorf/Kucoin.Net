@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The status of the withdrawal
         /// </summary>
         [JsonConverter(typeof(WithdrawalStatusConverter))]
-        public WithdrawalStatus Status { get; set; }
+        public TransactionStatus Status { get; set; }
         /// <summary>
         /// The wallet transaction id
         /// </summary>

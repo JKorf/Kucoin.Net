@@ -1,6 +1,8 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Converters;
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {

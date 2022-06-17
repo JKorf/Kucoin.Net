@@ -69,7 +69,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderId">Id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled id</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCancelledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders
@@ -78,7 +78,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled ids</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCancelledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open stop orders
@@ -87,7 +87,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled ids</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCancelledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of orders

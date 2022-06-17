@@ -40,6 +40,12 @@
     <DocumentationFile>Kucoin.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Objects\Models\Spot\KucoinDeposit.cs" />
+    <Compile Remove="Objects\Models\Spot\KucoinHistoricalDeposit.cs" />
+    <Compile Remove="Objects\Models\Spot\KucoinHistoricalWithdrawal.cs" />
+    <Compile Remove="Objects\Models\Spot\KucoinWithdrawal.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="icon\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
@@ -47,10 +53,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="5.0.0-beta1" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CryptoExchange.Net\CryptoExchange.Net\CryptoExchange.Net.csproj">
+      <CopyLocal>True</CopyLocal>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Newtonsoft.Json\Src\Newtonsoft.Json\Newtonsoft.Json.csproj" />
   </ItemGroup>
 </Project>

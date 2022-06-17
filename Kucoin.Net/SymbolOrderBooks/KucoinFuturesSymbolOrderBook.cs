@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
@@ -42,7 +43,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
+        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct = default)
         {
             if (KucoinClientOptions.Default.ApiCredentials == null && KucoinClientOptions.Default.FuturesApiOptions.ApiCredentials == null)
                 return new CallResult<UpdateSubscription>(new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
@@ -66,20 +67,20 @@ namespace Kucoin.Net.SymbolOrderBooks
             {
                 subResult = await socketClient.FuturesStreams.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
                 Status = OrderBookStatus.Syncing;
-                await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
             }
 
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
-            
+
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync()
+        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct = default)
         {
             if (Levels != null)
-                return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                return await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
 
             var bookResult = await restClient.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)

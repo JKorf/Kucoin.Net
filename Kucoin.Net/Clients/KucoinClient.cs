@@ -27,10 +27,7 @@ namespace Kucoin.Net.Clients
         /// <summary>
         /// Create a new instance of KucoinClient using the default options
         /// </summary>
-        public KucoinClient() : this(KucoinClientOptions.Default)
-        {
-
-        }
+        public KucoinClient() : this(KucoinClientOptions.Default) { }
 
         /// <summary>
         /// Create a new instance of KucoinClient using provided options
