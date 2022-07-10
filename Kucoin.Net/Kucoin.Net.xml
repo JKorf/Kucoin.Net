@@ -290,10 +290,7 @@
             </summary>
             <param name="credentials">Credentials to use</param>
         </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.SubscribeAsync``1(CryptoExchange.Net.SocketApiClient,System.String,System.Object,System.String,System.Boolean,System.Action{CryptoExchange.Net.Sockets.DataEvent{``0}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.GetSocketConnection(CryptoExchange.Net.SocketApiClient,System.String,System.Boolean)">
+        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.GetConnectionUrlAsync(CryptoExchange.Net.SocketApiClient,System.String,System.Boolean)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">

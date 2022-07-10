@@ -61,7 +61,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -78,7 +78,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:all", false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -103,7 +103,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/snapshot:" + string.Join(",", symbolOrMarkets), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -123,7 +123,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -137,7 +137,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/match:" + symbol, false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
 
@@ -152,7 +152,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}", false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -174,7 +174,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -193,7 +193,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/index:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -212,7 +212,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/markPrice:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -231,7 +231,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/margin/fundingBook:" + string.Join(",", assets), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -275,7 +275,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/level3:" + string.Join(",", symbols), false);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, false, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -310,7 +310,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/tradeOrders", true);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, true, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -328,7 +328,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/account/balance", true);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, true, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -341,7 +341,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
 
             var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/advancedOrders", true);
-            return await _baseClient.SubscribeInternalAsync(this, request, null, true, innerHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
         #endregion
 
