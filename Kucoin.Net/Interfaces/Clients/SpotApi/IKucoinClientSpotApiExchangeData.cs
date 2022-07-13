@@ -48,7 +48,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <returns>List of tickers</returns>
         Task<WebCallResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default);
 
-
         /// <summary>
         /// Gets the 24 hour stats of a symbol
         /// <para><a href="https://docs.kucoin.com/#get-24hr-stats" /></para>
@@ -57,7 +56,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns>24 hour stats</returns>
         Task<WebCallResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, CancellationToken ct = default);
-
 
         /// <summary>
         /// Gets a list of supported markets
@@ -165,5 +163,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get Margin Trading Pair ConfigurationAsync
+        /// <para><a href="https://docs.kucoin.com/#query-isolated-margin-trading-pair-configuration" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);
     }
 }
