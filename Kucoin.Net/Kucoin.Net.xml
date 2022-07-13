@@ -428,7 +428,10 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetMarginAccountAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData">
@@ -2521,11 +2524,17 @@
             <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
             <summary>
-            Get cross or isolated margin risk limit
+            Get cross margin risk limit
             </summary>
-            <param name="isolated">Request isolated info, default cross info is returned</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin risk limit
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -6878,6 +6887,73 @@
             <summary>
             Prevision
             </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin">
+            <summary>
+            Risk limit info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.BorrowMaxQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.BuyMaxQuantity">
+            <summary>
+            Max buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.Precision">
+            <summary>
+            Prevision
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin">
+            <summary>
+            Risk limit info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BaseMaxBorrowQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.QuoteMaxBorrowQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BaseMaxBuyQuantity">
+            <summary>
+            BaseMax buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.QuoteMaxBuyQuantity">
+            <summary>
+            Quote Max buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BasePrecision">
+            <summary>
+            Base Precision
+            </summary>
+                    
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.QuotePrecision">
+            <summary>
+            Quote Precision
+            </summary>
+                    
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUser">
             <summary>
