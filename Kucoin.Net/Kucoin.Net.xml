@@ -428,7 +428,10 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetMarginAccountAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData">
@@ -483,6 +486,9 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginTradingPairConfigurationAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading">
@@ -2521,11 +2527,17 @@
             <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
             <summary>
-            Get cross or isolated margin risk limit
+            Get cross margin risk limit
             </summary>
-            <param name="isolated">Request isolated info, default cross info is returned</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin risk limit
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2689,6 +2701,14 @@
             </summary>
             <param name="asset">The asset</param>
             <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginTradingPairConfigurationAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get Margin Trading Pair ConfigurationAsync
+            <para><a href="https://docs.kucoin.com/#query-isolated-margin-trading-pair-configuration" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param> 
             <returns></returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading">
@@ -6879,6 +6899,73 @@
             Prevision
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin">
+            <summary>
+            Risk limit info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.BorrowMaxQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.BuyMaxQuantity">
+            <summary>
+            Max buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.Precision">
+            <summary>
+            Prevision
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin">
+            <summary>
+            Risk limit info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BaseMaxBorrowQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.QuoteMaxBorrowQuantity">
+            <summary>
+            Max borrow quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BaseMaxBuyQuantity">
+            <summary>
+            BaseMax buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.QuoteMaxBuyQuantity">
+            <summary>
+            Quote Max buy quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BasePrecision">
+            <summary>
+            Base Precision
+            </summary>
+                    
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.QuotePrecision">
+            <summary>
+            Quote Precision
+            </summary>
+                    
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUser">
             <summary>
             Sub user info
@@ -7097,6 +7184,71 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradeFee.MakerFeeRate">
             <summary>
             Fee rate for trades as maker
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration">
+            <summary>
+            Trading Pair Configuration
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.SymbolName">
+            <summary>
+            Symbol Name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.BaseCurrency">
+            <summary>
+            Base Currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.QuoteCurrency">
+            <summary>
+            Quote Currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.MaxLeverage">
+            <summary>
+            Max Leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.FlDebtRatio">
+            <summary>
+            FlDebtRatio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.TradeEnable">
+            <summary>
+            Trade Enable
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.AutoRenewMaxDebtRatio">
+            <summary>
+            Auto Renew Max Debt Ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.BaseBorrowEnable">
+            <summary>
+            Base Borrow Enable
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.QuoteBorrowEnable">
+            <summary>
+            Quote Borrow Enable
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.BaseTransferInEnable">
+            <summary>
+            Base Transfer In Enable
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.QuoteTransferInEnable">
+            <summary>
+            Quote Transfer In Enable
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinTransferableAccount">
