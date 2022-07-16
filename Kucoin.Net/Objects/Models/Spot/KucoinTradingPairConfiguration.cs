@@ -17,19 +17,19 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Symbol Name
         /// </summary>
         [JsonProperty("symbolName")]
-        public string SymbolName { get; set; }
+        public string SymbolName { get; set; } = string.Empty;
 
         /// <summary>
         /// Base Asset
         /// </summary>
         [JsonProperty("baseCurrency")]
-        public string BaseAsset { get; set; }
+        public string BaseAsset { get; set; } = string.Empty;
 
         /// <summary>
         /// Quote Asset
         /// </summary>
         [JsonProperty("quoteCurrency")]
-        public string QuoteAsset { get; set; }
+        public string QuoteAsset { get; set; } = string.Empty;
 
         /// <summary>
         /// Max Leverage
