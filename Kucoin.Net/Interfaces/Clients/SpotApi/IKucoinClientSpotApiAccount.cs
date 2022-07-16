@@ -250,6 +250,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin risk limit
+        /// <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -257,6 +258,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin risk limit
+        /// <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -264,6 +266,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get margin account info
+        /// <para><a href="https://docs.kucoin.com/#get-margin-account" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

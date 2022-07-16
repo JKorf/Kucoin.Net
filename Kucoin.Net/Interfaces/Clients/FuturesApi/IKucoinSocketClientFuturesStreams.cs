@@ -17,7 +17,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#execution-data" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#execution-data" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe on</param>
         /// <param name="onData">The data handler</param>
@@ -27,7 +27,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#get-real-time-symbol-ticker" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-real-time-symbol-ticker" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe on</param>
         /// <param name="onData">The data handler</param>
@@ -37,7 +37,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to full order book updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#level-2-market-data" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#level-2-market-data" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe</param>
         /// <param name="onData">Data handler</param>
@@ -47,8 +47,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to partial order book updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2" /></para>
-        /// <para><a href="https://docs.kucoin.cloud/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe</param>
         /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
@@ -59,7 +59,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to market data updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#contract-market-data" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#contract-market-data" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe</param>
         /// <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
@@ -73,7 +73,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe system announcement
-        /// <para><a href="https://docs.kucoin.cloud/futures/#system-annoucements" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#system-annoucements" /></para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -82,7 +82,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to snapshot updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#transaction-statistics-timer-event" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#transaction-statistics-timer-event" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="onData">Data handler</param>
@@ -92,7 +92,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to wallet updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#account-balance-events" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#account-balance-events" /></para>
         /// </summary>
         /// <param name="onOrderMarginUpdate">Data handler for order margin updates</param>
         /// <param name="onBalanceUpdate">Data handler for balance updates</param>
@@ -107,7 +107,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to position updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#position-change-events" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#position-change-events" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="onPositionUpdate">Handler for position changes</param>
@@ -126,7 +126,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#trade-orders" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#trade-orders" /></para>
         /// </summary>
         /// <param name="symbol">[Optional] Symbol</param>
         /// <param name="onData">Data handler</param>
@@ -138,7 +138,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to stop order updates
-        /// <para><a href="https://docs.kucoin.cloud/futures/#stop-order-lifecycle-event" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#stop-order-lifecycle-event" /></para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

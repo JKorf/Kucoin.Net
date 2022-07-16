@@ -134,6 +134,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get margin configuration
+        /// <para><a href="https://docs.kucoin.com/#get-margin-configuration-info" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -141,6 +142,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the mark price of a symbol
+        /// <para><a href="https://docs.kucoin.com/#get-mark-price" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -149,6 +151,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get lending market data
+        /// <para><a href="https://docs.kucoin.com/#lending-market-data" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="term">Filter by term</param>
@@ -158,6 +161,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the last 300 fills for borrow/lending orders
+        /// <para><a href="https://docs.kucoin.com/#margin-trade-data" /></para>
         /// </summary>
         /// <param name="asset">The asset</param>
         /// <param name="ct">Cancellation token</param>
