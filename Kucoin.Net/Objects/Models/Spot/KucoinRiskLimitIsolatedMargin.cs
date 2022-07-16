@@ -8,10 +8,10 @@ namespace Kucoin.Net.Objects.Models.Spot
     public class KucoinRiskLimitIsolatedMargin
     {
         /// <summary>
-        /// The asset
+        /// The Symbol
         /// </summary>
         [JsonProperty("symbol")]
-        public string Asset { get; set; } = string.Empty;
+        public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// Max borrow quantity

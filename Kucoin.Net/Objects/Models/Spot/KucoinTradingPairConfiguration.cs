@@ -8,10 +8,10 @@ namespace Kucoin.Net.Objects.Models.Spot
     public class KucoinTradingPairConfiguration
     {
         /// <summary>
-        /// The asset
+        /// The Symbol
         /// </summary>
         [JsonProperty("symbol")]
-        public string Asset { get; set; } = string.Empty;
+        public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// Symbol Name
@@ -20,16 +20,16 @@ namespace Kucoin.Net.Objects.Models.Spot
         public string SymbolName { get; set; }
 
         /// <summary>
-        /// Base Currency
+        /// Base Asset
         /// </summary>
         [JsonProperty("baseCurrency")]
-        public string BaseCurrency { get; set; }
+        public string BaseAsset { get; set; }
 
         /// <summary>
-        /// Quote Currency
+        /// Quote Asset
         /// </summary>
         [JsonProperty("quoteCurrency")]
-        public string QuoteCurrency { get; set; }
+        public string QuoteAsset { get; set; }
 
         /// <summary>
         /// Max Leverage
