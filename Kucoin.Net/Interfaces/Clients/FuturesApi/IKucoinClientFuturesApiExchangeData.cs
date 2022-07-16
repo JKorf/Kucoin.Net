@@ -16,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get open contract list
-        /// <para><a href="https://docs.kucoin.center/futures/#get-open-contract-list" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-open-contract-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -24,7 +24,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get a contract
-        /// <para><a href="https://docs.kucoin.center/futures/#get-order-info-of-the-contract" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-order-info-of-the-contract" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="ct">Cancellation token</param>
@@ -33,7 +33,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the ticker for a contract
-        /// <para><a href="https://docs.kucoin.center/futures/#get-real-time-ticker" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-real-time-ticker" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="ct">Cancellation token</param>
@@ -42,7 +42,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the full order book, aggregated by price
-        /// <para><a href="https://docs.kucoin.center/futures/#get-full-order-book-level-2" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-full-order-book-level-2" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="ct">Cancellation token</param>
@@ -51,7 +51,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the partial order book, aggregated by price
-        /// <para><a href="https://docs.kucoin.center/futures/#get-part-order-book-level-2" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-part-order-book-level-2" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="depth">Amount of rows in the book, either 20 or 100</param>
@@ -61,7 +61,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get interest rate list
-        /// <para><a href="https://docs.kucoin.center/futures/#get-interest-rate-list" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-interest-rate-list" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="startTime">Filter by start time</param>
@@ -75,7 +75,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get index list
-        /// <para><a href="https://docs.kucoin.center/futures/#get-index-list" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-index-list" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="startTime">Filter by start time</param>
@@ -89,7 +89,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current mark price
-        /// <para><a href="https://docs.kucoin.center/futures/#get-current-mark-price" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-current-mark-price" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="ct">Cancellation token</param>
@@ -98,7 +98,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get premium index
-        /// <para><a href="https://docs.kucoin.center/futures/#get-premium-index" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-premium-index" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="startTime">Filter by start time</param>
@@ -112,7 +112,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current funding rate
-        /// <para><a href="https://docs.kucoin.center/futures/#get-current-funding-rate" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-current-funding-rate" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="ct">Cancellation token</param>
@@ -121,7 +121,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the most recent trades
-        /// <para><a href="https://docs.kucoin.center/futures/#transaction-history" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#transaction-history" /></para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract</param>
         /// <param name="ct">Cancellation token</param>
@@ -130,7 +130,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the server time
-        /// <para><a href="https://docs.kucoin.center/futures/#server-time" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#server-time" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -138,7 +138,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the service status
-        /// <para><a href="https://docs.kucoin.center/futures/#get-the-service-status" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-the-service-status" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -146,7 +146,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get kline data
-        /// <para><a href="https://docs.kucoin.center/futures/#get-k-line-data-of-contract" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#get-k-line-data-of-contract" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="interval">Interval of the klines</param>

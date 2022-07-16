@@ -434,6 +434,12 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetIsolatedMarginAccountAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -591,6 +597,21 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetLendingStatusAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceIsolatedBorrowOrderAsync(System.String,System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetIsolatedOpenBorrowRecordsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetIsolatedClosedBorrowRecordsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.RepayAllIsolatedAsync(System.String,System.String,Kucoin.Net.Enums.RepaymentStrategy,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.RepaySingleIsolatedBorrowOrderAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams">
@@ -1098,6 +1119,46 @@
         <member name="F:Kucoin.Net.Enums.FuturesTradeType.Settlement">
             <summary>
             Settlement
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.IsolatedMargingAccountStatus">
+            <summary>
+            Isolated margin account status
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.Debt">
+            <summary>
+            Existing liabilities
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.Clear">
+            <summary>
+            No liabilities
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.Bankruptcy">
+            <summary>
+            Bankruptcy (after position enters a negative balance
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.InBorrow">
+            <summary>
+            Existing borrowings
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.InRepay">
+            <summary>
+            Existing repayments
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.InLiquidation">
+            <summary>
+            Under liquidation
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.IsolatedMargingAccountStatus.InAutoRenew">
+            <summary>
+            Under auto-renewal assets
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.KlineInterval">
@@ -1634,7 +1695,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetAccountOverviewAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets account overview
-            <para><a href="https://docs.kucoin.center/futures/#get-account-overview" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-account-overview" /></para>
             </summary>
             <param name="asset">Get the accounts for a specific asset</param>
             <param name="ct">Cancellation token</param>
@@ -1643,7 +1704,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetTransactionHistoryAsync(System.String,System.Nullable{Kucoin.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get transaction history
-            <para><a href="https://docs.kucoin.center/futures/#get-transaction-history" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-transaction-history" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="type">Filter by type</param>
@@ -1658,7 +1719,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the deposit address for an asset
-            <para><a href="https://docs.kucoin.center/futures/#get-deposit-address" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-deposit-address" /></para>
             </summary>
             <param name="asset">The asset to get deposit address for</param>
             <param name="ct">Cancellation token</param>
@@ -1667,7 +1728,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{Kucoin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get deposit history
-            <para><a href="https://docs.kucoin.center/futures/#get-deposits-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-deposits-list" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="status">Filter by status</param>
@@ -1681,7 +1742,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetWithdrawalLimitAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the withdrawal limit
-            <para><a href="https://docs.kucoin.center/futures/#get-withdrawal-limit" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-withdrawal-limit" /></para>
             </summary>
             <param name="asset">The asset to get limits for</param>
             <param name="ct">Cancellation token</param>
@@ -1690,7 +1751,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw funds
-            <para><a href="https://docs.kucoin.center/futures/#withdraw-funds" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#withdraw-funds" /></para>
             </summary>
             <param name="asset">Asset to withdraw</param>
             <param name="address">Address to withdraw to</param>
@@ -1705,7 +1766,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetWithdrawHistoryAsync(System.String,System.Nullable{Kucoin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get withdraw history
-            <para><a href="https://docs.kucoin.center/futures/#get-withdrawal-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-withdrawal-list" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="status">Filter by status</param>
@@ -1719,7 +1780,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a withdrawal in process
-            <para><a href="https://docs.kucoin.center/futures/#cancel-withdrawal" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#cancel-withdrawal" /></para>
             </summary>
             <param name="withdrawalId">The id of the withdrawal to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -1728,7 +1789,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.TransferToMainAccountAsync(System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer funds from futures to main account
-            <para><a href="https://docs.kucoin.center/futures/#transfer-funds-to-kucoin-main-account-2" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#transfer-funds-to-kucoin-main-account-2" /></para>
             </summary>
             <param name="asset">Asset to transfer</param>
             <param name="clientId">Client identifier for the operation, needs to be unique. Guid.NewGuid() suggested</param>
@@ -1739,7 +1800,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.CancelTransferToMainAccountAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a transfer from futures account to main account
-            <para><a href="https://docs.kucoin.center/futures/#cancel-transfer-out-request" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#cancel-transfer-out-request" /></para>
             </summary>
             <param name="applyId">Transfer id to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -1748,7 +1809,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetTransferToMainAccountHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get transfer to main account history
-            <para><a href="https://docs.kucoin.center/futures/#get-transfer-out-request-records-2" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-transfer-out-request-records-2" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="startTime">Filter by start time</param>
@@ -1761,7 +1822,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetOpenOrderValueAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the total value of active orders
-            <para><a href="https://docs.kucoin.center/futures/#active-order-value-calculation" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#active-order-value-calculation" /></para>
             </summary>        
             <param name="symbol">Symbol</param>
             <param name="ct">Cancellation token</param>
@@ -1770,7 +1831,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetPositionAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details on a position
-            <para><a href="https://docs.kucoin.center/futures/#get-position-details" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-position-details" /></para>
             </summary>
             <param name="symbol">Contract symbol</param>
             <param name="ct">Cancellation token</param>
@@ -1779,7 +1840,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetPositionsAsync(System.Threading.CancellationToken)">
             <summary>
             Get list of positions
-            <para><a href="https://docs.kucoin.center/futures/#get-position-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-position-list" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>Position info</returns>
@@ -1787,7 +1848,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.ToggleAutoDepositMarginAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Enable/disable auto deposit margin
-            <para><a href="https://docs.kucoin.center/futures/#enable-disable-of-auto-deposit-margin" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#enable-disable-of-auto-deposit-margin" /></para>
             </summary>
             <param name="symbol">Symbol to change for</param>
             <param name="enabled">Enable or disable</param>
@@ -1797,7 +1858,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.AddMarginAsync(System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
             Add margin
-            <para><a href="https://docs.kucoin.center/futures/#add-margin-manually" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#add-margin-manually" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="quantity">Quantity to add</param>
@@ -1808,7 +1869,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiAccount.GetFundingHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get funding history
-            <para><a href="https://docs.kucoin.center/futures/#get-funding-history" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-funding-history" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="startTime">Filter by start time</param>
@@ -1827,7 +1888,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetOpenContractsAsync(System.Threading.CancellationToken)">
             <summary>
             Get open contract list
-            <para><a href="https://docs.kucoin.center/futures/#get-open-contract-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-open-contract-list" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1835,7 +1896,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetContractAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a contract
-            <para><a href="https://docs.kucoin.center/futures/#get-order-info-of-the-contract" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-order-info-of-the-contract" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="ct">Cancellation token</param>
@@ -1844,7 +1905,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the ticker for a contract
-            <para><a href="https://docs.kucoin.center/futures/#get-real-time-ticker" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-real-time-ticker" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="ct">Cancellation token</param>
@@ -1853,7 +1914,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetAggregatedFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the full order book, aggregated by price
-            <para><a href="https://docs.kucoin.center/futures/#get-full-order-book-level-2" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-full-order-book-level-2" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="ct">Cancellation token</param>
@@ -1862,7 +1923,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetAggregatedPartialOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get the partial order book, aggregated by price
-            <para><a href="https://docs.kucoin.center/futures/#get-part-order-book-level-2" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-part-order-book-level-2" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="depth">Amount of rows in the book, either 20 or 100</param>
@@ -1872,7 +1933,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetInterestRatesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get interest rate list
-            <para><a href="https://docs.kucoin.center/futures/#get-interest-rate-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-interest-rate-list" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="startTime">Filter by start time</param>
@@ -1886,7 +1947,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetIndexListAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get index list
-            <para><a href="https://docs.kucoin.center/futures/#get-index-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-index-list" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="startTime">Filter by start time</param>
@@ -1900,7 +1961,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetCurrentMarkPriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the current mark price
-            <para><a href="https://docs.kucoin.center/futures/#get-current-mark-price" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-current-mark-price" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="ct">Cancellation token</param>
@@ -1909,7 +1970,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetPremiumIndexAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get premium index
-            <para><a href="https://docs.kucoin.center/futures/#get-premium-index" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-premium-index" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="startTime">Filter by start time</param>
@@ -1923,7 +1984,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetCurrentFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the current funding rate
-            <para><a href="https://docs.kucoin.center/futures/#get-current-funding-rate" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-current-funding-rate" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="ct">Cancellation token</param>
@@ -1932,7 +1993,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the most recent trades
-            <para><a href="https://docs.kucoin.center/futures/#transaction-history" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#transaction-history" /></para>
             </summary>
             <param name="symbol">Symbol of the contract</param>
             <param name="ct">Cancellation token</param>
@@ -1941,7 +2002,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Get the server time
-            <para><a href="https://docs.kucoin.center/futures/#server-time" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#server-time" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1949,7 +2010,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetServiceStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Get the service status
-            <para><a href="https://docs.kucoin.center/futures/#get-the-service-status" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-the-service-status" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1957,7 +2018,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiExchangeData.GetKlinesAsync(System.String,Kucoin.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get kline data
-            <para><a href="https://docs.kucoin.center/futures/#get-k-line-data-of-contract" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-k-line-data-of-contract" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="interval">Interval of the klines</param>
@@ -1974,7 +2035,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Int32,System.Decimal,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
-            <para><a href="https://docs.kucoin.center/futures/#place-an-order" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#place-an-order" /></para>
             </summary>
             <param name="symbol">The contract for the order</param>
             <param name="side">Side of the order</param>
@@ -2001,7 +2062,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
-            <para><a href="https://docs.kucoin.center/futures/#cancel-an-order" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#cancel-an-order" /></para>
             </summary>
             <param name="orderId">Id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -2010,7 +2071,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
-            <para><a href="https://docs.kucoin.center/futures/#limit-order-mass-cancelation" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#limit-order-mass-cancelation" /></para>
             </summary>
             <param name="symbol">Cancel only orders for this symbol</param>
             <param name="ct">Cancellation token</param>
@@ -2019,7 +2080,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.CancelAllStopOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open stop orders
-            <para><a href="https://docs.kucoin.center/futures/#stop-order-mass-cancelation" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#stop-order-mass-cancelation" /></para>
             </summary>
             <param name="symbol">Cancel only orders for this symbol</param>
             <param name="ct">Cancellation token</param>
@@ -2028,7 +2089,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderStatus},System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of orders
-            <para><a href="https://docs.kucoin.center/futures/#get-order-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-order-list" /></para>
             </summary>
             <param name="symbol">Filter by symbol</param>
             <param name="status">Filter by status</param>
@@ -2044,7 +2105,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetUntriggeredStopOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of untriggered stop orders
-            <para><a href="https://docs.kucoin.center/futures/#get-untriggered-stop-order-list" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-untriggered-stop-order-list" /></para>
             </summary>
             <param name="symbol">Filter by symbol</param>
             <param name="side">Filter by side</param>
@@ -2059,7 +2120,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetClosedOrdersAsync(System.Threading.CancellationToken)">
             <summary>
             Get list of 1000 most recent orders in the last 24 hours
-            <para><a href="https://docs.kucoin.center/futures/#get-list-of-orders-completed-in-24h" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-list-of-orders-completed-in-24h" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
@@ -2067,7 +2128,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details on an order
-            <para><a href="https://docs.kucoin.center/futures/#get-details-of-a-single-order" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-details-of-a-single-order" /></para>
             </summary>
             <param name="orderId">Id of order to retrieve</param>
             <param name="ct">Cancellation token</param>
@@ -2076,7 +2137,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details on an order
-            <para><a href="https://docs.kucoin.center/futures/#get-details-of-a-single-order" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-details-of-a-single-order" /></para>
             </summary>
             <param name="clientOrderId">Client order id of order to retrieve</param>
             <param name="ct">Cancellation token</param>
@@ -2085,7 +2146,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of user trades
-            <para><a href="https://docs.kucoin.center/futures/#get-fills" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-fills" /></para>
             </summary>
             <param name="symbol">Filter by symbol</param>
             <param name="orderId">Filter by order id</param>
@@ -2101,7 +2162,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <summary>
             Get list of 1000 most recent user trades in the last 24 hours
-            <para><a href="https://docs.kucoin.center/futures/#recent-fills" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#recent-fills" /></para>
             </summary>        
             <param name="ct">Cancellation token</param>
             <returns>List of trades</returns>
@@ -2114,7 +2175,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesMatch}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://docs.kucoin.cloud/futures/#execution-data" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#execution-data" /></para>
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
@@ -2124,7 +2185,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
-            <para><a href="https://docs.kucoin.cloud/futures/#get-real-time-symbol-ticker" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#get-real-time-symbol-ticker" /></para>
             </summary>
             <param name="symbol">The symbol to subscribe on</param>
             <param name="onData">The data handler</param>
@@ -2134,7 +2195,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinFuturesOrderBookChange}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates
-            <para><a href="https://docs.kucoin.cloud/futures/#level-2-market-data" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#level-2-market-data" /></para>
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="onData">Data handler</param>
@@ -2144,8 +2205,8 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to partial order book updates
-            <para><a href="https://docs.kucoin.cloud/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2" /></para>
-            <para><a href="https://docs.kucoin.cloud/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2" /></para>
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
@@ -2156,7 +2217,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToMarketUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesMarkIndexPrice}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesFundingRate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to market data updates
-            <para><a href="https://docs.kucoin.cloud/futures/#contract-market-data" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#contract-market-data" /></para>
             </summary>
             <param name="symbol">The symbol to subscribe</param>
             <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
@@ -2167,7 +2228,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToSystemAnnouncementsAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinContractAnnouncement}},System.Threading.CancellationToken)">
             <summary>
             Subscribe system announcement
-            <para><a href="https://docs.kucoin.cloud/futures/#system-annoucements" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#system-annoucements" /></para>
             </summary>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2176,7 +2237,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeTo24HourSnapshotUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamTransactionStatisticsUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to snapshot updates
-            <para><a href="https://docs.kucoin.cloud/futures/#transaction-statistics-timer-event" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#transaction-statistics-timer-event" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="onData">Data handler</param>
@@ -2186,7 +2247,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to wallet updates
-            <para><a href="https://docs.kucoin.cloud/futures/#account-balance-events" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#account-balance-events" /></para>
             </summary>
             <param name="onOrderMarginUpdate">Data handler for order margin updates</param>
             <param name="onBalanceUpdate">Data handler for balance updates</param>
@@ -2197,7 +2258,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to position updates
-            <para><a href="https://docs.kucoin.cloud/futures/#position-change-events" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#position-change-events" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="onPositionUpdate">Handler for position changes</param>
@@ -2210,7 +2271,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order updates
-            <para><a href="https://docs.kucoin.cloud/futures/#trade-orders" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#trade-orders" /></para>
             </summary>
             <param name="symbol">[Optional] Symbol</param>
             <param name="onData">Data handler</param>
@@ -2220,7 +2281,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesStreams.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to stop order updates
-            <para><a href="https://docs.kucoin.cloud/futures/#stop-order-lifecycle-event" /></para>
+            <para><a href="https://docs.kucoin.com/futures/#stop-order-lifecycle-event" /></para>
             </summary>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2535,6 +2596,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
             <summary>
             Get cross margin risk limit
+            <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2542,6 +2604,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
             <summary>
             Get isolated margin risk limit
+            <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2549,7 +2612,25 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetMarginAccountAsync(System.Threading.CancellationToken)">
             <summary>
             Get margin account info
+            <para><a href="https://docs.kucoin.com/#get-margin-account" /></para>
             </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin account info
+            <para><a href="https://docs.kucoin.com/#query-isolated-margin-account-info" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.GetIsolatedMarginAccountAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin account info
+            <para><a href="https://docs.kucoin.com/#query-single-isolated-margin-account-info" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2679,6 +2760,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginConfigurationAsync(System.Threading.CancellationToken)">
             <summary>
             Get margin configuration
+            <para><a href="https://docs.kucoin.com/#get-margin-configuration-info" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2686,6 +2768,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginMarkPriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the mark price of a symbol
+            <para><a href="https://docs.kucoin.com/#get-mark-price" /></para>
             </summary>
             <param name="symbol">The symbol to retrieve</param>
             <param name="ct">Cancellation token</param>
@@ -2694,6 +2777,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetLendMarketDataAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get lending market data
+            <para><a href="https://docs.kucoin.com/#lending-market-data" /></para>
             </summary>
             <param name="asset">Asset</param>
             <param name="term">Filter by term</param>
@@ -2703,6 +2787,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiExchangeData.GetMarginTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the last 300 fills for borrow/lending orders
+            <para><a href="https://docs.kucoin.com/#margin-trade-data" /></para>
             </summary>
             <param name="asset">The asset</param>
             <param name="ct">Cancellation token</param>
@@ -3121,6 +3206,68 @@
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="ct">Cancellation token</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceIsolatedBorrowOrderAsync(System.String,System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Places an isolated Borrow order
+            <para><a href="https://docs.kucoin.com/#isolated-margin-borrowing" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="asset">Currency to Borrow e.g USDT etc</param>
+            <param name="type">The type of the order (FOK, IOC)</param>
+            <param name="quantity">Total size</param>
+            <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
+            <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetIsolatedOpenBorrowRecordsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get outstanding isolated borrow records
+            <para><a href="https://docs.kucoin.com/#get-repay-record" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol</param>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetIsolatedClosedBorrowRecordsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get repaid isolated borrow records
+            <para><a href="https://docs.kucoin.com/#query-repayment-records" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol</param>
+            <param name="asset">Filter by asset</param>
+            <param name="page">The page to retrieve</param>
+            <param name="pageSize">The page size</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.RepayAllIsolatedAsync(System.String,System.String,Kucoin.Net.Enums.RepaymentStrategy,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay all isolated borrowed for an asset
+            <para><a href="https://docs.kucoin.com/#quick-repayment" /></para>
+            </summary>
+            <param name="symbol">Symbol to repay for</param>
+            <param name="asset">Asset to repay for</param>
+            <param name="strategy">Repayment strategy</param>
+            <param name="quantity">Quantity to repay</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.RepaySingleIsolatedBorrowOrderAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Repay a Single Order
+            <para><a href="https://docs.kucoin.com/#single-repayment" /></para>
+            </summary>
+            <param name="symbol">Symbol to Pay e.g BTC-USDT etc</param>
+            <param name="asset">Asset to Pay e.g USDT etc</param>
+            <param name="loanId">Loan ID of borrow order</param>
+            <param name="quantity">Repayment size</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotStreams">
@@ -6329,6 +6476,211 @@
             The id of the new sub transfer
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord">
+            <summary>
+            Isolated closed borrow record
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.LoanId">
+            <summary>
+            Loan id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.PrincipalTotal">
+            <summary>
+            Principal total
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.InterestBalance">
+            <summary>
+            Accrued interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.RepayFinishTime">
+            <summary>
+            Repay finish time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.Period">
+            <summary>
+            Term
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.RepaidSize">
+            <summary>
+            Amount repaid
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedClosedBorrowRecord.DailyInterestRate">
+            <summary>
+            Daily interest
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountsInfo">
+            <summary>
+            Margin accounts info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountsInfo.TotalConversionBalance">
+            <summary>
+            The total balance of the isolated margin account (in the specified coin)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountsInfo.LiabilityConversionBalance">
+            <summary>
+            Total liabilities of the isolated margin account (in the specified coin)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountsInfo.Assets">
+            <summary>
+            Account list
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccount">
+            <summary>
+            Isolated margin account info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccount.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccount.Status">
+            <summary>
+            Position status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccount.DebtRatio">
+            <summary>
+            Debt ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccount.BaseAsset">
+            <summary>
+            Base asset info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccount.QuoteAsset">
+            <summary>
+            Quote asset info
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset">
+            <summary>
+            Isolate margin account asset info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.TotalBalance">
+            <summary>
+            Total balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.HoldBalance">
+            <summary>
+            Frozen balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.AvailableBalance">
+            <summary>
+            Available balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.Liability">
+            <summary>
+            Liability
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.Interest">
+            <summary>
+            Interset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedMarginAccountAsset.BorrowableQuantity">
+            <summary>
+            Borrowable quantity
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord">
+            <summary>
+            Isolated open borrow record
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.LoanId">
+            <summary>
+            Loan id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.LiabilityBalance">
+            <summary>
+            Remaining liabilities
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.PrincipalTotal">
+            <summary>
+            Principal total
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.InterestBalance">
+            <summary>
+            Accrued interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.MaturityTime">
+            <summary>
+            Maturity time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.Period">
+            <summary>
+            Term
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.RepaidSize">
+            <summary>
+            Amount repaid
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinIsolatedOpenBorrowRecord.DailyInterestRate">
+            <summary>
+            Daily interest
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinKline">
             <summary>
             Kline info
@@ -6637,6 +6989,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewBorrowOrder.Asset">
             <summary>
             Currency of current Order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewIsolatedBorrowOrder">
+            <summary>
+            New Borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewIsolatedBorrowOrder.ActualSize">
+            <summary>
+            Actuall borrowed size
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewMarginOrder">

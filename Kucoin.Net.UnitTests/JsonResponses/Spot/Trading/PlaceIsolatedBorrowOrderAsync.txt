@@ -1,0 +1,8 @@
+{
+    "code": "200000",
+    "data": {
+        "orderId": "62baad0aaafc8000014042b3",
+        "currency": "USDT",
+        "actualSize": "10"
+    }
+}
