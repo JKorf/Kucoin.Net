@@ -20,6 +20,7 @@ namespace Kucoin.Net.Clients.SpotApi
     public class KucoinClientSpotApiAccount : IKucoinClientSpotApiAccount
     {
         private readonly KucoinClientSpotApi _baseClient;
+
         internal KucoinClientSpotApiAccount(KucoinClientSpotApi baseClient)
         {
             _baseClient = baseClient;
@@ -135,7 +136,6 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
             };
             return await _baseClient.Execute<KucoinTransferableAccount>(_baseClient.GetUri("accounts/transferable"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-
         }
 
         /// <inheritdoc />
@@ -281,17 +281,22 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinRiskLimit>>> GetRiskLimitAsync(bool? isolated = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinRiskLimitCrossMargin>>> GetRiskLimitCrossMarginAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<IEnumerable<KucoinRiskLimitCrossMargin>>(_baseClient.GetUri($"risk/limit/strategy"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinRiskLimitIsolatedMargin>>> GetRiskLimitIsolatedMarginAsync(CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("marginModel", isolated == true ? "isolated": null);
-            return await _baseClient.Execute<IEnumerable<KucoinRiskLimit>>(_baseClient.GetUri($"risk/limit/strategy"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+            parameters.AddOptionalParameter("marginModel", "isolated");
+            return await _baseClient.Execute<IEnumerable<KucoinRiskLimitIsolatedMargin>>(_baseClient.GetUri($"risk/limit/strategy"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
         {
             return await _baseClient.Execute<KucoinToken>(_baseClient.GetUri(authenticated ? "bullet-private" : "bullet-public"), method: HttpMethod.Post, ct, signed: authenticated).ConfigureAwait(false);
         }
-
     }
 }

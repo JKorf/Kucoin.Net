@@ -20,6 +20,7 @@ namespace Kucoin.Net.Clients.SpotApi
     public class KucoinClientSpotApiExchangeData : IKucoinClientSpotApiExchangeData
     {
         private readonly KucoinClientSpotApi _baseClient;
+
         internal KucoinClientSpotApiExchangeData(KucoinClientSpotApi baseClient)
         {
             _baseClient = baseClient;
@@ -173,6 +174,12 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "currency", asset }
             };
             return await _baseClient.Execute<IEnumerable<KucoinBorrowOrderDetails>>(_baseClient.GetUri("margin/trade/last"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<IEnumerable<KucoinTradingPairConfiguration>>(_baseClient.GetUri($"isolated/symbols"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
     }
 }
