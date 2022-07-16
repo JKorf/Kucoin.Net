@@ -19,6 +19,7 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<AccountType, string>(AccountType.Trade, _useCaps ? "TRADE" : "trade"),
             new KeyValuePair<AccountType, string>(AccountType.Margin, _useCaps ? "MARGIN" : "margin"),
             new KeyValuePair<AccountType, string>(AccountType.Pool, _useCaps ? "POOL" : "pool"),
+            new KeyValuePair<AccountType, string>(AccountType.Isolated, _useCaps ? "ISOLATED" : "isolated"),
         };
     }
 }

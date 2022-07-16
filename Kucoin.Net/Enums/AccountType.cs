@@ -20,6 +20,10 @@
         /// <summary>
         /// Pool account
         /// </summary>
-        Pool
+        Pool,
+        /// <summary>
+        /// Isolated marging account
+        /// </summary>
+        Isolated
     }
 }
