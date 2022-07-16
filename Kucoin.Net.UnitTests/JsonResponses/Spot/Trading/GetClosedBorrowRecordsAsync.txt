@@ -1,0 +1,22 @@
+{
+  "code": "200000",
+  "data": {
+    "currentPage":1,
+    "pageSize":50,
+    "totalNum":1,
+    "totalPage":1,
+    "items":[
+        {
+"tradeId": "1231141",
+"currency": "USDT",
+"dailyIntRate": "0.0021",
+"interest": "0.22121",
+"principal": "1.22121",
+"repaidSize": "0",
+"repayTime": "1544657947759",
+"term": 7
+}
+    ]
+}
+}
+

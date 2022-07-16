@@ -705,6 +705,11 @@
             Pool account
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.Isolated">
+            <summary>
+            Isolated marging account
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BizType">
             <summary>
             BizType Description
@@ -6004,6 +6009,51 @@
             The trade id of the borrow order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord">
+            <summary>
+            Borrow record
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.DailyInterestRate">
+            <summary>
+            Daily interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.Interest">
+            <summary>
+            Interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.Principal">
+            <summary>
+            Principal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.RepaidSize">
+            <summary>
+            Repaid size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.RepayTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.Term">
+            <summary>
+            Term
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCanceledOrder">
             <summary>
             Canceled order
@@ -6929,9 +6979,9 @@
             Risk limit info
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.Asset">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.Symbol">
             <summary>
-            The asset
+            The Symbol
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin.BaseMaxBorrowQuantity">
@@ -7191,9 +7241,9 @@
             Trading Pair Configuration
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.Asset">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.Symbol">
             <summary>
-            The asset
+            The Symbol
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.SymbolName">
@@ -7201,14 +7251,14 @@
             Symbol Name
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.BaseCurrency">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.BaseAsset">
             <summary>
-            Base Currency
+            Base Asset
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.QuoteCurrency">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.QuoteAsset">
             <summary>
-            Quote Currency
+            Quote Asset
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinTradingPairConfiguration.MaxLeverage">

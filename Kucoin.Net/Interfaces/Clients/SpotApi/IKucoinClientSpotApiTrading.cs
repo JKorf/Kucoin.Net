@@ -380,7 +380,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">The page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinRepayRecord>>> GetClosedBorrowRecordsAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinBorrowRecord>>> GetClosedBorrowRecordsAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Repay all borrowed for an asset

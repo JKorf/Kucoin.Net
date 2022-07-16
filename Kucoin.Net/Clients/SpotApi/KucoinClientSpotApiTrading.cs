@@ -437,13 +437,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinRepayRecord>>> GetClosedBorrowRecordsAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinBorrowRecord>>> GetClosedBorrowRecordsAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("page", page);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinRepayRecord>>(_baseClient.GetUri($"margin/borrow/repaid"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinPaginated<KucoinBorrowRecord>>(_baseClient.GetUri($"margin/borrow/repaid"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

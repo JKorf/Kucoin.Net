@@ -85,7 +85,7 @@ namespace Kucoin.Net.UnitTests
                 // act
                 var result = (CallResult)await TestHelpers.InvokeAsync(method, getSubject(client), input.ToArray());
 
-                // asset
+                // assert
                 Assert.Null(result.Error, method.Name);
 
                 var resultProp = result.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
