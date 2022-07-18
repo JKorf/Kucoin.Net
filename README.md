@@ -18,6 +18,10 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.0.15 - 18 Jul 2022
+    * Fix for websocket not reconnecting
+    * Updated CryptoExchange.Net
+
 * Version 4.0.14 - 16 Jul 2022
     * Added isolated margin endpoints
     * Updated xml api docs references
