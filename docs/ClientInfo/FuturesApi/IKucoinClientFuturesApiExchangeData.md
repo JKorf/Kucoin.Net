@@ -13,7 +13,7 @@ grand_parent: Rest API documentation
 
 ## GetAggregatedFullOrderBookAsync  
 
-[https://docs.kucoin.center/futures/#get-full-order-book-level-2](https://docs.kucoin.center/futures/#get-full-order-book-level-2)  
+[https://docs.kucoin.com/futures/#get-full-order-book-level-2](https://docs.kucoin.com/futures/#get-full-order-book-level-2)  
 <p>
 
 *Get the full order book, aggregated by price*  
@@ -38,7 +38,7 @@ Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symb
 
 ## GetAggregatedPartialOrderBookAsync  
 
-[https://docs.kucoin.center/futures/#get-part-order-book-level-2](https://docs.kucoin.center/futures/#get-part-order-book-level-2)  
+[https://docs.kucoin.com/futures/#get-part-order-book-level-2](https://docs.kucoin.com/futures/#get-part-order-book-level-2)  
 <p>
 
 *Get the partial order book, aggregated by price*  
@@ -64,7 +64,7 @@ Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string s
 
 ## GetContractAsync  
 
-[https://docs.kucoin.center/futures/#get-order-info-of-the-contract](https://docs.kucoin.center/futures/#get-order-info-of-the-contract)  
+[https://docs.kucoin.com/futures/#get-order-info-of-the-contract](https://docs.kucoin.com/futures/#get-order-info-of-the-contract)  
 <p>
 
 *Get a contract*  
@@ -89,7 +89,7 @@ Task<WebCallResult<KucoinContract>> GetContractAsync(string symbol, Cancellation
 
 ## GetCurrentFundingRateAsync  
 
-[https://docs.kucoin.center/futures/#get-current-funding-rate](https://docs.kucoin.center/futures/#get-current-funding-rate)  
+[https://docs.kucoin.com/futures/#get-current-funding-rate](https://docs.kucoin.com/futures/#get-current-funding-rate)  
 <p>
 
 *Get the current funding rate*  
@@ -114,7 +114,7 @@ Task<WebCallResult<KucoinFundingRate>> GetCurrentFundingRateAsync(string symbol,
 
 ## GetCurrentMarkPriceAsync  
 
-[https://docs.kucoin.center/futures/#get-current-mark-price](https://docs.kucoin.center/futures/#get-current-mark-price)  
+[https://docs.kucoin.com/futures/#get-current-mark-price](https://docs.kucoin.com/futures/#get-current-mark-price)  
 <p>
 
 *Get the current mark price*  
@@ -139,7 +139,7 @@ Task<WebCallResult<KucoinMarkPrice>> GetCurrentMarkPriceAsync(string symbol, Can
 
 ## GetIndexListAsync  
 
-[https://docs.kucoin.center/futures/#get-index-list](https://docs.kucoin.center/futures/#get-index-list)  
+[https://docs.kucoin.com/futures/#get-index-list](https://docs.kucoin.com/futures/#get-index-list)  
 <p>
 
 *Get index list*  
@@ -169,7 +169,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinIndex>>> GetIndexListAsync(string
 
 ## GetInterestRatesAsync  
 
-[https://docs.kucoin.center/futures/#get-interest-rate-list](https://docs.kucoin.center/futures/#get-interest-rate-list)  
+[https://docs.kucoin.com/futures/#get-interest-rate-list](https://docs.kucoin.com/futures/#get-interest-rate-list)  
 <p>
 
 *Get interest rate list*  
@@ -199,7 +199,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinFuturesInterest>>> GetInterestRat
 
 ## GetKlinesAsync  
 
-[https://docs.kucoin.center/futures/#get-k-line-data-of-contract](https://docs.kucoin.center/futures/#get-k-line-data-of-contract)  
+[https://docs.kucoin.com/futures/#get-k-line-data-of-contract](https://docs.kucoin.com/futures/#get-k-line-data-of-contract)  
 <p>
 
 *Get kline data*  
@@ -227,7 +227,7 @@ Task<WebCallResult<IEnumerable<KucoinFuturesKline>>> GetKlinesAsync(string symbo
 
 ## GetOpenContractsAsync  
 
-[https://docs.kucoin.center/futures/#get-open-contract-list](https://docs.kucoin.center/futures/#get-open-contract-list)  
+[https://docs.kucoin.com/futures/#get-open-contract-list](https://docs.kucoin.com/futures/#get-open-contract-list)  
 <p>
 
 *Get open contract list*  
@@ -251,7 +251,7 @@ Task<WebCallResult<IEnumerable<KucoinContract>>> GetOpenContractsAsync(Cancellat
 
 ## GetPremiumIndexAsync  
 
-[https://docs.kucoin.center/futures/#get-premium-index](https://docs.kucoin.center/futures/#get-premium-index)  
+[https://docs.kucoin.com/futures/#get-premium-index](https://docs.kucoin.com/futures/#get-premium-index)  
 <p>
 
 *Get premium index*  
@@ -281,7 +281,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinPremiumIndex>>> GetPremiumIndexAs
 
 ## GetServerTimeAsync  
 
-[https://docs.kucoin.center/futures/#server-time](https://docs.kucoin.center/futures/#server-time)  
+[https://docs.kucoin.com/futures/#server-time](https://docs.kucoin.com/futures/#server-time)  
 <p>
 
 *Get the server time*  
@@ -305,7 +305,7 @@ Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
 
 ## GetServiceStatusAsync  
 
-[https://docs.kucoin.center/futures/#get-the-service-status](https://docs.kucoin.center/futures/#get-the-service-status)  
+[https://docs.kucoin.com/futures/#get-the-service-status](https://docs.kucoin.com/futures/#get-the-service-status)  
 <p>
 
 *Get the service status*  
@@ -329,7 +329,7 @@ Task<WebCallResult<KucoinFuturesServiceStatus>> GetServiceStatusAsync(Cancellati
 
 ## GetTickerAsync  
 
-[https://docs.kucoin.center/futures/#get-real-time-ticker](https://docs.kucoin.center/futures/#get-real-time-ticker)  
+[https://docs.kucoin.com/futures/#get-real-time-ticker](https://docs.kucoin.com/futures/#get-real-time-ticker)  
 <p>
 
 *Get the ticker for a contract*  
@@ -354,7 +354,7 @@ Task<WebCallResult<KucoinFuturesTick>> GetTickerAsync(string symbol, Cancellatio
 
 ## GetTradeHistoryAsync  
 
-[https://docs.kucoin.center/futures/#transaction-history](https://docs.kucoin.center/futures/#transaction-history)  
+[https://docs.kucoin.com/futures/#transaction-history](https://docs.kucoin.com/futures/#transaction-history)  
 <p>
 
 *Get the most recent trades*  

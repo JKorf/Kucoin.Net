@@ -13,7 +13,7 @@ grand_parent: Rest API documentation
 
 ## CancelAllOrdersAsync  
 
-[https://docs.kucoin.center/futures/#limit-order-mass-cancelation](https://docs.kucoin.center/futures/#limit-order-mass-cancelation)  
+[https://docs.kucoin.com/futures/#limit-order-mass-cancelation](https://docs.kucoin.com/futures/#limit-order-mass-cancelation)  
 <p>
 
 *Cancel all open orders*  
@@ -38,7 +38,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = 
 
 ## CancelAllStopOrdersAsync  
 
-[https://docs.kucoin.center/futures/#stop-order-mass-cancelation](https://docs.kucoin.center/futures/#stop-order-mass-cancelation)  
+[https://docs.kucoin.com/futures/#stop-order-mass-cancelation](https://docs.kucoin.com/futures/#stop-order-mass-cancelation)  
 <p>
 
 *Cancel all open stop orders*  
@@ -63,7 +63,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbo
 
 ## CancelOrderAsync  
 
-[https://docs.kucoin.center/futures/#cancel-an-order](https://docs.kucoin.center/futures/#cancel-an-order)  
+[https://docs.kucoin.com/futures/#cancel-an-order](https://docs.kucoin.com/futures/#cancel-an-order)  
 <p>
 
 *Cancel an order*  
@@ -88,7 +88,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, Cance
 
 ## GetClosedOrdersAsync  
 
-[https://docs.kucoin.center/futures/#get-list-of-orders-completed-in-24h](https://docs.kucoin.center/futures/#get-list-of-orders-completed-in-24h)  
+[https://docs.kucoin.com/futures/#get-list-of-orders-completed-in-24h](https://docs.kucoin.com/futures/#get-list-of-orders-completed-in-24h)  
 <p>
 
 *Get list of 1000 most recent orders in the last 24 hours*  
@@ -112,7 +112,7 @@ Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(Cancel
 
 ## GetOrderAsync  
 
-[https://docs.kucoin.center/futures/#get-details-of-a-single-order](https://docs.kucoin.center/futures/#get-details-of-a-single-order)  
+[https://docs.kucoin.com/futures/#get-details-of-a-single-order](https://docs.kucoin.com/futures/#get-details-of-a-single-order)  
 <p>
 
 *Get details on an order*  
@@ -137,7 +137,7 @@ Task<WebCallResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, Cancellati
 
 ## GetOrderByClientOrderIdAsync  
 
-[https://docs.kucoin.center/futures/#get-details-of-a-single-order](https://docs.kucoin.center/futures/#get-details-of-a-single-order)  
+[https://docs.kucoin.com/futures/#get-details-of-a-single-order](https://docs.kucoin.com/futures/#get-details-of-a-single-order)  
 <p>
 
 *Get details on an order*  
@@ -162,7 +162,7 @@ Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clie
 
 ## GetOrdersAsync  
 
-[https://docs.kucoin.center/futures/#get-order-list](https://docs.kucoin.center/futures/#get-order-list)  
+[https://docs.kucoin.com/futures/#get-order-list](https://docs.kucoin.com/futures/#get-order-list)  
 <p>
 
 *Get list of orders*  
@@ -194,7 +194,7 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? 
 
 ## GetRecentUserTradesAsync  
 
-[https://docs.kucoin.center/futures/#recent-fills](https://docs.kucoin.center/futures/#recent-fills)  
+[https://docs.kucoin.com/futures/#recent-fills](https://docs.kucoin.com/futures/#recent-fills)  
 <p>
 
 *Get list of 1000 most recent user trades in the last 24 hours*  
@@ -218,7 +218,7 @@ Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsyn
 
 ## GetUntriggeredStopOrdersAsync  
 
-[https://docs.kucoin.center/futures/#get-untriggered-stop-order-list](https://docs.kucoin.center/futures/#get-untriggered-stop-order-list)  
+[https://docs.kucoin.com/futures/#get-untriggered-stop-order-list](https://docs.kucoin.com/futures/#get-untriggered-stop-order-list)  
 <p>
 
 *Get list of untriggered stop orders*  
@@ -249,7 +249,7 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrder
 
 ## GetUserTradesAsync  
 
-[https://docs.kucoin.center/futures/#get-fills](https://docs.kucoin.center/futures/#get-fills)  
+[https://docs.kucoin.com/futures/#get-fills](https://docs.kucoin.com/futures/#get-fills)  
 <p>
 
 *Get list of user trades*  
@@ -281,7 +281,7 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(
 
 ## PlaceOrderAsync  
 
-[https://docs.kucoin.center/futures/#place-an-order](https://docs.kucoin.center/futures/#place-an-order)  
+[https://docs.kucoin.com/futures/#place-an-order](https://docs.kucoin.com/futures/#place-an-order)  
 <p>
 
 *Place a new order*  

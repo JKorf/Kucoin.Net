@@ -293,6 +293,9 @@
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.GetConnectionUrlAsync(CryptoExchange.Net.SocketApiClient,System.String,System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.GetReconnectUriAsync(CryptoExchange.Net.SocketApiClient,CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
             <inheritdoc />
         </member>

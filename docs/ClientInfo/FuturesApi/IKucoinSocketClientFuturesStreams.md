@@ -12,7 +12,7 @@ parent: Socket API documentation
 
 ## SubscribeTo24HourSnapshotUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#transaction-statistics-timer-event](https://docs.kucoin.cloud/futures/#transaction-statistics-timer-event)  
+[https://docs.kucoin.com/futures/#transaction-statistics-timer-event](https://docs.kucoin.com/futures/#transaction-statistics-timer-event)  
 <p>
 
 *Subscribe to snapshot updates*  
@@ -38,7 +38,7 @@ Task<CallResult<UpdateSubscription>> SubscribeTo24HourSnapshotUpdatesAsync(strin
 
 ## SubscribeToBalanceUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#account-balance-events](https://docs.kucoin.cloud/futures/#account-balance-events)  
+[https://docs.kucoin.com/futures/#account-balance-events](https://docs.kucoin.com/futures/#account-balance-events)  
 <p>
 
 *Subscribe to wallet updates*  
@@ -65,7 +65,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataE
 
 ## SubscribeToMarketUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#contract-market-data](https://docs.kucoin.cloud/futures/#contract-market-data)  
+[https://docs.kucoin.com/futures/#contract-market-data](https://docs.kucoin.com/futures/#contract-market-data)  
 <p>
 
 *Subscribe to market data updates*  
@@ -92,7 +92,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMarketUpdatesAsync(string symbol
 
 ## SubscribeToOrderBookUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#level-2-market-data](https://docs.kucoin.cloud/futures/#level-2-market-data)  
+[https://docs.kucoin.com/futures/#level-2-market-data](https://docs.kucoin.com/futures/#level-2-market-data)  
 <p>
 
 *Subscribe to full order book updates*  
@@ -118,7 +118,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string sym
 
 ## SubscribeToOrderUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#trade-orders](https://docs.kucoin.cloud/futures/#trade-orders)  
+[https://docs.kucoin.com/futures/#trade-orders](https://docs.kucoin.com/futures/#trade-orders)  
 <p>
 
 *Subscribe to order updates*  
@@ -144,8 +144,8 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol
 
 ## SubscribeToPartialOrderBookUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2](https://docs.kucoin.cloud/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2)  
-[https://docs.kucoin.cloud/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2](https://docs.kucoin.cloud/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2)  
+[https://docs.kucoin.com/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2](https://docs.kucoin.com/futures/#message-channel-for-the-5-best-ask-bid-full-data-of-level-2)  
+[https://docs.kucoin.com/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2](https://docs.kucoin.com/futures/#message-channel-for-the-50-best-ask-bid-full-data-of-level-2)  
 <p>
 
 *Subscribe to partial order book updates*  
@@ -172,7 +172,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(str
 
 ## SubscribeToPositionUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#position-change-events](https://docs.kucoin.cloud/futures/#position-change-events)  
+[https://docs.kucoin.com/futures/#position-change-events](https://docs.kucoin.com/futures/#position-change-events)  
 <p>
 
 *Subscribe to position updates*  
@@ -201,7 +201,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string symb
 
 ## SubscribeToStopOrderUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#stop-order-lifecycle-event](https://docs.kucoin.cloud/futures/#stop-order-lifecycle-event)  
+[https://docs.kucoin.com/futures/#stop-order-lifecycle-event](https://docs.kucoin.com/futures/#stop-order-lifecycle-event)  
 <p>
 
 *Subscribe to stop order updates*  
@@ -226,7 +226,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<Dat
 
 ## SubscribeToSystemAnnouncementsAsync  
 
-[https://docs.kucoin.cloud/futures/#system-annoucements](https://docs.kucoin.cloud/futures/#system-annoucements)  
+[https://docs.kucoin.com/futures/#system-annoucements](https://docs.kucoin.com/futures/#system-annoucements)  
 <p>
 
 *Subscribe system announcement*  
@@ -251,7 +251,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToSystemAnnouncementsAsync(Action<
 
 ## SubscribeToTickerUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#get-real-time-symbol-ticker](https://docs.kucoin.cloud/futures/#get-real-time-symbol-ticker)  
+[https://docs.kucoin.com/futures/#get-real-time-symbol-ticker](https://docs.kucoin.com/futures/#get-real-time-symbol-ticker)  
 <p>
 
 *Subscribe to ticker updates*  
@@ -277,7 +277,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol
 
 ## SubscribeToTradeUpdatesAsync  
 
-[https://docs.kucoin.cloud/futures/#execution-data](https://docs.kucoin.cloud/futures/#execution-data)  
+[https://docs.kucoin.com/futures/#execution-data](https://docs.kucoin.com/futures/#execution-data)  
 <p>
 
 *Subscribe to trade updates*  

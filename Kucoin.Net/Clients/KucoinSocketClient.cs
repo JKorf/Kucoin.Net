@@ -126,6 +126,16 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
+        public override async Task<Uri?> GetReconnectUriAsync(SocketApiClient apiClient, SocketConnection connection)
+        {
+            var result = await GetConnectionUrlAsync(apiClient, connection.ConnectionUri.ToString(), connection.Subscriptions.Any(s => s.Authenticated)).ConfigureAwait(false);
+            if (!result)
+                return null;
+
+            return new Uri(result.Data);
+        }
+
+        /// <inheritdoc />
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
             throw new NotImplementedException();

@@ -190,8 +190,35 @@ Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, Klin
 
 ***
 
+## GetLendMarketDataAsync  
+
+[https://docs.kucoin.com/#lending-market-data](https://docs.kucoin.com/#lending-market-data)  
+<p>
+
+*Get lending market data*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.ExchangeData.GetLendMarketDataAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsync(string asset, int? term = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|Asset|
+|_[Optional]_ term|Filter by term|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetMarginConfigurationAsync  
 
+[https://docs.kucoin.com/#get-margin-configuration-info](https://docs.kucoin.com/#get-margin-configuration-info)  
 <p>
 
 *Get margin configuration*  
@@ -203,6 +230,80 @@ var result = await client.SpotApi.ExchangeData.GetMarginConfigurationAsync();
 
 ```csharp  
 Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetMarginMarkPriceAsync  
+
+[https://docs.kucoin.com/#get-mark-price](https://docs.kucoin.com/#get-mark-price)  
+<p>
+
+*Get the mark price of a symbol*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginMarkPriceAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol to retrieve|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetMarginTradeHistoryAsync  
+
+[https://docs.kucoin.com/#margin-trade-data](https://docs.kucoin.com/#margin-trade-data)  
+<p>
+
+*Get the last 300 fills for borrow/lending orders*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginTradeHistoryAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|The asset|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetMarginTradingPairConfigurationAsync  
+
+[https://docs.kucoin.com/#query-isolated-margin-trading-pair-configuration](https://docs.kucoin.com/#query-isolated-margin-trading-pair-configuration)  
+<p>
+
+*Get Margin Trading Pair ConfigurationAsync*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginTradingPairConfigurationAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|

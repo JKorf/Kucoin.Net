@@ -20,6 +20,7 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 #pragma warning disable 0067
         public event Action OnReconnecting;
         public event Action OnReconnected;
+        public Func<Task<Uri>> GetReconnectionUrl { get; set; }
 #pragma warning restore 0067
 #pragma warning restore 8618
 

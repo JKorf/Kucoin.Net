@@ -37,6 +37,31 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = 
 
 ***
 
+## CancelLendOrderAsync  
+
+[https://docs.kucoin.com/#cancel-lend-order](https://docs.kucoin.com/#cancel-lend-order)  
+<p>
+
+*Cancel an active lend order*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.CancelLendOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult> CancelLendOrderAsync(string orderId, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|orderId|Id of the order to cancel|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## CancelOrderAsync  
 
 [https://docs.kucoin.com/#cancel-an-order](https://docs.kucoin.com/#cancel-an-order)  
@@ -189,6 +214,87 @@ Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, Cance
 
 ***
 
+## GetClosedBorrowRecordsAsync  
+
+[https://docs.kucoin.com/#get-repayment-record](https://docs.kucoin.com/#get-repayment-record)  
+<p>
+
+*Get repaid borrow records*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetClosedBorrowRecordsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinBorrowRecord>>> GetClosedBorrowRecordsAsync(string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetClosedLendOrdersAsync  
+
+[https://docs.kucoin.com/#get-lent-history](https://docs.kucoin.com/#get-lent-history)  
+<p>
+
+*Get closed lend orders*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetClosedLendOrdersAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetClosedLendOrdersAsync(string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetClosedLendsAsync  
+
+[https://docs.kucoin.com/#get-settled-lend-order-history](https://docs.kucoin.com/#get-settled-lend-order-history)  
+<p>
+
+*Get active lends*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetClosedLendsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinClosedLend>>> GetClosedLendsAsync(string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetHistoricalOrdersAsync  
 
 [https://docs.kucoin.com/#get-v1-historical-orders-list](https://docs.kucoin.com/#get-v1-historical-orders-list)  
@@ -213,6 +319,168 @@ Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersA
 |_[Optional]_ endTime|Filter list by end time|
 |_[Optional]_ currentPage|The page to retrieve|
 |_[Optional]_ pageSize|The amount of results per page|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetIsolatedClosedBorrowRecordsAsync  
+
+[https://docs.kucoin.com/#query-repayment-records](https://docs.kucoin.com/#query-repayment-records)  
+<p>
+
+*Get repaid isolated borrow records*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetIsolatedClosedBorrowRecordsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinIsolatedClosedBorrowRecord>>> GetIsolatedClosedBorrowRecordsAsync(string? symbol = default, string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ symbol|Filter by symbol|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetIsolatedOpenBorrowRecordsAsync  
+
+[https://docs.kucoin.com/#get-repay-record](https://docs.kucoin.com/#get-repay-record)  
+<p>
+
+*Get outstanding isolated borrow records*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetIsolatedOpenBorrowRecordsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinIsolatedOpenBorrowRecord>>> GetIsolatedOpenBorrowRecordsAsync(string? symbol = default, string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ symbol|Filter by symbol|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetLendingStatusAsync  
+
+[https://docs.kucoin.com/#get-account-lend-record](https://docs.kucoin.com/#get-account-lend-record)  
+<p>
+
+*Get lending status per asset*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetLendingStatusAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<KucoinLendHistory>>> GetLendingStatusAsync(string? asset = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetOpenBorrowRecordsAsync  
+
+[https://docs.kucoin.com/#get-repay-record](https://docs.kucoin.com/#get-repay-record)  
+<p>
+
+*Get outstanding borrow records*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetOpenBorrowRecordsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinRepayRecord>>> GetOpenBorrowRecordsAsync(string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetOpenLendOrdersAsync  
+
+[https://docs.kucoin.com/#get-active-order](https://docs.kucoin.com/#get-active-order)  
+<p>
+
+*Get open lend orders*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetOpenLendOrdersAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetOpenLendOrdersAsync(string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetOpenLendsAsync  
+
+[https://docs.kucoin.com/#get-active-lend-order-list](https://docs.kucoin.com/#get-active-lend-order-list)  
+<p>
+
+*Get active lends*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.GetOpenLendsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinPaginated<KucoinOpenLend>>> GetOpenLendsAsync(string? asset = default, int? page = default, int? pageSize = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ page|The page to retrieve|
+|_[Optional]_ pageSize|The page size|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
@@ -496,6 +764,64 @@ Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(string asset, Bo
 
 ***
 
+## PlaceIsolatedBorrowOrderAsync  
+
+[https://docs.kucoin.com/#isolated-margin-borrowing](https://docs.kucoin.com/#isolated-margin-borrowing)  
+<p>
+
+*Places an isolated Borrow order*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.PlaceIsolatedBorrowOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(string symbol, string asset, BorrowOrderType type, decimal quantity, decimal? maxRate = default, string? term = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol|
+|asset|Currency to Borrow e.g USDT etc|
+|type|The type of the order (FOK, IOC)|
+|quantity|Total size|
+|_[Optional]_ maxRate|The max interest rate. All interest rates are acceptable if this field is left empty|
+|_[Optional]_ term|term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## PlaceLendOrderAsync  
+
+[https://docs.kucoin.com/#post-lend-order](https://docs.kucoin.com/#post-lend-order)  
+<p>
+
+*Place a new lend order*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.PlaceLendOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinNewOrder>> PlaceLendOrderAsync(string asset, decimal quantity, decimal dailyInterestRate, int term, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|Asset to lend|
+|quantity|Quantity to lend|
+|dailyInterestRate|Daily interest rate. 0.01 = 1%|
+|term|The term in days|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## PlaceMarginOrderAsync  
 
 [https://docs.kucoin.com/#place-a-margin-order](https://docs.kucoin.com/#place-a-margin-order)  
@@ -618,6 +944,61 @@ Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(string symbol, OrderSide
 
 ***
 
+## RepayAllAsync  
+
+[https://docs.kucoin.com/#one-click-repayment](https://docs.kucoin.com/#one-click-repayment)  
+<p>
+
+*Repay all borrowed for an asset*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.RepayAllAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult> RepayAllAsync(string asset, RepaymentStrategy strategy, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|Asset to repay for|
+|strategy|Repayment strategy|
+|quantity|Quantity to repay|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RepayAllIsolatedAsync  
+
+[https://docs.kucoin.com/#quick-repayment](https://docs.kucoin.com/#quick-repayment)  
+<p>
+
+*Repay all isolated borrowed for an asset*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.RepayAllIsolatedAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult> RepayAllIsolatedAsync(string symbol, string asset, RepaymentStrategy strategy, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|Symbol to repay for|
+|asset|Asset to repay for|
+|strategy|Repayment strategy|
+|quantity|Quantity to repay|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## RepaySingleBorrowOrderAsync  
 
 [https://docs.kucoin.com/#repay-a-single-order](https://docs.kucoin.com/#repay-a-single-order)  
@@ -639,6 +1020,63 @@ Task<WebCallResult> RepaySingleBorrowOrderAsync(string asset, string tradeId, de
 |asset|Asset to Pay e.g USDT etc|
 |tradeId|Trade ID of borrow order|
 |quantity|Repayment size|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RepaySingleIsolatedBorrowOrderAsync  
+
+[https://docs.kucoin.com/#single-repayment](https://docs.kucoin.com/#single-repayment)  
+<p>
+
+*Repay a Single Order*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.RepaySingleIsolatedBorrowOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult> RepaySingleIsolatedBorrowOrderAsync(string symbol, string asset, decimal quantity, string loanId, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|Symbol to Pay e.g BTC-USDT etc|
+|asset|Asset to Pay e.g USDT etc|
+|quantity|Repayment size|
+|loanId|Loan ID of borrow order|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## SetAutoLendAsync  
+
+[https://docs.kucoin.com/#set-auto-lend](https://docs.kucoin.com/#set-auto-lend)  
+<p>
+
+*Set up automatic lending for an asset*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.SetAutoLendAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult> SetAutoLendAsync(string asset, bool isEnabled, decimal? retainQuantity = default, decimal? dailyInterestRate = default, int? term = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|The asset to lend|
+|isEnabled|Is enabled or not|
+|_[Optional]_ retainQuantity|Reserved quantity in main account|
+|_[Optional]_ dailyInterestRate|Daily interest rate. 0.01 = 1%|
+|_[Optional]_ term|The term in days|
 |_[Optional]_ ct|Cancellation token|
 
 </p>

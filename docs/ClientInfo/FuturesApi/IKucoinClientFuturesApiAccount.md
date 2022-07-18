@@ -13,7 +13,7 @@ grand_parent: Rest API documentation
 
 ## AddMarginAsync  
 
-[https://docs.kucoin.center/futures/#add-margin-manually](https://docs.kucoin.center/futures/#add-margin-manually)  
+[https://docs.kucoin.com/futures/#add-margin-manually](https://docs.kucoin.com/futures/#add-margin-manually)  
 <p>
 
 *Add margin*  
@@ -40,7 +40,7 @@ Task<WebCallResult> AddMarginAsync(string symbol, decimal quantity, string? clie
 
 ## CancelTransferToMainAccountAsync  
 
-[https://docs.kucoin.center/futures/#cancel-transfer-out-request](https://docs.kucoin.center/futures/#cancel-transfer-out-request)  
+[https://docs.kucoin.com/futures/#cancel-transfer-out-request](https://docs.kucoin.com/futures/#cancel-transfer-out-request)  
 <p>
 
 *Cancel a transfer from futures account to main account*  
@@ -65,7 +65,7 @@ Task<WebCallResult> CancelTransferToMainAccountAsync(string applyId, Cancellatio
 
 ## CancelWithdrawalAsync  
 
-[https://docs.kucoin.center/futures/#cancel-withdrawal](https://docs.kucoin.center/futures/#cancel-withdrawal)  
+[https://docs.kucoin.com/futures/#cancel-withdrawal](https://docs.kucoin.com/futures/#cancel-withdrawal)  
 <p>
 
 *Cancel a withdrawal in process*  
@@ -90,7 +90,7 @@ Task<WebCallResult> CancelWithdrawalAsync(string withdrawalId, CancellationToken
 
 ## GetAccountOverviewAsync  
 
-[https://docs.kucoin.center/futures/#get-account-overview](https://docs.kucoin.center/futures/#get-account-overview)  
+[https://docs.kucoin.com/futures/#get-account-overview](https://docs.kucoin.com/futures/#get-account-overview)  
 <p>
 
 *Gets account overview*  
@@ -115,7 +115,7 @@ Task<WebCallResult<KucoinAccountOverview>> GetAccountOverviewAsync(string? asset
 
 ## GetDepositAddressAsync  
 
-[https://docs.kucoin.center/futures/#get-deposit-address](https://docs.kucoin.center/futures/#get-deposit-address)  
+[https://docs.kucoin.com/futures/#get-deposit-address](https://docs.kucoin.com/futures/#get-deposit-address)  
 <p>
 
 *Get the deposit address for an asset*  
@@ -140,7 +140,7 @@ Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string asset, C
 
 ## GetDepositHistoryAsync  
 
-[https://docs.kucoin.center/futures/#get-deposits-list](https://docs.kucoin.center/futures/#get-deposits-list)  
+[https://docs.kucoin.com/futures/#get-deposits-list](https://docs.kucoin.com/futures/#get-deposits-list)  
 <p>
 
 *Get deposit history*  
@@ -170,7 +170,7 @@ Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositHistoryAsync(strin
 
 ## GetFundingHistoryAsync  
 
-[https://docs.kucoin.center/futures/#get-funding-history](https://docs.kucoin.center/futures/#get-funding-history)  
+[https://docs.kucoin.com/futures/#get-funding-history](https://docs.kucoin.com/futures/#get-funding-history)  
 <p>
 
 *Get funding history*  
@@ -200,7 +200,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinFundingItem>>> GetFundingHistoryA
 
 ## GetOpenOrderValueAsync  
 
-[https://docs.kucoin.center/futures/#active-order-value-calculation](https://docs.kucoin.center/futures/#active-order-value-calculation)  
+[https://docs.kucoin.com/futures/#active-order-value-calculation](https://docs.kucoin.com/futures/#active-order-value-calculation)  
 <p>
 
 *Get the total value of active orders*  
@@ -225,7 +225,7 @@ Task<WebCallResult<KucoinOrderValuation>> GetOpenOrderValueAsync(string symbol, 
 
 ## GetPositionAsync  
 
-[https://docs.kucoin.center/futures/#get-position-details](https://docs.kucoin.center/futures/#get-position-details)  
+[https://docs.kucoin.com/futures/#get-position-details](https://docs.kucoin.com/futures/#get-position-details)  
 <p>
 
 *Get details on a position*  
@@ -250,7 +250,7 @@ Task<WebCallResult<KucoinPosition>> GetPositionAsync(string symbol, Cancellation
 
 ## GetPositionsAsync  
 
-[https://docs.kucoin.center/futures/#get-position-list](https://docs.kucoin.center/futures/#get-position-list)  
+[https://docs.kucoin.com/futures/#get-position-list](https://docs.kucoin.com/futures/#get-position-list)  
 <p>
 
 *Get list of positions*  
@@ -274,7 +274,7 @@ Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(CancellationT
 
 ## GetTransactionHistoryAsync  
 
-[https://docs.kucoin.center/futures/#get-transaction-history](https://docs.kucoin.center/futures/#get-transaction-history)  
+[https://docs.kucoin.com/futures/#get-transaction-history](https://docs.kucoin.com/futures/#get-transaction-history)  
 <p>
 
 *Get transaction history*  
@@ -305,7 +305,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinAccountTransaction>>> GetTransact
 
 ## GetTransferToMainAccountHistoryAsync  
 
-[https://docs.kucoin.center/futures/#get-transfer-out-request-records-2](https://docs.kucoin.center/futures/#get-transfer-out-request-records-2)  
+[https://docs.kucoin.com/futures/#get-transfer-out-request-records-2](https://docs.kucoin.com/futures/#get-transfer-out-request-records-2)  
 <p>
 
 *Get transfer to main account history*  
@@ -334,7 +334,7 @@ Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHis
 
 ## GetWithdrawalLimitAsync  
 
-[https://docs.kucoin.center/futures/#get-withdrawal-limit](https://docs.kucoin.center/futures/#get-withdrawal-limit)  
+[https://docs.kucoin.com/futures/#get-withdrawal-limit](https://docs.kucoin.com/futures/#get-withdrawal-limit)  
 <p>
 
 *Get the withdrawal limit*  
@@ -359,7 +359,7 @@ Task<WebCallResult<KucoinFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string
 
 ## GetWithdrawHistoryAsync  
 
-[https://docs.kucoin.center/futures/#get-withdrawal-list](https://docs.kucoin.center/futures/#get-withdrawal-list)  
+[https://docs.kucoin.com/futures/#get-withdrawal-list](https://docs.kucoin.com/futures/#get-withdrawal-list)  
 <p>
 
 *Get withdraw history*  
@@ -389,7 +389,7 @@ Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(s
 
 ## ToggleAutoDepositMarginAsync  
 
-[https://docs.kucoin.center/futures/#enable-disable-of-auto-deposit-margin](https://docs.kucoin.center/futures/#enable-disable-of-auto-deposit-margin)  
+[https://docs.kucoin.com/futures/#enable-disable-of-auto-deposit-margin](https://docs.kucoin.com/futures/#enable-disable-of-auto-deposit-margin)  
 <p>
 
 *Enable/disable auto deposit margin*  
@@ -415,7 +415,7 @@ Task<WebCallResult> ToggleAutoDepositMarginAsync(string symbol, bool enabled, Ca
 
 ## TransferToMainAccountAsync  
 
-[https://docs.kucoin.center/futures/#transfer-funds-to-kucoin-main-account-2](https://docs.kucoin.center/futures/#transfer-funds-to-kucoin-main-account-2)  
+[https://docs.kucoin.com/futures/#transfer-funds-to-kucoin-main-account-2](https://docs.kucoin.com/futures/#transfer-funds-to-kucoin-main-account-2)  
 <p>
 
 *Transfer funds from futures to main account*  
@@ -442,7 +442,7 @@ Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asse
 
 ## WithdrawAsync  
 
-[https://docs.kucoin.center/futures/#withdraw-funds](https://docs.kucoin.center/futures/#withdraw-funds)  
+[https://docs.kucoin.com/futures/#withdraw-funds](https://docs.kucoin.com/futures/#withdraw-funds)  
 <p>
 
 *Withdraw funds*  

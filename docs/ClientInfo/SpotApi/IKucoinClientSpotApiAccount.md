@@ -364,8 +364,58 @@ Task<WebCallResult<KucoinPaginated<KucoinHistoricalWithdrawal>>> GetHistoricalWi
 
 ***
 
+## GetIsolatedMarginAccountAsync  
+
+[https://docs.kucoin.com/#query-single-isolated-margin-account-info](https://docs.kucoin.com/#query-single-isolated-margin-account-info)  
+<p>
+
+*Get isolated margin account info*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Account.GetIsolatedMarginAccountAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinIsolatedMarginAccount>> GetIsolatedMarginAccountAsync(string symbol, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetIsolatedMarginAccountsAsync  
+
+[https://docs.kucoin.com/#query-isolated-margin-account-info](https://docs.kucoin.com/#query-isolated-margin-account-info)  
+<p>
+
+*Get isolated margin account info*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Account.GetIsolatedMarginAccountsAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinIsolatedMarginAccountsInfo>> GetIsolatedMarginAccountsAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetMarginAccountAsync  
 
+[https://docs.kucoin.com/#get-margin-account](https://docs.kucoin.com/#get-margin-account)  
 <p>
 
 *Get margin account info*  
@@ -387,24 +437,48 @@ Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken
 
 ***
 
-## GetRiskLimitAsync  
+## GetRiskLimitCrossMarginAsync  
 
+[https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit](https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit)  
 <p>
 
-*Get cross or isolated margin risk limit*  
+*Get cross margin risk limit*  
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetRiskLimitAsync();  
+var result = await client.SpotApi.Account.GetRiskLimitCrossMarginAsync();  
 ```  
 
 ```csharp  
-Task<WebCallResult<IEnumerable<KucoinRiskLimit>>> GetRiskLimitAsync(bool? isolated = default, CancellationToken ct = default);  
+Task<WebCallResult<IEnumerable<KucoinRiskLimitCrossMargin>>> GetRiskLimitCrossMarginAsync(CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
-|_[Optional]_ isolated|Request isolated info, default cross info is returned|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetRiskLimitIsolatedMarginAsync  
+
+[https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit](https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit)  
+<p>
+
+*Get isolated margin risk limit*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Account.GetRiskLimitIsolatedMarginAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<KucoinRiskLimitIsolatedMargin>>> GetRiskLimitIsolatedMarginAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
