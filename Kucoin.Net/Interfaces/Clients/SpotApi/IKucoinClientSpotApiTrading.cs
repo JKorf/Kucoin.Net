@@ -97,6 +97,16 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Places bulk orders
+        /// <para><a href="https://docs.kucoin.com/#place-bulk-orders" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="orders">Up to 5 orders to be placed at the same time</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>List of new orders</returns>
+        Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel an order
         /// <para><a href="https://docs.kucoin.com/#cancel-an-order" /></para>
         /// </summary>
