@@ -79,9 +79,9 @@ namespace Kucoin.Net.Clients
             return new ServerError(error.ToString());
         }
 
-        internal async Task<WebCallResult> Execute(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult> Execute(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(apiClient, uri, method, ct, parameters, signed).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<object>>(apiClient, uri, method, ct, parameters, signed, parameterPosition).ConfigureAwait(false);
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
@@ -91,9 +91,9 @@ namespace Kucoin.Net.Clients
             return result.AsDataless();
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false)
+        internal async Task<WebCallResult<T>> Execute<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(apiClient, uri, method, ct, parameters, signed, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<T>>(apiClient, uri, method, ct, parameters, signed, parameterPosition, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
             if (!result)
                 return result.AsError<T>(result.Error!);
 

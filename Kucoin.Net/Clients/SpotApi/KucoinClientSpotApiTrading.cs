@@ -14,6 +14,7 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.CommonObjects;
+using System.Linq;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -138,6 +139,38 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default)
+        {
+            symbol.ValidateKucoinSymbol();
+
+            var orderList = orders.ToList();
+            if (!orderList.Any())
+                throw new ArgumentException("There should be at least one order in the bulk order");
+            if (orderList.Count() > 5)
+                throw new ArgumentException("There should be no more than 5 orders in the bulk order");
+            if (orderList.Any(o => o.Type != NewOrderType.Limit))
+                throw new ArgumentException("Only limit orders can be part of a bulk order");
+            if (orderList.Any(o => o.TradeType != null && o.TradeType != TradeType.SpotTrade))
+                throw new ArgumentException("Only spot orders can be part of a bulk order");
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol },
+                { "orderList", orderList }
+            };
+
+            var result = await _baseClient.Execute<KucoinBulkOrderResponse>(_baseClient.GetUri("orders/multi"), HttpMethod.Post, ct, parameters, true, weight: 60, parameterPosition: HttpMethodParameterPosition.InBody).ConfigureAwait(false);
+            if (result)
+            {
+                foreach  (var order in result.Data.Orders.Where(o => o.Status == BulkOrderCreationStatus.Success))
+                {
+                    _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = order, Id = order.Id });
+                }
+            }
+            return result;
         }
 
         /// <inheritdoc />

@@ -509,6 +509,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceMarginOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.MarginMode},System.Nullable{System.Boolean},System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceBulkOrderAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -997,6 +1000,21 @@
         <member name="F:Kucoin.Net.Enums.BorrowStatus.Done">
             <summary>
             Done 
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.BulkOrderCreationStatus">
+            <summary>
+            Bulk order creation status
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BulkOrderCreationStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BulkOrderCreationStatus.Fail">
+            <summary>
+            Fail
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.DepositStatus">
@@ -2856,6 +2874,16 @@
             <param name="quoteQuantity">The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
             <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceBulkOrderAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry},System.Threading.CancellationToken)">
+            <summary>
+            Places bulk orders
+            <para><a href="https://docs.kucoin.com/#place-bulk-orders" /></para>
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="orders">Up to 5 orders to be placed at the same time</param>
+            <param name="ct">Cancellation token</param>
+            <returns>List of new orders</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
@@ -6202,6 +6230,206 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowRecord.Term">
             <summary>
             Term
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry">
+            <summary>
+            The order model to be sent via bulk order endpoint
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.ClientOrderId">
+            <summary>
+            The client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Remark">
+            <summary>
+            Remark for the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Stop">
+            <summary>
+            The stop condition
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.StopPrice">
+            <summary>
+            The stop price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.SelfTradePrevention">
+            <summary>
+            The self trade prevention type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.TradeType">
+            <summary>
+            Trade type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.TimeInForce">
+            <summary>
+            The time in force of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.CancelAfter">
+            <summary>
+            Time after which the order is canceled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.PostOnly">
+            <summary>
+            Whether the order is post only
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Hidden">
+            <summary>
+            Whether the order is hidden
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.Iceberg">
+            <summary>
+            Whether it is an iceberg order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderRequestEntry.VisibleIcebergSize">
+            <summary>
+            The max visible size of the iceberg
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponse">
+            <summary>
+            The response for bulk order creation
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponse.Orders">
+            <summary>
+            List of orders
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry">
+            <summary>
+            The order model in bulk order creation response
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Id">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.ClientOrderId">
+            <summary>
+            The client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Symbol">
+            <summary>
+            the symbol of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Side">
+            <summary>
+            The side of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Quantity">
+            <summary>
+            The quantity of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.QuoteQuantity">
+            <summary>
+            The funds of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.SelfTradePrevention">
+            <summary>
+            The self trade prevention type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Stop">
+            <summary>
+            The stop condition
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.StopPrice">
+            <summary>
+            The stop price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.TimeInForce">
+            <summary>
+            The time in force of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.CancelAfter">
+            <summary>
+            Time after which the order is canceled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.PostOnly">
+            <summary>
+            Whether the order is post only
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Hidden">
+            <summary>
+            Whether the order is hidden
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Iceberg">
+            <summary>
+            Whether it is an iceberg order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.VisibleIcebergSize">
+            <summary>
+            The max visible size of the iceberg
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Channel">
+            <summary>
+            The source of the order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponseEntry.FailMsg">
+            <summary>
+            The cause of failure
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCanceledOrder">

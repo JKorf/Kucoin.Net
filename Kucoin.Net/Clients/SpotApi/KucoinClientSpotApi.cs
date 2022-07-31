@@ -344,11 +344,11 @@ namespace Kucoin.Net.Clients.SpotApi
             OnOrderCanceled?.Invoke(id);
         }
 
-        internal Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
-         => _baseClient.Execute(this, uri, method, ct, parameters, signed);
+        internal Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
+         => _baseClient.Execute(this, uri, method, ct, parameters, signed, parameterPosition: parameterPosition);
 
-        internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false)
-         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed, weight, ignoreRatelimit: ignoreRatelimit);
+        internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
+         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed, weight, ignoreRatelimit: ignoreRatelimit, parameterPosition: parameterPosition);
 
         internal Uri GetUri(string path, int apiVersion = 1)
         {
