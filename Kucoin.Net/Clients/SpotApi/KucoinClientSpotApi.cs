@@ -87,7 +87,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 Name = d.Symbol,
                 MinTradeQuantity = d.BaseMinQuantity,
                 PriceStep = d.PriceIncrement,
-                QuantityStep = d.QuoteIncrement
+                QuantityStep = d.BaseIncrement
             }));
         }
 
