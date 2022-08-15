@@ -41,6 +41,15 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonProperty("createdAt")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime RepayTime { get; set; }
+
+        [JsonProperty("repayTime")]
+        [JsonConverter(typeof(DateTimeConverter))]
+        private DateTime RepayTimeInternal
+        {
+            get => RepayTime;
+            set => RepayTime = value;
+        }
+
         /// <summary>
         /// Term
         /// </summary>
