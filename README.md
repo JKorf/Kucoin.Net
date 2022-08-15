@@ -28,6 +28,11 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.0.17 - 15 Aug 2022
+    * Fixed SpotApi.Trading.PlaceStopOrderAsync cancelAfter parameter
+    * Fixed KucoinBalanceUpdate Timestamp property not getting deserialized correctly
+    * Fixed KucoinBorrowRecord RepayTime deserialization
+
 * Version 4.0.16 - 31 Jul 2022
     * Added PlaceBulkOrderAsync endpoint
     * Fixed QuantityStep mapping on ISpotClient GetSymbolsAsync
