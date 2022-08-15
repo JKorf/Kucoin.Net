@@ -304,7 +304,7 @@ namespace Kucoin.Net.Clients.SpotApi
             decimal? price = null,
             decimal? quantity = null,
             TimeInForce? timeInForce = null,
-            DateTime? cancelAfter = null,
+            TimeSpan? cancelAfter = null,
             bool? postOnly = null,
             bool? hidden = null,
             bool? iceberg = null,
@@ -341,7 +341,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)) : null);
-            parameters.AddOptionalParameter("cancelAfter", DateTimeConverter.ConvertToSeconds(cancelAfter));
+            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceberg", iceberg);

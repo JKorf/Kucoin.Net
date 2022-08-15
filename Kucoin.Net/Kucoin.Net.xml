@@ -542,7 +542,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceStopOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,Kucoin.Net.Enums.StopCondition,System.Decimal,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceStopOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,Kucoin.Net.Enums.StopCondition,System.Decimal,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.CancelStopOrderAsync(System.String,System.Threading.CancellationToken)">
@@ -2995,7 +2995,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of fills</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceStopOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,Kucoin.Net.Enums.StopCondition,System.Decimal,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.DateTime},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceStopOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,Kucoin.Net.Enums.StopCondition,System.Decimal,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Place a new stop order
             <para><a href="https://docs.kucoin.com/#place-a-new-order-2" /></para>

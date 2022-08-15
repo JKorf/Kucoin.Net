@@ -252,7 +252,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             decimal? price = null,
             decimal? quantity = null,
             TimeInForce? timeInForce = null,
-            DateTime? cancelAfter = null,
+            TimeSpan? cancelAfter = null,
             bool? postOnly = null,
             bool? hidden = null,
             bool? iceberg = null,
