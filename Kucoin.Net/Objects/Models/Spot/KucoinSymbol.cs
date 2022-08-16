@@ -78,5 +78,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Whether trading is enabled
         /// </summary>
         public bool EnableTrading { get; set; }
+        /// <summary>
+        /// the minimum spot and margin trading amounts
+        /// </summary>
+        [JsonProperty("minFunds")]
+        public decimal? MinFunds { get; set; }
+        
+        
     }
 }
