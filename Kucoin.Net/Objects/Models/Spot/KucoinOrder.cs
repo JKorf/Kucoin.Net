@@ -47,8 +47,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
-        [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime CancelAfter { get; set; }
+        public int? CancelAfter { get; set; }
         /// <summary>
         /// The source of the order
         /// </summary>
