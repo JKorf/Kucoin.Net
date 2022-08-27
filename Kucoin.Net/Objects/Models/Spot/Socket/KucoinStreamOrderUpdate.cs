@@ -103,5 +103,16 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// </summary>
         [JsonConverter(typeof(LiquidityTypeConverter))]
         public LiquidityType Liquidity { get; set; }
+
+        /// <summary>
+        /// The Funds
+        /// </summary>
+        public decimal Funds { get; set; }
+
+        /// <summary>
+        /// The RemainFunds
+        /// </summary>
+        public decimal RemainFunds { get; set; }
+
     }
 }

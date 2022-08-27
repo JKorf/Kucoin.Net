@@ -237,7 +237,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="chain">The chain name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Id of the withdrawal</returns>
-        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? chain = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool? isInner = null, string? remark = null, string? chain = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a withdrawal

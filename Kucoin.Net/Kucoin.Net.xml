@@ -422,7 +422,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -2590,7 +2590,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw an asset to an address
             <para><a href="https://docs.kucoin.com/#apply-withdraw-2" /></para>
@@ -6077,6 +6077,16 @@
             Networks
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetApi.WithdrawMinQuantity">
+            <summary>
+            The minimum quantity of a withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetApi.Asset">
+            <summary>
+            The asset identifier
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork">
             <summary>
             Network details
@@ -7719,6 +7729,11 @@
             Whether trading is enabled
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.MinFunds">
+            <summary>
+            the minimum spot and margin trading amounts
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinTick">
             <summary>
             Tick info
@@ -8532,6 +8547,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.Liquidity">
             <summary>
             The liquidity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.Funds">
+            <summary>
+            The Funds
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.RemainFunds">
+            <summary>
+            The RemainSize
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshotWrapper">

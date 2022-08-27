@@ -79,4 +79,47 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonProperty("chains")]
         public IEnumerable<KucoinAssetNetwork> Networks { get; set; } = Array.Empty<KucoinAssetNetwork>();
     }
+
+
+    public class KucoinAssetApi
+    {
+        public decimal WithdrawMinFee { get; set; }
+        public string ChainName { get; set; }
+        public bool PreDepositTipEnabled { get; set; }
+        [JsonProperty("chain")]
+        public string Network { get; set; }
+        public bool IsChainEnabled { get; set; }
+        public string WithdrawDisabledTip { get; set; }
+        public int WalletPrecision { get; set; }
+        public string ChainFullName { get; set; }
+        public string OrgAddress { get; set; }
+        public bool IsDepositEnabled { get; set; }
+        /// <summary>
+        /// The minimum quantity of a withdrawal
+        /// </summary>
+        [JsonProperty("withdrawMinSize")]
+        public decimal WithdrawMinQuantity { get; set; }
+
+        public string DepositDisabledTip { get; set; }
+
+        public string TxUrl { get; set; }
+
+        public string UserAddressName { get; set; }
+
+        public int ConfirmationCount { get; set; }
+
+        public string WithdrawFeeRate { get; set; }
+
+        /// <summary>
+        /// The asset identifier
+        /// </summary>
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
+
+        public bool IsWithdrawEnabled { get; set; }
+
+        public string Status { get; set; }
+
+    }
+
 }
