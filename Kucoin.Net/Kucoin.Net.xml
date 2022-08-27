@@ -8556,7 +8556,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.RemainFunds">
             <summary>
-            The RemainSize
+            The RemainFunds
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshotWrapper">
