@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>Kucoin.Net</PackageId>
+    <PackageId>Septa.Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
     <PackageVersion>4.0.17</PackageVersion>
     <AssemblyVersion>4.0.17</AssemblyVersion>
