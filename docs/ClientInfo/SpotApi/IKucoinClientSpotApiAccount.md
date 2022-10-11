@@ -654,7 +654,7 @@ var result = await client.SpotApi.Account.InnerTransferAsync(/* parameters */);
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? clientOrderId = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? fromTag = default, string? toTag = default, string? clientOrderId = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
@@ -663,6 +663,8 @@ Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, Accoun
 |from|The type of the account|
 |to|The type of the account|
 |quantity|The quantity to transfer|
+|_[Optional]_ fromTag|Trading pair, required when the payment account type is isolated, e.g.: BTC-USDT|
+|_[Optional]_ toTag|Trading pair, required when the receiving account type is isolated, e.g.: BTC-USDT|
 |_[Optional]_ clientOrderId|Client order id|
 |_[Optional]_ ct|Cancellation token|
 

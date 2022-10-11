@@ -803,15 +803,15 @@ var result = await client.SpotApi.Trading.PlaceIsolatedBorrowOrderAsync(/* param
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(string symbol, string asset, BorrowOrderType type, decimal quantity, decimal? maxRate = default, string? term = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(string symbol, string asset, decimal quantity, BorrowOrderType type, decimal? maxRate = default, string? term = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
 |symbol|The symbol|
 |asset|Currency to Borrow e.g USDT etc|
-|type|The type of the order (FOK, IOC)|
 |quantity|Total size|
+|type|The type of the order (FOK, IOC)|
 |_[Optional]_ maxRate|The max interest rate. All interest rates are acceptable if this field is left empty|
 |_[Optional]_ term|term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28|
 |_[Optional]_ ct|Cancellation token|
