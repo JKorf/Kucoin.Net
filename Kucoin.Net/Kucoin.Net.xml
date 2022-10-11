@@ -395,7 +395,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetTransferableAsync(System.String,Kucoin.Net.Enums.AccountType,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.InnerTransferAsync(System.String,Kucoin.Net.Enums.AccountType,Kucoin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.InnerTransferAsync(System.String,Kucoin.Net.Enums.AccountType,Kucoin.Net.Enums.AccountType,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetDepositsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Enums.DepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -605,7 +605,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetLendingStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceIsolatedBorrowOrderAsync(System.String,System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.PlaceIsolatedBorrowOrderAsync(System.String,System.String,System.Decimal,Kucoin.Net.Enums.BorrowOrderType,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading.GetIsolatedOpenBorrowRecordsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -2482,7 +2482,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Info on transferable account balance</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.InnerTransferAsync(System.String,Kucoin.Net.Enums.AccountType,Kucoin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.InnerTransferAsync(System.String,Kucoin.Net.Enums.AccountType,Kucoin.Net.Enums.AccountType,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfers assets between the accounts of a user.
             <para><a href="https://docs.kucoin.com/#transfer-between-master-user-and-sub-user" /></para>
@@ -3017,7 +3017,7 @@
             <param name="clientOrderId">Client order id</param>
             <param name="stopCondition">Stop price condition</param>
             <param name="stopPrice">Price to trigger the order placement</param>
-            <param name="tradeType">Trade type</param>        
+            <param name="tradeType">Trade type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3194,7 +3194,7 @@
             <param name="asset">Filter by asset</param>
             <param name="page">The page to retrieve</param>
             <param name="pageSize">The page size</param>
-            <param name="ct">Cancellation token</param> 
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetClosedLendOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -3205,7 +3205,7 @@
             <param name="asset">Filter by asset</param>
             <param name="page">The page to retrieve</param>
             <param name="pageSize">The page size</param>
-            <param name="ct">Cancellation token</param> 
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetOpenLendsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -3216,7 +3216,7 @@
             <param name="asset">Filter by asset</param>
             <param name="page">The page to retrieve</param>
             <param name="pageSize">The page size</param>
-            <param name="ct">Cancellation token</param> 
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetClosedLendsAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -3227,7 +3227,7 @@
             <param name="asset">Filter by asset</param>
             <param name="page">The page to retrieve</param>
             <param name="pageSize">The page size</param>
-            <param name="ct">Cancellation token</param> 
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.GetLendingStatusAsync(System.String,System.Threading.CancellationToken)">
@@ -3236,18 +3236,18 @@
             <para><a href="https://docs.kucoin.com/#get-account-lend-record" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
-            <param name="ct">Cancellation token</param> 
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceIsolatedBorrowOrderAsync(System.String,System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading.PlaceIsolatedBorrowOrderAsync(System.String,System.String,System.Decimal,Kucoin.Net.Enums.BorrowOrderType,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an isolated Borrow order
             <para><a href="https://docs.kucoin.com/#isolated-margin-borrowing" /></para>
             </summary>
             <param name="symbol">The symbol</param>
             <param name="asset">Currency to Borrow e.g USDT etc</param>
-            <param name="type">The type of the order (FOK, IOC)</param>
             <param name="quantity">Total size</param>
+            <param name="type">The type of the order (FOK, IOC)</param>
             <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
             <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
             <param name="ct">Cancellation token</param>
