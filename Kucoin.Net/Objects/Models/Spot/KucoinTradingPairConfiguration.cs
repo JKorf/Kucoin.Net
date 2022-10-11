@@ -35,7 +35,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Max Leverage
         /// </summary>
         [JsonProperty("maxLeverage")]
-        public int MaxLeverage { get; set; }
+        public decimal MaxLeverage { get; set; }
 
         /// <summary>
         /// FlDebtRatio
