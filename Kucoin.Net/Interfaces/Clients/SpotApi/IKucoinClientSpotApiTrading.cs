@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Spot;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Models;
-using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -237,7 +237,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="stopCondition">Stop price condition</param>
         /// <param name="stopPrice">Price to trigger the order placement</param>
-        /// <param name="tradeType">Trade type</param>        
+        /// <param name="tradeType">Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(
@@ -444,7 +444,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="page">The page to retrieve</param>
         /// <param name="pageSize">The page size</param>
-        /// <param name="ct">Cancellation token</param> 
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetOpenLendOrdersAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -455,7 +455,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="page">The page to retrieve</param>
         /// <param name="pageSize">The page size</param>
-        /// <param name="ct">Cancellation token</param> 
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetClosedLendOrdersAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -466,7 +466,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="page">The page to retrieve</param>
         /// <param name="pageSize">The page size</param>
-        /// <param name="ct">Cancellation token</param> 
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinOpenLend>>> GetOpenLendsAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -477,7 +477,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="page">The page to retrieve</param>
         /// <param name="pageSize">The page size</param>
-        /// <param name="ct">Cancellation token</param> 
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinClosedLend>>> GetClosedLendsAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -486,7 +486,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://docs.kucoin.com/#get-account-lend-record" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
-        /// <param name="ct">Cancellation token</param> 
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinLendHistory>>> GetLendingStatusAsync(string? asset = null, CancellationToken ct = default);
 
@@ -496,8 +496,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="asset">Currency to Borrow e.g USDT etc</param>
-        /// <param name="type">The type of the order (FOK, IOC)</param>
         /// <param name="quantity">Total size</param>
+        /// <param name="type">The type of the order (FOK, IOC)</param>
         /// <param name="maxRate">The max interest rate. All interest rates are acceptable if this field is left empty</param>
         /// <param name="term">term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28</param>
         /// <param name="ct">Cancellation token</param>
@@ -505,8 +505,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(
            string symbol,
            string asset,
-           BorrowOrderType type,
            decimal quantity,
+           BorrowOrderType type,
            decimal? maxRate = null,
            string? term = null,
            CancellationToken ct = default);
