@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Models;
-using Kucoin.Net.Objects.Models.Spot;
-using Kucoin.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.CommonObjects;
-using System.Linq;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -22,6 +22,7 @@ namespace Kucoin.Net.Clients.SpotApi
     public class KucoinClientSpotApiTrading : IKucoinClientSpotApiTrading
     {
         private readonly KucoinClientSpotApi _baseClient;
+
         internal KucoinClientSpotApiTrading(KucoinClientSpotApi baseClient)
         {
             _baseClient = baseClient;
@@ -165,7 +166,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var result = await _baseClient.Execute<KucoinBulkOrderResponse>(_baseClient.GetUri("orders/multi"), HttpMethod.Post, ct, parameters, true, weight: 60, parameterPosition: HttpMethodParameterPosition.InBody).ConfigureAwait(false);
             if (result)
             {
-                foreach  (var order in result.Data.Orders.Where(o => o.Status == BulkOrderCreationStatus.Success))
+                foreach (var order in result.Data.Orders.Where(o => o.Status == BulkOrderCreationStatus.Success))
                 {
                     _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = order, Id = order.Id });
                 }
@@ -181,7 +182,6 @@ namespace Kucoin.Net.Clients.SpotApi
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
             return result;
-
         }
 
         /// <inheritdoc />
@@ -423,7 +423,6 @@ namespace Kucoin.Net.Clients.SpotApi
             string? term = null,
             CancellationToken ct = default)
         {
-
             var parameters = new Dictionary<string, object>
             {
                 { "currency", asset },
@@ -534,7 +533,6 @@ namespace Kucoin.Net.Clients.SpotApi
             return await _baseClient.Execute<KucoinPaginated<KucoinLendOrder>>(_baseClient.GetUri($"margin/lend/active"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
-
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetClosedLendOrdersAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
@@ -577,8 +575,9 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(
             string symbol,
             string asset,
-            BorrowOrderType type,
             decimal quantity,
+            BorrowOrderType type,
+
             decimal? maxRate = null,
             string? term = null,
             CancellationToken ct = default)
@@ -587,8 +586,8 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "symbol", symbol },
                 { "currency", asset },
-                { "type", JsonConvert.SerializeObject(type, new BorrowOrderTypeConverter(false)) },
-                { "size", quantity }
+                { "size", quantity },
+                { "borrowStrategy", JsonConvert.SerializeObject(type, new BorrowOrderTypeConverter(false)) }
             };
             parameters.AddOptionalParameter("maxRate", maxRate);
             parameters.AddOptionalParameter("term", term);
