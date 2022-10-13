@@ -2491,6 +2491,8 @@
             <param name="from">The type of the account</param>
             <param name="to">The type of the account</param>
             <param name="quantity">The quantity to transfer</param>
+            <param name="fromTag">Trading pair, required when the payment account type is isolated, e.g.: BTC-USDT</param>
+            <param name="toTag">Trading pair, required when the receiving account type is isolated, e.g.: BTC-USDT</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns>The order ID of a funds transfer</returns>
