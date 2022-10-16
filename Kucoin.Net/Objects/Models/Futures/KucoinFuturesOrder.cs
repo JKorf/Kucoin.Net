@@ -39,7 +39,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Leverage
         /// </summary>
-        public int Leverage { get; set; }
+        public decimal Leverage { get; set; }
         /// <summary>
         /// Force hold
         /// </summary>

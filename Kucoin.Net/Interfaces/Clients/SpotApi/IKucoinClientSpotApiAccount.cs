@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Spot;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Models;
-using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -124,10 +124,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="from">The type of the account</param>
         /// <param name="to">The type of the account</param>
         /// <param name="quantity">The quantity to transfer</param>
+        /// <param name="fromTag">Trading pair, required when the payment account type is isolated, e.g.: BTC-USDT</param>
+        /// <param name="toTag">Trading pair, required when the receiving account type is isolated, e.g.: BTC-USDT</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The order ID of a funds transfer</returns>
-        Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? fromTag = null, string? toTag = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of deposits

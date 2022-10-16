@@ -47,9 +47,6 @@ namespace Kucoin.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            if (KucoinClientOptions.Default.ApiCredentials == null && KucoinClientOptions.Default.FuturesApiOptions.ApiCredentials == null)
-                return new CallResult<UpdateSubscription>(new ArgumentError("No API credentials provided for the default KucoinClient. Make sure API credentials are set using KucoinClient.SetDefaultOptions."));
-
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
             {

@@ -764,6 +764,32 @@ Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(string asset, Bo
 
 ***
 
+## PlaceBulkOrderAsync  
+
+[https://docs.kucoin.com/#place-bulk-orders](https://docs.kucoin.com/#place-bulk-orders)  
+<p>
+
+*Places bulk orders*  
+
+```csharp  
+var client = new KucoinClient();  
+var result = await client.SpotApi.Trading.PlaceBulkOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol the order is for|
+|orders|Up to 5 orders to be placed at the same time|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## PlaceIsolatedBorrowOrderAsync  
 
 [https://docs.kucoin.com/#isolated-margin-borrowing](https://docs.kucoin.com/#isolated-margin-borrowing)  
@@ -777,15 +803,15 @@ var result = await client.SpotApi.Trading.PlaceIsolatedBorrowOrderAsync(/* param
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(string symbol, string asset, BorrowOrderType type, decimal quantity, decimal? maxRate = default, string? term = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(string symbol, string asset, decimal quantity, BorrowOrderType type, decimal? maxRate = default, string? term = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
 |symbol|The symbol|
 |asset|Currency to Borrow e.g USDT etc|
-|type|The type of the order (FOK, IOC)|
 |quantity|Total size|
+|type|The type of the order (FOK, IOC)|
 |_[Optional]_ maxRate|The max interest rate. All interest rates are acceptable if this field is left empty|
 |_[Optional]_ term|term (Unit: Day). All terms are acceptable if this field is left empty. Please note to separate the terms via comma. For example, 7,14,28|
 |_[Optional]_ ct|Cancellation token|
@@ -915,7 +941,7 @@ var result = await client.SpotApi.Trading.PlaceStopOrderAsync(/* parameters */);
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(string symbol, OrderSide orderSide, NewOrderType orderType, StopCondition stopCondition, decimal stopPrice, string? remark = default, SelfTradePrevention? selfTradePrevention = default, TradeType? tradeType = default, decimal? price = default, decimal? quantity = default, TimeInForce? timeInForce = default, DateTime? cancelAfter = default, bool? postOnly = default, bool? hidden = default, bool? iceberg = default, decimal? visibleSize = default, string? clientOrderId = default, decimal? quoteQuantity = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(string symbol, OrderSide orderSide, NewOrderType orderType, StopCondition stopCondition, decimal stopPrice, string? remark = default, SelfTradePrevention? selfTradePrevention = default, TradeType? tradeType = default, decimal? price = default, decimal? quantity = default, TimeInForce? timeInForce = default, TimeSpan? cancelAfter = default, bool? postOnly = default, bool? hidden = default, bool? iceberg = default, decimal? visibleSize = default, string? clientOrderId = default, decimal? quoteQuantity = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|

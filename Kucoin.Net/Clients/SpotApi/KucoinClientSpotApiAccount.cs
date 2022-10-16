@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Objects.Internal;
-using Kucoin.Net.Objects.Models;
-using Kucoin.Net.Objects.Models.Spot;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Interfaces.Clients.SpotApi;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -139,7 +139,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? clientOrderId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? fromTag = null, string? toTag = null, string? clientOrderId = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
             var parameters = new Dictionary<string, object>
@@ -150,6 +150,8 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "amount", quantity },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString()},
             };
+            parameters.AddOptionalParameter("fromTag", fromTag);
+            parameters.AddOptionalParameter("toTag", toTag);
 
             return await _baseClient.Execute<KucoinInnerTransfer>(_baseClient.GetUri("accounts/inner-transfer", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }

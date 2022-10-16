@@ -28,6 +28,12 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.1.0 - 11 Oct 2022
+    * Fixed leverage field being an int instead of decimal
+    * Fixed CancelAfter property on order model
+    * Added fromTag and toTag to InnerTransferAsync endpoint
+    * Fixed PlaceIsolatedBorrowOrderAsync type parameter
+
 * Version 4.0.17 - 15 Aug 2022
     * Fixed SpotApi.Trading.PlaceStopOrderAsync cancelAfter parameter
     * Fixed KucoinBalanceUpdate Timestamp property not getting deserialized correctly

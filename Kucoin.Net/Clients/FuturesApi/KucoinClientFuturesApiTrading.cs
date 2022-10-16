@@ -34,7 +34,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             string symbol,
             OrderSide side,
             NewOrderType type,
-            int leverage,
+            decimal leverage,
             decimal quantity,
 
             decimal? price = null,
