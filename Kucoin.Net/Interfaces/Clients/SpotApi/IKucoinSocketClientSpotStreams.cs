@@ -127,6 +127,19 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://docs.kucoin.com/#level2-5-best-ask-bid-orders" /></para>
         /// <para><a href="https://docs.kucoin.com/#level2-50-best-ask-bid-orders" /></para>
         /// </summary>
+        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int limit, int symbolPrecision, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default);
+
+
+        /// <summary>
+        /// Subscribe to full order book updates
+        /// <para><a href="https://docs.kucoin.com/#level2-5-best-ask-bid-orders" /></para>
+        /// <para><a href="https://docs.kucoin.com/#level2-50-best-ask-bid-orders" /></para>
+        /// </summary>
         /// <param name="symbols">The symbols to subscribe</param>
         /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
         /// <param name="onData">Data handler</param>

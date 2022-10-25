@@ -44,6 +44,11 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// The changes in asks
         /// </summary>
         public IEnumerable<KucoinStreamOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
+
+        public long Sequence { get; set; }
+        
+        [JsonProperty("datetime"), JsonConverter(typeof(DateTimeConverter))]
+        public DateTime Timestamp { get; set; }
     }
 
     /// <summary>

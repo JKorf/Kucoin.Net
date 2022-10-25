@@ -19,6 +19,7 @@ using Kucoin.Net.Objects.Models.Spot.Socket;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Authentication;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.CommonObjects;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -159,6 +160,22 @@ namespace Kucoin.Net.Clients.SpotApi
         public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int limit,
             Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default) =>
             SubscribeToOrderBookUpdatesAsync(new[] { symbol }, limit, onData, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int limit, int symbolPrecision, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default)
+        {
+            symbol.ValidateKucoinSymbol();
+            limit.ValidateIntValues(nameof(limit), 5, 50);
+
+            var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
+            {
+                var book = _baseClient.GetData<KucoinStreamOrderBookChanged>(tokenData);
+                KucoinSocketClient.InvokeHandler(tokenData.As(book, _baseClient.TryGetSymbolFromTopic(tokenData)), onData);
+            });
+
+            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + symbol + "_" + symbolPrecision, false);
+            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default)
