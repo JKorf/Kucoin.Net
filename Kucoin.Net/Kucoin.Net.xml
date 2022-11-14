@@ -226,6 +226,30 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.GetConnectionUrlAsync(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.MessageMatchesHandler(CryptoExchange.Net.Sockets.SocketConnection,Newtonsoft.Json.Linq.JToken,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.MessageMatchesHandler(CryptoExchange.Net.Sockets.SocketConnection,Newtonsoft.Json.Linq.JToken,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesStreams.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.KucoinClient">
             <inheritdoc cref="T:Kucoin.Net.Interfaces.Clients.IKucoinClient" />
         </member>
@@ -254,9 +278,6 @@
             Set the default options to be used when creating new clients
             </summary>
             <param name="options">Options to use as default</param>
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
-            <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.KucoinSocketClient">
             <inheritdoc cref="T:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient" />
@@ -289,30 +310,6 @@
             Set the API credentials to use in this client
             </summary>
             <param name="credentials">Credentials to use</param>
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.GetConnectionUrlAsync(CryptoExchange.Net.SocketApiClient,System.String,System.Boolean)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.GetReconnectUriAsync(CryptoExchange.Net.SocketApiClient,CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.MessageMatchesHandler(CryptoExchange.Net.Sockets.SocketConnection,Newtonsoft.Json.Linq.JToken,System.Object)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.MessageMatchesHandler(CryptoExchange.Net.Sockets.SocketConnection,Newtonsoft.Json.Linq.JToken,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
-            <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApi">
             <inheritdoc cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi" />
@@ -349,6 +346,9 @@
             <param name="baseAsset"></param>
             <param name="quoteAsset"></param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApi.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+            <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApi.GetServerTimestampAsync">
             <inheritdoc />
@@ -690,6 +690,30 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.GetConnectionUrlAsync(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.HandleSubscriptionResponse(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{System.Object}@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.MessageMatchesHandler(CryptoExchange.Net.Sockets.SocketConnection,Newtonsoft.Json.Linq.JToken,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.MessageMatchesHandler(CryptoExchange.Net.Sockets.SocketConnection,Newtonsoft.Json.Linq.JToken,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotStreams.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Enums.AccountDirection">
@@ -1687,6 +1711,11 @@
             Client for accessing the Kucoin Futures API. 
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApi.RequestFactory">
+            <summary>
+            The factory for creating requests. Used for unit testing
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
@@ -2353,6 +2382,11 @@
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi">
             <summary>
             Spot API endpoints
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.RequestFactory">
+            <summary>
+            The factory for creating requests. Used for unit testing
             </summary>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.Account">

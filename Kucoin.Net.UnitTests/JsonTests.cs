@@ -14,9 +14,8 @@ namespace Kucoin.Net.UnitTests
         private JsonToObjectComparer<IKucoinClient> _comparerSpot = new JsonToObjectComparer<IKucoinClient>((json) => TestHelpers.CreateResponseClient(json, new KucoinClientOptions()
         {
             ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"),
-            OutputOriginalData = true,
-            SpotApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>() },
-            FuturesApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>() }
+            SpotApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>(), OutputOriginalData  = true },
+            FuturesApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>(), OutputOriginalData = true }
         }));
 
         [Test]
