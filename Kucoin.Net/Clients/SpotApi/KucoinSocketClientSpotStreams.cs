@@ -27,11 +27,13 @@ namespace Kucoin.Net.Clients.SpotApi
     public class KucoinSocketClientSpotStreams : SocketApiClient, IKucoinSocketClientSpotStreams
     {
         private readonly KucoinSocketClient _baseClient;
+        private readonly KucoinSocketClientOptions _options;
 
         internal KucoinSocketClientSpotStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(log, options, options.SpotStreamsOptions)
         {
             _baseClient = baseClient;
+            _options = options;
 
             SendPeriodic("Ping", TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
             {
@@ -361,9 +363,10 @@ namespace Kucoin.Net.Clients.SpotApi
             var clientOptions = new KucoinClientOptions(new KucoinClientOptions
             {
                 ApiCredentials = apiCredentials,
+                LogLevel = _options.LogLevel,
                 SpotApiOptions = new KucoinRestApiClientOptions
                 {
-                    BaseAddress = Options.BaseAddress
+                    BaseAddress = KucoinClientOptions.Default.SpotApiOptions.BaseAddress
                 }
             });
 

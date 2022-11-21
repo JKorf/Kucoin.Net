@@ -25,11 +25,13 @@ namespace Kucoin.Net.Clients.FuturesApi
     public class KucoinSocketClientFuturesStreams : SocketApiClient, IKucoinSocketClientFuturesStreams
     {
         private readonly KucoinSocketClient _baseClient;
+        private readonly KucoinSocketClientOptions _options;
 
         internal KucoinSocketClientFuturesStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
             : base(log, options, options.FuturesStreamsOptions)
         {
             _baseClient = baseClient;
+            _options = options;
         }
 
         /// <inheritdoc />
@@ -271,9 +273,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             var clientOptions = new KucoinClientOptions(new KucoinClientOptions
             {
                 ApiCredentials = apiCredentials,
+                LogLevel = _options.LogLevel,
                 SpotApiOptions = new KucoinRestApiClientOptions
                 {
-                    BaseAddress = Options.BaseAddress
+                    BaseAddress = KucoinClientOptions.Default.FuturesApiOptions.BaseAddress
                 }
             });
 
