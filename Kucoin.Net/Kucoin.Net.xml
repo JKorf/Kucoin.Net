@@ -422,7 +422,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -1079,6 +1079,21 @@
         <member name="F:Kucoin.Net.Enums.ExtendedOrderStatus.Done">
             <summary>
             Done
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.FeeDeductType">
+            <summary>
+            Withdrawal fee deduction type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.FeeDeductType.Internal">
+            <summary>
+            Deduct the fee from the withdrawal amount
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.FeeDeductType.External">
+            <summary>
+            Deduct the fee from main account
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.FuturesKlineInterval">
@@ -2626,7 +2641,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <summary>
             Withdraw an asset to an address
             <para><a href="https://docs.kucoin.com/#apply-withdraw-2" /></para>
@@ -2638,6 +2653,7 @@
             <param name="isInner">Internal withdrawal or not. Default false.</param>
             <param name="remark">Remark for the withdrawal</param>
             <param name="chain">The chain name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+            <param name="feeDeductType">Fee deduction type</param>
             <param name="ct">Cancellation token</param>
             <returns>Id of the withdrawal</returns>
         </member>
@@ -6513,6 +6529,11 @@
             A remark for this deposit
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinDeposit.Network">
+            <summary>
+            The chain
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinDeposit.Quantity">
             <summary>
             The quantity of the deposit
@@ -8083,6 +8104,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinWithdrawal.Reason">
             <summary>
             Reason
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinWithdrawal.Network">
+            <summary>
+            The chain
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinWithdrawalQuota">
