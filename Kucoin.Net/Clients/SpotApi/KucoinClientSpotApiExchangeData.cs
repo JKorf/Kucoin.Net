@@ -38,7 +38,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("market", market);
-            return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetUri("symbols"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetUri("symbols", 2), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

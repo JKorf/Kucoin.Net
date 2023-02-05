@@ -7755,6 +7755,11 @@
             Whether trading is enabled
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.MinFunds">
+            <summary>
+            Minimum spot and margin trade amounts
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinTick">
             <summary>
             Tick info
