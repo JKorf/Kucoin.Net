@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>4.2.1</PackageVersion>
-    <AssemblyVersion>4.2.1</AssemblyVersion>
-    <FileVersion>4.2.1</FileVersion>
+    <PackageVersion>4.3.0</PackageVersion>
+    <AssemblyVersion>4.3.0</AssemblyVersion>
+    <FileVersion>4.3.0</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>4.2.1 - Fixed reconnect url</PackageReleaseNotes>
+    <PackageReleaseNotes>4.3.0 - Updated GetSymbolsAsync to V2 endpoint, Added MinFunds property to Symbols model, Added missing Network properties on Withdraw/Deposit models, Added feeDeductType parameter on WithdrawAsync endpoint</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

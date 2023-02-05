@@ -28,6 +28,12 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.3.0 - 05 Feb 2023
+    * Updated GetSymbolsAsync to V2 endpoint
+    * Added MinFunds property to Symbols model
+    * Added missing Network properties on Withdraw/Deposit models
+    * Added feeDeductType parameter on WithdrawAsync endpoint
+
 * Version 4.2.1 - 21 Nov 2022
     * Fixed reconnect url
 
