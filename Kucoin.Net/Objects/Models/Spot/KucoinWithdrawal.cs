@@ -75,5 +75,10 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Reason
         /// </summary>
         public string? Reason { get; set; }
+        /// <summary>
+        /// The chain
+        /// </summary>
+        [JsonProperty("chain")]
+        public string? Network { get; set; }
     }
 }
