@@ -65,8 +65,8 @@ namespace Kucoin.Net.Clients
         /// <param name="credentials">Credentials to use</param>
         public void SetApiCredentials(KucoinApiCredentials credentials)
         {
-            ((KucoinSocketClientSpotStreams)SpotStreams).SetApiCredentials(credentials);
-            ((KucoinSocketClientFuturesStreams)FuturesStreams).SetApiCredentials(credentials);
+            SpotStreams.SetApiCredentials(credentials);
+            FuturesStreams.SetApiCredentials(credentials);
         }
     }
 }

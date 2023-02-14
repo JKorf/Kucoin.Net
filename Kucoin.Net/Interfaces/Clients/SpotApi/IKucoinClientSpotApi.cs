@@ -7,13 +7,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot API endpoints
     /// </summary>
-    public interface IKucoinClientSpotApi : IDisposable
+    public interface IKucoinClientSpotApi : IRestApiClient, IDisposable
     {
-        /// <summary>
-        /// The factory for creating requests. Used for unit testing
-        /// </summary>
-        IRequestFactory RequestFactory { get; set; }
-
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>

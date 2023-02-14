@@ -500,7 +500,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
 
             var success = false;
-            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), message =>
+            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), null, message =>
             {
                 var id = message["id"];
                 if (id == null)

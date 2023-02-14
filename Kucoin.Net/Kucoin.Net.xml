@@ -1726,11 +1726,6 @@
             Client for accessing the Kucoin Futures API. 
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApi.RequestFactory">
-            <summary>
-            The factory for creating requests. Used for unit testing
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
@@ -2397,11 +2392,6 @@
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi">
             <summary>
             Spot API endpoints
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.RequestFactory">
-            <summary>
-            The factory for creating requests. Used for unit testing
             </summary>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.Account">

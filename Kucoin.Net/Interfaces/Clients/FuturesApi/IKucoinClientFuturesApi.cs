@@ -7,13 +7,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Client for accessing the Kucoin Futures API. 
     /// </summary>
-    public interface IKucoinClientFuturesApi : IDisposable
+    public interface IKucoinClientFuturesApi : IRestApiClient, IDisposable
     {
-        /// <summary>
-        /// The factory for creating requests. Used for unit testing
-        /// </summary>
-        IRequestFactory RequestFactory { get; set; }
-
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
