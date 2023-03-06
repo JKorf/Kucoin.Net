@@ -59,7 +59,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddParameter("type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)));
             parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
-            parameters.AddParameter("size", quantity.ToString(CultureInfo.InvariantCulture));
+            parameters.AddParameter("size", Math.Truncate(quantity).ToString(CultureInfo.InvariantCulture));
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stop", stopType != null ? JsonConvert.SerializeObject(stopType, new StopTypeConverter(false)) : null);
