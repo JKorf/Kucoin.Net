@@ -24,6 +24,10 @@
         /// <summary>
         /// Isolated marging account
         /// </summary>
-        Isolated
+        Isolated,
+        /// <summary>
+        /// High Frequency (PRO Account) account
+        /// </summary>
+        HighFrequency
     }
 }
