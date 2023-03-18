@@ -761,6 +761,11 @@
             Isolated marging account
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.HighFrequency">
+            <summary>
+            High Frequency (PRO Account) account
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BizType">
             <summary>
             BizType Description
