@@ -28,6 +28,11 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.3.2 - 18 Mar 2023
+    * Added HighFrequency account type
+    * Added Network property to asset details model
+    * Fixed Futures api size parameter type
+
 * Version 4.3.1 - 14 Feb 2023
     * Updated CryptoExchange.Net
 
