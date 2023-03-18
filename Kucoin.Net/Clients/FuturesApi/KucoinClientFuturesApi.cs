@@ -222,7 +222,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 side == CommonOrderSide.Sell ? OrderSide.Sell : OrderSide.Buy,
                 type == CommonOrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
                 leverage.Value,
-                quantity,
+                (int)quantity,
                 price, 
                 clientOrderId: clientOrderId,
                 ct: ct
