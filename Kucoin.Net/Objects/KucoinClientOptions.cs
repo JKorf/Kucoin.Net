@@ -68,8 +68,8 @@ namespace Kucoin.Net.Objects
         {
             if (baseOn == null)
                 return;
-
             ApiCredentials = (KucoinApiCredentials?)baseOn.ApiCredentials?.Copy();
+
             _spotApiOptions = new KucoinRestApiClientOptions(baseOn.SpotApiOptions, null);
             _futuresApiOptions = new KucoinRestApiClientOptions(baseOn.FuturesApiOptions, null);
         }
