@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
@@ -15,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot streams
     /// </summary>
-    public interface IKucoinSocketClientSpotStreams : IDisposable
+    public interface IKucoinSocketClientSpotStreams : ISocketApiClient, IDisposable
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

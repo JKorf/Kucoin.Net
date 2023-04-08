@@ -99,11 +99,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
-        public override TimeSyncInfo GetTimeSyncInfo()
+        public override TimeSyncInfo? GetTimeSyncInfo()
             => new TimeSyncInfo(_log, _options.FuturesApiOptions.AutoTimestamp, _options.FuturesApiOptions.TimestampRecalculationInterval, TimeSyncState);
 
         /// <inheritdoc />
-        public override TimeSpan GetTimeOffset()
+        public override TimeSpan? GetTimeOffset()
             => TimeSyncState.TimeOffset;
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 side == CommonOrderSide.Sell ? OrderSide.Sell : OrderSide.Buy,
                 type == CommonOrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
                 leverage.Value,
-                quantity,
+                (int)quantity,
                 price, 
                 clientOrderId: clientOrderId,
                 ct: ct

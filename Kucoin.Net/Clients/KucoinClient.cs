@@ -36,8 +36,8 @@ namespace Kucoin.Net.Clients
         /// <inheritdoc />
         public void SetApiCredentials(KucoinApiCredentials credentials)
         {
-            ((KucoinClientSpotApi)SpotApi).SetApiCredentials(credentials);
-            ((KucoinClientFuturesApi)FuturesApi).SetApiCredentials(credentials);
+            SpotApi.SetApiCredentials(credentials);
+            FuturesApi.SetApiCredentials(credentials);
         }
 
         /// <summary>

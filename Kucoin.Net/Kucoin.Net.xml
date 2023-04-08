@@ -154,7 +154,7 @@
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinClientFuturesApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Decimal,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinClientFuturesApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
@@ -759,6 +759,11 @@
         <member name="F:Kucoin.Net.Enums.AccountType.Isolated">
             <summary>
             Isolated marging account
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.HighFrequency">
+            <summary>
+            High Frequency (PRO Account) account
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.BizType">
@@ -1726,11 +1731,6 @@
             Client for accessing the Kucoin Futures API. 
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApi.RequestFactory">
-            <summary>
-            The factory for creating requests. Used for unit testing
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
@@ -2097,7 +2097,7 @@
             Kucoin Futures trading endpoints, placing and mananging orders.
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Decimal,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://docs.kucoin.com/futures/#place-an-order" /></para>
@@ -2397,11 +2397,6 @@
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi">
             <summary>
             Spot API endpoints
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.RequestFactory">
-            <summary>
-            The factory for creating requests. Used for unit testing
             </summary>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.Account">
@@ -6137,6 +6132,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.NetworkName">
             <summary>
             Network name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.Network">
+            <summary>
+            Network
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawalMinQuantity">

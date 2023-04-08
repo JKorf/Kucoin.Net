@@ -685,7 +685,7 @@ var result = await client.SpotApi.Account.WithdrawAsync(/* parameters */);
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = default, bool isInner, string? remark = default, string? chain = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = default, bool isInner, string? remark = default, string? chain = default, FeeDeductType? feeDeductType = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
@@ -697,6 +697,7 @@ Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAd
 |isInner|Internal withdrawal or not. Default false.|
 |_[Optional]_ remark|Remark for the withdrawal|
 |_[Optional]_ chain|The chain name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.|
+|_[Optional]_ feeDeductType|Fee deduction type|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
