@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Account type
@@ -8,10 +10,12 @@
         /// <summary>
         /// Main account
         /// </summary>
+        [Map("MAIN")]
         Main,
         /// <summary>
         /// Trade account
         /// </summary>
+        [Map("TRADE")]
         Trade,
         /// <summary>
         /// Margin account

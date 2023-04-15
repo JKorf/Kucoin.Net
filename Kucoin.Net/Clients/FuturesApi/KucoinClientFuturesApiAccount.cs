@@ -121,12 +121,29 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Transfer
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, AccountType receiveAccountType, CancellationToken ct = default)
         {
+            if (receiveAccountType != AccountType.Main && receiveAccountType != AccountType.Trade)
+                throw new ArgumentException("Receiving account type should be Main or Trade");
+
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("currency", asset);
             parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
-            return await _baseClient.Execute<KucoinTransferResult>(_baseClient.GetUri("transfer-out", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            parameters.AddParameter("recAccountType", EnumConverter.GetString(receiveAccountType));
+            return await _baseClient.Execute<KucoinTransferResult>(_baseClient.GetUri("transfer-out", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> TransferToFuturesAccountAsync(string asset, decimal quantity, AccountType payAccountType, CancellationToken ct = default)
+        {
+            if (payAccountType != AccountType.Main && payAccountType != AccountType.Trade)
+                throw new ArgumentException("Receiving account type should be Main or Trade");
+
+            var parameters = new Dictionary<string, object>();
+            parameters.AddParameter("currency", asset);
+            parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
+            parameters.AddParameter("payAccountType", EnumConverter.GetString(payAccountType));
+            return await _baseClient.Execute(_baseClient.GetUri("transfer-in", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

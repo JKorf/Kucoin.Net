@@ -111,13 +111,25 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Transfer funds from futures to main account
-        /// <para><a href="https://docs.kucoin.com/futures/#transfer-funds-to-kucoin-main-account-2" /></para>
+        /// <para><a href="https://docs.kucoin.com/futures/#transfer-to-main-or-trade-account" /></para>
         /// </summary>
         /// <param name="asset">Asset to transfer</param>
-        /// <param name="quantity">Quantity to withdraw</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="receiveAccountType">Receiving account type</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>Withdrawal id</returns>
-        Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, CancellationToken ct = default);
+        /// <returns>Transfer id</returns>
+        Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, AccountType receiveAccountType, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer funds from main or trade account to futures
+        /// <para><a href="https://docs.kucoin.com/futures/#transfer-to-futures-account" /></para>
+        /// </summary>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="payAccountType">Account to move funds from</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> TransferToFuturesAccountAsync(string asset, decimal quantity, AccountType payAccountType, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a transfer from futures account to main account
