@@ -32,6 +32,15 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             _baseClient = baseClient;
             _options = options;
+
+            SendPeriodic("Ping", TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
+            {
+                Id = Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture),
+                Type = "ping"
+            });
+
+            AddGenericHandler("Ping", (messageEvent) => { });
+            AddGenericHandler("Welcome", (messageEvent) => { });
         }
 
         /// <inheritdoc />
