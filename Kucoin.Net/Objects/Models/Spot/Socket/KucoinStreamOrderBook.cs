@@ -21,6 +21,13 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         public long SequenceEnd { get; set; }
 
         /// <summary>
+        /// Data timestamp
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonProperty("time")]
+        public DateTime Timestamp { get; set; }
+
+        /// <summary>
         /// The symbol of the order book
         /// </summary>
         public string Symbol { get; set; } = string.Empty;
