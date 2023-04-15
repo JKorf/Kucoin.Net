@@ -86,20 +86,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string address, decimal quantity, bool? isInner = null, string? remark = null, string? chain = null, string? memo = null, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddParameter("currency", asset);
-            parameters.AddParameter("address", address);
-            parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("isInner", isInner?.ToString());
-            parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("chain", chain);
-            parameters.AddOptionalParameter("memo", memo);
-            return await _baseClient.Execute<KucoinNewWithdrawal>(_baseClient.GetUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();

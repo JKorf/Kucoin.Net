@@ -72,21 +72,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<KucoinFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
-        /// Withdraw funds
-        /// <para><a href="https://docs.kucoin.com/futures/#withdraw-funds" /></para>
-        /// </summary>
-        /// <param name="asset">Asset to withdraw</param>
-        /// <param name="address">Address to withdraw to</param>
-        /// <param name="quantity">Quantity to withdraw</param>
-        /// <param name="isInner">Internal transfer (default false)</param>
-        /// <param name="remark">Remarks</param>
-        /// <param name="chain">Chain to use</param>
-        /// <param name="memo">Memo for the withdrawal</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Withdrawal id</returns>
-        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string address, decimal quantity, bool? isInner = null, string? remark = null, string? chain = null, string? memo = null, CancellationToken ct = default);
-
-        /// <summary>
         /// Get withdraw history
         /// <para><a href="https://docs.kucoin.com/futures/#get-withdrawal-list" /></para>
         /// </summary>
