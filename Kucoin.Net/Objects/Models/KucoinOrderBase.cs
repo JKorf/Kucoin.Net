@@ -81,7 +81,7 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// Whether the order is active
         /// </summary>
-        public bool? IsActive { get; set; }
+        public virtual bool? IsActive { get; set; }
         /// <summary>
         /// If there is a cancel request for this order
         /// </summary>
