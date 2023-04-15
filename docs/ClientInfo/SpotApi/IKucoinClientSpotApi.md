@@ -17,5 +17,8 @@ parent: Rest API documentation
 *Endpoints related to retrieving market and system data*  
 **[IKucoinClientSpotApiExchangeData](IKucoinClientSpotApiExchangeData.html) ExchangeData { get; }**  
 ***
+*Endpoints related to orders and trades from Pro Account (High Frequency)*  
+**[IKucoinClientSpotApiProAccount](IKucoinClientSpotApiProAccount.html) ProAccount { get; }**  
+***
 *Endpoints related to orders and trades*  
 **[IKucoinClientSpotApiTrading](IKucoinClientSpotApiTrading.html) Trading { get; }**  

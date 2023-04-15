@@ -36,32 +36,6 @@ Task<WebCallResult<object>> CancelWithdrawalAsync(string withdrawalId, Cancellat
 
 ***
 
-## CreateAccountAsync  
-
-[https://docs.kucoin.com/#create-an-account](https://docs.kucoin.com/#create-an-account)  
-<p>
-
-*Create a new account*  
-
-```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.Account.CreateAccountAsync(/* parameters */);  
-```  
-
-```csharp  
-Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(AccountType type, string asset, CancellationToken ct = default);  
-```  
-
-|Parameter|Description|
-|---|---|
-|type|The type of the account|
-|asset|The asset of the account|
-|_[Optional]_ ct|Cancellation token|
-
-</p>
-
-***
-
 ## CreateDepositAddressAsync  
 
 [https://docs.kucoin.com/#create-deposit-address](https://docs.kucoin.com/#create-deposit-address)  
@@ -212,11 +186,12 @@ var result = await client.SpotApi.Account.GetBasicUserFeeAsync();
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default);  
+Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
+|_[Optional]_ assetType|The type of asset|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
