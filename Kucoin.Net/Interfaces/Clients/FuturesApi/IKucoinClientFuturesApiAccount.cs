@@ -86,15 +86,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Cancel a withdrawal in process
-        /// <para><a href="https://docs.kucoin.com/futures/#cancel-withdrawal" /></para>
-        /// </summary>
-        /// <param name="withdrawalId">The id of the withdrawal to cancel</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Withdrawal limit info</returns>
-        Task<WebCallResult> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default);
-
-        /// <summary>
         /// Transfer funds from futures to main account
         /// <para><a href="https://docs.kucoin.com/futures/#transfer-to-main-or-trade-account" /></para>
         /// </summary>
