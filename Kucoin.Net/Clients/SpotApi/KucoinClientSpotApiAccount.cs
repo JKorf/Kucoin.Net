@@ -62,9 +62,12 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinUserFee>(_baseClient.GetUri("base-fee"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currencyType", EnumConverter.GetString(assetType));
+
+            return await _baseClient.Execute<KucoinUserFee>(_baseClient.GetUri("base-fee"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
