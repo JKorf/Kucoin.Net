@@ -121,11 +121,10 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Transfer
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, string? clientId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("currency", asset);
-            parameters.AddParameter("bizNo", clientId ?? Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
             parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
             return await _baseClient.Execute<KucoinTransferResult>(_baseClient.GetUri("transfer-out", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }

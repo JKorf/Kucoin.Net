@@ -49,19 +49,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(AccountType type, string asset, CancellationToken ct = default)
-        {
-            asset.ValidateNotNull(nameof(asset));
-
-            var parameters = new Dictionary<string, object>
-            {
-                { "type", JsonConvert.SerializeObject(type, new AccountTypeConverter(false)) },
-                { "currency", asset },
-            };
-            return await _baseClient.Execute<KucoinNewAccount>(_baseClient.GetUri("accounts"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();

@@ -114,11 +114,10 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <para><a href="https://docs.kucoin.com/futures/#transfer-funds-to-kucoin-main-account-2" /></para>
         /// </summary>
         /// <param name="asset">Asset to transfer</param>
-        /// <param name="clientId">Client identifier for the operation, needs to be unique. Guid.NewGuid() suggested</param>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Withdrawal id</returns>
-        Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, string? clientId = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a transfer from futures account to main account

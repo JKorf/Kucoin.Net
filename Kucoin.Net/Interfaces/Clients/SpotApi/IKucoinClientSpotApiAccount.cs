@@ -42,22 +42,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, CancellationToken ct = default);
 
         /// <summary>
-        /// Create a new account
-        /// <para><a href="https://docs.kucoin.com/#create-an-account" /></para>
-        /// </summary>
-        /// <param name="type">The type of the account</param>
-        /// <param name="asset">The asset of the account</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>The id of the account</returns>
-        Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(AccountType type, string asset, CancellationToken ct = default);
-
-        /// <summary>
         /// Get the basic user fees
         /// <para><a href="https://docs.kucoin.com/#basic-user-fee" /></para>
         /// </summary>
+        /// <param name="assetType">The type of asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the trading fees for symbols
