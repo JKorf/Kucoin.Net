@@ -203,5 +203,21 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginatedSlider<KucoinFundingItem>>> GetFundingHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get risk limit level
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set risk limit level
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="level">Risk limit level</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<bool>> SetRiskLimitLevelAsync(string symbol, int level, CancellationToken ct = default);
     }
 }

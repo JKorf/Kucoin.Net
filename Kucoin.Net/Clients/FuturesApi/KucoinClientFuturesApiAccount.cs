@@ -215,6 +215,29 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Risk Limit Level
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddParameter("symbol", symbol);
+            return await _baseClient.Execute<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>(_baseClient.GetUri("contracts/risk-limit/" + symbol), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Set Risk Limit Level
+        /// <inheritdoc />
+        public async Task<WebCallResult<bool>> SetRiskLimitLevelAsync(string symbol, int level, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddParameter("symbol", symbol);
+            parameters.AddParameter("level", level);
+            return await _baseClient.Execute<bool>(_baseClient.GetUri("position/risk-limit-level/change"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Websocket token
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketToken(bool authenticated, CancellationToken ct = default)
