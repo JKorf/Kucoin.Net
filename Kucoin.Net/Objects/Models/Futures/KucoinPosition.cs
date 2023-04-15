@@ -179,6 +179,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Risk limit level
         /// </summary>
         public int? RiskLimitLevel { get; set; }
+        /// <summary>
+        /// User id
+        /// </summary>
+        public long? UserId { get; set; }
     }
 
     /// <summary>

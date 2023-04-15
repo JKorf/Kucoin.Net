@@ -40,52 +40,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<KucoinPaginatedSlider<KucoinAccountTransaction>>> GetTransactionHistoryAsync(string? asset = null, TransactionType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get the deposit address for an asset
-        /// <para><a href="https://docs.kucoin.com/futures/#get-deposit-address" /></para>
-        /// </summary>
-        /// <param name="asset">The asset to get deposit address for</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Deposit address</returns>
-        Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get deposit history
-        /// <para><a href="https://docs.kucoin.com/futures/#get-deposits-list" /></para>
-        /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">Page to retrieve</param>
-        /// <param name="pageSize">Items per page</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Deposit history</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get the withdrawal limit
-        /// <para><a href="https://docs.kucoin.com/futures/#get-withdrawal-limit" /></para>
-        /// </summary>
-        /// <param name="asset">The asset to get limits for</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Withdrawal limit info</returns>
-        Task<WebCallResult<KucoinFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string asset, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get withdraw history
-        /// <para><a href="https://docs.kucoin.com/futures/#get-withdrawal-list" /></para>
-        /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">Page to retrieve</param>
-        /// <param name="pageSize">Items per page</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Withdrawal history</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
-
-        /// <summary>
         /// Transfer funds from futures to main account
         /// <para><a href="https://docs.kucoin.com/futures/#transfer-to-main-or-trade-account" /></para>
         /// </summary>
@@ -123,11 +77,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="status">Filter by status</param>
         /// <param name="currentPage">Current page</param>
         /// <param name="pageSize">Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string asset, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, DepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
 
         /// <summary>
@@ -152,9 +107,10 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get list of positions
         /// <para><a href="https://docs.kucoin.com/futures/#get-position-list" /></para>
         /// </summary>
+        /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Position info</returns>
-        Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Enable/disable auto deposit margin

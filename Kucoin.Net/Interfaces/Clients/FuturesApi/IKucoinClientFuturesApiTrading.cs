@@ -124,9 +124,10 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get list of 1000 most recent orders in the last 24 hours
         /// <para><a href="https://docs.kucoin.com/futures/#get-list-of-orders-completed-in-24h" /></para>
         /// </summary>
+        /// <param name="symbol">Filter by symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get details on an order
