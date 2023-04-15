@@ -45,12 +45,17 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public IKucoinClientSpotApiTrading Trading { get; }
 
+        /// <inheritdoc />
+        public IKucoinClientSpotApiProAccount ProAccount { get; }
+
+
         internal KucoinClientSpotApi(Log log, KucoinClient baseClient, KucoinClientOptions options)
             : base(log, options, options.SpotApiOptions)
         {
             Account = new KucoinClientSpotApiAccount(this);
             ExchangeData = new KucoinClientSpotApiExchangeData(this);
             Trading = new KucoinClientSpotApiTrading(this);
+            ProAccount = new KucoinClientSpotApiProAccount(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }

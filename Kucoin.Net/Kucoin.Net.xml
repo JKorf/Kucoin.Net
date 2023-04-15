@@ -336,6 +336,9 @@
         <member name="P:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApi.Trading">
             <inheritdoc />
         </member>
+        <member name="P:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApi.ProAccount">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -498,6 +501,18 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiExchangeData.GetMarginTradingPairConfigurationAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiProAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiProAccount.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiProAccount.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiProAccount.GetOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiTrading">
@@ -2414,6 +2429,11 @@
             Endpoints related to orders and trades
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.ProAccount">
+            <summary>
+            Endpoints related to orders and trades from Pro Account (High Frequency)
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApi.CommonSpotClient">
             <summary>
             Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
@@ -2868,6 +2888,54 @@
             </summary>
             <param name="ct">Cancellation token</param> 
             <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiProAccount">
+            <summary>
+            Kucoin Spot trading high frequency endpoints, placing and mananging orders.
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiProAccount.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+            <summary>
+            Places an order
+            <para><a href="https://docs.kucoin.com/spot-hf/#order-placement" /></para>
+            </summary>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="price">The price of the order. Only valid for limit orders.</param>
+            <param name="quantity">The quantity of the order</param>
+            <param name="quoteQuantity">The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+            <param name="timeInForce">The time the order is in force</param>
+            <param name="cancelAfter">Cancel after a time</param>
+            <param name="postOnly">Order is post only</param>
+            <param name="hidden">Order is hidden</param>
+            <param name="iceBerg">Order is an iceberg order</param>
+            <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
+            <param name="remark">Remark on the order</param>
+            <param name="selfTradePrevention">Self trade prevention setting</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiProAccount.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            <para><a href="https://docs.kucoin.com/spot-hf/#cancellation-of-orders-by-orderid" /></para>
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="ct">Cancellation token</param>
+            <returns>List of cancelled orders</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiProAccount.GetOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific order
+            <para><a href="https://docs.kucoin.com/spot-hf/#details-of-a-single-hf-order" /></para>
+            </summary>
+            <param name="orderId">The id of the order</param>
+            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order info</returns>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiTrading">
             <summary>
@@ -7517,6 +7585,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinOrderBookEntry.Quantity">
             <summary>
             The quantity of the entry
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinOrderHighFrequency">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinOrderHighFrequency.IsActive">
+            <summary>
+            Whether the order is active
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRepayRecord">
