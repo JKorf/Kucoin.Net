@@ -28,6 +28,15 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.3.3 - 15 Apr 2023
+    * Fixed futures ping, preventing regular disconnects
+    * Added basic high frequency endpoints
+    * Fixed testnet SpotApi.GetSymbolsAsync endpoint
+    * Added futures RiskLimit endpoints
+    * Added futures TransferToFutures endpoint
+    * Added various new optional parameters
+    * Removed deprecated endpoints
+
 * Version 4.3.2 - 18 Mar 2023
     * Added HighFrequency account type
     * Added Network property to asset details model
