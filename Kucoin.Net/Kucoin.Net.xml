@@ -413,7 +413,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinClientSpotApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -2614,7 +2614,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <summary>
             Withdraw an asset to an address
             <para><a href="https://docs.kucoin.com/#apply-withdraw-2" /></para>
@@ -6239,7 +6239,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.Network">
             <summary>
-            Network
+            Network name
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawalMinQuantity">

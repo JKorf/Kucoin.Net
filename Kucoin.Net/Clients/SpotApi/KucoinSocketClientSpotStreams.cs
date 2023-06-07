@@ -179,12 +179,12 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var innerHandler = new Action<DataEvent<JToken>>(tokenData =>
             {
-                var book = _baseClient.GetData<KucoinStreamOrderBookChanged>(tokenData);
-                KucoinSocketClient.InvokeHandler(tokenData.As(book, _baseClient.TryGetSymbolFromTopic(tokenData)), onData);
+                var book = GetData<KucoinStreamOrderBookChanged>(tokenData);
+                InvokeHandler(tokenData.As(book, TryGetSymbolFromTopic(tokenData)), onData);
             });
 
-            var request = new KucoinRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + symbol + "_" + symbolPrecision, false);
-            return await _baseClient.SubscribeInternalAsync(this, "spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
+            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + symbol + "_" + symbolPrecision, false);
+            return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -381,6 +381,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 ApiCredentials = apiCredentials,
                 LogLevel = _options.LogLevel,
+                Proxy = _options.Proxy,
                 SpotApiOptions = new KucoinRestApiClientOptions
                 {
                     BaseAddress = KucoinClientOptions.Default.SpotApiOptions.BaseAddress
@@ -394,7 +395,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return tokenResult.As<string?>(null);
 
                 return new CallResult<string?>(tokenResult.Data.Servers.First().Endpoint + "?token=" + tokenResult.Data.Token);
-            }            
+            }
         }
 
         /// <inheritdoc />
