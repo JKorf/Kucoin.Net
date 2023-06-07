@@ -49,22 +49,12 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(AccountType type, string asset, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default)
         {
-            asset.ValidateNotNull(nameof(asset));
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currencyType", EnumConverter.GetString(assetType));
 
-            var parameters = new Dictionary<string, object>
-            {
-                { "type", JsonConvert.SerializeObject(type, new AccountTypeConverter(false)) },
-                { "currency", asset },
-            };
-            return await _baseClient.Execute<KucoinNewAccount>(_baseClient.GetUri("accounts"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default)
-        {
-            return await _baseClient.Execute<KucoinUserFee>(_baseClient.GetUri("base-fee"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinUserFee>(_baseClient.GetUri("base-fee"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -253,7 +243,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool? isInner = null, string? remark = null, string? network = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool? isInner = null, string? remark = null, string? network = null, FeeDeductType? deductType = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
             toAddress.ValidateNotNull(nameof(toAddress));
@@ -266,6 +256,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("isInner", isInner);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", network);
+            parameters.AddOptionalParameter("feeDeductType", EnumConverter.GetString(deductType));
             return await _baseClient.Execute<KucoinNewWithdrawal>(_baseClient.GetUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 

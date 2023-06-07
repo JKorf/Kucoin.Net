@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -38,7 +39,9 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("market", market);
-            return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetUri("symbols"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            // Testnet doesn't support V2
+            var apiVersion = _baseClient.Options.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
+            return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetUri("symbols", apiVersion), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

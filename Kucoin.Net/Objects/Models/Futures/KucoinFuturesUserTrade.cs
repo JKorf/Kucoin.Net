@@ -43,5 +43,13 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// Opening transaction fee
+        /// </summary>
+        public decimal? OpenFeePay { get; set; }
+        /// <summary>
+        /// Closing transaction fee
+        /// </summary>
+        public decimal? CloseFeePay { get; set; }
     }
 }

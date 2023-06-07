@@ -52,93 +52,43 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
         #endregion
 
-        #region Deposit
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("currency", asset);
-            return await _baseClient.Execute<KucoinDepositAddress>(_baseClient.GetUri("deposit-address"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("currency", asset);
-            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("currentPage", currentPage);
-            parameters.AddOptionalParameter("pageSize", pageSize);
-            parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new DepositStatusConverter(false)));
-            return await _baseClient.Execute<KucoinPaginated<KucoinDeposit>>(_baseClient.GetUri("deposit-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }
-        #endregion
-
-        #region Withdrawal
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string asset, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddParameter("currency", asset);
-            return await _baseClient.Execute<KucoinFuturesWithdrawalQuota>(_baseClient.GetUri("withdrawals/quotas"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string address, decimal quantity, bool? isInner = null, string? remark = null, string? chain = null, string? memo = null, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddParameter("currency", asset);
-            parameters.AddParameter("address", address);
-            parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("isInner", isInner?.ToString());
-            parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("chain", chain);
-            parameters.AddOptionalParameter("memo", memo);
-            return await _baseClient.Execute<KucoinNewWithdrawal>(_baseClient.GetUri("withdrawals"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("currency", asset);
-            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("currentPage", currentPage);
-            parameters.AddOptionalParameter("pageSize", pageSize);
-            parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)));
-            return await _baseClient.Execute<KucoinPaginated<KucoinWithdrawal>>(_baseClient.GetUri("withdrawal-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default)
-        {
-            return await _baseClient.Execute(_baseClient.GetUri($"withdrawals/{withdrawalId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
-        }
-        #endregion
-
         #region Transfer
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, string? clientId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, AccountType receiveAccountType, CancellationToken ct = default)
         {
+            if (receiveAccountType != AccountType.Main && receiveAccountType != AccountType.Trade)
+                throw new ArgumentException("Receiving account type should be Main or Trade");
+
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("currency", asset);
-            parameters.AddParameter("bizNo", clientId ?? Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
             parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
-            return await _baseClient.Execute<KucoinTransferResult>(_baseClient.GetUri("transfer-out", 2), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            parameters.AddParameter("recAccountType", EnumConverter.GetString(receiveAccountType));
+            return await _baseClient.Execute<KucoinTransferResult>(_baseClient.GetUri("transfer-out", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string asset, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult> TransferToFuturesAccountAsync(string asset, decimal quantity, AccountType payAccountType, CancellationToken ct = default)
         {
+            if (payAccountType != AccountType.Main && payAccountType != AccountType.Trade)
+                throw new ArgumentException("Receiving account type should be Main or Trade");
+
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("currency", asset);
+            parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
+            parameters.AddParameter("payAccountType", EnumConverter.GetString(payAccountType));
+            return await _baseClient.Execute(_baseClient.GetUri("transfer-in", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, DepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
+            parameters.AddOptionalParameter("status", EnumConverter.GetString(status));
             return await _baseClient.Execute<KucoinPaginated<KucoinTransfer>>(_baseClient.GetUri("transfer-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
@@ -162,9 +112,11 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(string? asset = null, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinPosition>>(_baseClient.GetUri("positions"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            return await _baseClient.Execute<IEnumerable<KucoinPosition>>(_baseClient.GetUri("positions"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -212,6 +164,29 @@ namespace Kucoin.Net.Clients.FuturesApi
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("symbol", symbol);
             return await _baseClient.Execute<KucoinOrderValuation>(_baseClient.GetUri("openOrderStatistics"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Risk Limit Level
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddParameter("symbol", symbol);
+            return await _baseClient.Execute<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>(_baseClient.GetUri("contracts/risk-limit/" + symbol), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Set Risk Limit Level
+        /// <inheritdoc />
+        public async Task<WebCallResult<bool>> SetRiskLimitLevelAsync(string symbol, int level, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddParameter("symbol", symbol);
+            parameters.AddParameter("level", level);
+            return await _baseClient.Execute<bool>(_baseClient.GetUri("position/risk-limit-level/change"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         #endregion

@@ -7,7 +7,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Client for accessing the Kucoin Futures API. 
     /// </summary>
-    public interface IKucoinClientFuturesApi : IDisposable
+    public interface IKucoinClientFuturesApi : IRestApiClient, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

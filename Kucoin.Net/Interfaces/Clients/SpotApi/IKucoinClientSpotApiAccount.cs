@@ -42,22 +42,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, CancellationToken ct = default);
 
         /// <summary>
-        /// Create a new account
-        /// <para><a href="https://docs.kucoin.com/#create-an-account" /></para>
-        /// </summary>
-        /// <param name="type">The type of the account</param>
-        /// <param name="asset">The asset of the account</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>The id of the account</returns>
-        Task<WebCallResult<KucoinNewAccount>> CreateAccountAsync(AccountType type, string asset, CancellationToken ct = default);
-
-        /// <summary>
         /// Get the basic user fees
         /// <para><a href="https://docs.kucoin.com/#basic-user-fee" /></para>
         /// </summary>
+        /// <param name="assetType">The type of asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the trading fees for symbols
@@ -237,9 +228,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="isInner">Internal withdrawal or not. Default false.</param>
         /// <param name="remark">Remark for the withdrawal</param>
         /// <param name="chain">The chain name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+        /// <param name="feeDeductType">Fee deduction type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Id of the withdrawal</returns>
-        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool? isInner = null, string? remark = null, string? chain = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool? isInner = null, string? remark = null, string? chain = null, FeeDeductType? feeDeductType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a withdrawal

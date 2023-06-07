@@ -24,6 +24,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         public string Remark { get; set; } = string.Empty;
         /// <summary>
+        /// The chain
+        /// </summary>
+        [JsonProperty("chain")]
+        public string? Network { get; set; }
+        /// <summary>
         /// The quantity of the deposit
         /// </summary>
         [JsonProperty("amount")]

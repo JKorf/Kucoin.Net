@@ -7,13 +7,14 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using CryptoExchange.Net.Interfaces;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// Futures streams
     /// </summary>
-    public interface IKucoinSocketClientFuturesStreams : IDisposable
+    public interface IKucoinSocketClientFuturesStreams : ISocketApiClient, IDisposable
     {
         /// <summary>
         /// Subscribe to trade updates

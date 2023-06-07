@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Status of a deposit
@@ -8,14 +10,17 @@
         /// <summary>
         /// In progress
         /// </summary>
+        [Map("PROCESSING")]
         Processing,
         /// <summary>
         /// Successful
         /// </summary>
+        [Map("SUCCESS")]
         Success,
         /// <summary>
         /// Failed
         /// </summary>
+        [Map("FAILURE")]
         Failure
     }
 }

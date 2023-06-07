@@ -8,6 +8,7 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects;
+using Kucoin.Net.Objects.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,6 @@ namespace Kucoin.Net.Clients.FuturesApi
     {
         private readonly KucoinClient _baseClient;
         private readonly KucoinClientOptions _options;
-        private readonly Log _log;
 
         internal static TimeSyncState TimeSyncState = new TimeSyncState("Futures Api");
 
@@ -48,7 +48,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         public IKucoinClientFuturesApiTrading Trading { get; }
 
         internal KucoinClientFuturesApi(Log log, KucoinClient baseClient, KucoinClientOptions options)
-            : base(options, options.FuturesApiOptions)
+            : base(log, options, options.FuturesApiOptions)
         {
             _baseClient = baseClient;
             _options = options;
@@ -65,11 +65,29 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
-        internal Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false)
-         => _baseClient.Execute(this, uri, method, ct, parameters, signed);
+        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
+        {
+            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition).ConfigureAwait(false);
+            if (!result)
+                return result.AsDatalessError(result.Error!);
 
-        internal Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false)
-         => _baseClient.Execute<T>(this, uri, method, ct, parameters, signed, weight, ignoreRatelimit: ignoreRatelimit);
+            if (result.Data.Code != 200000)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return result.AsDataless();
+        }
+
+        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
+        {
+            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<T>(result.Error!);
+
+            if (result.Data.Code != 200000)
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return result.As(result.Data.Data);
+        }
 
         internal Uri GetUri(string path, int apiVersion = 1)
         {
@@ -81,11 +99,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
-        public override TimeSyncInfo GetTimeSyncInfo()
+        public override TimeSyncInfo? GetTimeSyncInfo()
             => new TimeSyncInfo(_log, _options.FuturesApiOptions.AutoTimestamp, _options.FuturesApiOptions.TimestampRecalculationInterval, TimeSyncState);
 
         /// <inheritdoc />
-        public override TimeSpan GetTimeOffset()
+        public override TimeSpan? GetTimeOffset()
             => TimeSyncState.TimeOffset;
 
         /// <summary>
@@ -204,7 +222,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 side == CommonOrderSide.Sell ? OrderSide.Sell : OrderSide.Buy,
                 type == CommonOrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
                 leverage.Value,
-                quantity,
+                (int)quantity,
                 price, 
                 clientOrderId: clientOrderId,
                 ct: ct

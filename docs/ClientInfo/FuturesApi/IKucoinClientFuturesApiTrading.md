@@ -99,11 +99,12 @@ var result = await client.FuturesApi.Trading.GetClosedOrdersAsync();
 ```  
 
 ```csharp  
-Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(CancellationToken ct = default);  
+Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string? symbol = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
+|_[Optional]_ symbol|Filter by symbol|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
@@ -292,7 +293,7 @@ var result = await client.FuturesApi.Trading.PlaceOrderAsync(/* parameters */);
 ```  
 
 ```csharp  
-Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(string symbol, OrderSide side, NewOrderType type, decimal leverage, decimal quantity, decimal? price = default, TimeInForce? timeInForce = default, bool? postOnly = default, bool? hidden = default, bool? iceberg = default, decimal? visibleSize = default, string? remark = default, StopType? stopType = default, StopPriceType? stopPriceType = default, decimal? stopPrice = default, bool? reduceOnly = default, bool? closeOrder = default, bool? forceHold = default, string? clientOrderId = default, CancellationToken ct = default);  
+Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(string symbol, OrderSide side, NewOrderType type, decimal leverage, int quantity, decimal? price = default, TimeInForce? timeInForce = default, bool? postOnly = default, bool? hidden = default, bool? iceberg = default, decimal? visibleSize = default, string? remark = default, StopType? stopType = default, StopPriceType? stopPriceType = default, decimal? stopPrice = default, bool? reduceOnly = default, bool? closeOrder = default, bool? forceHold = default, string? clientOrderId = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|

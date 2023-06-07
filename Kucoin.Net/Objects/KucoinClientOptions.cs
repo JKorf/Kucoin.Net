@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects
     /// <summary>
     /// Options for the KucoinClient
     /// </summary>
-    public class KucoinClientOptions: BaseRestClientOptions
+    public class KucoinClientOptions: ClientOptions
     {
         /// <summary>
         /// Default options for the spot client
@@ -68,8 +68,8 @@ namespace Kucoin.Net.Objects
         {
             if (baseOn == null)
                 return;
-
             ApiCredentials = (KucoinApiCredentials?)baseOn.ApiCredentials?.Copy();
+
             _spotApiOptions = new KucoinRestApiClientOptions(baseOn.SpotApiOptions, null);
             _futuresApiOptions = new KucoinRestApiClientOptions(baseOn.FuturesApiOptions, null);
         }
@@ -78,15 +78,12 @@ namespace Kucoin.Net.Objects
     /// <summary>
     /// Options for the KucoinSocketClient
     /// </summary>
-    public class KucoinSocketClientOptions: BaseSocketClientOptions
+    public class KucoinSocketClientOptions: ClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
-        public static KucoinSocketClientOptions Default { get; set; } = new KucoinSocketClientOptions() {
-            SocketSubscriptionsCombineTarget = 10,
-            MaxSocketConnections = 50
-        };
+        public static KucoinSocketClientOptions Default { get; set; } = new KucoinSocketClientOptions();
 
         /// <inheritdoc />
         public new KucoinApiCredentials? ApiCredentials
@@ -95,7 +92,12 @@ namespace Kucoin.Net.Objects
             set => base.ApiCredentials = value;
         }
 
-        private KucoinSocketApiClientOptions _spotStreamsOptions = new KucoinSocketApiClientOptions();
+        private KucoinSocketApiClientOptions _spotStreamsOptions = new KucoinSocketApiClientOptions()
+        {
+            SocketSubscriptionsCombineTarget = 10,
+            MaxSocketConnections = 50
+        };
+
         /// <summary>
         /// Spot stream options
         /// </summary>
@@ -105,7 +107,12 @@ namespace Kucoin.Net.Objects
             set => _spotStreamsOptions = new KucoinSocketApiClientOptions(_spotStreamsOptions, value);
         }
 
-        private KucoinSocketApiClientOptions _futuresStreamsOptions = new KucoinSocketApiClientOptions();
+        private KucoinSocketApiClientOptions _futuresStreamsOptions = new KucoinSocketApiClientOptions()
+        {
+            SocketSubscriptionsCombineTarget = 10,
+            MaxSocketConnections = 50
+        };
+
         /// <summary>
         /// Futures stream options
         /// </summary>
@@ -178,7 +185,7 @@ namespace Kucoin.Net.Objects
     /// <summary>
     /// Socket client options
     /// </summary>
-    public class KucoinSocketApiClientOptions : ApiClientOptions
+    public class KucoinSocketApiClientOptions : SocketApiClientOptions
     {
         /// <inheritdoc />
         public new KucoinApiCredentials? ApiCredentials
