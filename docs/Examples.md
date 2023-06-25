@@ -37,30 +37,30 @@ var accountData = await kucoinClient.SpotApi.Account.GetAccountsAsync();
 ```csharp
 // Placing a buy limit order for 0.001 BTC at a price of 50000USDT each
 var orderData = await kucoinClient.SpotApi.Trading.PlaceOrderAsync(
-				"BTC-USDT", 
-				OrderSide.Buy, 
-				NewOrderType.Limit, 
-				0.001m, 
-				50000, 
-				timeInForce: TimeInForce.GoodTillCanceled);
-													
+                "BTC-USDT", 
+                OrderSide.Buy, 
+                NewOrderType.Limit, 
+                0.001m, 
+                50000, 
+                timeInForce: TimeInForce.GoodTillCanceled);
+                                                    
 // Placing a buy market order, spending 50 USDT
 var orderData = await kucoinClient.SpotApi.Trading.PlaceOrderAsync(
-				"BTC-USDT",
-				OrderSide.Buy,
-				NewOrderType.Market,
-				quoteQuantity: 50);
-													
+                "BTC-USDT",
+                OrderSide.Buy,
+                NewOrderType.Market,
+                quoteQuantity: 50);
+                                                    
 // Place a stop loss order, place a limit order of 0.001 BTC at 39000USDT each when the last trade price drops below 40000USDT
 var orderData = await kucoinClient.SpotApi.Trading.PlaceStopOrderAsync(
-				"BTC-USDT",
-				OrderSide.Buy,
-				NewOrderType.Limit,
-				StopCondition.Loss,
-				40000,
-				price: 39000,
-				quantity: 0.001m,
-				timeInForce: TimeInForce.GoodTillCanceled);
+                "BTC-USDT",
+                OrderSide.Buy,
+                NewOrderType.Limit,
+                StopCondition.Loss,
+                40000,
+                price: 39000,
+                quantity: 0.001m,
+                timeInForce: TimeInForce.GoodTillCanceled);
 ```
 
 ### Requesting a specific order
@@ -90,7 +90,7 @@ var userTradesResult = await kucoinClient.SpotApi.Trading.GetUserTradesAsync();
 ```csharp
 var subscribeResult = await kucoinSocketClient.SpotApi.SubscribeToAllTickerUpdatesAsync(data =>
 {
-	// Handle ticker data
+    // Handle ticker data
 });
 ```
 
@@ -98,11 +98,11 @@ var subscribeResult = await kucoinSocketClient.SpotApi.SubscribeToAllTickerUpdat
 ```csharp
 var subscribeResult = await kucoinSocketClient.SpotApi.SubscribeToOrderUpdatesAsync(data =>
 {
-	// Handle order updates
+    // Handle order updates
 },
 data =>
 {
-	// Handle match updates
+    // Handle match updates
 });
 ```
 </BlockQuote>
@@ -137,11 +137,11 @@ var positionResultData = await kucoinClient.FuturesApi.Account.GetPositionsAsync
 ```csharp
 // Placing a market buy order for 10 contracts with 10x leverage
 var positionResultData = await kucoinClient.FuturesApi.Trading.PlaceOrderAsync(
-				"XBTUSDM",
-				OrderSide.Buy,
-				NewOrderType.Market,
-				10,
-				10);
+                "XBTUSDM",
+                OrderSide.Buy,
+                NewOrderType.Market,
+                10,
+                10);
 ```
 
 ### Requesting a specific order
@@ -175,19 +175,19 @@ var userTradesResult = await kucoinClient.FuturesApi.Trading.GetUserTradesAsync(
 kucoinSocketClient.FuturesApi.SubscribeToPositionUpdatesAsync("XBTUSDM",
                 data =>
                 {
-					// Handle position updates
+                    // Handle position updates
                 },
                 data =>
                 {
-					// Handle position update because of mark price change
+                    // Handle position update because of mark price change
                 },
                 data =>
                 {
-					// Handle funding settlement update
+                    // Handle funding settlement update
                 },
                 data =>
                 {
-					// Handle risk adjust update
+                    // Handle risk adjust update
                 });
 ```
 </BlockQuote>

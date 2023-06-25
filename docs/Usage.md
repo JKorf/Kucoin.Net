@@ -10,25 +10,25 @@ There are 2 clients available to interact with the Kucoin API, the `KucoinClient
 ```csharp
 var kucoinRestClient = new KucoinRestClient(options =>
 {
-	// Set options here for this client
+    // Set options here for this client
 });
 
 var kucoinSocketClient = new KucoinSocketClient(options =>
 {
-	// Set options here for this client
+    // Set options here for this client
 });
 ```
 
 *Using dotnet dependency inject*
 ```csharp
 services.AddKucoin(
-	restOptions => {
-		// set options for the rest client
-	},
-	socketClientOptions => {
-		// set options for the socket client
-	});	
-	
+    restOptions => {
+        // set options for the rest client
+    },
+    socketClientOptions => {
+        // set options for the socket client
+    }); 
+    
 // IKucoinRestClient, IKucoinSocketClient and IKucoinOrderBookFactory are now available for injecting
 ```
 
@@ -36,16 +36,16 @@ Different options are available to set on the clients, see this example
 ```csharp
 var kucoinRestClient = new KucoinRestClient(options =>
 {
-	options.ApiCredentials = new KucoinApiCredentials("API-KEY", "API-SECRET", "API-PASSPHRASE");
-	options.RequestTimeout = TimeSpan.FromSeconds(60);
-	options.FuturesOptions.ApiCredentials = new KucoinApiCredentials("FUTURES-API-KEY", "FUTURES-API-SECRET", "FUTURES-API-PASSPHRASE");
-	options.FuturesOptions.AutoTimestamp = false;
+    options.ApiCredentials = new KucoinApiCredentials("API-KEY", "API-SECRET", "API-PASSPHRASE");
+    options.RequestTimeout = TimeSpan.FromSeconds(60);
+    options.FuturesOptions.ApiCredentials = new KucoinApiCredentials("FUTURES-API-KEY", "FUTURES-API-SECRET", "FUTURES-API-PASSPHRASE");
+    options.FuturesOptions.AutoTimestamp = false;
 });
 ```
 Alternatively, options can be provided before creating clients by using `SetDefaultOptions` or during the registration in the DI container:  
 ```csharp
 KucoinRestClient.SetDefaultOptions(options => {
-	// Set options here for all new clients
+    // Set options here for all new clients
 });
 var kucoinRestClient = new KucoinRestClient();
 ```

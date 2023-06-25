@@ -21,6 +21,6 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 
 **Btc**:  bc1qz0jv0my7fc60rxeupr23e75x95qmlq6489n8gh  
 **Eth**:  0x8E21C4d955975cB645589745ac0c46ECA8FAE504   
-
+    
 ### Sponsor
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
