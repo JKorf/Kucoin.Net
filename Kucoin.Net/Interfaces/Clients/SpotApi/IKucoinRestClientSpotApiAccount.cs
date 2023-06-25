@@ -12,7 +12,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Kucoin Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
     /// </summary>
-    public interface IKucoinClientSpotApiAccount
+    public interface IKucoinRestClientSpotApiAccount
     {
         /// <summary>
         /// Gets a list of sub users

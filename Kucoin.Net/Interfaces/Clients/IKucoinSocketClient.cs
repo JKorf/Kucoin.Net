@@ -11,13 +11,13 @@ namespace Kucoin.Net.Interfaces.Clients
     public interface IKucoinSocketClient : ISocketClient
     {
         /// <summary>
-        /// Spot streams
+        /// Spot socket api
         /// </summary>
-        IKucoinSocketClientSpotStreams  SpotStreams { get; }
+        IKucoinSocketClientSpotApi  SpotApi { get; }
         /// <summary>
-        /// Futures streams
+        /// Futures socket api
         /// </summary>
-        IKucoinSocketClientFuturesStreams  FuturesStreams { get; }
+        IKucoinSocketClientFuturesApi  FuturesApi { get; }
 
         /// <summary>
         /// Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.

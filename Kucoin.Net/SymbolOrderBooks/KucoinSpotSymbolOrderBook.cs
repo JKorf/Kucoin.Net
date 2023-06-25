@@ -5,8 +5,10 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces.Clients;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using Kucoin.Net.Objects.Options;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Kucoin.Net.SymbolOrderBooks
 {
@@ -15,28 +17,51 @@ namespace Kucoin.Net.SymbolOrderBooks
     /// </summary>
     public class KucoinSpotSymbolOrderBook: CryptoExchange.Net.OrderBook.SymbolOrderBook
     {
-        private readonly IKucoinClient restClient;
-        private readonly IKucoinSocketClient socketClient;
+        private readonly IKucoinRestClient _restClient;
+        private readonly IKucoinSocketClient _socketClient;
         private readonly TimeSpan _initialDataTimeout;
-        private readonly bool _restOwner;
-        private readonly bool _socketOwner;
+        private readonly bool _clientOwner;
 
         /// <summary>
         /// Create a new order book instance
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
-        /// <param name="options">The options for the order book</param>
-        public KucoinSpotSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base("Kucoin", symbol, options ?? new KucoinOrderBookOptions())
+        /// <param name="optionsFunc">The options for the order book</param>
+        public KucoinSpotSymbolOrderBook(string symbol, Action<KucoinOrderBookOptions>? optionsFunc = null)
+            : this(symbol, optionsFunc, null, null, null)
         {
-            strictLevels = false;
-            sequencesAreConsecutive = options?.Limit == null;
+            _clientOwner = true;
+        }
+
+        /// <summary>
+        /// Create a new order book instance
+        /// </summary>
+        /// <param name="symbol">The symbol the order book is for</param>
+        /// <param name="optionsFunc">The options for the order book</param>
+        /// <param name="logger">Logger</param>
+        /// <param name="restClient">Rest client instance</param>
+        /// <param name="socketClient">Socket client instance</param>
+        [ActivatorUtilitiesConstructor]
+        public KucoinSpotSymbolOrderBook(
+            string symbol,
+            Action<KucoinOrderBookOptions>? optionsFunc,
+            ILogger<KucoinSpotSymbolOrderBook>? logger,
+            IKucoinRestClient? restClient,
+            IKucoinSocketClient? socketClient) : base(logger, "Kucoin", symbol)
+        {
+            var options = KucoinOrderBookOptions.Default.Copy();
+            if (optionsFunc != null)
+                optionsFunc(options);
+            Initialize(options);
+
+            _strictLevels = false;
+            _sequencesAreConsecutive = options?.Limit == null;
 
             Levels = options?.Limit;
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
-            socketClient = options?.SocketClient ?? new KucoinSocketClient();
-            restClient = options?.RestClient ?? new KucoinClient();
-            _restOwner = options?.RestClient == null;
-            _socketOwner = options?.SocketClient == null;
+            _clientOwner = socketClient == null;
+            _socketClient = socketClient ?? new KucoinSocketClient();
+            _restClient = restClient ?? new KucoinRestClient();
         }
 
         /// <inheritdoc />
@@ -45,7 +70,7 @@ namespace Kucoin.Net.SymbolOrderBooks
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
             {
-                subResult = await socketClient.SpotStreams.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
+                subResult = await _socketClient.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -56,11 +81,11 @@ namespace Kucoin.Net.SymbolOrderBooks
                 }
 
                 Status = OrderBookStatus.Syncing;
-                var bookResult = await restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
+                var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
-                    await socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
+                    _logger.Log(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
+                    await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
@@ -68,7 +93,7 @@ namespace Kucoin.Net.SymbolOrderBooks
             }
             else
             {
-                subResult = await socketClient.SpotStreams.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -100,7 +125,7 @@ namespace Kucoin.Net.SymbolOrderBooks
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
 
-            var bookResult = await restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
+            var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
@@ -123,10 +148,11 @@ namespace Kucoin.Net.SymbolOrderBooks
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if (_socketOwner)
-                socketClient?.Dispose();
-            if (_restOwner)
-                restClient?.Dispose();
+            if (_clientOwner)
+            {
+                _socketClient?.Dispose();
+                _restClient?.Dispose();
+            }
 
             base.Dispose(disposing);
         }

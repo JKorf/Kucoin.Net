@@ -14,24 +14,22 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Authentication;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Linq;
+using Kucoin.Net.Objects.Options;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
-    /// <inheritdoc cref="IKucoinSocketClientFuturesStreams" />
-    public class KucoinSocketClientFuturesStreams : SocketApiClient, IKucoinSocketClientFuturesStreams
+    /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
+    public class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
     {
         private readonly KucoinSocketClient _baseClient;
-        private readonly KucoinSocketClientOptions _options;
 
-        internal KucoinSocketClientFuturesStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
-            : base(log, options, options.FuturesStreamsOptions)
+        internal KucoinSocketClientFuturesApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
+            : base(logger, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
             _baseClient = baseClient;
-            _options = options;
 
             SendPeriodic("Ping", TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
             {
@@ -220,7 +218,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
                 else
                 {
-                    _log.Write(LogLevel.Warning, "Unknown update: " + subject);
+                    _logger.Log(LogLevel.Warning, "Unknown update: " + subject);
                 }
             });
 
@@ -265,7 +263,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
                 else
                 {
-                    _log.Write(LogLevel.Warning, $"Unknown update: {subject}, data: {tokenData}");
+                    _logger.Log(LogLevel.Warning, $"Unknown update: {subject}, data: {tokenData}");
                 }
             });
 
@@ -277,27 +275,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
-            var apiCredentials = (KucoinApiCredentials?)(Options.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketClientOptions.Default.ApiCredentials ?? KucoinClientOptions.Default.ApiCredentials);
-
-            var clientOptions = new KucoinClientOptions(new KucoinClientOptions
+            var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);
+            using (var restClient = new KucoinRestClient((options) =>
             {
-                ApiCredentials = apiCredentials,
-                LogLevel = _options.LogLevel,
-                SpotApiOptions = new KucoinRestApiClientOptions
-                {
-                    BaseAddress = KucoinClientOptions.Default.FuturesApiOptions.BaseAddress
-                }
-            });
-
-            using (var restClient = new KucoinClient(clientOptions))
+                options.ApiCredentials = apiCredentials;
+            }))
             {
-                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated).ConfigureAwait(false);
+                WebCallResult<KucoinToken> tokenResult = await ((KucoinRestClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated).ConfigureAwait(false);
                 if (!tokenResult)
                     return tokenResult.As<string?>(null);
 
                 return new CallResult<string?>(tokenResult.Data.Servers.First().Endpoint + "?token=" + tokenResult.Data.Token);
             }
-            
         }
 
         /// <inheritdoc />
@@ -432,14 +421,14 @@ namespace Kucoin.Net.Clients.FuturesApi
                 var result = Deserialize<KucoinSubscribeResponse>(message);
                 if (!result)
                 {
-                    _log.Write(LogLevel.Warning, "Failed to unsubscribe: " + result.Error);
+                    _logger.Log(LogLevel.Warning, "Failed to unsubscribe: " + result.Error);
                     success = false;
                     return true;
                 }
 
                 if (result.Data.Type != "ack")
                 {
-                    _log.Write(LogLevel.Warning, "Failed to unsubscribe: " + new ServerError(result.Data.Code, result.Data.Data));
+                    _logger.Log(LogLevel.Warning, "Failed to unsubscribe: " + new ServerError(result.Data.Code, result.Data.Data));
                     success = false;
                     return true;
                 }
@@ -464,19 +453,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             var desResult = Deserialize<KucoinUpdateMessage<T>>(tokenData.Data);
             if (!desResult)
             {
-                _log.Write(LogLevel.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
+                _logger.Log(LogLevel.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
                 return default!;
             }
             return desResult.Data.Data;
-        }
-
-        internal string? TryGetSymbolFromTopic(DataEvent<JToken> data)
-        {
-            string? symbol = null;
-            var topic = data.Data["topic"]?.ToString();
-            if (topic != null && topic.Contains(':'))
-                symbol = topic.Split(':').Last();
-            return symbol;
         }
     }
 }

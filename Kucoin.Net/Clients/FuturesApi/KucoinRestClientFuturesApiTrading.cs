@@ -18,11 +18,11 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class KucoinClientFuturesApiTrading : IKucoinClientFuturesApiTrading
+    public class KucoinRestClientFuturesApiTrading : IKucoinRestClientFuturesApiTrading
     {
-        private readonly KucoinClientFuturesApi _baseClient;
+        private readonly KucoinRestClientFuturesApi _baseClient;
 
-        internal KucoinClientFuturesApiTrading(KucoinClientFuturesApi baseClient)
+        internal KucoinRestClientFuturesApiTrading(KucoinRestClientFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }

@@ -12,9 +12,9 @@ using CryptoExchange.Net.Interfaces;
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
-    /// Futures streams
+    /// Futures socket api
     /// </summary>
-    public interface IKucoinSocketClientFuturesStreams : ISocketApiClient, IDisposable
+    public interface IKucoinSocketClientFuturesApi : ISocketApiClient, IDisposable
     {
         /// <summary>
         /// Subscribe to trade updates

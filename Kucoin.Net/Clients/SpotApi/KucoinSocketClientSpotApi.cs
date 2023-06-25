@@ -16,24 +16,25 @@ using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Authentication;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using System.Linq;
+using Kucoin.Net.Objects.Options;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
-    /// <inheritdoc cref="IKucoinSocketClientSpotStreams" />
-    public class KucoinSocketClientSpotStreams : SocketApiClient, IKucoinSocketClientSpotStreams
+    /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
+    public class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
     {
         private readonly KucoinSocketClient _baseClient;
-        private readonly KucoinSocketClientOptions _options;
 
-        internal KucoinSocketClientSpotStreams(Log log, KucoinSocketClient baseClient, KucoinSocketClientOptions options)
-            : base(log, options, options.SpotStreamsOptions)
+        /// <inheritdoc />
+        public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
+
+        internal KucoinSocketClientSpotApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
+            : base(logger, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             _baseClient = baseClient;
-            _options = options;
 
             SendPeriodic("Ping", TimeSpan.FromSeconds(30), (connection) => new KucoinPing()
             {
@@ -105,7 +106,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 var data = GetData<KucoinStreamSnapshotWrapper>(tokenData)?.Data;
                 if (data == null)
                 {
-                    _log.Write(LogLevel.Warning, "Failed to process snapshot update");
+                    _logger.Log(LogLevel.Warning, "Failed to process snapshot update");
                     return;
                 }
 
@@ -277,7 +278,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         data = GetData<KucoinStreamMatchEngineChangeUpdate>(tokenData);
                         break;
                     default:
-                        _log.Write(LogLevel.Warning, "Unknown match engine update type: " + subject);
+                        _logger.Log(LogLevel.Warning, "Unknown match engine update type: " + subject);
                         return;
                 }
 
@@ -297,7 +298,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
                 if (tokenData.Data["data"] == null || tokenData.Data["data"]!["type"] == null)
                 {
-                    _log.Write(LogLevel.Warning, "Order update without type value");
+                    _logger.Log(LogLevel.Warning, "Order update without type value");
                     return;
                 }
 
@@ -331,7 +332,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 var desResult = Deserialize<KucoinUpdateMessage<KucoinBalanceUpdate>>(data.Data);
                 if (!desResult)
                 {
-                    _log.Write(LogLevel.Warning, "Failed to DeserializeInternal balance update: " + desResult.Error);
+                    _logger.Log(LogLevel.Warning, "Failed to DeserializeInternal balance update: " + desResult.Error);
                     return;
                 }
                 onBalanceChange(data.As(desResult.Data.Data, desResult.Data.Data.Asset));
@@ -358,26 +359,19 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
-            var apiCredentials = (KucoinApiCredentials?)(Options.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketClientOptions.Default.ApiCredentials ?? KucoinClientOptions.Default.ApiCredentials);
-
-            var clientOptions = new KucoinClientOptions(new KucoinClientOptions
+            var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);
+            using (var restClient = new KucoinRestClient((options) =>
             {
-                ApiCredentials = apiCredentials,
-                LogLevel = _options.LogLevel,
-                SpotApiOptions = new KucoinRestApiClientOptions
-                {
-                    BaseAddress = KucoinClientOptions.Default.SpotApiOptions.BaseAddress
-                }
-            });
-
-            using (var restClient = new KucoinClient(clientOptions))
+                options.ApiCredentials = apiCredentials;
+                options.Environment = ClientOptions.Environment;
+            }))
             {
-                WebCallResult<KucoinToken> tokenResult = await ((KucoinClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated).ConfigureAwait(false);
+                WebCallResult<KucoinToken> tokenResult = await ((KucoinRestClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated).ConfigureAwait(false);
                 if (!tokenResult)
                     return tokenResult.As<string?>(null);
 
                 return new CallResult<string?>(tokenResult.Data.Servers.First().Endpoint + "?token=" + tokenResult.Data.Token);
-            }            
+            }
         }
 
         /// <inheritdoc />
@@ -512,14 +506,14 @@ namespace Kucoin.Net.Clients.SpotApi
                 var result = Deserialize<KucoinSubscribeResponse>(message);
                 if (!result)
                 {
-                    _log.Write(LogLevel.Warning, "Failed to unsubscribe: " + result.Error);
+                    _logger.Log(LogLevel.Warning, "Failed to unsubscribe: " + result.Error);
                     success = false;
                     return true;
                 }
 
                 if (result.Data.Type != "ack")
                 {
-                    _log.Write(LogLevel.Warning, "Failed to unsubscribe: " + new ServerError(result.Data.Code, result.Data.Data));
+                    _logger.Log(LogLevel.Warning, "Failed to unsubscribe: " + new ServerError(result.Data.Code, result.Data.Data));
                     success = false;
                     return true;
                 }
@@ -530,7 +524,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return success;
         }
-
 
         internal static void InvokeHandler<T>(T data, Action<T> handler)
         {
@@ -545,7 +538,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var desResult = Deserialize<KucoinUpdateMessage<T>>(tokenData.Data);
             if (!desResult)
             {
-                _log.Write(LogLevel.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
+                _logger.Log(LogLevel.Warning, "Failed to deserialize update: " + desResult.Error + ", data: " + tokenData);
                 return default!;
             }
             return desResult.Data.Data;

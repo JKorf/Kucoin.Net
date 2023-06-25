@@ -12,7 +12,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Kucoin Spot trading high frequency endpoints, placing and mananging orders.
     /// </summary>
-    public interface IKucoinClientSpotApiProAccount
+    public interface IKucoinRestClientSpotApiProAccount
     {
         /// <summary>
         /// Places an order

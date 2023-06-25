@@ -12,7 +12,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Kucoin Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IKucoinClientSpotApiExchangeData
+    public interface IKucoinRestClientSpotApiExchangeData
     {
         /// <summary>
         /// Gets the server time

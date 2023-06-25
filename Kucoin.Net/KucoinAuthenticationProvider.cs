@@ -6,15 +6,15 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Kucoin.Net
 {
-    internal class KucoinAuthenticationProvider : AuthenticationProvider
+    internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinApiCredentials>
     {
         public KucoinAuthenticationProvider(KucoinApiCredentials credentials): base(credentials)
         {
+            if (credentials.CredentialType != ApiCredentialsType.Hmac)
+                throw new Exception("Only Hmac authentication is supported");
         }
 
         public override void AuthenticateRequest(RestApiClient apiClient, Uri uri, HttpMethod method, Dictionary<string, object> providedParameters, bool auth, ArrayParametersSerialization arraySerialization, HttpMethodParameterPosition parameterPosition, out SortedDictionary<string, object> uriParameters, out SortedDictionary<string, object> bodyParameters, out Dictionary<string, string> headers)
@@ -27,9 +27,9 @@ namespace Kucoin.Net
                 return;
 
             uri = uri.SetParameters(uriParameters, arraySerialization);
-            headers.Add("KC-API-KEY", Credentials.Key!.GetString());
+            headers.Add("KC-API-KEY", _credentials.Key!.GetString());
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
-            headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(((KucoinApiCredentials)Credentials).PassPhrase.GetString(), SignOutputType.Base64));
+            headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(_credentials.PassPhrase.GetString(), SignOutputType.Base64));
             headers.Add("KC-API-KEY-VERSION", "2");
 
             var jsonContent = parameterPosition == HttpMethodParameterPosition.InBody ? JsonConvert.SerializeObject(bodyParameters) : string.Empty;

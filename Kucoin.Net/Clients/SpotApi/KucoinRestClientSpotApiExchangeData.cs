@@ -18,11 +18,11 @@ using Kucoin.Net.Objects;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinClientSpotApiExchangeData : IKucoinClientSpotApiExchangeData
+    public class KucoinRestClientSpotApiExchangeData : IKucoinRestClientSpotApiExchangeData
     {
-        private readonly KucoinClientSpotApi _baseClient;
+        private readonly KucoinRestClientSpotApi _baseClient;
 
-        internal KucoinClientSpotApiExchangeData(KucoinClientSpotApi baseClient)
+        internal KucoinRestClientSpotApiExchangeData(KucoinRestClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -40,7 +40,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("market", market);
             // Testnet doesn't support V2
-            var apiVersion = _baseClient.Options.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
+            var apiVersion = _baseClient.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
             return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetUri("symbols", apiVersion), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
 

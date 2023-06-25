@@ -12,18 +12,17 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
-using Kucoin.Net.Objects.Models.Spot;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class KucoinClientFuturesApiAccount : IKucoinClientFuturesApiAccount
+    public class KucoinRestClientFuturesApiAccount : IKucoinRestClientFuturesApiAccount
     {
-        private readonly KucoinClientFuturesApi _baseClient;
+        private readonly KucoinRestClientFuturesApi _baseClient;
 
-        internal KucoinClientFuturesApiAccount(KucoinClientFuturesApi baseClient)
+        internal KucoinRestClientFuturesApiAccount(KucoinRestClientFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }

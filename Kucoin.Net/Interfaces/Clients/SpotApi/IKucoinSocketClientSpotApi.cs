@@ -12,11 +12,10 @@ using Kucoin.Net.Objects.Models.Spot.Socket;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
-
     /// <summary>
-    /// Spot streams
+    /// Spot socket api
     /// </summary>
-    public interface IKucoinSocketClientSpotStreams : ISocketApiClient, IDisposable
+    public interface IKucoinSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

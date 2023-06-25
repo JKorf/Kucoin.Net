@@ -88,7 +88,7 @@ var userTradesResult = await kucoinClient.SpotApi.Trading.GetUserTradesAsync();
 
 ### Subscribing to market data updates
 ```csharp
-var subscribeResult = await kucoinSocketClient.SpotStreams.SubscribeToAllTickerUpdatesAsync(data =>
+var subscribeResult = await kucoinSocketClient.SpotApi.SubscribeToAllTickerUpdatesAsync(data =>
 {
 	// Handle ticker data
 });
@@ -96,7 +96,7 @@ var subscribeResult = await kucoinSocketClient.SpotStreams.SubscribeToAllTickerU
 
 ### Subscribing to order updates
 ```csharp
-var subscribeResult = await kucoinSocketClient.SpotStreams.SubscribeToOrderUpdatesAsync(data =>
+var subscribeResult = await kucoinSocketClient.SpotApi.SubscribeToOrderUpdatesAsync(data =>
 {
 	// Handle order updates
 },
@@ -172,7 +172,7 @@ var userTradesResult = await kucoinClient.FuturesApi.Trading.GetUserTradesAsync(
 ### Subscribing to position updates
 ```csharp
 // Any of the data handler can be passed as `null` to ignore that type of update
-kucoinSocketClient.FuturesStreams.SubscribeToPositionUpdatesAsync("XBTUSDM",
+kucoinSocketClient.FuturesApi.SubscribeToPositionUpdatesAsync("XBTUSDM",
                 data =>
                 {
 					// Handle position updates

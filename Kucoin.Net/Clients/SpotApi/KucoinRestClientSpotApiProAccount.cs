@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinClientSpotApiProAccount : IKucoinClientSpotApiProAccount
+    public class KucoinRestClientSpotApiProAccount : IKucoinRestClientSpotApiProAccount
     {
-        private readonly KucoinClientSpotApi _baseClient;
+        private readonly KucoinRestClientSpotApi _baseClient;
 
-        internal KucoinClientSpotApiProAccount(KucoinClientSpotApi baseClient)
+        internal KucoinRestClientSpotApiProAccount(KucoinRestClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }

@@ -1,15 +1,14 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Internal;
-using Newtonsoft.Json.Linq;
+using Kucoin.Net.Objects.Options;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +16,21 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.SpotApi
+namespace Kucoin.Net.Clients.FuturesApi
 {
-    /// <inheritdoc cref="IKucoinClientSpotApi" />
-    public class KucoinClientSpotApi : RestApiClient, IKucoinClientSpotApi, ISpotClient
+    /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
+    public class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
     {
-        internal static TimeSyncState TimeSyncState = new TimeSyncState("Spot Api");
+        private readonly KucoinRestClient _baseClient;
+        private readonly KucoinRestOptions _options;
+
+        internal static TimeSyncState TimeSyncState = new TimeSyncState("Futures Api");
 
         /// <summary>
         /// Event triggered when an order is placed via this client. Only available for Spot orders
         /// </summary>
         public event Action<OrderId>? OnOrderPlaced;
+
         /// <summary>
         /// Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
         /// </summary>
@@ -37,25 +40,23 @@ namespace Kucoin.Net.Clients.SpotApi
         public string ExchangeName => "Kucoin";
 
         /// <inheritdoc />
-        public IKucoinClientSpotApiAccount Account { get; }
+        public IKucoinRestClientFuturesApiAccount Account { get; }
 
         /// <inheritdoc />
-        public IKucoinClientSpotApiExchangeData ExchangeData { get; }
+        public IKucoinRestClientFuturesApiExchangeData ExchangeData { get; }
 
         /// <inheritdoc />
-        public IKucoinClientSpotApiTrading Trading { get; }
+        public IKucoinRestClientFuturesApiTrading Trading { get; }
 
-        /// <inheritdoc />
-        public IKucoinClientSpotApiProAccount ProAccount { get; }
-
-
-        internal KucoinClientSpotApi(Log log, KucoinClient baseClient, KucoinClientOptions options)
-            : base(log, options, options.SpotApiOptions)
+        internal KucoinRestClientFuturesApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
+            : base(logger, httpClient, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
-            Account = new KucoinClientSpotApiAccount(this);
-            ExchangeData = new KucoinClientSpotApiExchangeData(this);
-            Trading = new KucoinClientSpotApiTrading(this);
-            ProAccount = new KucoinClientSpotApiProAccount(this);
+            _baseClient = baseClient;
+            _options = options;
+
+            Account = new KucoinRestClientFuturesApiAccount(this);
+            ExchangeData = new KucoinRestClientFuturesApiExchangeData(this);
+            Trading = new KucoinRestClientFuturesApiTrading(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
@@ -64,7 +65,46 @@ namespace Kucoin.Net.Clients.SpotApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
-        #region common interface
+        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
+        {
+            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition).ConfigureAwait(false);
+            if (!result)
+                return result.AsDatalessError(result.Error!);
+
+            if (result.Data.Code != 200000)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return result.AsDataless();
+        }
+
+        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
+        {
+            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<T>(result.Error!);
+
+            if (result.Data.Code != 200000)
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return result.As(result.Data.Data);
+        }
+
+        internal Uri GetUri(string path, int apiVersion = 1)
+        {
+            return new Uri(BaseAddress.AppendPath("api").AppendPath("v" + apiVersion, path));
+        }
+
+        /// <inheritdoc />
+        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+            => ExchangeData.GetServerTimeAsync();
+
+        /// <inheritdoc />
+        public override TimeSyncInfo? GetTimeSyncInfo()
+            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), TimeSyncState);
+
+        /// <inheritdoc />
+        public override TimeSpan? GetTimeOffset()
+            => TimeSyncState.TimeOffset;
 
         /// <summary>
         /// Return the Kucoin trade symbol name from base and quote asset 
@@ -73,10 +113,10 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <param name="quoteAsset"></param>
         /// <returns></returns>
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + "-" + quoteAsset).ToUpperInvariant();
-
+        
         async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
@@ -84,49 +124,41 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 SourceObject = d,
                 Name = d.Symbol,
-                MinTradeQuantity = d.BaseMinQuantity,
-                PriceStep = d.PriceIncrement,
-                QuantityStep = d.BaseIncrement
+                MinTradeQuantity = d.LotSize,
+                QuantityStep = d.LotSize,
+                PriceStep = d.TickSize
             }));
         }
 
         async Task<WebCallResult<Ticker>> IBaseRestClient.GetTickerAsync(string symbol, CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
-            if (!symbols)
-                return symbols.As<Ticker>(null);
+            var ticker = await ExchangeData.GetContractAsync(symbol, ct: ct).ConfigureAwait(false);
+            if (!ticker)
+                return ticker.As<Ticker>(null);
 
-            var ticker = symbols.Data.Data.SingleOrDefault(s => s.Symbol == symbol);
-            if (ticker == null)
-                return symbols.AsError<Ticker>(new ArgumentError("Symbol not found"));
-
-            return symbols.As(new Ticker
+            return ticker.As(new Ticker
             {
                 SourceObject = ticker,
-                HighPrice = ticker.HighPrice,
-                LastPrice = ticker.LastPrice,
-                LowPrice = ticker.LowPrice,
-                Price24H = ticker.LastPrice - ticker.ChangePrice,
-                Symbol = ticker.Symbol,
-                Volume = ticker.Volume
+                HighPrice = ticker.Data.HighPrice,
+                LowPrice = ticker.Data.LowPrice,
+                Symbol = ticker.Data.Symbol,
+                Volume = ticker.Data.Volume24H
             });
         }
 
         async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Ticker>>(null);
 
-            return symbols.As(symbols.Data.Data.Select(t => new Ticker
+            return symbols.As(symbols.Data.Select(t => new Ticker
             {
                 SourceObject = t,
                 HighPrice = t.HighPrice,
-                LastPrice = t.LastPrice,
-                LowPrice = t.LowPrice,
-                Price24H = t.LastPrice - t.ChangePrice,
+                LowPrice = t.LowPrice,                
                 Symbol = t.Symbol,
-                Volume = t.Volume
+                Volume = t.Volume24H
             }));
         }
 
@@ -153,7 +185,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<OrderBook>> IBaseRestClient.GetOrderBookAsync(string symbol, CancellationToken ct)
         {
-            var book = await ExchangeData.GetAggregatedFullOrderBookAsync(symbol, ct: ct).ConfigureAwait(false);
+            var book = await ExchangeData.GetAggregatedPartialOrderBookAsync(symbol, 100, ct: ct).ConfigureAwait(false);
             if (!book)
                 return book.As<OrderBook>(null);
 
@@ -181,17 +213,23 @@ namespace Kucoin.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price, string? accountId, string? clientOrderId, CancellationToken ct)
+        async Task<WebCallResult<OrderId>> IFuturesClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price, int? leverage, string? accountId, string? clientOrderId, CancellationToken ct)
         {
+            if (!leverage.HasValue)
+                throw new ArgumentException($"Kucoin required the {nameof(leverage)} parameter for {nameof(IFuturesClient.PlaceOrderAsync)}");
+
             var order = await Trading.PlaceOrderAsync(symbol,
                 side == CommonOrderSide.Sell ? OrderSide.Sell : OrderSide.Buy,
                 type == CommonOrderType.Limit ? NewOrderType.Limit : NewOrderType.Market,
-                quantity,
-                price,
+                leverage.Value,
+                (int)quantity,
+                price, 
                 clientOrderId: clientOrderId,
-                ct: ct).ConfigureAwait(false);
-            if (!order)
-                return order.As<OrderId>(null);
+                ct: ct
+                ).ConfigureAwait(false);
+
+            if(!order)
+                return order.As<OrderId> (null);
 
             return order.As(new OrderId
             {
@@ -243,7 +281,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol, CancellationToken ct)
         {
-            var orders = await Trading.GetOrdersAsync(status: Enums.OrderStatus.Active, ct: ct).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(status: OrderStatus.Active, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
@@ -264,7 +302,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol, CancellationToken ct)
         {
-            var orders = await Trading.GetOrdersAsync(status: Enums.OrderStatus.Done, ct: ct).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(status: OrderStatus.Done, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
@@ -301,37 +339,63 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<Balance>>> IBaseRestClient.GetBalancesAsync(string? accountId, CancellationToken ct)
         {
-            var result = await Account.GetAccountsAsync(ct: ct).ConfigureAwait(false);
+            var result = await Account.GetAccountOverviewAsync(ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<IEnumerable<Balance>>(null);
 
-            return result.As(result.Data.Select(b => new Balance
+            return result.As<IEnumerable<Balance>>(new List<Balance> { new Balance
             {
-                SourceObject = b,
-                Asset = b.Asset,
-                Available = b.Available,
-                Total = b.Total
+                Asset = result.Data.Asset,
+                Available = result.Data.AvailableBalance,
+                Total = result.Data.FrozenFunds + result.Data.AvailableBalance,
+                SourceObject = result.Data
+            } });
+        }
+
+        async Task<WebCallResult<IEnumerable<Position>>> IFuturesClient.GetPositionsAsync(CancellationToken ct)
+        {
+            var positions = await Account.GetPositionsAsync(ct: ct).ConfigureAwait(false);
+            if (!positions)
+                return positions.As<IEnumerable<Position>>(null);
+
+            return positions.As(positions.Data.Select(p => new Position
+            {
+                SourceObject = p,
+                Id = p.Id,
+                AutoMargin = p.AutoDeposit,
+                Leverage = p.RealLeverage,
+                Quantity = p.CurrentQuantity,
+                Symbol = p.Symbol,
+                LiquidationPrice = p.LiquidationPrice,
+                MaintananceMargin = p.MaintenanceMargin,
+                PositionMargin = p.PositionMargin,
+                UnrealizedPnl = p.UnrealizedPnl,
+                RealizedPnl = p.RealizedPnl,
+                MarkPrice = p.MarkPrice,
+                Isolated = !p.CrossMode,
+                EntryPrice = p.AverageEntryPrice
             }));
         }
 
-        private static KlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
+        /// <inheritdoc />
+        public IFuturesClient CommonFuturesClient => this;
+
+        private static FuturesKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
         {
-            if (timeSpan == TimeSpan.FromMinutes(1)) return KlineInterval.OneMinute;
-            if (timeSpan == TimeSpan.FromMinutes(5)) return KlineInterval.FiveMinutes;
-            if (timeSpan == TimeSpan.FromMinutes(15)) return KlineInterval.FifteenMinutes;
-            if (timeSpan == TimeSpan.FromMinutes(30)) return KlineInterval.ThirtyMinutes;
-            if (timeSpan == TimeSpan.FromHours(1)) return KlineInterval.OneHour;
-            if (timeSpan == TimeSpan.FromHours(2)) return KlineInterval.TwoHours;
-            if (timeSpan == TimeSpan.FromHours(4)) return KlineInterval.FourHours;
-            if (timeSpan == TimeSpan.FromHours(6)) return KlineInterval.SixHours;
-            if (timeSpan == TimeSpan.FromHours(8)) return KlineInterval.EightHours;
-            if (timeSpan == TimeSpan.FromHours(12)) return KlineInterval.TwelveHours;
-            if (timeSpan == TimeSpan.FromDays(1)) return KlineInterval.OneDay;
-            if (timeSpan == TimeSpan.FromDays(7)) return KlineInterval.OneWeek;
+            if (timeSpan == TimeSpan.FromMinutes(1)) return FuturesKlineInterval.OneMinute;
+            if (timeSpan == TimeSpan.FromMinutes(5)) return FuturesKlineInterval.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return FuturesKlineInterval.FifteenMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(30)) return FuturesKlineInterval.ThirtyMinutes;
+            if (timeSpan == TimeSpan.FromHours(1)) return FuturesKlineInterval.OneHour;
+            if (timeSpan == TimeSpan.FromHours(2)) return FuturesKlineInterval.TwoHours;
+            if (timeSpan == TimeSpan.FromHours(4)) return FuturesKlineInterval.FourHours;
+            if (timeSpan == TimeSpan.FromHours(8)) return FuturesKlineInterval.EightHours;
+            if (timeSpan == TimeSpan.FromHours(12)) return FuturesKlineInterval.TwelveHours;
+            if (timeSpan == TimeSpan.FromDays(1)) return FuturesKlineInterval.OneDay;
+            if (timeSpan == TimeSpan.FromDays(7)) return FuturesKlineInterval.OneWeek;
 
             throw new ArgumentException("Unsupported timespan for Kucoin kline interval, check supported intervals using Kucoin.Net.Objects.KucoinKlineInterval");
         }
-        #endregion
 
         internal void InvokeOrderPlaced(OrderId id)
         {
@@ -342,72 +406,5 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             OnOrderCanceled?.Invoke(id);
         }
-
-        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
-        {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition).ConfigureAwait(false);
-            if (!result)
-                return result.AsDatalessError(result.Error!);
-
-            if (result.Data.Code != 200000)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
-
-            return result.AsDataless();
-        }
-
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
-        {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
-            if (!result)
-                return result.AsError<T>(result.Error!);
-
-            if (result.Data.Code != 200000)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
-
-            return result.As(result.Data.Data);
-        }
-
-        internal Uri GetUri(string path, int apiVersion = 1)
-        {
-            return new Uri(BaseAddress.AppendPath("v" + apiVersion, path));
-        }
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(JToken error)
-        {
-            if (!error.HasValues)
-            {
-                var errorBody = error.ToString();
-                return new ServerError(string.IsNullOrEmpty(errorBody) ? "Unknown error" : errorBody);
-            }
-
-            if (error["code"] != null && error["msg"] != null)
-            {
-                var result = error.ToObject<KucoinResult<object>>();
-                if (result == null)
-                    return new ServerError(error["msg"]!.ToString());
-
-                return new ServerError(result.Code, result.Message!);
-            }
-
-            return new ServerError(error.ToString());
-        }
-
-
-
-        /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
-            => ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_log, Options.AutoTimestamp, Options.TimestampRecalculationInterval, TimeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => TimeSyncState.TimeOffset;
-
-        /// <inheritdoc />
-        public ISpotClient CommonSpotClient => this;
     }
 }

@@ -13,7 +13,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Kucoin Futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
     /// </summary>
-    public interface IKucoinClientFuturesApiAccount
+    public interface IKucoinRestClientFuturesApiAccount
     {
         /// <summary>
         /// Gets account overview

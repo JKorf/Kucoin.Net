@@ -12,7 +12,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Kucoin Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IKucoinClientFuturesApiExchangeData
+    public interface IKucoinRestClientFuturesApiExchangeData
     {
         /// <summary>
         /// Get open contract list

@@ -19,11 +19,11 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinClientSpotApiTrading : IKucoinClientSpotApiTrading
+    public class KucoinRestClientSpotApiTrading : IKucoinRestClientSpotApiTrading
     {
-        private readonly KucoinClientSpotApi _baseClient;
+        private readonly KucoinRestClientSpotApi _baseClient;
 
-        internal KucoinClientSpotApiTrading(KucoinClientSpotApi baseClient)
+        internal KucoinRestClientSpotApiTrading(KucoinRestClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }

@@ -22,7 +22,7 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient(new KucoinClientOptions());
+            var client = TestHelpers.CreateClient();
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
@@ -30,7 +30,7 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj));
+            TestHelpers.SetResponse((KucoinRestClient)client, JsonConvert.SerializeObject(resultObj));
 
             // act
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
@@ -46,8 +46,8 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient(new KucoinClientOptions());
-            TestHelpers.SetResponse((KucoinClient)client, "", System.Net.HttpStatusCode.BadRequest);
+            var client = TestHelpers.CreateClient();
+            TestHelpers.SetResponse((KucoinRestClient)client, "", System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
@@ -61,7 +61,7 @@ namespace Kucoin.Net.UnitTests
         public async Task ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
         {
             // arrange
-            var client = TestHelpers.CreateClient(new KucoinClientOptions());
+            var client = TestHelpers.CreateClient();
             var resultObj = new KucoinResult<object>()
             {
                 Code = 400001,
@@ -69,7 +69,7 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((KucoinClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+            TestHelpers.SetResponse((KucoinRestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
@@ -102,7 +102,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public void CheckRestInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(KucoinClient));
+            var assembly = Assembly.GetAssembly(typeof(KucoinRestClient));
             var ignore = new string[] { "IKucoinClientSpot" };
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinClientSpot") && !ignore.Contains(t.Name));
 
@@ -123,7 +123,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public void CheckSocketInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotStreams));
+            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotApi));
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinSocketClientSpot"));
 
             foreach (var clientInterface in clientInterfaces)

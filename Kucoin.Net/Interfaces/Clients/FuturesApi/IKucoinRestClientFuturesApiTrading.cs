@@ -13,7 +13,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Kucoin Futures trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IKucoinClientFuturesApiTrading
+    public interface IKucoinRestClientFuturesApiTrading
     {
         /// <summary>
         /// Place a new order
