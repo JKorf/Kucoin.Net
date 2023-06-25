@@ -1,11 +1,11 @@
 ---
-title: IKucoinClientFuturesApiTrading
+title: IKucoinRestClientFuturesApiTrading
 has_children: false
 parent: IKucoinClientFuturesApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > FuturesApi > Trading`  
+`KucoinClient > FuturesApi > IKucoinRestClientTrading`  
 *Kucoin Futures trading endpoints, placing and mananging orders.*
   
 
@@ -20,7 +20,7 @@ grand_parent: Rest API documentation
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.CancelAllOrdersAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.CancelAllOrdersAsync();  
 ```  
 
 ```csharp  
@@ -45,7 +45,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.CancelAllStopOrdersAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.CancelAllStopOrdersAsync();  
 ```  
 
 ```csharp  
@@ -70,7 +70,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbo
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.CancelOrderAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientTrading.CancelOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -95,7 +95,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, Cance
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetClosedOrdersAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetClosedOrdersAsync();  
 ```  
 
 ```csharp  
@@ -120,7 +120,7 @@ Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetOrderAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -145,7 +145,7 @@ Task<WebCallResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, Cancellati
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetOrderByClientOrderIdAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -170,7 +170,7 @@ Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clie
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetOrdersAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetOrdersAsync();  
 ```  
 
 ```csharp  
@@ -202,7 +202,7 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetRecentUserTradesAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetRecentUserTradesAsync();  
 ```  
 
 ```csharp  
@@ -226,7 +226,7 @@ Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsyn
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetUntriggeredStopOrdersAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetUntriggeredStopOrdersAsync();  
 ```  
 
 ```csharp  
@@ -257,7 +257,7 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrder
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.GetUserTradesAsync();  
+var result = await client.FuturesApi.IKucoinRestClientTrading.GetUserTradesAsync();  
 ```  
 
 ```csharp  
@@ -289,7 +289,7 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Trading.PlaceOrderAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientTrading.PlaceOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  

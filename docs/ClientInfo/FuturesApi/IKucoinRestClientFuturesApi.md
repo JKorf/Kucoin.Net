@@ -1,10 +1,11 @@
 ---
-title: IKucoinClientFuturesApi
+title: IKucoinRestClientFuturesApi
 has_children: true
-parent: Rest API documentation
+parent: IKucoinClientFuturesApi
+grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > FuturesApi`  
+`KucoinClient > FuturesApi > IKucoinRestClient`  
 *Client for accessing the Kucoin Futures API.*
   
 ***
@@ -12,10 +13,10 @@ parent: Rest API documentation
 **IFuturesClient CommonFuturesClient { get; }**  
 ***
 *Endpoints related to account settings, info or actions*  
-**[IKucoinClientFuturesApiAccount](IKucoinClientFuturesApiAccount.html) Account { get; }**  
+**IKucoinRestClientFuturesApiAccount Account { get; }**  
 ***
 *Endpoints related to retrieving market and system data*  
-**[IKucoinClientFuturesApiExchangeData](IKucoinClientFuturesApiExchangeData.html) ExchangeData { get; }**  
+**IKucoinRestClientFuturesApiExchangeData ExchangeData { get; }**  
 ***
 *Endpoints related to orders and trades*  
-**[IKucoinClientFuturesApiTrading](IKucoinClientFuturesApiTrading.html) Trading { get; }**  
+**IKucoinRestClientFuturesApiTrading Trading { get; }**  

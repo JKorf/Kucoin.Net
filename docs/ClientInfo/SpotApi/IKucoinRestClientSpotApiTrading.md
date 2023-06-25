@@ -1,11 +1,11 @@
 ---
-title: IKucoinClientSpotApiTrading
+title: IKucoinRestClientSpotApiTrading
 has_children: false
 parent: IKucoinClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > SpotApi > Trading`  
+`KucoinClient > SpotApi > IKucoinRestClientTrading`  
 *Kucoin Spot trading endpoints, placing and mananging orders.*
   
 
@@ -20,7 +20,7 @@ grand_parent: Rest API documentation
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelAllOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelAllOrdersAsync();  
 ```  
 
 ```csharp  
@@ -46,7 +46,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelLendOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelLendOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -71,7 +71,7 @@ Task<WebCallResult> CancelLendOrderAsync(string orderId, CancellationToken ct = 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -96,7 +96,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, Cance
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelOrderByClientOrderIdAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -121,7 +121,7 @@ Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelStopOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelStopOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -146,7 +146,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelStopOrderAsync(string orderId, C
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelStopOrderByClientOrderIdAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelStopOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -171,7 +171,7 @@ Task<WebCallResult<KucoinCanceledOrder>> CancelStopOrderByClientOrderIdAsync(str
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.CancelStopOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.CancelStopOrdersAsync();  
 ```  
 
 ```csharp  
@@ -198,7 +198,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelStopOrdersAsync(string? symbol =
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetBorrowOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetBorrowOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -223,7 +223,7 @@ Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, Cance
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetClosedBorrowRecordsAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetClosedBorrowRecordsAsync();  
 ```  
 
 ```csharp  
@@ -250,7 +250,7 @@ Task<WebCallResult<KucoinPaginated<KucoinBorrowRecord>>> GetClosedBorrowRecordsA
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetClosedLendOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetClosedLendOrdersAsync();  
 ```  
 
 ```csharp  
@@ -277,7 +277,7 @@ Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetClosedLendOrdersAsync(s
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetClosedLendsAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetClosedLendsAsync();  
 ```  
 
 ```csharp  
@@ -304,7 +304,7 @@ Task<WebCallResult<KucoinPaginated<KucoinClosedLend>>> GetClosedLendsAsync(strin
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetHistoricalOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetHistoricalOrdersAsync();  
 ```  
 
 ```csharp  
@@ -334,7 +334,7 @@ Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersA
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetIsolatedClosedBorrowRecordsAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetIsolatedClosedBorrowRecordsAsync();  
 ```  
 
 ```csharp  
@@ -362,7 +362,7 @@ Task<WebCallResult<KucoinPaginated<KucoinIsolatedClosedBorrowRecord>>> GetIsolat
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetIsolatedOpenBorrowRecordsAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetIsolatedOpenBorrowRecordsAsync();  
 ```  
 
 ```csharp  
@@ -390,7 +390,7 @@ Task<WebCallResult<KucoinPaginated<KucoinIsolatedOpenBorrowRecord>>> GetIsolated
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetLendingStatusAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetLendingStatusAsync();  
 ```  
 
 ```csharp  
@@ -415,7 +415,7 @@ Task<WebCallResult<IEnumerable<KucoinLendHistory>>> GetLendingStatusAsync(string
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetOpenBorrowRecordsAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetOpenBorrowRecordsAsync();  
 ```  
 
 ```csharp  
@@ -442,7 +442,7 @@ Task<WebCallResult<KucoinPaginated<KucoinRepayRecord>>> GetOpenBorrowRecordsAsyn
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetOpenLendOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetOpenLendOrdersAsync();  
 ```  
 
 ```csharp  
@@ -469,7 +469,7 @@ Task<WebCallResult<KucoinPaginated<KucoinLendOrder>>> GetOpenLendOrdersAsync(str
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetOpenLendsAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetOpenLendsAsync();  
 ```  
 
 ```csharp  
@@ -496,7 +496,7 @@ Task<WebCallResult<KucoinPaginated<KucoinOpenLend>>> GetOpenLendsAsync(string? a
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -521,7 +521,7 @@ Task<WebCallResult<KucoinOrder>> GetOrderAsync(string orderId, CancellationToken
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetOrderByClientOrderIdAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -546,7 +546,7 @@ Task<WebCallResult<KucoinOrder>> GetOrderByClientOrderIdAsync(string clientOrder
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetOrdersAsync();  
 ```  
 
 ```csharp  
@@ -579,7 +579,7 @@ Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetRecentOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetRecentOrdersAsync();  
 ```  
 
 ```csharp  
@@ -603,7 +603,7 @@ Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationT
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetRecentUserTradesAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetRecentUserTradesAsync();  
 ```  
 
 ```csharp  
@@ -627,7 +627,7 @@ Task<WebCallResult<IEnumerable<KucoinUserTrade>>> GetRecentUserTradesAsync(Cance
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetStopOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetStopOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -652,7 +652,7 @@ Task<WebCallResult<KucoinStopOrder>> GetStopOrderAsync(string orderId, Cancellat
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetStopOrderByClientOrderIdAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetStopOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -677,7 +677,7 @@ Task<WebCallResult<IEnumerable<KucoinStopOrder>>> GetStopOrderByClientOrderIdAsy
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetStopOrdersAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetStopOrdersAsync();  
 ```  
 
 ```csharp  
@@ -711,7 +711,7 @@ Task<WebCallResult<KucoinPaginated<KucoinStopOrder>>> GetStopOrdersAsync(bool? a
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.GetUserTradesAsync();  
+var result = await client.SpotApi.IKucoinRestClientTrading.GetUserTradesAsync();  
 ```  
 
 ```csharp  
@@ -744,7 +744,7 @@ Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string?
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceBorrowOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceBorrowOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -773,7 +773,7 @@ Task<WebCallResult<KucoinNewBorrowOrder>> PlaceBorrowOrderAsync(string asset, Bo
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceBulkOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceBulkOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -799,7 +799,7 @@ Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceIsolatedBorrowOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceIsolatedBorrowOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -829,7 +829,7 @@ Task<WebCallResult<KucoinNewIsolatedBorrowOrder>> PlaceIsolatedBorrowOrderAsync(
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceLendOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceLendOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -857,7 +857,7 @@ Task<WebCallResult<KucoinNewOrder>> PlaceLendOrderAsync(string asset, decimal qu
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceMarginOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceMarginOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -898,7 +898,7 @@ Task<WebCallResult<KucoinNewMarginOrder>> PlaceMarginOrderAsync(string symbol, O
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -937,7 +937,7 @@ Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(string symbol, OrderSide sid
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.PlaceStopOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.PlaceStopOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -979,7 +979,7 @@ Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(string symbol, OrderSide
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.RepayAllAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.RepayAllAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -1006,7 +1006,7 @@ Task<WebCallResult> RepayAllAsync(string asset, RepaymentStrategy strategy, deci
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.RepayAllIsolatedAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.RepayAllIsolatedAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -1034,7 +1034,7 @@ Task<WebCallResult> RepayAllIsolatedAsync(string symbol, string asset, Repayment
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.RepaySingleBorrowOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.RepaySingleBorrowOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -1061,7 +1061,7 @@ Task<WebCallResult> RepaySingleBorrowOrderAsync(string asset, string tradeId, de
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.RepaySingleIsolatedBorrowOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.RepaySingleIsolatedBorrowOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -1089,7 +1089,7 @@ Task<WebCallResult> RepaySingleIsolatedBorrowOrderAsync(string symbol, string as
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Trading.SetAutoLendAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientTrading.SetAutoLendAsync(/* parameters */);  
 ```  
 
 ```csharp  

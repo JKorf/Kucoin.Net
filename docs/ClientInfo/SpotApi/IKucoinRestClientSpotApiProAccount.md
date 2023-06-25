@@ -1,11 +1,11 @@
 ---
-title: IKucoinClientSpotApiProAccount
+title: IKucoinRestClientSpotApiProAccount
 has_children: false
 parent: IKucoinClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > SpotApi > ProAccount`  
+`KucoinClient > SpotApi > IKucoinRestClientProAccount`  
 *Kucoin Spot trading high frequency endpoints, placing and mananging orders.*
   
 
@@ -20,7 +20,7 @@ grand_parent: Rest API documentation
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.ProAccount.CancelOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientProAccount.CancelOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -46,7 +46,7 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, strin
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.ProAccount.GetOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientProAccount.GetOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -72,7 +72,7 @@ Task<WebCallResult<KucoinOrderHighFrequency>> GetOrderAsync(string orderId, stri
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.ProAccount.PlaceOrderAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientProAccount.PlaceOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  

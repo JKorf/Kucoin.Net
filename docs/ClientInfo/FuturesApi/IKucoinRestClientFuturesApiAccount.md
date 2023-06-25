@@ -1,11 +1,11 @@
 ---
-title: IKucoinClientFuturesApiAccount
+title: IKucoinRestClientFuturesApiAccount
 has_children: false
 parent: IKucoinClientFuturesApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > FuturesApi > Account`  
+`KucoinClient > FuturesApi > IKucoinRestClientAccount`  
 *Kucoin Futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings*
   
 
@@ -20,7 +20,7 @@ grand_parent: Rest API documentation
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.AddMarginAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.AddMarginAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -47,7 +47,7 @@ Task<WebCallResult> AddMarginAsync(string symbol, decimal quantity, string? clie
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.CancelTransferToMainAccountAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.CancelTransferToMainAccountAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -72,7 +72,7 @@ Task<WebCallResult> CancelTransferToMainAccountAsync(string applyId, Cancellatio
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetAccountOverviewAsync();  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetAccountOverviewAsync();  
 ```  
 
 ```csharp  
@@ -97,7 +97,7 @@ Task<WebCallResult<KucoinAccountOverview>> GetAccountOverviewAsync(string? asset
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetFundingHistoryAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetFundingHistoryAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -127,7 +127,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinFundingItem>>> GetFundingHistoryA
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetOpenOrderValueAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetOpenOrderValueAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -152,7 +152,7 @@ Task<WebCallResult<KucoinOrderValuation>> GetOpenOrderValueAsync(string symbol, 
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetPositionAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetPositionAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -177,7 +177,7 @@ Task<WebCallResult<KucoinPosition>> GetPositionAsync(string symbol, Cancellation
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetPositionsAsync();  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetPositionsAsync();  
 ```  
 
 ```csharp  
@@ -201,7 +201,7 @@ Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(string? asset
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetRiskLimitLevelAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetRiskLimitLevelAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -226,7 +226,7 @@ Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRisk
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetTransactionHistoryAsync();  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetTransactionHistoryAsync();  
 ```  
 
 ```csharp  
@@ -257,7 +257,7 @@ Task<WebCallResult<KucoinPaginatedSlider<KucoinAccountTransaction>>> GetTransact
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.GetTransferToMainAccountHistoryAsync();  
+var result = await client.FuturesApi.IKucoinRestClientAccount.GetTransferToMainAccountHistoryAsync();  
 ```  
 
 ```csharp  
@@ -286,7 +286,7 @@ Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHis
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.SetRiskLimitLevelAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.SetRiskLimitLevelAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -312,7 +312,7 @@ Task<WebCallResult<bool>> SetRiskLimitLevelAsync(string symbol, int level, Cance
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.ToggleAutoDepositMarginAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.ToggleAutoDepositMarginAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -338,7 +338,7 @@ Task<WebCallResult> ToggleAutoDepositMarginAsync(string symbol, bool enabled, Ca
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.TransferToFuturesAccountAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.TransferToFuturesAccountAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -365,7 +365,7 @@ Task<WebCallResult> TransferToFuturesAccountAsync(string asset, decimal quantity
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.FuturesApi.Account.TransferToMainAccountAsync(/* parameters */);  
+var result = await client.FuturesApi.IKucoinRestClientAccount.TransferToMainAccountAsync(/* parameters */);  
 ```  
 
 ```csharp  

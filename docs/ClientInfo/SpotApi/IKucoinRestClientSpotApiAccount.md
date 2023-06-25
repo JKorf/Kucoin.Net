@@ -1,11 +1,11 @@
 ---
-title: IKucoinClientSpotApiAccount
+title: IKucoinRestClientSpotApiAccount
 has_children: false
 parent: IKucoinClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > SpotApi > Account`  
+`KucoinClient > SpotApi > IKucoinRestClientAccount`  
 *Kucoin Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings*
   
 
@@ -20,7 +20,7 @@ grand_parent: Rest API documentation
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.CancelWithdrawalAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.CancelWithdrawalAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -45,7 +45,7 @@ Task<WebCallResult<object>> CancelWithdrawalAsync(string withdrawalId, Cancellat
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.CreateDepositAddressAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.CreateDepositAddressAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -71,7 +71,7 @@ Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string asset
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetAccountAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetAccountAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -96,7 +96,7 @@ Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, Cance
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetAccountLedgerAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetAccountLedgerAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -125,7 +125,7 @@ Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsyn
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetAccountLedgersAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetAccountLedgersAsync();  
 ```  
 
 ```csharp  
@@ -156,7 +156,7 @@ Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsy
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetAccountsAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetAccountsAsync();  
 ```  
 
 ```csharp  
@@ -182,7 +182,7 @@ Task<WebCallResult<IEnumerable<KucoinAccount>>> GetAccountsAsync(string? asset =
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetBasicUserFeeAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetBasicUserFeeAsync();  
 ```  
 
 ```csharp  
@@ -207,7 +207,7 @@ Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = d
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetDepositAddressAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetDepositAddressAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -233,7 +233,7 @@ Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string asset, s
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetDepositAddressesAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetDepositAddressesAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -258,7 +258,7 @@ Task<WebCallResult<IEnumerable<KucoinDepositAddress>>> GetDepositAddressesAsync(
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetDepositsAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetDepositsAsync();  
 ```  
 
 ```csharp  
@@ -288,7 +288,7 @@ Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositsAsync(string? ass
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetHistoricalDepositsAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetHistoricalDepositsAsync();  
 ```  
 
 ```csharp  
@@ -318,7 +318,7 @@ Task<WebCallResult<KucoinPaginated<KucoinHistoricalDeposit>>> GetHistoricalDepos
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetHistoricalWithdrawalsAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetHistoricalWithdrawalsAsync();  
 ```  
 
 ```csharp  
@@ -348,7 +348,7 @@ Task<WebCallResult<KucoinPaginated<KucoinHistoricalWithdrawal>>> GetHistoricalWi
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetIsolatedMarginAccountAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetIsolatedMarginAccountAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -373,7 +373,7 @@ Task<WebCallResult<KucoinIsolatedMarginAccount>> GetIsolatedMarginAccountAsync(s
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetIsolatedMarginAccountsAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetIsolatedMarginAccountsAsync();  
 ```  
 
 ```csharp  
@@ -397,7 +397,7 @@ Task<WebCallResult<KucoinIsolatedMarginAccountsInfo>> GetIsolatedMarginAccountsA
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetMarginAccountAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetMarginAccountAsync();  
 ```  
 
 ```csharp  
@@ -421,7 +421,7 @@ Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetRiskLimitCrossMarginAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetRiskLimitCrossMarginAsync();  
 ```  
 
 ```csharp  
@@ -445,7 +445,7 @@ Task<WebCallResult<IEnumerable<KucoinRiskLimitCrossMargin>>> GetRiskLimitCrossMa
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetRiskLimitIsolatedMarginAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetRiskLimitIsolatedMarginAsync();  
 ```  
 
 ```csharp  
@@ -469,7 +469,7 @@ Task<WebCallResult<IEnumerable<KucoinRiskLimitIsolatedMargin>>> GetRiskLimitIsol
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetSymbolTradingFeesAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetSymbolTradingFeesAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -494,7 +494,7 @@ Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(strin
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetSymbolTradingFeesAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetSymbolTradingFeesAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -519,7 +519,7 @@ Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(IEnum
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetTransferableAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetTransferableAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -545,7 +545,7 @@ Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetUserInfoAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetUserInfoAsync();  
 ```  
 
 ```csharp  
@@ -569,7 +569,7 @@ Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetUserInfoAsync(CancellationTok
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetWithdrawalQuotasAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetWithdrawalQuotasAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -595,7 +595,7 @@ Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string asset
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.GetWithdrawalsAsync();  
+var result = await client.SpotApi.IKucoinRestClientAccount.GetWithdrawalsAsync();  
 ```  
 
 ```csharp  
@@ -625,7 +625,7 @@ Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawalsAsync(strin
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.InnerTransferAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.InnerTransferAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -656,7 +656,7 @@ Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, Accoun
 
 ```csharp  
 var client = new KucoinClient();  
-var result = await client.SpotApi.Account.WithdrawAsync(/* parameters */);  
+var result = await client.SpotApi.IKucoinRestClientAccount.WithdrawAsync(/* parameters */);  
 ```  
 
 ```csharp  

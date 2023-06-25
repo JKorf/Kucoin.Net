@@ -7,11 +7,11 @@ has_children: true
 *Client for accessing the Kucoin websocket API.*
   
 ***
-*Futures streams*  
-**[IKucoinSocketClientFuturesStreams](FuturesApi/IKucoinSocketClientFuturesStreams.html) FuturesStreams { get; }**  
+*Futures socket api*  
+**[IKucoinSocketClientFuturesApi](FuturesApi/IKucoinSocketClientFuturesApi.html) FuturesApi { get; }**  
 ***
 *Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.*  
 **void SetApiCredentials(KucoinApiCredentials credentials);**  
 ***
-*Spot streams*  
-**[IKucoinSocketClientSpotStreams](SpotApi/IKucoinSocketClientSpotStreams.html) SpotStreams { get; }**  
+*Spot socket api*  
+**[IKucoinSocketClientSpotApi](SpotApi/IKucoinSocketClientSpotApi.html) SpotApi { get; }**  
