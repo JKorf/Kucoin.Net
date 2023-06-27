@@ -1,10 +1,10 @@
 ---
 title: IKucoinSocketClientSpotApi
 has_children: true
-parent: Rest API documentation
+parent: Socket API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > SpotApi`  
+`KucoinSocketClient > SpotApi`  
 *Spot socket api*
   
 
@@ -18,7 +18,7 @@ parent: Rest API documentation
 *Subscribe to aggregated order book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -44,7 +44,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(
 *Subscribe to aggregated order book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -70,7 +70,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(
 *Subscribe to updates for all symbol tickers*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToAllTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -95,7 +95,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToAllTickerUpdatesAsync(Action<Dat
 *Subscribe to balance updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToBalanceUpdatesAsync(/* parameters */);  
 ```  
 
@@ -120,7 +120,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataE
 *Subscribe to funding book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToFundingBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -146,7 +146,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string c
 *Subscribe to funding book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToFundingBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -172,7 +172,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(IEnumera
 *Subscribe to index price updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToIndexPriceUpdatesAsync(/* parameters */);  
 ```  
 
@@ -198,7 +198,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string sy
 *Subscribe to index price updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToIndexPriceUpdatesAsync(/* parameters */);  
 ```  
 
@@ -224,7 +224,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(IEnumerab
 *Subscribe to kline updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -251,7 +251,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol,
 *Subscribe to mark price updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToMarkPriceUpdatesAsync(/* parameters */);  
 ```  
 
@@ -277,7 +277,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string sym
 *Subscribe to mark price updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToMarkPriceUpdatesAsync(/* parameters */);  
 ```  
 
@@ -307,7 +307,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerabl
 *<para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in quantity</para>*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToMatchEngineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -337,7 +337,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(string s
 *<para><see cref="KucoinStreamMatchEngineChangeUpdate" />: An order is changed (decreased) in quantity</para>*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToMatchEngineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -364,7 +364,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMatchEngineUpdatesAsync(IEnumera
 *Subscribe to full order book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -392,7 +392,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string sym
 *Subscribe to full order book updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -419,7 +419,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerabl
 *Subscribe to order updates for your own orders*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToOrderUpdatesAsync(/* parameters */);  
 ```  
 
@@ -445,7 +445,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEve
 *Subscribe to updates for symbol or market snapshots*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToSnapshotUpdatesAsync(/* parameters */);  
 ```  
 
@@ -471,7 +471,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(string symb
 *Subscribe to updates for symbol or market snapshots*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToSnapshotUpdatesAsync(/* parameters */);  
 ```  
 
@@ -497,7 +497,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(IEnumerable
 *Subscribe to updates for stop orders*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToStopOrderUpdatesAsync(/* parameters */);  
 ```  
 
@@ -522,7 +522,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<Dat
 *Subscribe to updates for a symbol ticker*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -548,7 +548,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol
 *Subscribe to updates for a symbol ticker*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -574,7 +574,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<s
 *Subscribe to trade updates*  
 
 ```csharp  
-var client = new KucoinClient();  
+var client = new KucoinSocketClient();  
 var result = await client.SpotApi.SubscribeToTradeUpdatesAsync(/* parameters */);  
 ```  
 

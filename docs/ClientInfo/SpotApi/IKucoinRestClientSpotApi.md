@@ -1,11 +1,10 @@
 ---
 title: IKucoinRestClientSpotApi
 has_children: true
-parent: IKucoinClientSpotApi
-grand_parent: Rest API documentation
+parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > SpotApi > IKucoinRestClient`  
+`KucoinRestClient > SpotApi`  
 *Spot API endpoints*
   
 ***
@@ -13,13 +12,13 @@ grand_parent: Rest API documentation
 **ISpotClient CommonSpotClient { get; }**  
 ***
 *Endpoints related to account settings, info or actions*  
-**IKucoinRestClientSpotApiAccount Account { get; }**  
+**[IKucoinRestClientSpotApiAccount](IKucoinRestClientSpotApiAccount.html) Account { get; }**  
 ***
 *Endpoints related to retrieving market and system data*  
-**IKucoinRestClientSpotApiExchangeData ExchangeData { get; }**  
+**[IKucoinRestClientSpotApiExchangeData](IKucoinRestClientSpotApiExchangeData.html) ExchangeData { get; }**  
 ***
 *Endpoints related to orders and trades from Pro Account (High Frequency)*  
-**IKucoinRestClientSpotApiProAccount ProAccount { get; }**  
+**[IKucoinRestClientSpotApiProAccount](IKucoinRestClientSpotApiProAccount.html) ProAccount { get; }**  
 ***
 *Endpoints related to orders and trades*  
-**IKucoinRestClientSpotApiTrading Trading { get; }**  
+**[IKucoinRestClientSpotApiTrading](IKucoinRestClientSpotApiTrading.html) Trading { get; }**  

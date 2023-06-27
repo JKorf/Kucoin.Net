@@ -1,11 +1,11 @@
 ---
 title: IKucoinRestClientSpotApiExchangeData
 has_children: false
-parent: IKucoinClientSpotApi
+parent: IKucoinRestClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > SpotApi > IKucoinRestClientExchangeData`  
+`KucoinRestClient > SpotApi > ExchangeData`  
 *Kucoin Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.*
   
 
@@ -19,8 +19,8 @@ grand_parent: Rest API documentation
 *Gets the 24 hour stats of a symbol*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.Get24HourStatsAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.Get24HourStatsAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -44,8 +44,8 @@ Task<WebCallResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, Cancell
 *Get a full aggregated order book for a symbol. Orders for the same price are combined.*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetAggregatedFullOrderBookAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -69,8 +69,8 @@ Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symb
 *Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetAggregatedPartialOrderBookAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetAggregatedPartialOrderBookAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -95,8 +95,8 @@ Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string s
 *Get info on a specific asset*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetAssetAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetAssetAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -120,8 +120,8 @@ Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, Cancellation
 *Gets a list of supported currencies*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetAssetsAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetAssetsAsync();  
 ```  
 
 ```csharp  
@@ -144,8 +144,8 @@ Task<WebCallResult<IEnumerable<KucoinAsset>>> GetAssetsAsync(CancellationToken c
 *Gets a list of prices for all*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetFiatPricesAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetFiatPricesAsync();  
 ```  
 
 ```csharp  
@@ -170,8 +170,8 @@ Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiat
 *Get kline data for a symbol*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetKlinesAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetKlinesAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -198,8 +198,8 @@ Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, Klin
 *Get lending market data*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetLendMarketDataAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetLendMarketDataAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -224,8 +224,8 @@ Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsyn
 *Get margin configuration*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetMarginConfigurationAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginConfigurationAsync();  
 ```  
 
 ```csharp  
@@ -248,8 +248,8 @@ Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(Cancellation
 *Get the mark price of a symbol*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetMarginMarkPriceAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginMarkPriceAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -273,8 +273,8 @@ Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, Canc
 *Get the last 300 fills for borrow/lending orders*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetMarginTradeHistoryAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginTradeHistoryAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -298,8 +298,8 @@ Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistory
 *Get Margin Trading Pair ConfigurationAsync*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetMarginTradingPairConfigurationAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetMarginTradingPairConfigurationAsync();  
 ```  
 
 ```csharp  
@@ -322,8 +322,8 @@ Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradin
 *Gets a list of supported markets*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetMarketsAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetMarketsAsync();  
 ```  
 
 ```csharp  
@@ -346,8 +346,8 @@ Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = 
 *Gets the server time*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetServerTimeAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetServerTimeAsync();  
 ```  
 
 ```csharp  
@@ -370,8 +370,8 @@ Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
 *Gets a list of symbols supported by the server*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetSymbolsAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetSymbolsAsync();  
 ```  
 
 ```csharp  
@@ -395,8 +395,8 @@ Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = 
 *Gets ticker info of a symbol*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetTickerAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetTickerAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -420,8 +420,8 @@ Task<WebCallResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken 
 *Gets the ticker for all trading pairs*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetTickersAsync();  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetTickersAsync();  
 ```  
 
 ```csharp  
@@ -444,8 +444,8 @@ Task<WebCallResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default)
 *Gets the recent trade history for a symbol*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.SpotApi.IKucoinRestClientExchangeData.GetTradeHistoryAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.SpotApi.ExchangeData.GetTradeHistoryAsync(/* parameters */);  
 ```  
 
 ```csharp  

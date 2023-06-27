@@ -1,11 +1,11 @@
 ---
 title: IKucoinRestClientFuturesApiTrading
 has_children: false
-parent: IKucoinClientFuturesApi
+parent: IKucoinRestClientFuturesApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`KucoinClient > FuturesApi > IKucoinRestClientTrading`  
+`KucoinRestClient > FuturesApi > Trading`  
 *Kucoin Futures trading endpoints, placing and mananging orders.*
   
 
@@ -19,8 +19,8 @@ grand_parent: Rest API documentation
 *Cancel all open orders*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.CancelAllOrdersAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.CancelAllOrdersAsync();  
 ```  
 
 ```csharp  
@@ -44,8 +44,8 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = 
 *Cancel all open stop orders*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.CancelAllStopOrdersAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.CancelAllStopOrdersAsync();  
 ```  
 
 ```csharp  
@@ -69,8 +69,8 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbo
 *Cancel an order*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.CancelOrderAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.CancelOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -94,8 +94,8 @@ Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, Cance
 *Get list of 1000 most recent orders in the last 24 hours*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetClosedOrdersAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetClosedOrdersAsync();  
 ```  
 
 ```csharp  
@@ -119,8 +119,8 @@ Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string
 *Get details on an order*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetOrderAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -144,8 +144,8 @@ Task<WebCallResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, Cancellati
 *Get details on an order*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetOrderByClientOrderIdAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
 ```csharp  
@@ -169,8 +169,8 @@ Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clie
 *Get list of orders*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetOrdersAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetOrdersAsync();  
 ```  
 
 ```csharp  
@@ -201,8 +201,8 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? 
 *Get list of 1000 most recent user trades in the last 24 hours*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetRecentUserTradesAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetRecentUserTradesAsync();  
 ```  
 
 ```csharp  
@@ -225,8 +225,8 @@ Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsyn
 *Get list of untriggered stop orders*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetUntriggeredStopOrdersAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetUntriggeredStopOrdersAsync();  
 ```  
 
 ```csharp  
@@ -256,8 +256,8 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrder
 *Get list of user trades*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.GetUserTradesAsync();  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.GetUserTradesAsync();  
 ```  
 
 ```csharp  
@@ -288,8 +288,8 @@ Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(
 *Place a new order*  
 
 ```csharp  
-var client = new KucoinClient();  
-var result = await client.FuturesApi.IKucoinRestClientTrading.PlaceOrderAsync(/* parameters */);  
+var client = new KucoinRestClient();  
+var result = await client.FuturesApi.Trading.PlaceOrderAsync(/* parameters */);  
 ```  
 
 ```csharp  
