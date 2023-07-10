@@ -14,6 +14,7 @@ using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects;
+using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
@@ -105,31 +106,31 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             return true;
         }
 
-        public static IKucoinClient CreateClient(KucoinClientOptions options = null)
+        public static IKucoinRestClient CreateClient(Action<KucoinRestOptions> options = null)
         {
-            IKucoinClient client;
-            client = options != null ? new KucoinClient(options) : new KucoinClient(new KucoinClientOptions() { LogLevel = LogLevel.Debug });
+            IKucoinRestClient client;
+            client = options != null ? new KucoinRestClient(options) : new KucoinRestClient();
             client.SpotApi.RequestFactory = Mock.Of<IRequestFactory>();
             client.FuturesApi.RequestFactory = Mock.Of<IRequestFactory>();
             return client;
         }
 
 
-        public static IKucoinClient CreateResponseClient(string response, KucoinClientOptions options = null)
+        public static IKucoinRestClient CreateResponseClient(string response, Action<KucoinRestOptions> options = null)
         {
-            var client = (KucoinClient)CreateClient(options);
+            var client = (KucoinRestClient)CreateClient(options);
             SetResponse(client, response);
             return client;
         }
 
-        public static IKucoinClient CreateResponseClient<T>(T response, KucoinClientOptions options = null)
+        public static IKucoinRestClient CreateResponseClient<T>(T response, Action<KucoinRestOptions> options = null)
         {
-            var client = (KucoinClient)CreateClient(options);
+            var client = (KucoinRestClient)CreateClient(options);
             SetResponse(client, JsonConvert.SerializeObject(response));
             return client;
         }
 
-        public static void SetResponse(KucoinClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public static void SetResponse(KucoinRestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
             var responseStream = new MemoryStream();

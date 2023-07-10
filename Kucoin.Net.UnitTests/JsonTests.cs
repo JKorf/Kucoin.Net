@@ -11,11 +11,13 @@ namespace Kucoin.Net.UnitTests
     [TestFixture]
     public class JsonTests
     {
-        private JsonToObjectComparer<IKucoinClient> _comparerSpot = new JsonToObjectComparer<IKucoinClient>((json) => TestHelpers.CreateResponseClient(json, new KucoinClientOptions()
+        private JsonToObjectComparer<IKucoinRestClient> _comparerSpot = new JsonToObjectComparer<IKucoinRestClient>((json) => TestHelpers.CreateResponseClient(json, x =>
         {
-            ApiCredentials = new KucoinApiCredentials("1234", "1234", "12"),
-            SpotApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>(), OutputOriginalData  = true },
-            FuturesApiOptions = new KucoinRestApiClientOptions { RateLimiters = new List<IRateLimiter>(), OutputOriginalData = true }
+            x.ApiCredentials = new KucoinApiCredentials("1234", "1234", "12");
+            x.SpotOptions.RateLimiters = new List<IRateLimiter>();
+            x.SpotOptions.OutputOriginalData = false;
+            x.FuturesOptions.RateLimiters = new List<IRateLimiter>();
+            x.FuturesOptions.OutputOriginalData = false;
         }));
 
         [Test]

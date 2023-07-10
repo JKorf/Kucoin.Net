@@ -20,8 +20,8 @@
         /// </summary>
         public static KucoinApiAddresses Default = new KucoinApiAddresses
         {
-            SpotAddress = "https://api.kucoin.com/api/",
-            FuturesAddress = "https://api-futures.kucoin.com/api/",
+            SpotAddress = "https://api.kucoin.com/",
+            FuturesAddress = "https://api-futures.kucoin.com/",
         };
 
         /// <summary>
@@ -29,8 +29,8 @@
         /// </summary>
         public static KucoinApiAddresses TestNet = new KucoinApiAddresses
         {
-            SpotAddress = "https://openapi-sandbox.kucoin.com/api/",
-            FuturesAddress = "https://api-sandbox-futures.kucoin.com/api/",
+            SpotAddress = "https://openapi-sandbox.kucoin.com/",
+            FuturesAddress = "https://api-sandbox-futures.kucoin.com/",
         };
     }
 }
