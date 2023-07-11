@@ -47,7 +47,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         /// <param name="restClient">Rest client instance</param>
         /// <param name="socketClient">Socket client instance</param>
         [ActivatorUtilitiesConstructor]
-        internal KucoinFuturesSymbolOrderBook(
+        public KucoinFuturesSymbolOrderBook(
             string symbol,
             Action<KucoinOrderBookOptions>? optionsDelegate,
             ILogger<KucoinFuturesSymbolOrderBook>? logger = null,
