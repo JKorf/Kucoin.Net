@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>10.0</LangVersion>
@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>5.0.0</PackageVersion>
-    <AssemblyVersion>5.0.0</AssemblyVersion>
-    <FileVersion>5.0.0</FileVersion>
+    <PackageVersion>5.0.1</PackageVersion>
+    <AssemblyVersion>5.0.1</AssemblyVersion>
+    <FileVersion>5.0.1</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>5.0.0 - Updated CryptoExchange.Net to version 6.0.0, Renamed KucoinClient to KucoinRestClient, Renamed **Streams to **Api on the KucoinSocketClient, Updated endpoints to consistently use a base url without any path as basis to make switching environments/base urls clearer, Added IKucoinOrderBookFactory and implementation for creating order books, Updated dependency injection register method (AddKucoin)</PackageReleaseNotes>
+    <PackageReleaseNotes>5.0.1 - Fixed KucoinFuturesSymbolOrderBook constructor being internal instead of public</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
