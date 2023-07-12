@@ -418,7 +418,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -665,6 +665,9 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
@@ -2619,7 +2622,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <summary>
             Withdraw an asset to an address
             <para><a href="https://docs.kucoin.com/#apply-withdraw-2" /></para>
@@ -3475,6 +3478,18 @@
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to full order book updates
+            <para><a href="https://docs.kucoin.com/#level2-5-best-ask-bid-orders" /></para>
+            <para><a href="https://docs.kucoin.com/#level2-50-best-ask-bid-orders" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe</param>
+            <param name="limit">The amount of levels to receive, either 5 or 50</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates
             <para><a href="https://docs.kucoin.com/#level2-5-best-ask-bid-orders" /></para>
@@ -6127,6 +6142,16 @@
             Networks
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetApi.WithdrawMinQuantity">
+            <summary>
+            The minimum quantity of a withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetApi.Asset">
+            <summary>
+            The asset identifier
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork">
             <summary>
             Network details
@@ -6139,7 +6164,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.Network">
             <summary>
-            Network
+            Network name
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawalMinQuantity">
@@ -8617,6 +8642,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.Liquidity">
             <summary>
             The liquidity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.Funds">
+            <summary>
+            The Funds
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate.RemainFunds">
+            <summary>
+            The RemainFunds
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshotWrapper">

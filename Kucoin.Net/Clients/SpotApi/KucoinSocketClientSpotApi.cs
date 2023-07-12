@@ -21,6 +21,8 @@ using Kucoin.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.CommonObjects;
 using System.Linq;
 using Kucoin.Net.Objects.Options;
+using System.Net.Http;
+using System.Net;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -376,8 +378,20 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
+
             var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);
-            using (var restClient = new KucoinRestClient((options) =>
+
+            HttpClient httpClient = new HttpClient();
+            if (_baseClient.ClientOptions?.Proxy != null)
+            {
+                httpClient = new HttpClient(new HttpClientHandler()
+                {
+                    Proxy = new WebProxy(_baseClient.ClientOptions.Proxy.Host, _baseClient.ClientOptions.Proxy.Port)
+                });
+
+            }
+
+            using (var restClient = new KucoinRestClient(httpClient, null, (options) =>
             {
                 options.ApiCredentials = apiCredentials;
                 options.Environment = ClientOptions.Environment;
