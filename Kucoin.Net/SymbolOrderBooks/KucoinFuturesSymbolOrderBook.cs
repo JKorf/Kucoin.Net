@@ -61,10 +61,10 @@ namespace Kucoin.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = options.Limit == null;
 
-            Levels = options?.Limit;
-            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
+            Levels = options.Limit;
+            _initialDataTimeout = options.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
             _socketClient = socketClient ?? new KucoinSocketClient(x =>
             {
                 x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinSocketOptions.Default.ApiCredentials?.Copy();
