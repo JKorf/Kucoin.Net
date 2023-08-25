@@ -372,24 +372,27 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(JToken error)
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, string data)
         {
-            if (!error.HasValues)
+            var errorData = ValidateJson(data);
+            if (!errorData)
+                return new ServerError(data);
+
+            if (!errorData.Data.HasValues)
             {
-                var errorBody = error.ToString();
-                return new ServerError(string.IsNullOrEmpty(errorBody) ? "Unknown error" : errorBody);
+                return new ServerError(string.IsNullOrEmpty(data) ? "Unknown error" : data);
             }
 
-            if (error["code"] != null && error["msg"] != null)
+            if (errorData.Data["code"] != null && errorData.Data["msg"] != null)
             {
-                var result = error.ToObject<KucoinResult<object>>();
+                var result = errorData.Data.ToObject<KucoinResult<object>>();
                 if (result == null)
-                    return new ServerError(error["msg"]!.ToString());
+                    return new ServerError(errorData.Data["msg"]!.ToString());
 
                 return new ServerError(result.Code, result.Message!);
             }
 
-            return new ServerError(error.ToString());
+            return new ServerError(errorData.Data.ToString());
         }
 
         /// <inheritdoc />

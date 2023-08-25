@@ -319,7 +319,9 @@ namespace Kucoin.Net.Clients.SpotApi
 
             if ((price.HasValue || timeInForce.HasValue || cancelAfter.HasValue || postOnly.HasValue || hidden.HasValue || iceberg.HasValue || visibleSize.HasValue)
                 && orderType == NewOrderType.Market)
+            {
                 throw new ArgumentException("Invalid parameter(s) provided for market order type");
+            }
 
             if (stopCondition == StopCondition.None)
                 throw new ArgumentException("Invalid stop condition", nameof(stopCondition));

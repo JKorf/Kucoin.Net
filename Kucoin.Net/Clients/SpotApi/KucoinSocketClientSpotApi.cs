@@ -71,7 +71,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:" + string.Join(",", symbols), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -88,7 +88,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:all", false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/ticker:all", false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -113,7 +113,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data?.Symbol), onData!);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/snapshot:" + string.Join(",", symbolOrMarkets), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/snapshot:" + string.Join(",", symbolOrMarkets), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -133,7 +133,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -147,7 +147,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(GetData<KucoinStreamMatch>(tokenData), symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/match:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/match:" + symbol, false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -162,7 +162,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(GetData<KucoinStreamCandle>(tokenData), symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}", false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/market/candles:{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}", false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -184,7 +184,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(book, TryGetSymbolFromTopic(tokenData)), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + string.Join(",", symbols), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -203,7 +203,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/index:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/index:" + string.Join(",", symbols), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -222,7 +222,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/markPrice:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/indicator/markPrice:" + string.Join(",", symbols), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -241,7 +241,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Asset), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/margin/fundingBook:" + string.Join(",", assets), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/margin/fundingBook:" + string.Join(",", assets), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -285,7 +285,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData!);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/level3:" + string.Join(",", symbols), false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/level3:" + string.Join(",", symbols), false);
             return await SubscribeAsync("spot", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -320,7 +320,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 }
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/tradeOrders", true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/tradeOrders", true);
             return await SubscribeAsync("spot", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -338,7 +338,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 onBalanceChange(data.As(desResult.Data.Data, desResult.Data.Data.Asset));
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/account/balance", true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/account/balance", true);
             return await SubscribeAsync("spot", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -351,7 +351,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/advancedOrders", true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/spotMarket/advancedOrders", true);
             return await SubscribeAsync("spot", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
         #endregion
@@ -491,10 +491,10 @@ namespace Kucoin.Net.Clients.SpotApi
         protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
         {
             var kRequest = (KucoinRequest)s.Request!;
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
 
             var success = false;
-            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), null, message =>
+            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), null, 1, message =>
             {
                 var id = message["id"];
                 if (id == null)
