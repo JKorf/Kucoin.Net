@@ -1,11 +1,14 @@
 # Kucoin.Net
-[![.NET](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) ![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)
+[![.NET](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) [![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)](https://www.nuget.org/packages/Kucoin.Net) [![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)](https://www.nuget.org/packages/Kucoin.Net)
 
 Kucoin.Net is a wrapper around the Kucoin API as described on [Kucoin](https://docs.kucoin.com/), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Kucoin.Net/issues)**
 
 [Documentation](https://jkorf.github.io/Kucoin.Net/)
+
+## Installation
+`dotnet add package Kucoin.Net`
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
