@@ -5501,6 +5501,11 @@
             Remark for the order
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.KucoinOrderBase.Tags">
+            <summary>
+            Tags for the order
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.KucoinOrderBase.IsActive">
             <summary>
             Whether the order is active
