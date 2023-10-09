@@ -79,10 +79,6 @@ namespace Kucoin.Net.Objects.Models
         /// </summary>
         public string Remark { get; set; } = string.Empty;
         /// <summary>
-        /// Tags for the order
-        /// </summary>
-        public string Tags { get; set; } = string.Empty;
-        /// <summary>
         /// Whether the order is active
         /// </summary>
         public virtual bool? IsActive { get; set; }
