@@ -59,6 +59,8 @@ namespace Kucoin.Net
 
             services.AddSingleton<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
             services.AddTransient<IKucoinRestClient, KucoinRestClient>();
+            services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.CommonSpotClient);
+            services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.CommonFuturesClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IKucoinSocketClient, KucoinSocketClient>();
             else
