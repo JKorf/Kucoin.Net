@@ -14,4 +14,17 @@ namespace Kucoin.Net.Converters
             new KeyValuePair<BorrowStatus, string>(BorrowStatus.Done, "Done"),
         };
     }
+
+    internal class RepayStatusConverter : BaseConverter<RepayStatus>
+    {
+        public RepayStatusConverter() : this(true) { }
+        public RepayStatusConverter(bool quotes) : base(quotes) { }
+        protected override List<KeyValuePair<RepayStatus, string>> Mapping => new List<KeyValuePair<RepayStatus, string>>
+        {
+            new KeyValuePair<RepayStatus, string>(RepayStatus.Repaying, "Repaying"),
+            new KeyValuePair<RepayStatus, string>(RepayStatus.Completed, "Completed"),
+            new KeyValuePair<RepayStatus, string>(RepayStatus.Failed, "Failed"),
+
+        };
+    }
 }

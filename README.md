@@ -1,11 +1,14 @@
 # Kucoin.Net
-[![.NET](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) ![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)
+[![.NET](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) [![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)](https://www.nuget.org/packages/Kucoin.Net) [![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)](https://www.nuget.org/packages/Kucoin.Net)
 
 Kucoin.Net is a wrapper around the Kucoin API as described on [Kucoin](https://docs.kucoin.com/), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Kucoin.Net/issues)**
 
 [Documentation](https://jkorf.github.io/Kucoin.Net/)
+
+## Installation
+`dotnet add package Kucoin.Net`
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
@@ -17,9 +20,8 @@ Sign up using the following referral link to pay a small percentage of the tradi
 ### Donate
 Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
 
-**Btc**:  12KwZk3r2Y3JZ2uMULcjqqBvXmpDwjhhQS  
-**Eth**:  0x069176ca1a4b1d6e0b7901a6bc0dbf3bb0bf5cc2  
-**Nano**: xrb_1ocs3hbp561ef76eoctjwg85w5ugr8wgimkj8mfhoyqbx4s1pbc74zggw7gs  
+**Btc**:  bc1qz0jv0my7fc60rxeupr23e75x95qmlq6489n8gh  
+**Eth**:  0x8E21C4d955975cB645589745ac0c46ECA8FAE504   
 
 ### Sponsor
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
@@ -28,6 +30,19 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 5.0.4 - 09 Oct 2023
+    * Updated CryptoExchange.Net version
+    * Added ISpotClient and IFuturesClient to DI injection
+
+* Version 5.0.3 - 25 Aug 2023
+    * Updated CryptoExchange.Net
+
+* Version 5.0.2 - 23 Jul 2023
+    * Fixed credentials provided in orderbook options not getting used
+
+* Version 5.0.1 - 11 Jul 2023
+    * Fixed KucoinFuturesSymbolOrderBook constructor being internal instead of public
+
 * Version 5.0.0 - 25 Jun 2023
     * Updated CryptoExchange.Net to version 6.0.0
     * Renamed KucoinClient to KucoinRestClient

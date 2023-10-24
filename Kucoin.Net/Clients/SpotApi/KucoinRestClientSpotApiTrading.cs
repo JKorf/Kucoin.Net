@@ -10,6 +10,7 @@ using Kucoin.Net.Objects.Models.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -319,7 +320,9 @@ namespace Kucoin.Net.Clients.SpotApi
 
             if ((price.HasValue || timeInForce.HasValue || cancelAfter.HasValue || postOnly.HasValue || hidden.HasValue || iceberg.HasValue || visibleSize.HasValue)
                 && orderType == NewOrderType.Market)
+            {
                 throw new ArgumentException("Invalid parameter(s) provided for market order type");
+            }
 
             if (stopCondition == StopCondition.None)
                 throw new ArgumentException("Invalid stop condition", nameof(stopCondition));
@@ -433,6 +436,80 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("term", term);
             return await _baseClient.Execute<KucoinNewBorrowOrder>(_baseClient.GetUri("margin/borrow"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
+
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinNewBorrow>> MarginBorrowAsync(string asset, decimal quantity, BorrowOrderType type, bool? isIsolated, string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "size", quantity },
+                { "timeInForce", JsonConvert.SerializeObject(type, new BorrowOrderTypeConverter(false)) }
+            };
+            parameters.AddOptionalParameter("isIsolated", isIsolated);
+            parameters.AddOptionalParameter("symbol", symbol);
+            return await _baseClient.Execute<KucoinNewBorrow>(_baseClient.GetUri("margin/borrow", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+
+        }
+
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinNewRepay>> MarginRepayAsync(string asset, decimal quantity, bool? isIsolated, string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "size", quantity }
+            };
+            parameters.AddOptionalParameter("isIsolated", isIsolated);
+            parameters.AddOptionalParameter("symbol", symbol);
+            return await _baseClient.Execute<KucoinNewRepay>(_baseClient.GetUri("margin/repay", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<MarginBorrowHistory>>> MarginBorrowHistoryAsync(string asset, bool? isIsolated, string? symbol = null, string? Id = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+            };
+
+            parameters.AddOptionalParameter("isIsolated", isIsolated);
+            parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptionalParameter("orderNo", Id);
+            parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("currentPage", page);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await _baseClient.Execute<KucoinPaginated<MarginBorrowHistory>>(_baseClient.GetUri("margin/borrow", 3), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<MarginRepayHistory>>> MarginRepayHistoryAsync(string asset, bool? isIsolated, string? symbol = null, string? Id = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+            };
+
+            parameters.AddOptionalParameter("isIsolated", isIsolated);
+            parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptionalParameter("orderNo", Id);
+            parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("currentPage", page);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            return await _baseClient.Execute<KucoinPaginated<MarginRepayHistory>>(_baseClient.GetUri("margin/repay", 3), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+
+        }
+
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinBorrowOrder>> GetBorrowOrderAsync(string orderId, CancellationToken ct = default)

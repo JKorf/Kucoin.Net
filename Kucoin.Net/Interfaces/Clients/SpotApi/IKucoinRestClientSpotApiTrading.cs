@@ -558,5 +558,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> RepaySingleIsolatedBorrowOrderAsync(string symbol, string asset, decimal quantity, string loanId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewBorrow>> MarginBorrowAsync(string asset, decimal quantity, BorrowOrderType type, bool? isIsolated, string? symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewRepay>> MarginRepayAsync(string asset, decimal quantity, bool? isIsolated, string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<MarginBorrowHistory>>> MarginBorrowHistoryAsync(string asset, bool? isIsolated, string? symbol = null, string? Id = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<MarginRepayHistory>>> MarginRepayHistoryAsync(string asset, bool? isIsolated, string? symbol = null, string? Id = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

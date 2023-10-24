@@ -8,6 +8,7 @@ using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients;
+using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
@@ -47,7 +48,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         /// <param name="restClient">Rest client instance</param>
         /// <param name="socketClient">Socket client instance</param>
         [ActivatorUtilitiesConstructor]
-        internal KucoinFuturesSymbolOrderBook(
+        public KucoinFuturesSymbolOrderBook(
             string symbol,
             Action<KucoinOrderBookOptions>? optionsDelegate,
             ILogger<KucoinFuturesSymbolOrderBook>? logger = null,
@@ -60,12 +61,18 @@ namespace Kucoin.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = options.Limit == null;
 
-            Levels = options?.Limit;
-            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
-            _socketClient = socketClient ?? new KucoinSocketClient();
-            _restClient = restClient ?? new KucoinRestClient();
+            Levels = options.Limit;
+            _initialDataTimeout = options.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
+            _socketClient = socketClient ?? new KucoinSocketClient(x =>
+            {
+                x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinSocketOptions.Default.ApiCredentials?.Copy();
+            });
+            _restClient = restClient ?? new KucoinRestClient(x =>
+            {
+                x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinRestOptions.Default.ApiCredentials?.Copy();
+            });
         }
 
         /// <inheritdoc />

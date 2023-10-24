@@ -14,4 +14,15 @@
         /// </summary>
         Done
     }
+
+    public enum RepayStatus
+    {
+
+        Repaying,
+
+        Completed,
+
+        Failed
+
+    }
 }

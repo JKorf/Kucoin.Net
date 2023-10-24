@@ -53,7 +53,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(GetData<KucoinStreamFuturesMatch>(tokenData), symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/contractMarket/execution:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/contractMarket/execution:" + symbol, false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(GetData<KucoinStreamFuturesTick>(tokenData), symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/contractMarket/tickerV2:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/contractMarket/tickerV2:" + symbol, false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -92,7 +92,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(result, symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2:" + symbol, false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -107,7 +107,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(book, symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2Depth{limit}:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/level2Depth{limit}:" + symbol, false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -131,7 +131,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/instrument:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/instrument:" + symbol, false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -145,7 +145,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(data), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/announcement", false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/announcement", false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -159,7 +159,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(data, symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/snapshot:" + symbol, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/snapshot:" + symbol, false);
             return await SubscribeAsync("futures", request, null, false, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -174,7 +174,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As(data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/tradeOrders" + (symbol == null ? "" : ":" + symbol), true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/tradeOrders" + (symbol == null ? "" : ":" + symbol), true);
             return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -187,7 +187,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 InvokeHandler(tokenData.As((KucoinStreamStopOrderUpdateBase)data, data.Symbol), onData);
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/advancedOrders", true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractMarket/advancedOrders", true);
             return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -222,7 +222,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractAccount/wallet", true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contractAccount/wallet", true);
             return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -267,7 +267,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
             });
 
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, true);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/contract/position:" + symbol, true);
             return await SubscribeAsync("futures", request, null, true, innerHandler, ct).ConfigureAwait(false);
         }
 
@@ -406,10 +406,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
         {
             var kRequest = (KucoinRequest)s.Request!;
-            var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
+            var request = new KucoinRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "unsubscribe", kRequest.Topic, false);
 
             var success = false;
-            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), null, message =>
+            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(5), null, 1, message =>
             {
                 var id = message["id"];
                 if (id == null)
