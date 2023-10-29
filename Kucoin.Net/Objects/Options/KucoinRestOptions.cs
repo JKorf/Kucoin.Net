@@ -22,7 +22,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions<KucoinApiCredentials> SpotOptions { get; private set; } = new RestApiOptions<KucoinApiCredentials>()
+        public KucoinRestApiOptions SpotOptions { get; private set; } = new KucoinRestApiOptions()
         {
             RateLimiters = new List<IRateLimiter>
             {
@@ -36,13 +36,13 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Futures API options
         /// </summary>
-        public RestApiOptions<KucoinApiCredentials> FuturesOptions { get; private set; } = new RestApiOptions<KucoinApiCredentials>();
+        public KucoinRestApiOptions FuturesOptions { get; private set; } = new KucoinRestApiOptions();
 
         internal KucoinRestOptions Copy()
         {
             var options = Copy<KucoinRestOptions>();
-            options.SpotOptions = SpotOptions.Copy<RestApiOptions<KucoinApiCredentials>>();
-            options.FuturesOptions = FuturesOptions.Copy<RestApiOptions<KucoinApiCredentials>>();
+            options.SpotOptions = SpotOptions.Copy();
+            options.FuturesOptions = FuturesOptions.Copy();
             return options;
         }
     }
