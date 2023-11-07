@@ -54,7 +54,7 @@ namespace Kucoin.Net
             var partnerSignData = headers["KC-API-TIMESTAMP"] + brokerName + _credentials.Key!.GetString();
             using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey));
             byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
-            headers.Add("KCAPI-PARTNER-SIGN", BytesToBase64String(buff));
+            headers.Add("KC-API-PARTNER-SIGN", BytesToBase64String(buff));
         }
     }
 }
