@@ -30,6 +30,9 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 5.0.7 - 07 Nov 2023
+    * Fixed broker signing
+
 * Version 5.0.6 - 29 Oct 2023
     * Added broker reference options
 
