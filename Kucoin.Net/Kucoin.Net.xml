@@ -574,6 +574,18 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.PlaceBorrowOrderAsync(System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.MarginBorrowAsync(System.String,System.Decimal,Kucoin.Net.Enums.BorrowOrderType,System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.MarginRepayAsync(System.String,System.Decimal,System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.MarginBorrowHistoryAsync(System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.MarginRepayHistoryAsync(System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.GetBorrowOrderAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -7292,6 +7304,16 @@
             The id of the new account
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewBorrow.Id">
+            <summary>
+            Borrow order number
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewBorrow.Amount">
+            <summary>
+            Actual borrowed amount
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewBorrowOrder">
             <summary>
             New Borrow order
@@ -7305,6 +7327,36 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewBorrowOrder.Asset">
             <summary>
             Currency of current Order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.MarginBorrowHistory.Asset">
+            <summary>
+            The asset of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.MarginBorrowHistory.Quantity">
+            <summary>
+            Initiated borrowing amount
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.MarginBorrowHistory.Filled">
+            <summary>
+            Actual borrowed amount
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.MarginBorrowHistory.Status">
+            <summary>
+            Status of request
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.MarginRepayHistory.Asset">
+            <summary>
+            The asset of the borrow order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.MarginRepayHistory.Quantity">
+            <summary>
+            Initiated borrowing amount
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewIsolatedBorrowOrder">
@@ -7340,6 +7392,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewOrder.Id">
             <summary>
             The id of the new order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewRepay.Id">
+            <summary>
+            Repayment order number
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinNewRepay.Amount">
+            <summary>
+            Actual borrowed amount
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewWithdrawal">
