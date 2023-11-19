@@ -406,7 +406,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        protected override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
         {
             var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.Subscriptions.Any(s => s.Authenticated)).ConfigureAwait(false);
             if (!result)

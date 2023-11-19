@@ -8854,6 +8854,19 @@
             After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Options.KucoinRestApiOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinRestApiOptions.BrokerName">
+            <summary>
+            The broker reference name to use
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinRestApiOptions.BrokerKey">
+            <summary>
+            The private key of the broker
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Options.KucoinRestOptions">
             <summary>
             Kucoin Rest client options
