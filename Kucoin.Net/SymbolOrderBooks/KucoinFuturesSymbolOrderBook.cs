@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
@@ -78,51 +79,52 @@ namespace Kucoin.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            CallResult<UpdateSubscription> subResult;
-            if (Levels == null)
-            {
-                subResult = await _socketClient.FuturesApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+            return new CallResult<UpdateSubscription>(new ServerError(""));
+            //CallResult<UpdateSubscription> subResult;
+            //if (Levels == null)
+            //{
+            //    subResult = await _socketClient.FuturesApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
+            //    if (!subResult)
+            //        return subResult;
 
-                if (ct.IsCancellationRequested)
-                {
-                    await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
-                }
+            //    if (ct.IsCancellationRequested)
+            //    {
+            //        await subResult.Data.CloseAsync().ConfigureAwait(false);
+            //        return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+            //    }
 
-                Status = OrderBookStatus.Syncing;
-                var bookResult = await _restClient.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
-                if (!bookResult)
-                {
-                    await _socketClient.UnsubscribeAllAsync().ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(bookResult.Error!);
-                }
+            //    Status = OrderBookStatus.Syncing;
+            //    var bookResult = await _restClient.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
+            //    if (!bookResult)
+            //    {
+            //        await _socketClient.UnsubscribeAllAsync().ConfigureAwait(false);
+            //        return new CallResult<UpdateSubscription>(bookResult.Error!);
+            //    }
 
-                SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
-            }
-            else
-            {
-                subResult = await _socketClient.FuturesApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
-                if (ct.IsCancellationRequested)
-                {
-                    await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
-                }
+            //    SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
+            //}
+            //else
+            //{
+            //    subResult = await _socketClient.FuturesApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+            //    if (ct.IsCancellationRequested)
+            //    {
+            //        await subResult.Data.CloseAsync().ConfigureAwait(false);
+            //        return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+            //    }
 
-                Status = OrderBookStatus.Syncing;
-                var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!setResult)
-                {
-                    await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return setResult.As<UpdateSubscription>(default);
-                }
-            }
+            //    Status = OrderBookStatus.Syncing;
+            //    var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            //    if (!setResult)
+            //    {
+            //        await subResult.Data.CloseAsync().ConfigureAwait(false);
+            //        return setResult.As<UpdateSubscription>(default);
+            //    }
+            //}
 
-            if (!subResult)
-                return new CallResult<UpdateSubscription>(subResult.Error!);
+            //if (!subResult)
+            //    return new CallResult<UpdateSubscription>(subResult.Error!);
             
-            return new CallResult<UpdateSubscription>(subResult.Data);
+            //return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
         /// <inheritdoc />
