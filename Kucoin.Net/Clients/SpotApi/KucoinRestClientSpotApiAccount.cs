@@ -27,7 +27,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetUserInfoAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinUserInfo>> GetUserInfoAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.Execute<KucoinUserInfo>(_baseClient.GetUri("user-info", 2), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetSubUserInfoAsync(CancellationToken ct = default)
         {
             return await _baseClient.Execute<IEnumerable<KucoinSubUser>>(_baseClient.GetUri("sub/user"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
@@ -72,21 +78,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        [Obsolete("Prefers GetAccountLedgersAsync")]
-        public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            accountId.ValidateNotNull(nameof(accountId));
-            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
-
-            var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("currentPage", currentPage);
-            parameters.AddOptionalParameter("pageSize", pageSize);
-            return await _baseClient.Execute<KucoinPaginated<KucoinAccountActivity>>(_baseClient.GetUri($"accounts/{accountId}/ledgers"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
@@ -126,6 +117,37 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
             };
             return await _baseClient.Execute<KucoinTransferableAccount>(_baseClient.GetUri("accounts/transferable"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinInnerTransfer>> UniversalTransferAsync(
+            decimal quantity,
+            TransferAccountType fromAccountType,
+            TransferAccountType toAccountType,
+            TransferType transferType,
+            string? asset = null,
+            string? fromUserId = null,
+            string? fromAccountTag = null,
+            string? toUserId = null,
+            string? toAccountTag = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "fromAccountType", EnumConverter.GetString(fromAccountType) },
+                { "toAccountType", EnumConverter.GetString(toAccountType)},
+                { "type", EnumConverter.GetString(transferType)},
+                { "amount", quantity },
+                { "clientOid", clientOrderId ?? Guid.NewGuid().ToString()},
+            };
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("fromUserId", fromUserId);
+            parameters.AddOptionalParameter("fromAccountTag", fromAccountTag);
+            parameters.AddOptionalParameter("toUserId", toUserId);
+            parameters.AddOptionalParameter("toAccountTag", toAccountTag);
+
+            return await _baseClient.Execute<KucoinInnerTransfer>(_baseClient.GetUri("accounts/universal-transfer", 3), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -271,6 +293,14 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken ct = default)
         {
             return await _baseClient.Execute<KucoinMarginAccount>(_baseClient.GetUri($"margin/account"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCrossMarginAccount>> GetCrossMarginAccountsAsync(string? quoteAsset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("quoteCurrency", quoteAsset);
+            return await _baseClient.Execute<KucoinCrossMarginAccount>(_baseClient.GetUri($"margin/accounts", 3), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

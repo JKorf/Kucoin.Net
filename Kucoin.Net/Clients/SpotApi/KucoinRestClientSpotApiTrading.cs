@@ -78,10 +78,63 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders"), HttpMethod.Post, ct, parameters, true, weight: 4).ConfigureAwait(false);
+            var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders"), HttpMethod.Post, ct, parameters, true, weight: 2).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinNewOrder>> PlaceTestOrderAsync(
+            string symbol,
+            Enums.OrderSide side,
+            NewOrderType type,
+            decimal? quantity = null,
+            decimal? price = null,
+            decimal? quoteQuantity = null,
+            TimeInForce? timeInForce = null,
+            TimeSpan? cancelAfter = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceBerg = null,
+            decimal? visibleIceBergSize = null,
+            string? remark = null,
+            string? clientOrderId = null,
+            SelfTradePrevention? selfTradePrevention = null,
+            CancellationToken ct = default)
+        {
+            symbol.ValidateKucoinSymbol();
+            switch (type)
+            {
+                case NewOrderType.Limit when !quantity.HasValue:
+                    throw new ArgumentException("Limit order needs a quantity");
+                case NewOrderType.Limit when !price.HasValue:
+                    throw new ArgumentException("Limit order needs a price");
+                case NewOrderType.Market when !quantity.HasValue && !quoteQuantity.HasValue:
+                    throw new ArgumentException("Market order needs quantity or quoteQuantity specified");
+                case NewOrderType.Market when quantity.HasValue && quoteQuantity.HasValue:
+                    throw new ArgumentException("Market order cant have both quantity and quoteQuantity specified");
+            }
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol },
+                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
+                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
+                { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
+            };
+            parameters.AddOptionalParameter("price", price);
+            parameters.AddOptionalParameter("size", quantity);
+            parameters.AddOptionalParameter("funds", quoteQuantity);
+            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
+            parameters.AddOptionalParameter("postOnly", postOnly);
+            parameters.AddOptionalParameter("hidden", hidden);
+            parameters.AddOptionalParameter("iceBerg", iceBerg);
+            parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
+            parameters.AddOptionalParameter("remark", remark);
+            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            return await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("orders/test"), HttpMethod.Post, ct, parameters, true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -139,7 +192,65 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order"), HttpMethod.Post, ct, parameters, true, weight: 5).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinNewMarginOrder>> PlaceTestMarginOrderAsync(
+            string symbol,
+            Enums.OrderSide side,
+            NewOrderType type,
+            decimal? price = null,
+            decimal? quantity = null,
+            decimal? quoteQuantity = null,
+            TimeInForce? timeInForce = null,
+            TimeSpan? cancelAfter = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceBerg = null,
+            decimal? visibleIceBergSize = null,
+            string? remark = null,
+            MarginMode? marginMode = null,
+            bool? autoBorrow = null,
+            SelfTradePrevention? selfTradePrevention = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
+        {
+            symbol.ValidateKucoinSymbol();
+            switch (type)
+            {
+                case NewOrderType.Limit when !quantity.HasValue:
+                    throw new ArgumentException("Limit order needs a quantity");
+                case NewOrderType.Market when !quantity.HasValue && !quoteQuantity.HasValue:
+                    throw new ArgumentException("Market order needs quantity or quoteQuantity specified");
+                case NewOrderType.Market when quantity.HasValue && quoteQuantity.HasValue:
+                    throw new ArgumentException("Market order cant have both quantity and quoteQuantity specified");
+            }
+
+            if (marginMode.HasValue && marginMode.Value != MarginMode.CrossMode)
+                throw new ArgumentException("Currently, the platform only supports the cross mode");
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol },
+                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
+                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
+                { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
+            };
+            parameters.AddOptionalParameter("price", price);
+            parameters.AddOptionalParameter("size", quantity);
+            parameters.AddOptionalParameter("funds", quoteQuantity);
+            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
+            parameters.AddOptionalParameter("postOnly", postOnly);
+            parameters.AddOptionalParameter("hidden", hidden);
+            parameters.AddOptionalParameter("iceBerg", iceBerg);
+            parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
+            parameters.AddOptionalParameter("remark", remark);
+            parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
+            parameters.AddOptionalParameter("autoBorrow", autoBorrow);
+            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order/test"), HttpMethod.Post, ct, parameters, true, weight: 5).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

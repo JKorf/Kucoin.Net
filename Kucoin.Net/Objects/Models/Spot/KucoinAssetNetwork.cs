@@ -8,15 +8,15 @@ namespace Kucoin.Net.Objects.Models.Spot
     public class KucoinAssetNetwork
     {
         /// <summary>
+        /// Network id
+        /// </summary>
+        [JsonProperty("chainId")]
+        public string NetworkId { get; set; } = string.Empty;
+        /// <summary>
         /// Network name
         /// </summary>
         [JsonProperty("chainName")]
         public string NetworkName { get; set; } = string.Empty;
-        /// <summary>
-        /// Network
-        /// </summary>
-        [JsonProperty("chain")]
-        public string Network { get; set; } = string.Empty;
         /// <summary>
         /// Min withdrawal quantity
         /// </summary>
@@ -38,6 +38,10 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Confirmations needed on the network
         /// </summary>
         public int? Confirms { get; set; }
+        /// <summary>
+        /// The number of blocks (confirmations) for advance on-chain verification
+        /// </summary>
+        public int? Preconfirms { get; set; }
         /// <summary>
         /// Contract address
         /// </summary>

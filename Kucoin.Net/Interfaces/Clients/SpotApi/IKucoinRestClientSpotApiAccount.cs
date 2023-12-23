@@ -15,16 +15,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     public interface IKucoinRestClientSpotApiAccount
     {
         /// <summary>
+        /// Get account summary info
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-summary-info" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinUserInfo>> GetUserInfoAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of sub users
-        /// <para><a href="https://docs.kucoin.com/#get-user-info-of-all-sub-accounts" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-info-v1-" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of sub users</returns>
-        Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetUserInfoAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetSubUserInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of accounts
-        /// <para><a href="https://docs.kucoin.com/#list-accounts" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-list-spot-margin-trade_hf" /></para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="accountType">Filter on type of account</param>
@@ -34,7 +42,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a specific account
-        /// <para><a href="https://docs.kucoin.com/#get-an-account" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-detail-spot-margin-trade_hf" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get</param>
         /// <param name="ct">Cancellation token</param>
@@ -43,7 +51,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the basic user fees
-        /// <para><a href="https://docs.kucoin.com/#basic-user-fee" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/basic-user-fee-spot-margin-trade_hf" /></para>
         /// </summary>
         /// <param name="assetType">The type of asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -52,7 +60,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the trading fees for symbols
-        /// <para><a href="https://docs.kucoin.com/#actual-fee-rate-of-the-trading-pair" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/trading-pair-actual-fee-spot-margin-trade_hf" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve fees for</param>
         /// <param name="ct">Cancellation token</param>
@@ -61,7 +69,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the trading fees for symbols
-        /// <para><a href="https://docs.kucoin.com/#actual-fee-rate-of-the-trading-pair" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/trading-pair-actual-fee-spot-margin-trade_hf" /></para>
         /// </summary>
         /// <param name="symbols">The symbols to retrieve fees for</param>
         /// <param name="ct">Cancellation token</param>
@@ -70,21 +78,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of account activity
-        /// <para><a href="https://docs.kucoin.com/#get-account-ledgers-deprecated" /></para>
-        /// </summary>
-        /// <param name="accountId">The account id to get the activities for</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Info on account activity</returns>
-        [Obsolete("Prefers GetAccountLedgersAsync")]
-        Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgerAsync(string accountId, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Gets a list of account activity
-        /// <para><a href="https://docs.kucoin.com/#get-account-ledgers" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-ledgers-spot-margin" /></para>
         /// </summary>
         /// <param name="asset">The asset to retrieve activity or null</param>
         /// <param name="startTime">Filter by start time</param>
@@ -99,7 +93,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a transferable balance of a specified account.
-        /// <para><a href="https://docs.kucoin.com/#get-the-transferable" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/get-the-transferable" /></para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="accountType">Filter on type of account</param>
@@ -108,8 +102,37 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, CancellationToken ct = default);
 
         /// <summary>
+        /// Universal transfer between accounts
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/flextransfer" /></para>
+        /// </summary>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="fromAccountType">From account type</param>
+        /// <param name="toAccountType">To account type</param>
+        /// <param name="transferType">Transfer type</param>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="fromUserId">Transfer out UserId， This is required when transferring sub-account to master-account. It is optional for internal transfers.</param>
+        /// <param name="fromAccountTag">Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
+        /// <param name="toUserId">Transfer in UserId， This is required when transferring master-account to sub-account. It is optional for internal transfers.</param>
+        /// <param name="toAccountTag">Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinInnerTransfer>> UniversalTransferAsync(
+            decimal quantity,
+            TransferAccountType fromAccountType,
+            TransferAccountType toAccountType,
+            TransferType transferType,
+            string? asset = null,
+            string? fromUserId = null,
+            string? fromAccountTag = null,
+            string? toUserId = null,
+            string? toAccountTag = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Transfers assets between the accounts of a user.
-        /// <para><a href="https://docs.kucoin.com/#transfer-between-master-user-and-sub-user" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/inner-transfer" /></para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="from">The type of the account</param>
@@ -124,7 +147,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of deposits
-        /// <para><a href="https://docs.kucoin.com/#get-deposit-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-list" /></para>
         /// </summary>
         /// <param name="asset">Filter list by asset</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -138,7 +161,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of historical deposits
-        /// <para><a href="https://docs.kucoin.com/#get-v1-historical-deposits-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-v1-historical-deposits-list" /></para>
         /// </summary>
         /// <param name="asset">Filter list by asset</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -152,7 +175,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the deposit address for an asset
-        /// <para><a href="https://docs.kucoin.com/#get-deposit-address" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-address" /></para>
         /// </summary>
         /// <param name="asset">The asset to get the address for</param>
         /// <param name="network">The network to get the address for</param>
@@ -162,7 +185,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the deposit addresses for an asset
-        /// <para><a href="https://docs.kucoin.com/#get-deposit-addresses-v2" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-addresses-v2-" /></para>
         /// </summary>
         /// <param name="asset">The asset to get the address for</param>
         /// <param name="ct">Cancellation token</param>
@@ -171,7 +194,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Creates a new deposit address for an asset
-        /// <para><a href="https://docs.kucoin.com/#create-deposit-address" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/create-deposit-address" /></para>
         /// </summary>
         /// <param name="asset">The asset create the address for</param>
         /// <param name="network">The network to create the address for</param>
@@ -181,7 +204,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of withdrawals
-        /// <para><a href="https://docs.kucoin.com/#get-withdrawals-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawals-list" /></para>
         /// </summary>
         /// <param name="asset">Filter list by asset</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -195,7 +218,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of historical withdrawals
-        /// <para><a href="https://docs.kucoin.com/#get-v1-historical-withdrawals-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-v1-historical-withdrawals-list" /></para>
         /// </summary>
         /// <param name="asset">Filter list by asset</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -209,7 +232,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the withdrawal quota for a asset
-        /// <para><a href="https://docs.kucoin.com/#get-withdrawal-quotas" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawal-quotas" /></para>
         /// </summary>
         /// <param name="asset">The asset to get the quota for</param>
         /// <param name="network">The network name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
@@ -219,7 +242,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Withdraw an asset to an address
-        /// <para><a href="https://docs.kucoin.com/#apply-withdraw-2" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/apply-withdraw" /></para>
         /// </summary>
         /// <param name="asset">The asset to withdraw</param>
         /// <param name="toAddress">The address to withdraw to</param>
@@ -235,7 +258,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel a withdrawal
-        /// <para><a href="https://docs.kucoin.com/#cancel-withdrawal" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/cancel-withdrawal" /></para>
         /// </summary>
         /// <param name="withdrawalId">The id of the withdrawal to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -244,7 +267,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin risk limit
-        /// <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/cancel-withdrawal" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -260,15 +283,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get margin account info
-        /// <para><a href="https://docs.kucoin.com/#get-margin-account" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-margin" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get cross margin account info
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-cross-margin" /></para>
+        /// </summary>
+        /// <param name="quoteAsset">Filter by quote asset</param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCrossMarginAccount>> GetCrossMarginAccountsAsync(string? quoteAsset = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get isolated margin account info
-        /// <para><a href="https://docs.kucoin.com/#query-isolated-margin-account-info" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-isolated-margin" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -276,7 +308,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin account info
-        /// <para><a href="https://docs.kucoin.com/#query-single-isolated-margin-account-info" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-isolated-margin" /></para>
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="ct">Cancellation token</param>
