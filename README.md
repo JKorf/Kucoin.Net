@@ -30,6 +30,18 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 5.1.0 - 23 Dec 2023
+    * Added SpotApi.Account.GetUserInfoAsync
+    * Added SpotApi.Account.UniversalTransferAsync
+    * Added SpotApi.Account.GetCrossMarginAccountsAsync
+    * Added SpotApi.Trading.PlaceTestOrderAsync
+    * Added SpotApi.Trading.PlaceTestMarginOrderAsync
+    * Updated SpotApi.ExchangeData.GetAssetsAsync to V3 API
+    * Updated SpotApi.ExchangeData.GetAssetAsync to V3 API
+    * Updated API doc links on endpoints
+    * Renamed SpotApi.Account.GetUserInfoAsync to GetSubUserInfoAsync
+    * Removed obsolete SpotApi.Account.GetAccountLedgerAsync
+
 * Version 5.0.8 - 03 Dec 2023
     * Updated CryptoExchange.Net
 
