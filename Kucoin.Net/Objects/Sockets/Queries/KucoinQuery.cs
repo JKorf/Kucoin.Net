@@ -12,18 +12,16 @@ namespace Kucoin.Net.Objects.Sockets.Queries
 {
     internal class KucoinQuery : Query<KucoinSocketResponse>
     {
-        private string _id;
-
-        public override List<string> Identifiers => new List<string> { _id };
+        public override List<string> StreamIdentifiers { get; set; }
 
         public KucoinQuery(string type, string topic, bool auth) : base(new KucoinRequest(ExchangeHelpers.NextId().ToString(), type, topic, auth), auth)
         {
-            _id = ((KucoinRequest)Request).Id;
+            StreamIdentifiers = new List<string> { ((KucoinRequest)Request).Id };
         }
 
-        public override Task<CallResult<KucoinSocketResponse>> HandleMessageAsync(SocketConnection connection, DataEvent<ParsedMessage<KucoinSocketResponse>> message)
+        public override Task<CallResult<KucoinSocketResponse>> HandleMessageAsync(SocketConnection connection, DataEvent<KucoinSocketResponse> message)
         {
-            var kucoinResponse = message.Data.TypedData;
+            var kucoinResponse = message.Data;
             if (kucoinResponse.Type == "error")
                 return Task.FromResult(new CallResult<KucoinSocketResponse>(new ServerError(kucoinResponse.Code ?? 0, kucoinResponse.Data)));
 

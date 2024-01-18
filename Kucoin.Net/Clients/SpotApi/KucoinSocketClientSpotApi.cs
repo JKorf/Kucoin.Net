@@ -24,6 +24,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Objects.Sockets;
+using CryptoExchange.Net.SocketsV2;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -34,8 +35,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
-
-        public override SocketConverter StreamConverter { get; } = new KucoinStreamConverter();
 
         internal KucoinSocketClientSpotApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
             : base(logger, options.Environment.SpotAddress, options, options.SpotOptions)
@@ -55,6 +54,21 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+
+
+        public override string GetStreamHash(SocketMessage message)
+        {
+            var id = message.MessageData.GetValue<string>(new MessagePath(MessageNode.String("id")));
+            var type = message.MessageData.GetValue<string>(new MessagePath(MessageNode.String("type")));
+            if (type == "welcome")
+                return type;
+
+            if (id != null)
+                return id;
+
+            return message.MessageData.GetValue<string>(new MessagePath(MessageNode.String("topic"))).ToLowerInvariant();
+        }
+
 
         //#region public
         /// <inheritdoc />

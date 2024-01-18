@@ -34,12 +34,19 @@ namespace Kucoin.Net.Clients
         public IKucoinSocketClientFuturesApi FuturesApi { get; }
 
         #endregion
+        /// <summary>
+        /// Create a new instance of the OKXSocketClient
+        /// </summary>
+        /// <param name="loggerFactory">The logger</param>
+        public KucoinSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
+        {
+        }
 
         /// <summary>
         /// Create a new instance of KucoinSocketClient
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public KucoinSocketClient(Action<KucoinSocketOptions>? optionsDelegate = null) : this(null, optionsDelegate)
+        public KucoinSocketClient(Action<KucoinSocketOptions> optionsDelegate) : this(optionsDelegate, null)
         {
         }
 
@@ -49,7 +56,7 @@ namespace Kucoin.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         /// <param name="loggerFactory">The logger factory</param>
         [ActivatorUtilitiesConstructor]
-        public KucoinSocketClient(ILoggerFactory? loggerFactory, Action<KucoinSocketOptions>? optionsDelegate = null) : base(loggerFactory, "Kucoin")
+        public KucoinSocketClient(Action<KucoinSocketOptions>? optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Kucoin")
         {
             var options = KucoinSocketOptions.Default.Copy();
             if (optionsDelegate != null)

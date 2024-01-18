@@ -19,6 +19,7 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Linq;
 using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.SocketsV2;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -42,7 +43,18 @@ namespace Kucoin.Net.Clients.FuturesApi
             //AddGenericHandler("Welcome", (messageEvent) => { });
         }
 
-        public override SocketConverter StreamConverter => throw new NotImplementedException();
+        public override string GetStreamHash(SocketMessage message)
+        {
+            var id = message.MessageData.GetValue<string>(new MessagePath(MessageNode.String("id")));
+            var type = message.MessageData.GetValue<string>(new MessagePath(MessageNode.String("type")));
+            if (type == "welcome")
+                return type;
+
+            if (id != null)
+                return id;
+
+            return message.MessageData.GetValue<string>(new MessagePath(MessageNode.String("topic"))).ToLowerInvariant();
+        }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
