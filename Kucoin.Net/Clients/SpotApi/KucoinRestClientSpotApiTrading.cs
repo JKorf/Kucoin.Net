@@ -154,6 +154,7 @@ namespace Kucoin.Net.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default)
@@ -191,6 +192,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
+            parameters.AddOptionalParameter("autoBorrow", autoRepay);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order"), HttpMethod.Post, ct, parameters, true, weight: 5).ConfigureAwait(false);
         }
@@ -212,6 +214,7 @@ namespace Kucoin.Net.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default)
@@ -249,6 +252,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
+            parameters.AddOptionalParameter("autoRepay", autoRepay);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order/test"), HttpMethod.Post, ct, parameters, true, weight: 5).ConfigureAwait(false);
         }
