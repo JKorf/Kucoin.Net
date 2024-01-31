@@ -1,13 +1,12 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.SocketsV2;
+using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
@@ -17,22 +16,22 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private string _topic;
         private Action<DataEvent<T>> _handler;
 
-        public override List<string> StreamIdentifiers { get; set;  }
+        public override HashSet<string> ListenerIdentifiers { get; set;  }
 
         public KucoinSubscription(ILogger logger, string topic, List<string>? symbols, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _topic = symbols?.Any() == true ? topic + ":" + string.Join(",", symbols) : topic;
             _handler = handler;
 
-            StreamIdentifiers = symbols?.Any() == true ? symbols.Select(s => topic + ":" + s.ToLowerInvariant()).ToList() : new List<string> { topic };
+            ListenerIdentifiers = symbols?.Any() == true ? new HashSet<string>(symbols.Select(s => topic + ":" + s)) : new HashSet<string> { topic };
         }
 
-        public override BaseQuery? GetSubQuery(SocketConnection connection)
+        public override Query? GetSubQuery(SocketConnection connection)
         {
             return new KucoinQuery("subscribe", _topic, Authenticated);
         }
 
-        public override BaseQuery? GetUnsubQuery()
+        public override Query? GetUnsubQuery()
         {
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
@@ -48,6 +47,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return Task.FromResult(new CallResult(null));
         }
 
-        public override Type? GetMessageType(SocketMessage message) => typeof(KucoinSocketUpdate<T>);
+        public override Type? GetMessageType(IMessageAccessor message) => typeof(KucoinSocketUpdate<T>);
     }
 }

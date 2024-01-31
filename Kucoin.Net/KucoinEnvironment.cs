@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects;
-using System.Collections.Generic;
 
 namespace Kucoin.Net
 {

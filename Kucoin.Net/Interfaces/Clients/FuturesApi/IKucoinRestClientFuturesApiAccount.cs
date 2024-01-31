@@ -6,7 +6,6 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
-using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {

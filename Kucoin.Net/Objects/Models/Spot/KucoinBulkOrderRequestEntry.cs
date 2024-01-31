@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;

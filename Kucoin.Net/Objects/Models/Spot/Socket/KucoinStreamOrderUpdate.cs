@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// The type of the update
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(MatchUpdateTypeConverter))]
-        public MatchUpdateType UpdateType { get; set; }
+        public MatchUpdateType? UpdateType { get; set; }
         /// <summary>
         /// The side of the order
         /// </summary>
@@ -47,7 +47,41 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// The client order id
         /// </summary>
         [JsonProperty("clientOid")]
-        public string ClientOrderid { get; set; } = string.Empty;
+        public string? ClientOrderid { get; set; }
+        /// <summary>
+        /// Order status
+        /// </summary>
+        [JsonConverter(typeof(ExtendedOrderStatusConverter))]
+        public ExtendedOrderStatus? Status { get; set; }
+        /// <summary>
+        /// Order time
+        /// </summary>
+        [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? OrderTime { get; set; }
+    }
+
+    /// <summary>
+    /// New order update
+    /// </summary>
+    public class KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
+    {
+        /// <summary>
+        /// Origin quantity
+        /// </summary>
+        [JsonProperty("originSize")]
+        public decimal OriginalQuantity { get; set; }
+        /// <summary>
+        /// Origin value
+        /// </summary>
+        [JsonProperty("originFunds")]
+        public decimal OriginalValue { get; set; }
+    }
+    
+    /// <summary>
+    /// Order update
+    /// </summary>
+    public class KucoinStreamOrderUpdate : KucoinStreamOrderBaseUpdate
+    {
         /// <summary>
         /// The quantity of the order
         /// </summary>
@@ -68,22 +102,13 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// </summary>
         [JsonProperty("remainSize")]
         public decimal QuantityRemaining { get; set; }
-        /// <summary>
-        /// Order status
-        /// </summary>
-        [JsonConverter(typeof(ExtendedOrderStatusConverter))]
-        public ExtendedOrderStatus Status { get; set; }
-        /// <summary>
-        /// Order time
-        /// </summary>
-        [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
-        public DateTime? OrderTime { get; set; }
+
     }
-    
+
     /// <summary>
     /// Stream order update (match)
     /// </summary>
-    public class KucoinStreamOrderMatchUpdate : KucoinStreamOrderBaseUpdate
+    public class KucoinStreamOrderMatchUpdate : KucoinStreamOrderUpdate
     {
         /// <summary>
         /// The trade id
