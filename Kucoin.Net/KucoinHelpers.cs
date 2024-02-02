@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Clients;
+﻿using CryptoExchange.Net.Clients;
+using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects.Options;
@@ -57,8 +58,8 @@ namespace Kucoin.Net
                 return handler;
             });
 
+            services.AddTransient<ICryptoExchangeClient, CryptoExchangeClient>();
             services.AddSingleton<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
-            services.AddTransient<IKucoinRestClient, KucoinRestClient>();
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.CommonSpotClient);
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.CommonFuturesClient);
             if (socketClientLifeTime == null)
