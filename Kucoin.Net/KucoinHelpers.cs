@@ -58,7 +58,7 @@ namespace Kucoin.Net
                 return handler;
             });
 
-            services.AddTransient<ICryptoExchangeClient, CryptoExchangeClient>();
+            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddSingleton<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.CommonSpotClient);
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.CommonFuturesClient);
