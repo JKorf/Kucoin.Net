@@ -40,7 +40,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             _baseClient = baseClient;
 
             AddSystemSubscription(new KucoinWelcomeSubscription(_logger));
-            QueryPeriodic("Ping", TimeSpan.FromSeconds(30), x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()), null);
+            RegisterPeriodicQuery("Ping", TimeSpan.FromSeconds(30), x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()), null);
         }
 
         /// <inheritdoc />
