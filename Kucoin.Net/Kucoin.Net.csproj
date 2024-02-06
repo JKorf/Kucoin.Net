@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>5.1.0</PackageVersion>
-    <AssemblyVersion>5.1.0</AssemblyVersion>
-    <FileVersion>5.1.0</FileVersion>
+    <PackageVersion>5.2.0-beta1</PackageVersion>
+    <AssemblyVersion>5.2.0-beta1</AssemblyVersion>
+    <FileVersion>5.2.0-beta1</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -21,7 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>5.1.0 - Added SpotApi.Account.GetUserInfoAsync, Added SpotApi.Account.UniversalTransferAsync, Added SpotApi.Account.GetCrossMarginAccountsAsync, Added SpotApi.Trading.PlaceTestOrderAsync, Added SpotApi.Trading.PlaceTestMarginOrderAsync, Updated SpotApi.ExchangeData.GetAssetsAsync to V3 API, Updated SpotApi.ExchangeData.GetAssetAsync to V3 API, Updated API doc links on endpoints, Renamed SpotApi.Account.GetUserInfoAsync to GetSubUserInfoAsync, Removed obsolete SpotApi.Account.GetAccountLedgerAsync</PackageReleaseNotes>
+    <PackageReleaseNotes>5.2.0-beta1 - Updated CryptoExchange.Net and implemented reworked websocket message handling. For release notes for the CryptoExchange.Net base library see: https://github.com/JKorf/CryptoExchange.Net/tree/beta?tab=readme-ov-file#release-notes, Fixed issue in DI registration causing http client to not be correctly injected, Added multi symbol support for socket client subscriptions, Added BestOffers stream subscription to socket client spot api, Updated socket client spot api order subscription, Removed deprecated match engine subscriptions from socket client spot api</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
