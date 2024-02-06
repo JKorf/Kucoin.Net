@@ -24,6 +24,7 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Sockets.MessageParsing;
 using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Kucoin.Net.Objects.Sockets.Queries;
+using Kucoin.Net.ExtensionMethods;
 
 namespace Kucoin.Net.Clients.SpotApi
 {

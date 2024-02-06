@@ -13,6 +13,7 @@ using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Clients.SpotApi;
 using CryptoExchange.Net.Objects.Sockets;
+using Kucoin.Net.ExtensionMethods;
 
 namespace Kucoin.Net.UnitTests
 {
