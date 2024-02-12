@@ -80,7 +80,7 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Futures Trading Risk Limit|✓|`restClient.FuturesApi.Acount`|
 |Futures Trading Funding Fees|✓|`restClient.FuturesApi.ExchangeData`|
 
-### Weboscket Api
+### Websocket Api
 |API|Supported|Location|
 |--|--:|--|
 |Spot Public|✓|`socketClient.SpotApi`|
