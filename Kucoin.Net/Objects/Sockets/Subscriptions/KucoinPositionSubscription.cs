@@ -15,10 +15,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
-        private readonly Action<DataEvent<KucoinPositionUpdate>> _onPositionUpdate;
-        private readonly Action<DataEvent<KucoinPositionMarkPriceUpdate>> _onMarkPriceUpdate;
-        private readonly Action<DataEvent<KucoinPositionFundingSettlementUpdate>> _onFundingSettlementUpdate;
-        private readonly Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> _onRiskAdjustUpdate;
+        private readonly Action<DataEvent<KucoinPositionUpdate>>? _onPositionUpdate;
+        private readonly Action<DataEvent<KucoinPositionMarkPriceUpdate>>? _onMarkPriceUpdate;
+        private readonly Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? _onFundingSettlementUpdate;
+        private readonly Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? _onRiskAdjustUpdate;
         private readonly string _topic;
         private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
         private static readonly MessagePath _changeReasonPath = MessagePath.Get().Property("data").Property("changeReason");
@@ -28,10 +28,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public KucoinPositionSubscription(
             ILogger logger,
             string symbol,
-            Action<DataEvent<KucoinPositionUpdate>> onPositionUpdate,
-            Action<DataEvent<KucoinPositionMarkPriceUpdate>> onMarkPriceUpdate,
-            Action<DataEvent<KucoinPositionFundingSettlementUpdate>> onFundingSettlementUpdate,
-            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> onRiskAdjustUpdate
+            Action<DataEvent<KucoinPositionUpdate>>? onPositionUpdate,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>>? onMarkPriceUpdate,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? onFundingSettlementUpdate,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate
             ) : base(logger, true)
         {
             _topic = "/contract/position:" + symbol;

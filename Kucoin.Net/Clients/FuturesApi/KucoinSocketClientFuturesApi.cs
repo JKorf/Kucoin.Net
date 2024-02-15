@@ -162,9 +162,9 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
-            Action<DataEvent<KucoinStreamOrderMarginUpdate>> onOrderMarginUpdate,
-            Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> onBalanceUpdate,
-            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate,
+            Action<DataEvent<KucoinStreamOrderMarginUpdate>>? onOrderMarginUpdate = null,
+            Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? onBalanceUpdate = null,
+            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? onWithdrawableUpdate = null,
             CancellationToken ct = default)
         {
             var subscription = new KucoinBalanceSubscription(_logger, onOrderMarginUpdate, onBalanceUpdate, onWithdrawableUpdate);
@@ -174,16 +174,15 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
             string symbol,
-            Action<DataEvent<KucoinPositionUpdate>> onPositionUpdate,
-            Action<DataEvent<KucoinPositionMarkPriceUpdate>> onMarkPriceUpdate,
-            Action<DataEvent<KucoinPositionFundingSettlementUpdate>> onFundingSettlementUpdate,
-            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> onRiskAdjustUpdate,
+            Action<DataEvent<KucoinPositionUpdate>>? onPositionUpdate = null,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>>? onMarkPriceUpdate = null,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? onFundingSettlementUpdate = null,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate = null,
             CancellationToken ct = default)
         {
             var subscription = new KucoinPositionSubscription(_logger, symbol, onPositionUpdate, onMarkPriceUpdate, onFundingSettlementUpdate, onRiskAdjustUpdate);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
-
 
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)

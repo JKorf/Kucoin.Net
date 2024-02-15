@@ -174,9 +174,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
-            Action<DataEvent<KucoinStreamOrderNewUpdate>> onNewOrder,
-            Action<DataEvent<KucoinStreamOrderUpdate>> onOrderData,
-            Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData,
+            Action<DataEvent<KucoinStreamOrderNewUpdate>>? onNewOrder = null,
+            Action<DataEvent<KucoinStreamOrderUpdate>>? onOrderData = null,
+            Action<DataEvent<KucoinStreamOrderMatchUpdate>>? onTradeData = null,
             CancellationToken ct = default);
 
         /// <summary>

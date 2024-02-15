@@ -15,9 +15,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinBalanceSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
-        private readonly Action<DataEvent<KucoinStreamOrderMarginUpdate>> _onOrderMarginUpdate;
-        private readonly Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> _onBalanceUpdate;
-        private readonly Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> _onWithdrawableUpdate;
+        private readonly Action<DataEvent<KucoinStreamOrderMarginUpdate>>? _onOrderMarginUpdate;
+        private readonly Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? _onBalanceUpdate;
+        private readonly Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? _onWithdrawableUpdate;
         private readonly string _topic = "/contractAccount/wallet";
         private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
 
@@ -25,9 +25,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinBalanceSubscription(
             ILogger logger,
-            Action<DataEvent<KucoinStreamOrderMarginUpdate>> onOrderMarginUpdate,
-            Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> onBalanceUpdate,
-            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate
+            Action<DataEvent<KucoinStreamOrderMarginUpdate>>? onOrderMarginUpdate,
+            Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? onBalanceUpdate,
+            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? onWithdrawableUpdate
             ) : base(logger, true)
         {
             _onOrderMarginUpdate = onOrderMarginUpdate;

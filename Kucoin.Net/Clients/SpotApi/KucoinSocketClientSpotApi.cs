@@ -211,9 +211,9 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
-            Action<DataEvent<KucoinStreamOrderNewUpdate>> onNewOrder,
-            Action<DataEvent<KucoinStreamOrderUpdate>> onOrderData,
-            Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData,
+            Action<DataEvent<KucoinStreamOrderNewUpdate>>? onNewOrder = null,
+            Action<DataEvent<KucoinStreamOrderUpdate>>? onOrderData = null,
+            Action<DataEvent<KucoinStreamOrderMatchUpdate>>? onTradeData = null,
             CancellationToken ct = default)
         {
             var subscription = new KucoinOrderSubscription(_logger, onNewOrder, onOrderData, onTradeData);

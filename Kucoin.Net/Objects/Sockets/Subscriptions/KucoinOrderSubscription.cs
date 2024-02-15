@@ -14,9 +14,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinOrderSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
-        private readonly Action<DataEvent<KucoinStreamOrderNewUpdate>> _onNewOrder;
-        private readonly Action<DataEvent<KucoinStreamOrderUpdate>> _onOrderData;
-        private readonly Action<DataEvent<KucoinStreamOrderMatchUpdate>> _onTradeData;
+        private readonly Action<DataEvent<KucoinStreamOrderNewUpdate>>? _onNewOrder;
+        private readonly Action<DataEvent<KucoinStreamOrderUpdate>>? _onOrderData;
+        private readonly Action<DataEvent<KucoinStreamOrderMatchUpdate>>? _onTradeData;
         private readonly string _topic = "/spotMarket/tradeOrdersV2";
         private static readonly MessagePath _typePath = MessagePath.Get().Property("data").Property("type");
 
@@ -24,9 +24,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinOrderSubscription(
             ILogger logger,
-            Action<DataEvent<KucoinStreamOrderNewUpdate>> onNewOrder,
-            Action<DataEvent<KucoinStreamOrderUpdate>> onOrderData,
-            Action<DataEvent<KucoinStreamOrderMatchUpdate>> onTradeData
+            Action<DataEvent<KucoinStreamOrderNewUpdate>>? onNewOrder,
+            Action<DataEvent<KucoinStreamOrderUpdate>>? onOrderData,
+            Action<DataEvent<KucoinStreamOrderMatchUpdate>>? onTradeData
             ) : base(logger, true)
         {
             _onOrderData = onOrderData;
