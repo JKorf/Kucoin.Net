@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients;
@@ -121,7 +121,7 @@ namespace Kucoin.Net.SymbolOrderBooks
 
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
-            
+
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 

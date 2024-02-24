@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Kucoin.Net.Objects.Internal
+namespace Kucoin.Net.Objects.Sockets
 {
-    internal class KucoinPing
+    internal class KucoinWelcome
     {
         [JsonProperty("id")]
         public string Id { get; set; } = string.Empty;

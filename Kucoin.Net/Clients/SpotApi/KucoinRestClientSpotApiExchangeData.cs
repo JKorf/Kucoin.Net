@@ -14,6 +14,7 @@ using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects;
+using Kucoin.Net.ExtensionMethods;
 
 namespace Kucoin.Net.Clients.SpotApi
 {

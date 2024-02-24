@@ -6,6 +6,10 @@
     public enum MatchUpdateType
     {
         /// <summary>
+        /// Received
+        /// </summary>
+        Received,
+        /// <summary>
         /// Open
         /// </summary>
         Open,

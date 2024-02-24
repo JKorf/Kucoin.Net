@@ -10,6 +10,7 @@ namespace Kucoin.Net.Converters
         public MatchUpdateTypeConverter(bool quotes) : base(quotes) { }
         protected override List<KeyValuePair<MatchUpdateType, string>> Mapping => new List<KeyValuePair<MatchUpdateType, string>>
         {
+            new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Received, "received"),
             new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Match, "match"),
             new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Open, "open"),
             new KeyValuePair<MatchUpdateType, string>(MatchUpdateType.Canceled, "canceled"),

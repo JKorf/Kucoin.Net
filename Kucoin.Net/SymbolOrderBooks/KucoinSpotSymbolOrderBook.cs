@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects;
@@ -112,17 +112,17 @@ namespace Kucoin.Net.SymbolOrderBooks
 
                 Status = OrderBookStatus.Syncing;
                 var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if(!setResult)
+                if (!setResult)
                 {
 
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
                     return setResult.As(subResult.Data);
-                }    
+                }
             }
 
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
-            
+
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
