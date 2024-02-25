@@ -7,12 +7,12 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>5.2.0-beta1</PackageVersion>
+    <PackageVersion>5.2.0</PackageVersion>
     <AssemblyVersion>5.2.0</AssemblyVersion>
     <FileVersion>5.2.0</FileVersion>
-    <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
+    <Description>Kucoin.Net is a client library for accessing the Kucoin REST and Websocket API. All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
+    <PackageTags>Kucoin;Kucoin.Net;Kucoin Client;Kucoin API;CryptoCurrency;CryptoCurrency Exchange</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/JKorf/Kucoin.Net.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JKorf/Kucoin.Net</PackageProjectUrl>
@@ -21,7 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>5.2.0-beta1 - Updated CryptoExchange.Net and implemented reworked websocket message handling. For release notes for the CryptoExchange.Net base library see: https://github.com/JKorf/CryptoExchange.Net/tree/beta?tab=readme-ov-file#release-notes, Fixed issue in DI registration causing http client to not be correctly injected, Added multi symbol support for socket client subscriptions, Added BestOffers stream subscription to socket client spot api, Updated socket client spot api order subscription, Removed deprecated match engine subscriptions from socket client spot api</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/JKorf/Kucoin.Net?tab=readme-ov-file#release-notes</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
