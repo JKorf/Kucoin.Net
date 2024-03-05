@@ -312,7 +312,7 @@ namespace Kucoin.Net.Clients.SpotApi
             symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("tradeType", type);
+            parameters.AddOptionalParameter("tradeType", EnumConverter.GetString(type));
             return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true, weight: 60).ConfigureAwait(false);
         }
 
