@@ -3,6 +3,8 @@ using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets.MessageParsing;
+using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects;
@@ -371,27 +373,20 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, string data)
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
         {
-            var errorData = ValidateJson(data);
-            if (!errorData)
-                return new ServerError(data);
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
 
-            if (!errorData.Data.HasValues)
-            {
-                return new ServerError(string.IsNullOrEmpty(data) ? "Unknown error" : data);
-            }
+            var codePath = MessagePath.Get().Property("code");
+            var msgPath = MessagePath.Get().Property("msg");
+            var code = accessor.GetValue<string>(codePath);
+            var msg = accessor.GetValue<string>(msgPath);
 
-            if (errorData.Data["code"] != null && errorData.Data["msg"] != null)
-            {
-                var result = errorData.Data.ToObject<KucoinResult<object>>();
-                if (result == null)
-                    return new ServerError(errorData.Data["msg"]!.ToString());
+            if (code != null && msg != null)
+                return new ServerError(code, msg);
 
-                return new ServerError(result.Code, result.Message!);
-            }
-
-            return new ServerError(errorData.Data.ToString());
+            return new ServerError(accessor.GetOriginalString());
         }
 
         /// <inheritdoc />

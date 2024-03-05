@@ -358,7 +358,7 @@
             <param name="quoteAsset"></param>
             <returns></returns>
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.String)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Sockets.MessageParsing.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.GetServerTimestampAsync">
@@ -1744,12 +1744,17 @@
         </member>
         <member name="F:Kucoin.Net.Enums.TradeType.SpotTrade">
             <summary>
-            Stop trade
+            Spot trade
             </summary>
         </member>
         <member name="F:Kucoin.Net.Enums.TradeType.MarginTrade">
             <summary>
             Margin trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.TradeType.IsolatedMarginTrade">
+            <summary>
+            Isolated margin trade
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.TransactionType">
@@ -3978,15 +3983,6 @@
             <param name="apiKey">The API key</param>
             <param name="apiSecret">The API secret</param>
             <param name="apiPassPhrase">The API passPhrase</param>
-        </member>
-        <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.#ctor(System.IO.Stream,System.String,System.String,System.String)">
-            <summary>
-            Create Api credentials providing a stream containing json data. The json data should include three values: apiKey, apiSecret and apiPassPhrase
-            </summary>
-            <param name="inputStream">The stream containing the json data</param>
-            <param name="identifierKey">A key to identify the credentials for the API. For example, when set to `binanceKey` the json data should contain a value for the property `binanceKey`. Defaults to 'apiKey'.</param>
-            <param name="identifierSecret">A key to identify the credentials for the API. For example, when set to `binanceSecret` the json data should contain a value for the property `binanceSecret`. Defaults to 'apiSecret'.</param>
-            <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
         </member>
         <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.Copy">
             <inheritdoc />

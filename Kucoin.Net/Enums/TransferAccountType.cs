@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
-using System.ComponentModel;
 
 namespace Kucoin.Net.Enums
 {
