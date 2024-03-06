@@ -378,15 +378,15 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!accessor.IsJson)
                 return new ServerError(accessor.GetOriginalString());
 
-            var codePath = MessagePath.Get().Property("code");
-            var msgPath = MessagePath.Get().Property("msg");
-            var code = accessor.GetValue<string>(codePath);
-            var msg = accessor.GetValue<string>(msgPath);
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
 
-            if (code != null && msg != null)
-                return new ServerError(code, msg);
+            if (code == null)
+                return new ServerError(msg);
 
-            return new ServerError(accessor.GetOriginalString());
+            return new ServerError(code.Value, msg);
         }
 
         /// <inheritdoc />
