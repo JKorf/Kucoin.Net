@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net;
-using Kucoin.Net.Objects;
+﻿using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
 using Kucoin.Net.Interfaces.Clients;
@@ -9,6 +8,7 @@ using Kucoin.Net.Clients.SpotApi;
 using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
+using CryptoExchange.Net.Clients;
 
 namespace Kucoin.Net.Clients
 {
