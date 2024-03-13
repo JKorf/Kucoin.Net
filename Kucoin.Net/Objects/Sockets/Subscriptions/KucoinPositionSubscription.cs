@@ -53,7 +53,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinPositionMarkPriceUpdate> markUpdate)
                 _onMarkPriceUpdate?.Invoke(message.As(markUpdate.Data, markUpdate.Topic, SocketUpdateType.Update));
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 _onRiskAdjustUpdate?.Invoke(message.As(riskAdjust.Data, riskAdjust.Topic, SocketUpdateType.Update));
 
 
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

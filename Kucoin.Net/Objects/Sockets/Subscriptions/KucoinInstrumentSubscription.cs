@@ -42,14 +42,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice> markUpdate)
                 _markIndexPriceHandler?.Invoke(message.As(markUpdate.Data, markUpdate.Topic, SocketUpdateType.Update));
 
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesFundingRate> fundingUpdate)
                 _fundingRateHandler?.Invoke(message.As(fundingUpdate.Data, fundingUpdate.Topic, SocketUpdateType.Update));
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message)
