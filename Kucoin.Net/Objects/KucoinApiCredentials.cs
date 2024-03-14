@@ -37,7 +37,7 @@ namespace Kucoin.Net.Objects
         /// <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
         public KucoinApiCredentials(Stream inputStream, string? identifierKey = null, string? identifierSecret = null, string? identifierPassPhrase = null) : base(inputStream, identifierKey, identifierSecret)
         {
-            var accessor = new JsonNetMessageAccessor();
+            var accessor = new JsonNetStreamMessageAccessor();
             if (!accessor.Read(inputStream, false))
                 throw new ArgumentException("Input stream not valid json data");
 
