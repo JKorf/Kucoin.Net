@@ -1,8 +1,8 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Sockets.MessageParsing;
-using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
@@ -46,7 +46,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderMatchUpdate> matchUpdate)
                 _onTradeData?.Invoke(message.As(matchUpdate.Data, matchUpdate.Topic, SocketUpdateType.Update));
@@ -55,7 +55,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderNewUpdate> newOrderUpdate)
                 _onNewOrder?.Invoke(message.As(newOrderUpdate.Data, newOrderUpdate.Topic, SocketUpdateType.Update));
 
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

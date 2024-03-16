@@ -16,12 +16,13 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Linq;
 using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.Sockets.MessageParsing;
-using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
 using CryptoExchange.Net.Objects.Sockets;
 using System.Collections.Generic;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Clients;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {

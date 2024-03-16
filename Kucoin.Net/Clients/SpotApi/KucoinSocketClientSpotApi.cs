@@ -21,10 +21,11 @@ using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.Sockets.MessageParsing;
-using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Kucoin.Net.ExtensionMethods;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Clients;
 
 namespace Kucoin.Net.Clients.SpotApi
 {

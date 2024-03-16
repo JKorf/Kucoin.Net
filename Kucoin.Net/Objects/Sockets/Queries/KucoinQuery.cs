@@ -17,13 +17,13 @@ namespace Kucoin.Net.Objects.Sockets.Queries
             ListenerIdentifiers = new HashSet<string> { ((KucoinRequest)Request).Id };
         }
 
-        public override Task<CallResult<KucoinSocketResponse>> HandleMessageAsync(SocketConnection connection, DataEvent<KucoinSocketResponse> message)
+        public override CallResult<KucoinSocketResponse> HandleMessage(SocketConnection connection, DataEvent<KucoinSocketResponse> message)
         {
             var kucoinResponse = message.Data;
             if (kucoinResponse.Type == "error")
-                return Task.FromResult(new CallResult<KucoinSocketResponse>(new ServerError(kucoinResponse.Code ?? 0, kucoinResponse.Data!)));
+                return new CallResult<KucoinSocketResponse>(new ServerError(kucoinResponse.Code ?? 0, kucoinResponse.Data!));
 
-            return base.HandleMessageAsync(connection, message);
+            return base.HandleMessage(connection, message);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+﻿using CryptoExchange.Net.Clients;
 using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.SpotApi;
 using Kucoin.Net.Interfaces.Clients;
