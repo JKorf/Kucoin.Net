@@ -46,9 +46,9 @@ namespace Kucoin.Net.SymbolOrderBooks
         public KucoinSpotSymbolOrderBook(
             string symbol,
             Action<KucoinOrderBookOptions>? optionsFunc,
-            ILogger<KucoinSpotSymbolOrderBook>? logger,
+            ILoggerFactory? logger,
             IKucoinRestClient? restClient,
-            IKucoinSocketClient? socketClient) : base(logger, "Kucoin", symbol)
+            IKucoinSocketClient? socketClient) : base(logger, "Kucoin", "Spot", symbol)
         {
             var options = KucoinOrderBookOptions.Default.Copy();
             if (optionsFunc != null)
@@ -91,7 +91,7 @@ namespace Kucoin.Net.SymbolOrderBooks
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    _logger.Log(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
+                    _logger.Log(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }

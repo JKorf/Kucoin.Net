@@ -51,9 +51,9 @@ namespace Kucoin.Net.SymbolOrderBooks
         public KucoinFuturesSymbolOrderBook(
             string symbol,
             Action<KucoinOrderBookOptions>? optionsDelegate,
-            ILogger<KucoinFuturesSymbolOrderBook>? logger = null,
+            ILoggerFactory? logger = null,
             IKucoinRestClient? restClient = null,
-            IKucoinSocketClient? socketClient = null) : base(logger, "Kucoin", symbol)
+            IKucoinSocketClient? socketClient = null) : base(logger, "Kucoin", "Futures", symbol)
         {
             var options = KucoinOrderBookOptions.Default.Copy();
             if (optionsDelegate != null)

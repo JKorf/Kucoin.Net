@@ -9315,7 +9315,7 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinFuturesSymbolOrderBook.#ctor(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions},Microsoft.Extensions.Logging.ILogger{Kucoin.Net.SymbolOrderBooks.KucoinFuturesSymbolOrderBook},Kucoin.Net.Interfaces.Clients.IKucoinRestClient,Kucoin.Net.Interfaces.Clients.IKucoinSocketClient)">
+        <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinFuturesSymbolOrderBook.#ctor(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,Kucoin.Net.Interfaces.Clients.IKucoinRestClient,Kucoin.Net.Interfaces.Clients.IKucoinSocketClient)">
             <summary>
             Create a new order book instance
             </summary>
@@ -9375,7 +9375,7 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="optionsFunc">The options for the order book</param>
         </member>
-        <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinSpotSymbolOrderBook.#ctor(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions},Microsoft.Extensions.Logging.ILogger{Kucoin.Net.SymbolOrderBooks.KucoinSpotSymbolOrderBook},Kucoin.Net.Interfaces.Clients.IKucoinRestClient,Kucoin.Net.Interfaces.Clients.IKucoinSocketClient)">
+        <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinSpotSymbolOrderBook.#ctor(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,Kucoin.Net.Interfaces.Clients.IKucoinRestClient,Kucoin.Net.Interfaces.Clients.IKucoinSocketClient)">
             <summary>
             Create a new order book instance
             </summary>

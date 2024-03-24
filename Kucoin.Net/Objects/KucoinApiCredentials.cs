@@ -38,7 +38,7 @@ namespace Kucoin.Net.Objects
         public KucoinApiCredentials(Stream inputStream, string? identifierKey = null, string? identifierSecret = null, string? identifierPassPhrase = null) : base(inputStream, identifierKey, identifierSecret)
         {
             var accessor = new JsonNetStreamMessageAccessor();
-            if (!accessor.Read(inputStream, false))
+            if (!accessor.Read(inputStream, false).Result)
                 throw new ArgumentException("Input stream not valid json data");
 
             var pass = accessor.GetValue<string>(MessagePath.Get().Property(identifierPassPhrase ?? "apiPassPhrase")) ?? throw new ArgumentException("apiKey or apiSecret value not found in Json credential file");
