@@ -46,5 +46,15 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Contract address
         /// </summary>
         public string ContractAddress { get; set; } = string.Empty;
+        /// <summary>
+        /// Deposit fee rate
+        /// </summary>
+        public decimal DepositFeeRate { get; set; }
+        /// <summary>
+        /// Min deposit quantity
+        /// </summary>
+        [JsonProperty("depositMinSize")]
+        public decimal DepsitMinQuantity { get; set; }
+
     }
 }
