@@ -54,7 +54,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Min deposit quantity
         /// </summary>
         [JsonProperty("depositMinSize")]
-        public decimal DepsitMinQuantity { get; set; }
+        public decimal DepositMinQuantity { get; set; }
 
     }
 }

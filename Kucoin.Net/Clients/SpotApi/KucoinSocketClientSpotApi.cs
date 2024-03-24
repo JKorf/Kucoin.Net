@@ -60,11 +60,18 @@ namespace Kucoin.Net.Clients.SpotApi
             if (type == "welcome")
                 return type;
 
+            var topic = message.GetValue<string>(_topicPath);
             var id = message.GetValue<string>(_idPath);
             if (id != null)
-                return id;
+            {
+                if (topic == "/account/balance")
+                    // This update also contain an id field, but should be identified by the topic regardless
+                    return topic;
 
-            return message.GetValue<string>(_topicPath)!;
+                return id;
+            }
+
+            return topic!;
         }
 
         /// <inheritdoc />

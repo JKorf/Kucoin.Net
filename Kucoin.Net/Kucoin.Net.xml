@@ -6428,6 +6428,16 @@
             Contract address
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.DepositFeeRate">
+            <summary>
+            Deposit fee rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.DepositMinQuantity">
+            <summary>
+            Min deposit quantity
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowOrder">
             <summary>
             Kucoin Borrow Order
