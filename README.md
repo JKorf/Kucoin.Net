@@ -121,6 +121,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.3.2 - 25 Mar 2024
+    * Fix deserialization issue SpotApi.ExchangeData.GetAssetsAsync
+
 * Version 5.3.1 - 24 Mar 2024
 	* Updated CryptoExchange.Net to 7.2.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
 	* Added DepositFeeRate and DepositMinQuantity to KucoinAssetNetwork model
