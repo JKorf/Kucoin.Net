@@ -49,12 +49,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Deposit fee rate
         /// </summary>
-        public decimal DepositFeeRate { get; set; }
+        public decimal? DepositFeeRate { get; set; }
         /// <summary>
         /// Min deposit quantity
         /// </summary>
         [JsonProperty("depositMinSize")]
-        public decimal DepositMinQuantity { get; set; }
+        public decimal? DepositMinQuantity { get; set; }
 
     }
 }
