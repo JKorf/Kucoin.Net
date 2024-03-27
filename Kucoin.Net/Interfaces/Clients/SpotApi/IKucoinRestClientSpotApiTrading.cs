@@ -104,6 +104,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
         /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
         /// <param name="autoBorrow">Auto-borrow to place order.</param>
+        /// <param name="autoRepay">Auto-repay to place order.</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
         /// <param name="quantity">Quantity of base asset to buy or sell of the order</param>
         /// <param name="timeInForce">The time the order is in force</param>
@@ -131,6 +132,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default);
@@ -147,6 +149,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
         /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
         /// <param name="autoBorrow">Auto-borrow to place order.</param>
+        /// <param name="autoRepay">Auto-repay to place order.</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
         /// <param name="quantity">Quantity of base asset to buy or sell of the order</param>
         /// <param name="timeInForce">The time the order is in force</param>
@@ -174,6 +177,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default);
