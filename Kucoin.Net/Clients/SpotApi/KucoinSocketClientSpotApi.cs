@@ -57,16 +57,16 @@ namespace Kucoin.Net.Clients.SpotApi
         public override string GetListenerIdentifier(IMessageAccessor message)
         {
             var type = message.GetValue<string>(_typePath);
-            if (type == "welcome")
-                return type;
+            if (string.Equals(type, "welcome", StringComparison.Ordinal))
+                return type!;
 
             var topic = message.GetValue<string>(_topicPath);
             var id = message.GetValue<string>(_idPath);
             if (id != null)
             {
-                if (topic == "/account/balance")
+                if (string.Equals(topic, "/account/balance", StringComparison.Ordinal))
                     // This update also contain an id field, but should be identified by the topic regardless
-                    return topic;
+                    return topic!;
 
                 return id;
             }

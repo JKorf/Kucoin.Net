@@ -48,11 +48,11 @@ namespace Kucoin.Net.Clients.FuturesApi
         public override string GetListenerIdentifier(IMessageAccessor message)
         {
             var type = message.GetValue<string>(_typePath);
-            if (type == "welcome")
-                return type;
+            if (string.Equals(type, "welcome", StringComparison.Ordinal))
+                return type!;
 
             var id = message.GetValue<string>(_idPath);
-            if (type != "message" && id != null)
+            if (!string.Equals(type, "message", StringComparison.Ordinal) && id != null)
                 return id;
 
             return message.GetValue<string>(_topicPath)!;

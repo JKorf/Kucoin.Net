@@ -1,5 +1,6 @@
 ﻿using Kucoin.Net.Enums;
 using Newtonsoft.Json;
+using System;
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -21,7 +22,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Side
         /// </summary>
-        public OrderSide Side => Change.Split(',')[1] == "sell" ? OrderSide.Sell : OrderSide.Buy;
+        public OrderSide Side => string.Equals(Change.Split(',')[1], "sell", StringComparison.Ordinal) ? OrderSide.Sell : OrderSide.Buy;
         /// <summary>
         /// Quantity
         /// </summary>

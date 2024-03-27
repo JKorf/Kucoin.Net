@@ -62,9 +62,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override Type? GetMessageType(IMessageAccessor message)
         {
             var subject = message.GetValue<string>(_subjectPath);
-            if (subject == "orderMargin.change")
+            if (string.Equals(subject, "orderMargin.change", StringComparison.Ordinal))
                 return typeof(KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>);
-            if (subject == "availableBalance.change")
+            if (string.Equals(subject, "availableBalance.change", StringComparison.Ordinal))
                 return typeof(KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>);
             return typeof(KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>);
         }

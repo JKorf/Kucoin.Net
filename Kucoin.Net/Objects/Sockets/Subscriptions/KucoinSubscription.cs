@@ -40,7 +40,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             var data = (KucoinSocketUpdate<T>)message.Data;
             string? topic = data.Topic.Contains(":") ? data.Topic.Split(':').Last() : null;
-            if (topic == "all")
+            if (string.Equals(topic, "all", StringComparison.Ordinal))
                 topic = data.Subject;
 
             _handler.Invoke(message.As(data.Data, topic, SocketUpdateType.Update));
