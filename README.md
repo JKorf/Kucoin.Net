@@ -122,6 +122,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.3.3 - 03 Apr 2024
+    * Updated string comparision for improved performance
+    * Removed pre-send symbol validation
+
 * Version 5.3.2 - 25 Mar 2024
     * Fix deserialization issue SpotApi.ExchangeData.GetAssetsAsync
 
