@@ -48,7 +48,6 @@ namespace Kucoin.Net.Clients.SpotApi
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -104,7 +103,6 @@ namespace Kucoin.Net.Clients.SpotApi
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -159,7 +157,6 @@ namespace Kucoin.Net.Clients.SpotApi
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -217,7 +214,6 @@ namespace Kucoin.Net.Clients.SpotApi
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -257,8 +253,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
-
             var orderList = orders.ToList();
             if (!orderList.Any())
                 throw new ArgumentException("There should be at least one order in the bulk order");
@@ -309,7 +303,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, TradeType? type = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("tradeType", EnumConverter.GetString(type));
@@ -319,7 +312,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, Enums.OrderStatus? status = null, TradeType? tradeType = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
@@ -359,7 +351,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
@@ -376,7 +367,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, TradeType? tradeType = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             if (endTime.HasValue && startTime.HasValue && (endTime.Value - startTime.Value).TotalDays > 7)

@@ -48,7 +48,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
             return await _baseClient.Execute<KucoinTick>(_baseClient.GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
@@ -62,7 +61,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object> { { "symbol", symbol } };
             return await _baseClient.Execute<Kucoin24HourStat>(_baseClient.GetUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
         }
@@ -76,7 +74,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int limit, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             limit.ValidateIntValues(nameof(limit), 20, 100);
             var parameters = new Dictionary<string, object>
             {
@@ -89,7 +86,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
@@ -100,7 +96,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
@@ -111,8 +106,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
-
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },

@@ -84,24 +84,6 @@ namespace Kucoin.Net.UnitTests
             Assert.That(result.Error.Message == "Error occured");
         }
 
-        [TestCase("BTC-USDT", true)]
-        [TestCase("NANO-USDT", true)]
-        [TestCase("NANO-BTC", true)]
-        [TestCase("ETH-BTC", true)]
-        [TestCase("BE-ETC", true)]
-        [TestCase("NANO-USDTDASADS", true)]
-        [TestCase("A-USDTDASADS", true)]
-        [TestCase("-USDTDASADSD", false)]
-        [TestCase("BTCUSDT", false)]
-        [TestCase("BTCUSD", false)]
-        public void CheckValidKucoinSymbol(string symbol, bool isValid)
-        {
-            if (isValid)
-                Assert.DoesNotThrow(symbol.ValidateKucoinSymbol);
-            else
-                Assert.Throws(typeof(ArgumentException), symbol.ValidateKucoinSymbol);
-        }
-
         [Test]
         public void CheckRestInterfaces()
         {

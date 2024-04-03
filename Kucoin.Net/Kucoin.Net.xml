@@ -1882,12 +1882,6 @@
             Extension methods specific to using the Kucoin API
             </summary>
         </member>
-        <member name="M:Kucoin.Net.ExtensionMethods.KucoinExtensionMethods.ValidateKucoinSymbol(System.String)">
-            <summary>
-            Validate the string is a valid Kucoin symbol.
-            </summary>
-            <param name="symbolString">string to validate</param>
-        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi">
             <summary>
             Client for accessing the Kucoin Futures API. 

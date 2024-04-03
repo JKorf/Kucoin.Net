@@ -44,7 +44,6 @@ namespace Kucoin.Net.Clients.SpotApi
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:

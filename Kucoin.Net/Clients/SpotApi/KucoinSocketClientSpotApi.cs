@@ -84,8 +84,6 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default)
         {
             symbols.ValidateNotNull(nameof(symbols));
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
 
             var subscription = new KucoinSubscription<KucoinStreamTick>(_logger, "/market/ticker", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
@@ -118,8 +116,6 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default)
         {
             symbols.ValidateNotNull(nameof(symbols));
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
 
             var subscription = new KucoinSubscription<KucoinStreamBestOffers>(_logger, "/spotMarket/level1", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
@@ -132,8 +128,6 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default)
         {
             symbols.ValidateNotNull(nameof(symbols));
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
 
             var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, "/market/level2", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
@@ -146,8 +140,6 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamMatch>> onData, CancellationToken ct = default)
         {
             symbols.ValidateNotNull(nameof(symbols));
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
 
             var subscription = new KucoinSubscription<KucoinStreamMatch>(_logger, "/market/match", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
@@ -156,8 +148,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
-
             var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, $"/market/candles", new List<string> { $"{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}" }, onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
@@ -170,8 +160,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int limit, Action<DataEvent<KucoinStreamOrderBookChanged>> onData, CancellationToken ct = default)
         {
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
             limit.ValidateIntValues(nameof(limit), 5, 50);
 
             var subscription = new KucoinSubscription<KucoinStreamOrderBookChanged>(_logger, $"/spotMarket/level2Depth{limit}", symbols.ToList(), onData, false);
@@ -184,9 +172,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
         {
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
-
             var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, $"/indicator/index", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
@@ -197,9 +182,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
         {
-            foreach (var symbol in symbols)
-                symbol.ValidateKucoinSymbol();
-
             var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, $"/indicator/markPrice", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
