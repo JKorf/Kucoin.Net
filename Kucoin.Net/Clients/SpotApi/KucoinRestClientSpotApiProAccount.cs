@@ -56,7 +56,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     throw new ArgumentException("Market order cant have both quantity and quoteQuantity specified");
             }
 
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
                 { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
@@ -86,7 +86,7 @@ namespace Kucoin.Net.Clients.SpotApi
             orderId.ValidateNotNull(nameof(orderId));
             symbol.ValidateNotNull(nameof(symbol));
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
 
             var result = await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri($"hf/orders/{orderId}"), HttpMethod.Delete, ct, signed: true, weight: 3, parameters: parameters).ConfigureAwait(false);
@@ -101,7 +101,7 @@ namespace Kucoin.Net.Clients.SpotApi
             orderId.ValidateNotNull(nameof(orderId));
             symbol.ValidateNotNull(nameof(symbol));
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
 
             return _baseClient.Execute<KucoinOrderHighFrequency>(_baseClient.GetUri($"hf/orders/{orderId}"), HttpMethod.Get, ct, signed: true, parameters: parameters);

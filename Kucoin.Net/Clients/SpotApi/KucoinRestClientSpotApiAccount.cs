@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace Kucoin.Net.Clients.SpotApi
     /// <inheritdoc />
     public class KucoinRestClientSpotApiAccount : IKucoinRestClientSpotApiAccount
     {
+        private static readonly RequestDefinitionCache _definitions = new();
         private readonly KucoinRestClientSpotApi _baseClient;
 
         internal KucoinRestClientSpotApiAccount(KucoinRestClientSpotApi baseClient)
@@ -29,38 +31,43 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinUserInfo>> GetUserInfoAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinUserInfo>(_baseClient.GetUri("user-info", 2), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/user-info", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            return await _baseClient.SendAsync<KucoinUserInfo>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetSubUserInfoAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinSubUser>>(_baseClient.GetUri("sub/user"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/sub/user", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            return await _baseClient.SendAsync<IEnumerable<KucoinSubUser>>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinAccount>>> GetAccountsAsync(string? asset = null, AccountType? accountType = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("type", accountType.HasValue ? JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false)) : null);
-            return await _baseClient.Execute<IEnumerable<KucoinAccount>>(_baseClient.GetUri("accounts"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            return await _baseClient.SendAsync<IEnumerable<KucoinAccount>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, CancellationToken ct = default)
         {
             accountId.ValidateNotNull(nameof(accountId));
-            return await _baseClient.Execute<KucoinAccountSingle>(_baseClient.GetUri("accounts/" + accountId), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/" + accountId, KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            return await _baseClient.SendAsync<KucoinAccountSingle>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currencyType", EnumConverter.GetString(assetType));
 
-            return await _baseClient.Execute<KucoinUserFee>(_baseClient.GetUri("base-fee"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/base-fee", KucoinExchange.RateLimiters.ManagementRest, 3, true);
+            return await _baseClient.SendAsync<KucoinUserFee>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -70,7 +77,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbols",  string.Join(",", symbols) }
             };
@@ -96,7 +103,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 directionString = JsonConvert.SerializeObject(direction, new AccountDirectionConverter(false)).ToLowerInvariant();
             }
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("direction", direction.HasValue ? directionString : null);
             parameters.AddOptionalParameter("bizType", bizType.HasValue ? bizTypeString : null);
@@ -111,7 +118,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "currency", asset },
                 { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
@@ -133,7 +140,7 @@ namespace Kucoin.Net.Clients.SpotApi
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "fromAccountType", EnumConverter.GetString(fromAccountType) },
                 { "toAccountType", EnumConverter.GetString(toAccountType)},
@@ -154,7 +161,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinInnerTransfer>> InnerTransferAsync(string asset, AccountType from, AccountType to, decimal quantity, string? fromTag = null, string? toTag = null, string? clientOrderId = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "currency", asset },
                 { "from", JsonConvert.SerializeObject(from, new AccountTypeConverter(false))},
@@ -173,7 +180,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
@@ -188,7 +195,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
@@ -202,7 +209,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinDepositAddress>> GetDepositAddressAsync(string asset, string? network = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            var parameters = new Dictionary<string, object> { { "currency", asset } };
+            var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
             return await _baseClient.Execute<KucoinDepositAddress>(_baseClient.GetUri("deposit-addresses"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
@@ -211,7 +218,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<KucoinDepositAddress>>> GetDepositAddressesAsync(string asset, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            var parameters = new Dictionary<string, object> { { "currency", asset } };
+            var parameters = new ParameterCollection { { "currency", asset } };
             return await _baseClient.Execute<IEnumerable<KucoinDepositAddress>>(_baseClient.GetUri("deposit-addresses", 2), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
@@ -219,7 +226,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressAsync(string asset, string? network = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            var parameters = new Dictionary<string, object> { { "currency", asset } };
+            var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
             return await _baseClient.Execute<KucoinDepositAddress>(_baseClient.GetUri("deposit-addresses"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
@@ -229,7 +236,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
@@ -244,7 +251,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
@@ -259,7 +266,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             asset.ValidateNotNull(nameof(asset));
 
-            var parameters = new Dictionary<string, object> { { "currency", asset } };
+            var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
             return await _baseClient.Execute<KucoinWithdrawalQuota>(_baseClient.GetUri("withdrawals/quotas"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
         }
@@ -269,7 +276,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             asset.ValidateNotNull(nameof(asset));
             toAddress.ValidateNotNull(nameof(toAddress));
-            var parameters = new Dictionary<string, object> {
+            var parameters = new ParameterCollection {
                 { "currency", asset },
                 { "address", toAddress },
                 { "amount", quantity },
@@ -312,7 +319,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinRiskLimitIsolatedMargin>>> GetRiskLimitIsolatedMarginAsync(CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("marginModel", "isolated");
             return await _baseClient.Execute<IEnumerable<KucoinRiskLimitIsolatedMargin>>(_baseClient.GetUri($"risk/limit/strategy"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
