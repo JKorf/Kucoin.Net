@@ -358,6 +358,9 @@
             <param name="quoteAsset"></param>
             <returns></returns>
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
@@ -3941,6 +3944,11 @@
             <param name="futuresAddress"></param>
             <returns></returns>
         </member>
+        <member name="T:Kucoin.Net.KucoinExchange">
+            <summary>
+            Kucoin exchange information and configuration
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.KucoinExchange.ExchangeName">
             <summary>
             Exchange name
@@ -3948,16 +3956,29 @@
         </member>
         <member name="P:Kucoin.Net.KucoinExchange.RateLimiter">
             <summary>
-            Rate limiter for the Kucoin API
+            Rate limiter configuration for the Kucoin API
             </summary>
         </member>
-        <member name="M:Kucoin.Net.KucoinExchange.FormatSymbol(System.String,System.String)">
-            <summary>   
-            Format 2 assets to form a symbol accepted by the API
+        <member name="T:Kucoin.Net.KucoinRateLimiters">
+            <summary>
+            Rate limiter configuration for the Kucoin API
             </summary>
-            <param name="baseAsset">The base asset</param>
-            <param name="quoteAsset">The quote asset</param>
-            <returns></returns>
+        </member>
+        <member name="P:Kucoin.Net.KucoinRateLimiters.VipLevel">
+            <summary>
+            The VIP level to use when calculating rate limits
+            </summary>
+        </member>
+        <member name="E:Kucoin.Net.KucoinRateLimiters.RateLimitTriggered">
+            <summary>
+            Event for when a rate limit is triggered
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinRateLimiters.Configure(Kucoin.Net.Enums.VipLevel)">
+            <summary>
+            Configure the rate limit with a different VIP level
+            </summary>
+            <param name="level"></param>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinApiAddresses">
             <summary>

@@ -80,7 +80,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiters.SpotRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.SpotRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
@@ -136,7 +136,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiters.SpotRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiter.SpotRest, 2, true);
             return await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -194,7 +194,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/order", KucoinExchange.RateLimiters.SpotRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/order", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinNewMarginOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -252,7 +252,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/order/test", KucoinExchange.RateLimiters.SpotRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/order/test", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinNewMarginOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -275,7 +275,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "orderList", orderList }
             };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.SpotRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinBulkOrderResponse>(request, parameters, ct).ConfigureAwait(false);
             if (result)
             {
@@ -291,7 +291,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/{orderId}", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
@@ -302,7 +302,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiters.SpotRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrder>(request, null, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = clientOrderId });
@@ -315,7 +315,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("tradeType", EnumConverter.GetString(type));
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders", KucoinExchange.RateLimiters.SpotRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -335,14 +335,14 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders", KucoinExchange.RateLimiters.SpotRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders", KucoinExchange.RateLimiter.SpotRest, 2, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/limit/orders", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/limit/orders", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinOrder>>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -350,7 +350,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinOrder>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -358,7 +358,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinOrder>> GetOrderAsync(string orderId, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders/{orderId}", KucoinExchange.RateLimiters.SpotRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrder>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -381,14 +381,14 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/fills", KucoinExchange.RateLimiters.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/fills", KucoinExchange.RateLimiter.SpotRest, 10, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinUserTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/limit/fills", KucoinExchange.RateLimiters.SpotRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/limit/fills", KucoinExchange.RateLimiter.SpotRest, 20, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinUserTrade>>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -453,14 +453,14 @@ namespace Kucoin.Net.Clients.SpotApi
 
             parameters.AddOptionalParameter("funds", quoteQuantity);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/stop-order", KucoinExchange.RateLimiters.SpotRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/stop-order", KucoinExchange.RateLimiter.SpotRest, 2, true);
             return await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelStopOrderAsync(string orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/" + orderId, KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/" + orderId, KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -471,7 +471,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "clientOid", clientOrderId }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/cancelOrderByClientOid", KucoinExchange.RateLimiters.SpotRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/cancelOrderByClientOid", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinCanceledOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -483,7 +483,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("orderIds", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/cancel", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/cancel", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -503,14 +503,14 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("pageSize", pageSize);
             parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order", KucoinExchange.RateLimiters.SpotRest, 8, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order", KucoinExchange.RateLimiter.SpotRest, 8, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinStopOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinStopOrder>> GetStopOrderAsync(string orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order/" + orderId, KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order/" + orderId, KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinStopOrder>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -521,7 +521,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "clientOid", clientOrderId }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order/queryOrderByClientOid", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order/queryOrderByClientOid", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinStopOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 

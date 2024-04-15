@@ -31,14 +31,14 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinUserInfo>> GetUserInfoAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/user-info", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/user-info", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinUserInfo>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetSubUserInfoAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/sub/user", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/sub/user", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinSubUser>>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -48,7 +48,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("type", accountType.HasValue ? JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false)) : null);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinAccount>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -56,7 +56,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinAccountSingle>> GetAccountAsync(string accountId, CancellationToken ct = default)
         {
             accountId.ValidateNotNull(nameof(accountId));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/" + accountId, KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/" + accountId, KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<KucoinAccountSingle>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -66,7 +66,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currencyType", EnumConverter.GetString(assetType));
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/base-fee", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/base-fee", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinUserFee>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -81,7 +81,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "symbols",  string.Join(",", symbols) }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/trade-fees", KucoinExchange.RateLimiters.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/trade-fees", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinTradeFee>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -113,7 +113,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/ledgers", KucoinExchange.RateLimiters.ManagementRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/ledgers", KucoinExchange.RateLimiter.ManagementRest, 2, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinAccountActivity>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -125,7 +125,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "currency", asset },
                 { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/transferable", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/transferable", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinTransferableAccount>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -157,7 +157,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("toUserId", toUserId);
             parameters.AddOptionalParameter("toAccountTag", toAccountTag);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/universal-transfer", KucoinExchange.RateLimiters.ManagementRest, 4, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/universal-transfer", KucoinExchange.RateLimiter.ManagementRest, 4, true);
             return await _baseClient.SendAsync<KucoinInnerTransfer>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -176,7 +176,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("fromTag", fromTag);
             parameters.AddOptionalParameter("toTag", toTag);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/accounts/inner-transfer", KucoinExchange.RateLimiters.ManagementRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/accounts/inner-transfer", KucoinExchange.RateLimiter.ManagementRest, 10, true);
             return await _baseClient.SendAsync<KucoinInnerTransfer>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -192,7 +192,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/deposits", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/deposits", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinDeposit>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -208,7 +208,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hist-deposits", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hist-deposits", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinHistoricalDeposit>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -218,7 +218,7 @@ namespace Kucoin.Net.Clients.SpotApi
             asset.ValidateNotNull(nameof(asset));
             var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/deposit-addresses", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/deposit-addresses", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<KucoinDepositAddress>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -227,7 +227,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             asset.ValidateNotNull(nameof(asset));
             var parameters = new ParameterCollection { { "currency", asset } };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/deposit-addresses", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/deposit-addresses", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinDepositAddress>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -237,7 +237,7 @@ namespace Kucoin.Net.Clients.SpotApi
             asset.ValidateNotNull(nameof(asset));
             var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/deposit-addresses", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/deposit-addresses", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinDepositAddress>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -253,7 +253,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/withdrawals", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/withdrawals", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinWithdrawal>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -269,7 +269,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hist-withdrawals", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hist-withdrawals", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinHistoricalWithdrawal>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -280,7 +280,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/withdrawals/quotas", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/withdrawals/quotas", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinWithdrawalQuota>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -299,7 +299,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", network);
             parameters.AddOptionalParameter("feeDeductType", EnumConverter.GetString(deductType));
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/withdrawals", KucoinExchange.RateLimiters.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/withdrawals", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<KucoinNewWithdrawal>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -307,14 +307,14 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default)
         {
             withdrawalId.ValidateNotNull(nameof(withdrawalId));
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/withdrawals/{withdrawalId}", KucoinExchange.RateLimiters.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/withdrawals/{withdrawalId}", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinMarginAccount>> GetMarginAccountAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/account", KucoinExchange.RateLimiters.SpotRest, 40, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/account", KucoinExchange.RateLimiter.SpotRest, 40, true);
             return await _baseClient.SendAsync<KucoinMarginAccount>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -323,33 +323,33 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("quoteCurrency", quoteAsset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/accounts", KucoinExchange.RateLimiters.SpotRest, 15, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/accounts", KucoinExchange.RateLimiter.SpotRest, 15, true);
             return await _baseClient.SendAsync<KucoinCrossMarginAccount>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinIsolatedMarginAccountsInfo>> GetIsolatedMarginAccountsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/accounts", KucoinExchange.RateLimiters.SpotRest, 50, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/accounts", KucoinExchange.RateLimiter.SpotRest, 50, true);
             return await _baseClient.SendAsync<KucoinIsolatedMarginAccountsInfo>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinIsolatedMarginAccount>> GetIsolatedMarginAccountAsync(string symbol, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/account/{symbol}", KucoinExchange.RateLimiters.SpotRest, 50, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/account/{symbol}", KucoinExchange.RateLimiter.SpotRest, 50, true);
             return await _baseClient.SendAsync<KucoinIsolatedMarginAccount>(request, null, ct).ConfigureAwait(false);
         }
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPublicAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/bullet-public", KucoinExchange.RateLimiters.PublicRest, 10, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/bullet-public", KucoinExchange.RateLimiter.PublicRest, 10, false);
             return await _baseClient.SendAsync<KucoinToken>(request, null, ct).ConfigureAwait(false);
         }
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/bullet-private", KucoinExchange.RateLimiters.PublicRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/bullet-private", KucoinExchange.RateLimiter.PublicRest, 10, true);
             return await _baseClient.SendAsync<KucoinToken>(request, null, ct).ConfigureAwait(false);
         }
     }

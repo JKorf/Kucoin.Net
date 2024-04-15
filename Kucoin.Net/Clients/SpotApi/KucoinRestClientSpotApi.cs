@@ -370,7 +370,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition, requestWeight: 0).ConfigureAwait(false);
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
@@ -395,6 +395,24 @@ namespace Kucoin.Net.Clients.SpotApi
         internal Uri GetUri(string path, int apiVersion = 1)
         {
             return new Uri(BaseAddress.AppendPath("api").AppendPath("v" + apiVersion, path));
+        }
+
+        /// <inheritdoc />
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("gw-ratelimit-reset", StringComparison.InvariantCultureIgnoreCase));
+            if (retryAfterHeader.Value?.Any() != true)
+                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
+
+            var value = retryAfterHeader.Value.First();
+            if (!int.TryParse(value, out var milliseconds))
+                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
+
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            return new ServerRateLimitError(msg!)
+            {
+                RetryAfter = DateTime.UtcNow.AddMilliseconds(milliseconds)
+            };
         }
 
         /// <inheritdoc />

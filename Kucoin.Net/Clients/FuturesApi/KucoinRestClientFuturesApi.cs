@@ -68,7 +68,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition, requestWeight: 0).ConfigureAwait(false);
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
@@ -78,9 +78,9 @@ namespace Kucoin.Net.Clients.FuturesApi
             return result.AsDataless();
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, HttpMethodParameterPosition? parameterPosition = null)
+        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition, requestWeight: weight).ConfigureAwait(false);
+            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition, requestWeight: 0).ConfigureAwait(false);
             if (!result)
                 return result.AsError<T>(result.Error!);
 
