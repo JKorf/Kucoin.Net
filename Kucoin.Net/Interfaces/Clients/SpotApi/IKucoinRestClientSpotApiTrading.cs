@@ -260,20 +260,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinOrder>> GetOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of historical orders
-        /// <para><a href="https://docs.kucoin.com/#get-v1-historical-orders-list" /></para>
-        /// </summary>
-        /// <param name="symbol">Filter list by symbol</param>
-        /// <param name="side">Filter list by order side</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>List of historical orders</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersAsync(string? symbol = null, OrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
-
-        /// <summary>
         /// Gets a list of fills
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/fills/get-filled-list" /></para>
         /// </summary>

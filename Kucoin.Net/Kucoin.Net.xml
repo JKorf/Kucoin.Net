@@ -445,12 +445,6 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetCrossMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -505,12 +499,6 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetMarginConfigurationAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetLendMarketDataAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetMarginTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetMarginTradingPairConfigurationAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -563,9 +551,6 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.GetOrderAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -1852,6 +1837,76 @@
             Sub to parent
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.VipLevel">
+            <summary>
+            Account VIP level
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip0">
+            <summary>
+            Level 0
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip1">
+            <summary>
+            Level 1
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip2">
+            <summary>
+            Level 2
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip3">
+            <summary>
+            Level 3
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip4">
+            <summary>
+            Level 4
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip5">
+            <summary>
+            Level 5
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip6">
+            <summary>
+            Level 6
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip7">
+            <summary>
+            Level 7
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip8">
+            <summary>
+            Level 8
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip9">
+            <summary>
+            Level 9
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip10">
+            <summary>
+            Level 10
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip11">
+            <summary>
+            Level 11
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.VipLevel.Vip12">
+            <summary>
+            Level 12
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.WithdrawalStatus">
             <summary>
             Status of a withdrawal
@@ -2850,22 +2905,6 @@
             <param name="ct">Cancellation token</param>
             <returns>Null</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetRiskLimitCrossMarginAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get cross margin risk limit
-            <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/cancel-withdrawal" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetRiskLimitIsolatedMarginAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get isolated margin risk limit
-            <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetMarginAccountAsync(System.Threading.CancellationToken)">
             <summary>
             Get margin account info
@@ -3037,25 +3076,6 @@
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
             </summary>
             <param name="symbol">The symbol to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetLendMarketDataAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get lending market data
-            <para><a href="https://docs.kucoin.com/#lending-market-data" /></para>
-            </summary>
-            <param name="asset">Asset</param>
-            <param name="term">Filter by term</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetMarginTradeHistoryAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Get the last 300 fills for borrow/lending orders
-            <para><a href="https://docs.kucoin.com/#margin-trade-data" /></para>
-            </summary>
-            <param name="asset">The asset</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3296,20 +3316,6 @@
             <param name="orderId">The id of the order</param>
             <param name="ct">Cancellation token</param>
             <returns>Order info</returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of historical orders
-            <para><a href="https://docs.kucoin.com/#get-v1-historical-orders-list" /></para>
-            </summary>
-            <param name="symbol">Filter list by symbol</param>
-            <param name="side">Filter list by order side</param>
-            <param name="startTime">Filter list by start time</param>
-            <param name="endTime">Filter list by end time</param>
-            <param name="currentPage">The page to retrieve</param>
-            <param name="pageSize">The amount of results per page</param>
-            <param name="ct">Cancellation token</param>
-            <returns>List of historical orders</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Kucoin.Net.Enums.TradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
@@ -3933,6 +3939,24 @@
             <param name="name"></param>
             <param name="spotAddress"></param>
             <param name="futuresAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.ExchangeName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.RateLimiter">
+            <summary>
+            Rate limiter for the Kucoin API
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinExchange.FormatSymbol(System.String,System.String)">
+            <summary>   
+            Format 2 assets to form a symbol accepted by the API
+            </summary>
+            <param name="baseAsset">The base asset</param>
+            <param name="quoteAsset">The quote asset</param>
             <returns></returns>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinApiAddresses">

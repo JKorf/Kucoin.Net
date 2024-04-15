@@ -344,6 +344,18 @@ namespace Kucoin.Net.Clients.SpotApi
             OnOrderCanceled?.Invoke(id);
         }
 
+        internal async Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        {
+            var result = await base.SendAsync<KucoinResult>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result)
+                return result.AsDatalessError(result.Error!);
+
+            if (result.Data.Code != 200000)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            return result.AsDataless();
+        }
+
         internal async Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
             var result = await base.SendAsync<KucoinResult<T>>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
