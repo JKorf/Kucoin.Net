@@ -33,7 +33,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         public ISymbolOrderBook CreateSpot(string symbol, Action<KucoinOrderBookOptions>? options = null)
             => new KucoinSpotSymbolOrderBook(symbol,
                                              options,
-                                             _serviceProvider.GetRequiredService<ILogger<KucoinSpotSymbolOrderBook>>(),
+                                             _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                              _serviceProvider.GetRequiredService<IKucoinRestClient>(),
                                              _serviceProvider.GetRequiredService<IKucoinSocketClient>());
 
@@ -46,7 +46,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         public ISymbolOrderBook CreateFutures(string symbol, Action<KucoinOrderBookOptions>? options = null)
             => new KucoinFuturesSymbolOrderBook(symbol,
                                                 options,
-                                                _serviceProvider.GetRequiredService<ILogger<KucoinFuturesSymbolOrderBook>>(),
+                                                _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                                 _serviceProvider.GetRequiredService<IKucoinRestClient>(),
                                                 _serviceProvider.GetRequiredService<IKucoinSocketClient>());
     }

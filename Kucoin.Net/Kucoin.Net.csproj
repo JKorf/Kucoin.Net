@@ -7,12 +7,12 @@
   <PropertyGroup>
     <PackageId>Kucoin.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>5.1.0</PackageVersion>
-    <AssemblyVersion>5.1.0</AssemblyVersion>
-    <FileVersion>5.1.0</FileVersion>
-    <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
+    <PackageVersion>5.3.3</PackageVersion>
+    <AssemblyVersion>5.3.3</AssemblyVersion>
+    <FileVersion>5.3.3</FileVersion>
+    <Description>Kucoin.Net is a client library for accessing the Kucoin REST and Websocket API. All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
+    <PackageTags>Kucoin;Kucoin.Net;Kucoin Client;Kucoin API;CryptoCurrency;CryptoCurrency Exchange</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/JKorf/Kucoin.Net.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JKorf/Kucoin.Net</PackageProjectUrl>
@@ -21,7 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>5.1.0 - Added SpotApi.Account.GetUserInfoAsync, Added SpotApi.Account.UniversalTransferAsync, Added SpotApi.Account.GetCrossMarginAccountsAsync, Added SpotApi.Trading.PlaceTestOrderAsync, Added SpotApi.Trading.PlaceTestMarginOrderAsync, Updated SpotApi.ExchangeData.GetAssetsAsync to V3 API, Updated SpotApi.ExchangeData.GetAssetAsync to V3 API, Updated API doc links on endpoints, Renamed SpotApi.Account.GetUserInfoAsync to GetSubUserInfoAsync, Removed obsolete SpotApi.Account.GetAccountLedgerAsync</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/JKorf/Kucoin.Net?tab=readme-ov-file#release-notes</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -45,14 +45,14 @@
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0">
+    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="6.2.3" />
+    <PackageReference Include="CryptoExchange.Net" Version="7.2.0" />
   </ItemGroup>
 </Project>

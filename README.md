@@ -1,35 +1,151 @@
-# Kucoin.Net
-[![.NET](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) [![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg)](https://www.nuget.org/packages/Kucoin.Net) [![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg)](https://www.nuget.org/packages/Kucoin.Net)
+# ![.Kucoin.Net](https://github.com/JKorf/Kucoin.Net/blob/master/Kucoin.Net/Icon/icon.png?raw=true) Kucoin.Net
 
-Kucoin.Net is a wrapper around the Kucoin API as described on [Kucoin](https://docs.kucoin.com/), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Kucoin.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Kucoin.Net?style=for-the-badge)
 
-**If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Kucoin.Net/issues)**
+Kucoin.Net is a strongly typed client library for accessing the [Kucoin REST and Websocket API](https://docs.kucoin.com/). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
 
-[Documentation](https://jkorf.github.io/Kucoin.Net/)
+## Supported Frameworks
+The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
 
-## Installation
-`dotnet add package Kucoin.Net`
+|.NET implementation|Version Support|
+|--|--|
+|.NET Core|`2.0` and higher|
+|.NET Framework|`4.6.1` and higher|
+|Mono|`5.4` and higher|
+|Xamarin.iOS|`10.14` and higher|
+|Xamarin.Android|`8.0` and higher|
+|UWP|`10.0.16299` and higher|
+|Unity|`2018.1` and higher|
+
+## Get the library
+[![Nuget version](https://img.shields.io/nuget/v/kucoin.net.svg?style=for-the-badge)](https://www.nuget.org/packages/Kucoin.Net) [![Nuget downloads](https://img.shields.io/nuget/dt/kucoin.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/Kucoin.Net)
+ 
+	dotnet add package Kucoin.Net
+
+## How to use
+*REST Endpoints*  
+
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new KucoinRestClient();
+var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETH-USDT");
+var lastPrice = tickerResult.Data.LastPrice;
+```
+
+*Websocket streams*  
+
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new KucoinSocketClient();
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH-USDT", (update) =>
+{
+	var lastPrice = update.Data.LastPrice;
+});
+```
+
+For information on the clients, dependency injection, response processing and more see the [Kucoin.Net documentation](https://jkorf.github.io/Kucoin.Net), [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/Kucoin.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+
+## CryptoExchange.Net
+Kraken.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
+
+CryptoExchange.Net also allows for [easy access to different exchange API's](https://jkorf.github.io/CryptoExchange.Net#idocs_common).
+
+|Exchange|Repository|Nuget|
+|--|--|--|
+|Binance|[JKorf/Binance.Net](https://github.com/JKorf/Binance.Net)|[![Nuget version](https://img.shields.io/nuget/v/Binance.net.svg?style=flat-square)](https://www.nuget.org/packages/Binance.Net)|
+|BingX|[JKorf/BingX.Net](https://github.com/JKorf/BingX.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.BingX.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.BingX.Net)|
+|Bitfinex|[JKorf/Bitfinex.Net](https://github.com/JKorf/Bitfinex.Net)|[![Nuget version](https://img.shields.io/nuget/v/Bitfinex.net.svg?style=flat-square)](https://www.nuget.org/packages/Bitfinex.Net)|
+|Bitget|[JKorf/Bitget.Net](https://github.com/JKorf/Bitget.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.Bitget.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.Bitget.Net)|
+|Bybit|[JKorf/Bybit.Net](https://github.com/JKorf/Bybit.Net)|[![Nuget version](https://img.shields.io/nuget/v/Bybit.net.svg?style=flat-square)](https://www.nuget.org/packages/Bybit.Net)|
+|CoinEx|[JKorf/CoinEx.Net](https://github.com/JKorf/CoinEx.Net)|[![Nuget version](https://img.shields.io/nuget/v/CoinEx.net.svg?style=flat-square)](https://www.nuget.org/packages/CoinEx.Net)|
+|CoinGecko|[JKorf/CoinGecko.Net](https://github.com/JKorf/CoinGecko.Net)|[![Nuget version](https://img.shields.io/nuget/v/CoinGecko.net.svg?style=flat-square)](https://www.nuget.org/packages/CoinGecko.Net)|
+|Huobi|[JKorf/Huobi.Net](https://github.com/JKorf/Huobi.Net)|[![Nuget version](https://img.shields.io/nuget/v/Huobi.net.svg?style=flat-square)](https://www.nuget.org/packages/Huobi.Net)|
+|Kraken|[JKorf/Kraken.Net](https://github.com/JKorf/Kraken.Net)|[![Nuget version](https://img.shields.io/nuget/v/KrakenExchange.net.svg?style=flat-square)](https://www.nuget.org/packages/KrakenExchange.Net)|
+|Mexc|[JKorf/Mexc.Net](https://github.com/JKorf/Mexc.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.Mexc.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.Mexc.Net)|
+|OKX|[JKorf/OKX.Net](https://github.com/JKorf/OKX.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.OKX.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.OKX.Net)|
+
+## Discord
+[![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)  
+A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
+
+## Supported functionality
+
+### Rest Api
+|API|Supported|Location|
+|--|--:|--|
+|Account Basic Info|✓|`restClient.SpotApi.Account` / `restClient.FuturesApi.Account`|
+|Account Sub-Account|X||
+|Funding Overview|✓|`restClient.SpotApi.Account`|
+|Funding Deposit|✓|`restClient.SpotApi.Account`|
+|Funding Withdrawal|✓|`restClient.SpotApi.Account`|
+|Funding Transfer|✓|`restClient.SpotApi.Account`|
+|Funding Trade Fee|✓|`restClient.SpotApi.Account`|
+|Spot Trading Market Data|✓|`restClient.SpotApi.ExchangeData`|
+|Spot Trading HF Trade|✓|`restClient.SpotApi.ProAccount`|
+|Spot Trading Orders|✓|`restClient.SpotApi.Trading`|
+|Spot Trading Fills|✓|`restClient.SpotApi.Trading`|
+|Spot Trading Stop Order|✓|`restClient.SpotApi.Trading`|
+|Margin Trading Margin HT Trade|X||
+|Margin Trading Margin Orders|✓|`restClient.SpotApi.Trading`|
+|Margin Trading Margin Info|✓|`restClient.SpotApi.ExchangeData`|
+|Margin Trading Isolated Margin|✓|`restClient.SpotApi.ExchangeData` / `restClient.SpotApi.Account`|
+|Margin Trading Margin Trading(V3)|X||
+|Margin Trading Lending Market(V3)|X||
+|Futures Trading Market Data|✓|`restClient.FuturesApi.ExchangeData`|
+|Futures Trading Orders|✓|`restClient.FuturesApi.Trading`|
+|Futures Trading Fills|✓|`restClient.FuturesApi.Trading`|
+|Futures Trading Positions|✓|`restClient.FuturesApi.Acount` / `restClient.FuturesApi.Trading`|
+|Futures Trading Risk Limit|✓|`restClient.FuturesApi.Acount`|
+|Futures Trading Funding Fees|✓|`restClient.FuturesApi.ExchangeData`|
+
+### Websocket Api
+|API|Supported|Location|
+|--|--:|--|
+|Spot Public|✓|`socketClient.SpotApi`|
+|Spot Private|✓|`socketClient.SpotApi`|
+|Margin Public|✓|`socketClient.SpotApi`|
+|Margin Private|✓|`socketClient.SpotApi`|
+|Futures Public|✓|`socketClient.FuturesApi`|
+|Futures Private|✓|`socketClient.FuturesApi`|
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
 
-### Referral link
-Sign up using the following referral link to pay a small percentage of the trading fees you pay to support the project instead of paying them straight to Kucoin. This doesn't cost you a thing!
-[Link](https://www.kucoin.com/ucenter/signup?rcode=RguMux)
-
 ### Donate
 Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
 
-**Btc**:  bc1qz0jv0my7fc60rxeupr23e75x95qmlq6489n8gh  
-**Eth**:  0x8E21C4d955975cB645589745ac0c46ECA8FAE504   
+**Btc**:  bc1q277a5n54s2l2mzlu778ef7lpkwhjhyvghuv8qf  
+**Eth**:  0xcb1b63aCF9fef2755eBf4a0506250074496Ad5b7   
+**USDT (TRX)**  TKigKeJPXZYyMVDgMyXxMf17MWYia92Rjd
 
 ### Sponsor
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
-## Discord
-A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
-
 ## Release notes
+* Version 5.3.3 - 03 Apr 2024
+    * Updated string comparision for improved performance
+    * Removed pre-send symbol validation
+
+* Version 5.3.2 - 25 Mar 2024
+    * Fix deserialization issue SpotApi.ExchangeData.GetAssetsAsync
+
+* Version 5.3.1 - 24 Mar 2024
+	* Updated CryptoExchange.Net to 7.2.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+	* Added DepositFeeRate and DepositMinQuantity to KucoinAssetNetwork model
+	* Fixed websocket balance updates for HF/Pro trade accounts
+
+* Version 5.3.0 - 16 Mar 2024
+    * Updated CryptoExchange.Net to 7.1.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+	
+* Version 5.2.0 - 25 Feb 2024
+    * Updated CryptoExchange.Net and implemented reworked websocket message handling. For release notes for the CryptoExchange.Net base library see: https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes
+    * Fixed issue in DI registration causing http client to not be correctly injected
+    * Added multi symbol support for socket client subscriptions
+    * Added BestOffers stream subscription to socket client spot api
+    * Updated socket client spot api order subscription
+    * Removed deprecated match engine subscriptions from socket client spot api
+    * Updated some namespaces
+
 * Version 5.1.0 - 23 Dec 2023
     * Added SpotApi.Account.GetUserInfoAsync
     * Added SpotApi.Account.UniversalTransferAsync

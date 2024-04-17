@@ -1,6 +1,9 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.CommonObjects;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
@@ -9,7 +12,6 @@ using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -372,27 +374,20 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, string data)
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
         {
-            var errorData = ValidateJson(data);
-            if (!errorData)
-                return new ServerError(data);
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
 
-            if (!errorData.Data.HasValues)
-            {
-                return new ServerError(string.IsNullOrEmpty(data) ? "Unknown error" : data);
-            }
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
 
-            if (errorData.Data["code"] != null && errorData.Data["msg"] != null)
-            {
-                var result = errorData.Data.ToObject<KucoinResult<object>>();
-                if (result == null)
-                    return new ServerError(errorData.Data["msg"]!.ToString());
+            if (code == null)
+                return new ServerError(msg);
 
-                return new ServerError(result.Code, result.Message!);
-            }
-
-            return new ServerError(errorData.Data.ToString());
+            return new ServerError(code.Value, msg);
         }
 
         /// <inheritdoc />

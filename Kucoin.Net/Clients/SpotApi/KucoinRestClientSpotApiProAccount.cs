@@ -3,6 +3,7 @@ using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
+using Kucoin.Net.ExtensionMethods;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models.Spot;
 using Newtonsoft.Json;
@@ -43,7 +44,6 @@ namespace Kucoin.Net.Clients.SpotApi
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:

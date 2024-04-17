@@ -1,4 +1,6 @@
 ﻿using Kucoin.Net.Enums;
+using Newtonsoft.Json;
+using System;
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -11,17 +13,19 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// Sequence number
         /// </summary>
         public long Sequence { get; set; }
+        [JsonProperty("change")]
+        internal string Change { get; set; } = string.Empty;
         /// <summary>
         /// Price
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price => decimal.Parse(Change.Split(',')[0]);
         /// <summary>
         /// Side
         /// </summary>
-        public OrderSide Side { get; set; }
+        public OrderSide Side => string.Equals(Change.Split(',')[1], "sell", StringComparison.Ordinal) ? OrderSide.Sell : OrderSide.Buy;
         /// <summary>
         /// Quantity
         /// </summary>
-        public decimal Quantity { get; set; }
+        public decimal Quantity => decimal.Parse(Change.Split(',')[2]);
     }
 }

@@ -4,6 +4,7 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
+using Kucoin.Net.ExtensionMethods;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
@@ -47,7 +48,6 @@ namespace Kucoin.Net.Clients.SpotApi
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -103,7 +103,6 @@ namespace Kucoin.Net.Clients.SpotApi
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -154,11 +153,11 @@ namespace Kucoin.Net.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -191,6 +190,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
+            parameters.AddOptionalParameter("autoRepay", autoRepay);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order"), HttpMethod.Post, ct, parameters, true, weight: 5).ConfigureAwait(false);
         }
@@ -212,11 +212,11 @@ namespace Kucoin.Net.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
             switch (type)
             {
                 case NewOrderType.Limit when !quantity.HasValue:
@@ -249,6 +249,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
+            parameters.AddOptionalParameter("autoRepay", autoRepay);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             return await _baseClient.Execute<KucoinNewMarginOrder>(_baseClient.GetUri("margin/order/test"), HttpMethod.Post, ct, parameters, true, weight: 5).ConfigureAwait(false);
         }
@@ -256,8 +257,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
-            symbol.ValidateKucoinSymbol();
-
             var orderList = orders.ToList();
             if (!orderList.Any())
                 throw new ArgumentException("There should be at least one order in the bulk order");
@@ -308,17 +307,15 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, TradeType? type = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("tradeType", type);
+            parameters.AddOptionalParameter("tradeType", EnumConverter.GetString(type));
             return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders"), HttpMethod.Delete, ct, parameters, true, weight: 60).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, Enums.OrderStatus? status = null, TradeType? tradeType = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
@@ -358,7 +355,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinHistoricalOrder>>> GetHistoricalOrdersAsync(string? symbol = null, Enums.OrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             var parameters = new Dictionary<string, object>();
@@ -375,7 +371,6 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string? symbol = null, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, TradeType? tradeType = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            symbol?.ValidateKucoinSymbol();
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
             if (endTime.HasValue && startTime.HasValue && (endTime.Value - startTime.Value).TotalDays > 7)

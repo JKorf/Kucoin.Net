@@ -22,11 +22,11 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task ValidateSpotOrderUpdateStreamJson()
         {
-            await TestFileToObject<KucoinStreamOrderBaseUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate1.txt");
+            await TestFileToObject<KucoinStreamOrderUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate1.txt");
             await TestFileToObject<KucoinStreamOrderMatchUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate2.txt");
-            await TestFileToObject<KucoinStreamOrderBaseUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate3.txt");
-            await TestFileToObject<KucoinStreamOrderBaseUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate4.txt");
-            await TestFileToObject<KucoinStreamOrderBaseUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate5.txt");
+            await TestFileToObject<KucoinStreamOrderUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate3.txt");
+            await TestFileToObject<KucoinStreamOrderUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate4.txt");
+            await TestFileToObject<KucoinStreamOrderUpdate>(@"JsonResponses/Spot/Socket/OrderUpdate5.txt");
         }
 
         [Test]
