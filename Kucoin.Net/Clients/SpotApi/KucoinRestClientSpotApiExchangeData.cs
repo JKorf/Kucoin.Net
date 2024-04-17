@@ -133,7 +133,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinAssetDetails>>> GetAssetsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/currencies", KucoinExchange.RateLimiter.PublicRest, 3);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/currencies", KucoinExchange.RateLimiter.PublicRest, 3);
             return await _baseClient.SendAsync<IEnumerable<KucoinAssetDetails>>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -141,7 +141,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/currencies/{asset}", KucoinExchange.RateLimiter.PublicRest, 3);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/currencies/{asset}", KucoinExchange.RateLimiter.PublicRest, 3);
             return await _baseClient.SendAsync<KucoinAssetDetails>(request, null, ct).ConfigureAwait(false);
         }
 

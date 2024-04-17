@@ -237,7 +237,7 @@ namespace Kucoin.Net.Clients.SpotApi
             asset.ValidateNotNull(nameof(asset));
             var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/deposit-addresses", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/deposit-addresses", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinDepositAddress>(request, parameters, ct).ConfigureAwait(false);
         }
 
