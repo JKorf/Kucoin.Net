@@ -15,7 +15,7 @@ namespace Kucoin.Net.UnitTests
         {
             x.ApiCredentials = new KucoinApiCredentials("1234", "1234", "12");
             x.SpotOptions.OutputOriginalData = false;
-            x.RatelimiterEnabled = false;
+            x.RateLimiterEnabled = false;
             x.FuturesOptions.OutputOriginalData = false;
         }));
 
