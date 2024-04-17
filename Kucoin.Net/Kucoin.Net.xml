@@ -742,6 +742,13 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
+        <member name="T:Kucoin.Net.Converters.NextFundingRateTimeConverter">
+            <summary>
+            Does basically the same thing as the shared DateTimeConverter, with a slight difference.
+            Instead of adding the time to Jan 01 1970, it adds it to the current time. This isn't ideal since
+            it produces inaccuracies, but it's the format the kucoin api returns for the next funding rate time.
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.AccountDirection">
             <summary>
             Direction
@@ -4324,7 +4331,9 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.NextFundingRateTime">
             <summary>
-            Next funding rate time
+            Next funding rate time. This time may not be accurate up to a couple of seconds.
+            This is due to the fact that the API returns this value as an offset from the current time, 
+            but we have no way of knowing the exact time the API returned this value.
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.SourceExchanges">
