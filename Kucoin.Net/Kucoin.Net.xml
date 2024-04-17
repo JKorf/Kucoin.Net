@@ -70,9 +70,6 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetTransferToMainAccountHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Enums.DepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.CancelTransferToMainAccountAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetPositionAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2023,15 +2020,6 @@
             <param name="payAccountType">Account to move funds from</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.CancelTransferToMainAccountAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Cancel a transfer from futures account to main account
-            <para><a href="https://docs.kucoin.com/futures/#cancel-transfer-out-request" /></para>
-            </summary>
-            <param name="applyId">Transfer id to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Withdrawal id</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetTransferToMainAccountHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Enums.DepositStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>

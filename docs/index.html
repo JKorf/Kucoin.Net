@@ -186,7 +186,7 @@ var socketClient = new KucoinSocketClient();</code></pre>
 		<section id="idocs_ratelimit">
           <h2>Rate limiting</h2>
           
-		  <p>By default a rate limiter is enabled which makes sure the server rate limits aren't exceeded. For more info on what the rate limits for the Kucoin API are see the <a href="https://www.kucoin.com/docs/basic-info/request-rate-limit/rest-api" target="_blank">Spot API docs</a>. Currently client side rate limiting is only implemented for the Spot API. Note that rate limiting is only implemented to prevent going over the request rate limit, it does not apply for order limits.</p>
+		  <p>By default a rate limiter is enabled which makes sure the server rate limits aren't exceeded. For more info on what the rate limits for the Kucoin API are see the <a href="https://www.kucoin.com/docs/basic-info/request-rate-limit/rest-api" target="_blank">Spot API docs</a>. Note that rate limiting is only implemented to prevent going over the request rate limit, it does not apply for order limits.</p>
 		  <p>Whether client ratelimiting is enabled in the library and what the behaviour should be when the limit is reached can be controlled with the <code>RatelimiterEnabled</code> and <code>RateLimitingBehaviour</code> client options</p>
 		  <pre><code>services.AddKucoin(x =>
     x.RatelimiterEnabled = true;

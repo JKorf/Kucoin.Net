@@ -194,7 +194,11 @@ namespace Kucoin.Net.Clients.FuturesApi
                 options.ApiCredentials = apiCredentials;
             }))
             {
-                WebCallResult<KucoinToken> tokenResult = await ((KucoinRestClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketToken(authenticated).ConfigureAwait(false);
+                WebCallResult<KucoinToken> tokenResult;
+                if (authenticated)
+                    tokenResult = await ((KucoinRestClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketTokenPrivateAsync().ConfigureAwait(false);
+                else
+                    tokenResult = await ((KucoinRestClientFuturesApiAccount)restClient.FuturesApi.Account).GetWebsocketTokenPublicAsync().ConfigureAwait(false);
                 if (!tokenResult)
                     return tokenResult.As<string?>(null);
 
