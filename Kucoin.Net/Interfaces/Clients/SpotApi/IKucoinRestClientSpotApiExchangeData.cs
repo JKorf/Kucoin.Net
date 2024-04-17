@@ -150,25 +150,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get lending market data
-        /// <para><a href="https://docs.kucoin.com/#lending-market-data" /></para>
-        /// </summary>
-        /// <param name="asset">Asset</param>
-        /// <param name="term">Filter by term</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsync(string asset, int? term = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get the last 300 fills for borrow/lending orders
-        /// <para><a href="https://docs.kucoin.com/#margin-trade-data" /></para>
-        /// </summary>
-        /// <param name="asset">The asset</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default);
-
-        /// <summary>
         /// Get Margin Trading Pair ConfigurationAsync
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/isolated-margin/get-isolated-margin-symbols-configuration" /></para>
         /// </summary>

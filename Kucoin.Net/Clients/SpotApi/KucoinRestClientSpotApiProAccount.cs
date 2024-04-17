@@ -18,6 +18,7 @@ namespace Kucoin.Net.Clients.SpotApi
     /// <inheritdoc />
     public class KucoinRestClientSpotApiProAccount : IKucoinRestClientSpotApiProAccount
     {
+        private static readonly RequestDefinitionCache _definitions = new();
         private readonly KucoinRestClientSpotApi _baseClient;
 
         internal KucoinRestClientSpotApiProAccount(KucoinRestClientSpotApi baseClient)
@@ -56,7 +57,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     throw new ArgumentException("Market order cant have both quantity and quoteQuantity specified");
             }
 
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
                 { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
@@ -74,7 +75,8 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
-            var result = await _baseClient.Execute<KucoinNewOrder>(_baseClient.GetUri("hf/orders"), HttpMethod.Post, ct, parameters, true, weight: 4).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders", KucoinExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
@@ -86,25 +88,27 @@ namespace Kucoin.Net.Clients.SpotApi
             orderId.ValidateNotNull(nameof(orderId));
             symbol.ValidateNotNull(nameof(symbol));
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
 
-            var result = await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri($"hf/orders/{orderId}"), HttpMethod.Delete, ct, signed: true, weight: 3, parameters: parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/hf/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
             return result;
         }
 
         /// <inheritdoc />
-        public Task<WebCallResult<KucoinOrderHighFrequency>> GetOrderAsync(string orderId, string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinOrderHighFrequency>> GetOrderAsync(string orderId, string symbol, CancellationToken ct = default)
         {
             orderId.ValidateNotNull(nameof(orderId));
             symbol.ValidateNotNull(nameof(symbol));
 
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
 
-            return _baseClient.Execute<KucoinOrderHighFrequency>(_baseClient.GetUri($"hf/orders/{orderId}"), HttpMethod.Get, ct, signed: true, parameters: parameters);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinOrderHighFrequency>(request, parameters, ct).ConfigureAwait(false);
         }
     }
 }

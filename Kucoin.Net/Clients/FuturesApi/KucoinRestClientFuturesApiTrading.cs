@@ -54,7 +54,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
             parameters.AddParameter("side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddParameter("type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)));
@@ -87,7 +87,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("orders", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
         }
@@ -96,7 +96,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             return await _baseClient.Execute<KucoinCanceledOrders>(_baseClient.GetUri("stopOrders", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
         }
@@ -104,7 +104,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new OrderStatusConverter(false)));
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
@@ -120,7 +120,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("type", type == null ? null : JsonConvert.SerializeObject(type, new OrderTypeConverter(false)));
@@ -134,7 +134,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             return await _baseClient.Execute<IEnumerable<KucoinFuturesOrder>>(_baseClient.GetUri("recentDoneOrders"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
         }
@@ -148,7 +148,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("clientOid", clientOrderId);
             return await _baseClient.Execute<KucoinFuturesOrder>(_baseClient.GetUri("orders/byClientOid"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
@@ -159,7 +159,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("orderId", orderId);
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));

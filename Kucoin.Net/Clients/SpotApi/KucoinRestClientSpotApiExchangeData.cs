@@ -15,6 +15,7 @@ using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects;
 using Kucoin.Net.ExtensionMethods;
+using System.Security.Cryptography;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -22,6 +23,7 @@ namespace Kucoin.Net.Clients.SpotApi
     public class KucoinRestClientSpotApiExchangeData : IKucoinRestClientSpotApiExchangeData
     {
         private readonly KucoinRestClientSpotApi _baseClient;
+        private static readonly RequestDefinitionCache _definitions = new();
 
         internal KucoinRestClientSpotApiExchangeData(KucoinRestClientSpotApi baseClient)
         {
@@ -31,82 +33,92 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var result = await _baseClient.Execute<long>(_baseClient.GetUri("timestamp"), HttpMethod.Get, ct, ignoreRatelimit: true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/timestamp", KucoinExchange.RateLimiter.PublicRest, 3);
+            var result = await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
             return result.As(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new DateTimeConverter()) : default);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("market", market);
             // Testnet doesn't support V2
             var apiVersion = _baseClient.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
-            return await _baseClient.Execute<IEnumerable<KucoinSymbol>>(_baseClient.GetUri("symbols", apiVersion), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v{apiVersion}/symbols", KucoinExchange.RateLimiter.PublicRest, 4);
+            return await _baseClient.SendAsync<IEnumerable<KucoinSymbol>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await _baseClient.Execute<KucoinTick>(_baseClient.GetUri("market/orderbook/level1"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            var parameters = new ParameterCollection { { "symbol", symbol } };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/orderbook/level1", KucoinExchange.RateLimiter.PublicRest, 2);
+            return await _baseClient.SendAsync<KucoinTick>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinTicks>(_baseClient.GetUri("market/allTickers"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/allTickers", KucoinExchange.RateLimiter.PublicRest, 15);
+            return await _baseClient.SendAsync<KucoinTicks>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object> { { "symbol", symbol } };
-            return await _baseClient.Execute<Kucoin24HourStat>(_baseClient.GetUri("market/stats"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            var parameters = new ParameterCollection { { "symbol", symbol } };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/stats", KucoinExchange.RateLimiter.PublicRest, 15);
+            return await _baseClient.SendAsync<Kucoin24HourStat>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<string>>(_baseClient.GetUri("markets"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/markets", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<IEnumerable<string>>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int limit, CancellationToken ct = default)
         {
             limit.ValidateIntValues(nameof(limit), 20, 100);
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbol", symbol }
             };
 
-            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetUri($"market/orderbook/level2_{limit}"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var weight = limit == 20 ? 2 : 4;
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/orderbook/level2_{limit}", KucoinExchange.RateLimiter.PublicRest, weight);
+            return await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct, weight).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbol", symbol }
             };
-            return await _baseClient.Execute<KucoinOrderBook>(_baseClient.GetUri($"market/orderbook/level2", 3), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/orderbook/level2", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbol", symbol }
             };
-            return await _baseClient.Execute<IEnumerable<KucoinTrade>>(_baseClient.GetUri($"market/histories"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/histories", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<IEnumerable<KucoinTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
                 { "type", JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false)) }
@@ -114,69 +126,55 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToSeconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToSeconds(endTime));
 
-            return await _baseClient.Execute<IEnumerable<KucoinKline>>(_baseClient.GetUri("market/candles"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/candles", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<IEnumerable<KucoinKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinAssetDetails>>> GetAssetsAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinAssetDetails>>(_baseClient.GetUri("currencies", 3), HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/currencies", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<IEnumerable<KucoinAssetDetails>>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
-            return await _baseClient.Execute<KucoinAssetDetails>(_baseClient.GetUri($"currencies/{asset}", 3), HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/currencies/{asset}", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<KucoinAssetDetails>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? assets = null, CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("base", fiatBase);
             parameters.AddOptionalParameter("currencies", assets?.Any() == true ? string.Join(",", assets) : null);
 
-            return await _baseClient.Execute<Dictionary<string, decimal>>(_baseClient.GetUri("prices"), HttpMethod.Get, ct, parameters: parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/prices", KucoinExchange.RateLimiter.PublicRest, 3);
+            return await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinIndexBase>(_baseClient.GetUri($"mark-price/{symbol}/current"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/mark-price/{symbol}/current", KucoinExchange.RateLimiter.PublicRest, 2);
+            return await _baseClient.SendAsync<KucoinIndexBase>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<KucoinMarginConfig>(_baseClient.GetUri("margin/config"), HttpMethod.Get, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsync(string asset, int? term = null, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "currency", asset }
-            };
-            parameters.AddOptionalParameter("term", term);
-            return await _baseClient.Execute<IEnumerable<KucoinLendingMarketEntry>>(_baseClient.GetUri("margin/market"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "currency", asset }
-            };
-            return await _baseClient.Execute<IEnumerable<KucoinBorrowOrderDetails>>(_baseClient.GetUri("margin/trade/last"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/config", KucoinExchange.RateLimiter.SpotRest, 25);
+            return await _baseClient.SendAsync<KucoinMarginConfig>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default)
         {
-            return await _baseClient.Execute<IEnumerable<KucoinTradingPairConfiguration>>(_baseClient.GetUri($"isolated/symbols"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/symbols", KucoinExchange.RateLimiter.SpotRest, 20, true);
+            return await _baseClient.SendAsync<IEnumerable<KucoinTradingPairConfiguration>>(request, null, ct).ConfigureAwait(false);
         }
     }
 }

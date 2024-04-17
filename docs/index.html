@@ -83,6 +83,7 @@
           <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
             <li class="nav-item"><a class="nav-link" href="#idocs_apiaccess">API Access</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_ratelimit">Rate limiting</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link active" href="#idocs_examples">Examples</a>
@@ -181,6 +182,27 @@
 });
 var socketClient = new KucoinSocketClient();</code></pre>
 		  
+        </section>
+		<section id="idocs_ratelimit">
+          <h2>Rate limiting</h2>
+          
+		  <p>By default a rate limiter is enabled which makes sure the server rate limits aren't exceeded. For more info on what the rate limits for the Kucoin API are see the <a href="https://www.kucoin.com/docs/basic-info/request-rate-limit/rest-api" target="_blank">Spot API docs</a>. Currently client side rate limiting is only implemented for the Spot API. Note that rate limiting is only implemented to prevent going over the request rate limit, it does not apply for order limits.</p>
+		  <p>Whether client ratelimiting is enabled in the library and what the behaviour should be when the limit is reached can be controlled with the <code>RatelimiterEnabled</code> and <code>RateLimitingBehaviour</code> client options</p>
+		  <pre><code>services.AddKucoin(x =>
+    x.RatelimiterEnabled = true;
+    x.RateLimitingBehaviour = RateLimitingBehaviour.Wait;
+}, x =>
+{
+    x.RatelimiterEnabled = true;
+    x.RateLimitingBehaviour = RateLimitingBehaviour.Wait;
+});</code></pre>
+		  <p>To be notified of when a rate limit is hit the static <code>KucoinExchange.RateLimiter</code> exposes an event which triggers when a rate limit is reached</p>
+		  <pre><code>KucoinExchange.RateLimiter.RateLimitTriggered += (rateLimitEvent) => Console.WriteLine("Limit triggered: " + rateLimitEvent);
+
+// Output: Limit triggered: RateLimitEvent { ApiLimit = Public Rest, LimitDescription = Limit of 2000 per 00:00:30, RequestDefinition = GET api/v1/market/stats, Host = https://api.kucoin.com/, Current = 1995, RequestWeight = 15, Limit = 2000, TimePeriod = 00:00:30, DelayTime = 00:00:19.8111238, Behaviour = Wait }</code></pre>
+
+		  <p>Kucoin applies different rate limits based on the account VIP level. By default the rate limit is set to the most conservative <code>VIP0</code> tier. To change the rate limit tier call the <code>Configure</code> method</p>
+		  <pre><code>KucoinExchange.RateLimiter.Configure(Kucoin.Net.Enums.VipLevel.Vip5);</code></pre>
         </section>
         		
 		<hr class="divider">

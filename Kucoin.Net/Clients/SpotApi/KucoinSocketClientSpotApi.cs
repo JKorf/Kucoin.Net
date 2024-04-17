@@ -234,7 +234,11 @@ namespace Kucoin.Net.Clients.SpotApi
                 options.Environment = ClientOptions.Environment;
             }))
             {
-                WebCallResult<KucoinToken> tokenResult = await ((KucoinRestClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketToken(authenticated).ConfigureAwait(false);
+                WebCallResult<KucoinToken> tokenResult;
+                if (authenticated)
+                    tokenResult = await ((KucoinRestClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketTokenPrivateAsync().ConfigureAwait(false);
+                else
+                    tokenResult = await ((KucoinRestClientSpotApiAccount)restClient.SpotApi.Account).GetWebsocketTokenPublicAsync().ConfigureAwait(false);
                 if (!tokenResult)
                     return tokenResult.As<string?>(null);
 

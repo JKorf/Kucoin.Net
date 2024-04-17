@@ -263,23 +263,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="withdrawalId">The id of the withdrawal to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Null</returns>
-        Task<WebCallResult<object>> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get cross margin risk limit
-        /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/cancel-withdrawal" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinRiskLimitCrossMargin>>> GetRiskLimitCrossMarginAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Get isolated margin risk limit
-        /// <para><a href="https://docs.kucoin.com/#query-the-cross-isolated-margin-risk-limit" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinRiskLimitIsolatedMargin>>> GetRiskLimitIsolatedMarginAsync(CancellationToken ct = default);
+        Task<WebCallResult> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin account info

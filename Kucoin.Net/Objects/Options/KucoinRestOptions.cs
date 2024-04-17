@@ -22,16 +22,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public KucoinRestApiOptions SpotOptions { get; private set; } = new KucoinRestApiOptions()
-        {
-            RateLimiters = new List<IRateLimiter>
-            {
-                     new RateLimiter()
-                        .AddPartialEndpointLimit("/api/v1/orders", 180, TimeSpan.FromSeconds(3), null, true, true)
-                        .AddApiKeyLimit(200, TimeSpan.FromSeconds(10), true, true)
-                        .AddTotalRateLimit(100, TimeSpan.FromSeconds(10))
-            }
-        };
+        public KucoinRestApiOptions SpotOptions { get; private set; } = new KucoinRestApiOptions();
 
         /// <summary>
         /// Futures API options
