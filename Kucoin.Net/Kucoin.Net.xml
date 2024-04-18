@@ -502,6 +502,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetMarginTradingPairConfigurationAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetLeveragedTokensAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiProAccount">
             <inheritdoc />
         </member>
@@ -3088,6 +3091,14 @@
             <summary>
             Get Margin Trading Pair ConfigurationAsync
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/isolated-margin/get-isolated-margin-symbols-configuration" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetLeveragedTokensAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get leveraged token information
+            <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-leveraged-token-info" /></para>
             </summary>
             <param name="ct">Cancellation token</param> 
             <returns></returns>
@@ -7616,6 +7627,41 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLendOrder.Status">
             <summary>
             Status of the order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken">
+            <summary>
+            Leveraged token info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.NetWorth">
+            <summary>
+            Net worth
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.TargetLeverage">
+            <summary>
+            Target leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.ActualLeverage">
+            <summary>
+            Actual leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.IssuedQuantity">
+            <summary>
+            Issued size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.Basket">
+            <summary>
+            Basket info
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMarginAccount">

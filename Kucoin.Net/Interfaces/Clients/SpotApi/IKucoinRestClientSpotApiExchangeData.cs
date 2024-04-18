@@ -156,5 +156,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get leveraged token information
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-leveraged-token-info" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinLeveragedToken>>> GetLeveragedTokensAsync(CancellationToken ct = default);
     }
 }
