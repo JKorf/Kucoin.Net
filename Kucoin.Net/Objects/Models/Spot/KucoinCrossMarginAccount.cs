@@ -33,7 +33,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Accounts
         /// </summary>
-        [JsonProperty("accounts")]
+        [JsonProperty("accounts")] // API docs incorrectly has this as 'assets'
         public IEnumerable<KucoinCrossMarginAccountAsset> Accounts { get; set; } = Array.Empty<KucoinCrossMarginAccountAsset>();
     }
 
