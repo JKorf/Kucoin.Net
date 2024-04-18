@@ -158,6 +158,23 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get cross margin risk limit and asset configuration info
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinCrossRiskLimitConfig>>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get isolated margin risk limit and asset configuration info
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
+
+        /// <summary>
         /// Get leveraged token information
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-leveraged-token-info" /></para>
         /// </summary>
