@@ -55,6 +55,16 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("depositMinSize")]
         public decimal? DepositMinQuantity { get; set; }
+        /// <summary>
+        /// Withdrawal fee rate
+        /// </summary>
+        [JsonProperty("withdrawFeeRate")]
+        public decimal? WithdrawFeeRate { get; set; }
+        /// <summary>
+        /// Withdraw max fee
+        /// </summary>
+        [JsonProperty("withdrawMaxFee")]
+        public decimal? WithdrawMaxFee { get; set; }
 
     }
 }

@@ -6492,6 +6492,16 @@
             Min deposit quantity
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawFeeRate">
+            <summary>
+            Withdrawal fee rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawMaxFee">
+            <summary>
+            Withdraw max fee
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowOrder">
             <summary>
             Kucoin Borrow Order
