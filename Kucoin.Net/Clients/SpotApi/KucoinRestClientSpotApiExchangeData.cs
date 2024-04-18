@@ -100,7 +100,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "symbol", symbol }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/orderbook/level2", KucoinExchange.RateLimiter.PublicRest, 3);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/market/orderbook/level2", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct).ConfigureAwait(false);
         }
 
