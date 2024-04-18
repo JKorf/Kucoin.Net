@@ -6287,9 +6287,19 @@
             The best ask price
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAllTick.BestAskQuantity">
+            <summary>
+            The quantity of the best ask
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAllTick.BestBidPrice">
             <summary>
             The best bid price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAllTick.BestBidQuantity">
+            <summary>
+            The quantity of the best bid
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAllTick.ChangePercentage">
