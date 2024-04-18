@@ -122,6 +122,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.4.1 - 18 Apr 2024
+    * Fixed SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync request
+
 * Version 5.4.0 - 18 Apr 2024
     * Updated CryptoExchange.Net to 7.3.1, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
     * Re-implemented client side ratelimiting for Spot API
