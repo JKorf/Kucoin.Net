@@ -183,6 +183,11 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// User id
         /// </summary>
         public long? UserId { get; set; }
+        /// <summary>
+        /// Maintenance margin rate
+        /// </summary>
+        [JsonProperty("maintainMargin")]
+        public decimal MaintenanceMarginRate { get; set; }
     }
 
     /// <summary>
