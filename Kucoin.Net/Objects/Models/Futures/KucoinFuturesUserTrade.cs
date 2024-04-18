@@ -51,5 +51,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Closing transaction fee
         /// </summary>
         public decimal? CloseFeePay { get; set; }
+        /// <summary>
+        /// Whether to force processing as a taker
+        /// </summary>
+        [JsonProperty("forceTaker")]
+        public bool ForceTaker { get; set; }
     }
 }
