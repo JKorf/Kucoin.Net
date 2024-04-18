@@ -122,6 +122,27 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.4.0 - 18 Apr 2024
+    * Updated CryptoExchange.Net to 7.3.1, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+    * Re-implemented client side ratelimiting for Spot API
+    * Added client side ratelimiting for Futures API
+    * Added handling of RetryAfter responses
+    * Added SpotApi.ExchangeData.GetLeveragedTokensAsync endpoint
+    * Added SpotApi.ExchangeData.GetCrossMarginRiskLimitAndConfig endpoint
+    * Added SpotApi.ExchangeData.GetIsolatedMarginRiskLimitAndConfig endpoint
+    * Added autoRepay parameter to SpotApi.Trading.PlaceMarginOrderAsync
+    * Added isolatedMarginSymbol parameter to SpotApi.Account.GetTransferableAsync
+    * Added SelfTradePrevention parameter to FuturesApi.Trading.PlaceOrderAsync
+    * Added OneMonth to kline interval enum
+    * Updated UserTrade response model
+    * Updated Position response model
+    * Updated WithdrawalQuota response model
+    * Updated Transfer response model
+    * Updated Asset Network response model
+    * Updated Tickers response model
+    * Fixed FuturesApi.ExchangeData.GetContractsAsync NextFundingRateTime response property
+    * Removed deprecated endpoints
+
 * Version 5.3.3 - 03 Apr 2024
     * Updated string comparision for improved performance
     * Removed pre-send symbol validation
