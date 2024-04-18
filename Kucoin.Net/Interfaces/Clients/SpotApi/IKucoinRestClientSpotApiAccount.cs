@@ -97,9 +97,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="accountType">Filter on type of account</param>
+        /// <param name="isolatedMarginSymbol">Filter by isolated margin symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on transferable account balance</returns>
-        Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, CancellationToken ct = default);
+        Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, string? isolatedMarginSymbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Universal transfer between accounts
