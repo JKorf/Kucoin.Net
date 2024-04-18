@@ -118,13 +118,14 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, string? isolatedMarginSymbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection
             {
                 { "currency", asset },
                 { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
             };
+            parameters.AddOptional("tag", isolatedMarginSymbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/transferable", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinTransferableAccount>(request, parameters, ct).ConfigureAwait(false);
         }
