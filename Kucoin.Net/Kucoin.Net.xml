@@ -139,6 +139,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,Kucoin.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData.Get24HourTransactionVolumeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading">
             <inheritdoc />
         </member>
@@ -2272,6 +2275,14 @@
             <param name="interval">Interval of the klines</param>
             <param name="startTime">Start time to retrieve klines from</param>
             <param name="endTime">End time to retrieve klines for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData.Get24HourTransactionVolumeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get 24h transaction volume
+            <para><a href="https://docs.kucoin.com/futures/#get-k-line-data-of-contract" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5214,6 +5225,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinRiskLimit.MaintainMargin">
             <summary>
             Maintenance margin
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinTransactionVolume">
+            <summary>
+            Transaction info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransactionVolume.Turnover">
+            <summary>
+            Transaction volume in last 24h
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinTransfer">

@@ -193,10 +193,20 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToMilliseconds(endTime));
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/kline/query", KucoinExchange.RateLimiter.PublicRest, 3);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesKline>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
 
+        #region Get 24h Transaction Volume
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinTransactionVolume>> Get24HourTransactionVolumeAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/trade-statistics", KucoinExchange.RateLimiter.FuturesRest, 3, true);
+            return await _baseClient.SendAsync<KucoinTransactionVolume>(request, null, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

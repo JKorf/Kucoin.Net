@@ -155,5 +155,13 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinFuturesKline>>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get 24h transaction volume
+        /// <para><a href="https://docs.kucoin.com/futures/#get-k-line-data-of-contract" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinTransactionVolume>> Get24HourTransactionVolumeAsync(CancellationToken ct = default);
     }
 }
