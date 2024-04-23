@@ -133,48 +133,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? assets = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get margin configuration
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-margin-configuration-info" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Get the mark price of a symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
-        /// </summary>
-        /// <param name="symbol">The symbol to retrieve</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get Margin Trading Pair ConfigurationAsync
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/isolated-margin/get-isolated-margin-symbols-configuration" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param> 
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Get cross margin risk limit and asset configuration info
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param> 
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinCrossRiskLimitConfig>>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
-
-        /// <summary>
-        /// Get isolated margin risk limit and asset configuration info
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
-        /// </summary>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="ct">Cancellation token</param> 
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
-
-        /// <summary>
         /// Get leveraged token information
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-leveraged-token-info" /></para>
         /// </summary>

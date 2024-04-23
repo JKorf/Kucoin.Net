@@ -157,50 +157,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/mark-price/{symbol}/current", KucoinExchange.RateLimiter.PublicRest, 2);
-            return await _baseClient.SendAsync<KucoinIndexBase>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/config", KucoinExchange.RateLimiter.SpotRest, 25);
-            return await _baseClient.SendAsync<KucoinMarginConfig>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/symbols", KucoinExchange.RateLimiter.SpotRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinTradingPairConfiguration>>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinCrossRiskLimitConfig>>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "isIsolated", false }
-            };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/currencies", KucoinExchange.RateLimiter.SpotRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinCrossRiskLimitConfig>>(request, parameters, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "isIsolated", true },
-                { "symbol", symbol }
-            };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/currencies", KucoinExchange.RateLimiter.SpotRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinIsolatedRiskLimitConfig>>(request, parameters, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinLeveragedToken>>> GetLeveragedTokensAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/etf/info", KucoinExchange.RateLimiter.SpotRest, 25, true);

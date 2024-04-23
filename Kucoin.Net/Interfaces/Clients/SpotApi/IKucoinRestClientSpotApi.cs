@@ -30,6 +30,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IKucoinRestClientSpotApiProAccount ProAccount { get; }
 
         /// <summary>
+        /// Endpoints for margin borrowing and lending
+        /// </summary>
+        public IKucoinRestClientSpotApiMargin Margin { get; }
+
+        /// <summary>
         /// Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
         /// </summary>
         /// <returns></returns>

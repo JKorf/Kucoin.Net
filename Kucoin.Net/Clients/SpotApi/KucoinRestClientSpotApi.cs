@@ -50,6 +50,9 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public IKucoinRestClientSpotApiProAccount ProAccount { get; }
 
+        /// <inheritdoc />
+        public IKucoinRestClientSpotApiMargin Margin { get; }
+
         internal KucoinRestClientSpotApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
             : base(logger, httpClient, options.Environment.SpotAddress, options, options.SpotOptions)
         {
@@ -57,6 +60,7 @@ namespace Kucoin.Net.Clients.SpotApi
             ExchangeData = new KucoinRestClientSpotApiExchangeData(this);
             Trading = new KucoinRestClientSpotApiTrading(this);
             ProAccount = new KucoinRestClientSpotApiProAccount(this);
+            Margin = new KucoinRestClientSpotApiMargin(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
