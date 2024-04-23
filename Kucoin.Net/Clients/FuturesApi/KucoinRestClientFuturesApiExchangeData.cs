@@ -193,7 +193,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToMilliseconds(endTime));
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/kline/query", KucoinExchange.RateLimiter.PublicRest, 3);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesKline>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
