@@ -8,6 +8,7 @@ using Kucoin.Net.Objects.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -46,7 +47,14 @@ namespace Kucoin.Net
             headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(_credentials.PassPhrase.GetString(), SignOutputType.Base64));
             headers.Add("KC-API-KEY-VERSION", "2");
 
-            var jsonContent = parameterPosition == HttpMethodParameterPosition.InBody ? JsonConvert.SerializeObject(bodyParameters) : string.Empty;
+            string jsonContent = string.Empty;
+            if (parameterPosition == HttpMethodParameterPosition.InBody)
+            {
+                jsonContent = bodyParameters.Count == 1 && bodyParameters.First().Key == "<BODY>"
+                    ? JsonConvert.SerializeObject(bodyParameters.First().Value)
+                    : JsonConvert.SerializeObject(bodyParameters);
+            }
+
             var signData = headers["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri.PathAndQuery) + jsonContent;
             headers.Add("KC-API-SIGN", SignHMACSHA256(signData, SignOutputType.Base64));
 

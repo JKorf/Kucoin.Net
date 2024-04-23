@@ -52,6 +52,9 @@
         <member name="P:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.CommonFuturesClient">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.WriteParamBody(CryptoExchange.Net.Interfaces.IRequest,System.Collections.Generic.SortedDictionary{System.String,System.Object},System.String)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount">
             <inheritdoc />
         </member>
@@ -158,6 +161,9 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
@@ -2393,6 +2399,15 @@
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns>Order details</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry},System.Threading.CancellationToken)">
+            <summary>
+            Place multiple orders
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-multiple-orders" /></para>
+            </summary>
+            <param name="orders">The orders to place</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order results. Each result should be checked for success</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
@@ -4733,6 +4748,136 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.Status">
             <summary>
             Status
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry">
+            <summary>
+            Futures order request
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Quantity">
+            <summary>
+            Amount of contracts to buy or sell
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Price">
+            <summary>
+            Limit price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.TimeInForce">
+            <summary>
+            Time in force
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Stop">
+            <summary>
+            Stop type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.StopPriceType">
+            <summary>
+            Stop price type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.CloseOrder">
+            <summary>
+            Close order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.ForceHold">
+            <summary>
+            Force hold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.PostOnly">
+            <summary>
+            Post only
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Hidden">
+            <summary>
+            Is hidden
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.Iceberg">
+            <summary>
+            Is iceberg order
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.VisibleSize">
+            <summary>
+            Visible size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.SelfTradePrevention">
+            <summary>
+            Self trade prevention type
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult">
+            <summary>
+            Order result
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult.Code">
+            <summary>
+            Result code, 200000 is success
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult.Message">
+            <summary>
+            Result message
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesServiceStatus">

@@ -136,6 +136,17 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "<BODY>", orders }
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.FuturesRest, 20, true);
+            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesOrderResult>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/" + orderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);

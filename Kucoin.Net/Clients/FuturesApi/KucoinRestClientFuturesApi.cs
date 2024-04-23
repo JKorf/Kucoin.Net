@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.CommonObjects;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
@@ -391,6 +392,23 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (timeSpan == TimeSpan.FromDays(7)) return FuturesKlineInterval.OneWeek;
 
             throw new ArgumentException("Unsupported timespan for Kucoin kline interval, check supported intervals using Kucoin.Net.Objects.KucoinKlineInterval");
+        }
+
+        /// <inheritdoc />
+        protected override void WriteParamBody(IRequest request, SortedDictionary<string, object> parameters, string contentType)
+        {
+            if (contentType == "application/json")
+            {
+                string data = parameters.Count == 1 && parameters.First().Key == "<BODY>"
+                    ? CreateSerializer().Serialize(parameters.First().Value)
+                    : CreateSerializer().Serialize(parameters);
+                request.SetContent(data, contentType);
+            }
+            else if (contentType == "application/x-www-form-urlencoded")
+            {
+                string data2 = parameters.ToFormData();
+                request.SetContent(data2, contentType);
+            }
         }
 
         internal void InvokeOrderPlaced(OrderId id)
