@@ -140,6 +140,16 @@ namespace Kucoin.Net.Clients.FuturesApi
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult> RemoveMarginAsync(string symbol, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddParameter("symbol", symbol);
+            parameters.AddParameter("withdrawAmount", quantity.ToString(CultureInfo.InvariantCulture));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/withdrawMargin", KucoinExchange.RateLimiter.FuturesRest, 10, true);
+            return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region Funding fees

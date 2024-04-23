@@ -113,7 +113,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult> ToggleAutoDepositMarginAsync(string symbol, bool enabled, CancellationToken ct = default);
 
         /// <summary>
-        /// Add margin
+        /// Manually add margin to a position
         /// <para><a href="https://docs.kucoin.com/futures/#add-margin-manually" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
@@ -122,6 +122,16 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> AddMarginAsync(string symbol, decimal quantity, string? clientId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Manually remove margin from a position
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/remove-margin-manually" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="quantity">Quantity to remove</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> RemoveMarginAsync(string symbol, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding history
