@@ -125,6 +125,15 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel an order by client order id
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-order-by-clientoid" /></para>
+        /// </summary>
+        /// <param name="clientOrderId">Client order id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel all open orders
         /// <para><a href="https://docs.kucoin.com/futures/#limit-order-mass-cancelation" /></para>
         /// </summary>

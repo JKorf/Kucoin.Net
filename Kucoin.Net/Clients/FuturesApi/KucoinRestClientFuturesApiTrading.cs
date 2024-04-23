@@ -143,6 +143,17 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/client-order/" + clientOrderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);
+            return await _baseClient.SendAsync<KucoinCanceledOrder>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
