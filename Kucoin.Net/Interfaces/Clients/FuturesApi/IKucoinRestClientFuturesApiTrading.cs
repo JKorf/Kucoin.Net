@@ -65,6 +65,57 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Place a test order. The order will not be executed or added to the order book, but can be used to verify the request parameters
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-order-test" /></para>
+        /// </summary>
+        /// <param name="symbol">The contract for the order</param>
+        /// <param name="side">Side of the order</param>
+        /// <param name="type">Type of order</param>
+        /// <param name="leverage">Leverage of the order</param>
+        /// <param name="price">Limit price, only for limit orders</param>
+        /// <param name="timeInForce">Time in force, only for limit orders</param>
+        /// <param name="postOnly">Post only flag, invalid when timeInForce is IOC</param>
+        /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
+        /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
+        /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
+        /// <param name="quantity">Quantity of contract to buy or sell</param>
+        /// <param name="remark">Remark for the order</param>
+        /// <param name="stopType"></param>
+        /// <param name="stopPriceType"></param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
+        /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
+        /// <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order details</returns>
+        Task<WebCallResult<KucoinNewOrder>> PlaceTestOrderAsync(
+            string symbol,
+            OrderSide side,
+            NewOrderType type,
+            decimal leverage,
+            int quantity,
+
+            decimal? price = null,
+            TimeInForce? timeInForce = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceberg = null,
+            decimal? visibleSize = null,
+
+            string? remark = null,
+            StopType? stopType = null,
+            StopPriceType? stopPriceType = null,
+            decimal? stopPrice = null,
+            bool? reduceOnly = null,
+            bool? closeOrder = null,
+            bool? forceHold = null,
+            string? clientOrderId = null,
+            SelfTradePrevention? selfTradePrevention = null,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel an order
         /// <para><a href="https://docs.kucoin.com/futures/#cancel-an-order" /></para>
         /// </summary>
