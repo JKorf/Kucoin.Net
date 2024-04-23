@@ -94,6 +94,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetRiskLimitLevelAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetMaxWithdrawMarginAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData">
             <inheritdoc />
         </member>
@@ -2117,6 +2120,7 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetRiskLimitLevelAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get risk limit level
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/risk-limit/get-futures-risk-limit-level" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="ct">Cancellation token</param>
@@ -2125,9 +2129,19 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.SetRiskLimitLevelAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Set risk limit level
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/risk-limit/modify-risk-limit-level" /></para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="level">Risk limit level</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetMaxWithdrawMarginAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the maximum amount of margin that the current position supports withdrawal.
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-max-withdraw-margin" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

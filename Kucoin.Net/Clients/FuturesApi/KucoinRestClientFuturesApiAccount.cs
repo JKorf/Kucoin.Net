@@ -197,6 +197,18 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Max Withdraw Margin
+        /// <inheritdoc />
+        public async Task<WebCallResult<decimal>> GetMaxWithdrawMarginAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddParameter("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/maxWithdrawMargin", KucoinExchange.RateLimiter.FuturesRest, 10, true);
+            return await _baseClient.SendAsync<decimal>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Websocket token
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPublicAsync(CancellationToken ct = default)
