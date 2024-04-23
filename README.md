@@ -122,6 +122,21 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.5.0 - 23 Apr 2024
+    * Added FuturesApi.ExchangeData.Get24HourTransactionVolumeAsync endpoint
+    * Added FuturesApi.ExchangeData.GetFundingRateHistoryAsync endpoint
+    * Added FuturesApi.Account.GetMaxWithdrawMarginAsync endpoint
+    * Added FuturesApi.Account.RemoveMarginAsync endpoint
+    * Added FuturesApi.Trading.PlaceTestOrderrAsync endpoint
+    * Added FuturesApi.Trading.CancelOrderByClientOrderIdAsync endpoint
+    * Added FuturesApi.Trading.PlaceMultipleOrdersAsync endpoint
+    * Added OCO order endpoints to SpotApi.Trading
+    * Added SpotApi.Margin endpoints containing Margin Trading (V3) and Margin Lending (V3) endpoints
+    * Added SpotApi.SubscribeToPositionUpdatesAsync for all symbols stream
+    * Added SpotApi.SubscribeToMarginPositionUpdatesAsync stream
+    * Added SpotApi.SubscribeToMarginOrderUpdatesAsync stream
+    * Fixed FuturesApi.ExchangeData.GetKlinesAsync parameters not getting send
+
 * Version 5.4.1 - 18 Apr 2024
     * Fixed SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync request
 
