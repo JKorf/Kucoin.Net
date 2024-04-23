@@ -225,6 +225,20 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginPositionUpdatesAsync(Action<DataEvent<KucoinMarginDebtRatioUpdate>> onDebtRatioChange, Action<DataEvent<KucoinMarginPositionStatusUpdate>> onPositionStatusChange, CancellationToken ct = default)
+        {
+            var subscription = new KucoinMarginPositionSubscription(_logger, onDebtRatioChange, onPositionStatusChange);
+            return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginOrderUpdatesAsync(string symbol, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderPlaced, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderUpdate, Action<DataEvent<KucoinMarginOrderDoneUpdate>> onOrderDone, CancellationToken ct = default)
+        {
+            var subscription = new KucoinMarginOrderSubscription(_logger, symbol, onOrderPlaced, onOrderUpdate, onOrderDone);
+            return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
             var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);

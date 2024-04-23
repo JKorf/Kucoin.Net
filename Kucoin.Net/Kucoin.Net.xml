@@ -754,6 +754,12 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.KucoinStreamStopOrderUpdateBase}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginPositionStatusUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToMarginOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetConnectionUrlAsync(System.String,System.Boolean)">
             <inheritdoc />
         </member>
@@ -1432,6 +1438,41 @@
             Taker, trade filled an existing order on the order book
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.MarginEventType">
+            <summary>
+            Margin position update event type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEventType.Frozen">
+            <summary>
+            When the debt ratio exceeds the liquidation threshold and the position is frozen, the system will push this event.
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEventType.Unfrozen">
+            <summary>
+            When the liquidation is finished and the position returns to “EFFECTIVE” status, the system will push this event.
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEventType.FrozenRenew">
+            <summary>
+            When the auto-borrow renewing is complete and the position returns to “EFFECTIVE” status, the system will push this event.
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEventType.UnfrozenRenew">
+            <summary>
+            When the account reaches a negative balance, the system will push this event.
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEventType.Liability">
+            <summary>
+            When the account reaches a negative balance, the system will push this event.
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEventType.Unliability">
+            <summary>
+            When all the liabilities is repaid and the position returns to “EFFECTIVE” status, the system will push this event.
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.MarginMode">
             <summary>
             Mode of Margin
@@ -1445,6 +1486,21 @@
         <member name="F:Kucoin.Net.Enums.MarginMode.IsolatedMode">
             <summary>
             Isolated Mode, This mode is not supported by platform yet.
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.MarginOrderDoneReason">
+            <summary>
+            Margin order done reason
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginOrderDoneReason.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginOrderDoneReason.Canceled">
+            <summary>
+            Cancelled
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.MatchUpdateReason">
@@ -4034,6 +4090,28 @@
             </summary>
             <param name="symbols">The symbols to subscribe</param>
             <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginPositionStatusUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to cross margin position events
+            <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/cross-margin-position-event" /></para>
+            </summary>
+            <param name="onDebtRatioChange">Data handler for debt ratio change evens. The system will push the current debt message periodically when there is a liability.</param>
+            <param name="onPositionStatusChange">Data handler for position status change evens. The system will push the change event when the position status changes.</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToMarginOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to margin order updates for an asset
+            <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/margin-trade-order-event" /></para>
+            </summary>
+            <param name="symbol">Asset</param>
+            <param name="onOrderPlaced">Data handler for order placement updates</param>
+            <param name="onOrderUpdate">Data handler for order updates</param>
+            <param name="onOrderDone">Data handler for order done updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
         </member>
@@ -9232,6 +9310,116 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinBalanceUpdate.AccountId">
             <summary>
             The id of the changed account
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate">
+            <summary>
+            Debt ratio update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate.DebtRatio">
+            <summary>
+            Debt ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate.TotalDebt">
+            <summary>
+            Total debt in BTC
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate.Debts">
+            <summary>
+            Debt list
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate">
+            <summary>
+            Margin order done event
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate.Reason">
+            <summary>
+            Order done reason
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate.Side">
+            <summary>
+            Lend
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderDoneUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate">
+            <summary>
+            Margin order update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.DailyInterestRate">
+            <summary>
+            Daily interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.Term">
+            <summary>
+            Term in days
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.Side">
+            <summary>
+            Lend
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginOrderUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginPositionStatusUpdate">
+            <summary>
+            Position status update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginPositionStatusUpdate.TotalDebt">
+            <summary>
+            Event type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginPositionStatusUpdate.Timestamp">
+            <summary>
+            Timestamp
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers">

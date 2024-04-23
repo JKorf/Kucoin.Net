@@ -256,5 +256,27 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to cross margin position events
+        /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/cross-margin-position-event" /></para>
+        /// </summary>
+        /// <param name="onDebtRatioChange">Data handler for debt ratio change evens. The system will push the current debt message periodically when there is a liability.</param>
+        /// <param name="onPositionStatusChange">Data handler for position status change evens. The system will push the change event when the position status changes.</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarginPositionUpdatesAsync(Action<DataEvent<KucoinMarginDebtRatioUpdate>> onDebtRatioChange, Action<DataEvent<KucoinMarginPositionStatusUpdate>> onPositionStatusChange, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to margin order updates for an asset
+        /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/margin-trade-order-event" /></para>
+        /// </summary>
+        /// <param name="symbol">Asset</param>
+        /// <param name="onOrderPlaced">Data handler for order placement updates</param>
+        /// <param name="onOrderUpdate">Data handler for order updates</param>
+        /// <param name="onOrderDone">Data handler for order done updates</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarginOrderUpdatesAsync(string symbol, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderPlaced, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderUpdate, Action<DataEvent<KucoinMarginOrderDoneUpdate>> onOrderDone, CancellationToken ct = default);
     }
 }
