@@ -186,6 +186,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+            Action<DataEvent<KucoinPositionUpdate>>? onPositionUpdate = null,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>>? onMarkPriceUpdate = null,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? onFundingSettlementUpdate = null,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate = null,
+            CancellationToken ct = default)
+        {
+            var subscription = new KucoinPositionSubscription(_logger, null, onPositionUpdate, onMarkPriceUpdate, onFundingSettlementUpdate, onRiskAdjustUpdate);
+            return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
             var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);

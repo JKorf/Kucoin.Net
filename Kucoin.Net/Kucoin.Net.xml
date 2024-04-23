@@ -262,6 +262,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetConnectionUrlAsync(System.String,System.Boolean)">
             <inheritdoc />
         </member>
@@ -2740,6 +2743,18 @@
             <para><a href="https://docs.kucoin.com/futures/#position-change-events" /></para>
             </summary>
             <param name="symbol">Symbol</param>
+            <param name="onPositionUpdate">Handler for position changes</param>
+            <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
+            <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
+            <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to position updates
+            <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/all-position-change-events" /></para>
+            </summary>
             <param name="onPositionUpdate">Handler for position changes</param>
             <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
             <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>

@@ -174,7 +174,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to position updates
+        /// Subscribe to position updates for a specific symbol
         /// <para><a href="https://docs.kucoin.com/futures/#position-change-events" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
@@ -190,6 +190,23 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             Action<DataEvent<KucoinPositionMarkPriceUpdate>> onMarkPriceUpdate,
             Action<DataEvent<KucoinPositionFundingSettlementUpdate>> onFundingSettlementUpdate,
             Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>> onRiskAdjustUpdate,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to position updates. Note that this overrides any symbol specific position subscriptions
+        /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/all-position-change-events" /></para>
+        /// </summary>
+        /// <param name="onPositionUpdate">Handler for position changes</param>
+        /// <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
+        /// <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
+        /// <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+            Action<DataEvent<KucoinPositionUpdate>>? onPositionUpdate = null,
+            Action<DataEvent<KucoinPositionMarkPriceUpdate>>? onMarkPriceUpdate = null,
+            Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? onFundingSettlementUpdate = null,
+            Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate = null,
             CancellationToken ct = default);
 
         /// <summary>

@@ -9,7 +9,6 @@ using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
@@ -19,6 +18,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private readonly Action<DataEvent<KucoinPositionMarkPriceUpdate>>? _onMarkPriceUpdate;
         private readonly Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? _onFundingSettlementUpdate;
         private readonly Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? _onRiskAdjustUpdate;
+        private readonly string? _symbol;
         private readonly string _topic;
         private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
         private static readonly MessagePath _changeReasonPath = MessagePath.Get().Property("data").Property("changeReason");
@@ -27,14 +27,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinPositionSubscription(
             ILogger logger,
-            string symbol,
+            string? symbol,
             Action<DataEvent<KucoinPositionUpdate>>? onPositionUpdate,
             Action<DataEvent<KucoinPositionMarkPriceUpdate>>? onMarkPriceUpdate,
             Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? onFundingSettlementUpdate,
             Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate
             ) : base(logger, true)
         {
-            _topic = "/contract/position:" + symbol;
+            _symbol = symbol;
+            _topic = symbol == null ? "/contract/positionAll" : "/contract/position:" + symbol;
             _onPositionUpdate = onPositionUpdate;
             _onMarkPriceUpdate = onMarkPriceUpdate;
             _onFundingSettlementUpdate = onFundingSettlementUpdate;
@@ -63,7 +64,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 _onFundingSettlementUpdate?.Invoke(message.As(fundUpdate.Data, fundUpdate.Topic, SocketUpdateType.Update));
             if (message.Data is KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate> riskAdjust)
                 _onRiskAdjustUpdate?.Invoke(message.As(riskAdjust.Data, riskAdjust.Topic, SocketUpdateType.Update));
-
 
             return new CallResult(null);
         }
