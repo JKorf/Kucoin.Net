@@ -183,6 +183,33 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Placec a new OCO order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/place-order" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="side">Order side</param>
+        /// <param name="quantity">Quantity</param>
+        /// <param name="price">Price</param>
+        /// <param name="stopPrice">Trigger price</param>
+        /// <param name="limitPrice">Limit order price after trigger</param>
+        /// <param name="tradeType">Transaction Type, currently only supports TRADE (spot transactions)</param>
+        /// <param name="remark">User remark</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinNewOrder>> PlaceOcoOrderAsync(
+            string symbol,
+            OrderSide side,
+            decimal quantity,
+            decimal price,
+            decimal stopPrice,
+            decimal limitPrice,
+            TradeType? tradeType = null,
+            string? remark = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Places bulk orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-multiple-orders" /></para>
         /// </summary>
@@ -202,6 +229,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel an OCO order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/cancel-order-by-orderid" /></para>
+        /// </summary>
+        /// <param name="orderId">The id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrderAsync(string orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel multiple OCO orders
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/cancel-multiple-orders" /></para>
+        /// </summary>
+        /// <param name="orderIds">Order ids</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrdersAsync(IEnumerable<string> orderIds, CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel an order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/cancel-order-by-clientoid" /></para>
         /// </summary>
@@ -209,6 +254,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of canceled orders</returns>
         Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel an OCO order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/cancel-order-by-clientoid" /></para>
+        /// </summary>
+        /// <param name="clientOrderId"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders
@@ -246,6 +300,20 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get OCO orders list
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-list" /></para>
+        /// </summary>
+        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="orderIds">Filter by order ids</param>
+        /// <param name="startTime">Filter list by start time</param>
+        /// <param name="endTime">Filter list by end time</param>
+        /// <param name="currentPage">The page to retrieve</param>
+        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinPaginated<KucoinOcoOrder>>> GetOcoOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get info on a specific order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/get-order-details-by-clientoid" /></para>
         /// </summary>
@@ -253,6 +321,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order info</returns>
         Task<WebCallResult<KucoinOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get info on a specific OCO order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-info-by-orderid" /></para>
+        /// </summary>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderAsync(string orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get details of an OCO order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-details-by-orderid" /></para>
+        /// </summary>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinOcoOrderDetails>> GetOcoOrderDetailsAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific order

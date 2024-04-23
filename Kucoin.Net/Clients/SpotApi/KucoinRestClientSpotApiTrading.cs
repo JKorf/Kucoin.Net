@@ -261,6 +261,39 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinNewOrder>> PlaceOcoOrderAsync(
+            string symbol,
+            OrderSide side,
+            decimal quantity,
+            decimal price,
+            decimal stopPrice,
+            decimal limitPrice,
+            TradeType? tradeType = null,
+            string? remark = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection
+            {
+                { "symbol", symbol },
+                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
+                { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
+            };
+            parameters.AddString("price", price);
+            parameters.AddString("size", quantity);
+            parameters.AddString("stopPrice", stopPrice);
+            parameters.AddString("limitPrice", limitPrice);
+            parameters.AddOptional("remark", remark);
+            parameters.AddOptionalEnum("tradeType", tradeType);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/oco/order", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            if (result)
+                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
+            return result;
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var orderList = orders.ToList();
@@ -303,11 +336,44 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrderAsync(string orderId, CancellationToken ct = default)
+        {
+            orderId.ValidateNotNull(nameof(orderId));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/oco/order/{orderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
+            var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
+            if (result)
+                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrdersAsync(IEnumerable<string> orderIds, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "orderIds", string.Join(",", orderIds) }
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/oco/orders", KucoinExchange.RateLimiter.SpotRest, 3, true);
+            return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrder>(request, null, ct).ConfigureAwait(false);
+            if (result)
+                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = clientOrderId });
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        {
+            clientOrderId.ValidateNotNull(nameof(clientOrderId));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/oco/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
+            var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = clientOrderId });
             return result;
@@ -344,6 +410,23 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<KucoinOcoOrder>>> GetOcoOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
+
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptional("orderIds", orderIds == null ? null: string.Join(",", orderIds));
+            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("currentPage", currentPage);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/oco/orders", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinPaginated<KucoinOcoOrder>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/limit/orders", KucoinExchange.RateLimiter.SpotRest, 3, true);
@@ -356,6 +439,30 @@ namespace Kucoin.Net.Clients.SpotApi
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinOrder>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderAsync(string orderId, CancellationToken ct = default)
+        {
+            orderId.ValidateNotNull(nameof(orderId));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/oco/order/{orderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinOcoOrder>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        {
+            clientOrderId.ValidateNotNull(nameof(clientOrderId));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/oco/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinOcoOrder>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinOcoOrderDetails>> GetOcoOrderDetailsAsync(string orderId, CancellationToken ct = default)
+        {
+            orderId.ValidateNotNull(nameof(orderId));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/oco/order/details/{orderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinOcoOrderDetails>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
