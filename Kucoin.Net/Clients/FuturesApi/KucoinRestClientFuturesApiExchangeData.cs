@@ -208,5 +208,21 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         #endregion
+
+        #region Get Funding Rate History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinFundingRateHistory>>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddParameter("symbol", symbol);
+            parameters.AddMilliseconds("from", startTime);
+            parameters.AddMilliseconds("to", endTime);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contract/funding-rates", KucoinExchange.RateLimiter.PublicRest, 5);
+            return await _baseClient.SendAsync<IEnumerable<KucoinFundingRateHistory>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }
