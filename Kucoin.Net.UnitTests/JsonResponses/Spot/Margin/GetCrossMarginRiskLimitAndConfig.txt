@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "code": "200",
+    "msg": "success",
+    "retry": false,
+    "data": [
+        {
+            "timestamp": 1697783812257,
+            "currency": "XMR",
+            "borrowMaxAmount": "999999999999999999",
+            "buyMaxAmount": "999999999999999999",
+            "holdMaxAmount": "999999999999999999",
+            "borrowCoefficient": "0.5",
+            "marginCoefficient": "1",
+            "precision": 8,
+            "borrowMinAmount": "0.001",
+            "borrowMinUnit": "0.001",
+            "borrowEnabled": true
+        }
+    ]
+}

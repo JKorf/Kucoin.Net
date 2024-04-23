@@ -147,7 +147,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinLendingAsset>>> GetAssetsAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinLendingAsset>>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get lending interest rates
@@ -197,24 +197,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="redeemOrderId">Filter by redeem order id</param>
-        /// <param name="status">Filter by status</param>
+        /// <param name="status">Status, DONE or PENDING</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinRedemption>>> GetRedemptionOrdersAsync(string asset, string? redeemOrderId, string? status = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinRedemption>>> GetRedemptionOrdersAsync(string asset, string status, string? redeemOrderId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get subscription orders
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/get-subscription-orders" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
+        /// <param name="status">Status, DONE or PENDING</param>
         /// <param name="purchaseOrderId">Filter by purchase order id</param>
-        /// <param name="status">Filter by status</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinLendSubscription>>> GetSubscriptionOrdersAsync(string asset, string? purchaseOrderId, string? status = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinLendSubscription>>> GetSubscriptionOrdersAsync(string asset, string status, string? purchaseOrderId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

@@ -354,7 +354,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.AsDataless();
@@ -366,7 +366,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsError<T>(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
@@ -378,7 +378,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.AsDataless();
@@ -390,7 +390,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsError<T>(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);

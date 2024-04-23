@@ -42,6 +42,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Time of borrowing
         /// </summary>
         [JsonProperty("createdTime")]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

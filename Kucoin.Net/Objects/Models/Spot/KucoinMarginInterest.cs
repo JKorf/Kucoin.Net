@@ -27,6 +27,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Timesatmp
         /// </summary>
         [JsonProperty("createdTime")]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

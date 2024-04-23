@@ -29,6 +29,15 @@ namespace Kucoin.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateSpotMarginCalls()
+        {
+            await _comparerSpot.ProcessSubject("Spot/Margin", c => c.SpotApi.Margin,
+               useNestedJsonPropertyForAllCompare: new List<string> { "data" },
+               parametersToSetNull: new[] { "pageSize" }
+                );
+        }
+
+        [Test]
         public async Task ValidateSpotExchangeDataCalls()
         {
             await _comparerSpot.ProcessSubject("Spot/ExchangeData", c => c.SpotApi.ExchangeData,

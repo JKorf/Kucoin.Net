@@ -1,0 +1,1 @@
+{"code":"200000","data":[{"currency":"BTC","purchaseEnable":true,"redeemEnable":true,"increment":"0.00000001","minPurchaseSize":"0.001","minInterestRate":"0.005","maxInterestRate":"0.32","interestIncrement":"0.0001","maxPurchaseSize":"40","marketInterestRate":"0.005","autoPurchaseEnable":false}]}

@@ -1,5 +1,4 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Spot

@@ -2,7 +2,7 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Kucoin.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Kucoin.Net?style=for-the-badge)
 
-Kucoin.Net is a strongly typed client library for accessing the [Kucoin REST and Websocket API](https://docs.kucoin.com/). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
+Kucoin.Net is a strongly typed client library for accessing the [Kucoin REST and Websocket API](https://www.kucoin.com/docs/beginners/introduction). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
 
 ## Supported Frameworks
 The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
@@ -89,8 +89,8 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Margin Trading Margin Orders|✓|`restClient.SpotApi.Trading`|
 |Margin Trading Margin Info|✓|`restClient.SpotApi.ExchangeData`|
 |Margin Trading Isolated Margin|✓|`restClient.SpotApi.ExchangeData` / `restClient.SpotApi.Account`|
-|Margin Trading Margin Trading(V3)|X||
-|Margin Trading Lending Market(V3)|X||
+|Margin Trading Margin Trading(V3)|✓|`restClient.SpotApi.Margin`|
+|Margin Trading Lending Market(V3)|✓|`restClient.SpotApi.Margin`|
 |Futures Trading Market Data|✓|`restClient.FuturesApi.ExchangeData`|
 |Futures Trading Orders|✓|`restClient.FuturesApi.Trading`|
 |Futures Trading Fills|✓|`restClient.FuturesApi.Trading`|

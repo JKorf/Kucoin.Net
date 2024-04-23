@@ -14,7 +14,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Places an order
-        /// <para><a href="https://docs.kucoin.com/spot-hf/#order-placement" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-hf-order" /></para>
         /// </summary>
         /// <param name="symbol">The symbol the order is for</param>
         /// <param name="side">The side of the order</param>
@@ -53,7 +53,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an order
-        /// <para><a href="https://docs.kucoin.com/spot-hf/#cancellation-of-orders-by-orderid" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-hf-order-by-orderid" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="symbol">Trading pair, such as ETH-BTC</param>
@@ -63,7 +63,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific order
-        /// <para><a href="https://docs.kucoin.com/spot-hf/#details-of-a-single-hf-order" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-order-details-by-orderid" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order</param>
         /// <param name="symbol">Trading pair, such as ETH-BTC</param>

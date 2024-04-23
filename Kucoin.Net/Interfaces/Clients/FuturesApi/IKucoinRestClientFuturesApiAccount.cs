@@ -16,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Gets account overview
-        /// <para><a href="https://docs.kucoin.com/futures/#get-account-overview" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-futures" /></para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -25,7 +25,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get transaction history
-        /// <para><a href="https://docs.kucoin.com/futures/#get-transaction-history" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-ledgers-futures" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="type">Filter by type</param>
@@ -40,7 +40,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Transfer funds from futures to main account
-        /// <para><a href="https://docs.kucoin.com/futures/#transfer-to-main-or-trade-account" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/transfer-to-main-or-trade-account" /></para>
         /// </summary>
         /// <param name="asset">Asset to transfer</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -51,7 +51,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Transfer funds from main or trade account to futures
-        /// <para><a href="https://docs.kucoin.com/futures/#transfer-to-futures-account" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/transfer-to-futures-account" /></para>
         /// </summary>
         /// <param name="asset">Asset to transfer</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -62,7 +62,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get transfer to main account history
-        /// <para><a href="https://docs.kucoin.com/futures/#get-transfer-out-request-records-2" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/get-futures-transfer-out-request-records" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="startTime">Filter by start time</param>
@@ -74,10 +74,9 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, DepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
-
         /// <summary>
         /// Get the total value of active orders
-        /// <para><a href="https://docs.kucoin.com/futures/#active-order-value-calculation" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-active-order-value-calculation" /></para>
         /// </summary>        
         /// <param name="symbol">Symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -86,7 +85,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get details on a position
-        /// <para><a href="https://docs.kucoin.com/futures/#get-position-details" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-position-details" /></para>
         /// </summary>
         /// <param name="symbol">Contract symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -95,7 +94,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of positions
-        /// <para><a href="https://docs.kucoin.com/futures/#get-position-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-position-list" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -104,7 +103,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Enable/disable auto deposit margin
-        /// <para><a href="https://docs.kucoin.com/futures/#enable-disable-of-auto-deposit-margin" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-auto-deposit-margin-status" /></para>
         /// </summary>
         /// <param name="symbol">Symbol to change for</param>
         /// <param name="enabled">Enable or disable</param>
@@ -114,7 +113,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Manually add margin to a position
-        /// <para><a href="https://docs.kucoin.com/futures/#add-margin-manually" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/add-margin-manually" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="quantity">Quantity to add</param>
@@ -135,7 +134,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding history
-        /// <para><a href="https://docs.kucoin.com/futures/#get-funding-history" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/funding-fees/get-private-funding-history" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="startTime">Filter by start time</param>
