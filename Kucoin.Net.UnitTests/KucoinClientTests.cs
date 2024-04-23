@@ -12,6 +12,9 @@ using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Clients.SpotApi;
+using CryptoExchange.Net.Objects.Sockets;
+using Kucoin.Net.ExtensionMethods;
+using NUnit.Framework.Legacy;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -36,10 +39,10 @@ namespace Kucoin.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsNotNull(result.Error);
-            Assert.IsTrue(result.Error!.Code == 400001);
-            Assert.IsTrue(result.Error.Message == "Error occured");
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
+            Assert.That(result.Error!.Code == 400001);
+            Assert.That(result.Error.Message == "Error occured");
         }
 
         [TestCase()]
@@ -53,8 +56,8 @@ namespace Kucoin.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsNotNull(result.Error);
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
         }
 
         [TestCase()]
@@ -75,28 +78,10 @@ namespace Kucoin.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsNotNull(result.Error);
-            Assert.IsTrue(result.Error!.Code == 400001);
-            Assert.IsTrue(result.Error.Message == "Error occured");
-        }
-
-        [TestCase("BTC-USDT", true)]
-        [TestCase("NANO-USDT", true)]
-        [TestCase("NANO-BTC", true)]
-        [TestCase("ETH-BTC", true)]
-        [TestCase("BE-ETC", true)]
-        [TestCase("NANO-USDTDASADS", true)]
-        [TestCase("A-USDTDASADS", true)]
-        [TestCase("-USDTDASADSD", false)]
-        [TestCase("BTCUSDT", false)]
-        [TestCase("BTCUSD", false)]
-        public void CheckValidKucoinSymbol(string symbol, bool isValid)
-        {
-            if (isValid)
-                Assert.DoesNotThrow(symbol.ValidateKucoinSymbol);
-            else
-                Assert.Throws(typeof(ArgumentException), symbol.ValidateKucoinSymbol);
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
+            Assert.That(result.Error!.Code == 400001);
+            Assert.That(result.Error.Message == "Error occured");
         }
 
         [Test]
@@ -113,7 +98,7 @@ namespace Kucoin.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod, $"{method.Name} not found in interface {clientInterface.Name}");
+                    ClassicAssert.NotNull(interfaceMethod, $"{method.Name} not found in interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
@@ -133,7 +118,7 @@ namespace Kucoin.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task<CallResult<UpdateSubscription>>))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod);
+                    ClassicAssert.NotNull(interfaceMethod);
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");

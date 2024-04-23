@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Kucoin.Net.Objects.Models.Spot
+﻿namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// New Borrow order

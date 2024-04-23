@@ -56,6 +56,10 @@
         /// <summary>
         /// 1w
         /// </summary>
-        OneWeek = 60 * 60 * 24 * 7
+        OneWeek = 60 * 60 * 24 * 7,
+        /// <summary>
+        /// 1M
+        /// </summary>
+        OneMonth = 60 * 60 * 24 * 31
     }
 }

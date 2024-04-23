@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Net.WebSockets;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +14,16 @@ namespace Kucoin.Net.UnitTests.TestImplementations
     {
         public bool CanConnect { get; set; }
         public bool Connected { get; set; }
-#pragma warning disable 8618
-        public event Action OnClose;
-        public event Action<string> OnMessage;
-        public event Action<Exception> OnError;
-        public event Action OnOpen;
+        public event Func<Task> OnClose;
 #pragma warning disable 0067
-        public event Action OnReconnecting;
-        public event Action<int> OnRequestSent;
-        public event Action OnReconnected;
-        public Func<Task<Uri>> GetReconnectionUrl { get; set; }
+        public event Func<Task> OnReconnected;
+        public event Func<Task> OnReconnecting;
+        public event Func<int, Task> OnRequestRateLimited;
 #pragma warning restore 0067
-#pragma warning restore 8618
+        public event Func<int, Task> OnRequestSent;
+        public event Action<WebSocketMessageType, ReadOnlyMemory<byte>> OnStreamMessage;
+        public event Func<Exception, Task> OnError;
+        public event Func<Task> OnOpen;
 
         public int Id { get; }
         public bool ShouldReconnect { get; set; }
@@ -49,11 +49,12 @@ namespace Kucoin.Net.UnitTests.TestImplementations
         public Uri Uri => new Uri("");
 
         public TimeSpan KeepAliveInterval { get; set; }
+        public Func<Task<Uri>> GetReconnectionUrl { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Task<bool> ConnectAsync()
+        public Task<CallResult> ConnectAsync()
         {
             Connected = CanConnect;
-            return Task.FromResult(CanConnect);
+            return Task.FromResult(CanConnect ? new CallResult(null) : new CallResult(new CantConnectError()));
         }
 
         public void Send(int requestId, string data, int weight)
@@ -103,13 +104,14 @@ namespace Kucoin.Net.UnitTests.TestImplementations
 
         public void InvokeMessage(string data)
         {
-            OnMessage?.Invoke(data);
+            OnStreamMessage?.Invoke(WebSocketMessageType.Text, new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(data)));
         }
 
         public void InvokeMessage<T>(T data)
         {
-            OnMessage?.Invoke(JsonConvert.SerializeObject(data));
+            OnStreamMessage?.Invoke(WebSocketMessageType.Text, new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data))));
         }
+
 
         public void InvokeError(Exception error)
         {

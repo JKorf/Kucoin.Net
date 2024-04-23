@@ -16,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Gets the server time
-        /// <para><a href="https://docs.kucoin.com/#server-time" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-server-time" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The time of the server</returns>
@@ -24,7 +24,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of symbols supported by the server
-        /// <para><a href="https://docs.kucoin.com/#get-symbols-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-symbols-list" /></para>
         /// </summary>
         /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
@@ -33,7 +33,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets ticker info of a symbol
-        /// <para><a href="https://docs.kucoin.com/#get-ticker" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-ticker" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get info for</param>
         /// <param name="ct">Cancellation token</param>
@@ -42,7 +42,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the ticker for all trading pairs
-        /// <para><a href="https://docs.kucoin.com/#get-all-tickers" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-all-tickers" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of tickers</returns>
@@ -50,7 +50,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the 24 hour stats of a symbol
-        /// <para><a href="https://docs.kucoin.com/#get-24hr-stats" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-24hr-stats" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get stats for</param>
         /// <param name="ct">Cancellation token</param>
@@ -59,7 +59,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of supported markets
-        /// <para><a href="https://docs.kucoin.com/#get-market-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-market-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
@@ -67,7 +67,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
-        /// <para><a href="https://docs.kucoin.com/#get-part-order-book-aggregated" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-part-order-book-aggregated-" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get order book for</param>
         /// <param name="limit">The limit of results (20 / 100)</param>
@@ -77,7 +77,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a full aggregated order book for a symbol. Orders for the same price are combined.
-        /// <para><a href="https://docs.kucoin.com/#get-full-order-book-aggregated" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get order book for</param>
         /// <param name="ct">Cancellation token</param>
@@ -86,7 +86,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the recent trade history for a symbol
-        /// <para><a href="https://docs.kucoin.com/#get-trade-histories" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-trade-histories" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get trade history for</param>
         /// <param name="ct">Cancellation token</param>
@@ -95,7 +95,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline data for a symbol
-        /// <para><a href="https://docs.kucoin.com/#get-klines" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-klines" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get klines for</param>
         /// <param name="interval">The interval of a kline</param>
@@ -107,15 +107,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of supported currencies
-        /// <para><a href="https://docs.kucoin.com/#get-currencies" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-currency-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of currencies</returns>
-        Task<WebCallResult<IEnumerable<KucoinAsset>>> GetAssetsAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinAssetDetails>>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific asset
-        /// <para><a href="https://docs.kucoin.com/#get-currency-detail-recommend" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-currency-detail" /></para>
         /// </summary>
         /// <param name="asset">The asset to get</param>
         /// <param name="ct">Cancellation token</param>
@@ -124,7 +124,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of prices for all 
-        /// <para><a href="https://docs.kucoin.com/#get-fiat-price" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-fiat-price" /></para>
         /// </summary>
         /// <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
         /// <param name="assets">The assets to get price for. Defaults to all</param>
@@ -134,7 +134,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get margin configuration
-        /// <para><a href="https://docs.kucoin.com/#get-margin-configuration-info" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-margin-configuration-info" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -142,7 +142,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the mark price of a symbol
-        /// <para><a href="https://docs.kucoin.com/#get-mark-price" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -150,30 +150,36 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get lending market data
-        /// <para><a href="https://docs.kucoin.com/#lending-market-data" /></para>
-        /// </summary>
-        /// <param name="asset">Asset</param>
-        /// <param name="term">Filter by term</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinLendingMarketEntry>>> GetLendMarketDataAsync(string asset, int? term = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get the last 300 fills for borrow/lending orders
-        /// <para><a href="https://docs.kucoin.com/#margin-trade-data" /></para>
-        /// </summary>
-        /// <param name="asset">The asset</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinBorrowOrderDetails>>> GetMarginTradeHistoryAsync(string asset, CancellationToken ct = default);
-
-        /// <summary>
         /// Get Margin Trading Pair ConfigurationAsync
-        /// <para><a href="https://docs.kucoin.com/#query-isolated-margin-trading-pair-configuration" /></para>
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/isolated-margin/get-isolated-margin-symbols-configuration" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get cross margin risk limit and asset configuration info
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinCrossRiskLimitConfig>>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get isolated margin risk limit and asset configuration info
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get leveraged token information
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-leveraged-token-info" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param> 
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinLeveragedToken>>> GetLeveragedTokensAsync(CancellationToken ct = default);
     }
 }

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+﻿using CryptoExchange.Net.Clients;
 using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.SpotApi;
 using Kucoin.Net.Interfaces.Clients;
@@ -36,7 +36,6 @@ namespace Kucoin.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         /// <param name="loggerFactory">The logger factory</param>
         /// <param name="httpClient">Http client for this client</param>
-        [ActivatorUtilitiesConstructor]
         public KucoinRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, Action<KucoinRestOptions>? optionsDelegate = null) : base(loggerFactory, "Kucoin")
         {
             var options = KucoinRestOptions.Default.Copy();

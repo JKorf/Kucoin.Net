@@ -14,6 +14,7 @@ namespace Kucoin.Net.Converters
 
         protected override List<KeyValuePair<TradeType, string>> Mapping => new List<KeyValuePair<TradeType, string>>
         {
+            new KeyValuePair<TradeType, string>(TradeType.IsolatedMarginTrade, "ISOLATED_MARGIN_TRADE"),
             new KeyValuePair<TradeType, string>(TradeType.MarginTrade, "MARGIN_TRADE"),
             new KeyValuePair<TradeType, string>(TradeType.SpotTrade, "TRADE")
         };

@@ -6,7 +6,6 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
-using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
@@ -60,15 +59,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> TransferToFuturesAccountAsync(string asset, decimal quantity, AccountType payAccountType, CancellationToken ct = default);
-
-        /// <summary>
-        /// Cancel a transfer from futures account to main account
-        /// <para><a href="https://docs.kucoin.com/futures/#cancel-transfer-out-request" /></para>
-        /// </summary>
-        /// <param name="applyId">Transfer id to cancel</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Withdrawal id</returns>
-        Task<WebCallResult> CancelTransferToMainAccountAsync(string applyId, CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer to main account history

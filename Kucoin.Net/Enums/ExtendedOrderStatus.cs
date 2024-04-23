@@ -6,6 +6,10 @@
     public enum ExtendedOrderStatus
     {
         /// <summary>
+        /// New
+        /// </summary>
+        New,
+        /// <summary>
         /// Match
         /// </summary>
         Match,
