@@ -38,7 +38,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The last sequence number of this order book state
         /// </summary>
-        public long Sequence { get; set; }
+        public long? Sequence { get; set; }
         /// <summary>
         /// The timestamp of the data
         /// </summary>

@@ -54,7 +54,10 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection { { "symbol", symbol } };
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/orderbook/level1", KucoinExchange.RateLimiter.PublicRest, 2);
-            return await _baseClient.SendAsync<KucoinTick>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinTick>(request, parameters, ct).ConfigureAwait(false);
+            if (result && result.Data == null)
+                return result.AsError<KucoinTick>(new ServerError("Symbol doesn't exist"));
+            return result;
         }
 
         /// <inheritdoc />
@@ -69,7 +72,10 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection { { "symbol", symbol } };
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/stats", KucoinExchange.RateLimiter.PublicRest, 15);
-            return await _baseClient.SendAsync<Kucoin24HourStat>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<Kucoin24HourStat>(request, parameters, ct).ConfigureAwait(false);
+            if (result && result.Data.Volume == null)
+                return result.AsError<Kucoin24HourStat>(new ServerError("Symbol doesn't exist"));
+            return result;
         }
 
         /// <inheritdoc />
@@ -90,7 +96,11 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var weight = limit == 20 ? 2 : 4;
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/market/orderbook/level2_{limit}", KucoinExchange.RateLimiter.PublicRest, weight);
-            return await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct, weight).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct, weight).ConfigureAwait(false);
+            if (result && result.Data.Asks == null)
+                return result.AsError<KucoinOrderBook>(new ServerError("Symbol doesn't exist"));
+            return result;
+
         }
 
         /// <inheritdoc />
@@ -101,7 +111,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/market/orderbook/level2", KucoinExchange.RateLimiter.SpotRest, 3, true);
-            return await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            if (result && result.Data.Asks == null)
+                return result.AsError<KucoinOrderBook>(new ServerError("Symbol doesn't exist"));
+            return result;
         }
 
         /// <inheritdoc />
