@@ -10,6 +10,16 @@ namespace Kucoin.Net.Interfaces
     public interface IKucoinOrderBookFactory
     {
         /// <summary>
+        /// Spot order book factory methods
+        /// </summary>
+        public IOrderBookFactory<KucoinOrderBookOptions> Spot { get; }
+
+        /// <summary>
+        /// Futures order book factory methods
+        /// </summary>
+        public IOrderBookFactory<KucoinOrderBookOptions> Futures { get; }
+
+        /// <summary>
         /// Create a futures ISymbolOrderBook instance for the symbol
         /// </summary>
         /// <param name="symbol">The symbol of the order book</param>

@@ -4202,6 +4202,16 @@
             Factory for creating Kucoin symbol orderbook instance
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.Spot">
+            <summary>
+            Spot order book factory methods
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.Futures">
+            <summary>
+            Futures order book factory methods
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.CreateFutures(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions})">
             <summary>
             Create a futures ISymbolOrderBook instance for the symbol
@@ -10114,6 +10124,12 @@
             <summary>
             Kucoin order book factory
             </summary>
+        </member>
+        <member name="P:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.Spot">
+            <inheritdoc />
+        </member>
+        <member name="P:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.Futures">
+            <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>
