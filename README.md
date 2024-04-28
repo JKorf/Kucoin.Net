@@ -122,6 +122,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.5.1 - 28 Apr 2024
+    * Added Url and ApiDocsUrl to KrakenExchange static info class
+    * Added KucoinOrderBookFactory book creation method
+    * Fixed KucoinOrderBookFactory injection issue
+    * Updated CryptoExchange.Net to v7.4.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+
 * Version 5.5.0 - 23 Apr 2024
     * Added FuturesApi.ExchangeData.Get24HourTransactionVolumeAsync endpoint
     * Added FuturesApi.ExchangeData.GetFundingRateHistoryAsync endpoint
