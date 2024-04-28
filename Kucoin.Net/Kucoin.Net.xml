@@ -32,6 +32,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
@@ -208,6 +211,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequest">
             <inheritdoc />
         </member>
@@ -375,6 +381,9 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.GetSymbolName(System.String,System.String)">
@@ -689,6 +698,9 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -4190,6 +4202,16 @@
             Factory for creating Kucoin symbol orderbook instance
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.Spot">
+            <summary>
+            Spot order book factory methods
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.Futures">
+            <summary>
+            Futures order book factory methods
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.CreateFutures(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions})">
             <summary>
             Create a futures ISymbolOrderBook instance for the symbol
@@ -4248,6 +4270,16 @@
         <member name="P:Kucoin.Net.KucoinExchange.ExchangeName">
             <summary>
             Exchange name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.Url">
+            <summary>
+            Url to the main website
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.ApiDocsUrl">
+            <summary>
+            Urls to the API documentation
             </summary>
         </member>
         <member name="P:Kucoin.Net.KucoinExchange.RateLimiter">
@@ -10012,6 +10044,11 @@
             After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOrderBookOptions.ApiCredentials">
+            <summary>
+            API credentials to use. The Kucoin order book endpoint requires authentication
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Options.KucoinRestApiOptions">
             <inheritdoc />
         </member>
@@ -10102,6 +10139,12 @@
             <summary>
             Kucoin order book factory
             </summary>
+        </member>
+        <member name="P:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.Spot">
+            <inheritdoc />
+        </member>
+        <member name="P:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.Futures">
+            <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>

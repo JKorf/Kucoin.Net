@@ -21,6 +21,18 @@ namespace Kucoin.Net
         public static string ExchangeName => "Kucoin";
 
         /// <summary>
+        /// Url to the main website
+        /// </summary>
+        public static string Url { get; } = "https://www.kucoin.com";
+
+        /// <summary>
+        /// Urls to the API documentation
+        /// </summary>
+        public static string[] ApiDocsUrl { get; } = new[] {
+            "https://www.kucoin.com/docs/beginners/introduction"
+            };
+
+        /// <summary>
         /// Rate limiter configuration for the Kucoin API
         /// </summary>
         public static KucoinRateLimiters RateLimiter { get; } = new KucoinRateLimiters();

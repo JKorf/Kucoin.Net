@@ -69,6 +69,9 @@ namespace Kucoin.Net.Clients.SpotApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
+        /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+
         #region common interface
 
         /// <summary>
@@ -370,35 +373,6 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
-        }
-
-        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
-        {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition, requestWeight: 0).ConfigureAwait(false);
-            if (!result)
-                return result.AsDatalessError(result.Error!);
-
-            if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
-
-            return result.AsDataless();
-        }
-
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
-        {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition: parameterPosition, requestWeight: 0).ConfigureAwait(false);
-            if (!result)
-                return result.AsError<T>(result.Error!);
-
-            if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
-
-            return result.As(result.Data.Data);
-        }
-
-        internal Uri GetUri(string path, int apiVersion = 1)
-        {
-            return new Uri(BaseAddress.AppendPath("api").AppendPath("v" + apiVersion, path));
         }
 
         /// <inheritdoc />
