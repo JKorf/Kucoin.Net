@@ -10044,6 +10044,11 @@
             After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOrderBookOptions.ApiCredentials">
+            <summary>
+            API credentials to use. The Kucoin order book endpoint requires authentication
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Options.KucoinRestApiOptions">
             <inheritdoc />
         </member>

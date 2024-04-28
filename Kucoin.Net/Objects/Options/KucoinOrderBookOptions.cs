@@ -23,6 +23,11 @@ namespace Kucoin.Net.Objects.Options
         /// </summary>
         public TimeSpan? InitialDataTimeout { get; set; }
 
+        /// <summary>
+        /// API credentials to use. The Kucoin order book endpoint requires authentication
+        /// </summary>
+        public KucoinApiCredentials? ApiCredentials { get; set; }
+
         internal KucoinOrderBookOptions Copy()
         {
             var result = Copy<KucoinOrderBookOptions>();
