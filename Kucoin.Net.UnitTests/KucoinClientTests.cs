@@ -15,6 +15,10 @@ using Kucoin.Net.Clients.SpotApi;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.ExtensionMethods;
 using NUnit.Framework.Legacy;
+using System.Collections.Generic;
+using System.Net.Http;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.JsonNet;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -85,44 +89,35 @@ namespace Kucoin.Net.UnitTests
         }
 
         [Test]
-        public void CheckRestInterfaces()
+        public void CheckSignatureExample()
         {
-            var assembly = Assembly.GetAssembly(typeof(KucoinRestClient));
-            var ignore = new string[] { "IKucoinClientSpot" };
-            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinClientSpot") && !ignore.Contains(t.Name));
+            var authProvider = new KucoinAuthenticationProvider(
+                new KucoinApiCredentials("5c2db93503aa674c74a31734", "f03a5284-5c39-4aaa-9b20-dea10bdcf8e3", "QWIxMjM0NTY3OCkoKiZeJSQjQA==")
+                );
+            var client = (RestApiClient)new KucoinRestClient().SpotApi;
 
-            foreach (var clientInterface in clientInterfaces)
-            {
-                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
-                int methods = 0;
-                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
+            CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
+                client,
+                authProvider,
+                HttpMethod.Post,
+                "/api/v1/deposit-addresses",
+                (uriParams, bodyParams, headers) =>
                 {
-                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    ClassicAssert.NotNull(interfaceMethod, $"{method.Name} not found in interface {clientInterface.Name}");
-                    methods++;
-                }
-                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
-            }
+                    return headers["KC-API-SIGN"].ToString();
+                },
+                "7QP/oM0ykidMdrfNEUmng8eZjg/ZvPafjIqmxiVfYu4=",
+                new Dictionary<string, object>
+                {
+                    { "currency", "BTC" }
+                },
+                time: DateTimeConverter.ConvertFromMilliseconds(1547015186532));
         }
 
         [Test]
-        public void CheckSocketInterfaces()
+        public void CheckInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(KucoinSocketClientSpotApi));
-            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IKucoinSocketClientSpot"));
-
-            foreach (var clientInterface in clientInterfaces)
-            {
-                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
-                int methods = 0;
-                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task<CallResult<UpdateSubscription>>))))
-                {
-                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    ClassicAssert.NotNull(interfaceMethod);
-                    methods++;
-                }
-                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
-            }
+            CryptoExchange.Net.Testing.TestHelpers.CheckForMissingRestInterfaces<KucoinRestClient>();
+            CryptoExchange.Net.Testing.TestHelpers.CheckForMissingSocketInterfaces<KucoinSocketClient>();
         }
     }
 }

@@ -398,7 +398,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override void WriteParamBody(IRequest request, SortedDictionary<string, object> parameters, string contentType)
+        protected override void WriteParamBody(IRequest request, IDictionary<string, object> parameters, string contentType)
         {
             if (contentType == "application/json")
             {
