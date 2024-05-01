@@ -332,6 +332,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
+        /// Get info on a specific OCO order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-info-by-clientoid" /></para>
+        /// </summary>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
         /// Get details of an OCO order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-details-by-orderid" /></para>
         /// </summary>

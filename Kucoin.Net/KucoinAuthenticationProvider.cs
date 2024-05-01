@@ -23,12 +23,18 @@ namespace Kucoin.Net
                 throw new Exception("Only Hmac authentication is supported");
         }
 
-        public override void AuthenticateRequest(RestApiClient apiClient, Uri uri, HttpMethod method, Dictionary<string, object> providedParameters, bool auth, ArrayParametersSerialization arraySerialization, HttpMethodParameterPosition parameterPosition, RequestBodyFormat bodyFormat, out SortedDictionary<string, object> uriParameters, out SortedDictionary<string, object> bodyParameters, out Dictionary<string, string> headers)
+        public override void AuthenticateRequest(
+            RestApiClient apiClient,
+            Uri uri,
+            HttpMethod method,
+            IDictionary<string, object> uriParams,
+            IDictionary<string, object> bodyParams,
+            Dictionary<string, string> headers,
+            bool auth,
+            ArrayParametersSerialization arraySerialization,
+            HttpMethodParameterPosition parameterPosition,
+            RequestBodyFormat bodyFormat)
         {
-            uriParameters = parameterPosition == HttpMethodParameterPosition.InUri ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
-            bodyParameters = parameterPosition == HttpMethodParameterPosition.InBody ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
-            headers = new Dictionary<string, string>();
-
             if (!auth)
                 return;
 
@@ -41,7 +47,7 @@ namespace Kucoin.Net
                 brokerKey = apiClient is KucoinRestClientFuturesApi ? "9e08c05f-454d-4580-82af-2f4c7027fd00" : "f8ae62cb-2b3d-420c-8c98-e1c17dd4e30a";
             }
 
-            uri = uri.SetParameters(uriParameters, arraySerialization);
+            uri = uri.SetParameters(uriParams, arraySerialization);
             headers.Add("KC-API-KEY", _credentials.Key!.GetString());
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
             headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(_credentials.PassPhrase.GetString(), SignOutputType.Base64));
@@ -50,9 +56,9 @@ namespace Kucoin.Net
             string jsonContent = string.Empty;
             if (parameterPosition == HttpMethodParameterPosition.InBody)
             {
-                jsonContent = bodyParameters.Count == 1 && bodyParameters.First().Key == "<BODY>"
-                    ? JsonConvert.SerializeObject(bodyParameters.First().Value)
-                    : JsonConvert.SerializeObject(bodyParameters);
+                jsonContent = bodyParams.Count == 1 && bodyParams.First().Key == "<BODY>"
+                    ? JsonConvert.SerializeObject(bodyParams.First().Value)
+                    : JsonConvert.SerializeObject(bodyParams);
             }
 
             var signData = headers["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri.PathAndQuery) + jsonContent;

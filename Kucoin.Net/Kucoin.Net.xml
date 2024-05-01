@@ -55,7 +55,7 @@
         <member name="P:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.CommonFuturesClient">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.WriteParamBody(CryptoExchange.Net.Interfaces.IRequest,System.Collections.Generic.SortedDictionary{System.String,System.Object},System.String)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.WriteParamBody(CryptoExchange.Net.Interfaces.IRequest,System.Collections.Generic.IDictionary{System.String,System.Object},System.String)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount">
@@ -3800,6 +3800,15 @@
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-info-by-orderid" /></para>
             </summary>
             <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiTrading.GetOcoOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific OCO order
+            <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-info-by-clientoid" /></para>
+            </summary>
+            <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
