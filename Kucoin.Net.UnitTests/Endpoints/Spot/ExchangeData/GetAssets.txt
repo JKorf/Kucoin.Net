@@ -1,0 +1,58 @@
+GET
+/api/v3/currencies
+false
+{"code":"200000","data":
+[
+    {
+      "currency": "BTC",
+      "name": "BTC",
+      "fullName": "Bitcoin",
+      "precision": 8,
+      "confirms": null,
+      "contractAddress": null,
+      "isMarginEnabled": true,
+      "isDebitEnabled": true,
+      "chains": [
+        {
+          "chainName" : "BTC",
+          "withdrawalMinFee" : "0.001",
+          "withdrawalMinSize" : "0.0012",
+          "withdrawFeeRate" : "0",
+          "depositMinSize" : "0.0002",
+          "isWithdrawEnabled" : true,
+          "isDepositEnabled" : true,
+          "preConfirms" : 1,
+          "contractAddress" : "",
+          "chainId" : "btc",
+          "confirms" : 3
+        },
+        {
+          "chainName" : "KCC",
+          "withdrawalMinFee" : "0.00002",
+          "withdrawalMinSize" : "0.0008",
+          "withdrawFeeRate" : "0",
+          "depositMinSize" : null,
+          "isWithdrawEnabled" : true,
+          "isDepositEnabled" : true,
+          "preConfirms" : 20,
+          "contractAddress" : "0xfa93c12cd345c658bc4644d1d4e1b9615952258c",
+          "chainId" : "kcc",
+          "confirms" : 20
+        },
+        {
+          "chainName" : "BTC-Segwit",
+          "withdrawalMinFee" : "0.0005",
+          "withdrawalMinSize" : "0.0008",
+          "withdrawFeeRate" : "0",
+          "depositMinSize" : "0.0002",
+          "isWithdrawEnabled" : false,
+          "isDepositEnabled" : true,
+          "preConfirms" : 2,
+          "contractAddress" : "",
+          "chainId" : "bech32",
+          "confirms" : 2
+        }
+      ]
+    }
+  ]
+}

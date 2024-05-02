@@ -1,0 +1,42 @@
+GET
+/api/v3/isolated/accounts
+true
+{
+	"code": "200000",
+	"data": [
+		{
+			"totalAssetOfQuoteCurrency": "3.4939947",
+			"totalLiabilityOfQuoteCurrency": "0.00239066",
+			"timestamp": 1668062174000,
+			"assets": [
+				{
+					"symbol": "MANA-USDT",
+					"debtRatio": "0",
+					"status": "BORROW",
+					"baseAsset": {
+						"currency": "MANA",
+						"borrowEnabled": true,
+						"repayEnabled": true,
+						"transferEnabled": true,
+						"borrowed": "0",
+						"totalAsset": "0",
+						"available": "0",
+						"hold": "0",
+						"maxBorrowSize": "1000"
+					},
+					"quoteAsset": {
+						"currency": "USDT",
+						"borrowEnabled": true,
+						"repayEnabled": true,
+						"transferEnabled": true,
+						"borrowed": "0",
+						"totalAsset": "0",
+						"available": "0",
+						"hold": "0",
+						"maxBorrowSize": "50000"
+					}
+				}
+			]
+		}
+	]
+}

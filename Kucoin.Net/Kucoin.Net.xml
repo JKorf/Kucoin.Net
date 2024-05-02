@@ -837,14 +837,29 @@
             Pool account
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.Contract">
+            <summary>
+            Contract
+            </summary>
+        </member>
         <member name="F:Kucoin.Net.Enums.AccountType.Isolated">
             <summary>
             Isolated marging account
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Enums.AccountType.HighFrequency">
+        <member name="F:Kucoin.Net.Enums.AccountType.SpotHf">
             <summary>
-            High Frequency (PRO Account) account
+            High Frequency (PRO Account) spot account
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.MarginHf">
+            <summary>
+            High Frequency (PRO Account) margin account
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.IsolatedMarginHf">
+            <summary>
+            High Frequency (PRO Account) isolated account
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.AssetType">
@@ -8056,9 +8071,9 @@
             Actual leverage
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.IssuedQuantity">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.AssetsUnderManagement">
             <summary>
-            Issued size
+            Assets under management
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinLeveragedToken.Basket">
@@ -8698,6 +8713,11 @@
             The sub user id
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.Uid">
+            <summary>
+            The uid
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.SubName">
             <summary>
             The sub user name
@@ -8711,6 +8731,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.Remarks">
             <summary>
             Remarks for this sub user
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.Access">
+            <summary>
+            Access level
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSymbol">
@@ -9008,6 +9033,41 @@
             The quantity of transferable balance
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer">
+            <summary>
+            Universal transfer
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.FromAccountType">
+            <summary>
+            From account
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.ToAccountType">
+            <summary>
+            To account
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinUserFee">
             <summary>
             User fee
@@ -9266,6 +9326,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinWithdrawalQuota.LockedQuantity">
             <summary>
             Total locked amount
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinWithdrawalQuota.Reason">
+            <summary>
+            Reason
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinBalanceUpdate">

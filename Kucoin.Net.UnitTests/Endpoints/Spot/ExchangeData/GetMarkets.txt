@@ -1,0 +1,6 @@
+GET
+/api/v1/markets
+false
+{"code":"200000","data":
+["USDS","AI","DePIN","PoW","BRC-20","ETF","KCS","Meme","Solana","FIAT","VR&AR","DeFi","NFT","Polkadot","BTC","ALTS","Layer 1","NFT-ETF"]
+}

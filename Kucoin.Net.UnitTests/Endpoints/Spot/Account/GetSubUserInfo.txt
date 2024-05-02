@@ -1,0 +1,25 @@
+GET
+/api/v1/sub/user
+true
+{
+  "code": "200000",
+  "data": 
+  [
+  {
+    "userId": "5cbd31ab9c93e9280cd36a0a", //subUserId
+    "uid": "1789234",
+    "subName": "kucoin1",
+    "type": 0, //type:0-nomal
+    "remarks": "kucoin1",
+    "access": "All"
+  },
+  {
+    "userId": "5cbd31b89c93e9280cd36a0d",
+    "uid": "1789431",
+    "subName": "kucoin2",
+    "type": 1, //type:1-rebot
+    "remarks": "kucoin2",
+    "access": "All"
+  }
+]
+}

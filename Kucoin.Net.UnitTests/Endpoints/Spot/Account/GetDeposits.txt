@@ -1,0 +1,28 @@
+GET
+/api/v1/deposits
+true
+{
+  "code": "200000",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 50,
+    "totalNum": 1,
+    "totalPage": 1,
+    "items": [
+      {
+        "currency": "XRP",
+        "chain": "xrp",
+        "status": "SUCCESS",
+        "address": "rNFugeoj3ZN8Wv6xhuLegUBBPXKCyWLRkB",
+        "memo": "1919537769",
+        "isInner": false,
+        "amount": "20.50000000",
+        "fee": "0.00000000",
+        "walletTxId": "2C24A6D5B3E7D5B6AA6534025B9B107AC910309A98825BF5581E25BEC94AD83B",
+        "createdAt": 1666600519000,
+        "updatedAt": 1666600549000,
+        "remark": "Deposit"
+      }
+    ]
+  }
+}

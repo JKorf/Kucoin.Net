@@ -1,0 +1,23 @@
+GET
+/api/v1/withdrawals/quotas
+true
+{
+  "data": {
+    "limitBTCAmount": "37.83993375",
+    "quotaCurrency": "USDT",
+    "chain": "BTC",
+    "remainAmount": "37.83993375",
+    "innerWithdrawMinFee": "0",
+    "usedBTCAmount": "0.00000000",
+    "limitQuotaCurrencyAmount": "1000000.00000000",
+    "withdrawMinSize": "0.0008",
+    "withdrawMinFee": "0.0005",
+    "precision": 8,
+    "reason": null,
+    "usedQuotaCurrencyAmount": "0",
+    "currency": "BTC",
+    "availableAmount": "0",
+    "isWithdrawEnabled": true
+  },
+  "code": "200000"
+}

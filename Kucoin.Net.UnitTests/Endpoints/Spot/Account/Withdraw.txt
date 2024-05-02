@@ -1,0 +1,9 @@
+POST
+/api/v1/withdrawals
+true
+{
+  "data": {
+    "withdrawalId": "123"
+  },
+  "code": "200000"
+}

@@ -1,0 +1,27 @@
+GET
+/api/v1/margin/account
+true
+{
+    "code": "200000",
+    "data": {
+        "debtRatio": "0",
+        "accounts": [
+            {
+                "currency": "KCS",
+                "totalBalance": "0.01",
+                "availableBalance": "0.01",
+                "holdBalance": "0",
+                "liability": "0",
+                "maxBorrowSize": "0"
+            },
+            {
+                "currency": "USDT",
+                "totalBalance": "0",
+                "availableBalance": "0",
+                "holdBalance": "0",
+                "liability": "0",
+                "maxBorrowSize": "0"
+            }
+        ]
+    }
+}

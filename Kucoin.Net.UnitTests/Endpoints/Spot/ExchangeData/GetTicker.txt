@@ -1,0 +1,15 @@
+GET
+/api/v1/market/orderbook/level1
+false
+{"code":"200000","data":
+{
+  "sequence": "1550467636704",
+  "price": "0.03715005",
+  "size": "0.17",
+  "bestAsk": "0.03715004",
+  "bestAskSize": "1.788",
+  "bestBid": "0.03710768",
+  "bestBidSize": "3.803",
+  "time": 1550653727731
+}
+}

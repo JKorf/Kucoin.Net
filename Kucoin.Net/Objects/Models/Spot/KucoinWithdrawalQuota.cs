@@ -79,5 +79,10 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("lockedAmount")]
         public decimal LockedQuantity { get; set; }
+        /// <summary>
+        /// Reason
+        /// </summary>
+        [JsonProperty("reason")]
+        public string? Reason { get; set; }
     }
 }

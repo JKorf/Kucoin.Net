@@ -28,10 +28,10 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonProperty("actualLeverage")]
         public decimal ActualLeverage { get; set; }
         /// <summary>
-        /// Issued size
+        /// Assets under management
         /// </summary>
-        [JsonProperty("issuedSize")]
-        public decimal IssuedQuantity { get; set; }
+        [JsonProperty("assetsUnderManagement")]
+        public string AssetsUnderManagement { get; set; } = string.Empty;
         /// <summary>
         /// Basket info
         /// </summary>

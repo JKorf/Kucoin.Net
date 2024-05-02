@@ -118,7 +118,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinInnerTransfer>> UniversalTransferAsync(
+        Task<WebCallResult<KucoinUniversalTransfer>> UniversalTransferAsync(
             decimal quantity,
             TransferAccountType fromAccountType,
             TransferAccountType toAccountType,

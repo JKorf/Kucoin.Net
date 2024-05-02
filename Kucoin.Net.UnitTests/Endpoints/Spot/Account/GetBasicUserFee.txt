@@ -1,0 +1,10 @@
+GET
+/api/v1/base-fee
+true
+{
+  "code": "200000",
+  "data": {
+    "takerFeeRate": "0.001",
+    "makerFeeRate": "0.001"
+  }
+}

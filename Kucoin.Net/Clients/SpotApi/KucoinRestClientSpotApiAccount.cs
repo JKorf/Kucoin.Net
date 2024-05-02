@@ -131,7 +131,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinInnerTransfer>> UniversalTransferAsync(
+        public async Task<WebCallResult<KucoinUniversalTransfer>> UniversalTransferAsync(
             decimal quantity,
             TransferAccountType fromAccountType,
             TransferAccountType toAccountType,
@@ -158,8 +158,8 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("toUserId", toUserId);
             parameters.AddOptionalParameter("toAccountTag", toAccountTag);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/universal-transfer", KucoinExchange.RateLimiter.ManagementRest, 4, true);
-            return await _baseClient.SendAsync<KucoinInnerTransfer>(request, parameters, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/accounts/universal-transfer", KucoinExchange.RateLimiter.ManagementRest, 4, true);
+            return await _baseClient.SendAsync<KucoinUniversalTransfer>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

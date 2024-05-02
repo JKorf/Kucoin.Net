@@ -1,0 +1,9 @@
+POST
+/api/v2/accounts/inner-transfer
+true
+{
+  "data": {
+  "orderId": "5bd6e9286d99522a52e458de"
+},
+  "code": "200000"
+}

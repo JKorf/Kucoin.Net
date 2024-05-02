@@ -1,0 +1,11 @@
+GET
+/api/v1/deposit-addresses
+true
+{
+  "code": "200000",
+  "data": {
+  "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",
+  "memo": "5c247c8a03aa677cea2a251d",
+  "chain": "ERC20"
+}
+}

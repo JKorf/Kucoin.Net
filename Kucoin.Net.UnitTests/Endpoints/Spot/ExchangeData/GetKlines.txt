@@ -1,0 +1,17 @@
+GET
+/api/v1/market/candles
+false
+{"code":"200000","data":
+[
+  [
+    "1545904980", //Start time of the candle cycle
+    "0.058", //opening price
+    "0.049", //closing price
+    "0.058", //highest price
+    "0.049", //lowest price
+    "0.018", //Transaction volume
+    "0.000945" //Transaction amount
+  ],
+  ["1545904920", "0.058", "0.072", "0.072", "0.058", "0.103", "0.006986"]
+]
+}

@@ -1,0 +1,18 @@
+GET
+/api/v1/trade-fees
+true
+{
+  "code": "200000",
+  "data": [
+    {
+      "symbol": "BTC-USDT",
+      "takerFeeRate": "0.001",
+      "makerFeeRate": "0.001"
+    },
+    {
+      "symbol": "KCS-USDT",
+      "takerFeeRate": "0.002",
+      "makerFeeRate": "0.0005"
+    }
+  ]
+}
