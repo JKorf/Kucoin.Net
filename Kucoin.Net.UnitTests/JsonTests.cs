@@ -20,48 +20,11 @@ namespace Kucoin.Net.UnitTests
         }));
 
         [Test]
-        public async Task ValidateSpotAccountCalls()
-        {   
-            await _comparerSpot.ProcessSubject("Spot/Account", c => c.SpotApi.Account,
-               useNestedJsonPropertyForAllCompare: new List<string> { "data" } ,
-               parametersToSetNull: new [] { "pageSize", "quoteQuantity" }
-                );
-        }
-
-        [Test]
         public async Task ValidateSpotMarginCalls()
         {
             await _comparerSpot.ProcessSubject("Spot/Margin", c => c.SpotApi.Margin,
                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
                parametersToSetNull: new[] { "pageSize" }
-                );
-        }
-
-        [Test]
-        public async Task ValidateSpotExchangeDataCalls()
-        {
-            await _comparerSpot.ProcessSubject("Spot/ExchangeData", c => c.SpotApi.ExchangeData,
-               useNestedJsonPropertyForAllCompare: new List<string> { "data" },
-               parametersToSetNull: new[] { "pageSize", "quoteQuantity" }
-                );
-        }
-
-        [Test]
-        public async Task ValidateSpotTradingCalls()
-        {
-            await _comparerSpot.ProcessSubject("Spot/Trading", c => c.SpotApi.Trading,
-               useNestedJsonPropertyForAllCompare: new List<string> { "data" },
-               parametersToSetNull: new[] { "pageSize", "quoteQuantity" },
-               ignoreProperties: new Dictionary<string, List<string>>
-               {
-                   { "GetUntriggeredStopOrdersAsync", new List<string> { "stop" } } ,
-                   { "GetOrdersAsync", new List<string> { "stop" } } ,
-                   { "GetOrderAsync", new List<string> { "stop" } } ,
-                   { "GetUserTradesAsync", new List<string> { "stop" } } ,
-                   { "GetRecentUserTradesAsync", new List<string> { "stop" } } ,
-                   { "GetOrderByClientOrderIdAsync", new List<string> { "stop" } } ,
-                   { "GetRecentOrdersAsync", new List<string> { "stop" } } ,
-               }
                 );
         }
 

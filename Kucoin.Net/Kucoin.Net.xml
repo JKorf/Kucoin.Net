@@ -7166,7 +7166,7 @@
             The response for bulk order creation
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponse.Orders">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBulkOrderResponse.Orders">
             <summary>
             List of orders
             </summary>

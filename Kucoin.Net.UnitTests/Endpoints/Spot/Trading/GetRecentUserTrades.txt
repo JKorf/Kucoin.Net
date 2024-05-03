@@ -1,0 +1,65 @@
+GET
+/api/v1/limit/fills
+true
+{
+  "code": "200000",
+  "data": [
+    {
+      "counterOrderId": "5db7ee769797cf0008e3beea",
+      "createdAt": 1572335233000,
+      "fee": "0.946357371456",
+      "feeCurrency": "USDT",
+      "feeRate": "0.001",
+      "forceTaker": true,
+      "funds": "946.357371456",
+      "liquidity": "taker",
+      "orderId": "5db7ee805d53620008dce1ba",
+      "price": "9466.8",
+      "side": "buy",
+      "size": "0.09996592",
+      "stop": "",
+      "symbol": "BTC-USDT",
+      "tradeId": "5db7ee8054c05c0008069e21",
+      "tradeType": "MARGIN_TRADE",
+      "type": "market"
+    },
+    {
+      "counterOrderId": "5db7ee4b5d53620008dcde8e",
+      "createdAt": 1572335207000,
+      "fee": "0.94625",
+      "feeCurrency": "USDT",
+      "feeRate": "0.001",
+      "forceTaker": true,
+      "funds": "946.25",
+      "liquidity": "taker",
+      "orderId": "5db7ee675d53620008dce01e",
+      "price": "9462.5",
+      "side": "sell",
+      "size": "0.1",
+      "stop": "",
+      "symbol": "BTC-USDT",
+      "tradeId": "5db7ee6754c05c0008069e03",
+      "tradeType": "MARGIN_TRADE",
+      "type": "market"
+    },
+    {
+      "counterOrderId": "5db69aa4688933000aab8114",
+      "createdAt": 1572248229000,
+      "fee": "1.882148318525",
+      "feeCurrency": "USDT",
+      "feeRate": "0.001",
+      "forceTaker": false,
+      "funds": "1882.148318525",
+      "liquidity": "maker",
+      "orderId": "5db69a9c4e6d020008f03275",
+      "price": "9354.5",
+      "side": "sell",
+      "size": "0.20120245",
+      "stop": "",
+      "symbol": "BTC-USDT",
+      "tradeId": "5db69aa477d8de0008c1efac",
+      "tradeType": "MARGIN_TRADE",
+      "type": "limit"
+    }
+  ]
+}

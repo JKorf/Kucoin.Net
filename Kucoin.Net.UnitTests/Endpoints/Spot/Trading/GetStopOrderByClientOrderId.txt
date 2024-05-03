@@ -1,0 +1,41 @@
+GET
+/api/v1/stop-order/queryOrderByClientOid
+true
+{
+  "code": "200000",
+  "data":[
+  {
+    "id": "vs8hoo8os561f5np0032vngj",
+    "symbol": "KCS-USDT",
+    "userId": "60fe4956c43cbc0006562c2c",
+    "status": "NEW",
+    "type": "limit",
+    "side": "buy",
+    "price": "0.01000000000000000000",
+    "size": "0.01000000000000000000",
+    "funds": null,
+    "stp": null,
+    "timeInForce": "GTC",
+    "cancelAfter": -1,
+    "postOnly": false,
+    "hidden": false,
+    "iceberg": false,
+    "visibleSize": null,
+    "channel": "API",
+    "clientOid": "2b700942b5db41cebe578cff48960e09",
+    "remark": null,
+    "tags": null,
+    "orderTime": 1629020492834532568,
+    "domainId": "kucoin",
+    "tradeSource": "USER",
+    "tradeType": "TRADE",
+    "feeCurrency": "USDT",
+    "takerFeeRate": "0.00200000000000000000",
+    "makerFeeRate": "0.00200000000000000000",
+    "createdAt": 1629020492837,
+    "stop": "loss",
+    "stopTriggerTime": null,
+    "stopPrice": "1.00000000000000000000"
+  }
+]
+}

@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// List of orders
         /// </summary>
         [JsonProperty("data")]
-        public IEnumerable<KucoinBulkOrderResponseEntry> Orders = default!;
+        public IEnumerable<KucoinBulkOrderResponseEntry> Orders { get; set; } = default!;
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The stop condition
         /// </summary>
-        public StopCondition Stop { get; set; }
+        public StopCondition? Stop { get; set; }
         /// <summary>
         /// The stop price
         /// </summary>

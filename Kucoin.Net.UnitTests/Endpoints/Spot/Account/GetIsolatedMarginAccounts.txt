@@ -1,42 +1,58 @@
 GET
-/api/v3/isolated/accounts
+/api/v1/isolated/accounts
 true
 {
-	"code": "200000",
-	"data": [
-		{
-			"totalAssetOfQuoteCurrency": "3.4939947",
-			"totalLiabilityOfQuoteCurrency": "0.00239066",
-			"timestamp": 1668062174000,
-			"assets": [
-				{
-					"symbol": "MANA-USDT",
-					"debtRatio": "0",
-					"status": "BORROW",
-					"baseAsset": {
-						"currency": "MANA",
-						"borrowEnabled": true,
-						"repayEnabled": true,
-						"transferEnabled": true,
-						"borrowed": "0",
-						"totalAsset": "0",
-						"available": "0",
-						"hold": "0",
-						"maxBorrowSize": "1000"
-					},
-					"quoteAsset": {
-						"currency": "USDT",
-						"borrowEnabled": true,
-						"repayEnabled": true,
-						"transferEnabled": true,
-						"borrowed": "0",
-						"totalAsset": "0",
-						"available": "0",
-						"hold": "0",
-						"maxBorrowSize": "50000"
-					}
-				}
-			]
-		}
-	]
+  "code": "200000",
+  "data": {
+    "totalConversionBalance": "3.4939947",
+    "liabilityConversionBalance": "0.00239066",
+    "assets": [
+      {
+        "symbol": "MANA-USDT",
+        "status": "CLEAR",
+        "debtRatio": "0",
+        "baseAsset": {
+          "currency": "MANA",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        },
+        "quoteAsset": {
+          "currency": "USDT",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        }
+      },
+      {
+        "symbol": "EOS-USDC",
+        "status": "CLEAR",
+        "debtRatio": "0",
+        "baseAsset": {
+          "currency": "EOS",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        },
+        "quoteAsset": {
+          "currency": "USDC",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        }
+      }
+    ]
+  }
 }

@@ -1,0 +1,55 @@
+POST
+/api/v1/orders/multi
+true
+{"code":"200000","data":
+{
+  "data": [
+    {
+      "symbol": "KCS-USDT",
+      "type": "limit",
+      "side": "buy",
+      "price": "0.01",
+      "size": "0.01",
+      "funds": null,
+      "stp": "",
+      "stop": "",
+      "stopPrice": null,
+      "timeInForce": "GTC",
+      "cancelAfter": 0,
+      "postOnly": false,
+      "hidden": false,
+      "iceberge": false,
+      "iceberg": false,
+      "visibleSize": null,
+      "channel": "API",
+      "id": "611a6a309281bc000674d3c0",
+      "status": "success",
+      "failMsg": null,
+      "clientOid": "552a8a0b7cb04354be8266f0e202e7e9"
+    },
+    {
+      "symbol": "KCS-USDT",
+      "type": "limit",
+      "side": "buy",
+      "price": "0.01",
+      "size": "0.01",
+      "funds": null,
+      "stp": "",
+      "stop": "",
+      "stopPrice": null,
+      "timeInForce": "GTC",
+      "cancelAfter": 0,
+      "postOnly": false,
+      "hidden": false,
+      "iceberge": false,
+      "iceberg": false,
+      "visibleSize": null,
+      "channel": "API",
+      "id": "611a6a309281bc000674d3c1",
+      "status": "success",
+      "failMsg": null,
+      "clientOid": "bd1e95e705724f33b508ed270888a4a9"
+    }
+  ]
+}
+}

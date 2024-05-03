@@ -1,0 +1,41 @@
+GET
+/api/v1/limit/orders
+true
+{
+  "code": "200000",
+  "msg": "",
+  "data": [
+    {
+      "id": "demoData",
+      "symbol": "demoData",
+      "opType": "DEAL",
+      "type": "MARKET",
+      "side": "BUY",
+      "price": 1,
+      "size": 1,
+      "funds": 1,
+      "dealFunds": 1,
+      "dealSize": 1,
+      "fee": 1,
+      "feeCurrency": "demoData",
+      "stp": "CB",
+      "stop": "up",
+      "stopTriggered": true,
+      "stopPrice": 1,
+      "timeInForce": "GTC",
+      "postOnly": true,
+      "hidden": true,
+      "iceberg": true,
+      "visibleSize": 1,
+      "cancelAfter": 1,
+      "channel": "demoData",
+      "clientOid": "demoData",
+      "remark": "demoData",
+      "tags": "demoData",
+      "isActive": true,
+      "cancelExist": true,
+      "createdAt": "2023-06-20 12:22:56",
+      "tradeType": "MARGIN_TRADE"
+    }
+  ]
+}
