@@ -1,0 +1,13 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/instrument:XBTUSDM","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "topic": "/contract/instrument:XBTUSDM",
+  "subject": "mark.index.price",
+  "data": {
+    "granularity": 1000, //Granularity
+    "indexPrice": 4000.23, //Index price
+    "markPrice": 4010.52, //Mark price
+    "timestamp": 1551770400000
+  }
+}

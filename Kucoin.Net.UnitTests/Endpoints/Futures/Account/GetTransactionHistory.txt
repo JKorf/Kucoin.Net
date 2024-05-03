@@ -1,0 +1,33 @@
+GET
+/api/v1/transaction-history
+true
+{
+  "code": "200000",
+  "data": {
+    "hasMore": false, //Whether there are more pages
+    "dataList": [
+      {
+        "time": 1558596284040, //Event time
+        "type": "RealisedPNL", //Type
+        "amount": 0, //Transaction amount
+        "fee": null, //Fees
+        "accountEquity": 8060.7899305281, //Account equity
+        "status": "Pending", //Status. If you have held a position in the current 8-hour settlement period.
+        "remark": "XBTUSDM", //Ticker symbol of the contract
+        "offset": -1, //Offset
+        "currency": "XBT" //Currency
+      },
+      {
+        "time": 1557997200000,
+        "type": "RealisedPNL",
+        "amount": -0.000017105,
+        "fee": 0,
+        "accountEquity": 8060.7899305281,
+        "status": "Completed", //Status. Status. Funding period that has been settled.
+        "remark": "XBTUSDM",
+        "offset": 1,
+        "currency": "XBT"
+      }
+    ]
+  }
+}

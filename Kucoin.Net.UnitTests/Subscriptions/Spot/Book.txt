@@ -1,0 +1,25 @@
+> {"id":"|1|","type":"subscribe","topic":"/spotMarket/level2Depth5:BTC-USDT","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/spotMarket/level2Depth5:BTC-USDT",
+  "subject": "level2",
+  "data": {
+    "asks": [
+      ["9989", "8"], //price, size
+      ["9990", "32"],
+      ["9991", "47"],
+      ["9992", "3"],
+      ["9993", "3"]
+    ],
+    "bids": [
+      ["9988", "56"],
+      ["9987", "15"],
+      ["9986", "100"],
+      ["9985", "10"],
+      ["9984", "10"]
+    ],
+    "timestamp": 1586948108193
+  }
+}

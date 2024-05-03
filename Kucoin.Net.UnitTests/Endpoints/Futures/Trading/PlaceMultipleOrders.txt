@@ -1,0 +1,21 @@
+POST
+/api/v1/orders/multi
+true
+ {"code":"200000","data":
+[
+  {
+	  "orderId":"80465574458560512",
+	  "clientOid":"5c52e11203aa677f33e491",
+	  "symbol":"ETHUSDTM",
+	  "code":"200000",
+	  "msg":"success"
+  },
+  {
+	  "orderId":"80465575289094144",
+	  "clientOid":"5c52e11203aa677f33e492",
+	  "symbol":"ETHUSDTM",
+	  "code":"200000",
+	  "msg":"success"
+  }
+]
+}

@@ -19,6 +19,16 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Filled value
         /// </summary>
+        [JsonProperty("dealValue")]
+        public decimal? ExecutedValue { get; set; }
+        /// <summary>
+        /// Filled quantity
+        /// </summary>
+        [JsonProperty("dealSize")]
+        public decimal? ExecutedQuantity { get; set; }
+        /// <summary>
+        /// Filled value
+        /// </summary>
         [JsonProperty("filledValue")]
         public decimal QuoteQuantityFilled { get; set; }
         /// <summary>
@@ -70,8 +80,19 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonProperty("orderTime")]
         public DateTime? OrderTime { get; set; }
         /// <summary>
+        /// End time
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonProperty("endAt")]
+        public DateTime? EndTime { get; set; }
+        /// <summary>
         /// Status
         /// </summary>
         public string Status { get; set; } = string.Empty;
+        /// <summary>
+        /// Tags
+        /// </summary>
+        [JsonProperty("tags")]
+        public string? Tags { get; set; }
     }
 }

@@ -1,0 +1,13 @@
+GET
+/api/v1/funding-rate/ETHUSDT/current
+false
+{
+  "code": "200000",
+  "data": {
+     "symbol": ".XBTUSDMFPI8H", //Funding rate symbol
+     "granularity": 28800000, 	//Granularity (milliseconds)
+     "timePoint": 1558000800000,//The funding rate settlement time point of the previous cycle (milliseconds),
+     "value": 0.00375, 			//Current cycle funding rate
+     "predictedValue": 0.00375 	//Predicted funding rate
+   }
+}

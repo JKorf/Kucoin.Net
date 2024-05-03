@@ -1,0 +1,25 @@
+POST
+/api/v3/transfer-out
+true
+  {
+    "code": "200000",
+    "data": {
+  "applyId": "620a0bbefeaa6a000110e833", //Transfer-out request ID
+  "bizNo": "620a0bbefeaa6a000110e832", //Business number
+  "payAccountType": "CONTRACT", //Pay account type
+  "payTag": "DEFAULT", //Pay account sub type
+  "remark": "", //User remark
+  "recAccountType": "MAIN", //Receive account type
+  "recTag": "DEFAULT", //Receive account sub type
+  "recRemark": "", //Receive account tx remark
+  "recSystem": "KUCOIN", //Receive system
+  "status": "PROCESSING", //Status
+  "currency": "USDT", //Currency
+  "amount": "0.001", //Transfer amout
+  "fee": "0", //Transfer fee
+  "sn": 889048787670001, //Serial number
+  "reason": "", //Fail Reason
+  "createdAt": 1644825534000, //Create time
+  "updatedAt": 1644825534000 //Update time
+}
+  }

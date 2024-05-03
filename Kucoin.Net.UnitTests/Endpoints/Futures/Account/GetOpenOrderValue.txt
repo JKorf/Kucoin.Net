@@ -1,0 +1,13 @@
+GET
+/api/v1/openOrderStatistics
+true
+{
+  "code": "200000",
+  "data": {
+    "openOrderBuySize": 20, //Total number of the unexecuted buy orders
+    "openOrderSellSize": 0, //Total number of the unexecuted sell orders
+    "openOrderBuyCost": "0.0025252525", //Value of all the unexecuted buy orders
+    "openOrderSellCost": "0", //Value of all the unexecuted sell orders
+    "settleCurrency": "XBT" //settlement currency
+  }
+}

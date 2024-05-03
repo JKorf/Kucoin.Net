@@ -1,0 +1,13 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/announcement","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "topic": "/contract/announcement",
+  "subject": "funding.begin",
+  "data": {
+    "symbol": "XBTUSDM", //Symbol
+    "fundingTime": 1551770400000, //Funding time
+    "fundingRate": -0.002966, //Funding rate
+    "timestamp": 1551770400000
+  }
+}

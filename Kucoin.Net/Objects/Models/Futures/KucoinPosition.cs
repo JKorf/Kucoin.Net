@@ -85,6 +85,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         public bool IsOpen { get; set; }
         /// <summary>
+        /// Is inverse
+        /// </summary>
+        public bool IsInverse { get; set; }
+        /// <summary>
         /// Mark price
         /// </summary>
         public decimal MarkPrice { get; set; }

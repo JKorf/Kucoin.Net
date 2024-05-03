@@ -1,0 +1,7 @@
+GET
+/api/v1/margin/maxWithdrawMargin
+true
+{
+  "code": "200000",
+  "data": 1
+}

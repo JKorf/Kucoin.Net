@@ -1,0 +1,26 @@
+GET
+/api/v1/contracts/risk-limit/ETHUSDT
+true
+{
+  "code": "200000",
+  "data": [
+    {
+      "symbol": "ADAUSDTM",
+      "level": 1,
+      "maxRiskLimit": 500, // Upper limit (includes)
+      "minRiskLimit": 0, // Lower limit
+      "maxLeverage": 20, // Max leverage
+      "initialMargin": 0.05, // Initial margin rate
+      "maintainMargin": 0.025 // Maintenance margin rate
+    },
+    {
+      "symbol": "ADAUSDTM",
+      "level": 2,
+      "maxRiskLimit": 1000,
+      "minRiskLimit": 500,
+      "maxLeverage": 2,
+      "initialMargin": 0.5,
+      "maintainMargin": 0.25
+    }
+  ]
+}

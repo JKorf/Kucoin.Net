@@ -2,8 +2,10 @@
 using CryptoExchange.Net.Testing;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Objects;
+using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -110,6 +112,83 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetStopOrdersAsync(), "GetStopOrders");
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetStopOrderAsync("123"), "GetStopOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetStopOrderByClientOrderIdAsync("123"), "GetStopOrderByClientOrderId");
+        }
+
+        [Test]
+        public async Task ValidateFuturesAccountCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Account", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetAccountOverviewAsync(), "GetAccountOverview");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransactionHistoryAsync(), "GetTransactionHistory");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.TransferToMainAccountAsync("ETH", 1, Enums.AccountType.Main), "TransferToMainAccount");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.TransferToFuturesAccountAsync("ETH", 1, Enums.AccountType.Main), "TransferToFuturesAccount");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransferToMainAccountHistoryAsync("ETH"), "GetTransferToMainAccountHistory");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionAsync("ETHUSDT"), "GetPosition");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionsAsync(), "GetPositions");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.ToggleAutoDepositMarginAsync("ETHUSDT", true), "ToggleAutoDepositMargin");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.AddMarginAsync("ETHUSDT", 1), "AddMargin");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.RemoveMarginAsync("ETHUSDT", 1), "RemoveMargin");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetFundingHistoryAsync("ETHUSDT"), "GetFundingHistory");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetOpenOrderValueAsync("ETHUSDT"), "GetOpenOrderValue");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetRiskLimitLevelAsync("ETHUSDT"), "GetRiskLimitLevel");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.SetRiskLimitLevelAsync("ETHUSDT", 1), "SetRiskLimitLevel");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxWithdrawMarginAsync("ETHUSDT"), "GetMaxWithdrawMargin");
+        }
+
+        [Test]
+        public async Task ValidateFuturesExchangeDataCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetOpenContractsAsync(), "GetOpenContracts", ignoreProperties: new List<string> { "nextFundingRateTime" });
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetContractAsync("ETHUSDT"), "GetContract", ignoreProperties: new List<string> { "nextFundingRateTime" });
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickerAsync("ETHUSDT"), "GetTicker");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync("ETHUSDT"), "GetAggregatedFullOrderBook", ignoreProperties: new List<string> { "ts" });
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetAggregatedPartialOrderBookAsync("ETHUSDT", 20), "GetAggregatedPartialOrderBook", ignoreProperties: new List<string> { "ts" });
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTradeHistoryAsync("ETHUSDT"), "GetTradeHistory");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetInterestRatesAsync("ETHUSDT"), "GetInterestRates");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetIndexListAsync("ETHUSDT"), "GetIndexList");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetCurrentMarkPriceAsync("ETHUSDT"), "GetCurrentMarkPrice");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetPremiumIndexAsync("ETHUSDT"), "GetPremiumIndex");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetCurrentFundingRateAsync("ETHUSDT"), "GetCurrentFundingRate");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetServiceStatusAsync(), "GetServiceStatus");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetKlinesAsync("ETHUSDT", Enums.FuturesKlineInterval.OneDay), "GetKlines");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.Get24HourTransactionVolumeAsync(), "Get24HourTransactionVolume");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETHUSDT", DateTime.UtcNow, DateTime.UtcNow), "GetFundingRateHistory");
+        }
+
+        [Test]
+        public async Task ValidateFuturesTradingCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Trading", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTestOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTestOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceMultipleOrdersAsync(new[] { new KucoinFuturesOrderRequestEntry() }), "PlaceMultipleOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderAsync("123"), "CancelOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderByClientOrderIdAsync("ETHUSDT", "123"), "CancelOrderByClientOrderId");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelAllOrdersAsync(), "CancelAllOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelAllStopOrdersAsync(), "CancelAllStopOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrdersAsync(), "GetOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetUntriggeredStopOrdersAsync(), "GetUntriggeredStopOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetClosedOrdersAsync(), "GetClosedOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderAsync("123"), "GetOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderByClientOrderIdAsync("123"), "GetOrderByClientOrderId");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetUserTradesAsync(), "GetUserTrades", ignoreProperties: new List<string> { "stop" });
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetRecentUserTradesAsync(), "GetRecentUserTrades", ignoreProperties: new List<string> { "stop" });
         }
 
         private bool IsAuthenticated(WebCallResult result)

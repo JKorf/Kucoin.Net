@@ -4894,6 +4894,16 @@
             Value of the order
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.ExecutedValue">
+            <summary>
+            Filled value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.ExecutedQuantity">
+            <summary>
+            Filled quantity
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.QuoteQuantityFilled">
             <summary>
             Filled value
@@ -4949,9 +4959,19 @@
             Order create time
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.EndTime">
+            <summary>
+            End time
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.Status">
             <summary>
             Status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.Tags">
+            <summary>
+            Tags
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry">
@@ -5505,6 +5525,11 @@
             Is open
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.IsInverse">
+            <summary>
+            Is inverse
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.MarkPrice">
             <summary>
             Mark price
@@ -5752,7 +5777,87 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.ApplyId">
             <summary>
-            Transfer id
+            Request id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.BusinessNumber">
+            <summary>
+            Business number
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.PayAccountType">
+            <summary>
+            Pay account type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.PayTag">
+            <summary>
+            Pay tag
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.ReceiveAccountType">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.ReceiveTag">
+            <summary>
+            Receive tag
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.ReceiveRemark">
+            <summary>
+            Receive remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.ReceiveSystem">
+            <summary>
+            Receive system
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.SerialNumber">
+            <summary>
+            Serial number
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.Reason">
+            <summary>
+            Reason
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinTransferResult.UpdateTime">
+            <summary>
+            Updated time
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.Socket.KucoinContractAnnouncement">
@@ -9758,6 +9863,11 @@
             The changes in asks
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookEntry">
             <summary>
             Order book entry
@@ -9958,6 +10068,16 @@
             The current best ask
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.BestAskQuantity">
+            <summary>
+            The current best ask quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.BestBidQuantity">
+            <summary>
+            The current best bid quantity
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.Sort">
             <summary>
             Unknown
@@ -10076,6 +10196,61 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.Markets">
             <summary>
             Markets
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.MarketChange1h">
+            <summary>
+            Change info last hour
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.MarketChange4h">
+            <summary>
+            Change info last 4 hours
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot.MarketChange24h">
+            <summary>
+            Change info last 24 hours
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange">
+            <summary>
+            Change info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.ChangePrice">
+            <summary>
+            Change price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.ChangeRate">
+            <summary>
+            Change percentage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.High">
+            <summary>
+            High
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.Low">
+            <summary>
+            Low
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.Open">
+            <summary>
+            Open
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarketChange.VolumeValue">
+            <summary>
+            Volume value
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamStopOrderUpdate">

@@ -1,0 +1,45 @@
+POST
+/api/v1/position/margin/deposit-margin
+true
+{
+  "code": "200000",
+  "data": {
+  "id": "6200c9b83aecfb000152ddcd",
+  "symbol": "XBTUSDTM",
+  "autoDeposit": false,
+  "maintMarginReq": 0.005,
+  "riskLimit": 500000,
+  "realLeverage": 18.72,
+  "crossMode": false,
+  "delevPercentage": 0.66,
+  "openingTimestamp": 1646287090131,
+  "currentTimestamp": 1646295055021,
+  "currentQty": 1,
+  "currentCost": 43.388,
+  "currentComm": 0.0260328,
+  "unrealisedCost": 43.388,
+  "realisedGrossCost": 0.0,
+  "realisedCost": 0.0260328,
+  "isOpen": true,
+  "markPrice": 43536.65,
+  "markValue": 43.53665,
+  "posCost": 43.388,
+  "posCross": 2.4985e-5,
+  "posInit": 2.1694,
+  "posComm": 0.02733446,
+  "posLoss": 0.0,
+  "posMargin": 2.19675944,
+  "posMaint": 0.24861326,
+  "maintMargin": 2.34540944,
+  "realisedGrossPnl": 0.0,
+  "realisedPnl": -0.0260328,
+  "unrealisedPnl": 0.14865,
+  "unrealisedPnlPcnt": 0.0034,
+  "unrealisedRoePcnt": 0.0685,
+  "avgEntryPrice": 43388.0,
+  "liquidationPrice": 41440.0,
+  "bankruptPrice": 41218.0,
+  "userId": 1234321123,
+  "settleCurrency": "USDT"
+}
+}

@@ -67,9 +67,12 @@ namespace Kucoin.Net.Clients.SpotApi
             var id = message.GetValue<string>(_idPath);
             if (id != null)
             {
-                if (string.Equals(topic, "/account/balance", StringComparison.Ordinal))
+                if (string.Equals(topic, "/account/balance", StringComparison.Ordinal)
+                    || topic?.StartsWith("/margin/fundingBook", StringComparison.Ordinal) == true)
+                {
                     // This update also contain an id field, but should be identified by the topic regardless
                     return topic!;
+                }
 
                 return id;
             }

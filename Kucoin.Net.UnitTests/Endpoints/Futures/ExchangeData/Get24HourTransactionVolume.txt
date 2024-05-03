@@ -1,0 +1,4 @@
+GET
+/api/v1/trade-statistics
+true
+{"code":"200000","data":{"turnoverOf24h":1.5303456727140725E9}}

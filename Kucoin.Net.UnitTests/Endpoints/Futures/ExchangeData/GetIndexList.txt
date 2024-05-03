@@ -1,0 +1,50 @@
+GET
+/api/v1/index/query
+false
+{
+  "code": "200000",
+  "data": {
+  "dataList": [
+    {
+      "symbol": ".KXBT", //Symbol of Bitcoin spot
+      "granularity": 1000, //Granularity (milisecond)
+      "timePoint": 1557998570000, //Time point (milisecond)
+      "value": 8016.24, //Index Value
+      "decomposionList": [
+        //Component List
+        {
+          "exchange": "gemini", //Exchange
+          "price": 8016.24, //Last traded price
+          "weight": 0.08042611 //Weight
+        },
+        {
+          "exchange": "kraken",
+          "price": 8016.24,
+          "weight": 0.02666502
+        },
+        {
+          "exchange": "coinbase",
+          "price": 8016.24,
+          "weight": 0.03847059
+        },
+        {
+          "exchange": "liquid",
+          "price": 8016.24,
+          "weight": 0.20419723
+        },
+        {
+          "exchange": "bittrex",
+          "price": 8016.24,
+          "weight": 0.29848962
+        },
+        {
+          "exchange": "bitstamp",
+          "price": 8016.24,
+          "weight": 0.35175143
+        }
+      ]
+    }
+  ],
+  "hasMore": true //Whether there are more pages
+}
+}

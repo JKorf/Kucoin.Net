@@ -1,0 +1,20 @@
+> {"id":"|1|","type":"subscribe","topic":"/market/match:BTC-USDT","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/market/match:BTC-USDT",
+  "subject": "trade.l3match",
+  "data": {
+    "sequence": "1545896669145",
+    "type": "match",
+    "symbol": "BTC-USDT",
+    "side": "buy",
+    "price": "0.08200000000000000000",
+    "size": "0.01022222000000000000",
+    "tradeId": "5c24c5da03aa673885cd67aa",
+    "takerOrderId": "5c24c5d903aa6772d55b371e",
+    "makerOrderId": "5c2187d003aa677bd09d5c93",
+    "time": "1545913818099033203"
+  }
+}

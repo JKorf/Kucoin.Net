@@ -1,0 +1,20 @@
+> {"id":"|1|","type":"subscribe","topic":"/contractMarket/execution:XBTUSDTM","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "topic": "/contractMarket/execution:XBTUSDTM",
+  "type": "message",
+  "subject": "match",
+  "sn": 1743169228057,
+  "data": {
+    "symbol": "XBTUSDTM", // Symbol
+    "sequence": 1743169228057, //Sequence number which is increasing but not necessarily consecutive
+    "side": "buy", //  Side of liquidity taker
+    "size": 5,     // Filled quantity
+    "price": "72137.3", // Filled price
+    "takerOrderId": "166754573174730752", //Taker order ID
+    "makerOrderId": "166754559966867456",  //Maker order ID
+    "tradeId": "1743169228057",//Transaction ID
+    "ts": 1712570590399000000  //Filled time - nanosecond
+  }
+}

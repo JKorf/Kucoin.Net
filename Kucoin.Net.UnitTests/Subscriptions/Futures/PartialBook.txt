@@ -1,0 +1,25 @@
+> {"id":"|1|","type":"subscribe","topic":"/contractMarket/level2Depth5:XBTUSDM","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/contractMarket/level2Depth5:XBTUSDM",
+  "subject": "level2",
+  "data": {
+    "asks": [
+      ["9993", "3"],
+      ["9992", "3"],
+      ["9991", "47"],
+      ["9990", "32"],
+      ["9989", "8"]
+    ],
+    "bids": [
+      ["9988", "56"],
+      ["9987", "15"],
+      ["9986", "100"],
+      ["9985", "10"],
+      ["9984", "10"]
+    ],
+    "ts": 1590634672060667000
+  }
+}

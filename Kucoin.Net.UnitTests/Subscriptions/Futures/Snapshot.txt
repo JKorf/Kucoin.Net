@@ -1,0 +1,14 @@
+> {"id":"|1|","type":"subscribe","topic": "/contractMarket/snapshot:XBTUSDM","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "topic": "/contractMarket/snapshot:XBTUSDM",
+  "subject": "snapshot.24h",
+  "data": {
+    "volume": 30449670, //24h Volume
+    "turnover": 845169919063, //24h Turnover
+    "lastPrice": 3551, //Last price
+    "priceChgPct": 0.0043, //24h Change
+    "ts": 1547697294838004923 //Snapshot time (nanosecond)
+  }
+}

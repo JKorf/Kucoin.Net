@@ -1,0 +1,47 @@
+GET
+/api/v1/position
+true
+{
+    "code": "200000",
+    "data": {
+    "id": "5e81a7827911f40008e80715",       //Position ID
+    "symbol": "XBTUSDTM",                   //Symbol
+    "autoDeposit": false, 					//Auto deposit margin or not
+    "maintMarginReq": 0.005, 				//Maintenance margin requirement
+    "riskLimit": 2000000, 					//Risk limit
+    "realLeverage": 5.0, 					//Leverage o the order
+    "crossMode": false, 					//Cross mode or not
+    "delevPercentage": 0.35, 				//ADL ranking percentile
+    "openingTimestamp": 1623832410892, 		//Open time
+    "currentTimestamp": 1623832488929, 		//Current timestamp
+    "currentQty": 1, 						//Current postion quantity
+    "currentCost": 40.008, 					//Current postion value
+    "currentComm": 0.0240048, 				//Current commission
+    "unrealisedCost": 40.008, 				//Unrealised value
+    "realisedGrossCost": 0.0, 				//Accumulated realised gross profit value
+    "realisedCost": 0.0240048, 				//Current realised position value
+    "isOpen": true, 						//Opened position or not
+    "markPrice": 40014.93, 					//Mark price
+    "markValue": 40.01493, 					//Mark value
+    "posCost": 40.008, 						//Position value
+    "posCross": 0.0, 						//added margin
+    "posInit": 8.0016, 						//Leverage margin
+    "posComm": 0.02880576, 					//Bankruptcy cost
+    "posLoss": 0.0, 						//Funding fees paid out
+    "posMargin": 8.03040576, 				//Position margin
+    "posMaint": 0.23284656, 				//Maintenance margin
+    "maintMargin": 8.03733576, 				//Position margin
+    "realisedGrossPnl": 0.0, 				//Accumulated realised gross profit value
+    "realisedPnl": -0.0240048, 				//Realised profit and loss
+    "unrealisedPnl": 0.00693, 				//Unrealised profit and loss
+    "unrealisedPnlPcnt": 0.0002, 			//Profit-loss ratio of the position
+    "unrealisedRoePcnt": 0.0009, 			//Rate of return on investment
+    "avgEntryPrice": 40008.0, 				//Average entry price
+    "liquidationPrice": 32211.0, 			//Liquidation price
+    "bankruptPrice": 32006.0, 				//Bankruptcy price
+    "settleCurrency": "USDT", 				//Currency used to clear and settle the trades
+    "maintainMargin": 0.25,  				//Maintenance margin rate
+    "userId": 1234321123,
+	"riskLimitLevel": 1  					//Risk Limit Level
+}
+}

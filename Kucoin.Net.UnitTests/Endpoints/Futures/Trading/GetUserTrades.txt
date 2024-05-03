@@ -1,0 +1,37 @@
+GET
+/api/v1/fills
+true
+{
+  "code": "200000",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 1,
+    "totalNum": 251915,
+    "totalPage": 251915,
+    "items": [
+      {
+        "symbol": "XBTUSDM", //Symbol of the contract
+        "tradeId": "5ce24c1f0c19fc3c58edc47c", //Trade ID
+        "orderId": "5ce24c16b210233c36ee321d", // Order ID
+        "side": "sell", //Transaction side
+        "liquidity": "taker", //Liquidity- taker or maker
+        "forceTaker": true, //Whether to force processing as a taker
+        "price": "8302", //Filled price
+        "size": 10, //Filled amount
+        "value": "0.001204529", //Order value
+        "feeRate": "0.0005", //Floating fees
+        "fixFee": "0.00000006", //Fixed fees
+        "feeCurrency": "XBT", //Charging currency
+        "stop": "", //A mark to the stop order type
+        "fee": "0.0000012022", //Transaction fee
+        "orderType": "limit", //Order type
+        "tradeType": "trade", //Trade type (trade, liquidation, ADL or settlement)
+        "createdAt": 1558334496000, //Time the order created
+        "settleCurrency": "XBT", //settlement currency
+        "openFeePay": "0.002",
+        "closeFeePay": "0.002",
+        "tradeTime": 1558334496000000000 //trade time in nanosecond
+      }
+    ]
+  }
+}
