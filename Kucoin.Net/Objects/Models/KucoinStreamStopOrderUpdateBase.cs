@@ -9,12 +9,13 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Stop order update
     /// </summary>
-    public abstract class KucoinStreamStopOrderUpdateBase
+    public class KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
         /// Order side
         /// </summary>
-        public abstract OrderSide OrderSide { get; set; }
+        [JsonProperty("side")]
+        public OrderSide OrderSide { get; set; }
 
         /// <summary>
         /// Creation time

@@ -10,12 +10,6 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public class KucoinStreamFuturesStopOrderUpdate: KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
-        /// Order side
-        /// </summary>
-        [JsonConverter(typeof(OrderSideConverter)), JsonProperty("side")]
-        public override OrderSide OrderSide { get; set; }
-
-        /// <summary>
         /// Stop price type
         /// </summary>
         [JsonConverter(typeof(StopPriceTypeConverter))]

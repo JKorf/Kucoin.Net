@@ -35,11 +35,6 @@ namespace Kucoin.Net.UnitTests
             await TestFileToObject<KucoinBalanceUpdate>(@"JsonResponses/Spot/Socket/BalanceUpdate.txt", new List<string> { "relationContext" } );
         }
 
-        [Test]
-        public async Task ValidateSpotStopOrderUpdateStreamJson()
-        {
-            await TestFileToObject<KucoinStreamStopOrderUpdate>(@"JsonResponses/Spot/Socket/StopOrderUpdate.txt");
-        }
 
         [Test]
         public async Task ValidateSpotFundingBookUpdateStreamJson()

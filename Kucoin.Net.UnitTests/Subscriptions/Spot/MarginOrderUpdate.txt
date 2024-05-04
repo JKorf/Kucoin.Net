@@ -1,0 +1,19 @@
+> {"id":"|1|","type":"subscribe","topic":"/margin/loan:BTC","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/margin/loan:BTC",
+  "subject": "order.update",
+  "channelType": "private",
+  "data": {
+    "currency": "BTC", //Currency
+    "orderId": "ac928c66ca53498f9c13a127a60e8", //Order ID
+    "dailyIntRate": 0.0001, //Daily Interest Rate
+    "term": 7, //Term (Unit: Day)
+    "size": 1, //Size
+    "lentSize": 0.5, //Size executed
+    "side": "lend", //Lend or borrow. Currently, only "Lend" is available
+    "ts": 1553846081210004941 //Timestamp (nanosecond)
+  }
+}

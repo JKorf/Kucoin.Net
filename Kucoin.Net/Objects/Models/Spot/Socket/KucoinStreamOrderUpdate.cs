@@ -58,13 +58,6 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// </summary>
         [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? OrderTime { get; set; }
-    }
-
-    /// <summary>
-    /// New order update
-    /// </summary>
-    public class KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
-    {
         /// <summary>
         /// Origin quantity
         /// </summary>
@@ -75,6 +68,13 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// </summary>
         [JsonProperty("originFunds")]
         public decimal OriginalValue { get; set; }
+    }
+
+    /// <summary>
+    /// New order update
+    /// </summary>
+    public class KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
+    {
     }
     
     /// <summary>
@@ -102,6 +102,16 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// </summary>
         [JsonProperty("remainSize")]
         public decimal QuantityRemaining { get; set; }
+        /// <summary>
+        /// Quantity canceled
+        /// </summary>
+        [JsonProperty("canceledSize")]
+        public decimal QuantityCanceled { get; set; }
+        /// <summary>
+        /// Value canceled
+        /// </summary>
+        [JsonProperty("canceledFunds")]
+        public decimal ValueCanceled { get; set; }
 
     }
 
@@ -128,5 +138,10 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// </summary>
         [JsonConverter(typeof(LiquidityTypeConverter))]
         public LiquidityType Liquidity { get; set; }
+        /// <summary>
+        /// Type of fee paid
+        /// </summary>
+        [JsonProperty("feeType"), JsonConverter(typeof(EnumConverter))]
+        public FeeType FeeType { get; set; }
     }
 }

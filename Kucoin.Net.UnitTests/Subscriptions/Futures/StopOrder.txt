@@ -1,0 +1,24 @@
+> {"id":"|1|","type":"subscribe","topic":"/contractMarket/advancedOrders","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+  {
+       "userId": "5cd3f1a7b7ebc19ae9558591", 		// Deprecated, will detele later
+       "topic": "/contractMarket/advancedOrders",
+       "subject": "stopOrder",
+       "data": {
+           "orderId": "5cdfc138b21023a909e5ad55", 	//Order ID
+           "symbol": "XBTUSDM",  					//Ticker symbol of the contract
+           "type": "open",  						// Message type: open (place order), triggered (order triggered), cancel (cancel order)
+           "orderType":"stop", 						// Order type: stop order
+           "side":"buy", 							// Buy or sell
+           "size":"1000", 							//Quantity
+           "orderPrice":"9000",						//Order price. For market orders, the value is null
+           "stop":"up", 							//Stop order types
+           "stopPrice":"9100", 						//Trigger price of stop orders
+           "stopPriceType":"TP", 					//Trigger price type of stop orders
+           "triggerSuccess": true, 					//Mark to show whether the order is triggered. Only for triggered type of orders
+           "error": "error.createOrder.accountBalanceInsufficient", //error code, which is used only when the trigger of the triggered type of orders fails
+           "createdAt": 1558074652423,			//Time the order created
+           "ts":1558074652423004000  				// timestamp - nanosecond
+       }
+  }

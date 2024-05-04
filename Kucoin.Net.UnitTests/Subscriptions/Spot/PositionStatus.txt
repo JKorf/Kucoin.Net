@@ -1,0 +1,13 @@
+> {"id":"|1|","type":"subscribe","topic":"/margin/position","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/margin/position",
+  "subject": "position.status",
+  "channelType": "private",
+  "data": {
+    "type": "FROZEN_FL", //Event type
+    "timestamp": 15538460812100 //Timestamp (millisecond)
+  }
+}

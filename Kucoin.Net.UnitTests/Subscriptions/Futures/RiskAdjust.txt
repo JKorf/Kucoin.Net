@@ -1,0 +1,13 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/positionAll","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "userId": "xbc453tg732eba53a88ggyt8c",
+  "topic": "/contract/positionAll",
+  "subject": "position.adjustRiskLimit",
+  "data": {
+    "success": true, // Successful or not
+    "riskLimitLevel": 1, // Current risk limit level
+    "msg": "" // Failure reason
+  }
+}

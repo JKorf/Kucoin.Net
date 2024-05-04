@@ -277,6 +277,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onOrderDone">Data handler for order done updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarginOrderUpdatesAsync(string symbol, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderPlaced, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderUpdate, Action<DataEvent<KucoinMarginOrderDoneUpdate>> onOrderDone, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToMarginOrderUpdatesAsync(string symbol, Action<DataEvent<KucoinMarginOrderUpdate>>? onOrderPlaced = null, Action<DataEvent<KucoinMarginOrderUpdate>>? onOrderUpdate = null, Action<DataEvent<KucoinMarginOrderDoneUpdate>>? onOrderDone = null, CancellationToken ct = default);
     }
 }

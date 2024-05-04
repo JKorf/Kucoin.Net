@@ -34,6 +34,11 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         [JsonProperty("size")]
         public int Quantity { get; set; }
         /// <summary>
+        /// Quantity
+        /// </summary>
+        [JsonProperty("lentSize")]
+        public decimal? LentQuantity { get; set; }
+        /// <summary>
         /// Lend
         /// </summary>
         [JsonProperty("side")]

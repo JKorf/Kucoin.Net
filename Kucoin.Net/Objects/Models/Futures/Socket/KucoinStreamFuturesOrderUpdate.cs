@@ -102,5 +102,11 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("ts")]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Trade direction
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("feeType")]
+        public FeeType? FeeType { get; set; }
     }
 }

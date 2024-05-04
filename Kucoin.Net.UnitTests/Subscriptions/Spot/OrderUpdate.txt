@@ -11,13 +11,18 @@
     "orderType": "limit",
     "side": "buy",
     "orderId": "5efab07953bdea00089965d2",
-    "type": "received",
+    "type": "open",
     "orderTime": 1593487481683297666,
+    "size": "0.1",
+    "filledSize": "0",
     "price": "0.937",
     "clientOid": "1593487481000906",
-    "status": "new",
-    "originSize": "0.1", //original quantity
-    "originFunds": "0.1", //The original funds of the market order
+    "remainSize": "0.1",
+    "status": "open",
+    "canceledSize": "0.1", // Cumulative number of cancellations
+    "canceledFunds": "0.1", // Market order accumulative cancellation funds
+    "originSize": "0.1", // original quantity
+    "originFunds": "0.1", // Market order original funds
     "ts": 1593487481683297666
   }
 }

@@ -1,0 +1,13 @@
+> {"id":"|1|","type":"subscribe","topic":"/contractAccount/wallet","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "userId": "xbc453tg732eba53a88ggyt8c", // Deprecated, will detele later
+  "topic": "/contractAccount/wallet",
+  "subject": "orderMargin.change",
+  "data": {
+    "orderMargin": 5923, //Current order margin
+    "currency": "USDT", //Currency
+    "timestamp": 1553842862614
+  }
+}

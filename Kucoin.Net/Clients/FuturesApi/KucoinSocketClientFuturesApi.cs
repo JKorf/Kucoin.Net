@@ -35,6 +35,9 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         private readonly KucoinSocketClient _baseClient;
 
+        /// <inheritdoc />
+        public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
+
         internal KucoinSocketClientFuturesApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
             : base(logger, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
@@ -158,9 +161,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamFuturesStopOrderUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamStopOrderUpdateBase>(_logger, $"/contractMarket/advancedOrders", null, onData, true);
+            var subscription = new KucoinSubscription<KucoinStreamFuturesStopOrderUpdate>(_logger, $"/contractMarket/advancedOrders", null, onData, true);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -203,6 +206,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
+            if (ClientOptions.Environment.EnvironmentName == "UnitTesting")
+                return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
+
             var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {

@@ -238,7 +238,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginOrderUpdatesAsync(string symbol, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderPlaced, Action<DataEvent<KucoinMarginOrderUpdate>> onOrderUpdate, Action<DataEvent<KucoinMarginOrderDoneUpdate>> onOrderDone, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginOrderUpdatesAsync(string symbol, Action<DataEvent<KucoinMarginOrderUpdate>>? onOrderPlaced = null, Action<DataEvent<KucoinMarginOrderUpdate>>? onOrderUpdate = null, Action<DataEvent<KucoinMarginOrderDoneUpdate>>? onOrderDone = null, CancellationToken ct = default)
         {
             var subscription = new KucoinMarginOrderSubscription(_logger, symbol, onOrderPlaced, onOrderUpdate, onOrderDone);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
@@ -247,6 +247,9 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
+            if (ClientOptions.Environment.EnvironmentName == "UnitTesting")
+                return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
+
             var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {
