@@ -122,6 +122,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.5.4 - 04 May 2024
+    * Fixed CryptoExchange.Net reference
+
 * Version 5.5.3 - 04 May 2024
     * Fixed universal transfer endpoint
     * Fixed FuturesApi.SubscribeToStopOrderUpdatesAsync deserialization
