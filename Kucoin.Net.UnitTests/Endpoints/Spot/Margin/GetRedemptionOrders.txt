@@ -1,0 +1,27 @@
+GET
+/api/v3/redeem/orders
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data":
+  {
+  "currentPage": 1,
+  "pageSize": 100,
+  "totalNum": 1,
+  "totalPage": 1,
+  "items": [
+    {
+      "currency": "BTC",
+      "purchaseOrderNo": "5da6dba0f943c0c81f5d5db5",
+      "redeemOrderNo": "5da6dbasdffga1f5d5dfsb5",
+      "redeemAmount": "300000",
+      "receiptAmount": "250000",
+      "applyTime": 1669508513820,
+      "status": "PENDING"
+    }
+  ]
+}
+}

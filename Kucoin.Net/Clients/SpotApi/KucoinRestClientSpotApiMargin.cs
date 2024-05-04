@@ -130,7 +130,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinRepayOrderV3>>> GetRepayHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinBorrowOrderV3>>> GetRepayHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -146,7 +146,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptional("pageSize", pageSize);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/repay", KucoinExchange.RateLimiter.SpotRest, 15, true);
-            return await _baseClient.SendAsync<KucoinPaginated<KucoinRepayOrderV3>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinPaginated<KucoinBorrowOrderV3>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

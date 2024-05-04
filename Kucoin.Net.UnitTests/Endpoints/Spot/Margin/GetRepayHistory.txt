@@ -1,0 +1,24 @@
+GET
+/api/v3/margin/repay
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": {
+  "currentPage": 1,
+  "pageSize": 50,
+  "totalNum": 1,
+  "totalPage": 1,
+  "items": [{
+    "orderNo": "5da6dba0f943c0c81f5d5db5",
+    "symbol": "BTC-USDT",
+    "currency": "USDT",
+    "size": 10,
+    "actualSize": 10,
+    "status": "DONE",
+    "createdTime": 1555056425000
+  }]
+}
+}

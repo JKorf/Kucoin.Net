@@ -1,0 +1,15 @@
+GET
+/api/v3/project/marketInterestRate
+true
+{"code":"200000","data":
+[
+  {
+    "time": "202303261200",
+    "marketInterestRate": "0.003"
+  },
+  {
+    "time": "202303261300",
+    "marketInterestRate": "0.004"
+  }
+]
+}
