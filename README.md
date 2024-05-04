@@ -122,6 +122,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.5.3 - 04 May 2024
+    * Fixed universal transfer endpoint
+    * Fixed FuturesApi.SubscribeToStopOrderUpdatesAsync deserialization
+    * Updated various response models
+    * Updated CryptoExchange.Net to v7.5.1, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+
 * Version 5.5.2 - 01 May 2024
     * Added SpotApi.Trading.GetOcoOrderByClientOrderIdAsync to interface
     * Updated CryptoExchange.Net to v7.5.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
