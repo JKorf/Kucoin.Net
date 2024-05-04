@@ -1,7 +1,0 @@
- {
-    "code": "200000",
-    "data": {
-      "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-      "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent to the address you specified. 
-   } 
-}

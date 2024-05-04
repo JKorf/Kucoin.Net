@@ -1,5 +1,0 @@
-﻿{
-      "withdrawHold": 5923, // Current frozen amount for withdrawal
-      "currency":"USDT",//Currency
-      "timestamp": 1553842862614
-    }

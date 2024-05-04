@@ -1,7 +1,0 @@
-﻿{
-
-        "symbol": "USDT-BTC",
-        "granularity": 5000,
-        "timestamp": 1551770400000,
-        "value": 0.0001092
-    }

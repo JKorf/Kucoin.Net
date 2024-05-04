@@ -9161,34 +9161,9 @@
             Universal transfer
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.ClientOrderId">
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.OrderId">
             <summary>
-            Client order id
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.Type">
-            <summary>
-            Type
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.Asset">
-            <summary>
-            Asset name
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.Quantity">
-            <summary>
-            Quantity
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.FromAccountType">
-            <summary>
-            From account
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUniversalTransfer.ToAccountType">
-            <summary>
-            To account
+            Orrder id
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinUserFee">

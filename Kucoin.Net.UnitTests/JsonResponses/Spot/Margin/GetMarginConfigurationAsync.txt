@@ -1,9 +1,0 @@
-{
-  "code": "200000",
-  "data":{
-    "currencyList": ["BTC","USDT","EOS"],
-    "warningDebtRatio": "0.8",
-    "liqDebtRatio": "0.9",
-    "maxLeverage": "3"
-  }
-  }

@@ -1,1 +1,0 @@
-{"code":"200000","data":{"currentPage":1,"pageSize":50,"totalNum":2,"totalPage":1,"items":[{"currency":"ETH","dayRatio":"0.000013","interestAmount":"0.00000002","createdTime":1713877209527},{"currency":"ETH","dayRatio":"0.000013","interestAmount":"0.00000002","createdTime":1713873611551}]}}

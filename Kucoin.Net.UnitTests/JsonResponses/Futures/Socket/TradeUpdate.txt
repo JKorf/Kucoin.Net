@@ -1,1 +1,0 @@
-﻿{"makerUserId":"5f6b4cd1b9f51500078b6b67","symbol":"XBTUSDM","sequence":8703788,"side":"sell","size":1906,"price":42066,"takerOrderId":"61e93d7c3d360100012418c7","makerOrderId":"61e93d7ce57f580001454ccf","takerUserId":"5f6b4cd1b9f51500078b6b67","tradeId":"61e93d7c3c7feb5832189b32","ts":1642675580099868101}

@@ -1,5 +1,0 @@
-﻿{
-        "granularity": 60000,  //Granularity (predicted funding rate: 1-min granularity: 60000; Funding rate: 8-hours granularity: 28800000. )
-        "fundingRate": -0.002966,     //Funding rate
-        "timestamp": 1551770400000
-    }

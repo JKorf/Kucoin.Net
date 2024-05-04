@@ -1,132 +1,27 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using Kucoin.Net.Clients;
-using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Options;
-using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
 
 namespace Kucoin.Net.UnitTests.TestImplementations
 {
     public class TestHelpers
     {
-        [ExcludeFromCodeCoverage]
-        public static bool AreEqual(object self, object to, params string[] ignore)
-        {
-            if (self == null && to == null)
-                return true;
-
-            if ((self != null && to == null) || (self == null && to != null))
-                return false;
-
-            if (self == null || to == null)
-                throw new Exception("Null");
-
-            var type = self.GetType();
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
-                || typeof(IList).IsAssignableFrom(type))
-            {
-                var list = (IList)self;
-                var listOther = (IList)to;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (!AreEqual(list[i], listOther[i]))
-                        return false;
-                }
-
-                return true;
-            }
-
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
-            {
-                var dict = (IDictionary)self;
-                var other = (IDictionary)to;
-                var items1 = new List<DictionaryEntry>();
-                var items2 = new List<DictionaryEntry>();
-                foreach (DictionaryEntry item in dict)
-                    items1.Add(item);
-                foreach (DictionaryEntry item in other)
-                    items2.Add(item);
-
-                for (int i = 0; i < items1.Count; i++)
-                {
-                    if (!AreEqual(items1[i].Key, items2[i].Key))
-                        return false;
-                    if (!AreEqual(items1[i].Value, items2[i].Value))
-                        return false;
-                }
-
-                return true;
-            }
-
-
-            if (type.IsValueType || type == typeof(string))
-                return Equals(self, to);
-
-            var ignoreList = new List<string>(ignore);
-            foreach (var pi in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (ignoreList.Contains(pi.Name))
-                    continue;
-
-                var selfValue = type.GetProperty(pi.Name)!.GetValue(self, null);
-                var toValue = type.GetProperty(pi.Name)!.GetValue(to, null);
-
-                if (pi.PropertyType.IsValueType || pi.PropertyType == typeof(string))
-                {
-                    if (!Equals(selfValue, toValue))
-                        return false;
-                    continue;
-                }
-
-                if (pi.PropertyType.IsClass)
-                {
-                    if (!AreEqual(selfValue, toValue, ignore))
-                        return false;
-                    continue;
-                }
-
-                if (selfValue != toValue && (selfValue == null || !selfValue.Equals(toValue)))
-                    return false;
-            }
-
-            return true;
-        }
-
         public static IKucoinRestClient CreateClient(Action<KucoinRestOptions> options = null)
         {
             IKucoinRestClient client;
             client = options != null ? new KucoinRestClient(options) : new KucoinRestClient();
             client.SpotApi.RequestFactory = Mock.Of<IRequestFactory>();
             client.FuturesApi.RequestFactory = Mock.Of<IRequestFactory>();
-            return client;
-        }
-
-
-        public static IKucoinRestClient CreateResponseClient(string response, Action<KucoinRestOptions> options = null)
-        {
-            var client = (KucoinRestClient)CreateClient(options);
-            SetResponse(client, response);
-            return client;
-        }
-
-        public static IKucoinRestClient CreateResponseClient<T>(T response, Action<KucoinRestOptions> options = null)
-        {
-            var client = (KucoinRestClient)CreateClient(options);
-            SetResponse(client, JsonConvert.SerializeObject(response));
             return client;
         }
 
@@ -154,88 +49,6 @@ namespace Kucoin.Net.UnitTests.TestImplementations
             factory = Mock.Get(client.FuturesApi.RequestFactory);
             factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<Uri>(), It.IsAny<int>()))
                 .Returns(request.Object);
-        }
-
-        public static object GetTestValue(Type type, int i)
-        {
-            if (type == typeof(bool))
-                return true;
-
-            if (type == typeof(bool?))
-                return (bool?)true;
-
-            if (type == typeof(decimal))
-                return i / 100m;
-
-            if (type == typeof(decimal?))
-                return (decimal?)(i / 100m);
-
-            if (type == typeof(int))
-                return 20;
-
-            if (type == typeof(int?))
-                return (int?)i;
-
-            if (type == typeof(long))
-                return (long)i;
-
-            if (type == typeof(long?))
-                return (long?)i;
-
-            if (type == typeof(DateTime))
-                return new DateTime(2019, 1, Math.Max(i, 1));
-
-            if (type == typeof(DateTime?))
-                return (DateTime?)new DateTime(2019, 1, Math.Max(i, 1));
-
-            if (type == typeof(string))
-                return "ETH-BTC" + i;
-
-            if (type == typeof(IEnumerable<string>))
-                return new[] { "string" + i };
-
-            if (type == typeof(StopCondition))
-                return StopCondition.Entry;
-
-            if (type.IsEnum)
-            {
-                return Activator.CreateInstance(type);
-            }
-
-            if (type.IsArray)
-            {
-                var elementType = type.GetElementType()!;
-                var result = Array.CreateInstance(elementType, 2);
-                result.SetValue(GetTestValue(elementType, 0), 0);
-                result.SetValue(GetTestValue(elementType, 1), 1);
-                return result;
-            }
-
-            if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(List<>)))
-            {
-                var result = (IList)Activator.CreateInstance(type)!;
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 0));
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 1));
-                return result;
-            }
-
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
-            {
-                var result = (IDictionary)Activator.CreateInstance(type)!;
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 0)!, GetTestValue(type.GetGenericArguments()[1], 0));
-                result.Add(GetTestValue(type.GetGenericArguments()[0], 1)!, GetTestValue(type.GetGenericArguments()[1], 1));
-                return Convert.ChangeType(result, type);
-            }
-
-            return null;
-        }
-
-        public static async Task<object> InvokeAsync(MethodInfo @this, object obj, params object[] parameters)
-        {
-            var task = (Task)@this.Invoke(obj, parameters);
-            await task.ConfigureAwait(false);
-            var resultProperty = task.GetType().GetProperty("Result");
-            return resultProperty.GetValue(task);
         }
     }
 }

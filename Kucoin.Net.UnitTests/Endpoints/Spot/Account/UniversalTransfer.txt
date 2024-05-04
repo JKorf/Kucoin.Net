@@ -4,11 +4,6 @@ true
 {
   "code": "200000",
   "data": {
-  "clientOid": "64ccc0f164781800010d8c09",
-  "type": "INTERNAL",
-  "currency": "BTC",
-  "amount": 1,
-  "fromAccountType": "TRADE",
-  "toAccountType": "CONTRACT"
+  "orderId": "64ccc0f164781800010d8c09"
 }
 }
