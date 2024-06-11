@@ -45,10 +45,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice> markUpdate)
-                _markIndexPriceHandler?.Invoke(message.As(markUpdate.Data, markUpdate.Topic, SocketUpdateType.Update));
+                _markIndexPriceHandler?.Invoke(message.As(markUpdate.Data, markUpdate.Topic, markUpdate.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
 
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesFundingRate> fundingUpdate)
-                _fundingRateHandler?.Invoke(message.As(fundingUpdate.Data, fundingUpdate.Topic, SocketUpdateType.Update));
+                _fundingRateHandler?.Invoke(message.As(fundingUpdate.Data, fundingUpdate.Topic, fundingUpdate.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
             return new CallResult(null);
         }
 

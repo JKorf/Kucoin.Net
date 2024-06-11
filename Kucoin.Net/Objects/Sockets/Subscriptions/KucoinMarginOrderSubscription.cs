@@ -50,13 +50,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinMarginOrderDoneUpdate> matchUpdate)
-                _onOrderDone?.Invoke(message.As(matchUpdate.Data, matchUpdate.Topic, SocketUpdateType.Update));
+                _onOrderDone?.Invoke(message.As(matchUpdate.Data, matchUpdate.Topic, null, SocketUpdateType.Update));
             if (message.Data is KucoinSocketUpdate<KucoinMarginOrderUpdate> orderUpdate)
             {
                 if (string.Equals(orderUpdate.Subject, "order.open", StringComparison.Ordinal))
-                    _onNewOrder?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, SocketUpdateType.Update));
+                    _onNewOrder?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, null, SocketUpdateType.Update));
                 else
-                    _onOrderData?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, SocketUpdateType.Update));
+                    _onOrderData?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, null, SocketUpdateType.Update));
             }
 
             return new CallResult(null);

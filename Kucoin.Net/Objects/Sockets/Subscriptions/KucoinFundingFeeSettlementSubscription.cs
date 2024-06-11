@@ -38,7 +38,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             var data = (KucoinSocketUpdate<KucoinContractAnnouncement>)message.Data;
             data.Data.Event = data.Subject;
-            _dataHandler.Invoke(message.As(data.Data, data.Topic, SocketUpdateType.Update));
+            _dataHandler.Invoke(message.As(data.Data, data.Topic, data.Data.Symbol, SocketUpdateType.Update));
             return new CallResult(null);
         }
 

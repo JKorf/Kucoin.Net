@@ -27,13 +27,13 @@ namespace Kucoin.Net
             RestApiClient apiClient,
             Uri uri,
             HttpMethod method,
-            IDictionary<string, object> uriParams,
-            IDictionary<string, object> bodyParams,
+            IDictionary<string, object> uriParameters,
+            IDictionary<string, object> bodyParameters,
             Dictionary<string, string> headers,
             bool auth,
             ArrayParametersSerialization arraySerialization,
             HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat bodyFormat)
+            RequestBodyFormat requestBodyFormat)
         {
             if (!auth)
                 return;
@@ -47,7 +47,7 @@ namespace Kucoin.Net
                 brokerKey = apiClient is KucoinRestClientFuturesApi ? "9e08c05f-454d-4580-82af-2f4c7027fd00" : "f8ae62cb-2b3d-420c-8c98-e1c17dd4e30a";
             }
 
-            uri = uri.SetParameters(uriParams, arraySerialization);
+            uri = uri.SetParameters(uriParameters, arraySerialization);
             headers.Add("KC-API-KEY", _credentials.Key!.GetString());
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
             headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(_credentials.PassPhrase.GetString(), SignOutputType.Base64));
@@ -56,9 +56,9 @@ namespace Kucoin.Net
             string jsonContent = string.Empty;
             if (parameterPosition == HttpMethodParameterPosition.InBody)
             {
-                jsonContent = bodyParams.Count == 1 && bodyParams.First().Key == "<BODY>"
-                    ? JsonConvert.SerializeObject(bodyParams.First().Value)
-                    : JsonConvert.SerializeObject(bodyParams);
+                jsonContent = bodyParameters.Count == 1 && bodyParameters.First().Key == "<BODY>"
+                    ? JsonConvert.SerializeObject(bodyParameters.First().Value)
+                    : JsonConvert.SerializeObject(bodyParameters);
             }
 
             var signData = headers["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri.PathAndQuery) + jsonContent;

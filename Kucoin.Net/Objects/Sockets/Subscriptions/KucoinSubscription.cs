@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (string.Equals(topic, "all", StringComparison.Ordinal))
                 topic = data.Subject;
 
-            _handler.Invoke(message.As(data.Data, topic, SocketUpdateType.Update));
+            _handler.Invoke(message.As(data.Data, data.Topic, topic, SocketUpdateType.Update));
             return new CallResult(null);
         }
 
