@@ -598,6 +598,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiProAccount.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiProAccount.ModifyOrderAsync(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiProAccount.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3573,6 +3576,19 @@
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns>The id of the new order</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiProAccount.ModifyOrderAsync(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Modify an order
+            <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/modify-hf-order" /></para>
+            </summary>
+            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="orderId">The id of the order to modify</param>
+            <param name="clientOrderId">The client id of the order to modify</param>
+            <param name="newQuantity">New order quantity</param>
+            <param name="newPrice">New order price</param>
+            <param name="ct">Cancellation token</param>
+            <returns>The id of the modified order</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiProAccount.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
@@ -8302,6 +8318,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginInterest.Timestamp">
             <summary>
             Timesatmp
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinModifiedOrder">
+            <summary>
+            New order id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinModifiedOrder.Id">
+            <summary>
+            The id of the new order
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinNewAccount">

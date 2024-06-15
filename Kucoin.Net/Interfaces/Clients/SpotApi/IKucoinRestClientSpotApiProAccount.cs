@@ -50,6 +50,25 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
             CancellationToken ct = default);
+        
+        /// <summary>
+        /// Modify an order
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/modify-hf-order" /></para>
+        /// </summary>
+        /// <param name="symbol">Trading pair, such as ETH-BTC</param>
+        /// <param name="orderId">The id of the order to modify</param>
+        /// <param name="clientOrderId">The client id of the order to modify</param>
+        /// <param name="newQuantity">New order quantity</param>
+        /// <param name="newPrice">New order price</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>The id of the modified order</returns>
+        Task<WebCallResult<KucoinModifiedOrder>> ModifyOrderAsync(
+            string symbol,
+            string? orderId = null,
+            string? clientOrderId = null,
+            decimal? newQuantity = null,
+            decimal? newPrice = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order

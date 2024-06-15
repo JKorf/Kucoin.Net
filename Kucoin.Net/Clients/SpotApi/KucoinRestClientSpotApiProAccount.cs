@@ -81,6 +81,34 @@ namespace Kucoin.Net.Clients.SpotApi
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
         }
+        
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinModifiedOrder>> ModifyOrderAsync(
+            string symbol,
+            string? orderId = null,
+            string? clientOrderId = null,
+            decimal? newQuantity = null,
+            decimal? newPrice = null,
+            CancellationToken ct = default)
+        {
+            if (!newQuantity.HasValue && !newPrice.HasValue)
+                throw new ArgumentException("Must choose order parameter to edit");
+            
+            if ((orderId is not null && clientOrderId is not null) || (orderId is null && clientOrderId is null))
+                throw new ArgumentException("Must choose one order id");
+            
+            var parameters = new ParameterCollection
+            {
+                { "symbol", symbol }
+            };
+            parameters.AddOptionalParameter("clientOid", clientOrderId);
+            parameters.AddOptionalParameter("orderId", orderId);
+            parameters.AddOptionalParameter("newPrice", newPrice);
+            parameters.AddOptionalParameter("newSize", newQuantity);
+            
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/alter", KucoinExchange.RateLimiter.SpotRest, 3, true);
+            return await _baseClient.SendAsync<KucoinModifiedOrder>(request, parameters, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, string symbol, CancellationToken ct = default)
