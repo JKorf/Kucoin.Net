@@ -25,9 +25,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IKucoinRestClientSpotApiTrading Trading { get; }
 
         /// <summary>
-        /// Endpoints related to orders and trades from Pro Account (High Frequency)
+        /// Endpoints related to orders and trades using the HighFrequency/ProAccount
         /// </summary>
-        IKucoinRestClientSpotApiProAccount ProAccount { get; }
+        IKucoinRestClientSpotApiHfTrading HfTrading { get; }
 
         /// <summary>
         /// Endpoints for margin borrowing and lending

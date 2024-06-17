@@ -48,7 +48,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public IKucoinRestClientSpotApiTrading Trading { get; }
 
         /// <inheritdoc />
-        public IKucoinRestClientSpotApiProAccount ProAccount { get; }
+        public IKucoinRestClientSpotApiHfTrading HfTrading { get; }
 
         /// <inheritdoc />
         public IKucoinRestClientSpotApiMargin Margin { get; }
@@ -59,7 +59,7 @@ namespace Kucoin.Net.Clients.SpotApi
             Account = new KucoinRestClientSpotApiAccount(this);
             ExchangeData = new KucoinRestClientSpotApiExchangeData(this);
             Trading = new KucoinRestClientSpotApiTrading(this);
-            ProAccount = new KucoinRestClientSpotApiProAccount(this);
+            HfTrading = new KucoinRestClientSpotApiHfTrading(this);
             Margin = new KucoinRestClientSpotApiMargin(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;

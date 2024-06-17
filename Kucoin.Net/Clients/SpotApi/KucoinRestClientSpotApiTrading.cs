@@ -31,7 +31,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
+        public async Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -81,14 +81,14 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            var result = await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewOrder>> PlaceTestOrderAsync(
+        public async Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -137,7 +137,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -261,7 +261,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewOrder>> PlaceOcoOrderAsync(
+        public async Task<WebCallResult<KucoinOrderId>> PlaceOcoOrderAsync(
             string symbol,
             OrderSide side,
             decimal quantity,
@@ -287,7 +287,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalEnum("tradeType", tradeType);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/oco/order", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            var result = await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
@@ -504,7 +504,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(
+        public async Task<WebCallResult<KucoinOrderId>> PlaceStopOrderAsync(
             string symbol,
             Enums.OrderSide orderSide,
             NewOrderType orderType,
@@ -565,7 +565,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("funds", quoteQuantity);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/stop-order", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

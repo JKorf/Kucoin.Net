@@ -3,12 +3,12 @@
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
-    /// New order id
+    /// Order id
     /// </summary>
-    public class KucoinNewOrder
+    public class KucoinOrderId
     {
         /// <summary>
-        /// The id of the new order
+        /// The id of the order
         /// </summary>
         [JsonProperty("orderId")]
         public string Id { get; set; } = string.Empty;

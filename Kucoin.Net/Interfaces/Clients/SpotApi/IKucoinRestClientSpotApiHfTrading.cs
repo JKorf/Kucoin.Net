@@ -10,7 +10,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Kucoin Spot trading high frequency endpoints, placing and mananging orders.
     /// </summary>
-    public interface IKucoinRestClientSpotApiProAccount
+    public interface IKucoinRestClientSpotApiHfTrading
     {
         /// <summary>
         /// Places an order
@@ -33,7 +33,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -62,7 +62,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="newPrice">New order price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the modified order</returns>
-        Task<WebCallResult<KucoinModifiedOrder>> ModifyOrderAsync(
+        Task<WebCallResult<KucoinModifiedOrder>> EditOrderAsync(
             string symbol,
             string? orderId = null,
             string? clientOrderId = null,
@@ -78,7 +78,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">Trading pair, such as ETH-BTC</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of cancelled orders</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOrderId>> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific order
@@ -88,6 +88,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">Trading pair, such as ETH-BTC</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order info</returns>
-        Task<WebCallResult<KucoinOrderHighFrequency>> GetOrderAsync(string orderId, string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOrderHighFrequency>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default);
     }
 }
