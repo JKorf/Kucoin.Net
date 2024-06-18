@@ -1,0 +1,11 @@
+GET
+/api/v1/trade-fees
+true
+{
+  "code": "200000",
+  "data": {
+    "symbol": "XBTUSDTM",
+    "takerFeeRate": "0.0006",
+    "makerFeeRate": "0.0002"
+  }
+}

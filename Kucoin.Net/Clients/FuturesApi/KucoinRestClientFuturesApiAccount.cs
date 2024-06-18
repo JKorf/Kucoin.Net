@@ -14,6 +14,7 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
+using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -120,6 +121,21 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<KucoinPositionHistoryItem>>> GetPositionHistoryAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, int? page = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            parameters.AddOptionalMilliseconds("from", startTime);
+            parameters.AddOptionalMilliseconds("to", endTime);
+            parameters.AddOptional("limit", limit);
+            parameters.AddOptional("pageId", page);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/history-positions", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            return await _baseClient.SendAsync<KucoinPaginated<KucoinPositionHistoryItem>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        /// <inheritdoc />
         public async Task<WebCallResult> ToggleAutoDepositMarginAsync(string symbol, bool enabled, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -150,7 +166,6 @@ namespace Kucoin.Net.Clients.FuturesApi
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
 
-        #endregion
 
         #region Funding fees
 
@@ -184,12 +199,12 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Get Risk Limit Level
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contracts/risk-limit/" + symbol, KucoinExchange.RateLimiter.FuturesRest, 5, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinRiskLimit>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -215,6 +230,18 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/maxWithdrawMargin", KucoinExchange.RateLimiter.FuturesRest, 10, true);
             return await _baseClient.SendAsync<decimal>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Trading Fee
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinTradeFee>> GetTradingFeeAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddParameter("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/trade-fees", KucoinExchange.RateLimiter.FuturesRest, 3, true);
+            return await _baseClient.SendAsync<KucoinTradeFee>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

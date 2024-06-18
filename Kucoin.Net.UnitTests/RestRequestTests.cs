@@ -154,6 +154,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransferToMainAccountHistoryAsync("ETH"), "GetTransferToMainAccountHistory");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionAsync("ETHUSDT"), "GetPosition");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionsAsync(), "GetPositions");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionHistoryAsync(), "GetPositionHistory", ignoreProperties: new List<string> { "roe" });
             await tester.ValidateAsync(client => client.FuturesApi.Account.ToggleAutoDepositMarginAsync("ETHUSDT", true), "ToggleAutoDepositMargin");
             await tester.ValidateAsync(client => client.FuturesApi.Account.AddMarginAsync("ETHUSDT", 1), "AddMargin");
             await tester.ValidateAsync(client => client.FuturesApi.Account.RemoveMarginAsync("ETHUSDT", 1), "RemoveMargin");
@@ -162,6 +163,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetRiskLimitLevelAsync("ETHUSDT"), "GetRiskLimitLevel");
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetRiskLimitLevelAsync("ETHUSDT", 1), "SetRiskLimitLevel");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxWithdrawMarginAsync("ETHUSDT"), "GetMaxWithdrawMargin");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetTradingFeeAsync("ETHUSDT"), "GetTradingFee");
         }
 
         [Test]
