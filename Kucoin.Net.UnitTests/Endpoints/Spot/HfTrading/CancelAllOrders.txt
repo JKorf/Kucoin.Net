@@ -1,0 +1,17 @@
+DELETE
+/api/v1/hf/orders/cancelAll
+true
+{"code":"200000","data":
+{
+  "succeedSymbols": [
+    "BTC-USDT",
+    "ETH-USDT"
+  ],
+  "failedSymbols": [
+    {
+        "symbol": "BTC-USDT",
+        "error": "can't cancel, system timeout"
+    }
+  ],
+}
+}

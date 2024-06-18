@@ -1,0 +1,43 @@
+GET
+/api/v1/hf/orders/active
+true
+{
+    "code" : "200000",
+    "data" : [
+    {
+        "id": "5c35c02703aa673ceec2a168",
+        "symbol": "BTC-USDT",
+        "opType": "DEAL",
+        "type": "limit",
+        "side": "buy",
+        "price": "10",
+        "size": "2",
+        "funds": "0",
+        "dealFunds": "0.166",
+        "dealSize": "2",
+        "fee": "0",
+        "feeCurrency": "USDT",
+        "stp": "",
+        "timeInForce": "GTC",
+        "postOnly": false,
+        "hidden": false,
+        "iceberg": false,
+        "visibleSize": "0",
+        "cancelAfter": 0,
+        "channel": "IOS",
+        "clientOid": "",
+        "remark": "",
+        "tags": "",
+        "active": true,
+        "inOrderBook": true,
+        "cancelExist": false,
+        "createdAt": 1547026471000,
+        "lastUpdatedAt": 1547026471001,
+        "tradeType": "TRADE",
+        "cancelledSize": "0",
+        "cancelledFunds": "0",
+        "remainSize": "0",
+        "remainFunds": "0"
+        }        
+    ]
+}

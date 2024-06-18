@@ -1,0 +1,9 @@
+POST
+/api/v1/hf/orders
+true
+{
+  "code": "200000",
+  "data": {
+    "orderId": "5bd6e9286d99522a52e458de"
+  }
+}

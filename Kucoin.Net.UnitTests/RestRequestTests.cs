@@ -215,6 +215,48 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetRecentUserTradesAsync(), "GetRecentUserTrades", ignoreProperties: new List<string> { "stop" });
         }
 
+        [Test]
+        public async Task ValidateSpotHfTradingCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/HfTrading", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceOrderWaitAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrderWait");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersAsync("ETHUSDT", new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersWaitAsync("ETHUSDT", new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrdersWait");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.EditOrderAsync("ETHUSDT", "123", newPrice: 1), "EditOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelOrderAsync("ETHUSDT", "123"), "CancelOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelOrderWaitAsync("ETHUSDT", "123"), "CancelOrderWait");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelOrderByClientOrderIdAsync("ETHUSDT", "123"), "CancelOrderByClientOrderId");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelOrderByClientOrderIdWaitAsync("ETHUSDT", "123"), "CancelOrderByClientOrderIdWait");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetOrderAsync("ETHUSDT", "123"), "GetOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetOrderByClientOrderIdAsync("ETHUSDT", "123"), "GetOrderByClientOrderId");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelAllOrdersBySymbolAsync("ETHUSDT"), "CancelAllOrdersBySymbol");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelAllOrdersAsync(), "CancelAllOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetOpenOrdersAsync("ETHUSDT"), "GetOpenOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetSymbolsWithOpenOrdersAsync(), "GetSymbolsWithOpenOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetClosedOrdersAsync("ETHUSDT"), "GetClosedOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetUserTradesAsync("ETHUSDT"), "GetUserTrades", ignoreProperties: new List<string> { "id" });
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelAfterAsync(TimeSpan.Zero), "CancelAfter");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetCancelAfterStatusAsync(), "GetCancelAfterStatus");
+
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMarginOrderAsync("ETHUSDT", Enums.OrderSide.Sell, Enums.NewOrderType.Limit, 1, 1), "PlaceMarginOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceTestMarginOrderAsync("ETHUSDT", Enums.OrderSide.Sell, Enums.NewOrderType.Limit, 1, 1), "PlaceTestMarginOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelMarginOrderAsync("ETHUSDT", "123"), "CancelMarginOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelMarginOrderByClientOrderIdAsync("ETHUSDT", "123"), "CancelMarginOrderByClientOrderId");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelAllMarginOrdersBySymbolAsync("ETHUSDT"), "CancelAllMarginOrdersBySymbol");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetOpenMarginOrdersAsync("ETHUSDT", Enums.TradeType.IsolatedMarginTrade), "GetOpenMarginOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetClosedMarginOrdersAsync("ETHUSDT"), "GetClosedMarginOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginOrderAsync("ETHUSDT", "123"), "GetMarginOrder");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginOrderByClientOrderIdAsync("ETHUSDT", "123"), "GetMarginOrderByClientOrderId");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginUserTradesAsync("ETHUSDT", Enums.TradeType.IsolatedMarginTrade), "GetMarginUserTrades", ignoreProperties: new List<string> { "id" });
+        }
+
         private bool IsAuthenticated(WebCallResult result)
         {
             return result.RequestHeaders.Any(h => h.Key == "KC-API-SIGN");

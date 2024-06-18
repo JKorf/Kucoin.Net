@@ -1,0 +1,12 @@
+GET
+/api/v1/hf/orders/active/symbols
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": {
+    "symbols": ["BTC-USDT"]
+  }
+}

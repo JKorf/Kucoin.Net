@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
-using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -17,17 +12,16 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The id of the order
         /// </summary>
         [JsonProperty("id")]
-        public string OrderId { get; set; } = string.Empty;        
+        public string? OrderId { get; set; }
         /// <summary>
         /// The cause of failure
         /// </summary>
         [JsonProperty("failMsg")]
         public string? Error { get; set; }
         /// <summary>
-        /// Successful
+        /// Whether the call is successful
         /// </summary>
         [JsonProperty("success")]
         public bool Success { get; set; }
-#warning Check what the actual response is
     }
 }

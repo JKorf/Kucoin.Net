@@ -1,0 +1,33 @@
+POST
+/api/v1/hf/orders/multi/sync
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": [
+    {
+      "orderId": "641d67ea162d47000160bfb8",
+      "orderTime": 1679648746796,
+      "originSize": "1",
+      "dealSize": "0",
+      "remainSize": "1",
+      "canceledSize": "0",
+      "status": "open",
+      "matchTime": 1679648746443,
+      "success": true
+    },
+    {
+      "orderId": "641d67eb162d47000160bfc0",
+      "orderTime": 1679648747369,
+      "originSize": "1",
+      "dealSize": "0",
+      "remainSize": "1",
+      "canceledSize": "0",
+      "status": "open",
+      "matchTime": 1679648746644,
+      "success": true
+    }
+  ]
+}

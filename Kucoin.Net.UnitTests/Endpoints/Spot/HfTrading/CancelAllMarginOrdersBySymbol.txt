@@ -1,0 +1,7 @@
+DELETE
+/api/v3/hf/margin/orders
+true
+{
+  "code": "200000",
+  "data": "success"
+}

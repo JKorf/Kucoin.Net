@@ -1,0 +1,9 @@
+GET
+/api/v1/hf/orders/dead-cancel-all/query
+true
+{"code":"200000","data":{
+  "timeout": 5,
+  "symbols": "BTC-USDT",
+  "currentTime": 1682010526,
+  "triggerTime": 1682010531
+}}

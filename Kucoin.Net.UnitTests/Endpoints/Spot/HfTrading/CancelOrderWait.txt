@@ -1,0 +1,14 @@
+DELETE
+/api/v1/hf/orders/sync/123
+true
+{
+  "code": "200000",
+  "data": {
+    "orderId": "6d539dc614db3",
+    "originSize": "10.01",
+    "originFunds": "10.01",
+    "dealSize": "2.01",
+    "remainSize": "8",
+    "canceledSize": "0"
+  }
+}
