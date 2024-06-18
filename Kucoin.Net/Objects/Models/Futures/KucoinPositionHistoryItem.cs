@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Side
         /// </summary>
-        [JsonProperty("side")]
+        [JsonProperty("side"), JsonConverter(typeof(EnumConverter))]
         public OrderSide? Side { get; set; }
         /// <summary>
         /// Close quantity
@@ -84,12 +84,12 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Open time
         /// </summary>
-        [JsonProperty("openTime")]
+        [JsonProperty("openTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime OpenTime { get; set; }
         /// <summary>
         /// Close time
         /// </summary>
-        [JsonProperty("closeTime")]
+        [JsonProperty("closeTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? CloseTime { get; set; }
         /// <summary>
         /// Open price

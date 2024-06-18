@@ -74,6 +74,7 @@ namespace Kucoin.Net.Clients.SpotApi
             decimal quantity,
             bool? isIsolated = null,
             string? symbol = null,
+            bool? isHf = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection
@@ -84,6 +85,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddEnum("timeInForce", timeInForce);
             parameters.AddOptional("isIsolated", isIsolated);
             parameters.AddOptional("symbol", symbol);
+            parameters.AddOptional("isHf", isHf);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/margin/borrow", KucoinExchange.RateLimiter.SpotRest, 15, true);
             return await _baseClient.SendAsync<KucoinNewBorrowOrder>(request, parameters, ct).ConfigureAwait(false);
@@ -95,6 +97,7 @@ namespace Kucoin.Net.Clients.SpotApi
             decimal quantity,
             bool? isIsolated = null,
             string? symbol = null,
+            bool? isHf = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection
@@ -104,6 +107,7 @@ namespace Kucoin.Net.Clients.SpotApi
             };
             parameters.AddOptional("isIsolated", isIsolated);
             parameters.AddOptional("symbol", symbol);
+            parameters.AddOptional("isHf", isHf);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/margin/repay", KucoinExchange.RateLimiter.SpotRest, 10, true);
             return await _baseClient.SendAsync<KucoinNewBorrowOrder>(request, parameters, ct).ConfigureAwait(false);

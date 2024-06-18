@@ -1,0 +1,29 @@
+> {"id":"|1|","type":"subscribe","topic":"/margin/isolatedPosition:ETH-USDT","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+    "topic": "/margin/isolatedPosition:ETH-USDT",  
+    "type": "message",
+    "data": {
+        "tag": "ETH-USDT",  
+        "status": "CLEAR",  					// Position status
+        "accumulatedPrincipal": "9.9778022", 	// Accumulated principal
+        "changeAssets": {
+            "BTC": {
+                "total": "0.00001",				// Total assets
+                "hold": "0",					// Freeze assets
+                "liabilityPrincipal": "0", 		// Liability principal
+                "liabilityInterest": "0" 		// Debt interest
+            },
+            "USDT": {
+                "total": "9", 					// Total assets
+                "hold": "0", 					// Freeze assets
+                "liabilityPrincipal": "0", 		// Liability principal
+                "liabilityInterest": "0" 		// Debt interest
+            }
+        },
+        "timestamp": 1714446276318 				// Timestamp (milliseconds)
+    },
+    "subject": "positionChange",
+    "channelType": "private"
+}

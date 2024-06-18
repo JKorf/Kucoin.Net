@@ -231,6 +231,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(string symbol, Action<DataEvent<KucoinIsolatedMarginPositionUpdate>> onPositionChange, CancellationToken ct = default)
+        {
+            var subscription = new KucoinIsolatedMarginPositionSubscription(_logger, symbol, onPositionChange);
+            return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarginPositionUpdatesAsync(Action<DataEvent<KucoinMarginDebtRatioUpdate>> onDebtRatioChange, Action<DataEvent<KucoinMarginPositionStatusUpdate>> onPositionStatusChange, CancellationToken ct = default)
         {
             var subscription = new KucoinMarginPositionSubscription(_logger, onDebtRatioChange, onPositionStatusChange);
