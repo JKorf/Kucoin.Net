@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Match info
     /// </summary>
-    public class KucoinStreamFuturesMatch: KucoinStreamMatchBase
+    public record KucoinStreamFuturesMatch: KucoinStreamMatchBase
     {
         /// <summary>
         /// Gets time of the trade match

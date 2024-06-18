@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Balance update info
     /// </summary>
-    public class KucoinBalanceUpdate
+    public record KucoinBalanceUpdate
     {
         /// <summary>
         /// The total balance

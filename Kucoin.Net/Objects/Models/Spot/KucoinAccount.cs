@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Account info
     /// </summary>
-    public class KucoinAccount
+    public record KucoinAccount
     {
         /// <summary>
         /// The id of the account

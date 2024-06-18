@@ -6,7 +6,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
-    public class KucoinBulkMinimalResponseEntry
+    public record KucoinBulkMinimalResponseEntry
     {
         /// <summary>
         /// The id of the order

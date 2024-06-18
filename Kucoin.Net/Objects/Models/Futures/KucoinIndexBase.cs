@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    /// Base class for index data
+    /// Base record for index data
     /// </summary>
-    public class KucoinIndexBase
+    public record KucoinIndexBase
     {
         /// <summary>
         /// Symbol

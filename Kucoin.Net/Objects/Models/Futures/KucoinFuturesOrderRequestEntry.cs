@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// Futures order request
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class KucoinFuturesOrderRequestEntry
+    public record KucoinFuturesOrderRequestEntry
     {
         /// <summary>
         /// Client order id

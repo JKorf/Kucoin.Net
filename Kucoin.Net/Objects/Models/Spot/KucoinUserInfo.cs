@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// User info
     /// </summary>
-    public class KucoinUserInfo
+    public record KucoinUserInfo
     {
         /// <summary>
         /// User level

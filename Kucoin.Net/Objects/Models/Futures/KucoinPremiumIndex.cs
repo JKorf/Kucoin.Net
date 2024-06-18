@@ -3,7 +3,7 @@
     /// <summary>
     /// Premium index info
     /// </summary>
-    public class KucoinPremiumIndex: KucoinIndexBase
+    public record KucoinPremiumIndex: KucoinIndexBase
     {
     }
 }

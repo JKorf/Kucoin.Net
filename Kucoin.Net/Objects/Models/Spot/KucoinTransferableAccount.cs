@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Transferable Account info
     /// </summary>
-    public class KucoinTransferableAccount
+    public record KucoinTransferableAccount
     {
         /// <summary>
         /// The asset of the account

@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    /// Base class for position info
+    /// Base record for position info
     /// </summary>
-    public class KucoinPositionBase
+    public record KucoinPositionBase
     {
         /// <summary>
         /// Symbol
@@ -197,7 +197,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Position info
     /// </summary>
-    public class KucoinPosition: KucoinPositionBase
+    public record KucoinPosition: KucoinPositionBase
     {
         /// <summary>
         /// Position id
@@ -208,7 +208,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Position update
     /// </summary>
-    public class KucoinPositionUpdate: KucoinPositionBase
+    public record KucoinPositionUpdate: KucoinPositionBase
     {
         /// <summary>
         /// Change reason

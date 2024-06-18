@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Position status update
     /// </summary>
-    public class KucoinMarginPositionStatusUpdate
+    public record KucoinMarginPositionStatusUpdate
     {
         /// <summary>
         /// Event type

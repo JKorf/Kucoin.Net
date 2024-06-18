@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Order value info
     /// </summary>
-    public class KucoinOrderValuation
+    public record KucoinOrderValuation
     {
         /// <summary>
         /// Total number of the unexecuted buy orders

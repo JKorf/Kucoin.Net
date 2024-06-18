@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// New Borrow order
     /// </summary>
-    public class KucoinNewBorrowOrder
+    public record KucoinNewBorrowOrder
     {
         /// <summary>
         /// The id of the new borrow order

@@ -3,7 +3,7 @@
     /// <summary>
     /// Risk limit info
     /// </summary>
-    public class KucoinRiskLimit
+    public record KucoinRiskLimit
     {
         /// <summary>
         /// Symbol

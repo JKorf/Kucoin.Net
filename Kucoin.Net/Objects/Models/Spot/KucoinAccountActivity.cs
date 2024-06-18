@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Account activity info
     /// </summary>
-    public class KucoinAccountActivity
+    public record KucoinAccountActivity
     {
         /// <summary>
         /// Creation timestamp
@@ -64,7 +64,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Account activity details
     /// </summary>
-    public class KucoinAccountActivityContext
+    public record KucoinAccountActivityContext
     {
         /// <summary>
         /// The id for the order

@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Position change caused by mark price
     /// </summary>
-    public class KucoinPositionMarkPriceUpdate
+    public record KucoinPositionMarkPriceUpdate
     {
         /// <summary>
         /// Mark price

@@ -6,7 +6,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinHfOrderDetails : KucoinOrder
+    public record KucoinHfOrderDetails : KucoinOrder
     {
         /// <summary>
         /// Whether the order is active

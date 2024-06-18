@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinFuturesTick
+    public record KucoinFuturesTick
     {
         /// <summary>
         /// Sequence number

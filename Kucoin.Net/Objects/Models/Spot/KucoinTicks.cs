@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinTicks
+    public record KucoinTicks
     {
         /// <summary>
         /// The timestamp of the data

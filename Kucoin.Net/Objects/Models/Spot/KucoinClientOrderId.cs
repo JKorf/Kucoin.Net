@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Client order id
     /// </summary>
-    public class KucoinClientOrderId
+    public record KucoinClientOrderId
     {
         /// <summary>
         /// The client id of the order

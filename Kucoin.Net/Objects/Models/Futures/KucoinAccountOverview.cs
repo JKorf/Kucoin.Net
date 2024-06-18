@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Futures account overview
     /// </summary>
-    public class KucoinAccountOverview
+    public record KucoinAccountOverview
     {
         /// <summary>
         /// Account equity = marginBalance + Unrealized PNL 

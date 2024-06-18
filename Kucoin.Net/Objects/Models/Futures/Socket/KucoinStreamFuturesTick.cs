@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinStreamFuturesTick
+    public record KucoinStreamFuturesTick
     {
         /// <summary>
         /// Sequence number

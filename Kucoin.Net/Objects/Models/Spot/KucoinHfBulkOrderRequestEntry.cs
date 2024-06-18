@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// The order model to be sent via bulk order endpoint
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class KucoinHfBulkOrderRequestEntry
+    public record KucoinHfBulkOrderRequestEntry
     {
         /// <summary>
         /// The symbol

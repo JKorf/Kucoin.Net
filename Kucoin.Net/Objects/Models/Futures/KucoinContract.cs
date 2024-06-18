@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Contract info
     /// </summary>
-    public class KucoinContract
+    public record KucoinContract
     {
         /// <summary>
         /// Base asset

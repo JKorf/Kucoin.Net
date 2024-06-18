@@ -3,7 +3,7 @@
     /// <summary>
     /// Sub user info
     /// </summary>
-    public class KucoinSubUser
+    public record KucoinSubUser
     {
         /// <summary>
         /// The sub user id

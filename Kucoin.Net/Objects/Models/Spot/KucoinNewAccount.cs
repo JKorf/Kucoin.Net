@@ -3,7 +3,7 @@
     /// <summary>
     /// New account id
     /// </summary>
-    public class KucoinNewAccount
+    public record KucoinNewAccount
     {
         /// <summary>
         /// The id of the new account

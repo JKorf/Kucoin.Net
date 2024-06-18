@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
-    public class KucoinHfOrder
+    public record KucoinHfOrder
     {
         /// <summary>
         /// The id of the order
@@ -76,7 +76,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
-    public class KucoinHfBulkOrderResponse : KucoinHfOrder
+    public record KucoinHfBulkOrderResponse : KucoinHfOrder
     {
         /// <summary>
         /// Successful or not

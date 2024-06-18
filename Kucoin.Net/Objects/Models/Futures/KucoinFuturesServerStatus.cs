@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Service status
     /// </summary>
-    public class KucoinFuturesServiceStatus
+    public record KucoinFuturesServiceStatus
     {
         /// <summary>
         /// Service status

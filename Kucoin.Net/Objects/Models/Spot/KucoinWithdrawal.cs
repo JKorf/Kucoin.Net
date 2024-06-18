@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Withdrawal info
     /// </summary>
-    public class KucoinWithdrawal
+    public record KucoinWithdrawal
     {
         /// <summary>
         /// The id of the withdrawal

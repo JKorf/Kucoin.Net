@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinAllTick
+    public record KucoinAllTick
     {
         /// <summary>
         /// The symbol of the tick

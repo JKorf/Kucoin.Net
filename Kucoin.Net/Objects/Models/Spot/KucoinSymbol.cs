@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Symbol info
     /// </summary>
-    public class KucoinSymbol
+    public record KucoinSymbol
     {
         /// <summary>
         /// The symbol identifier

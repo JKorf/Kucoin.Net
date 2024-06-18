@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models
     /// Page with results
     /// </summary>
     /// <typeparam name="T">Type of the items in the book</typeparam>
-    public class KucoinPaginated<T>
+    public record KucoinPaginated<T>
     {
         /// <summary>
         /// The total number of results

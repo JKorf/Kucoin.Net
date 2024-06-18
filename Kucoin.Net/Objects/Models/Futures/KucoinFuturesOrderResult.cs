@@ -6,7 +6,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Order result
     /// </summary>
-    public class KucoinFuturesOrderResult: KucoinOrderId
+    public record KucoinFuturesOrderResult: KucoinOrderId
     {
         /// <summary>
         /// Client order id

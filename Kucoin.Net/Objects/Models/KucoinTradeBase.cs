@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Trade info
     /// </summary>
-    public class KucoinTradeBase
+    public record KucoinTradeBase
     {
         /// <summary>
         /// The symbol the fill is for

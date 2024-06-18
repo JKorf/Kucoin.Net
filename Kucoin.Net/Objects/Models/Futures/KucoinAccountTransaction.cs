@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Account transaction info
     /// </summary>
-    public class KucoinAccountTransaction
+    public record KucoinAccountTransaction
     {
         /// <summary>
         /// Event time

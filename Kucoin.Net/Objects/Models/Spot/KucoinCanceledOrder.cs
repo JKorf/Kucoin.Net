@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Canceled order
     /// </summary>
-    public class KucoinCanceledOrder
+    public record KucoinCanceledOrder
     {
         /// <summary>
         /// Order id of the canceled order

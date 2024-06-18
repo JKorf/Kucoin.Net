@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Order book change
     /// </summary>
-    public class KucoinFuturesOrderBookChange
+    public record KucoinFuturesOrderBookChange
     {
         /// <summary>
         /// Sequence number

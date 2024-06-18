@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Transfer result
     /// </summary>
-    public class KucoinTransferResult
+    public record KucoinTransferResult
     {
         /// <summary>
         /// Request id

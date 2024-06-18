@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream funding book update
     /// </summary>
-    public class KucoinStreamFundingBookUpdate
+    public record KucoinStreamFundingBookUpdate
     {
         /// <summary>
         /// The asset

@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// Kline info
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinFuturesKline
+    public record KucoinFuturesKline
     {
         /// <summary>
         /// The start time of the kline
