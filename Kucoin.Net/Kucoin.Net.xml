@@ -223,7 +223,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequest">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesMatch}},System.Threading.CancellationToken)">
@@ -796,7 +796,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetAuthenticationRequest">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">

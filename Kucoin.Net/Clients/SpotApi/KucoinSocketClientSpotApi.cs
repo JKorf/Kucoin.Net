@@ -81,7 +81,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest() => null;
+        protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;
 
         /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default) => SubscribeToTickerUpdatesAsync(new[] { symbol }, onData, ct);
