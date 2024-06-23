@@ -41,7 +41,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -90,7 +90,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceTestOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,

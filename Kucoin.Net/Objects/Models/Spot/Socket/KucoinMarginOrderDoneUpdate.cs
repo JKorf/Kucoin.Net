@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Margin order done event
     /// </summary>
-    public class KucoinMarginOrderDoneUpdate
+    public record KucoinMarginOrderDoneUpdate
     {
         /// <summary>
         /// Asset name

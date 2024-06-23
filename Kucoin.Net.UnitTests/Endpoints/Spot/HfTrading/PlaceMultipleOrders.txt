@@ -1,0 +1,4 @@
+POST
+/api/v1/hf/orders/multi
+true
+{"code":"200000","data":[{"success":false,"failMsg":"Trading pair cannot be empty."}]}

@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Debt ratio update
     /// </summary>
-    public class KucoinMarginDebtRatioUpdate
+    public record KucoinMarginDebtRatioUpdate
     {
         /// <summary>
         /// Debt ratio

@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// User trade info
     /// </summary>
-    public class KucoinUserTrade: KucoinTradeBase
+    public record KucoinUserTrade: KucoinTradeBase
     {        
         /// <summary>
         /// The type of the order

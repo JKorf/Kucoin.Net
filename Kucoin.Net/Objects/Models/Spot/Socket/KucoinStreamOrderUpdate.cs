@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
-    /// Base class for a stream update
+    /// Base record for a stream update
     /// </summary>
-    public class KucoinStreamOrderBaseUpdate
+    public record KucoinStreamOrderBaseUpdate
     {
         /// <summary>
         /// The symbol of the update
@@ -73,14 +73,14 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// New order update
     /// </summary>
-    public class KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
+    public record KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
     {
     }
     
     /// <summary>
     /// Order update
     /// </summary>
-    public class KucoinStreamOrderUpdate : KucoinStreamOrderBaseUpdate
+    public record KucoinStreamOrderUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>
         /// The quantity of the order
@@ -118,7 +118,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order update (match)
     /// </summary>
-    public class KucoinStreamOrderMatchUpdate : KucoinStreamOrderUpdate
+    public record KucoinStreamOrderMatchUpdate : KucoinStreamOrderUpdate
     {
         /// <summary>
         /// The trade id

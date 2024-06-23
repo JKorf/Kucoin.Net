@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Risk limit info
     /// </summary>
-    public class KucoinRiskLimitIsolatedMargin
+    public record KucoinRiskLimitIsolatedMargin
     {
         /// <summary>
         /// The Symbol

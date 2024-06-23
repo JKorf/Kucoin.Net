@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Trade info
     /// </summary>
-    public class KucoinFuturesTrade
+    public record KucoinFuturesTrade
     {
         /// <summary>
         /// The sequence number of the trade

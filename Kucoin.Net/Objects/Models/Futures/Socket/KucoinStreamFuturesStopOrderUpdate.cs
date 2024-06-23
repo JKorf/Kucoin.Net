@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Futures stop order update
     /// </summary>
-    public class KucoinStreamFuturesStopOrderUpdate: KucoinStreamStopOrderUpdateBase
+    public record KucoinStreamFuturesStopOrderUpdate: KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
         /// Stop price type

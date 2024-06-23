@@ -6,7 +6,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Index info
     /// </summary>
-    public class KucoinIndex: KucoinIndexBase
+    public record KucoinIndex: KucoinIndexBase
     {
         /// <summary>
         /// Component list
@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Decomposion item
     /// </summary>
-    public class KucoinDecomposionItem
+    public record KucoinDecomposionItem
     {
         /// <summary>
         /// Exchange

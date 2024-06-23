@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Stop order update
     /// </summary>
-    public class KucoinStreamStopOrderUpdateBase
+    public record KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
         /// Order side

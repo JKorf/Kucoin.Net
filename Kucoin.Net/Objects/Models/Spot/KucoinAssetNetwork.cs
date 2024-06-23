@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Network details
     /// </summary>
-    public class KucoinAssetNetwork
+    public record KucoinAssetNetwork
     {
         /// <summary>
         /// Network id

@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinOrderBase
+    public record KucoinOrderBase
     {
         /// <summary>
         /// The id of the order

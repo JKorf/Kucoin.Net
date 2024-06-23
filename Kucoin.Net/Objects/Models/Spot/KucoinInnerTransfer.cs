@@ -3,7 +3,7 @@
     /// <summary>
     /// Sub transfer info
     /// </summary>
-    public class KucoinInnerTransfer
+    public record KucoinInnerTransfer
     {
         /// <summary>
         /// The id of the new sub transfer

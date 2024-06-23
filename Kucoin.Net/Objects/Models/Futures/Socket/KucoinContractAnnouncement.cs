@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Contract announcement
     /// </summary>
-    public class KucoinContractAnnouncement
+    public record KucoinContractAnnouncement
     {
         /// <summary>
         /// Event type

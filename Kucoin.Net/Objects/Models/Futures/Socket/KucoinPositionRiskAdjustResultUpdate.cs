@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Result of updating risk limit level
     /// </summary>
-    public class KucoinPositionRiskAdjustResultUpdate
+    public record KucoinPositionRiskAdjustResultUpdate
     {
         /// <summary>
         /// Successfull or not

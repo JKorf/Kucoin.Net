@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin configuration
     /// </summary>
-    public class KucoinMarginConfig
+    public record KucoinMarginConfig
     {
         /// <summary>
         /// Available assets for margin trade

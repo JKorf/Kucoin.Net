@@ -32,7 +32,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
+        public async Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -80,11 +80,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalEnum("stp", selfTradePrevention);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
-            return await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewOrder>> PlaceTestOrderAsync(
+        public async Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -132,7 +132,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalEnum("stp", selfTradePrevention);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiter.FuturesRest, 2, true);
-            return await _baseClient.SendAsync<KucoinNewOrder>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

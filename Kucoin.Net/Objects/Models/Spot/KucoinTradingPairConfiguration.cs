@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Trading Pair Configuration
     /// </summary>
-    public class KucoinTradingPairConfiguration
+    public record KucoinTradingPairConfiguration
     {
         /// <summary>
         /// The Symbol

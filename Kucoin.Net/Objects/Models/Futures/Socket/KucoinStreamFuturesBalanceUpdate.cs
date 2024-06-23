@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Balance update
     /// </summary>
-    public class KucoinStreamFuturesBalanceUpdate
+    public record KucoinStreamFuturesBalanceUpdate
     {
         /// <summary>
         /// Available balance

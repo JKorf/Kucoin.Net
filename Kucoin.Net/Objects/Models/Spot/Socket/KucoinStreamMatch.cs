@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Match info
     /// </summary>
-    public class KucoinStreamMatch: KucoinStreamMatchBase
+    public record KucoinStreamMatch: KucoinStreamMatchBase
     {
         /// <summary>
         /// The type

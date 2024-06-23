@@ -3,7 +3,7 @@
     /// <summary>
     /// Funding rate info
     /// </summary>
-    public class KucoinFundingRate: KucoinIndexBase
+    public record KucoinFundingRate: KucoinIndexBase
     {
         /// <summary>
         /// Predicted value

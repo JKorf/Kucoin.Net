@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Futures order info
     /// </summary>
-    public class KucoinFuturesOrder: KucoinOrderBase
+    public record KucoinFuturesOrder: KucoinOrderBase
     {
         /// <summary>
         /// Value of the order

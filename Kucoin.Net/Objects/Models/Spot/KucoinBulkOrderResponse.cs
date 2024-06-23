@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The response for bulk order creation
     /// </summary>
-    public class KucoinBulkOrderResponse
+    public record KucoinBulkOrderResponse
     {
         /// <summary>
         /// List of orders
@@ -23,7 +23,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
-    public class KucoinBulkOrderResponseEntry
+    public record KucoinBulkOrderResponseEntry
     {
         /// <summary>
         /// The id of the order

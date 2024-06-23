@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin account info
     /// </summary>
-    public class KucoinCrossMarginAccount
+    public record KucoinCrossMarginAccount
     {
         /// <summary>
         /// Total Assets in Quote Currency
@@ -40,7 +40,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin account asset info
     /// </summary>
-    public class KucoinCrossMarginAccountAsset
+    public record KucoinCrossMarginAccountAsset
     {
         /// <summary>
         /// Asset

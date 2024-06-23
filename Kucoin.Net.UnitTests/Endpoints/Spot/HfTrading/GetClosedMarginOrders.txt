@@ -1,0 +1,42 @@
+GET
+/api/v3/hf/margin/orders/done
+true
+{
+  "code": "200000",
+  "data": {
+    "lastId": 2682265600,
+    "items": [
+      {
+        "id": "63074a5a27ecbe0001e1f3ba",
+        "symbol": "CSP-USDT",
+        "opType": "DEAL",
+        "type": "limit",
+        "side": "sell",
+        "price": "0.1",
+        "size": "0.1",
+        "funds": "0.01",
+        "dealSize": "0",
+        "dealFunds": "0",
+        "fee": "0",
+        "feeCurrency": "USDT",
+        "stp": "",
+        "timeInForce": "GTC",
+        "postOnly": false,
+        "hidden": false,
+        "iceberg": false,
+        "visibleSize": "0",
+        "cancelAfter": 0,
+        "channel": "API",
+        "clientOid": "",
+        "remark": "",
+        "tags": "",
+        "cancelExist": true,
+        "createdAt": 1661422170924,
+        "lastUpdatedAt": 1661422196926,
+        "tradeType": "MARGIN_TRADE",
+        "inOrderBook": false,
+        "active": false
+      }
+    ]
+  }
+}

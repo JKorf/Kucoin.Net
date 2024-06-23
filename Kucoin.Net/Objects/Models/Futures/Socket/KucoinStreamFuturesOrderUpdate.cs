@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Futures order update
     /// </summary>
-    public class KucoinStreamFuturesOrderUpdate
+    public record KucoinStreamFuturesOrderUpdate
     {
         /// <summary>
         /// Order id

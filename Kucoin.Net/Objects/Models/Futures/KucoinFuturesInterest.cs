@@ -3,7 +3,7 @@
     /// <summary>
     /// Interest info
     /// </summary>
-    public class KucoinFuturesInterest: KucoinIndexBase
+    public record KucoinFuturesInterest: KucoinIndexBase
     {
     }
 }

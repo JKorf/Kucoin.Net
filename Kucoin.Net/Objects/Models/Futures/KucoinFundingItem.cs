@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Funding info
     /// </summary>
-    public class KucoinFundingItem
+    public record KucoinFundingItem
     {
         /// <summary>
         /// Id

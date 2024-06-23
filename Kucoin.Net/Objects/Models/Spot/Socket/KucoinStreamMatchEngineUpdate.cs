@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
-    /// Base class for a stream update
+    /// Base record for a stream update
     /// </summary>
-    public class KucoinStreamMatchEngineUpdate
+    public record KucoinStreamMatchEngineUpdate
     {
         /// <summary>
         /// The symbol of the update
@@ -38,7 +38,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order open update
     /// </summary>
-    public class KucoinStreamMatchEngineOpenUpdate : KucoinStreamMatchEngineUpdate
+    public record KucoinStreamMatchEngineOpenUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
         /// Order side
@@ -64,7 +64,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order done update
     /// </summary>
-    public class KucoinStreamMatchEngineDoneUpdate : KucoinStreamMatchEngineUpdate
+    public record KucoinStreamMatchEngineDoneUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
         /// Reason of the done update
@@ -76,7 +76,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order change update
     /// </summary>
-    public class KucoinStreamMatchEngineChangeUpdate : KucoinStreamMatchEngineUpdate
+    public record KucoinStreamMatchEngineChangeUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
         /// New quantity of the order
@@ -88,7 +88,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order match update
     /// </summary>
-    public class KucoinStreamMatchEngineMatchUpdate : KucoinStreamMatchEngineUpdate
+    public record KucoinStreamMatchEngineMatchUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
         /// Price of the match

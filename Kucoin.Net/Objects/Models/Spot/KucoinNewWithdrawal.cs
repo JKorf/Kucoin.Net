@@ -3,7 +3,7 @@
     /// <summary>
     /// New withdrawal id
     /// </summary>
-    public class KucoinNewWithdrawal
+    public record KucoinNewWithdrawal
     {
         /// <summary>
         /// The id of the new withdrawal

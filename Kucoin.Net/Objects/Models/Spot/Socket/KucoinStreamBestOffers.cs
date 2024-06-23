@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Best offer info
     /// </summary>
-    public class KucoinStreamBestOffers
+    public record KucoinStreamBestOffers
     {
         /// <summary>
         /// Data timestamp

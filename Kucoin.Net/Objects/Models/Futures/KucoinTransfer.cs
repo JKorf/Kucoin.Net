@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Transfer info
     /// </summary>
-    public class KucoinTransfer
+    public record KucoinTransfer
     {
         /// <summary>
         /// Apply id

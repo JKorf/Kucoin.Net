@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Historical order info
     /// </summary>
-    public class KucoinHistoricalOrder
+    public record KucoinHistoricalOrder
     {
         /// <summary>
         /// The id of the order

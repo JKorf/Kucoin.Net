@@ -1,0 +1,10 @@
+POST
+/api/v1/hf/orders/dead-cancel-all
+true
+{
+  "code": "200000",
+  "data": {
+    "currentTime": 1682010526,
+    "triggerTime": 1682010531
+  }
+}

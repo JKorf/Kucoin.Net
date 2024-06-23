@@ -6,7 +6,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// 24 hours stats
     /// </summary>
-    public class Kucoin24HourStat
+    public record Kucoin24HourStat
     {
         /// <summary>
         /// The symbol the stat is for

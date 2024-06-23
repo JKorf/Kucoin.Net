@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream snapshot wrapper
     /// </summary>
-    public class KucoinStreamSnapshotWrapper
+    public record KucoinStreamSnapshotWrapper
     {
         /// <summary>
         /// The sequence number of the update
@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream snapshot
     /// </summary>
-    public class KucoinStreamSnapshot
+    public record KucoinStreamSnapshot
     {
         /// <summary>
         /// Whether the symbol is trading

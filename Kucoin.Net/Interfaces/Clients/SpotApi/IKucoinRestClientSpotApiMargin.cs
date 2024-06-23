@@ -66,6 +66,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="quantity">Total size</param>
         /// <param name="isIsolated">If isolated margin</param>
         /// <param name="symbol">Isolated margin symbol</param>
+        /// <param name="isHf">HighFrequency/ProAccount borrowing</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewBorrowOrder>> BorrowAsync(
@@ -74,23 +75,26 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             decimal quantity,
             bool? isIsolated = null,
             string? symbol = null,
+            bool? isHf = null,
            CancellationToken ct = default);
 
         /// <summary>
         /// Repayment for previously borrowed asset
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/repayment" /></para>
         /// </summary>
-        /// <param name="asset"></param>
-        /// <param name="quantity"></param>
-        /// <param name="isIsolated"></param>
-        /// <param name="symbol"></param>
-        /// <param name="ct"></param>
+        /// <param name="asset">Currency to Repay e.g USDT etc</param>
+        /// <param name="quantity">Total size</param>
+        /// <param name="isIsolated">If isolated margin</param>
+        /// <param name="symbol">Isolated margin symbol</param>
+        /// <param name="isHf">HighFrequency/ProAccount repayment</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinNewBorrowOrder>> RepayAsync(
             string asset,
             decimal quantity,
             bool? isIsolated = null,
             string? symbol = null,
+            bool? isHf = null,
             CancellationToken ct = default);
 
         /// <summary>

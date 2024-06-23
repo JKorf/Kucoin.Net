@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Withdrawal quota info
     /// </summary>
-    public class KucoinWithdrawalQuota
+    public record KucoinWithdrawalQuota
     {
         /// <summary>
         /// The asset the quota is for

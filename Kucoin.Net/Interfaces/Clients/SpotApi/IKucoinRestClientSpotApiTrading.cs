@@ -35,7 +35,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -74,7 +74,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceTestOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -197,7 +197,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceOcoOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceOcoOrderAsync(
             string symbol,
             OrderSide side,
             decimal quantity,
@@ -407,7 +407,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="tradeType">Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinNewOrder>> PlaceStopOrderAsync(
+        Task<WebCallResult<KucoinOrderId>> PlaceStopOrderAsync(
             string symbol,
             OrderSide orderSide,
             NewOrderType orderType,
