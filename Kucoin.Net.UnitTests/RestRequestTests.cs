@@ -95,6 +95,8 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Margin.EditSubscriptionOrderAsync("ETH", 1, "123"), "EditSubscriptionOrder");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetRedemptionOrdersAsync("ETH", "123"), "GetRedemptionOrders", ignoreProperties: new List<string> { "redeemAmount", "receiptAmount" });
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetSubscriptionOrdersAsync("ETH", "123"), "GetSubscriptionOrders", ignoreProperties: new List<string> { "purchaseAmount", "lendAmount", "redeemAmount", "incomeAmount" });
+            await tester.ValidateAsync(client => client.SpotApi.Margin.SetLeverageMultiplierAsync(1), "SetLeverageMultiplier");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossMarginSymbolsAsync(), "GetCrossMarginSymbols", "data.items");
         }
 
         [Test]
@@ -257,6 +259,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginOrderAsync("ETHUSDT", "123"), "GetMarginOrder");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginOrderByClientOrderIdAsync("ETHUSDT", "123"), "GetMarginOrderByClientOrderId");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginUserTradesAsync("ETHUSDT", Enums.TradeType.IsolatedMarginTrade), "GetMarginUserTrades", ignoreProperties: new List<string> { "id" });
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginSymbolsWithOpenOrdersAsync(true), "GetMarginSymbolsWithOpenOrders");
         }
 
         private bool IsAuthenticated(WebCallResult result)

@@ -1,0 +1,10 @@
+GET
+/api/v3/hf/margin/order/active/symbols
+true
+{
+    "code": "200000",
+    "data": {
+        "symbolSize": 1,
+        "symbols": ["ADA-USDT"]
+    }
+}

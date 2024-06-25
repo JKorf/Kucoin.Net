@@ -670,5 +670,15 @@ namespace Kucoin.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/hf/margin/fills", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinHfPaginated<KucoinUserTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMarginOpenOrderSymbols>> GetMarginSymbolsWithOpenOrdersAsync(bool isolated, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("tradeType", isolated ? "MARGIN_ISOLATED_TRADE" : "MARGIN_TRADE");
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/hf/margin/order/active/symbols", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinMarginOpenOrderSymbols>(request, parameters, ct).ConfigureAwait(false);
+        }
+
     }
 }

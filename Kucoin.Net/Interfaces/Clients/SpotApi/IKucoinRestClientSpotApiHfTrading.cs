@@ -495,5 +495,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinHfPaginated<KucoinUserTrade>>> GetMarginUserTradesAsync(string symbol, TradeType tradeType, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get symbols with active margin orders
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-active-hf-order-symbols" /></para>
+        /// </summary>
+        /// <param name="isolated">true for isolated margin, false for cross margin</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinMarginOpenOrderSymbols>> GetMarginSymbolsWithOpenOrdersAsync(bool isolated, CancellationToken ct = default);
     }
 }

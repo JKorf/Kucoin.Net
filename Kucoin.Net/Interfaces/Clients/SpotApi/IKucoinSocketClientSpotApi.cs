@@ -198,7 +198,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to funding book updates
+        /// DEPRECATED
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/margin-funding-order-book-change" /></para>
         /// </summary>
         /// <param name="currency">Currencies to subscribe</param>
@@ -208,7 +208,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string currency, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to funding book updates
+        /// DEPRECATED
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/margin-funding-order-book-change" /></para>
         /// </summary>
         /// <param name="currencies">Currencies to subscribe</param>

@@ -637,6 +637,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.GetMarginUserTradesAsync(System.String,Kucoin.Net.Enums.TradeType,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.GetMarginSymbolsWithOpenOrdersAsync(System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin">
             <inheritdoc />
         </member>
@@ -689,6 +692,12 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetSubscriptionOrdersAsync(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.SetLeverageMultiplierAsync(System.Decimal,System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetCrossMarginSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading">
@@ -3892,6 +3901,15 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.GetMarginSymbolsWithOpenOrdersAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get symbols with active margin orders
+            <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-active-hf-order-symbols" /></para>
+            </summary>
+            <param name="isolated">true for isolated margin, false for cross margin</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin">
             <summary>
             Margin borrow and repay endpoints
@@ -4087,6 +4105,26 @@
             <param name="purchaseOrderId">Filter by purchase order id</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.SetLeverageMultiplierAsync(System.Decimal,System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Modify the leverage multiplier for cross margin or isolated margin.
+            <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/modify-leverage-multiplier" /></para>
+            </summary>
+            <param name="leverage">New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage</param>
+            <param name="symbol">Symbol. Leave empty for cross margin, or specify for isolated margin</param>
+            <param name="isolatedMargin">Is isolated margin</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.GetCrossMarginSymbolsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin symbols
+            <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-cross-margin-trading-pairs-configuration" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4655,7 +4693,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToFundingBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamFundingBookUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to funding book updates
+            DEPRECATED
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/margin-funding-order-book-change" /></para>
             </summary>
             <param name="currency">Currencies to subscribe</param>
@@ -4665,7 +4703,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToFundingBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamFundingBookUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to funding book updates
+            DEPRECATED
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/margin-funding-order-book-change" /></para>
             </summary>
             <param name="currencies">Currencies to subscribe</param>
@@ -8216,6 +8254,91 @@
             The user's remaining maximum loan amount
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol">
+            <summary>
+            Cross margin symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.TradingEnabled">
+            <summary>
+            Trading enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.Market">
+            <summary>
+            Market
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.BaseAssetStep">
+            <summary>
+            Base asset step
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.MinOrderQuantity">
+            <summary>
+            Minimal order quantity (base asset)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.QuoteAssetStep">
+            <summary>
+            Quote asset step
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.MinQuoteOrderQuantity">
+            <summary>
+            Minimal order value (quote asset)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.MaxOrderQuantity">
+            <summary>
+            Max order quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.MaxOrderValue">
+            <summary>
+            Max order value (quote asset)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.PriceStep">
+            <summary>
+            Price step
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.PriceLimitRate">
+            <summary>
+            Price protection threshold
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol.MinOrderValue">
+            <summary>
+            Minimum trading amount
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCrossRiskLimitConfig">
             <summary>
             Cross margin risk limit and asset configuration
@@ -9209,6 +9332,21 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginInterest.Timestamp">
             <summary>
             Timesatmp
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMarginOpenOrderSymbols">
+            <summary>
+            Symbols with open orders
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginOpenOrderSymbols.ActiveOrderSymbols">
+            <summary>
+            Number or symbols with active orders
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginOpenOrderSymbols.Symbols">
+            <summary>
+            Symbols with open orders
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinModifiedOrder">
