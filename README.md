@@ -123,6 +123,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.8.1 - 26 Jun 2024
+    * Fixed CancelAfter parameter on SpotApi.HfTrading.PlaceMultipleOrdersAsync endpoint
+    * Removed symbol base parameter from SpotApi.HfTrading.PlaceMultipleOrdersAsync as its not needed
+
 * Version 5.8.0 - 25 Jun 2024
     * Updated CryptoExchange.Net to 7.7.2, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.7.2
     * Added SpotApi.Margin.GetCrossMarginSymbolsAsync endpoint
