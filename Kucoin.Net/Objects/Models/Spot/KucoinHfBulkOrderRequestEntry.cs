@@ -68,11 +68,10 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonProperty("timeInForce")]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
-        /// Time after which the order is canceled
+        /// Timespan in seconds after which the order is canceled
         /// </summary>
-        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("cancelAfter")]
-        public DateTime? CancelAfter { get; set; }
+        public int? CancelAfter { get; set; }
         /// <summary>
         /// Whether the order is post only
         /// </summary>

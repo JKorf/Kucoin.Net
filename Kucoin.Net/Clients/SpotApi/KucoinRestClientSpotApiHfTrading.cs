@@ -194,7 +194,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinBulkMinimalResponseEntry>>> PlaceMultipleOrdersAsync(string symbol, IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinBulkMinimalResponseEntry>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var orderList = orders.ToList();
             if (!orderList.Any())
@@ -206,7 +206,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection
             {
-                { "symbol", symbol },
                 { "orderList", orderList }
             };
 
@@ -223,7 +222,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinHfBulkOrderResponse>>> PlaceMultipleOrdersWaitAsync(string symbol, IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinHfBulkOrderResponse>>> PlaceMultipleOrdersWaitAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var orderList = orders.ToList();
             if (!orderList.Any())
@@ -235,7 +234,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection
             {
-                { "symbol", symbol },
                 { "orderList", orderList }
             };
 

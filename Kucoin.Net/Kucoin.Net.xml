@@ -556,10 +556,10 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersWaitAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersWaitAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
@@ -3593,22 +3593,20 @@
             <param name="ct">Cancellation token</param>
             <returns>The id of the modified order</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
             <summary>
-            Place multiple orders and only wait for confirmation. This is the faster version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersWaitAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)" />
+            Place multiple orders and only wait for confirmation. This is the faster version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersWaitAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-multiple-orders" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
             <param name="orders">Orders to place</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersWaitAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersWaitAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)">
             <summary>
-            Place multiple orders and wait for and return the full order results. This is the slower version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)" />
+            Place multiple orders and wait for and return the full order results. This is the slower version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry},System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-place-multiple-hf-orders" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
             <param name="orders">Orders to place</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -8546,7 +8544,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry.CancelAfter">
             <summary>
-            Time after which the order is canceled
+            Timespan in seconds after which the order is canceled
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderRequestEntry.PostOnly">

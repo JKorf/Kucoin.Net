@@ -154,21 +154,19 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Place multiple orders and only wait for confirmation. This is the faster version of <see cref="PlaceMultipleOrdersWaitAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-multiple-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinBulkMinimalResponseEntry>>> PlaceMultipleOrdersAsync(string symbol, IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinBulkMinimalResponseEntry>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders and wait for and return the full order results. This is the slower version of <see cref="PlaceMultipleOrdersAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-place-multiple-hf-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinHfBulkOrderResponse>>> PlaceMultipleOrdersWaitAsync(string symbol, IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinHfBulkOrderResponse>>> PlaceMultipleOrdersWaitAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order and only wait for confirmation. This is the faster version of <see cref="CancelOrderWaitAsync" />
