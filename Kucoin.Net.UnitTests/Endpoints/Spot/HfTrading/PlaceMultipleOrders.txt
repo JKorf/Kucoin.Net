@@ -1,4 +1,19 @@
 POST
 /api/v1/hf/orders/multi
 true
-{"code":"200000","data":[{"success":false,"failMsg":"Trading pair cannot be empty."}]}
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": [
+    {
+      "orderId": "641d669c9ca34800017a2a3c",
+      "success": true
+    },
+    {
+      "orderId": "641d669c9ca34800017a2a45",
+      "success": true
+    }
+  ]
+}

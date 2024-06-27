@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The id of the order
         /// </summary>
-        [JsonProperty("id")]
+        [JsonProperty("orderId")]
         public string? OrderId { get; set; }
         /// <summary>
         /// The cause of failure
