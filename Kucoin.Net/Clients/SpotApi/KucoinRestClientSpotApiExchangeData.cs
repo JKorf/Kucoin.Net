@@ -20,7 +20,7 @@ using System.Security.Cryptography;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinRestClientSpotApiExchangeData : IKucoinRestClientSpotApiExchangeData
+    internal class KucoinRestClientSpotApiExchangeData : IKucoinRestClientSpotApiExchangeData
     {
         private readonly KucoinRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new();

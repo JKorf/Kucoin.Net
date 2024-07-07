@@ -19,7 +19,7 @@ using System.Security.Cryptography;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class KucoinRestClientFuturesApiTrading : IKucoinRestClientFuturesApiTrading
+    internal class KucoinRestClientFuturesApiTrading : IKucoinRestClientFuturesApiTrading
     {
         private static readonly RequestDefinitionCache _definitions = new();
         private readonly KucoinRestClientFuturesApi _baseClient;

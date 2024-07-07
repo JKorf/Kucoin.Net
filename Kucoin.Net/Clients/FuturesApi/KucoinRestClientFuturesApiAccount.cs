@@ -19,7 +19,7 @@ using Kucoin.Net.Objects.Models.Spot;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class KucoinRestClientFuturesApiAccount : IKucoinRestClientFuturesApiAccount
+    internal class KucoinRestClientFuturesApiAccount : IKucoinRestClientFuturesApiAccount
     {
         private static readonly RequestDefinitionCache _definitions = new();
         private readonly KucoinRestClientFuturesApi _baseClient;

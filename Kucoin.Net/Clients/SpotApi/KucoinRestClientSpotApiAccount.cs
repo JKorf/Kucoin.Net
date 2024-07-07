@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinRestClientSpotApiAccount : IKucoinRestClientSpotApiAccount
+    internal class KucoinRestClientSpotApiAccount : IKucoinRestClientSpotApiAccount
     {
         private static readonly RequestDefinitionCache _definitions = new();
         private readonly KucoinRestClientSpotApi _baseClient;

@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinRestClientSpotApiTrading : IKucoinRestClientSpotApiTrading
+    internal class KucoinRestClientSpotApiTrading : IKucoinRestClientSpotApiTrading
     {
         private readonly KucoinRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new();

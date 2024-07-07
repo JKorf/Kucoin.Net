@@ -30,7 +30,7 @@ using CryptoExchange.Net.Clients;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
-    public class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
+    internal class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
     {
         private readonly KucoinSocketClient _baseClient;
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");

@@ -27,7 +27,7 @@ using CryptoExchange.Net.Clients;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
-    public class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
+    internal class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _typePath = MessagePath.Get().Property("type");

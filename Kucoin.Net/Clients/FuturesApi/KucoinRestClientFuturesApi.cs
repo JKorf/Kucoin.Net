@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
-    public class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
+    internal class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
     {
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;

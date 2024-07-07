@@ -13,7 +13,7 @@ using Kucoin.Net.Objects.Models.Futures;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class KucoinRestClientSpotApiMargin : IKucoinRestClientSpotApiMargin
+    internal class KucoinRestClientSpotApiMargin : IKucoinRestClientSpotApiMargin
     {
         private readonly KucoinRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new();
