@@ -51,7 +51,7 @@ namespace Kucoin.Net
             headers.Add("KC-API-KEY", _credentials.Key!.GetString());
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
             headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(_credentials.PassPhrase.GetString(), SignOutputType.Base64));
-            headers.Add("KC-API-KEY-VERSION", "2");
+            headers.Add("KC-API-KEY-VERSION", "3");
 
             string jsonContent = string.Empty;
             if (parameterPosition == HttpMethodParameterPosition.InBody)
