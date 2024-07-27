@@ -31,6 +31,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinIndexBase>>> GetMarginMarkPricesAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/mark-price/all-symbols", KucoinExchange.RateLimiter.PublicRest, 10);
+            return await _baseClient.SendAsync<IEnumerable<KucoinIndexBase>>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/margin/config", KucoinExchange.RateLimiter.SpotRest, 25);

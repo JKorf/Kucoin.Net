@@ -33,6 +33,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
+        /// Get the mark price for all symbols
+        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-all-margin-trading-pairs-mark-prices" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinIndexBase>>> GetMarginMarkPricesAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get Margin Trading Pair ConfigurationAsync
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/isolated-margin/get-isolated-margin-symbols-configuration" /></para>
         /// </summary>

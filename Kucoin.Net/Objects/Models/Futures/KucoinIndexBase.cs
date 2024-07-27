@@ -16,7 +16,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Granularity in milliseconds
         /// </summary>
-        public int Granularity { get; set; }
+        public int? Granularity { get; set; }
         /// <summary>
         /// Time point
         /// </summary>

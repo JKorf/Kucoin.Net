@@ -646,6 +646,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetMarginMarkPriceAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetMarginMarkPricesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetMarginConfigurationAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3927,6 +3930,14 @@
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
             </summary>
             <param name="symbol">The symbol to retrieve</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.GetMarginMarkPricesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the mark price for all symbols
+            <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-all-margin-trading-pairs-mark-prices" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
