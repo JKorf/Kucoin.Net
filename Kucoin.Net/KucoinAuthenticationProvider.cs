@@ -7,6 +7,7 @@ using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Options;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -17,6 +18,8 @@ namespace Kucoin.Net
 {
     internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinApiCredentials>
     {
+        private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
+
         public KucoinAuthenticationProvider(KucoinApiCredentials credentials): base(credentials)
         {
             if (credentials.CredentialType != ApiCredentialsType.Hmac)
@@ -50,7 +53,14 @@ namespace Kucoin.Net
             uri = uri.SetParameters(uriParameters, arraySerialization);
             headers.Add("KC-API-KEY", _credentials.Key!.GetString());
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
-            headers.Add("KC-API-PASSPHRASE", SignHMACSHA256(_credentials.PassPhrase.GetString(), SignOutputType.Base64));
+            var phrase = _credentials.PassPhrase.GetString();
+            if (!_phraseCache.TryGetValue(phrase, out var phraseSign))
+            {
+                phraseSign = SignHMACSHA256(phrase, SignOutputType.Base64);
+                _phraseCache.TryAdd(phrase, phraseSign);
+            }
+
+            headers.Add("KC-API-PASSPHRASE", phraseSign);
             headers.Add("KC-API-KEY-VERSION", "3");
 
             string jsonContent = string.Empty;
