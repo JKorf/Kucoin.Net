@@ -143,6 +143,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.11.0 - 07 Aug 2024
+    * Updated CryptoExchange.Net to version 7.11.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.11.0
+    * Updated XML code comments
+    * Add caching for passphrase authentication sign
+    * Renamed SpotApi.SubscribeToBestOfferUpdatesAsync to SubscribeToBookTickerUpdatesAsync
+    * Fixed KucoinOrder and KucoinUserTrade model Stop property being nullable Enum
+
 * Version 5.10.0 - 27 Jul 2024
     * Updated CryptoExchange.Net to version 7.10.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.10.0
     * Added SpotApi.Margin.GetMarginMarkPricesAsync endpoint
