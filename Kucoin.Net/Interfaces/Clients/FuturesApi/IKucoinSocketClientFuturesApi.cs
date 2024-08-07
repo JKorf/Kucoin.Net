@@ -21,7 +21,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to trade updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/match-execution-data" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
+        /// <param name="symbol">The symbol to subscribe on, for example `XBTUSDM`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -31,7 +31,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to trade updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/match-execution-data" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe on</param>
+        /// <param name="symbols">The symbols to subscribe on, for example `XBTUSDM`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -41,7 +41,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to ticker updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/get-ticker-v2" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
+        /// <param name="symbol">The symbol to subscribe on, for example `XBTUSDM`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -51,7 +51,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to ticker updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/get-ticker-v2" /></para>
         /// </summary>
-        /// <param name="symbols">The symbol to subscribe on</param>
+        /// <param name="symbols">The symbol to subscribe on, for example `XBTUSDM`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -61,7 +61,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to full order book updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-market-data" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `XBTUSDM`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -71,7 +71,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to full order book updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-market-data" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="symbols">The symbols to subscribe, for example `XBTUSDM`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -82,7 +82,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `XBTUSDM`</param>
         /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -94,7 +94,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="symbols">The symbols to subscribe, for example `XBTUSDM`</param>
         /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -105,7 +105,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to market data updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/contract-market-data" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `XBTUSDM`</param>
         /// <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
         /// <param name="onFundingRateUpdate">Funding price update handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -119,7 +119,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to market data updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/contract-market-data" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="symbols">The symbols to subscribe, for example `XBTUSDM`</param>
         /// <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
         /// <param name="onFundingRateUpdate">Funding price update handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -142,7 +142,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to snapshot updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/transaction-statistics-timer-event" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -152,7 +152,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to snapshot updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/transaction-statistics-timer-event" /></para>
         /// </summary>
-        /// <param name="symbols">Symbol</param>
+        /// <param name="symbols">Symbol, for example `XBTUSDM`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -177,7 +177,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to position updates for a specific symbol
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/position-change-events" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="onPositionUpdate">Handler for position changes</param>
         /// <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
         /// <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
@@ -213,7 +213,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to order updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/trade-orders" /></para>
         /// </summary>
-        /// <param name="symbol">[Optional] Symbol</param>
+        /// <param name="symbol">[Optional] Symbol, for example `XBTUSDM`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>

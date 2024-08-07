@@ -18,7 +18,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places an order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places a test order. Order gets validated but won't be processed
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-order-test" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -98,7 +98,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="side">The side((buy or sell) of the order</param>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="type">The type of the order</param>
         /// <param name="remark">Remark on the order</param>
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -143,7 +143,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="side">The side((buy or sell) of the order</param>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="type">The type of the order</param>
         /// <param name="remark">Remark on the order</param>
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -186,7 +186,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Placec a new OCO order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/place-order" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="side">Order side</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="price">Price</param>
@@ -213,7 +213,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places bulk orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-multiple-orders" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="orders">Up to 5 orders to be placed at the same time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of new orders</returns>
@@ -268,7 +268,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel all open orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/cancel-all-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Only cancel orders for this symbol</param>
+        /// <param name="symbol">Only cancel orders for this symbol, for example `ETH-USDT`</param>
         /// <param name="tradeType">Only cancel orders for this type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of canceled orders</returns>
@@ -303,7 +303,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get OCO orders list
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-list" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderIds">Filter by order ids</param>
         /// <param name="startTime">Filter list by start time</param>
         /// <param name="endTime">Filter list by end time</param>
@@ -362,7 +362,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets a list of fills
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/fills/get-filled-list" /></para>
         /// </summary>
-        /// <param name="symbol">Filter list by symbol</param>
+        /// <param name="symbol">Filter list by symbol, for example `ETH-USDT`</param>
         /// <param name="type">Filter list by order type</param>
         /// <param name="side">Filter list by order side</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -387,7 +387,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Place a new stop order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/place-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="orderSide">The side of the order</param>
         /// <param name="orderType">The type of the order</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -450,7 +450,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel all stop orders fitting the provided parameters
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/cancel-stop-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol to cancel orders on</param>
+        /// <param name="symbol">Symbol to cancel orders on, for example `ETH-USDT`</param>
         /// <param name="orderIds">Order ids of the orders to cancel</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="ct">Cancellation token</param>
@@ -462,7 +462,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/get-stop-orders-list" /></para>
         /// </summary>
         /// <param name="activeOrders">True to return active orders, false for completed orders</param>
-        /// <param name="symbol">Symbol of the orders</param>
+        /// <param name="symbol">Symbol of the orders, for example `ETH-USDT`</param>
         /// <param name="side">Side of the orders</param>
         /// <param name="type">Type of the orders</param>
         /// <param name="tradeType">Trade type</param>

@@ -28,7 +28,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "Ticker");
             await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToAllTickerUpdatesAsync(handler), "Tickers");
             await tester.ValidateAsync<KucoinStreamSnapshot>((client, handler) => client.SpotApi.SubscribeToSnapshotUpdatesAsync("BTC", handler), "Snapshot", "data.data");
-            await tester.ValidateAsync<KucoinStreamBestOffers>((client, handler) => client.SpotApi.SubscribeToBestOfferUpdatesAsync("ETH-USDT", handler), "BestOffers", "data");
+            await tester.ValidateAsync<KucoinStreamBestOffers>((client, handler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETH-USDT", handler), "BestOffers", "data");
             await tester.ValidateAsync<KucoinStreamOrderBook>((client, handler) => client.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync("BTC-USDT", handler), "AggBook", "data");
             await tester.ValidateAsync<KucoinStreamMatch>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("BTC-USDT", handler), "Trades", "data");
             await tester.ValidateAsync<KucoinStreamCandle>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("BTC-USDT", Enums.KlineInterval.EightHours, handler), "Klines", "data");

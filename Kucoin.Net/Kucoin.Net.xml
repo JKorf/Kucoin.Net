@@ -826,10 +826,10 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamSnapshot}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToBestOfferUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
@@ -2293,7 +2293,7 @@
             Gets account overview
             <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-futures" /></para>
             </summary>
-            <param name="asset">Get the accounts for a specific asset</param>
+            <param name="asset">Get the accounts for a specific asset, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>List of accounts</returns>
         </member>
@@ -2302,7 +2302,7 @@
             Get transaction history
             <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-ledgers-futures" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `USDT`</param>
             <param name="type">Filter by type</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -2317,7 +2317,7 @@
             Transfer funds from futures to main account
             <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/transfer-to-main-or-trade-account" /></para>
             </summary>
-            <param name="asset">Asset to transfer</param>
+            <param name="asset">Asset to transfer, for example `USDT`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="receiveAccountType">Receiving account type</param>
             <param name="ct">Cancellation token</param>
@@ -2328,7 +2328,7 @@
             Transfer funds from main or trade account to futures
             <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/transfer-to-futures-account" /></para>
             </summary>
-            <param name="asset">Asset to transfer</param>
+            <param name="asset">Asset to transfer, for example `USDT`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="payAccountType">Account to move funds from</param>
             <param name="ct">Cancellation token</param>
@@ -2339,7 +2339,7 @@
             Get transfer to main account history
             <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/get-futures-transfer-out-request-records" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="status">Filter by status</param>
@@ -2353,7 +2353,7 @@
             Get the total value of active orders
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-active-order-value-calculation" /></para>
             </summary>        
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2362,7 +2362,7 @@
             Get details on a position
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-position-details" /></para>
             </summary>
-            <param name="symbol">Contract symbol</param>
+            <param name="symbol">Contract symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns>Position info</returns>
         </member>
@@ -2371,7 +2371,7 @@
             Get list of positions
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-position-list" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>Position info</returns>
         </member>
@@ -2380,7 +2380,7 @@
             Get position closure history
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-positions-history" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results</param>
@@ -2393,7 +2393,7 @@
             Enable/disable auto deposit margin
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-auto-deposit-margin-status" /></para>
             </summary>
-            <param name="symbol">Symbol to change for</param>
+            <param name="symbol">Symbol to change for, for example `XBTUSDM`</param>
             <param name="enabled">Enable or disable</param>
             <param name="ct">Cancellation token</param>
             <returns>Position info</returns>
@@ -2403,7 +2403,7 @@
             Manually add margin to a position
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/add-margin-manually" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="quantity">Quantity to add</param>
             <param name="clientId">A unique ID generated by the user, to ensure the operation is processed by the system only once</param>
             <param name="ct">Cancellation token</param>
@@ -2414,7 +2414,7 @@
             Manually remove margin from a position
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/remove-margin-manually" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="quantity">Quantity to remove</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2424,7 +2424,7 @@
             Get funding history
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/funding-fees/get-private-funding-history" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="offset">Result offset</param>
@@ -2438,7 +2438,7 @@
             Get risk limit level
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/risk-limit/get-futures-risk-limit-level" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2447,7 +2447,7 @@
             Set risk limit level
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/risk-limit/modify-risk-limit-level" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="level">Risk limit level</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2457,7 +2457,7 @@
             Get the maximum amount of margin that the current position supports withdrawal.
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-max-withdraw-margin" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2466,7 +2466,7 @@
             Get trading fee for a symbol
             <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/trading-pair-actual-fee-futures" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2488,7 +2488,7 @@
             Get a contract
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-symbol-detail" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2497,7 +2497,7 @@
             Get the ticker for a contract
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-ticker" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2506,7 +2506,7 @@
             Get the full order book, aggregated by price
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-full-order-book-level-2" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2515,7 +2515,7 @@
             Get the partial order book, aggregated by price
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-part-order-book-level-2" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="depth">Amount of rows in the book, either 20 or 100</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2525,7 +2525,7 @@
             Get interest rate list
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-interest-rate-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="offset">Result offset</param>
@@ -2539,7 +2539,7 @@
             Get index list
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-index-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="offset">Result offset</param>
@@ -2553,7 +2553,7 @@
             Get the current mark price
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-current-mark-price" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2562,7 +2562,7 @@
             Get premium index
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-premium-index" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="offset">Result offset</param>
@@ -2576,7 +2576,7 @@
             Get the current funding rate
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/funding-fees/get-current-funding-rate" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2585,7 +2585,7 @@
             Get the most recent trades
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-transaction-history" /></para>
             </summary>
-            <param name="symbol">Symbol of the contract</param>
+            <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2610,7 +2610,7 @@
             Get kline data
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-klines" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="interval">Interval of the klines</param>
             <param name="startTime">Start time to retrieve klines from</param>
             <param name="endTime">End time to retrieve klines for</param>
@@ -2630,7 +2630,7 @@
             Get funding rate history for a symbol
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/funding-fees/get-public-funding-history" /></para>
             </summary>
-            <param name="symbol">Symbol name</param>
+            <param name="symbol">Symbol name, for example `XBTUSDM`</param>
             <param name="startTime">Start time</param>
             <param name="endTime">End time</param>
             <param name="ct">Cancellation token</param>
@@ -2646,7 +2646,7 @@
             Place a new order
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-order" /></para>
             </summary>
-            <param name="symbol">The contract for the order</param>
+            <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
             <param name="side">Side of the order</param>
             <param name="type">Type of order</param>
             <param name="leverage">Leverage of the order</param>
@@ -2674,7 +2674,7 @@
             Place a test order. The order will not be executed or added to the order book, but can be used to verify the request parameters
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-order-test" /></para>
             </summary>
-            <param name="symbol">The contract for the order</param>
+            <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
             <param name="side">Side of the order</param>
             <param name="type">Type of order</param>
             <param name="leverage">Leverage of the order</param>
@@ -2720,7 +2720,7 @@
             Cancel an order by client order id
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-order-by-clientoid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="clientOrderId">Client order id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2730,7 +2730,7 @@
             Cancel all open orders
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-multiple-futures-limit-orders" /></para>
             </summary>
-            <param name="symbol">Cancel only orders for this symbol</param>
+            <param name="symbol">Cancel only orders for this symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns>Canceled ids</returns>
         </member>
@@ -2748,7 +2748,7 @@
             Get list of orders
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-order-list" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
             <param name="status">Filter by status</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
@@ -2764,7 +2764,7 @@
             Get list of untriggered stop orders
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-untriggered-stop-order-list" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="startTime">Filter by start time</param>
@@ -2779,7 +2779,7 @@
             Get list of 1000 most recent orders in the last 24 hours
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-list-of-orders-completed-in-24h" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
             <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
@@ -2806,7 +2806,7 @@
             Get list of user trades
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-filled-list" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
             <param name="orderId">Filter by order id</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
@@ -2835,7 +2835,7 @@
             Subscribe to trade updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/match-execution-data" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on, for example `XBTUSDM`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2845,7 +2845,7 @@
             Subscribe to trade updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/match-execution-data" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on, for example `XBTUSDM`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2855,7 +2855,7 @@
             Subscribe to ticker updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/get-ticker-v2" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on, for example `XBTUSDM`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2865,7 +2865,7 @@
             Subscribe to ticker updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/get-ticker-v2" /></para>
             </summary>
-            <param name="symbols">The symbol to subscribe on</param>
+            <param name="symbols">The symbol to subscribe on, for example `XBTUSDM`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2875,7 +2875,7 @@
             Subscribe to full order book updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-market-data" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `XBTUSDM`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2885,7 +2885,7 @@
             Subscribe to full order book updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-market-data" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe</param>
+            <param name="symbols">The symbols to subscribe, for example `XBTUSDM`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2896,7 +2896,7 @@
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `XBTUSDM`</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2908,7 +2908,7 @@
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe</param>
+            <param name="symbols">The symbols to subscribe, for example `XBTUSDM`</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2919,7 +2919,7 @@
             Subscribe to market data updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/contract-market-data" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `XBTUSDM`</param>
             <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
             <param name="onFundingRateUpdate">Funding price update handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2930,7 +2930,7 @@
             Subscribe to market data updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/contract-market-data" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe</param>
+            <param name="symbols">The symbols to subscribe, for example `XBTUSDM`</param>
             <param name="onMarkIndexPriceUpdate">Mark/Index price update handler</param>
             <param name="onFundingRateUpdate">Funding price update handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2950,7 +2950,7 @@
             Subscribe to snapshot updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/transaction-statistics-timer-event" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2960,7 +2960,7 @@
             Subscribe to snapshot updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/transaction-statistics-timer-event" /></para>
             </summary>
-            <param name="symbols">Symbol</param>
+            <param name="symbols">Symbol, for example `XBTUSDM`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -2981,7 +2981,7 @@
             Subscribe to position updates for a specific symbol
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/position-change-events" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `XBTUSDM`</param>
             <param name="onPositionUpdate">Handler for position changes</param>
             <param name="onMarkPriceUpdate">Handler for update when position change due to mark price changes</param>
             <param name="onFundingSettlementUpdate">Handler for funding settlement updates</param>
@@ -3006,7 +3006,7 @@
             Subscribe to order updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/trade-orders" /></para>
             </summary>
-            <param name="symbol">[Optional] Symbol</param>
+            <param name="symbol">[Optional] Symbol, for example `XBTUSDM`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -3124,7 +3124,7 @@
             Gets a list of accounts
             <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-list-spot-margin-trade_hf" /></para>
             </summary>
-            <param name="asset">Get the accounts for a specific asset</param>
+            <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
             <param name="accountType">Filter on type of account</param>
             <param name="ct">Cancellation token</param>
             <returns>List of accounts</returns>
@@ -3152,7 +3152,7 @@
             Get the trading fees for symbols
             <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/trading-pair-actual-fee-spot-margin-trade_hf" /></para>
             </summary>
-            <param name="symbol">The symbol to retrieve fees for</param>
+            <param name="symbol">The symbol to retrieve fees for, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3161,7 +3161,7 @@
             Get the trading fees for symbols
             <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/trading-pair-actual-fee-spot-margin-trade_hf" /></para>
             </summary>
-            <param name="symbols">The symbols to retrieve fees for</param>
+            <param name="symbols">The symbols to retrieve fees for, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3170,7 +3170,7 @@
             Gets a list of account activity
             <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-ledgers-spot-margin" /></para>
             </summary>
-            <param name="asset">The asset to retrieve activity or null</param>
+            <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
             <param name="startTime">Filter by start time</param>
             <param name="direction">Side</param>
             <param name="bizType">Business type</param>
@@ -3185,9 +3185,9 @@
             Gets a transferable balance of a specified account.
             <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/get-the-transferable" /></para>
             </summary>
-            <param name="asset">Get the accounts for a specific asset</param>
+            <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
             <param name="accountType">Filter on type of account</param>
-            <param name="isolatedMarginSymbol">Filter by isolated margin symbol</param>
+            <param name="isolatedMarginSymbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>Info on transferable account balance</returns>
         </member>
@@ -3200,7 +3200,7 @@
             <param name="fromAccountType">From account type</param>
             <param name="toAccountType">To account type</param>
             <param name="transferType">Transfer type</param>
-            <param name="asset">Asset to transfer</param>
+            <param name="asset">Asset to transfer, for example `ETH`</param>
             <param name="fromUserId">Transfer out UserId， This is required when transferring sub-account to master-account. It is optional for internal transfers.</param>
             <param name="fromAccountTag">Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
             <param name="toUserId">Transfer in UserId， This is required when transferring master-account to sub-account. It is optional for internal transfers.</param>
@@ -3214,7 +3214,7 @@
             Transfers assets between the accounts of a user.
             <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/inner-transfer" /></para>
             </summary>
-            <param name="asset">Get the accounts for a specific asset</param>
+            <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
             <param name="from">The type of the account</param>
             <param name="to">The type of the account</param>
             <param name="quantity">The quantity to transfer</param>
@@ -3229,7 +3229,7 @@
             Gets a list of deposits
             <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-list" /></para>
             </summary>
-            <param name="asset">Filter list by asset</param>
+            <param name="asset">Filter list by asset, for example `ETH`</param>
             <param name="startTime">Filter list by start time</param>
             <param name="endTime">Filter list by end time</param>
             <param name="status">Filter list by deposit status</param>
@@ -3243,7 +3243,7 @@
             Gets a list of historical deposits
             <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-v1-historical-deposits-list" /></para>
             </summary>
-            <param name="asset">Filter list by asset</param>
+            <param name="asset">Filter list by asset, for example `ETH`</param>
             <param name="startTime">Filter list by start time</param>
             <param name="endTime">Filter list by end time</param>
             <param name="status">Filter list by deposit status</param>
@@ -3257,7 +3257,7 @@
             Gets the deposit address for an asset
             <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-address" /></para>
             </summary>
-            <param name="asset">The asset to get the address for</param>
+            <param name="asset">The asset to get the address for, for example `ETH`</param>
             <param name="network">The network to get the address for</param>
             <param name="ct">Cancellation token</param>
             <returns>The deposit address for the asset</returns>
@@ -3267,7 +3267,7 @@
             Gets the deposit addresses for an asset
             <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-addresses-v2-" /></para>
             </summary>
-            <param name="asset">The asset to get the address for</param>
+            <param name="asset">The asset to get the address for, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
             <returns>The deposit address for the asset</returns>
         </member>
@@ -3276,7 +3276,7 @@
             Creates a new deposit address for an asset
             <para><a href="https://www.kucoin.com/docs/rest/funding/deposit/create-deposit-address" /></para>
             </summary>
-            <param name="asset">The asset create the address for</param>
+            <param name="asset">The asset create the address for, for example `ETH`</param>
             <param name="network">The network to create the address for</param>
             <param name="ct">Cancellation token</param>
             <returns>The address that was created</returns>
@@ -3286,7 +3286,7 @@
             Gets a list of withdrawals
             <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawals-list" /></para>
             </summary>
-            <param name="asset">Filter list by asset</param>
+            <param name="asset">Filter list by asset, for example `ETH`</param>
             <param name="startTime">Filter list by start time</param>
             <param name="endTime">Filter list by end time</param>
             <param name="status">Filter list by deposit status</param>
@@ -3300,7 +3300,7 @@
             Gets a list of historical withdrawals
             <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-v1-historical-withdrawals-list" /></para>
             </summary>
-            <param name="asset">Filter list by asset</param>
+            <param name="asset">Filter list by asset, for example `ETH`</param>
             <param name="startTime">Filter list by start time</param>
             <param name="endTime">Filter list by end time</param>
             <param name="status">Filter list by deposit status</param>
@@ -3314,7 +3314,7 @@
             Get the withdrawal quota for a asset
             <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawal-quotas" /></para>
             </summary>
-            <param name="asset">The asset to get the quota for</param>
+            <param name="asset">The asset to get the quota for, for example `ETH`</param>
             <param name="network">The network name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
@@ -3324,7 +3324,7 @@
             Withdraw an asset to an address
             <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/apply-withdraw" /></para>
             </summary>
-            <param name="asset">The asset to withdraw</param>
+            <param name="asset">The asset to withdraw, for example `ETH`</param>
             <param name="toAddress">The address to withdraw to</param>
             <param name="quantity">The quantity to withdraw</param>
             <param name="memo">The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
@@ -3357,7 +3357,7 @@
             Get cross margin account info
             <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-cross-margin" /></para>
             </summary>
-            <param name="quoteAsset">Filter by quote asset</param>
+            <param name="quoteAsset">Filter by quote asset, for example `BTC`</param>
             <param name="ct"></param>
             <returns></returns>
         </member>
@@ -3374,7 +3374,7 @@
             Get isolated margin account info
             <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-isolated-margin" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3405,7 +3405,7 @@
             Gets ticker info of a symbol
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-ticker" /></para>
             </summary>
-            <param name="symbol">The symbol to get info for</param>
+            <param name="symbol">The symbol to get info for, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>Ticker info</returns>
         </member>
@@ -3422,7 +3422,7 @@
             Gets the 24 hour stats of a symbol
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-24hr-stats" /></para>
             </summary>
-            <param name="symbol">The symbol to get stats for</param>
+            <param name="symbol">The symbol to get stats for, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>24 hour stats</returns>
         </member>
@@ -3439,7 +3439,7 @@
             Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-part-order-book-aggregated-" /></para>
             </summary>
-            <param name="symbol">The symbol to get order book for</param>
+            <param name="symbol">The symbol to get order book for, for example `ETH-USDT`</param>
             <param name="limit">The limit of results (20 / 100)</param>
             <param name="ct">Cancellation token</param>
             <returns>Partial aggregated order book</returns>
@@ -3449,7 +3449,7 @@
             Get a full aggregated order book for a symbol. Orders for the same price are combined.
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-" /></para>
             </summary>
-            <param name="symbol">The symbol to get order book for</param>
+            <param name="symbol">The symbol to get order book for, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>Full aggregated order book</returns>
         </member>
@@ -3458,7 +3458,7 @@
             Gets the recent trade history for a symbol
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-trade-histories" /></para>
             </summary>
-            <param name="symbol">The symbol to get trade history for</param>
+            <param name="symbol">The symbol to get trade history for, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns>List of trades for the symbol</returns>
         </member>
@@ -3467,7 +3467,7 @@
             Get kline data for a symbol
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-klines" /></para>
             </summary>
-            <param name="symbol">The symbol to get klines for</param>
+            <param name="symbol">The symbol to get klines for, for example `ETH-USDT`</param>
             <param name="interval">The interval of a kline</param>
             <param name="startTime">The start time of the data</param>
             <param name="endTime">The end time of the data</param>
@@ -3487,7 +3487,7 @@
             Get info on a specific asset
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-currency-detail" /></para>
             </summary>
-            <param name="asset">The asset to get</param>
+            <param name="asset">The asset to get, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
             <returns>Asset info</returns>
         </member>
@@ -3497,7 +3497,7 @@
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-fiat-price" /></para>
             </summary>
             <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
-            <param name="assets">The assets to get price for. Defaults to all</param>
+            <param name="assets">The assets to get price for. Defaults to all, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
             <returns>List of prices</returns>
         </member>
@@ -3519,7 +3519,7 @@
             Places an order and returns once the order is confirmed. This is the faster version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceOrderWaitAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-hf-order" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -3542,7 +3542,7 @@
             Places an order and wait for and return the full order result. This is the slower version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.TimeSpan},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-place-hf-order" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -3565,7 +3565,7 @@
             Place a new test order. Only validates the parameters, but doesn't actually process the order
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-hf-order-test" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -3588,7 +3588,7 @@
             Modify an order
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/modify-hf-order" /></para>
             </summary>
-            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="orderId">The id of the order to modify</param>
             <param name="clientOrderId">The client id of the order to modify</param>
             <param name="newQuantity">New order quantity</param>
@@ -3619,7 +3619,7 @@
             Cancel an order and only wait for confirmation. This is the faster version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.CancelOrderWaitAsync(System.String,System.String,System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-hf-order-by-orderid" /></para>
             </summary>
-            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="orderId">The id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
@@ -3629,7 +3629,7 @@
             Cancel an order and wait for and return the full order results. This is the slower version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-orderid" /></para>
             </summary>
-            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="orderId">The id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns>List of cancelled orders</returns>
@@ -3639,7 +3639,7 @@
             Cancel an order by clientOrderId and only wait for confirmation. This is the faster version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.CancelOrderWaitAsync(System.String,System.String,System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-hf-order-by-clientoid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3649,7 +3649,7 @@
             Cancel an order by clientOrderId and wait for and return the full order results. This is the slower version of <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.CancelOrderByClientOrderIdAsync(System.String,System.String,System.Threading.CancellationToken)" />
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-clientoid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3659,7 +3659,7 @@
             Get info on a specific order
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-order-details-by-orderid" /></para>
             </summary>
-            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="orderId">The id of the order</param>
             <param name="ct">Cancellation token</param>
             <returns>Order info</returns>
@@ -3669,7 +3669,7 @@
             Get info on a specific order by clientOrderId
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-order-details-by-clientoid" /></para>
             </summary>
-            <param name="symbol">Trading pair, such as ETH-BTC</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="clientOrderId">The clientOrderId of the order</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3679,7 +3679,7 @@
             Cancel all orders on a symbol
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-all-hf-orders-by-symbol" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3696,7 +3696,7 @@
             Get list open orders
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-active-hf-orders-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3713,7 +3713,7 @@
             Get list of closed orders
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-completed-order-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="startTime">Filter by start time</param>
@@ -3728,7 +3728,7 @@
             Get list of user trades
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-completed-order-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="startTime">Filter by start time</param>
@@ -3746,7 +3746,7 @@
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/auto-cancel-hf-order-setting" /></para>
             </summary>
             <param name="cancelAfter">Cancel after this period</param>
-            <param name="symbols">Symbols to cancel orders on</param>
+            <param name="symbols">Symbols to cancel orders on, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3765,7 +3765,7 @@
             </summary>
             <param name="clientOrderId">Client order id</param>
             <param name="side">The side((buy or sell) of the order</param>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="type">The type of the order</param>
             <param name="remark">Remark on the order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -3791,7 +3791,7 @@
             </summary>
             <param name="clientOrderId">Client order id</param>
             <param name="side">The side((buy or sell) of the order</param>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="type">The type of the order</param>
             <param name="remark">Remark on the order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -3815,7 +3815,7 @@
             Cancel a margin order
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/cancel-hf-order-by-orderid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3825,7 +3825,7 @@
             Cancel a margin order by clientOrderId
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/cancel-hf-order-by-clientoid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3835,7 +3835,7 @@
             Cancel all margin orders on a symbol
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/cancel-all-hf-orders-by-symbol" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3844,7 +3844,7 @@
             Get open margin orders
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-active-hf-orders-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="type">Trade type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3854,7 +3854,7 @@
             Get closed margin orders
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-filled-list" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="tradeType">Filter by trade type</param>
@@ -3870,7 +3870,7 @@
             Get a margin order by order id
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-order-details-by-orderid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3880,7 +3880,7 @@
             Get a margin order by clientOrderId
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-order-details-by-clientoid" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3890,7 +3890,7 @@
             Get list of margin trades
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-transaction-records" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="startTime">Filter by start time</param>
@@ -3929,7 +3929,7 @@
             Get the mark price of a symbol
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
             </summary>
-            <param name="symbol">The symbol to retrieve</param>
+            <param name="symbol">The symbol to retrieve, for example `USDT-BTC`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3962,7 +3962,7 @@
             Get isolated margin risk limit and asset configuration info
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param> 
             <returns></returns>
         </member>
@@ -4000,7 +4000,7 @@
             </summary>
             <param name="asset">Asset</param>
             <param name="isIsolated">Filter by is isolated margin</param>
-            <param name="symbol">Filter by isolated margin symbol</param>
+            <param name="symbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
             <param name="orderId">Filter by borrow order number</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -4016,7 +4016,7 @@
             </summary>
             <param name="asset">Asset</param>
             <param name="isIsolated">Filter by is isolated margin</param>
-            <param name="symbol">Filter by isolated margin symbol</param>
+            <param name="symbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
             <param name="orderId">Filter by repay order number</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -4032,7 +4032,7 @@
             </summary>
             <param name="asset">Asset</param>
             <param name="isIsolated">Filter by is isolated margin</param>
-            <param name="symbol">Filter by isolated margin symbol</param>
+            <param name="symbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="page">The page to retrieve</param>
@@ -4123,7 +4123,7 @@
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/modify-leverage-multiplier" /></para>
             </summary>
             <param name="leverage">New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage</param>
-            <param name="symbol">Symbol. Leave empty for cross margin, or specify for isolated margin</param>
+            <param name="symbol">Symbol. Leave empty for cross margin, or specify for isolated margin, for example `ETH-USDT`</param>
             <param name="isolatedMargin">Is isolated margin</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4133,7 +4133,7 @@
             Get cross margin symbols
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-cross-margin-trading-pairs-configuration" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4147,7 +4147,7 @@
             Places an order
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-order" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -4170,7 +4170,7 @@
             Places a test order. Order gets validated but won't be processed
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-order-test" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -4195,7 +4195,7 @@
             </summary>
             <param name="clientOrderId">Client order id</param>
             <param name="side">The side((buy or sell) of the order</param>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="type">The type of the order</param>
             <param name="remark">Remark on the order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -4221,7 +4221,7 @@
             </summary>
             <param name="clientOrderId">Client order id</param>
             <param name="side">The side((buy or sell) of the order</param>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="type">The type of the order</param>
             <param name="remark">Remark on the order</param>
             <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -4245,7 +4245,7 @@
             Placec a new OCO order
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/place-order" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
             <param name="side">Order side</param>
             <param name="quantity">Quantity</param>
             <param name="price">Price</param>
@@ -4262,7 +4262,7 @@
             Places bulk orders
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-multiple-orders" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="orders">Up to 5 orders to be placed at the same time</param>
             <param name="ct">Cancellation token</param>
             <returns>List of new orders</returns>
@@ -4317,7 +4317,7 @@
             Cancel all open orders
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/cancel-all-orders" /></para>
             </summary>
-            <param name="symbol">Only cancel orders for this symbol</param>
+            <param name="symbol">Only cancel orders for this symbol, for example `ETH-USDT`</param>
             <param name="tradeType">Only cancel orders for this type</param>
             <param name="ct">Cancellation token</param>
             <returns>List of canceled orders</returns>
@@ -4352,7 +4352,7 @@
             Get OCO orders list
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-list" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
             <param name="orderIds">Filter by order ids</param>
             <param name="startTime">Filter list by start time</param>
             <param name="endTime">Filter list by end time</param>
@@ -4411,7 +4411,7 @@
             Gets a list of fills
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/fills/get-filled-list" /></para>
             </summary>
-            <param name="symbol">Filter list by symbol</param>
+            <param name="symbol">Filter list by symbol, for example `ETH-USDT`</param>
             <param name="type">Filter list by order type</param>
             <param name="side">Filter list by order side</param>
             <param name="startTime">Filter list by start time</param>
@@ -4436,7 +4436,7 @@
             Place a new stop order
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/place-order" /></para>
             </summary>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
             <param name="orderSide">The side of the order</param>
             <param name="orderType">The type of the order</param>
             <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -4480,7 +4480,7 @@
             Cancel all stop orders fitting the provided parameters
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/cancel-stop-orders" /></para>
             </summary>
-            <param name="symbol">Symbol to cancel orders on</param>
+            <param name="symbol">Symbol to cancel orders on, for example `ETH-USDT`</param>
             <param name="orderIds">Order ids of the orders to cancel</param>
             <param name="tradeType">Trade type</param>
             <param name="ct">Cancellation token</param>
@@ -4492,7 +4492,7 @@
             <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/get-stop-orders-list" /></para>
             </summary>
             <param name="activeOrders">True to return active orders, false for completed orders</param>
-            <param name="symbol">Symbol of the orders</param>
+            <param name="symbol">Symbol of the orders, for example `ETH-USDT`</param>
             <param name="side">Side of the orders</param>
             <param name="type">Type of the orders</param>
             <param name="tradeType">Trade type</param>
@@ -4532,7 +4532,7 @@
             Subscribe to updates for a symbol ticker
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/ticker" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4542,7 +4542,7 @@
             Subscribe to updates for a symbol ticker
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/ticker" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe to</param>
+            <param name="symbols">The symbols to subscribe to, for example `ETH-USDT`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4581,7 +4581,7 @@
             Subscribe to aggregated order book updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-market-data" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on, for example `ETH-USDT`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4591,7 +4591,7 @@
             Subscribe to aggregated order book updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-market-data" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on, for example `ETH-USDT`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4601,7 +4601,7 @@
             Subscribe to trade updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/match-execution-data" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe on</param>
+            <param name="symbol">The symbol to subscribe on, for example `ETH-USDT`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4611,7 +4611,7 @@
             Subscribe to trade updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/match-execution-data" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe on</param>
+            <param name="symbols">The symbols to subscribe on, for example `ETH-USDT`</param>
             <param name="onData">The data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4621,30 +4621,30 @@
             Subscribe to kline updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/klines" /></para>
             </summary>
-            <param name="symbol">Symbol to subscribe</param>
+            <param name="symbol">Symbol to subscribe, for example `ETH-USDT`</param>
             <param name="interval">Interval of the klines</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
             <summary>
-            
+            Subscribe to book ticker (best ask/bid) updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level1-bbo-market-data" /></para>
             </summary>
-            <param name="symbol"></param>
-            <param name="onData"></param>
-            <param name="ct"></param>
+            <param name="symbol">Symbol to subscribe, for example `ETH-USDT`</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToBestOfferUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamBestOffers}},System.Threading.CancellationToken)">
             <summary>
-            
+            Subscribe to book ticker (best ask/bid) updates
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level1-bbo-market-data" /></para>
             </summary>
-            <param name="symbols"></param>
-            <param name="onData"></param>
-            <param name="ct"></param>
+            <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBookChanged}},System.Threading.CancellationToken)">
@@ -4653,7 +4653,7 @@
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `ETH-USDT`</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4665,7 +4665,7 @@
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
             <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe</param>
+            <param name="symbols">The symbols to subscribe, for example `ETH-USDT`</param>
             <param name="limit">The amount of levels to receive, either 5 or 50</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4725,7 +4725,7 @@
             Subscribe to index price updates
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/index-price" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `USDT-BTC`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4735,7 +4735,7 @@
             Subscribe to index price updates
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/index-price" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe</param>
+            <param name="symbols">The symbols to subscribe, for example `USDT-BTC`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -4745,7 +4745,7 @@
             Subscribe to mark price updates
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/mark-price" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `USDT-BTC`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
@@ -4755,7 +4755,7 @@
             Subscribe to mark price updates
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/mark-price" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe</param>
+            <param name="symbols">The symbols to subscribe, for example `USDT-BTC`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
@@ -4775,7 +4775,7 @@
             Subscribe to margin order updates for an asset
             <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/margin-trade-order-event" /></para>
             </summary>
-            <param name="symbol">Asset</param>
+            <param name="symbol">Asset, for example `ETH-USDT`</param>
             <param name="onOrderPlaced">Data handler for order placement updates</param>
             <param name="onOrderUpdate">Data handler for order updates</param>
             <param name="onOrderDone">Data handler for order done updates</param>

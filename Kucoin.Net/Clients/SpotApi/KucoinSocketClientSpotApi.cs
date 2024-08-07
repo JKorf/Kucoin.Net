@@ -116,10 +116,10 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default) => SubscribeToBestOfferUpdatesAsync(new[] { symbol }, onData, ct);
+        public Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default) => SubscribeToBookTickerUpdatesAsync(new[] { symbol }, onData, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default)
         {
             symbols.ValidateNotNull(nameof(symbols));
 

@@ -27,7 +27,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get the mark price of a symbol
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to retrieve</param>
+        /// <param name="symbol">The symbol to retrieve, for example `USDT-BTC`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
@@ -60,7 +60,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get isolated margin risk limit and asset configuration info
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
@@ -111,7 +111,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="isIsolated">Filter by is isolated margin</param>
-        /// <param name="symbol">Filter by isolated margin symbol</param>
+        /// <param name="symbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Filter by borrow order number</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -127,7 +127,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="isIsolated">Filter by is isolated margin</param>
-        /// <param name="symbol">Filter by isolated margin symbol</param>
+        /// <param name="symbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Filter by repay order number</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -143,7 +143,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="isIsolated">Filter by is isolated margin</param>
-        /// <param name="symbol">Filter by isolated margin symbol</param>
+        /// <param name="symbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="page">The page to retrieve</param>
@@ -234,7 +234,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/modify-leverage-multiplier" /></para>
         /// </summary>
         /// <param name="leverage">New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage</param>
-        /// <param name="symbol">Symbol. Leave empty for cross margin, or specify for isolated margin</param>
+        /// <param name="symbol">Symbol. Leave empty for cross margin, or specify for isolated margin, for example `ETH-USDT`</param>
         /// <param name="isolatedMargin">Is isolated margin</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -244,7 +244,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get cross margin symbols
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-cross-margin-trading-pairs-configuration" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinCrossMarginSymbol>>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);

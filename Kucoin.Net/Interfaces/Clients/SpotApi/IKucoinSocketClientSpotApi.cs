@@ -21,7 +21,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to updates for a symbol ticker
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/ticker" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -31,7 +31,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to updates for a symbol ticker
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/ticker" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe to</param>
+        /// <param name="symbols">The symbols to subscribe to, for example `ETH-USDT`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -72,7 +72,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to aggregated order book updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-market-data" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
+        /// <param name="symbol">The symbol to subscribe on, for example `ETH-USDT`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -82,7 +82,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to aggregated order book updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-market-data" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe on</param>
+        /// <param name="symbols">The symbols to subscribe on, for example `ETH-USDT`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -92,7 +92,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/match-execution-data" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe on</param>
+        /// <param name="symbol">The symbol to subscribe on, for example `ETH-USDT`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -102,7 +102,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/match-execution-data" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe on</param>
+        /// <param name="symbols">The symbols to subscribe on, for example `ETH-USDT`</param>
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -112,7 +112,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/klines" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="symbol">Symbol to subscribe, for example `ETH-USDT`</param>
         /// <param name="interval">Interval of the klines</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -120,31 +120,31 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// 
+        /// Subscribe to book ticker (best ask/bid) updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level1-bbo-market-data" /></para>
         /// </summary>
-        /// <param name="symbol"></param>
-        /// <param name="onData"></param>
-        /// <param name="ct"></param>
+        /// <param name="symbol">Symbol to subscribe, for example `ETH-USDT`</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// 
+        /// Subscribe to book ticker (best ask/bid) updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level1-bbo-market-data" /></para>
         /// </summary>
-        /// <param name="symbols"></param>
-        /// <param name="onData"></param>
-        /// <param name="ct"></param>
+        /// <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamBestOffers>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to full order book updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `ETH-USDT`</param>
         /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -157,7 +157,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders" /></para>
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="symbols">The symbols to subscribe, for example `ETH-USDT`</param>
         /// <param name="limit">The amount of levels to receive, either 5 or 50</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -221,7 +221,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to index price updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/index-price" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `USDT-BTC`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -231,7 +231,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to index price updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/index-price" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="symbols">The symbols to subscribe, for example `USDT-BTC`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
@@ -241,7 +241,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to mark price updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/mark-price" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `USDT-BTC`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
@@ -251,7 +251,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to mark price updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/public-channels/mark-price" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to subscribe</param>
+        /// <param name="symbols">The symbols to subscribe, for example `USDT-BTC`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
@@ -271,7 +271,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Subscribe to margin order updates for an asset
         /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/margin-trade-order-event" /></para>
         /// </summary>
-        /// <param name="symbol">Asset</param>
+        /// <param name="symbol">Asset, for example `ETH-USDT`</param>
         /// <param name="onOrderPlaced">Data handler for order placement updates</param>
         /// <param name="onOrderUpdate">Data handler for order updates</param>
         /// <param name="onOrderDone">Data handler for order done updates</param>

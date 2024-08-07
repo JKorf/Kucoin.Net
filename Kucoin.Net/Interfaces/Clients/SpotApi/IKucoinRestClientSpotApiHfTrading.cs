@@ -18,7 +18,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places an order and returns once the order is confirmed. This is the faster version of <see cref="PlaceOrderWaitAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-hf-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places an order and wait for and return the full order result. This is the slower version of <see cref="PlaceOrderAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-place-hf-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -96,7 +96,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Place a new test order. Only validates the parameters, but doesn't actually process the order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/place-hf-order-test" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
@@ -135,7 +135,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Modify an order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/modify-hf-order" /></para>
         /// </summary>
-        /// <param name="symbol">Trading pair, such as ETH-BTC</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">The id of the order to modify</param>
         /// <param name="clientOrderId">The client id of the order to modify</param>
         /// <param name="newQuantity">New order quantity</param>
@@ -172,7 +172,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel an order and only wait for confirmation. This is the faster version of <see cref="CancelOrderWaitAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-hf-order-by-orderid" /></para>
         /// </summary>
-        /// <param name="symbol">Trading pair, such as ETH-BTC</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of cancelled orders</returns>
@@ -182,7 +182,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel an order and wait for and return the full order results. This is the slower version of <see cref="CancelOrderAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-orderid" /></para>
         /// </summary>
-        /// <param name="symbol">Trading pair, such as ETH-BTC</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of cancelled orders</returns>
@@ -192,7 +192,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel an order by clientOrderId and only wait for confirmation. This is the faster version of <see cref="CancelOrderWaitAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-hf-order-by-clientoid" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -202,7 +202,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel an order by clientOrderId and wait for and return the full order results. This is the slower version of <see cref="CancelOrderByClientOrderIdAsync" />
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-clientoid" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -212,7 +212,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get info on a specific order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-order-details-by-orderid" /></para>
         /// </summary>
-        /// <param name="symbol">Trading pair, such as ETH-BTC</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">The id of the order</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order info</returns>
@@ -222,7 +222,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get info on a specific order by clientOrderId
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-order-details-by-clientoid" /></para>
         /// </summary>
-        /// <param name="symbol">Trading pair, such as ETH-BTC</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="clientOrderId">The clientOrderId of the order</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -232,7 +232,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/cancel-all-hf-orders-by-symbol" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> CancelAllOrdersBySymbolAsync(string symbol, CancellationToken ct = default);
@@ -249,7 +249,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get list open orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-active-hf-orders-list" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinHfOrderDetails>>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
@@ -266,7 +266,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get list of closed orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-completed-order-list" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>
@@ -281,7 +281,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get list of user trades
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-hf-completed-order-list" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>
@@ -299,7 +299,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/auto-cancel-hf-order-setting" /></para>
         /// </summary>
         /// <param name="cancelAfter">Cancel after this period</param>
-        /// <param name="symbols">Symbols to cancel orders on</param>
+        /// <param name="symbols">Symbols to cancel orders on, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCancelAfter>> CancelAfterAsync(TimeSpan cancelAfter, IEnumerable<string>? symbols = null, CancellationToken ct = default);
@@ -318,7 +318,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="side">The side((buy or sell) of the order</param>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="type">The type of the order</param>
         /// <param name="remark">Remark on the order</param>
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -363,7 +363,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="side">The side((buy or sell) of the order</param>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
         /// <param name="type">The type of the order</param>
         /// <param name="remark">Remark on the order</param>
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
@@ -406,7 +406,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel a margin order
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/cancel-hf-order-by-orderid" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -416,7 +416,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel a margin order by clientOrderId
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/cancel-hf-order-by-clientoid" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -426,7 +426,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel all margin orders on a symbol
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/cancel-all-hf-orders-by-symbol" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> CancelAllMarginOrdersBySymbolAsync(string symbol, CancellationToken ct = default);
@@ -435,7 +435,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get open margin orders
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-active-hf-orders-list" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="type">Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -445,7 +445,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get closed margin orders
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-filled-list" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
         /// <param name="tradeType">Filter by trade type</param>
@@ -461,7 +461,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get a margin order by order id
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-order-details-by-orderid" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -471,7 +471,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get a margin order by clientOrderId
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-order-details-by-clientoid" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -481,7 +481,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get list of margin trades
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-hf-trade/get-hf-transaction-records" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>

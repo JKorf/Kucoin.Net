@@ -19,7 +19,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Gets account overview
         /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-futures" /></para>
         /// </summary>
-        /// <param name="asset">Get the accounts for a specific asset</param>
+        /// <param name="asset">Get the accounts for a specific asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of accounts</returns>
         Task<WebCallResult<KucoinAccountOverview>> GetAccountOverviewAsync(string? asset = null, CancellationToken ct = default);
@@ -28,7 +28,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get transaction history
         /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-ledgers-futures" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="type">Filter by type</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -43,7 +43,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Transfer funds from futures to main account
         /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/transfer-to-main-or-trade-account" /></para>
         /// </summary>
-        /// <param name="asset">Asset to transfer</param>
+        /// <param name="asset">Asset to transfer, for example `USDT`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="receiveAccountType">Receiving account type</param>
         /// <param name="ct">Cancellation token</param>
@@ -54,7 +54,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Transfer funds from main or trade account to futures
         /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/transfer-to-futures-account" /></para>
         /// </summary>
-        /// <param name="asset">Asset to transfer</param>
+        /// <param name="asset">Asset to transfer, for example `USDT`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="payAccountType">Account to move funds from</param>
         /// <param name="ct">Cancellation token</param>
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get transfer to main account history
         /// <para><a href="https://www.kucoin.com/docs/rest/funding/transfer/get-futures-transfer-out-request-records" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="status">Filter by status</param>
@@ -79,7 +79,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get the total value of active orders
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-active-order-value-calculation" /></para>
         /// </summary>        
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinOrderValuation>> GetOpenOrderValueAsync(string symbol, CancellationToken ct = default);
@@ -88,7 +88,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get details on a position
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-position-details" /></para>
         /// </summary>
-        /// <param name="symbol">Contract symbol</param>
+        /// <param name="symbol">Contract symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Position info</returns>
         Task<WebCallResult<KucoinPosition>> GetPositionAsync(string symbol, CancellationToken ct = default);
@@ -97,7 +97,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get list of positions
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-position-list" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Position info</returns>
         Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(string? asset = null, CancellationToken ct = default);
@@ -106,7 +106,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get position closure history
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-positions-history" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
@@ -119,7 +119,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Enable/disable auto deposit margin
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-auto-deposit-margin-status" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol to change for</param>
+        /// <param name="symbol">Symbol to change for, for example `XBTUSDM`</param>
         /// <param name="enabled">Enable or disable</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Position info</returns>
@@ -129,7 +129,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Manually add margin to a position
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/add-margin-manually" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="quantity">Quantity to add</param>
         /// <param name="clientId">A unique ID generated by the user, to ensure the operation is processed by the system only once</param>
         /// <param name="ct">Cancellation token</param>
@@ -140,7 +140,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Manually remove margin from a position
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/remove-margin-manually" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="quantity">Quantity to remove</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -150,7 +150,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get funding history
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/funding-fees/get-private-funding-history" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="offset">Result offset</param>
@@ -164,7 +164,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get risk limit level
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/risk-limit/get-futures-risk-limit-level" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default);
@@ -173,7 +173,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Set risk limit level
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/risk-limit/modify-risk-limit-level" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="level">Risk limit level</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -183,7 +183,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get the maximum amount of margin that the current position supports withdrawal.
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-max-withdraw-margin" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<decimal>> GetMaxWithdrawMarginAsync(string symbol, CancellationToken ct = default);
@@ -192,7 +192,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Get trading fee for a symbol
         /// <para><a href="https://www.kucoin.com/docs/rest/funding/trade-fee/trading-pair-actual-fee-futures" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinTradeFee>> GetTradingFeeAsync(string symbol, CancellationToken ct = default);
