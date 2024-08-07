@@ -15,7 +15,7 @@ namespace Kucoin.Net.Objects
         /// <summary>
         /// The pass phrase
         /// </summary>
-        public SecureString PassPhrase { get; }
+        public string PassPhrase { get; }
 
         /// <summary>
         /// Creates new api credentials. Keep this information safe.
@@ -25,7 +25,7 @@ namespace Kucoin.Net.Objects
         /// <param name="apiPassPhrase">The API passPhrase</param>
         public KucoinApiCredentials(string apiKey, string apiSecret, string apiPassPhrase): base(apiKey, apiSecret)
         {
-            PassPhrase = apiPassPhrase.ToSecureString();
+            PassPhrase = apiPassPhrase;
         }
 
         /// <summary>
@@ -42,13 +42,13 @@ namespace Kucoin.Net.Objects
                 throw new ArgumentException("Input stream not valid json data");
 
             var pass = accessor.GetValue<string>(MessagePath.Get().Property(identifierPassPhrase ?? "apiPassPhrase")) ?? throw new ArgumentException("apiKey or apiSecret value not found in Json credential file");
-            PassPhrase = pass.ToSecureString();
+            PassPhrase = pass;
         }
 
         /// <inheritdoc />
         public override ApiCredentials Copy()
         {
-            return new KucoinApiCredentials(Key!.GetString(), Secret!.GetString(), PassPhrase!.GetString());
+            return new KucoinApiCredentials(Key, Secret, PassPhrase);
         }
     }
 }

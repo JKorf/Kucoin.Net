@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The stop condition
         /// </summary>
-        public StopCondition Stop { get; set; }
+        public StopCondition? Stop { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
