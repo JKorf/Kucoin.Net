@@ -54,7 +54,7 @@ namespace Kucoin.Net.Clients.SpotApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, FuturesType? futuresType = null) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
 
         /// <inheritdoc />
         public override string GetListenerIdentifier(IMessageAccessor message)

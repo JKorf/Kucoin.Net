@@ -66,7 +66,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, FuturesType? futuresType = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
 
         /// <inheritdoc />
         protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;
