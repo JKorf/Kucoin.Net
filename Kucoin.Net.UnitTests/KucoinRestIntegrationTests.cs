@@ -84,7 +84,7 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetsAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetAsync("ETH", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetFiatPricesAsync(default, default, default), false);
-            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetLeveragedTokensAsync(default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetLeveragedTokensAsync(default), true);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetServerTimeAsync(default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetServiceStatusAsync(default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetKlinesAsync("XBTUSDM", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.Get24HourTransactionVolumeAsync(default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.Get24HourTransactionVolumeAsync(default), true);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("XBTUSDM", DateTime.UtcNow.AddDays(-3), DateTime.UtcNow, default), false);
         }
 
