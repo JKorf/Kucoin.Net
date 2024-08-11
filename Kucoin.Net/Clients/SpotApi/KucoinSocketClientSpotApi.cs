@@ -30,7 +30,7 @@ using CryptoExchange.Net.Clients;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
-    internal class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
+    internal partial class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
     {
         private readonly KucoinSocketClient _baseClient;
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
@@ -55,6 +55,8 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+
+        public IKucoinSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public override string GetListenerIdentifier(IMessageAccessor message)

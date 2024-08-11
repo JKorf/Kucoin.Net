@@ -17,6 +17,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IKucoinSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        IKucoinSocketClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to updates for a symbol ticker
         /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/public-channels/ticker" /></para>
