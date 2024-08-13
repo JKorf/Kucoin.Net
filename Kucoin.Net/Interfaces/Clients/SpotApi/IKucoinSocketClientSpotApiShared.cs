@@ -8,7 +8,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     public interface IKucoinSocketClientSpotApiShared :
         ITickerSocketClient,
         ITradeSocketClient,
-        IBookTickerSocketClient
+        IBookTickerSocketClient,
+        IBalanceSocketClient,
+        ISpotOrderSocketClient
     {
     }
 }

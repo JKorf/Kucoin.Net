@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinRestClientSpotApi" />
-    internal class KucoinRestClientSpotApi : RestApiClient, IKucoinRestClientSpotApi, ISpotClient
+    internal partial class KucoinRestClientSpotApi : RestApiClient, IKucoinRestClientSpotApi, ISpotClient
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
@@ -424,5 +424,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IKucoinRestClientSpotApiShared SharedClient => this;
+
     }
 }
