@@ -104,7 +104,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     QuoteQuantity = matchUpdate.OriginalValue,
                     Price = matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
-                    LastTrade = new SharedUserTrade(matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
+                    LastTrade = new SharedUserTrade(matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
                     {
                         Role = matchUpdate.Liquidity == LiquidityType.Taker ? SharedRole.Taker : SharedRole.Maker
                     }

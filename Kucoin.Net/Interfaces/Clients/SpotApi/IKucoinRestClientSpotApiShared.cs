@@ -10,7 +10,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         ISpotSymbolRestClient,
         IKlineRestClient,
         ITradeRestClient,
-        IBalanceRestClient
+        IBalanceRestClient,
+        ISpotOrderRestClient
     {
     }
 }
