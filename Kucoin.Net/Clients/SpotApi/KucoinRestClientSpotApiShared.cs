@@ -94,11 +94,8 @@ namespace Kucoin.Net.Clients.SpotApi
             return result.AsExchangeResult<IEnumerable<SharedTicker>>(Exchange, result.Data.Data.Select(x => new SharedTicker(x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0)));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> ITradeRestClient.GetTradesAsync(GetTradesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
-            if (request.StartTime != null || request.EndTime != null)
-                return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, new ArgumentError("Start/EndTime filtering not supported"));
-
             var result = await ExchangeData.GetTradeHistoryAsync(
                 FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
                 ct: ct).ConfigureAwait(false);
@@ -238,14 +235,30 @@ namespace Kucoin.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, INextPageToken? nextPageToken, CancellationToken ct = default)
         {
+            // Determine page token
+            int page = 1;
+            int pageSize = request.Limit ?? 500;
+            if (nextPageToken is PageToken pageToken)
+            {
+                page = pageToken.Page;
+                pageSize = pageToken.PageSize;
+            }
+
+            // Get data
             var order = await Trading.GetUserTradesAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
-                pageSize: request.Limit).ConfigureAwait(false);
+                currentPage: page,
+                pageSize: pageSize).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+
+            // Get next token
+            PageToken? nextToken = null;
+            if (order.Data.Items.Any() && order.Data.TotalItems > (page * pageSize))
+                nextToken = new PageToken(page + 1, pageSize);
 
             return order.AsExchangeResult(Exchange, order.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
@@ -258,7 +271,8 @@ namespace Kucoin.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
-            }));
+            }),
+            nextToken);
         }
 
         async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct = default)
