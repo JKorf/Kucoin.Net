@@ -16,6 +16,7 @@ using CryptoExchange.Net.SharedApis.Interfaces.Socket;
 using CryptoExchange.Net.SharedApis.SubscribeModels;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Enums;
+using CryptoExchange.Net.SharedApis.Models;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -23,40 +24,40 @@ namespace Kucoin.Net.Clients.SpotApi
     {
         public string Exchange => KucoinExchange.ExchangeName;
 
-        async Task<CallResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(TickerSubscribeRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(TickerSubscribeRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.As(new SharedTicker(symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0)))).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(TradeSubscribeRequest request, Action<DataEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(TradeSubscribeRequest request, Action<DataEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.As<IEnumerable<SharedTrade>>(new[] { new SharedTrade(update.Data.Price, update.Data.Quantity, update.Data.Timestamp) })), ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> IBookTickerSocketClient.SubscribeToBookTickerUpdatesAsync(BookTickerSubscribeRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBookTickerSocketClient.SubscribeToBookTickerUpdatesAsync(BookTickerSubscribeRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.As(new SharedBookTicker(update.Data.BestAsk.Price, update.Data.BestAsk.Quantity, update.Data.BestBid.Price, update.Data.BestBid.Quantity))), ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
         {
             var result = await SubscribeToBalanceUpdatesAsync(
                 update => handler(update.As<IEnumerable<SharedBalance>>(new[] { new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Total) })),
                 ct: ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
         {
             var result = await SubscribeToOrderUpdatesAsync(
                 update => handler(update.As<IEnumerable<SharedSpotOrder>>(new[] { ParseOrder(update.Data) })),
@@ -64,7 +65,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 update => handler(update.As<IEnumerable<SharedSpotOrder>>(new[] { ParseOrder(update.Data) })),
                 ct: ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
         private SharedSpotOrder ParseOrder(KucoinStreamOrderBaseUpdate orderUpdate)
