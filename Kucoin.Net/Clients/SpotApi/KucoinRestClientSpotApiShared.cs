@@ -41,23 +41,52 @@ namespace Kucoin.Net.Clients.SpotApi
                 SharedQuantityType.Both,
                 SharedQuantityType.Both);
 
-        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError("Interval not supported"));
 
+            // Determine page token
+            DateTime? fromTimestamp = null;
+            if (pageToken is DateTimeToken dateTimeToken)
+                fromTimestamp = dateTimeToken.LastTime;
+
+            var startTime = request.Filter?.StartTime;
+            var endTime = request.Filter?.EndTime;
+            var apiLimit = 1500;
+
+            // API returns the newest data first if the timespan is bigger than the api limit of 1500 results
+            // So we need to request the first 1500 from the start time, then the 1500 after that etc
+            if (request.Filter?.StartTime != null)
+            {
+                // Not paginated, check if the data will fit
+                var seconds = apiLimit * (int)request.Interval;
+                var maxEndTime = (fromTimestamp ?? request.Filter.StartTime).Value.AddSeconds(seconds);
+                if (maxEndTime < endTime)
+                    endTime = maxEndTime;
+            }
+
             var result = await ExchangeData.GetKlinesAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 interval,
-                request.StartTime,
-                request.EndTime,
+                fromTimestamp ?? request.Filter?.StartTime,
+                endTime,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)));
+            // Get next token
+            DateTimeToken? nextToken = null;
+            if (request.Filter?.StartTime != null && result.Data.Any())
+            {
+                var maxOpenTime = result.Data.Max(x => x.OpenTime);
+                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                    nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
+            }
+
+            return result.AsExchangeResult(Exchange, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)), nextToken);
         }
 
         async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSymbolsAsync(SharedRequest request, CancellationToken ct)
@@ -77,7 +106,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+            var symbol = request.GetSymbol(FormatSymbol);
             var result = await ExchangeData.Get24HourStatsAsync(symbol, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTicker>(Exchange, default);
@@ -97,7 +126,7 @@ namespace Kucoin.Net.Clients.SpotApi
         async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
             var result = await ExchangeData.GetTradeHistoryAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
@@ -117,7 +146,7 @@ namespace Kucoin.Net.Clients.SpotApi
         async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var result = await Trading.PlaceOrderAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType),
                 request.Quantity,
@@ -133,7 +162,7 @@ namespace Kucoin.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, new SharedOrderId(result.Data.Id.ToString()));
         }
 
-        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
             var order = await Trading.GetOrderAsync(request.OrderId).ConfigureAwait(false);
             if (!order)
@@ -159,7 +188,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetSpotOpenOrdersRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetSpotOpenOrdersRequest request, CancellationToken ct)
         {
             string? symbol = null;
             if (request.BaseAsset != null && request.QuoteAsset != null)
@@ -189,11 +218,26 @@ namespace Kucoin.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var order = await Trading.GetOrdersAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), status: OrderStatus.Done).ConfigureAwait(false);
+            // Determine page token
+            int page = 1;
+            int pageSize = request.Filter?.Limit ?? 500;
+            if (pageToken is PageToken token)
+            {
+                page = token.Page;
+                pageSize = token.PageSize;
+            }
+
+            // Get data
+            var order = await Trading.GetOrdersAsync(request.GetSymbol(FormatSymbol), status: OrderStatus.Done).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
+            
+            // Get next token
+            PageToken? nextToken = null;
+            if (order.Data.Items.Any() && order.Data.TotalItems > (page * pageSize))
+                nextToken = new PageToken(page + 1, pageSize);
 
             return order.AsExchangeResult(Exchange, order.Data.Items.Select(x => new SharedSpotOrder(
                 x.Symbol,
@@ -212,10 +256,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 FeeAsset = x.FeeAsset
-            }));
+            }), nextToken);
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
             var order = await Trading.GetUserTradesAsync(orderId: request.OrderId).ConfigureAwait(false);
             if (!order)
@@ -235,11 +279,11 @@ namespace Kucoin.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, INextPageToken? nextPageToken, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, INextPageToken? nextPageToken, CancellationToken ct)
         {
             // Determine page token
             int page = 1;
-            int pageSize = request.Limit ?? 500;
+            int pageSize = request.Filter?.Limit ?? 500;
             if (nextPageToken is PageToken pageToken)
             {
                 page = pageToken.Page;
@@ -247,9 +291,9 @@ namespace Kucoin.Net.Clients.SpotApi
             }
 
             // Get data
-            var order = await Trading.GetUserTradesAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
-                startTime: request.StartTime,
-                endTime: request.EndTime,
+            var order = await Trading.GetUserTradesAsync(request.GetSymbol(FormatSymbol),
+                startTime: request.Filter?.StartTime,
+                endTime: request.Filter?.EndTime,
                 currentPage: page,
                 pageSize: pageSize).ConfigureAwait(false);
             if (!order)
@@ -275,7 +319,7 @@ namespace Kucoin.Net.Clients.SpotApi
             nextToken);
         }
 
-        async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
             var order = await Trading.CancelOrderAsync(request.OrderId).ConfigureAwait(false);
             if (!order)
