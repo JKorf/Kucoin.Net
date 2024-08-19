@@ -268,5 +268,19 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Max Open Position Size
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.Add("price", price);
+            parameters.Add("leverage", leverage);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/getMaxOpenSize", KucoinExchange.RateLimiter.PublicRest, 2, true);
+            return await _baseClient.SendAsync<KucoinMaxOpenSize>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

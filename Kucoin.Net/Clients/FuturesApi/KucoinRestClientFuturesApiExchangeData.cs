@@ -60,6 +60,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Tickers
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinFuturesTick>>> GetTickersAsync(CancellationToken ct = default)
@@ -67,6 +68,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/allTickers", KucoinExchange.RateLimiter.PublicRest, 15);
             return await _baseClient.SendAsync<IEnumerable<KucoinFuturesTick>>(request, null, ct).ConfigureAwait(false);
         }
+
+        #endregion
 
         #region Order book
 

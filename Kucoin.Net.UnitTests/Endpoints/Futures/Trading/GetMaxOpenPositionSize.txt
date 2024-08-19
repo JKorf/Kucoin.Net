@@ -1,0 +1,14 @@
+GET
+/api/v2/getMaxOpenSize
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": {
+    "symbol": "XBTUSDTM",
+    "maxBuyOpenSize": 13808,
+    "maxSellOpenSize": 13808
+  }
+}

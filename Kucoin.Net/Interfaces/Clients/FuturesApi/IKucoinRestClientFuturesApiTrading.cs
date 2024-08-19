@@ -243,5 +243,16 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <returns>List of trades</returns>
         Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get the max position size
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-maximum-open-position-size" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="price">Price/param>
+        /// <param name="leverage">Leverage</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default);
+
     }
 }

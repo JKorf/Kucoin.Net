@@ -211,6 +211,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.GetMaxOpenPositionSizeAsync(System.String,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi">
             <inheritdoc cref="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi" />
         </member>
@@ -2841,6 +2844,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of trades</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.GetMaxOpenPositionSizeAsync(System.String,System.Decimal,System.Decimal,System.Threading.CancellationToken)" -->
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi">
             <summary>
             Futures socket api
@@ -5999,6 +6003,26 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarkPrice.IndexPrice">
             <summary>
             Index price
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinMaxOpenSize">
+            <summary>
+            Max open size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMaxOpenSize.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMaxOpenSize.MaxBuyOpenSize">
+            <summary>
+            Max buy size
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMaxOpenSize.MaxSellOpenSize">
+            <summary>
+            Max sell size
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinOrderValuation">

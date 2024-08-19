@@ -218,6 +218,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderByClientOrderIdAsync("123"), "GetOrderByClientOrderId");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetUserTradesAsync(), "GetUserTrades", ignoreProperties: new List<string> { "stop" });
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetRecentUserTradesAsync(), "GetRecentUserTrades", ignoreProperties: new List<string> { "stop" });
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetMaxOpenPositionSizeAsync("XBTUSDTM", 1, 1), "GetMaxOpenPositionSize");
         }
 
         [Test]
