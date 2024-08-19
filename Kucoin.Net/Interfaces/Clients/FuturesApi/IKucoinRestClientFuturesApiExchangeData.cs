@@ -42,6 +42,13 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<KucoinFuturesTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
+        /// Get the tickers for all contracts
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinFuturesTick>>> GetTickersAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get the full order book, aggregated by price
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-full-order-book-level-2" /></para>
         /// </summary>

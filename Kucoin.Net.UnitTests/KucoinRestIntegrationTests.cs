@@ -120,6 +120,7 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetOpenContractsAsync(default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetContractAsync("XBTUSDM", default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickerAsync("XBTUSDM", default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickersAsync(default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync("XBTUSDM", default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetAggregatedPartialOrderBookAsync("XBTUSDM", 20, default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTradeHistoryAsync("XBTUSDM", default), false);

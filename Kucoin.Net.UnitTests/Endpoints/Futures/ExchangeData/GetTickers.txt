@@ -1,0 +1,19 @@
+GET
+/api/v1/allTickers
+false
+{
+  "code": "200000",
+  "data": [{
+    "sequence": 1001, //Sequence number
+    "symbol": "XBTUSDM", //Symbol
+    "side": "buy", //Side of liquidity taker
+    "size": 10, //Filled quantity
+    "price": "7000.0", //Filled price
+    "bestBidSize": 20, //Best bid size
+    "bestBidPrice": "7000.0", //Best bid price
+    "bestAskSize": 30, //Best ask size
+    "bestAskPrice": "7001.0", //Best ask price
+    "tradeId": "5cbd7377a6ffab0c7ba98b26", //Transaction ID
+    "ts": 1550653727731 //Filled time - nanosecond
+  }]
+}

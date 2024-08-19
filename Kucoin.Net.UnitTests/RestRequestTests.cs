@@ -180,6 +180,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetOpenContractsAsync(), "GetOpenContracts", ignoreProperties: new List<string> { "nextFundingRateTime" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetContractAsync("ETHUSDT"), "GetContract", ignoreProperties: new List<string> { "nextFundingRateTime" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickerAsync("ETHUSDT"), "GetTicker");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickersAsync(), "GetTickers");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetAggregatedFullOrderBookAsync("ETHUSDT"), "GetAggregatedFullOrderBook", ignoreProperties: new List<string> { "ts" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetAggregatedPartialOrderBookAsync("ETHUSDT", 20), "GetAggregatedPartialOrderBook", ignoreProperties: new List<string> { "ts" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTradeHistoryAsync("ETHUSDT"), "GetTradeHistory");

@@ -124,6 +124,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData.GetAggregatedFullOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2504,6 +2507,13 @@
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/market-data/get-ticker" /></para>
             </summary>
             <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the tickers for all contracts
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
