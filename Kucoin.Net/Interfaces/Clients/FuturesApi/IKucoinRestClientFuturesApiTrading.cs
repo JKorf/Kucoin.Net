@@ -248,7 +248,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-maximum-open-position-size" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
-        /// <param name="price">Price/param>
+        /// <param name="price">Price</param>
         /// <param name="leverage">Leverage</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
