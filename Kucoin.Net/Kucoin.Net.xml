@@ -511,6 +511,12 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetIsolatedMarginAccountAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetHfMigrationStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.MigrateHfAccountAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -1757,6 +1763,26 @@
         <member name="F:Kucoin.Net.Enums.MatchUpdateType.Update">
             <summary>
             Update
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.MigrateStatus">
+            <summary>
+            Migration status
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MigrateStatus.NotMigrated">
+            <summary>
+            Not migrated
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MigrateStatus.Migrating">
+            <summary>
+            Migrating
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MigrateStatus.Migrated">
+            <summary>
+            Migrated
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.NewOrderType">
@@ -3415,6 +3441,21 @@
             <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-isolated-margin" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetHfMigrationStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get migration status of the spot high/normal frequency accounts
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.MigrateHfAccountAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Migrate the spot high and normal frequency accounts into a single high frequency account. Only needed when the High Frequency API endpoints have been used previously.
+            </summary>
+            <param name="withAllSubAccounts">Whether to operate all sub-accounts together. If left blank, the sub-account will not be operated by default</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -9451,6 +9492,31 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMarginOpenOrderSymbols.Symbols">
             <summary>
             Symbols with open orders
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMigrateResult">
+            <summary>
+            Migration result
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMigrateResult.SuccessUsers">
+            <summary>
+            Ids of user accounts successfully migrated
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMigrateResult.FailedUsers">
+            <summary>
+            Ids of user accounts failed to migrate
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinMigrateStatus">
+            <summary>
+            Migration status
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinMigrateStatus.Status">
+            <summary>
+            Status of migration
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinModifiedOrder">

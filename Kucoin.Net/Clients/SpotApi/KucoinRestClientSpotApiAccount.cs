@@ -342,6 +342,26 @@ namespace Kucoin.Net.Clients.SpotApi
             return await _baseClient.SendAsync<KucoinIsolatedMarginAccount>(request, null, ct).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMigrateStatus>> GetHfMigrationStatusAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "withAllSubs", true }
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/migrate/user/account/status", KucoinExchange.RateLimiter.SpotRest, 10, true);
+            return await _baseClient.SendAsync<KucoinMigrateStatus>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMigrateResult>> MigrateHfAccountAsync(bool? withAllSubAccounts = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("withAllSubs", withAllSubAccounts);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/migrate/user/account", KucoinExchange.RateLimiter.SpotRest, 10, true);
+            return await _baseClient.SendAsync<KucoinMigrateResult>(request, parameters, ct).ConfigureAwait(false);
+        }
+
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPublicAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/bullet-public", KucoinExchange.RateLimiter.PublicRest, 10, false);
