@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
@@ -39,6 +40,13 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinFuturesTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the tickers for all contracts
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<KucoinFuturesTick>>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the full order book, aggregated by price

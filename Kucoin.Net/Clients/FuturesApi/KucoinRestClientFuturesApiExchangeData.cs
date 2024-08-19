@@ -14,6 +14,7 @@ using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Security.Cryptography;
+using Kucoin.Net.Objects.Models.Futures.Socket;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -55,6 +56,17 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/ticker", KucoinExchange.RateLimiter.PublicRest, 2);
             return await _baseClient.SendAsync<KucoinFuturesTick>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Tickers
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinFuturesTick>>> GetTickersAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/allTickers", KucoinExchange.RateLimiter.PublicRest, 15);
+            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesTick>>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion

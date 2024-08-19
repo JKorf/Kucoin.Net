@@ -299,5 +299,20 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinIsolatedMarginAccount>> GetIsolatedMarginAccountAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get migration status of the spot high/normal frequency accounts
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinMigrateStatus>> GetHfMigrationStatusAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Migrate the spot high and normal frequency accounts into a single high frequency account. Only needed when the High Frequency API endpoints have been used previously.
+        /// </summary>
+        /// <param name="withAllSubAccounts">Whether to operate all sub-accounts together. If left blank, the sub-account will not be operated by default</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinMigrateResult>> MigrateHfAccountAsync(bool? withAllSubAccounts = null, CancellationToken ct = default);
     }
 }
