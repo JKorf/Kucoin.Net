@@ -14,6 +14,7 @@ using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Security.Cryptography;
+using Kucoin.Net.Objects.Models.Futures.Socket;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {

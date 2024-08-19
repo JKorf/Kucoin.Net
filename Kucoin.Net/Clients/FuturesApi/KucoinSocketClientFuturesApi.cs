@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,6 +24,8 @@ using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
+using Newtonsoft.Json;
+using Kucoin.Net.Converters;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -79,6 +82,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamFuturesMatch>> onData, CancellationToken ct = default)
         {
             var subscription = new KucoinSubscription<KucoinStreamFuturesMatch>(_logger, "/contractMarket/execution", symbols.ToList(), onData, false);
+            return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamFuturesKline>> onData, CancellationToken ct = default)
+            => SubscribeToKlineUpdatesAsync(new[] { symbol }, interval, onData, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamFuturesKline>> onData, CancellationToken ct = default)
+        {
+            var symbolTopics = symbols.Select(x => x + "_" + JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))).ToList();
+            var subscription = new KucoinSubscription<KucoinStreamFuturesKlineUpdate>(_logger, "/contractMarket/limitCandle", symbolTopics, x => onData(x.As(x.Data.Klines).WithSymbol(x.Data.Symbol)), false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
