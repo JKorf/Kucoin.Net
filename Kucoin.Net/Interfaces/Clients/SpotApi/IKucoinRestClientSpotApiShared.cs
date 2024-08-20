@@ -6,12 +6,18 @@ using System.Text;
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     public interface IKucoinRestClientSpotApiShared :
-        ITickerRestClient,
-        ISpotSymbolRestClient,
-        IKlineRestClient,
-        IRecentTradeRestClient,
+        IAssetRestClient,
         IBalanceRestClient,
-        ISpotOrderRestClient
+        IDepositRestClient,
+        IKlineRestClient,
+        IOrderBookRestClient,
+        IRecentTradeRestClient,
+        ISpotOrderRestClient,
+        ISpotSymbolRestClient,
+        ITickerRestClient,
+        //ITradeHistoryRestClient,
+        IWithdrawalRestClient,
+        IWithdrawRestClient
     {
     }
 }
