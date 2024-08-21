@@ -1,0 +1,44 @@
+GET
+/api/v1/sub-accounts/123
+true
+{
+  "code": "200000",
+  "data": 
+{
+  "subUserId": "5caefba7d9575a0688f83c45",
+  "subName": "sdfgsdfgsfd",
+  "mainAccounts": [
+    {
+      "currency": "BTC",
+      "balance": "8",
+      "available": "8",
+      "holds": "0",
+      "baseCurrency": "BTC",
+      "baseCurrencyPrice": "1",
+      "baseAmount": "1.1"
+    }
+  ],
+  "tradeAccounts": [
+    {
+      "currency": "BTC",
+      "balance": "1000",
+      "available": "1000",
+      "holds": "0",
+      "baseCurrency": "BTC",
+      "baseCurrencyPrice": "1",
+      "baseAmount": "1.1"
+    }
+  ],
+  "marginAccounts": [
+    {
+      "currency": "BTC",
+      "balance": "1.1",
+      "available": "1.1",
+      "holds": "0",
+      "baseCurrency": "BTC",
+      "baseCurrencyPrice": "1",
+      "baseAmount": "1.1"
+    }
+  ]
+}
+}

@@ -15,6 +15,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IKucoinRestClientSpotApiAccount Account { get; }
 
         /// <summary>
+        /// Endpoints related to sub-account settings, info or actions
+        /// </summary>
+        IKucoinRestClientSpotApiSubAccount SubAccount { get; }
+
+        /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
         IKucoinRestClientSpotApiExchangeData ExchangeData { get; }

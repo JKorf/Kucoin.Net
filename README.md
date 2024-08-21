@@ -95,7 +95,7 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |API|Supported|Location|
 |--|--:|--|
 |Account Basic Info|✓|`restClient.SpotApi.Account` / `restClient.FuturesApi.Account`|
-|Account Sub-Account|X||
+|Account Sub-Account|✓|`restClient.SpotApi.SubAccount`|
 |Funding Overview|✓|`restClient.SpotApi.Account`|
 |Funding Deposit|✓|`restClient.SpotApi.Account`|
 |Funding Withdrawal|✓|`restClient.SpotApi.Account`|
@@ -106,7 +106,7 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Spot Trading Orders|✓|`restClient.SpotApi.Trading`|
 |Spot Trading Fills|✓|`restClient.SpotApi.Trading`|
 |Spot Trading Stop Order|✓|`restClient.SpotApi.Trading`|
-|Margin Trading Margin HT Trade|X||
+|Margin Trading Margin HF Trade|X||
 |Margin Trading Margin Orders|✓|`restClient.SpotApi.Trading`|
 |Margin Trading Margin Info|✓|`restClient.SpotApi.ExchangeData`|
 |Margin Trading Isolated Margin|✓|`restClient.SpotApi.ExchangeData` / `restClient.SpotApi.Account`|

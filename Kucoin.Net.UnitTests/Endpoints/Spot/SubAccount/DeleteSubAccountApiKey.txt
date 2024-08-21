@@ -1,0 +1,10 @@
+DELETE
+/api/v1/sub/api-key
+true
+{
+  "code": "200000",
+  "data": {
+    "subName": "AAAAAAAAAA0007",
+    "apiKey": "630325e0e750870001829864"
+  }
+}

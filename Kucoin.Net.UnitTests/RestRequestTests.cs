@@ -26,7 +26,6 @@ namespace Kucoin.Net.UnitTests
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Account", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetUserInfoAsync(), "GetUserInfo");
-            await tester.ValidateAsync(client => client.SpotApi.Account.GetSubUserInfoAsync(), "GetSubUserInfo");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountsAsync(), "GetAccounts");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountAsync("123"), "GetAccount");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetBasicUserFeeAsync(), "GetBasicUserFee");
@@ -48,6 +47,26 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetMarginAccountAsync(), "GetMarginAccount");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetCrossMarginAccountsAsync(), "GetCrossMarginAccounts", ignoreProperties: new List<string> { "timestamp" });
             await tester.ValidateAsync(client => client.SpotApi.Account.GetIsolatedMarginAccountsAsync(), "GetIsolatedMarginAccounts");
+        }
+
+        [Test]
+        public async Task ValidateSpotSubAccountCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountsAsync(), "GetSubAccounts");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateSubAccountAsync("123", "123", "123"), "CreateSubAccount");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountBalancesAsync("123"), "GetSubAccountBalances");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountsBalancesAsync(), "GetSubAccountsBalances");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountApiKeyAsync("123"), "GetSubAccountApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateSubAccountApiKeyAsync("123","123", "123"), "CreateSubAccountApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.EditSubAccountApiKeyAsync("123", "123", "123"), "EditSubAccountApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.DeleteSubAccountApiKeyAsync("123", "123", "123"), "DeleteSubAccountApiKey");
         }
 
         [Test]

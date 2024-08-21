@@ -389,6 +389,9 @@
         <member name="P:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.Account">
             <inheritdoc />
         </member>
+        <member name="P:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.SubAccount">
+            <inheritdoc />
+        </member>
         <member name="P:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ExchangeData">
             <inheritdoc />
         </member>
@@ -719,6 +722,33 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetCrossMarginSymbolsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.GetSubAccountsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.CreateSubAccountAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.GetSubAccountBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.GetSubAccountsBalancesAsync(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.GetSubAccountApiKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.CreateSubAccountApiKeyAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.EditSubAccountApiKeyAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.DeleteSubAccountApiKeyAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading">
@@ -3148,6 +3178,11 @@
             Endpoints related to account settings, info or actions
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.SubAccount">
+            <summary>
+            Endpoints related to sub-account settings, info or actions
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
@@ -3186,14 +3221,6 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetSubUserInfoAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of sub users
-            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-info-v1-" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns>List of sub users</returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountType},System.Threading.CancellationToken)">
             <summary>
@@ -4225,6 +4252,98 @@
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-cross-margin-trading-pairs-configuration" /></para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount">
+            <summary>
+            Kucoin Spot sub-account endpoints
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.GetSubAccountsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of sub account
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-info-v2-" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.CreateSubAccountAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Create a new sub account
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/create-sub-account" /></para>
+            </summary>
+            <param name="subName">Sub account name</param>
+            <param name="password">Password (7-24 characters, must contain letters and numbers, cannot only contain numbers or include special characters)</param>
+            <param name="permissions">Permission (types include Spot, Futures, Margin permissions, which can be used alone or in combination).</param>
+            <param name="remarks">Remarks(1~24 characters)</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.GetSubAccountBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Get balances of a sub account
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-a-sub-account-balance" /></para>
+            </summary>
+            <param name="subAccountId">Sub account id</param>
+            <param name="includeZeroBalances">Include zero balance assets or not</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.GetSubAccountsBalancesAsync(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get balances of all sub accounts
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-balance-v2-" /></para>
+            </summary>
+            <param name="page">Page number</param>
+            <param name="pageSize">page size, max 100</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.GetSubAccountApiKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on sub account api keys
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/get-sub-account-api-list" /></para>
+            </summary>
+            <param name="subAccountName">The sub account name</param>
+            <param name="apiKey">Filter by API key</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.CreateSubAccountApiKeyAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Create a new API key for a sub account
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/get-sub-account-api-list" /></para>
+            </summary>
+            <param name="subAccountName">Sub account name</param>
+            <param name="passphrase">Password/passphrase for the key</param>
+            <param name="remark">Remark</param>
+            <param name="permissions">Permissions(Only General、Spot、Futures、Margin、InnerTransfer(Flex Transfer) permissions can be set, such as "General, Trade". The default is "General")</param>
+            <param name="ipWhitelist">IP whitelist(You may add up to 20 IPs. Use a halfwidth comma to each IP)</param>
+            <param name="expire">Expiration time in days; Never expire(default) -1，30: 30, 90, 180 or 360 days</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.EditSubAccountApiKeyAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Edit an existing API key for a sub account
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/modify-sub-account-api" /></para>
+            </summary>
+            <param name="subAccountName">Sub account name</param>
+            <param name="passphrase">Password/passphrase for the key</param>
+            <param name="apiKey">The api key</param>
+            <param name="permissions">New permissions</param>
+            <param name="ipWhitelist">New IP whitelist</param>
+            <param name="expire">New expire time in days</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.DeleteSubAccountApiKeyAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove an API key for a sub account
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/delete-sub-account-api" /></para>
+            </summary>
+            <param name="subAccountName">Sub account name</param>
+            <param name="passphrase">Password/passphrase for the key</param>
+            <param name="apiKey">The api key</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -10081,6 +10200,11 @@
             The sub user name
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.Status">
+            <summary>
+            Status, 2: enabled, 3: frozen
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.Type">
             <summary>
             Account type
@@ -10093,7 +10217,192 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.Access">
             <summary>
-            Access level
+            Permissions
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUser.CreateTime">
+            <summary>
+            Key creation time
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalances">
+            <summary>
+            Sub user balances
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalances.SubAccountId">
+            <summary>
+            The sub user id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalances.SubName">
+            <summary>
+            The sub user name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalances.MainAccounts">
+            <summary>
+            Main account balances
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalances.TradeAccounts">
+            <summary>
+            Trade account balances
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalances.MarginAccounts">
+            <summary>
+            Margin account balances
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance">
+            <summary>
+            Sub user info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.Available">
+            <summary>
+            Available quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.Total">
+            <summary>
+            Total balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.Frozen">
+            <summary>
+            Frozen quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.BaseAssetPrice">
+            <summary>
+            Base asset price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserBalance.BaseAssetQuantity">
+            <summary>
+            Base asset quantity
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey">
+            <summary>
+            Sub user api key info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.SubName">
+            <summary>
+            The sub user name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.ApiKey">
+            <summary>
+            The API key
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.IpWhitelist">
+            <summary>
+            IP whitelist
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.CreateTime">
+            <summary>
+            Key creation time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKey.ApiKeyVersion">
+            <summary>
+            Version of the API key
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails">
+            <summary>
+            Sub user api key info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.SubName">
+            <summary>
+            The sub user name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.ApiKey">
+            <summary>
+            The API key
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.Secret">
+            <summary>
+            The secret value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.Passphrase">
+            <summary>
+            The passphrase/password
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.IpWhitelist">
+            <summary>
+            IP whitelist
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyDetails.CreateTime">
+            <summary>
+            Key creation time
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyEdited">
+            <summary>
+            Sub user api key info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyEdited.SubName">
+            <summary>
+            The sub user name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyEdited.ApiKey">
+            <summary>
+            The API key
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyEdited.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSubUserKeyEdited.IpWhitelist">
+            <summary>
+            IP whitelist
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinSymbol">

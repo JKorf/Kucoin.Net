@@ -1,0 +1,24 @@
+GET
+/api/v2/sub/user
+true
+{
+  "code": "200000",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 100,
+    "totalNum": 1,
+    "totalPage": 1,
+    "items": [
+      {
+        "userId": "635002438793b80001dcc8b3",
+        "uid": 62356,
+        "subName": "margin01",
+        "status": 2,
+        "type": 4,
+        "access": "Margin",
+        "createdAt": 1666187844000,
+        "remarks": null
+      }
+    ]
+  }
+}

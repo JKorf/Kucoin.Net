@@ -40,6 +40,8 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public IKucoinRestClientSpotApiAccount Account { get; }
+        /// <inheritdoc />
+        public IKucoinRestClientSpotApiSubAccount SubAccount { get; }
 
         /// <inheritdoc />
         public IKucoinRestClientSpotApiExchangeData ExchangeData { get; }
@@ -57,6 +59,7 @@ namespace Kucoin.Net.Clients.SpotApi
             : base(logger, httpClient, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             Account = new KucoinRestClientSpotApiAccount(this);
+            SubAccount = new KucoinRestClientSpotApiSubAccount(this);
             ExchangeData = new KucoinRestClientSpotApiExchangeData(this);
             Trading = new KucoinRestClientSpotApiTrading(this);
             HfTrading = new KucoinRestClientSpotApiHfTrading(this);
@@ -373,6 +376,15 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
+        }
+
+        internal async Task<WebCallResult<T>> SendRawAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
+        {
+            var result = await base.SendAsync<T>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<T>(result.Error!);
+
+            return result.As(result.Data);
         }
 
         /// <inheritdoc />

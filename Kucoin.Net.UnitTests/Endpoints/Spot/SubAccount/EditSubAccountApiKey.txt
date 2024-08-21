@@ -1,0 +1,12 @@
+POST
+/api/v1/sub/api-key/update
+true
+{
+  "code": "200000",
+  "data": {
+    "subName": "AAAAAAAAAA0007",
+    "apiKey": "630329b4e7508700018298c5",
+    "permission": "General",
+    "ipWhitelist": "127.0.0.1"
+  }
+}

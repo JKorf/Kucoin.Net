@@ -1,0 +1,29 @@
+GET
+/api/v2/sub-accounts
+true
+{
+  "code": "200000",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 10,
+    "totalNum": 14,
+    "totalPage": 2,
+    "items": [
+      {
+        "subUserId": "635002438793b80001dcc8b3",
+        "subName": "margin03",
+        "mainAccounts": [
+          {
+            "currency": "00",
+            "balance": "0",
+            "available": "0",
+            "holds": "0",
+            "baseCurrency": "BTC",
+            "baseCurrencyPrice": "125.63",
+            "baseAmount": "0"
+          }
+        ]
+      }
+    ]
+  }
+}

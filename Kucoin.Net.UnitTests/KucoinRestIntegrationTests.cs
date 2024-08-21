@@ -51,7 +51,7 @@ namespace Kucoin.Net.UnitTests
         public async Task TestSpotAccount()
         {
             await RunAndCheckResult(client => client.SpotApi.Account.GetUserInfoAsync(default), true);
-            await RunAndCheckResult(client => client.SpotApi.Account.GetSubUserInfoAsync(default), true);
+            //await RunAndCheckResult(client => client.SpotApi.Account.GetSubUserInfoAsync(default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetAccountsAsync(default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetBasicUserFeeAsync(default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetSymbolTradingFeesAsync("ETH-USDT", default), true);

@@ -23,14 +23,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinUserInfo>> GetUserInfoAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of sub users
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-info-v1-" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>List of sub users</returns>
-        Task<WebCallResult<IEnumerable<KucoinSubUser>>> GetSubUserInfoAsync(CancellationToken ct = default);
-
-        /// <summary>
         /// Gets a list of accounts
         /// <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-list-spot-margin-trade_hf" /></para>
         /// </summary>
