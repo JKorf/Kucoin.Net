@@ -77,7 +77,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<IEnumerable<KucoinSubUserKey>>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<IEnumerable<KucoinSubUserKey>>(new ServerError(result.Data.Message));
+                return result.AsError<IEnumerable<KucoinSubUserKey>>(new ServerError(result.Data.Message!));
 
             return result.As(result.Data.Data);
         }
@@ -109,7 +109,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKeyDetails>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKeyDetails>(new ServerError(result.Data.Message));
+                return result.AsError<KucoinSubUserKeyDetails>(new ServerError(result.Data.Message!));
 
             return result.As(result.Data.Data);
         }
@@ -141,7 +141,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Message));
+                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Message!));
 
             return result.As(result.Data.Data);
         }
@@ -167,7 +167,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Message));
+                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Message!));
 
             return result.As(result.Data.Data);
         }

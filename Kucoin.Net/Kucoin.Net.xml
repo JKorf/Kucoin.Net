@@ -442,9 +442,6 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetUserInfoAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetSubUserInfoAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetAccountsAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
