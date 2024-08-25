@@ -48,7 +48,7 @@ namespace Kucoin.Net.Clients.SpotApi
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(ApiType? apiType, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
         {
             var result = await SubscribeToBalanceUpdatesAsync(
                 update => handler(update.As<IEnumerable<SharedBalance>>(new[] { new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Total) })),
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Clients.SpotApi
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
         {
             var result = await SubscribeToOrderUpdatesAsync(
                 update => handler(update.As<IEnumerable<SharedSpotOrder>>(new[] { ParseOrder(update.Data) })),
