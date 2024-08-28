@@ -1,0 +1,17 @@
+GET
+/api/v1/sub/api-key
+true
+{
+  "code": "200000",
+  "data": [
+    {
+      "subName": "AAAAAAAAAAAAA0022",
+      "remark": "hytest01-01",
+      "apiKey": "63032453e75087000182982b",
+      "permission": "General",
+      "ipWhitelist": "",
+      "createdAt": 1661150291000,
+      "apiVersion" : 3
+    }
+  ]
+}

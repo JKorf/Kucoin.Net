@@ -95,7 +95,7 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |API|Supported|Location|
 |--|--:|--|
 |Account Basic Info|✓|`restClient.SpotApi.Account` / `restClient.FuturesApi.Account`|
-|Account Sub-Account|X||
+|Account Sub-Account|✓|`restClient.SpotApi.SubAccount`|
 |Funding Overview|✓|`restClient.SpotApi.Account`|
 |Funding Deposit|✓|`restClient.SpotApi.Account`|
 |Funding Withdrawal|✓|`restClient.SpotApi.Account`|
@@ -106,7 +106,7 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Spot Trading Orders|✓|`restClient.SpotApi.Trading`|
 |Spot Trading Fills|✓|`restClient.SpotApi.Trading`|
 |Spot Trading Stop Order|✓|`restClient.SpotApi.Trading`|
-|Margin Trading Margin HT Trade|X||
+|Margin Trading Margin HF Trade|X||
 |Margin Trading Margin Orders|✓|`restClient.SpotApi.Trading`|
 |Margin Trading Margin Info|✓|`restClient.SpotApi.ExchangeData`|
 |Margin Trading Isolated Margin|✓|`restClient.SpotApi.ExchangeData` / `restClient.SpotApi.Account`|
@@ -143,6 +143,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.13.1 - 28 Aug 2024
+    * Updated CryptoExchange.Net to version 7.11.2, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.11.2
+    * Added FuturesApi.Trading.PlaceTpSlOrderAsync endpoint, added ClientOrderId property to futures order placement response
+
+* Version 5.13.0 - 21 Aug 2024
+    * Added sub account endpoints under SpotApi.SubAccount.*
+    * Moved SpotApi.Account.GetSubUserInfoAsync to new SubAccount topic
+
 * Version 5.12.0 - 19 Aug 2024
     * Added FuturesApi.SubscribeToKlineUpdatesAsync subscription
     * Added FuturesApi.ExchangeData.GetTickersAsync endpoint

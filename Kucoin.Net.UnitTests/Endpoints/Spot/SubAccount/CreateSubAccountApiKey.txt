@@ -1,0 +1,16 @@
+POST
+/api/v1/sub/api-key
+true
+{
+  "code": "200000",
+  "data": {
+    "subName": "AAAAAAAAAA0007",
+    "remark": "remark",
+    "apiKey": "630325e0e750870001829864",
+    "apiSecret": "110f31fc-61c5-4baf-a29f-3f19a62bbf5d",
+    "passphrase": "passphrase",
+    "permission": "General",
+    "ipWhitelist": "",
+    "createdAt": 1661150688000
+  }
+}

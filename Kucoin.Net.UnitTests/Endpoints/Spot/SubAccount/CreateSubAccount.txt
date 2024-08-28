@@ -1,0 +1,12 @@
+POST
+/api/v2/sub/user/created
+true
+{
+  "code": "200000",
+  "data": {
+    "uid": 9969082973,
+    "subName": "AAAAAAAAAA0007",
+    "remarks": "remark",
+    "access": "Spot"
+  }
+}
