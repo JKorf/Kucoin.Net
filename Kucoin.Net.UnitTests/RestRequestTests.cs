@@ -225,6 +225,7 @@ namespace Kucoin.Net.UnitTests
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Trading", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTestOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTestOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTpSlOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTpSlOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceMultipleOrdersAsync(new[] { new KucoinFuturesOrderRequestEntry() }), "PlaceMultipleOrders");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderAsync("123"), "CancelOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderByClientOrderIdAsync("ETHUSDT", "123"), "CancelOrderByClientOrderId");

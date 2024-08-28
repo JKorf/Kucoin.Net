@@ -136,6 +136,58 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
+            string symbol,
+            OrderSide side,
+            NewOrderType type,
+            decimal leverage,
+            int quantity,
+
+            decimal? price = null,
+            TimeInForce? timeInForce = null,
+            bool? postOnly = null,
+            bool? hidden = null,
+            bool? iceberg = null,
+            decimal? visibleSize = null,
+
+            string? remark = null,
+            decimal? takeProfitPrice = null,
+            decimal? stopLossPrice = null,
+            StopPriceType? stopPriceType = null,
+            bool? reduceOnly = null,
+            bool? closeOrder = null,
+            bool? forceHold = null,
+            string? clientOrderId = null,
+            SelfTradePrevention? selfTradePrevention = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddParameter("symbol", symbol);
+            parameters.AddParameter("side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
+            parameters.AddParameter("type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)));
+            parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
+            parameters.AddParameter("size", quantity.ToString(CultureInfo.InvariantCulture));
+            parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
+            parameters.AddOptionalParameter("remark", remark);
+            parameters.AddOptionalString("triggerStopUpPrice", takeProfitPrice);
+            parameters.AddOptionalParameter("stopPriceType", stopPriceType != null ? JsonConvert.SerializeObject(stopPriceType, new StopPriceTypeConverter(false)) : null);
+            parameters.AddOptionalString("triggerStopDownPrice", stopLossPrice);
+            parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
+            parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
+            parameters.AddOptionalParameter("forceHold", forceHold?.ToString());
+            parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("timeInForce", timeInForce != null ? JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
+            parameters.AddOptionalParameter("hidden", hidden?.ToString());
+            parameters.AddOptionalParameter("iceberg", iceberg);
+            parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
+            parameters.AddOptionalEnum("stp", selfTradePrevention);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/st-orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
