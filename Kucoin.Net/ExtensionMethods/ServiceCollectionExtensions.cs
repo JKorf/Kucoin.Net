@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Clients;
+﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
@@ -62,6 +63,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.CommonSpotClient);
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.CommonFuturesClient);
+
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient);
+
             if (socketClientLifeTime == null)
                 services.AddSingleton<IKucoinSocketClient, KucoinSocketClient>();
             else

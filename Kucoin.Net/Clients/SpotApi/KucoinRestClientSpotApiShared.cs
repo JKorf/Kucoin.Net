@@ -59,7 +59,7 @@ namespace Kucoin.Net.Clients.SpotApi
             }
 
             var result = await ExchangeData.GetKlinesAsync(
-                request.GetSymbol(FormatSymbol),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
                 fromTimestamp ?? request.Filter?.StartTime,
                 endTime,
@@ -115,7 +115,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedTicker>(Exchange, validationError);
 
-            var symbol = request.GetSymbol(FormatSymbol);
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
             var result = await ExchangeData.Get24HourStatsAsync(symbol, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTicker>(Exchange, default);
@@ -149,7 +149,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, validationError);
 
             var result = await ExchangeData.GetTradeHistoryAsync(
-                request.GetSymbol(FormatSymbol),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
@@ -205,7 +205,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var result = await Trading.PlaceOrderAsync(
-                request.GetSymbol(FormatSymbol),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType),
                 request.Quantity,
@@ -221,10 +221,10 @@ namespace Kucoin.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, new SharedId(result.Data.Id.ToString()));
         }
 
-        EndpointOptions<GetOrderRequest> ISpotOrderRestClient.GetOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
-        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetOrderRequest> ISpotOrderRestClient.GetSpotOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetSpotOrderAsync(GetOrderRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetOrderOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
 
@@ -252,17 +252,14 @@ namespace Kucoin.Net.Clients.SpotApi
             });
         }
 
-        EndpointOptions<GetSpotOpenOrdersRequest> ISpotOrderRestClient.GetOpenOrdersOptions { get; } = new EndpointOptions<GetSpotOpenOrdersRequest>(true);
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetSpotOpenOrdersRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetOpenOrdersRequest> ISpotOrderRestClient.GetOpenSpotOrdersOptions { get; } = new EndpointOptions<GetOpenOrdersRequest>(true);
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenSpotOrdersAsync(GetOpenOrdersRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetOpenOrdersOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            var validationError = ((ISpotOrderRestClient)this).GetOpenSpotOrdersOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, validationError);
 
-            string? symbol = null;
-            if (request.BaseAsset != null && request.QuoteAsset != null)
-                symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, ApiType.Spot);
-
+            var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, ApiType.Spot));
             var order = await Trading.GetOrdersAsync(symbol: symbol, status: OrderStatus.Active).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
@@ -287,10 +284,10 @@ namespace Kucoin.Net.Clients.SpotApi
             }));
         }
 
-        PaginatedEndpointOptions<GetSpotClosedOrdersRequest> ISpotOrderRestClient.GetClosedOrdersOptions { get; } = new PaginatedEndpointOptions<GetSpotClosedOrdersRequest>(true, true);
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(true, true);
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetClosedOrdersOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, validationError);
 
@@ -304,7 +301,7 @@ namespace Kucoin.Net.Clients.SpotApi
             }
 
             // Get data
-            var order = await Trading.GetOrdersAsync(request.GetSymbol(FormatSymbol), status: OrderStatus.Done).ConfigureAwait(false);
+            var order = await Trading.GetOrdersAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), status: OrderStatus.Done).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
             
@@ -333,10 +330,10 @@ namespace Kucoin.Net.Clients.SpotApi
             }), nextToken);
         }
 
-        EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetSpotOrderTradesAsync(GetOrderTradesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetOrderTradesOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderTradesOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
@@ -358,10 +355,10 @@ namespace Kucoin.Net.Clients.SpotApi
             }));
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(true, true);
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, INextPageToken? nextPageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(true, true);
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, INextPageToken? nextPageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetUserTradesOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
@@ -375,7 +372,7 @@ namespace Kucoin.Net.Clients.SpotApi
             }
 
             // Get data
-            var order = await Trading.GetUserTradesAsync(request.GetSymbol(FormatSymbol),
+            var order = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 startTime: request.Filter?.StartTime,
                 endTime: request.Filter?.EndTime,
                 currentPage: page,
@@ -403,10 +400,10 @@ namespace Kucoin.Net.Clients.SpotApi
             nextToken);
         }
 
-        EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
-        async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelSpotOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.CancelSpotOrderAsync(CancelOrderRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).CancelOrderOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
@@ -461,10 +458,40 @@ namespace Kucoin.Net.Clients.SpotApi
         #endregion
 
         #region Asset client
-        EndpointOptions IAssetRestClient.GetAssetsOptions { get; } = new EndpointOptions("GetAssetsRequest", false);
-
-        async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetRestClient.GetAssetsAsync(ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetAssetRequest> IAssetsRestClient.GetAssetOptions { get; } = new EndpointOptions<GetAssetRequest>(false);
+        async Task<ExchangeWebResult<SharedAsset>> IAssetsRestClient.GetAssetAsync(GetAssetRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
+            var validationError = ((IAssetsRestClient)this).GetAssetOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedAsset>(Exchange, validationError);
+
+            var assets = await ExchangeData.GetAssetAsync(request.Asset, ct: ct).ConfigureAwait(false);
+            if (!assets)
+                return assets.AsExchangeResult<SharedAsset>(Exchange, default);
+
+            return assets.AsExchangeResult<SharedAsset>(Exchange, new SharedAsset(assets.Data.Asset)
+            {
+                FullName = assets.Data.Name,
+                Networks = assets.Data.Networks?.Select(x => new SharedAssetNetwork(x.NetworkId)
+                {
+                    FullName = x.NetworkName,
+                    MinConfirmations = x.Confirms,
+                    DepositEnabled = x.IsDepositEnabled,
+                    MinWithdrawQuantity = x.WithdrawalMinQuantity,
+                    WithdrawEnabled = x.IsWithdrawEnabled,
+                    WithdrawFee = x.WithdrawalMinFee
+                }).ToList()
+            });
+        }
+
+        EndpointOptions IAssetsRestClient.GetAssetsOptions { get; } = new EndpointOptions("GetAssetsRequest", false);
+
+        async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetsRestClient.GetAssetsAsync(ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IAssetsRestClient)this).GetAssetsOptions.ValidateRequest(Exchange, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedAsset>>(Exchange, validationError);
+
             var assets = await ExchangeData.GetAssetsAsync(ct: ct).ConfigureAwait(false);
             if (!assets)
                 return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, default);
@@ -557,7 +584,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
             var result = await ExchangeData.GetAggregatedPartialOrderBookAsync(
-                request.GetSymbol(FormatSymbol),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 limit: request.Limit ?? 20,
                 ct: ct).ConfigureAwait(false);
             if (!result)
