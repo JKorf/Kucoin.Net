@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
-    internal class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
+    internal partial class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
     {
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
@@ -379,6 +379,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public IFuturesClient CommonFuturesClient => this;
+        public IKucoinRestClientFuturesApiShared SharedClient => this;
 
         private static FuturesKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
         {

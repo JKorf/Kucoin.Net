@@ -29,5 +29,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <returns></returns>
         public IFuturesClient CommonFuturesClient { get; }
+        public IKucoinRestClientFuturesApiShared SharedClient { get; }
     }
 }

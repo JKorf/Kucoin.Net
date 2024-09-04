@@ -15,7 +15,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IRecentTradeRestClient,
         ISpotOrderRestClient,
         ISpotSymbolRestClient,
-        ITickerRestClient,
+        ISpotTickerRestClient,
         //ITradeHistoryRestClient,
         IWithdrawalRestClient,
         IWithdrawRestClient
