@@ -116,12 +116,20 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedFuturesSymbol(
+            var data = result.Data.Where(x =>
+                apiType == ApiType.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
+                 apiType == ApiType.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
+                  apiType == ApiType.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
+                   (x.IsInverse && x.SettleDate.HasValue));
+            return result.AsExchangeResult(Exchange, data.Select(s => new SharedFuturesSymbol(
                 s.IsInverse && s.SettleDate.HasValue ? SharedSymbolType.DeliveryInverse :
                 s.IsInverse && !s.SettleDate.HasValue ? SharedSymbolType.PerpetualInverse:
                 s.SettleDate.HasValue ? SharedSymbolType.DeliveryLinear:
                 SharedSymbolType.PerpetualLinear,
-                s.BaseAsset, s.QuoteAsset, s.Symbol)
+                s.BaseAsset,
+                s.QuoteAsset,
+                s.Symbol,
+                s.Status == "Open")
             {
                 MinTradeQuantity = s.LotSize,
                 MaxTradeQuantity = s.MaxOrderQuantity,
