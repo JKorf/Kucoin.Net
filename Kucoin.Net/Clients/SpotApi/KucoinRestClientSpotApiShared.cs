@@ -45,17 +45,17 @@ namespace Kucoin.Net.Clients.SpotApi
             if (pageToken is DateTimeToken dateTimeToken)
                 fromTimestamp = dateTimeToken.LastTime;
 
-            var startTime = request.Filter?.StartTime;
-            var endTime = request.Filter?.EndTime;
+            var startTime = request.StartTime;
+            var endTime = request.EndTime;
             var apiLimit = 1500;
 
             // API returns the newest data first if the timespan is bigger than the api limit of 1500 results
             // So we need to request the first 1500 from the start time, then the 1500 after that etc
-            if (request.Filter?.StartTime != null)
+            if (request.StartTime != null)
             {
                 // Not paginated, check if the data will fit
                 var seconds = apiLimit * (int)request.Interval;
-                var maxEndTime = (fromTimestamp ?? request.Filter.StartTime).Value.AddSeconds(seconds);
+                var maxEndTime = (fromTimestamp ?? request.StartTime).Value.AddSeconds(seconds);
                 if (maxEndTime < endTime)
                     endTime = maxEndTime;
             }
@@ -63,7 +63,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                fromTimestamp ?? request.Filter?.StartTime,
+                fromTimestamp ?? request.StartTime,
                 endTime,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -72,10 +72,10 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -295,7 +295,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Determine page token
             int page = 1;
-            int pageSize = request.Filter?.Limit ?? 500;
+            int pageSize = request.Limit ?? 500;
             if (pageToken is PageToken token)
             {
                 page = token.Page;
@@ -366,7 +366,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Determine page token
             int page = 1;
-            int pageSize = request.Filter?.Limit ?? 500;
+            int pageSize = request.Limit ?? 500;
             if (nextPageToken is PageToken pageToken)
             {
                 page = pageToken.Page;
@@ -375,8 +375,8 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Get data
             var order = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 currentPage: page,
                 pageSize: pageSize).ConfigureAwait(false);
             if (!order)
@@ -545,7 +545,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Determine page token
             int page = 1;
-            int pageSize = request.Filter?.Limit ?? 100;
+            int pageSize = request.Limit ?? 100;
             if (pageToken is PageToken pagToken) {
                 page = pagToken.Page;
                 pageSize = pagToken.PageSize;
@@ -554,8 +554,8 @@ namespace Kucoin.Net.Clients.SpotApi
             // Get data
             var deposits = await Account.GetDepositsAsync(
                 request.Asset,
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 currentPage: page,
                 pageSize: pageSize,
                 ct: ct).ConfigureAwait(false);
@@ -608,7 +608,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Determine page token
             int page = 1;
-            int pageSize = request.Filter?.Limit ?? 100;
+            int pageSize = request.Limit ?? 100;
             if (pageToken is PageToken pagToken)
             {
                 page = pagToken.Page;
@@ -618,8 +618,8 @@ namespace Kucoin.Net.Clients.SpotApi
             // Get data
             var withdrawals = await Account.GetWithdrawalsAsync(
                 request.Asset,
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 currentPage: page,
                 pageSize: pageSize,
                 ct: ct).ConfigureAwait(false);

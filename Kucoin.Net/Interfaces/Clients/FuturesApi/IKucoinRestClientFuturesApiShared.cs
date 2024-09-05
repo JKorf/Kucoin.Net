@@ -16,7 +16,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         IRecentTradeRestClient,
         IOrderBookRestClient,
         IOpenInterestRestClient,
-        IFundingRateRestClient
+        IFundingRateRestClient,
+        IPositionModeRestClient
     {
     }
 }

@@ -176,14 +176,12 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
-#warning do we want to change the side based on position side? Or maybe remove position side from the request and base it on buy(long) or sell(short)?
+                GetOrderSide(request.Side, request.PositionSide),
                 request.OrderType == SharedOrderType.Limit ? Enums.NewOrderType.Limit : Enums.NewOrderType.Market,
                 request.Leverage!.Value,
                 quantity: (int)(request.Quantity ?? 0),
                 price: request.Price,
                 postOnly: request.OrderType == SharedOrderType.LimitMaker ? true: null,
-                //positionSide: request.PositionSide == SharedPositionSide.Both ? PositionSide.Both : request.PositionSide == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short,
                 reduceOnly: request.ReduceOnly,
                 timeInForce: GetTimeInForce(request.TimeInForce),
                 clientOrderId: request.ClientOrderId).ConfigureAwait(false);
@@ -221,7 +219,6 @@ namespace Kucoin.Net.Clients.FuturesApi
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                 UpdateTime = order.Data.UpdateTime,
                 Leverage = order.Data.Leverage,
-                //PositionSide = order.Data.PositionSide == PositionSide.Both ? SharedPositionSide.Both : order.Data.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 ReduceOnly = order.Data.ReduceOnly
             });
         }
@@ -254,7 +251,6 @@ namespace Kucoin.Net.Clients.FuturesApi
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
-                //PositionSide = x.PositionSide == PositionSide.Both ? SharedPositionSide.Both : x.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 ReduceOnly = x.ReduceOnly
             }));
         }
@@ -268,7 +264,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Determine page token
             int page = 1;
-            int pageSize = request.Filter?.Limit ?? 1000;
+            int pageSize = request.Limit ?? 1000;
             if (pageToken is PageToken token)
             {
                 page = token.Page;
@@ -278,8 +274,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             // Get data
             var orders = await Trading.GetOrdersAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 OrderStatus.Done,
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 currentPage: page,
                 pageSize: pageSize).ConfigureAwait(false);
             if (!orders)
@@ -306,7 +302,6 @@ namespace Kucoin.Net.Clients.FuturesApi
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
-                //PositionSide = x.PositionSide == PositionSide.Both ? SharedPositionSide.Both : x.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 ReduceOnly = x.ReduceOnly
             }), nextToken);
         }
@@ -347,7 +342,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Determine page token
             int page = 1;
-            int pageSize = request.Filter?.Limit ?? 1000;
+            int pageSize = request.Limit ?? 1000;
             if (pageToken is PageToken token)
             {
                 page = token.Page;
@@ -356,8 +351,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Get data
             var orders = await Trading.GetUserTradesAsync(symbol: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 currentPage: page,
                 pageSize: pageSize
                 ).ConfigureAwait(false);
@@ -415,14 +410,16 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (symbol != null)
                 data = data.Where(x => x.Symbol == symbol);
 
-            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, data.Select(x => new SharedPosition(x.Symbol, x.CurrentQuantity, x.OpenTime ?? default)
+            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
             {
                 UnrealizedPnl = x.UnrealizedPnl,
                 LiquidationPrice = x.LiquidationPrice,
                 Leverage = x.RealLeverage,
                 AverageEntryPrice = x.AverageEntryPrice,
                 InitialMargin = x.PositionInit,
-                MaintenanceMargin = x.MaintenanceMargin
+                MaintenanceMargin = x.MaintenanceMargin,
+#warning check if correct
+                PositionSide = x.CurrentQuantity >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short,
             }).ToList());
         }
 
@@ -446,6 +443,22 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.AsExchangeResult<SharedId>(Exchange, default);
 
             return result.AsExchangeResult(Exchange, new SharedId(result.Data.Id.ToString()));
+        }
+
+        private OrderSide GetOrderSide(SharedOrderSide side, SharedPositionSide? posSide)
+        {
+            if (posSide == null) return side == SharedOrderSide.Buy ? OrderSide.Buy: OrderSide.Sell;
+
+            if (posSide == SharedPositionSide.Long)
+            {
+                if (side == SharedOrderSide.Buy)
+                    return OrderSide.Buy;
+                return OrderSide.Sell;
+            }
+
+            if (side == SharedOrderSide.Buy)
+                return OrderSide.Sell;
+            return OrderSide.Buy;
         }
 
         private TimeInForce? GetTimeInForce(SharedTimeInForce? tif)
@@ -511,17 +524,17 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (pageToken is DateTimeToken dateTimeToken)
                 fromTimestamp = dateTimeToken.LastTime;
 
-            var startTime = request.Filter?.StartTime;
-            var endTime = request.Filter?.EndTime;
+            var startTime = request.StartTime;
+            var endTime = request.EndTime;
             var apiLimit = 500;
 
             // API returns the newest data first if the timespan is bigger than the api limit of 1000 results
             // So we need to request the first 1000 from the start time, then the 1000 after that etc
-            if (request.Filter?.StartTime != null)
+            if (request.StartTime != null)
             {
                 // Not paginated, check if the data will fit
                 var seconds = apiLimit * (int)request.Interval;
-                var maxEndTime = (fromTimestamp ?? request.Filter.StartTime).Value.AddSeconds(seconds);
+                var maxEndTime = (fromTimestamp ?? request.StartTime).Value.AddSeconds(seconds);
                 if (maxEndTime < endTime)
                     endTime = maxEndTime;
             }
@@ -529,7 +542,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                fromTimestamp ?? request.Filter?.StartTime,
+                fromTimestamp ?? request.StartTime,
                 endTime,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -538,10 +551,10 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -636,6 +649,25 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Return
             return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)), nextToken);
+        }
+        #endregion
+
+        #region Position Mode client
+
+        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions(false);
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            // Only support one mode, so never actually needs to change
+            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
+                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(SharedPositionMode.OneWay), null));
+        }
+
+        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(true, false, false);
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            // Only support one mode, so never actually needs to change
+            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
+                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(request.Mode), null));
         }
         #endregion
     }
