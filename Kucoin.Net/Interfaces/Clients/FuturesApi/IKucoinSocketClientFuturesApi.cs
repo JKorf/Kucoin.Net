@@ -17,6 +17,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// </summary>
     public interface IKucoinSocketClientFuturesApi : ISocketApiClient, IDisposable
     {
+        IKucoinSocketClientFuturesApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to trade updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/match-execution-data" /></para>

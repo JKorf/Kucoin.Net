@@ -30,7 +30,7 @@ using Kucoin.Net.Converters;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
-    internal class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
+    internal partial class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
@@ -64,12 +64,14 @@ namespace Kucoin.Net.Clients.FuturesApi
             return message.GetValue<string>(_topicPath)!;
         }
 
+        public IKucoinSocketClientFuturesApiShared SharedClient => this;
+
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
 
         /// <inheritdoc />
         protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;
