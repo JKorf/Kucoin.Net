@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.SharedApis.Interfaces.Socket;
+using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         IKlineSocketClient,
         IOrderBookSocketClient,
         IBalanceSocketClient,
-        IFuturesOrderSocketClient
+        IFuturesOrderSocketClient,
+        IPositionSocketClient
     {
     }
 }

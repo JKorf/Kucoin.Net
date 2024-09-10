@@ -20,6 +20,7 @@ using CryptoExchange.Net.SharedApis.Models;
 using CryptoExchange.Net.SharedApis.Models.FilterOptions;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Futures.Socket;
+using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -171,5 +172,29 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
         #endregion
 
+        #region Position client
+        SubscriptionOptions IPositionSocketClient.SubscribePositionOptions { get; } = new SubscriptionOptions("SubscribePositionRequest", true);
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(Action<ExchangeEvent<IEnumerable<SharedPosition>>> handler, ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, exchangeParameters, ApiType.Spot, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToPositionUpdatesAsync(
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedPosition>>(Exchange, new[] { new SharedPosition(update.Data.Symbol, update.Data.CurrentQuantity, update.Data.CurrentTime)
+                {
+                    AverageEntryPrice = update.Data.AverageEntryPrice,
+                    PositionSide = update.Data.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
+                    LiquidationPrice = update.Data.LiquidationPrice,
+                    Leverage = update.Data.RealLeverage,
+                    UnrealizedPnl = update.Data.UnrealizedPnl,
+                    MaintenanceMargin = update.Data.MaintenanceMargin
+                }})),
+                ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        #endregion
     }
 }
