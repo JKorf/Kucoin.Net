@@ -32,7 +32,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.GetServerTimestampAsync">
@@ -229,7 +229,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
@@ -410,7 +410,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.GetSymbolName(System.String,System.String)">
@@ -850,7 +850,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
