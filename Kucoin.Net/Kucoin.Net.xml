@@ -5905,11 +5905,6 @@
             Order result
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult.ClientOrderId">
-            <summary>
-            Client order id
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult.Symbol">
             <summary>
             Symbol
