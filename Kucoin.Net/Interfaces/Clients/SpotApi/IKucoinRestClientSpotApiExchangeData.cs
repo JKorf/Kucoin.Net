@@ -32,6 +32,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get info on a specific symbol
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-symbol-detail" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinSymbol>> GetSymbolAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets ticker info of a symbol
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-ticker" /></para>
         /// </summary>

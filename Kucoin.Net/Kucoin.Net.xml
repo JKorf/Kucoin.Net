@@ -529,6 +529,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetSymbolAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3545,6 +3548,15 @@
             <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
             <param name="ct">Cancellation token</param>
             <returns>List of symbols</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetSymbolAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a specific symbol
+            <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-symbol-detail" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
