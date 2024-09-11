@@ -9,11 +9,6 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFuturesOrderResult: KucoinOrderId
     {
         /// <summary>
-        /// Client order id
-        /// </summary>
-        [JsonProperty("clientOid")]
-        public string ClientOrderId { get; set; } = string.Empty;
-        /// <summary>
         /// Symbol
         /// </summary>
         [JsonProperty("symbol")]

@@ -50,6 +50,15 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinSymbol>> GetSymbolAsync(string symbol, CancellationToken ct = default)
+        {
+            // Testnet doesn't support V2
+            var apiVersion = _baseClient.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v{apiVersion}/symbols/{symbol}", KucoinExchange.RateLimiter.PublicRest, 4);
+            return await _baseClient.SendAsync<KucoinSymbol>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection { { "symbol", symbol } };
