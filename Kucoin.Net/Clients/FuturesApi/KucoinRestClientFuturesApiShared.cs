@@ -27,11 +27,11 @@ namespace Kucoin.Net.Clients.FuturesApi
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear, ApiType.PerpetualInverse, ApiType.DeliveryInverse };
 
         #region Balance client
-        EndpointOptions IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions("GetBalancesRequest", true);
+        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
 
-        async Task<ExchangeWebResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedBalance>>(Exchange, validationError);
 
@@ -70,7 +70,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                     result.Data.LastTradePrice ?? 0,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
-                    result.Data.Volume24H)
+                    result.Data.Volume24H,
+                    result.Data.PriceChangePercentage)
                 {
                     IndexPrice = result.Data.IndexPrice,
                     MarkPrice = result.Data.MarkPrice,
@@ -79,10 +80,10 @@ namespace Kucoin.Net.Clients.FuturesApi
                 });
         }
 
-        EndpointOptions IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions("GetFuturesTickersRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedFuturesTicker>>> IFuturesTickerRestClient.GetFuturesTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetTickersRequest> IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesTicker>>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesTicker>>(Exchange, validationError);
 
@@ -91,7 +92,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, default);
 
             return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, result.Data.Select(x =>
-            new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H)
+            new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage)
             {
                 IndexPrice = x.IndexPrice,
                 MarkPrice = x.MarkPrice,
@@ -105,10 +106,10 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Futures Symbol client
 
-        EndpointOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions("GetFuturesSymbolsRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetFuturesSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetFuturesSymbolsRequest>(false);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetFuturesSymbolsRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((IFuturesSymbolRestClient)this).GetFuturesSymbolsOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            var validationError = ((IFuturesSymbolRestClient)this).GetFuturesSymbolsOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>(Exchange, validationError);
 
@@ -116,11 +117,13 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            var data = result.Data.Where(x =>
-                apiType == ApiType.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
-                 apiType == ApiType.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
-                  apiType == ApiType.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
-                   (x.IsInverse && x.SettleDate.HasValue));
+            var data = result.Data;
+            if (request.ApiType.HasValue)
+                data = data.Where(x =>
+                    request.ApiType == ApiType.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
+                     request.ApiType == ApiType.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
+                      request.ApiType == ApiType.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
+                       (x.IsInverse && x.SettleDate.HasValue));
             return result.AsExchangeResult(Exchange, data.Select(s => new SharedFuturesSymbol(
                 s.IsInverse && s.SettleDate.HasValue ? SharedSymbolType.DeliveryInverse :
                 s.IsInverse && !s.SettleDate.HasValue ? SharedSymbolType.PerpetualInverse:
@@ -255,7 +258,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             }));
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(true, true);
+        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, exchangeParameters, request.Symbol.ApiType, SupportedApiTypes);
@@ -333,7 +336,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             }));
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(true, true);
+        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, exchangeParameters, request.Symbol.ApiType, SupportedApiTypes);
@@ -504,7 +507,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Klines client
 
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true, false)
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Descending, false)
         {
             MaxRequestDataPoints = 500
         };
@@ -622,7 +625,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #endregion
 
         #region Funding Rate client
-        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(true, false);
+        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(false);
 
         async Task<ExchangeWebResult<IEnumerable<SharedFundingRate>>> IFundingRateRestClient.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
@@ -668,6 +671,56 @@ namespace Kucoin.Net.Clients.FuturesApi
             // Only support one mode, so never actually needs to change
             return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
                 null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(request.Mode), null));
+        }
+        #endregion
+
+        #region Position History client
+
+        GetPositionHistoryOptions IPositionHistoryRestClient.GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(false, SharedPaginationType.Descending);
+        async Task<ExchangeWebResult<IEnumerable<SharedPositionHistory>>> IPositionHistoryRestClient.GetPositionHistoryAsync(GetPositionHistoryRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IPositionHistoryRestClient)this).GetPositionHistoryOptions.ValidateRequest(Exchange, request, exchangeParameters, request.Symbol?.ApiType ?? request.ApiType!.Value, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedPositionHistory>>(Exchange, validationError);
+
+            // Determine page token
+            int page = 1;
+            int pageSize = request.Limit ?? 200;
+            if (pageToken is PageToken token){
+                page = token.Page;
+                pageSize = token.PageSize;
+            }
+
+            // Get data
+            var orders = await Account.GetPositionHistoryAsync(
+                symbol: request.Symbol!.GetSymbol(FormatSymbol),
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                page: page,
+                limit: pageSize,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, default);
+
+            // Get next token
+            PageToken? nextToken = null;
+            if (orders.Data.TotalPages > page)
+                nextToken = new PageToken(page + 1, pageSize);
+
+            return orders.AsExchangeResult(Exchange, orders.Data.Items.Select(x => new SharedPositionHistory(
+                x.Symbol,
+                x.Side == OrderSide.Sell ? SharedPositionSide.Long : SharedPositionSide.Short,
+                x.OpenPrice ?? 0,
+                x.ClosePrice ?? 0,
+                x.CloseQuantity ?? 0,
+                x.ProfitAndLoss ?? 0,
+                x.CloseTime ?? x.OpenTime)
+            {
+                Leverage = x.Leverage,
+                OrderId = x.CloseId.ToString(),
+                PositionId = x.PositionId
+            }), nextToken);
         }
         #endregion
     }
