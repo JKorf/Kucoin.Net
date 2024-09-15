@@ -78,13 +78,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewBorrowOrder>> BorrowAsync(
-           string asset,
-            TimeInForce timeInForce,
+            string asset,
+            BorrowOrderType timeInForce,
             decimal quantity,
             bool? isIsolated = null,
             string? symbol = null,
             bool? isHf = null,
-           CancellationToken ct = default);
+            CancellationToken ct = default);
 
         /// <summary>
         /// Repayment for previously borrowed asset
