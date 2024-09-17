@@ -530,7 +530,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, new[] { new SharedDepositAddress(request.Asset, depositAddresses.Data.Address)
             {
-                Tag = depositAddresses.Data.Memo,
+                TagOrMemo = depositAddresses.Data.Memo,
                 Network = depositAddresses.Data.Network
             }
             });
