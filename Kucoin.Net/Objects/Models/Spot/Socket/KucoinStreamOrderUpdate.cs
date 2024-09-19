@@ -103,6 +103,11 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         [JsonProperty("remainSize")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
+        /// Quantity remaining
+        /// </summary>
+        [JsonProperty("remainFunds")]
+        public decimal? QuoteQuantityRemaining { get; set; }
+        /// <summary>
         /// Quantity canceled
         /// </summary>
         [JsonProperty("canceledSize")]

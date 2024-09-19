@@ -11640,6 +11640,11 @@
             Quantity remaining
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderUpdate.QuoteQuantityRemaining">
+            <summary>
+            Quantity remaining
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderUpdate.QuantityCanceled">
             <summary>
             Quantity canceled

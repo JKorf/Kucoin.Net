@@ -345,7 +345,10 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("symbol", symbol);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<KucoinHfOrderDetails>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinHfOrderDetails>(request, parameters, ct).ConfigureAwait(false);
+            if (result.Data == null)
+                return result.AsError<KucoinHfOrderDetails>(new ServerError("Order not found"));
+            return result;
         }
 
         /// <inheritdoc />
@@ -354,7 +357,10 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<KucoinHfOrderDetails>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinHfOrderDetails>(request, parameters, ct).ConfigureAwait(false);
+            if (result.Data == null)
+                return result.AsError<KucoinHfOrderDetails>(new ServerError("Order not found"));
+            return result;
         }
 
         /// <inheritdoc />
@@ -383,7 +389,8 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("symbol", symbol);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/active", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinHfOrderDetails>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<IEnumerable<KucoinHfOrderDetails>>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? Array.Empty<KucoinHfOrderDetails>());
         }
 
         /// <inheritdoc />
@@ -407,9 +414,10 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/done", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<KucoinHfPaginated<KucoinHfOrderDetails>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinHfPaginated<KucoinHfOrderDetails>>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? new KucoinHfPaginated<KucoinHfOrderDetails> { Items = Array.Empty<KucoinHfOrderDetails>(), LastId = 0 });
         }
-        
+
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinHfPaginated<KucoinUserTrade>>> GetUserTradesAsync(string symbol, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, TradeType? tradeType = null, long? lastId = null, int? limit = null, CancellationToken ct = default)
         {
@@ -423,7 +431,8 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptional("lastId", lastId);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/fills", KucoinExchange.RateLimiter.SpotRest, 2, true);
-            return await _baseClient.SendAsync<KucoinHfPaginated<KucoinUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinHfPaginated<KucoinUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? new KucoinHfPaginated<KucoinUserTrade> { Items = Array.Empty<KucoinUserTrade>(), LastId = 0 });
         }
 
         /// <inheritdoc />

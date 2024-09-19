@@ -38,7 +38,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume, update.Data.ChangePercentage)))).ConfigureAwait(false);
+            var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume, update.Data.ChangePercentage * 100)))).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -179,6 +179,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     Quantity = matchUpdate.OriginalQuantity,
                     QuantityFilled = matchUpdate.QuantityFilled,
                     QuoteQuantity = matchUpdate.OriginalValue,
+                    QuoteQuantityFilled = matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled),
                     Price = matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
                     LastTrade = new SharedUserTrade(matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
@@ -201,6 +202,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     Quantity = upd.OriginalQuantity,
                     QuantityFilled = upd.QuantityFilled,
                     QuoteQuantity = upd.OriginalValue,
+                    QuoteQuantityFilled = upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled),
                     Price = upd.Price,
                     UpdateTime = upd.Timestamp
                 };

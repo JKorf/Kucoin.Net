@@ -102,7 +102,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 FundingRate = x.FundingFeeRate,
                 NextFundingTime = x.NextFundingRateTime
             }
-            ));
+            ).ToArray());
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                      request.ApiType == ApiType.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
                       request.ApiType == ApiType.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
                        (x.IsInverse && x.SettleDate.HasValue));
-            return result.AsExchangeResult(Exchange, data.Select(s => new SharedFuturesSymbol(
+            return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, data.Select(s => new SharedFuturesSymbol(
                 s.IsInverse && s.SettleDate.HasValue ? SharedSymbolType.DeliveryInverse :
                 s.IsInverse && !s.SettleDate.HasValue ? SharedSymbolType.PerpetualInverse:
                 s.SettleDate.HasValue ? SharedSymbolType.DeliveryLinear:
@@ -143,7 +143,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 QuantityStep = 1,
                 ContractSize = s.Multiplier,
                 DeliveryTime = s.SettleDate
-            }));
+            }).ToArray());
         }
 
         #endregion
@@ -173,6 +173,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 new ParameterDescription(nameof(PlaceFuturesOrderRequest.Leverage), typeof(decimal), "The leverage for opening the position", 3m)
             }
         };
+
+        SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
+        SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
 
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
@@ -241,7 +244,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Items.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, orders.Data.Items.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -258,7 +261,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
                 ReduceOnly = x.ReduceOnly
-            }));
+            }).ToArray());
         }
 
         PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
@@ -292,7 +295,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Items.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, orders.Data.Items.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -309,7 +312,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
                 ReduceOnly = x.ReduceOnly
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<GetOrderTradesRequest> IFuturesOrderRestClient.GetFuturesOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
@@ -323,7 +326,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Items.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -336,7 +339,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
-            }));
+            }).ToArray());
         }
 
         PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
@@ -370,7 +373,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Items.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -383,7 +386,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesOrderRestClient.CancelFuturesOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -426,7 +429,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 MaintenanceMargin = x.MaintenanceMargin,
 #warning check if correct
                 PositionSide = x.CurrentQuantity >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short,
-            }).ToList());
+            }).ToArray());
         }
 
         EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true);
@@ -564,7 +567,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -584,7 +587,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)));
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
         }
 
         #endregion
@@ -654,7 +657,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 nextToken = new DateTimeToken(result.Data.Max(x => x.Timestamp));
 
             // Return
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
         }
         #endregion
 
@@ -711,7 +714,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Items.Select(x => new SharedPositionHistory(
+            return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, orders.Data.Items.Select(x => new SharedPositionHistory(
                 x.Symbol,
                 x.Side == OrderSide.Sell ? SharedPositionSide.Long : SharedPositionSide.Short,
                 x.OpenPrice ?? 0,
@@ -723,7 +726,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Leverage = x.Leverage,
                 OrderId = x.CloseId.ToString(),
                 PositionId = x.PositionId
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
         #endregion
     }
