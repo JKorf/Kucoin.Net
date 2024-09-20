@@ -27,7 +27,7 @@ namespace Kucoin.Net.Clients.FuturesApi
     internal partial class KucoinSocketClientFuturesApi: IKucoinSocketClientFuturesApiShared
     {
         public string Exchange => KucoinExchange.ExchangeName;
-        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear, ApiType.PerpetualInverse, ApiType.DeliveryInverse };
+        public TradingMode[] SupportedApiTypes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -190,8 +190,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                     PositionSide = update.Data.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = update.Data.LiquidationPrice,
                     Leverage = update.Data.RealLeverage,
-                    UnrealizedPnl = update.Data.UnrealizedPnl,
-                    MaintenanceMargin = update.Data.MaintenanceMargin
+                    UnrealizedPnl = update.Data.UnrealizedPnl
                 }})),
                 ct: ct).ConfigureAwait(false);
 

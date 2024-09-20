@@ -68,7 +68,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType apiType, DateTime? deliverTime = null)
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode apiType, DateTime? deliverTime = null)
         {
             if (!deliverTime.HasValue)
                 return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";

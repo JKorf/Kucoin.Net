@@ -18,13 +18,14 @@ using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.SharedApis.Interfaces.Rest.Futures;
 using CryptoExchange.Net.SharedApis.Models.EndpointOptions;
+using CryptoExchange.Net;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinRestClientFuturesApi : IKucoinRestClientFuturesApiShared
     {
         public string Exchange => KucoinExchange.ExchangeName;
-        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear, ApiType.PerpetualInverse, ApiType.DeliveryInverse };
+        public TradingMode[] SupportedApiTypes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -42,14 +43,14 @@ namespace Kucoin.Net.Clients.FuturesApi
             var resultUsdt = Account.GetAccountOverviewAsync("USDT", ct: ct);
             await Task.WhenAll(resultUsdt, resultXbt).ConfigureAwait(false);
             if (!resultXbt.Result)
-                return resultXbt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
+                return resultXbt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
             if (!resultUsdt.Result)
-                return resultUsdt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
+                return resultUsdt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
 
             var result = new List<SharedBalance>();
             result.Add(new SharedBalance(resultXbt.Result.Data.Asset, resultXbt.Result.Data.AvailableBalance, resultXbt.Result.Data.AccountEquity));
             result.Add(new SharedBalance(resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.AvailableBalance, resultUsdt.Result.Data.AccountEquity));
-            return resultXbt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, result);
+            return resultXbt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, SupportedApiTypes, result);
         }
 
         #endregion
@@ -65,16 +66,17 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetContractAsync(request.Symbol.GetSymbol(FormatSymbol), ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedFuturesTicker>(Exchange, default);
+                return result.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
 
             return result.AsExchangeResult(Exchange,
+                request.Symbol.ApiType,
                 new SharedFuturesTicker(
                     result.Data.Symbol,
                     result.Data.LastTradePrice ?? 0,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
                     result.Data.Volume24H,
-                    result.Data.PriceChangePercentage)
+                    result.Data.PriceChangePercentage * 100)
                 {
                     IndexPrice = result.Data.IndexPrice,
                     MarkPrice = result.Data.MarkPrice,
@@ -92,10 +94,10 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetOpenContractsAsync(ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, result.Data.Select(x =>
-            new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage)
+            return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, SupportedApiTypes, result.Data.Select(x =>
+            new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
             {
                 IndexPrice = x.IndexPrice,
                 MarkPrice = x.MarkPrice,
@@ -118,16 +120,19 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, null, default);
 
             var data = result.Data;
             if (request.ApiType.HasValue)
                 data = data.Where(x =>
-                    request.ApiType == ApiType.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
-                     request.ApiType == ApiType.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
-                      request.ApiType == ApiType.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
+                    request.ApiType == TradingMode.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
+                     request.ApiType == TradingMode.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
+                      request.ApiType == TradingMode.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
                        (x.IsInverse && x.SettleDate.HasValue));
-            return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, data.Select(s => new SharedFuturesSymbol(
+
+            return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, 
+                request.ApiType == null ? SupportedApiTypes : new[] { request.ApiType.Value },
+                data.Select(s => new SharedFuturesSymbol(
                 s.IsInverse && s.SettleDate.HasValue ? SharedSymbolType.DeliveryInverse :
                 s.IsInverse && !s.SettleDate.HasValue ? SharedSymbolType.PerpetualInverse:
                 s.SettleDate.HasValue ? SharedSymbolType.DeliveryLinear:
@@ -141,7 +146,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 MaxTradeQuantity = s.MaxOrderQuantity,
                 PriceStep = s.TickSize,
                 QuantityStep = 1,
-                ContractSize = s.Multiplier,
+                ContractSize = s.Multiplier == -1 ? 1 : s.Multiplier,
                 DeliveryTime = s.SettleDate
             }).ToArray());
         }
@@ -163,10 +168,10 @@ namespace Kucoin.Net.Clients.FuturesApi
                 SharedTimeInForce.FillOrKill
             },
             new SharedQuantitySupport(
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset))
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts))
         {
             RequiredOptionalParameters = new List<ParameterDescription>
             {
@@ -175,7 +180,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         };
 
         SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
-        SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
+        SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.InputAsset;
 
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
@@ -196,9 +201,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 clientOrderId: request.ClientOrderId).ConfigureAwait(false);
 
             if (!result)
-                return result.AsExchangeResult<SharedId>(Exchange, default);
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedId(result.Data.Id.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.Id.ToString()));
         }
 
         EndpointOptions<GetOrderRequest> IFuturesOrderRestClient.GetFuturesOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
@@ -210,9 +215,9 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var order = await Trading.GetOrderAsync(request.OrderId).ConfigureAwait(false);
             if (!order)
-                return order.AsExchangeResult<SharedFuturesOrder>(Exchange, default);
+                return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, new SharedFuturesOrder(
+            return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedFuturesOrder(
                 order.Data.Symbol,
                 order.Data.Id.ToString(),
                 order.Data.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(order.Data.Type),
@@ -242,9 +247,9 @@ namespace Kucoin.Net.Clients.FuturesApi
             var symbol = request.Symbol?.GetSymbol(FormatSymbol);
             var orders = await Trading.GetOrdersAsync(symbol, OrderStatus.Active).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
 
-            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, orders.Data.Items.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, SupportedApiTypes ,orders.Data.Items.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -264,7 +269,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -288,14 +293,14 @@ namespace Kucoin.Net.Clients.FuturesApi
                 currentPage: page,
                 pageSize: pageSize).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
 
             // Get next token
             PageToken? nextToken = null;
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, orders.Data.Items.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, SupportedApiTypes ,orders.Data.Items.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -324,9 +329,9 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var orders = await Trading.GetUserTradesAsync(orderId: request.OrderId).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
-            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Items.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -342,7 +347,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -366,14 +371,14 @@ namespace Kucoin.Net.Clients.FuturesApi
                 pageSize: pageSize
                 ).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
             // Get next token
             PageToken? nextToken = null;
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Items.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -398,41 +403,44 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var order = await Trading.CancelOrderAsync(request.OrderId).ConfigureAwait(false);
             if (!order)
-                return order.AsExchangeResult<SharedId>(Exchange, default);
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, new SharedId(request.OrderId));
+            return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(request.OrderId));
         }
 
         EndpointOptions<GetPositionsRequest> IFuturesOrderRestClient.GetPositionsOptions { get; } = new EndpointOptions<GetPositionsRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedPosition>>> IFuturesOrderRestClient.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
+            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedPosition>>(Exchange, validationError);
 
             var symbol = request.Symbol?.GetSymbol(FormatSymbol);
             var result = await Account.GetPositionsAsync(ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, null, default);
 
             var data = result.Data;
             if (symbol != null)
                 data = data.Where(x => x.Symbol == symbol);
 
-            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
+            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedApiTypes : new[] { request.Symbol.ApiType }, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
             {
                 UnrealizedPnl = x.UnrealizedPnl,
                 LiquidationPrice = x.LiquidationPrice,
                 Leverage = x.RealLeverage,
                 AverageEntryPrice = x.AverageEntryPrice,
-                InitialMargin = x.PositionInit,
-                MaintenanceMargin = x.MaintenanceMargin,
-#warning check if correct
                 PositionSide = x.CurrentQuantity >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short,
             }).ToArray());
         }
 
-        EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true);
+        EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(ClosePositionRequest.PositionSide), typeof(SharedPositionSide), "Position side to close", SharedPositionSide.Short)
+            }
+        };
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -441,7 +449,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                OrderSide.Buy,
+                request.PositionSide == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
                 NewOrderType.Market,
                 0,
                 0,
@@ -449,9 +457,9 @@ namespace Kucoin.Net.Clients.FuturesApi
 #warning Does this work? If not then the parameters should be optional else the closeOrder can't be used
                 ).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedId>(Exchange, default);
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedId(result.Data.Id.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.Id.ToString()));
         }
 
         private OrderSide GetOrderSide(SharedOrderSide side, SharedPositionSide? posSide)
@@ -528,46 +536,43 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? fromTimestamp = null;
+            // Determine pagination
+            // Data is normally returned oldest first, so to do newest first pagination we have to do some calc
+            DateTime endTime = request.EndTime ?? DateTime.UtcNow;
+            DateTime? startTime = request.StartTime;
             if (pageToken is DateTimeToken dateTimeToken)
-                fromTimestamp = dateTimeToken.LastTime;
+                endTime = dateTimeToken.LastTime;
 
-            var startTime = request.StartTime;
-            var endTime = request.EndTime;
-            var apiLimit = 500;
-
-            // API returns the newest data first if the timespan is bigger than the api limit of 1000 results
-            // So we need to request the first 1000 from the start time, then the 1000 after that etc
-            if (request.StartTime != null)
+            var limit = request.Limit ?? 200;
+            if (startTime == null || startTime < endTime)
             {
-                // Not paginated, check if the data will fit
-                var seconds = apiLimit * (int)request.Interval;
-                var maxEndTime = (fromTimestamp ?? request.StartTime).Value.AddSeconds(seconds);
-                if (maxEndTime < endTime)
-                    endTime = maxEndTime;
+                var offset = (int)interval * limit;
+                startTime = endTime.AddSeconds(-offset);
             }
+
+            if (startTime < request.StartTime)
+                startTime = request.StartTime;
 
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
                 interval,
-                fromTimestamp ?? request.StartTime,
+                startTime,
                 endTime,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, null, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.StartTime != null && result.Data.Any())
+            if (result.Data.Count() == limit)
             {
-                var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
-                    nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
+                var minOpenTime = result.Data.Min(x => x.OpenTime);
+                if (request.StartTime == null || minOpenTime > request.StartTime.Value)
+                    nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
             }
 
-            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.ApiType, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -585,9 +590,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.ApiType, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
         }
 
         #endregion
@@ -605,9 +610,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 depth: request.Limit ?? 20,
                 ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedOrderBook>(Exchange, default);
+                return result.AsExchangeResult<SharedOrderBook>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -623,9 +628,9 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await ExchangeData.GetContractAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedOpenInterest>(Exchange, default);
+                return result.AsExchangeResult<SharedOpenInterest>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedOpenInterest(result.Data.OpenInterest ?? 0));
+            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOpenInterest(result.Data.OpenInterest ?? 0));
         }
 
         #endregion
@@ -639,44 +644,43 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFundingRate>>(Exchange, validationError);
 
-            DateTime? fromTime = null;
-            if (pageToken is DateTimeToken token)
-                fromTime = token.LastTime;
+            // Determine pagination
+            // Data is normally returned oldest first, so to do newest first pagination we have to do some calc
+            var interval = 60 * 60 * 8; // Assume 8h interval
+            DateTime endTime = request.EndTime ?? DateTime.UtcNow;
+            DateTime startTime = request.StartTime ?? endTime.AddSeconds(-interval * 100);
+            if (pageToken is DateTimeToken dateTimeToken)
+                endTime = dateTimeToken.LastTime;
+
+            var limit = request.Limit ?? 100;
+            if (request.StartTime == null || startTime < endTime)
+            {
+                var offset = (int)interval * limit;
+                startTime = endTime.AddSeconds(-offset);
+            }
+
+            if (startTime < request.StartTime)
+                startTime = request.StartTime.Value;
 
             // Get data
             var result = await ExchangeData.GetFundingRateHistoryAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                startTime: fromTime ?? request.StartTime ?? DateTime.UtcNow.AddDays(-7),
-                endTime: request.EndTime ?? DateTime.UtcNow,
+                startTime: startTime,
+                endTime: endTime,
                 ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, null, default);
 
             DateTimeToken? nextToken = null;
-            if (result.Data.Count() == 100)
-                nextToken = new DateTimeToken(result.Data.Max(x => x.Timestamp));
+            if (result.Data.Count() == limit)
+            {
+                var minOpenTime = result.Data.Min(x => x.Timestamp);
+                if (request.StartTime == null || minOpenTime > request.StartTime.Value)
+                    nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
+            }
 
             // Return
-            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
-        }
-        #endregion
-
-        #region Position Mode client
-
-        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions(false);
-        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
-        {
-            // Only support one mode, so never actually needs to change
-            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
-                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(SharedPositionMode.OneWay), null));
-        }
-
-        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(true, false, false);
-        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
-        {
-            // Only support one mode, so never actually needs to change
-            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
-                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(request.Mode), null));
+            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.ApiType,result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
         }
         #endregion
 
@@ -707,14 +711,14 @@ namespace Kucoin.Net.Clients.FuturesApi
                 ct: ct
                 ).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, null, default);
 
             // Get next token
             PageToken? nextToken = null;
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, orders.Data.Items.Select(x => new SharedPositionHistory(
+            return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, request.Symbol.ApiType, orders.Data.Items.Select(x => new SharedPositionHistory(
                 x.Symbol,
                 x.Side == OrderSide.Sell ? SharedPositionSide.Long : SharedPositionSide.Short,
                 x.OpenPrice ?? 0,
