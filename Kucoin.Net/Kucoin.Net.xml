@@ -7026,6 +7026,11 @@
             The open price
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.ClosePrice">
+            <summary>
+            The close price
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.HighPrice">
             <summary>
             The highest price during this kline
@@ -7034,11 +7039,6 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.LowPrice">
             <summary>
             The lowest price during this kline
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.ClosePrice">
-            <summary>
-            The close price
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.Volume">

@@ -31,20 +31,20 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         [ArrayProperty(1)]
         public decimal OpenPrice { get; set; }
         /// <summary>
-        /// The highest price during this kline
+        /// The close price
         /// </summary>
         [ArrayProperty(2)]
+        public decimal ClosePrice { get; set; }
+        /// <summary>
+        /// The highest price during this kline
+        /// </summary>
+        [ArrayProperty(3)]
         public decimal HighPrice { get; set; }
         /// <summary>
         /// The lowest price during this kline
         /// </summary>
-        [ArrayProperty(3)]
-        public decimal LowPrice { get; set; }
-        /// <summary>
-        /// The close price
-        /// </summary>
         [ArrayProperty(4)]
-        public decimal ClosePrice { get; set; }
+        public decimal LowPrice { get; set; }
         /// <summary>
         /// The volume of the kline
         /// </summary>

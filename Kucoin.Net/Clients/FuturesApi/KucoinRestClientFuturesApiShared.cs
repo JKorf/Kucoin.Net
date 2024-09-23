@@ -60,7 +60,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         EndpointOptions<GetTickerRequest> IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
         async Task<ExchangeWebResult<SharedFuturesTicker>> IFuturesTickerRestClient.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
 
@@ -69,7 +69,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
 
             return result.AsExchangeResult(Exchange,
-                request.Symbol.ApiType,
+                request.Symbol.TradingMode,
                 new SharedFuturesTicker(
                     result.Data.Symbol,
                     result.Data.LastTradePrice ?? 0,
@@ -96,14 +96,24 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, SupportedTradingModes, result.Data.Select(x =>
-            new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
-            {
-                IndexPrice = x.IndexPrice,
-                MarkPrice = x.MarkPrice,
-                FundingRate = x.FundingFeeRate,
-                NextFundingTime = x.NextFundingRateTime
-            }
+            var data = result.Data;
+            if (request.TradingMode != null)
+                data = data.Where(x =>
+                    request.TradingMode == TradingMode.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
+                     request.TradingMode == TradingMode.PerpetualInverse ? (x.IsInverse && !x.SettleDate.HasValue) :
+                      request.TradingMode == TradingMode.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
+                       (x.IsInverse && x.SettleDate.HasValue));
+
+            return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange,
+                request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value },
+                result.Data.Select(x =>
+                new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
+                {
+                    IndexPrice = x.IndexPrice,
+                    MarkPrice = x.MarkPrice,
+                    FundingRate = x.FundingFeeRate,
+                    NextFundingTime = x.NextFundingRateTime
+                }
             ).ToArray());
         }
 
@@ -179,7 +189,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var validationError = ((IFuturesOrderRestClient)this).PlaceFuturesOrderOptions.ValidateRequest(
                 Exchange,
                 request,
-                request.Symbol.ApiType,
+                request.Symbol.TradingMode,
                 SupportedTradingModes,
                 ((ISpotOrderRestClient)this).SpotSupportedOrderTypes,
                 ((ISpotOrderRestClient)this).SpotSupportedTimeInForce,
@@ -202,13 +212,13 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.Id.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
         }
 
         EndpointOptions<GetOrderRequest> IFuturesOrderRestClient.GetFuturesOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
         async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderRestClient.GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
@@ -216,7 +226,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!order)
                 return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedFuturesOrder(
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
                 order.Data.Symbol,
                 order.Data.Id.ToString(),
                 order.Data.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(order.Data.Type),
@@ -239,7 +249,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         EndpointOptions<GetOpenOrdersRequest> IFuturesOrderRestClient.GetOpenFuturesOrdersOptions { get; } = new EndpointOptions<GetOpenOrdersRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetOpenFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetOpenFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
@@ -248,7 +258,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
 
-            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, SupportedTradingModes ,orders.Data.Items.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -271,7 +281,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationSupport.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
@@ -322,7 +332,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         EndpointOptions<GetOrderTradesRequest> IFuturesOrderRestClient.GetFuturesOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
@@ -330,7 +340,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
-            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Items.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.TradingMode,orders.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -349,7 +359,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationSupport.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
@@ -377,7 +387,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Items.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.TradingMode,orders.Data.Items.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -396,7 +406,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         EndpointOptions<CancelOrderRequest> IFuturesOrderRestClient.CancelFuturesOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
@@ -404,13 +414,13 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(request.OrderId));
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
         }
 
         EndpointOptions<GetPositionsRequest> IFuturesOrderRestClient.GetPositionsOptions { get; } = new EndpointOptions<GetPositionsRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedPosition>>> IFuturesOrderRestClient.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedPosition>>(Exchange, validationError);
 
@@ -423,7 +433,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (symbol != null)
                 data = data.Where(x => x.Symbol == symbol);
 
-            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.ApiType }, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
+            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
             {
                 UnrealizedPnl = x.UnrealizedPnl,
                 LiquidationPrice = x.LiquidationPrice,
@@ -442,7 +452,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         };
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
@@ -458,7 +468,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.Id.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
         }
 
         private OrderSide GetOrderSide(SharedOrderSide side, SharedPositionSide? posSide)
@@ -531,7 +541,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!Enum.IsDefined(typeof(Enums.FuturesKlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError("Interval not supported"));
 
-            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, validationError);
 
@@ -571,7 +581,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
             }
 
-            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.ApiType, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -581,7 +591,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(100, false);
         async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, validationError);
 
@@ -591,7 +601,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.ApiType, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.TradingMode, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
         }
 
         #endregion
@@ -600,7 +610,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(new[] { 20, 100 }, false);
         async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {
-            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
@@ -611,7 +621,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedOrderBook>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -621,7 +631,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         EndpointOptions<GetOpenInterestRequest> IOpenInterestRestClient.GetOpenInterestOptions { get; } = new EndpointOptions<GetOpenInterestRequest>(true);
         async Task<ExchangeWebResult<SharedOpenInterest>> IOpenInterestRestClient.GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
         {
-            var validationError = ((IOpenInterestRestClient)this).GetOpenInterestOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IOpenInterestRestClient)this).GetOpenInterestOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
 
@@ -629,7 +639,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedOpenInterest>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOpenInterest(result.Data.OpenInterest ?? 0));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedOpenInterest(result.Data.OpenInterest ?? 0));
         }
 
         #endregion
@@ -639,7 +649,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         async Task<ExchangeWebResult<IEnumerable<SharedFundingRate>>> IFundingRateRestClient.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFundingRate>>(Exchange, validationError);
 
@@ -679,7 +689,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             }
 
             // Return
-            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.ApiType,result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.TradingMode,result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
         }
         #endregion
 
@@ -688,7 +698,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         GetPositionHistoryOptions IPositionHistoryRestClient.GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(SharedPaginationSupport.Descending);
         async Task<ExchangeWebResult<IEnumerable<SharedPositionHistory>>> IPositionHistoryRestClient.GetPositionHistoryAsync(GetPositionHistoryRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IPositionHistoryRestClient)this).GetPositionHistoryOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode!.Value, SupportedTradingModes);
+            var validationError = ((IPositionHistoryRestClient)this).GetPositionHistoryOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedPositionHistory>>(Exchange, validationError);
 
@@ -702,7 +712,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Get data
             var orders = await Account.GetPositionHistoryAsync(
-                symbol: request.Symbol!.GetSymbol(FormatSymbol),
+                symbol: request.Symbol?.GetSymbol(FormatSymbol),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 page: page,
@@ -717,7 +727,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, request.Symbol.ApiType, orders.Data.Items.Select(x => new SharedPositionHistory(
+            return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedPositionHistory(
                 x.Symbol,
                 x.Side == OrderSide.Sell ? SharedPositionSide.Long : SharedPositionSide.Short,
                 x.OpenPrice ?? 0,
