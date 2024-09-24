@@ -1,24 +1,12 @@
-﻿using Kucoin.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.Models.Rest;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
 using Kucoin.Net.Enums;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Futures;
-using CryptoExchange.Net;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -155,7 +143,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 MinTradeQuantity = s.LotSize,
                 MaxTradeQuantity = s.MaxOrderQuantity,
                 PriceStep = s.TickSize,
-                QuantityStep = 1,
+                QuantityStep = s.LotSize,
                 ContractSize = s.Multiplier == -1 ? 1 : s.Multiplier,
                 DeliveryTime = s.SettleDate
             }).ToArray());
@@ -344,6 +332,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
+                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.Timestamp)
@@ -391,6 +380,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
+                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.Timestamp)
@@ -463,7 +453,6 @@ namespace Kucoin.Net.Clients.FuturesApi
                 0,
                 0,
                 closeOrder: true
-#warning Does this work? If not then the parameters should be optional else the closeOrder can't be used
                 ).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);

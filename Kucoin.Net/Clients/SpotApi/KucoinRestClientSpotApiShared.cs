@@ -1,20 +1,12 @@
 ﻿using Kucoin.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.Models.Rest;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
 using Kucoin.Net.Enums;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -487,6 +479,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.Timestamp)
@@ -507,6 +500,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.Timestamp)
@@ -555,6 +549,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.Timestamp)
@@ -591,6 +586,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.Timestamp)

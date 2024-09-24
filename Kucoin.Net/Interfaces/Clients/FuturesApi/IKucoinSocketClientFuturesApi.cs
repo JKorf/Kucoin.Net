@@ -17,6 +17,9 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// </summary>
     public interface IKucoinSocketClientFuturesApi : ISocketApiClient, IDisposable
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         IKucoinSocketClientFuturesApiShared SharedClient { get; }
 
         /// <summary>

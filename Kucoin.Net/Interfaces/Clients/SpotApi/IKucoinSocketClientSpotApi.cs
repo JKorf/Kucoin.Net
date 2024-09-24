@@ -17,6 +17,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IKucoinSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         IKucoinSocketClientSpotApiShared SharedClient { get; }
 
         /// <summary>

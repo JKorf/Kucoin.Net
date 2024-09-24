@@ -73,9 +73,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode apiType, DateTime? deliverTime = null)
         {
+            if (baseAsset.Equals("BTC", StringComparison.OrdinalIgnoreCase))
+                baseAsset = "XBT";
+
             if (!deliverTime.HasValue)
                 return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
-#warning do we want to map XBT to BTC?
+
             return baseAsset.ToUpperInvariant() + "M" + ExchangeHelpers.GetDeliveryMonthSymbol(deliverTime.Value) + deliverTime.Value.ToString("yy");
         }
 

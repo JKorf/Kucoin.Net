@@ -1,25 +1,13 @@
-﻿using Kucoin.Net;
-using Kucoin.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Models.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Enums;
-using CryptoExchange.Net.SharedApis.Models;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Futures.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
-using CryptoExchange.Net.SharedApis.Models.Options.Subscriptions;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -157,8 +145,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 ClientOrderId = update.ClientOrderId?.ToString(),
                 Quantity = update.Quantity,
                 QuantityFilled = update.QuantityFilled,
-                OrderPrice = update.Price,
-                LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(update.Symbol, update.OrderId, update.TradeId!, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
+                OrderPrice = update.Price == 0 ? null : update.Price,
+                LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(update.Symbol, update.OrderId, update.TradeId!, update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
                 {
                     Role = update.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
                 }
