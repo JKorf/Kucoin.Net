@@ -54,7 +54,7 @@ namespace Kucoin.Net.Clients.SpotApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode apiType, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
 
         public IKucoinSocketClientSpotApiShared SharedClient => this;
 
