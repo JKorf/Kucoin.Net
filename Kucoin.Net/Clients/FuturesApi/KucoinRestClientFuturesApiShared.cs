@@ -195,7 +195,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 postOnly: request.OrderType == SharedOrderType.LimitMaker ? true: null,
                 reduceOnly: request.ReduceOnly,
                 timeInForce: GetTimeInForce(request.TimeInForce),
-                clientOrderId: request.ClientOrderId).ConfigureAwait(false);
+                clientOrderId: request.ClientOrderId,
+                ct: ct).ConfigureAwait(false);
 
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
@@ -210,7 +211,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
-            var order = await Trading.GetOrderAsync(request.OrderId).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
@@ -242,7 +243,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
             var symbol = request.Symbol?.GetSymbol(FormatSymbol);
-            var orders = await Trading.GetOrdersAsync(symbol, OrderStatus.Active).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(symbol, OrderStatus.Active, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
 
@@ -288,7 +289,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 currentPage: page,
-                pageSize: pageSize).ConfigureAwait(false);
+                pageSize: pageSize, 
+                ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
 
@@ -324,7 +326,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
-            var orders = await Trading.GetUserTradesAsync(orderId: request.OrderId).ConfigureAwait(false);
+            var orders = await Trading.GetUserTradesAsync(orderId: request.OrderId, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
@@ -366,7 +368,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 currentPage: page,
-                pageSize: pageSize
+                pageSize: pageSize, 
+                ct: ct
                 ).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
@@ -400,7 +403,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.OrderId).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
@@ -452,7 +455,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 NewOrderType.Market,
                 0,
                 0,
-                closeOrder: true
+                closeOrder: true,
+                ct: ct
                 ).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
