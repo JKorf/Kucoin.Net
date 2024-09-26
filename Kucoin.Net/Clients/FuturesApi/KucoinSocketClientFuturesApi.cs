@@ -26,6 +26,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
 using Newtonsoft.Json;
 using Kucoin.Net.Converters;
+using CryptoExchange.Net.SharedApis;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
