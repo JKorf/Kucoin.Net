@@ -143,6 +143,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.14.0 - 27 Sep 2024
+    * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
+    * Added Shared client interfaces implementation for Spot and FuturesApi Rest and Socket clients
+    * Added QuoteQuantityRemaining property on KucoinStreamOrderUpdate model
+    * Updated Status property type from string to OrderStatus on KucoinFuturesOrder model
+    * Updated FuturesKlineInterval Enum values to match number of seconds
+    * Updated Sourcelink package version
+    * Fixed various endpoints returning null instead of empty collection in SpotApi.HfTrading
+    * Fixed futures kline deserialization issue
+    * Marked ISpotClient and IFuturesClient references as deprecated
+
 * Version 5.13.2 - 11 Sep 2024
     * Added SpotApi.ExchangeData.GetSymbolAsync endpoint
 
