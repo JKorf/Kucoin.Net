@@ -26,11 +26,12 @@ using Kucoin.Net.ExtensionMethods;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.SharedApis;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
-    internal class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
+    internal partial class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
     {
         private readonly KucoinSocketClient _baseClient;
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
@@ -54,7 +55,9 @@ namespace Kucoin.Net.Clients.SpotApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+
+        public IKucoinSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public override string GetListenerIdentifier(IMessageAccessor message)

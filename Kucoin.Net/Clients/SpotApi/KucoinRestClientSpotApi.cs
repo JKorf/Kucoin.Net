@@ -6,6 +6,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects;
@@ -22,7 +23,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinRestClientSpotApi" />
-    internal class KucoinRestClientSpotApi : RestApiClient, IKucoinRestClientSpotApi, ISpotClient
+    internal partial class KucoinRestClientSpotApi : RestApiClient, IKucoinRestClientSpotApi, ISpotClient
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
@@ -73,7 +74,7 @@ namespace Kucoin.Net.Clients.SpotApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
 
         #region common interface
 
@@ -436,5 +437,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IKucoinRestClientSpotApiShared SharedClient => this;
+
     }
 }

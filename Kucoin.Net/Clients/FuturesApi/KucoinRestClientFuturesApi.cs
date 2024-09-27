@@ -5,6 +5,7 @@ using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects;
@@ -21,7 +22,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
-    internal class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
+    internal partial class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
     {
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
@@ -68,7 +69,16 @@ namespace Kucoin.Net.Clients.FuturesApi
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (baseAsset.Equals("BTC", StringComparison.OrdinalIgnoreCase))
+                baseAsset = "XBT";
+
+            if (!deliverTime.HasValue)
+                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
+
+            return baseAsset.ToUpperInvariant() + "M" + ExchangeHelpers.GetDeliveryMonthSymbol(deliverTime.Value) + deliverTime.Value.ToString("yy");
+        }
 
         internal async Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
@@ -379,6 +389,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public IFuturesClient CommonFuturesClient => this;
+        public IKucoinRestClientFuturesApiShared SharedClient => this;
 
         private static FuturesKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
         {

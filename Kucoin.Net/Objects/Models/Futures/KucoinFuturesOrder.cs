@@ -88,7 +88,8 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Status
         /// </summary>
-        public string Status { get; set; } = string.Empty;
+        [JsonConverter(typeof(EnumConverter))]
+        public OrderStatus Status { get; set; }
         /// <summary>
         /// Tags
         /// </summary>

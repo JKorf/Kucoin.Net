@@ -8,46 +8,46 @@
         /// <summary>
         /// One minute
         /// </summary>
-        OneMinute,
+        OneMinute = 60,
         /// <summary>
         /// Five minute
         /// </summary>
-        FiveMinutes,
+        FiveMinutes = 60 * 5,
         /// <summary>
         /// Fifteen minutes
         /// </summary>
-        FifteenMinutes,
+        FifteenMinutes = 60 * 15,
         /// <summary>
         /// Thirty minutes
         /// </summary>
-        ThirtyMinutes,
+        ThirtyMinutes = 60 * 30,
         /// <summary>
         /// One hour
         /// </summary>
-        OneHour,
+        OneHour = 60 * 60,
         /// <summary>
         /// Two hours
         /// </summary>
-        TwoHours,
+        TwoHours = 60 * 60 * 2,
         /// <summary>
         /// Four hours
         /// </summary>
-        FourHours,
+        FourHours = 60 * 60 * 4,
         /// <summary>
         /// Eight hours
         /// </summary>
-        EightHours,
+        EightHours = 60 * 60 * 8,
         /// <summary>
         /// Twelve hours
         /// </summary>
-        TwelveHours,
+        TwelveHours = 60 * 60 * 12,
         /// <summary>
         /// One day
         /// </summary>
-        OneDay,
+        OneDay = 60 * 60 * 24,
         /// <summary>
         /// One week
         /// </summary>
-        OneWeek
+        OneWeek = 60 * 60 * 24 * 7,
     }
 }

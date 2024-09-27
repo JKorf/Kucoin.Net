@@ -25,9 +25,13 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         IKucoinRestClientFuturesApiTrading Trading { get; }
 
         /// <summary>
-        /// Get the IFuturesClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+        /// DEPRECATED; use <see cref="CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
         /// </summary>
-        /// <returns></returns>
         public IFuturesClient CommonFuturesClient { get; }
+
+        /// <summary>
+        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        public IKucoinRestClientFuturesApiShared SharedClient { get; }
     }
 }

@@ -232,7 +232,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddMilliseconds("to", endTime);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contract/funding-rates", KucoinExchange.RateLimiter.PublicRest, 5);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFundingRateHistory>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<IEnumerable<KucoinFundingRateHistory>>(request, parameters, ct).ConfigureAwait(false);
+            if (result && result.Data == null)
+                return result.As<IEnumerable<KucoinFundingRateHistory>>(Array.Empty<KucoinFundingRateHistory>());
+            
+            return result;
         }
 
         #endregion

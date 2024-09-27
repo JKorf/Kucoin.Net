@@ -26,11 +26,12 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
 using Newtonsoft.Json;
 using Kucoin.Net.Converters;
+using CryptoExchange.Net.SharedApis;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
-    internal class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
+    internal partial class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
@@ -64,12 +65,23 @@ namespace Kucoin.Net.Clients.FuturesApi
             return message.GetValue<string>(_topicPath)!;
         }
 
+        public IKucoinSocketClientFuturesApiShared SharedClient => this;
+
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (baseAsset.Equals("BTC", StringComparison.OrdinalIgnoreCase))
+                baseAsset = "XBT";
+
+            if (!deliverTime.HasValue)
+                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
+
+            return baseAsset.ToUpperInvariant() + "M" + ExchangeHelpers.GetDeliveryMonthSymbol(deliverTime.Value) + deliverTime.Value.ToString("yy");
+        }
 
         /// <inheritdoc />
         protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;

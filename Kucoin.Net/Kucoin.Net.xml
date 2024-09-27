@@ -32,7 +32,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.FormatSymbol(System.String,System.String)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.GetServerTimestampAsync">
@@ -229,7 +229,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
@@ -410,7 +410,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.FormatSymbol(System.String,System.String)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.GetSymbolName(System.String,System.String)">
@@ -853,7 +853,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.FormatSymbol(System.String,System.String)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -2350,9 +2350,13 @@
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi.CommonFuturesClient">
             <summary>
-            Get the IFuturesClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount">
             <summary>
@@ -2714,6 +2718,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiShared">
+            <summary>
+            Shared interface for Futures rest API usage
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading">
             <summary>
             Kucoin Futures trading endpoints, placing and mananging orders.
@@ -2947,6 +2956,11 @@
             Futures socket api
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesMatch}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
@@ -3157,6 +3171,11 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
+        <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApiShared">
+            <summary>
+            Shared interface for Futures socket API usage
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.IKucoinRestClient">
             <summary>
             Client for accessing the Kucoin Spot API. 
@@ -3236,9 +3255,13 @@
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.CommonSpotClient">
             <summary>
-            Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount">
             <summary>
@@ -4295,6 +4318,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiShared">
+            <summary>
+            Shared interface for Spot rest API usage
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount">
             <summary>
             Kucoin Spot sub-account endpoints
@@ -4777,6 +4805,11 @@
             Spot socket api
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates for a symbol ticker
@@ -5041,6 +5074,11 @@
             <param name="onPositionChange">Position change update handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApiShared">
+            <summary>
+            Shared interface for Spot socket API usage
+            </summary>
         </member>
         <member name="T:Kucoin.Net.Interfaces.IKucoinOrderBookFactory">
             <summary>
@@ -7026,6 +7064,11 @@
             The open price
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.ClosePrice">
+            <summary>
+            The close price
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.HighPrice">
             <summary>
             The highest price during this kline
@@ -7034,11 +7077,6 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.LowPrice">
             <summary>
             The lowest price during this kline
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.ClosePrice">
-            <summary>
-            The close price
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesKline.Volume">
@@ -11636,6 +11674,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderUpdate.QuantityRemaining">
+            <summary>
+            Quantity remaining
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderUpdate.QuoteQuantityRemaining">
             <summary>
             Quantity remaining
             </summary>
