@@ -102,7 +102,7 @@ namespace Kucoin.Net.UnitTests
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Margin", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
-            await tester.ValidateAsync(client => client.SpotApi.Margin.BorrowAsync("ETH", Enums.TimeInForce.GoodTillCanceled, 1), "Borrow");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.BorrowAsync("ETH", Enums.BorrowOrderType.FOK, 1), "Borrow");
             await tester.ValidateAsync(client => client.SpotApi.Margin.RepayAsync("ETH", 1), "Repay");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetBorrowHistoryAsync("ETH"), "GetBorrowHistory");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetRepayHistoryAsync("ETH"), "GetRepayHistory");
