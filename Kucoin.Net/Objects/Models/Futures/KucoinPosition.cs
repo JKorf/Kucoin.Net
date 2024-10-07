@@ -1,5 +1,6 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -192,6 +193,28 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("maintainMargin")]
         public decimal MaintenanceMarginRate { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("marginMode")]
+        public FuturesMarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Position side
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("positionSide")]
+        public PositionSide? PositionSide { get; set; }
+        /// <summary>
+        /// Leverage
+        /// </summary>
+        [JsonProperty("leverage")]
+        public decimal? Leverage { get; set; }
+        /// <summary>
+        /// The current remaining unsettled funding fee for the position Only applicable to Isolated Margin
+        /// </summary>
+        [JsonProperty("posFunding")]
+        public decimal? PositionFunding { get; set; }
     }
 
     /// <summary>

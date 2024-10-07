@@ -72,5 +72,12 @@ namespace Kucoin.Net.Objects.Models
         /// Update type
         /// </summary>
         public StopOrderEvent Type { get; set; }
+
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("marginMode")]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

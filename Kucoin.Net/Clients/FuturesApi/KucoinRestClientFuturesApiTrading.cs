@@ -55,6 +55,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             bool? forceHold = null,
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
+            FuturesMarginMode? marginMode = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -78,6 +79,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("iceberg", iceberg);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
             parameters.AddOptionalEnum("stp", selfTradePrevention);
+            parameters.AddOptionalEnum("marginMode", marginMode);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);

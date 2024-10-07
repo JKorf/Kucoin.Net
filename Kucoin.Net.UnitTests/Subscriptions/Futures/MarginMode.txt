@@ -1,0 +1,13 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/marginMode","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+    "topic": "/contract/marginMode",
+    "type": "message",
+    "subject": "user.config",
+    "userId": "6687a53f5bda600012b84bf",
+    "channelType": "private",
+    "data": {
+        "ANTUSDTM": "CROSS"
+    }
+}

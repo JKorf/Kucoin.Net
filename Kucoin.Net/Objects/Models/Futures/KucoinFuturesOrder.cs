@@ -95,5 +95,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("tags")]
         public string? Tags { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

@@ -56,5 +56,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("forceTaker")]
         public bool ForceTaker { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

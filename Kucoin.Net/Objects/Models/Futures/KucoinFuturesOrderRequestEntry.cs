@@ -120,5 +120,11 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonProperty("stp")]
         [JsonConverter(typeof(EnumConverter))]
         public SelfTradePrevention? SelfTradePrevention { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonProperty("marginMode")]
+        [JsonConverter(typeof(EnumConverter))]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

@@ -1,0 +1,8 @@
+GET
+/api/v2/getCrossUserLeverage
+true
+{"code":"200000","data":{
+  "symbol":"XBTUSDTM",
+  "leverage":"3.00" 
+}
+}

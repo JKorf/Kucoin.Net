@@ -196,5 +196,40 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinTradeFee>> GetTradingFeeAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the current margin mode for a symbol
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-margin-mode" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinMarginMode>> GetMarginModeAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set the margin mode for a symbol
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-margin-mode" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+        /// <param name="marginMode">The new margin mode</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinMarginMode>> SetMarginModeAsync(string symbol, FuturesMarginMode marginMode, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the current cross margin leverage setting
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-cross-margin-leverage" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinLeverage>> GetCrossMarginLeverageAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set a new cross margin leverage value
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-cross-margin-leverage" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+        /// <param name="leverage">The leverage</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinLeverage>> SetCrossMarginLeverageAsync(string symbol, decimal leverage, CancellationToken ct = default);
+
     }
 }

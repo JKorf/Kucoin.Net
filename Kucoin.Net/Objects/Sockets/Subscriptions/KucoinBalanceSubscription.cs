@@ -15,6 +15,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinBalanceSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly Action<DataEvent<KucoinStreamFuturesWalletUpdate>>? _onWalletUpdate;
         private readonly Action<DataEvent<KucoinStreamOrderMarginUpdate>>? _onOrderMarginUpdate;
         private readonly Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? _onBalanceUpdate;
         private readonly Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? _onWithdrawableUpdate;
@@ -27,12 +28,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             ILogger logger,
             Action<DataEvent<KucoinStreamOrderMarginUpdate>>? onOrderMarginUpdate,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? onBalanceUpdate,
-            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? onWithdrawableUpdate
+            Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? onWithdrawableUpdate,
+            Action<DataEvent<KucoinStreamFuturesWalletUpdate>>? onWalletUpdate
             ) : base(logger, true)
         {
             _onOrderMarginUpdate = onOrderMarginUpdate;
             _onBalanceUpdate = onBalanceUpdate;
             _onWithdrawableUpdate = onWithdrawableUpdate;
+            _onWalletUpdate = onWalletUpdate;
 
             ListenerIdentifiers = new HashSet<string> { _topic };
         }
@@ -49,6 +52,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
+            if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate> walletUpdate)
+                _onWalletUpdate?.Invoke(message.As(walletUpdate.Data, walletUpdate.Topic, null, SocketUpdateType.Update));
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderMarginUpdate> marginUpdate)
                 _onOrderMarginUpdate?.Invoke(message.As(marginUpdate.Data, marginUpdate.Topic, null, SocketUpdateType.Update));
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate> balanceUpdate)
@@ -62,6 +67,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override Type? GetMessageType(IMessageAccessor message)
         {
             var subject = message.GetValue<string>(_subjectPath);
+            if (string.Equals(subject, "walletBalance.change", StringComparison.Ordinal))
+                return typeof(KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>);
             if (string.Equals(subject, "orderMargin.change", StringComparison.Ordinal))
                 return typeof(KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>);
             if (string.Equals(subject, "availableBalance.change", StringComparison.Ordinal))

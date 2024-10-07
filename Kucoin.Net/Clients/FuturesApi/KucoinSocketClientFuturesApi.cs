@@ -199,9 +199,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             Action<DataEvent<KucoinStreamOrderMarginUpdate>>? onOrderMarginUpdate = null,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? onBalanceUpdate = null,
             Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? onWithdrawableUpdate = null,
+            Action<DataEvent<KucoinStreamFuturesWalletUpdate>>? onWalletUpdate = null,
             CancellationToken ct = default)
         {
-            var subscription = new KucoinBalanceSubscription(_logger, onOrderMarginUpdate, onBalanceUpdate, onWithdrawableUpdate);
+            var subscription = new KucoinBalanceSubscription(_logger, onOrderMarginUpdate, onBalanceUpdate, onWithdrawableUpdate, onWalletUpdate);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -227,6 +228,20 @@ namespace Kucoin.Net.Clients.FuturesApi
             CancellationToken ct = default)
         {
             var subscription = new KucoinPositionSubscription(_logger, null, onPositionUpdate, onMarkPriceUpdate, onFundingSettlementUpdate, onRiskAdjustUpdate);
+            return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginModeUpdatesAsync(Action<DataEvent<Dictionary<string, FuturesMarginMode>>> onData, CancellationToken ct = default)
+        {
+            var subscription = new KucoinSubscription<Dictionary<string, FuturesMarginMode>>(_logger, $"/contract/marginMode", null, onData, true);
+            return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginLeverageUpdatesAsync(Action<DataEvent<Dictionary<string, KucoinLeverageUpdate>>> onData, CancellationToken ct = default)
+        {
+            var subscription = new KucoinSubscription<Dictionary<string, KucoinLeverageUpdate>>(_logger, $"/contract/crossLeverage", null, onData, true);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 

@@ -196,6 +196,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 reduceOnly: request.ReduceOnly,
                 timeInForce: GetTimeInForce(request.TimeInForce),
                 clientOrderId: request.ClientOrderId,
+                marginMode: request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? FuturesMarginMode.Isolated: FuturesMarginMode.Cross,
                 ct: ct).ConfigureAwait(false);
 
             if (!result)

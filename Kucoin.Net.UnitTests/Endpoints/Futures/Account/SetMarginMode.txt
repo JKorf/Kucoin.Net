@@ -1,0 +1,4 @@
+POST
+/api/v2/position/changeMarginMode
+true
+{"code":"200000","data":{"symbol":"XBTUSDTM","marginMode":"ISOLATED"}}

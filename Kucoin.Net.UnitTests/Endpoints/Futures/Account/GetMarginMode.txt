@@ -1,0 +1,4 @@
+GET
+/api/v2/position/getMarginMode
+true
+{"code":"200000","data":{"symbol":"XBTUSDTM","marginMode":"ISOLATED"}}

@@ -187,15 +187,17 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to wallet updates
         /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/account-balance-events" /></para>
         /// </summary>
-        /// <param name="onOrderMarginUpdate">Data handler for order margin updates</param>
-        /// <param name="onBalanceUpdate">Data handler for balance updates</param>
-        /// <param name="onWithdrawableUpdate">Data handler for withdrawable funds updates</param>
+        /// <param name="onOrderMarginUpdate">DEPRECATED; After the user 【First time】switches the margin mode (switching from isolated margin to cross margin), this will stop pushing and instead the onWalletUpdate event will be pushed</param>
+        /// <param name="onBalanceUpdate">DEPRECATED; After the user 【First time】switches the margin mode (switching from isolated margin to cross margin), this will stop pushing and instead the onWalletUpdate event will be pushed</param>
+        /// <param name="onWithdrawableUpdate">DEPRECATED; After the user 【First time】switches the margin mode (switching from isolated margin to cross margin), this will stop pushing and instead the onWalletUpdate event will be pushed</param>
+        /// <param name="onWalletUpdate">Data handler for wallet update. Will be pushed once user switches margin modes for the first time</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
             Action<DataEvent<KucoinStreamOrderMarginUpdate>> onOrderMarginUpdate,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>> onBalanceUpdate,
             Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>> onWithdrawableUpdate,
+            Action<DataEvent<KucoinStreamFuturesWalletUpdate>> onWalletUpdate,
             CancellationToken ct = default);
 
         /// <summary>
@@ -233,6 +235,24 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? onFundingSettlementUpdate = null,
             Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate = null,
             CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to margin mode updates
+        /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/margin-mode-push" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarginModeUpdatesAsync(Action<DataEvent<Dictionary<string, FuturesMarginMode>>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to cross margin leverage updates
+        /// <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/cross-margin-mode-leverage-modification-push" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginLeverageUpdatesAsync(Action<DataEvent<Dictionary<string, KucoinLeverageUpdate>>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order updates

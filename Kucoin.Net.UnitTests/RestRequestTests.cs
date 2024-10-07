@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
@@ -185,6 +186,10 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetRiskLimitLevelAsync("ETHUSDT", 1), "SetRiskLimitLevel");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxWithdrawMarginAsync("ETHUSDT"), "GetMaxWithdrawMargin");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetTradingFeeAsync("ETHUSDT"), "GetTradingFee");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMarginModeAsync("123"), "GetMarginMode");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.SetMarginModeAsync("123", FuturesMarginMode.Cross), "SetMarginMode");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetCrossMarginLeverageAsync("123"), "GetCrossMarginLeverage");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.SetCrossMarginLeverageAsync("123", 0.1m), "SetCrossMarginLeverage");
         }
 
         [Test]

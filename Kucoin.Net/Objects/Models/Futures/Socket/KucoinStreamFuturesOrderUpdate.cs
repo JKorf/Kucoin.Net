@@ -108,5 +108,12 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         [JsonConverter(typeof(EnumConverter))]
         [JsonProperty("feeType")]
         public FeeType? FeeType { get; set; }
+
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("marginMode")]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

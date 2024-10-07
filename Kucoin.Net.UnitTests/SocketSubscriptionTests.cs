@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Testing;
 using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
@@ -68,13 +69,16 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinStreamTransactionStatisticsUpdate>((client, handler) => client.FuturesApi.SubscribeTo24HourSnapshotUpdatesAsync("XBTUSDM", handler), "Snapshot");
             await tester.ValidateAsync<KucoinStreamFuturesOrderUpdate>((client, handler) => client.FuturesApi.SubscribeToOrderUpdatesAsync("XBTUSDM", handler), "Order");
             await tester.ValidateAsync<KucoinStreamFuturesStopOrderUpdate>((client, handler) => client.FuturesApi.SubscribeToStopOrderUpdatesAsync(handler), "StopOrder");
-            await tester.ValidateAsync<KucoinStreamOrderMarginUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(handler, null, null), "OrderMargin");
-            await tester.ValidateAsync<KucoinStreamFuturesBalanceUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(null, handler, null), "Balance");
-            await tester.ValidateAsync<KucoinStreamFuturesWithdrawableUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(null, null, handler), "Withdrawable");
+            await tester.ValidateAsync<KucoinStreamOrderMarginUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(handler, null, null, null), "OrderMargin");
+            await tester.ValidateAsync<KucoinStreamFuturesBalanceUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(null, handler, null, null), "Balance");
+            await tester.ValidateAsync<KucoinStreamFuturesWithdrawableUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(null, null, handler, null), "Withdrawable");
+            await tester.ValidateAsync<KucoinStreamFuturesWalletUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(null, null, null, handler), "Wallet");
             await tester.ValidateAsync<KucoinPositionUpdate>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(handler, null, null, null), "Position");
             await tester.ValidateAsync<KucoinPositionMarkPriceUpdate>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(null, handler, null, null), "PositionMarkPrice");
             await tester.ValidateAsync<KucoinPositionFundingSettlementUpdate>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(null, null, handler, null), "FundingSettlement");
             await tester.ValidateAsync<KucoinPositionRiskAdjustResultUpdate>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(null, null, null, handler), "RiskAdjust");
+            await tester.ValidateAsync<Dictionary<string, FuturesMarginMode>>((client, handler) => client.FuturesApi.SubscribeToMarginModeUpdatesAsync(handler), "MarginMode");
+            await tester.ValidateAsync<Dictionary<string, KucoinLeverageUpdate>>((client, handler) => client.FuturesApi.SubscribeToCrossMarginLeverageUpdatesAsync(handler), "CrossMarginLeverage");
         }
     }
 }

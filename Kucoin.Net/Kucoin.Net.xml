@@ -112,6 +112,18 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetTradingFeeAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetMarginModeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetMarginModeAsync(System.String,Kucoin.Net.Enums.FuturesMarginMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetCrossMarginLeverageAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetCrossMarginLeverageAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData">
             <inheritdoc />
         </member>
@@ -169,7 +181,7 @@
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
@@ -286,13 +298,19 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToStopOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesStopOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.KucoinPositionUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionMarkPriceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionFundingSettlementUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinPositionRiskAdjustResultUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToMarginModeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.Dictionary{System.String,Kucoin.Net.Enums.FuturesMarginMode}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToCrossMarginLeverageUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.Dictionary{System.String,Kucoin.Net.Objects.Models.Futures.KucoinLeverageUpdate}}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetConnectionUrlAsync(System.String,System.Boolean)">
@@ -1478,6 +1496,21 @@
             One week
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.FuturesMarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.FuturesMarginMode.Cross">
+            <summary>
+            Cross margin
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.FuturesMarginMode.Isolated">
+            <summary>
+            Isolated margin
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.FuturesTradeType">
             <summary>
             Type of trade
@@ -1931,6 +1964,26 @@
         <member name="F:Kucoin.Net.Enums.OrderType.Stop">
             <summary>
             Stop order
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.PositionSide.Both">
+            <summary>
+            Both (One way position mode)
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.PositionSide.Long">
+            <summary>
+            Long
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.PositionSide.Short">
+            <summary>
+            Short
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.RepaymentStrategy">
@@ -2545,6 +2598,40 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetMarginModeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the current margin mode for a symbol
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-margin-mode" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.SetMarginModeAsync(System.String,Kucoin.Net.Enums.FuturesMarginMode,System.Threading.CancellationToken)">
+            <summary>
+            Set the margin mode for a symbol
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-margin-mode" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="marginMode">The new margin mode</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetCrossMarginLeverageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the current cross margin leverage setting
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-cross-margin-leverage" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.SetCrossMarginLeverageAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Set a new cross margin leverage value
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-cross-margin-leverage" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="leverage">The leverage</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData">
             <summary>
             Kucoin Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -2728,7 +2815,7 @@
             Kucoin Futures trading endpoints, placing and mananging orders.
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-order" /></para>
@@ -2753,6 +2840,7 @@
             <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
             <param name="selfTradePrevention">Self Trade Prevention mode</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="marginMode">Margin mode, defaults to Isolated</param>
             <param name="ct">Cancellation token</param>
             <returns>Order details</returns>
         </member>
@@ -3116,14 +3204,15 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMarginUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to wallet updates
             <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/account-balance-events" /></para>
             </summary>
-            <param name="onOrderMarginUpdate">Data handler for order margin updates</param>
-            <param name="onBalanceUpdate">Data handler for balance updates</param>
-            <param name="onWithdrawableUpdate">Data handler for withdrawable funds updates</param>
+            <param name="onOrderMarginUpdate">DEPRECATED; After the user 【First time】switches the margin mode (switching from isolated margin to cross margin), this will stop pushing and instead the onWalletUpdate event will be pushed</param>
+            <param name="onBalanceUpdate">DEPRECATED; After the user 【First time】switches the margin mode (switching from isolated margin to cross margin), this will stop pushing and instead the onWalletUpdate event will be pushed</param>
+            <param name="onWithdrawableUpdate">DEPRECATED; After the user 【First time】switches the margin mode (switching from isolated margin to cross margin), this will stop pushing and instead the onWalletUpdate event will be pushed</param>
+            <param name="onWalletUpdate">Data handler for wallet update. Will be pushed once user switches margin modes for the first time</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         </member>
@@ -3151,6 +3240,24 @@
             <param name="onRiskAdjustUpdate">Handler for risk adjust updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToMarginModeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.Dictionary{System.String,Kucoin.Net.Enums.FuturesMarginMode}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to margin mode updates
+            <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/margin-mode-push" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToCrossMarginLeverageUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.Dictionary{System.String,Kucoin.Net.Objects.Models.Futures.KucoinLeverageUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to cross margin leverage updates
+            <para><a href="https://www.kucoin.com/docs/websocket/futures-trading/private-channels/cross-margin-mode-leverage-modification-push" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns></returns>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
@@ -5833,6 +5940,11 @@
             Tags
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry">
             <summary>
             Futures order request
@@ -5936,6 +6048,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.SelfTradePrevention">
             <summary>
             Self trade prevention type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.MarginMode">
+            <summary>
+            Margin mode
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult">
@@ -6128,6 +6245,11 @@
             Whether to force processing as a taker
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesUserTrade.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesWithdrawalQuota">
             <summary>
             Withdrawal quota
@@ -6236,6 +6358,46 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinIndexBase.Value">
             <summary>
             Value
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinLeverage">
+            <summary>
+            Leverage info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinLeverage.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinLeverage.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinLeverageUpdate">
+            <summary>
+            Leverage update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinLeverageUpdate.Leverage">
+            <summary>
+            Leverage value
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinMarginMode">
+            <summary>
+            Margin mode info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginMode.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginMode.MarginMode">
+            <summary>
+            Margin mode
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinMarkPrice">
@@ -6512,6 +6674,26 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.MaintenanceMarginRate">
             <summary>
             Maintenance margin rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionBase.PositionFunding">
+            <summary>
+            The current remaining unsettled funding fee for the position Only applicable to Isolated Margin
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinPosition">
@@ -7234,6 +7416,11 @@
             Trade direction
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesOrderUpdate.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesStopOrderUpdate">
             <summary>
             Futures stop order update
@@ -7287,6 +7474,86 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesTick.Timestamp">
             <summary>
             Filled time
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate">
+            <summary>
+            Wallet update
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.WalletBalance">
+            <summary>
+            Wallet balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.AvailableBalance">
+            <summary>
+            Available balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.HoldBalance">
+            <summary>
+            Hold balance
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.IsolatedOrderMargin">
+            <summary>
+            Isolated order margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.IsolatedPosMargin">
+            <summary>
+            Isolated pos margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.IsolatedUnrealizedPnl">
+            <summary>
+            Isolated unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.IsolatedFundingFeeMargin">
+            <summary>
+            Isolated funding fee margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.CrossOrderMargin">
+            <summary>
+            Cross order margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.CrossPositionMargin">
+            <summary>
+            Cross position margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.CrossUnrealizedPnl">
+            <summary>
+            Cross unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.Equity">
+            <summary>
+            Equity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.TotalCrossMargin">
+            <summary>
+            Total cross margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.Version">
+            <summary>
+            Version
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.Timestamp">
+            <summary>
+            Timestamp
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate">
@@ -7624,6 +7891,11 @@
         <member name="P:Kucoin.Net.Objects.Models.KucoinStreamStopOrderUpdateBase.Type">
             <summary>
             Update type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.KucoinStreamStopOrderUpdateBase.MarginMode">
+            <summary>
+            Margin mode
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.KucoinTradeBase">
