@@ -144,6 +144,19 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.15.0 - 08 Oct 2024
+    * Added FuturesApi.Account.GetMarginModeAsync endpoint
+    * Added FuturesApi.Account.SetMarginModeAsync endpoint
+    * Added FuturesApi.Account.GetCrossMarginLeverageAsync endpoint
+    * Added FuturesApi.Account.SetCrossMarginLeverageAsync endpoint
+    * Added marginMode parameter to FuturesApi.Trading.PlaceOrderAsync and PlaceMultipleOrdersAsync endpoints
+    * Added onWalletUpdate update handler to FuturesApi.SubscribeToBalanceUpdatesAsync stream
+    * Added FuturesApi.SubscribeToMarginModeUpdatesAsync stream
+    * Added FuturesApi.SubscribeToCrossMarginLeverageUpdatesAsync stream
+    * Updated various order and trade response/update models with margin mode properties
+    * Update position models with MarginMode, PositionSide, Leverage and PositionFunding properties
+    * Fixed cancellation token not getting passed in shared ticker subscriptions
+
 * Version 5.14.0 - 27 Sep 2024
     * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
     * Added Shared client interfaces implementation for Spot and FuturesApi Rest and Socket clients
