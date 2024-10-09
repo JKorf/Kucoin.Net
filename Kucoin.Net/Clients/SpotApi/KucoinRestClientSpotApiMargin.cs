@@ -77,7 +77,7 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinNewBorrowOrder>> BorrowAsync(
             string asset,
-            TimeInForce timeInForce,
+            BorrowOrderType timeInForce,
             decimal quantity,
             bool? isIsolated = null,
             string? symbol = null,
