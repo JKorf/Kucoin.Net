@@ -703,7 +703,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetIsolatedMarginRiskLimitAndConfig(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.BorrowAsync(System.String,Kucoin.Net.Enums.TimeInForce,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.BorrowAsync(System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.RepayAsync(System.String,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
@@ -4254,7 +4254,7 @@
             <param name="ct">Cancellation token</param> 
             <returns></returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.BorrowAsync(System.String,Kucoin.Net.Enums.TimeInForce,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.BorrowAsync(System.String,Kucoin.Net.Enums.BorrowOrderType,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Borrow an asset
             <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/margin-borrowing" /></para>
