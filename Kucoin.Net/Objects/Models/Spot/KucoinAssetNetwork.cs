@@ -65,6 +65,26 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("withdrawMaxFee")]
         public decimal? WithdrawMaxFee { get; set; }
+        /// <summary>
+        /// Max deposit quantity (only for lightning network)
+        /// </summary>
+        [JsonProperty("maxDeposit")]
+        public decimal? MaxDeposit { get; set; }
+        /// <summary>
+        /// Maximum amount of single withdrawal
+        /// </summary>
+        [JsonProperty("maxWithdraw")]
+        public decimal? MaxWithdraw { get; set; }
+        /// <summary>
+        /// Needs a tag
+        /// </summary>
+        [JsonProperty("needTag")]
+        public bool? NeedTag { get; set; }
+        /// <summary>
+        /// Maximum withdraw precision
+        /// </summary>
+        [JsonProperty("withdrawPrecision")]
+        public decimal? WithdrawPrecision { get; set; }
 
     }
 }
