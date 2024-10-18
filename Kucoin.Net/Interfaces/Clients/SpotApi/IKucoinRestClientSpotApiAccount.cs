@@ -307,5 +307,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinMigrateResult>> MigrateHfAccountAsync(bool? withAllSubAccounts = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get whether the current account is a High-Frequency account
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<bool>> GetIsHfAccountAsync(CancellationToken ct = default);
     }
 }

@@ -541,6 +541,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.MigrateHfAccountAsync(System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetIsHfAccountAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -3692,6 +3695,13 @@
             Migrate the spot high and normal frequency accounts into a single high frequency account. Only needed when the High Frequency API endpoints have been used previously.
             </summary>
             <param name="withAllSubAccounts">Whether to operate all sub-accounts together. If left blank, the sub-account will not be operated by default</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetIsHfAccountAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get whether the current account is a High-Frequency account
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -8494,6 +8504,26 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawMaxFee">
             <summary>
             Withdraw max fee
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.MaxDeposit">
+            <summary>
+            Max deposit quantity (only for lightning network)
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.MaxWithdraw">
+            <summary>
+            Maximum amount of single withdrawal
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.NeedTag">
+            <summary>
+            Needs a tag
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawPrecision">
+            <summary>
+            Maximum withdraw precision
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowOrderV3">
