@@ -16,6 +16,7 @@ using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects;
 using Kucoin.Net.ExtensionMethods;
 using System.Security.Cryptography;
+using Kucoin.Net.Objects.Models;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -184,5 +185,25 @@ namespace Kucoin.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/etf/info", KucoinExchange.RateLimiter.SpotRest, 25, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinLeveragedToken>>(request, null, ct).ConfigureAwait(false);
         }
+
+        #region Get Announcements
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<KucoinAnnouncement>>> GetAnnouncementsAsync(int? page = null, int? pageSize = null, string? announcementType = null, string? language = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("currentPage", page);
+            parameters.AddOptional("pageSize", pageSize);
+            parameters.AddOptional("annType", announcementType);
+            parameters.AddOptional("lang", language);
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/announcements", KucoinExchange.RateLimiter.PublicRest, 1, false);
+            var result = await _baseClient.SendAsync<KucoinPaginated<KucoinAnnouncement>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

@@ -592,6 +592,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetLeveragedTokensAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetAnnouncementsAsync(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading">
             <inheritdoc />
         </member>
@@ -3844,6 +3847,19 @@
             </summary>
             <param name="ct">Cancellation token</param> 
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetAnnouncementsAsync(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <summary>
+            Get system announcements
+            <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-announcements?x=nl_NL" /></para>
+            </summary>
+            <param name="page">Current page</param>
+            <param name="pageSize">Page size</param>
+            <param name="announcementType">Filter by announcement type</param>
+            <param name="language">Language, defaults to en_US</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading">
             <summary>
@@ -8354,6 +8370,46 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAllTick.MakerCoefficient">
             <summary>
             Maker Fee Coefficient
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement">
+            <summary>
+            Announcement
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.AnnouncementId">
+            <summary>
+            Announcement id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.Title">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.CreateTime">
+            <summary>
+            Create timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.Language">
+            <summary>
+            Language
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.Url">
+            <summary>
+            Url
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.Types">
+            <summary>
+            Announcement types
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase">

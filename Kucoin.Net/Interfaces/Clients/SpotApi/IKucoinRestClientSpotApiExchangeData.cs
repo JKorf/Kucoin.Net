@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects.Models;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -148,5 +149,19 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinLeveragedToken>>> GetLeveragedTokensAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get system announcements
+        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-announcements?x=nl_NL" /></para>
+        /// </summary>
+        /// <param name="page">Current page</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="announcementType">Filter by announcement type</param>
+        /// <param name="language">Language, defaults to en_US</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinPaginated<KucoinAnnouncement>>> GetAnnouncementsAsync(int? page = null, int? pageSize = null, string? announcementType = null, string? language = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+
     }
 }
