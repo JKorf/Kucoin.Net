@@ -100,5 +100,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
         public FuturesMarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Average fill price
+        /// </summary>
+        [JsonProperty("avgDealPrice")]
+        public decimal? AveragePrice { get; set; }
     }
 }

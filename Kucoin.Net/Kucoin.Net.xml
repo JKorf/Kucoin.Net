@@ -5972,6 +5972,11 @@
             Margin mode
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.AveragePrice">
+            <summary>
+            Average fill price
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry">
             <summary>
             Futures order request
