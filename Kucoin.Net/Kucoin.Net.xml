@@ -196,6 +196,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelMultipleOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2918,6 +2921,15 @@
             <param name="ct">Cancellation token</param>
             <returns>Canceled id</returns>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.CancelMultipleOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple orders
+            </summary>
+            <param name="orderIds">Order ids to cancel</param>
+            <param name="clientOrderIds">Client order ids to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order by client order id
@@ -5446,6 +5458,21 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinAccountTransaction.Asset">
             <summary>
             Asset
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest">
+            <summary>
+            Cancel request
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest.ClientOrderId">
+            <summary>
+            Client order id
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinContract">

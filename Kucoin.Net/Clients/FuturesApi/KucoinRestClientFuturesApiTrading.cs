@@ -15,6 +15,7 @@ using Kucoin.Net.Objects.Models.Spot;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Security.Cryptography;
+using System.Linq;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -205,6 +206,16 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/" + orderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("orderIdsList", orderIds.ToArray());
+            parameters.AddOptional("clientOidsList", clientOrderIds.ToArray());
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/multi-cancel", KucoinExchange.RateLimiter.FuturesRest, 30, true, parameterPosition: HttpMethodParameterPosition.InBody);
+            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesOrderResult>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
