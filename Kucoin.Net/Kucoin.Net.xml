@@ -517,7 +517,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.WithdrawAsync(Kucoin.Net.Enums.WithdrawType,System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -2379,6 +2379,31 @@
             Failed
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.WithdrawType">
+            <summary>
+            Withdrawal type
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.WithdrawType.Address">
+            <summary>
+            Withdraw to crypto address
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.WithdrawType.Uid">
+            <summary>
+            Withdraw to user by user id
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.WithdrawType.Mail">
+            <summary>
+            Withdraw to user by email
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.WithdrawType.Phone">
+            <summary>
+            Withdraw to user by phone
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.ExtensionMethods.KucoinExtensionMethods">
             <summary>
             Extension methods specific to using the Kucoin API
@@ -3595,11 +3620,12 @@
             <param name="ct">Cancellation token</param>
             <returns>Quota info</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.WithdrawAsync(Kucoin.Net.Enums.WithdrawType,System.String,System.String,System.Decimal,System.String,System.Boolean,System.String,System.String,System.Nullable{Kucoin.Net.Enums.FeeDeductType},System.Threading.CancellationToken)">
             <summary>
             Withdraw an asset to an address
             <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/apply-withdraw" /></para>
             </summary>
+            <param name="withdrawalType">Type of withdrawal</param>
             <param name="asset">The asset to withdraw, for example `ETH`</param>
             <param name="toAddress">The address to withdraw to</param>
             <param name="quantity">The quantity to withdraw</param>

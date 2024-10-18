@@ -237,6 +237,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Withdraw an asset to an address
         /// <para><a href="https://www.kucoin.com/docs/rest/funding/withdrawals/apply-withdraw" /></para>
         /// </summary>
+        /// <param name="withdrawalType">Type of withdrawal</param>
         /// <param name="asset">The asset to withdraw, for example `ETH`</param>
         /// <param name="toAddress">The address to withdraw to</param>
         /// <param name="quantity">The quantity to withdraw</param>
@@ -247,7 +248,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="feeDeductType">Fee deduction type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Id of the withdrawal</returns>
-        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? chain = null, FeeDeductType? feeDeductType = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(WithdrawType withdrawalType, string asset, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? chain = null, FeeDeductType? feeDeductType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a withdrawal

@@ -279,21 +279,22 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(string asset, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? network = null, FeeDeductType? deductType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(WithdrawType withdrawalType, string asset, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? network = null, FeeDeductType? deductType = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
             toAddress.ValidateNotNull(nameof(toAddress));
             var parameters = new ParameterCollection {
                 { "currency", asset },
-                { "address", toAddress },
+                { "toAddress", toAddress },
                 { "amount", quantity },
             };
+            parameters.AddEnum("withdrawType", withdrawalType);
             parameters.AddOptionalParameter("memo", memo);
             parameters.AddOptionalParameter("isInner", isInner);
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("chain", network);
             parameters.AddOptionalParameter("feeDeductType", EnumConverter.GetString(deductType));
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/withdrawals", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/withdrawals", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<KucoinNewWithdrawal>(request, parameters, ct).ConfigureAwait(false);
         }
 

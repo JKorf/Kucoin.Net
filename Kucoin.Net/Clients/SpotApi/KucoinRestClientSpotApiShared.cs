@@ -872,6 +872,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             // Get data
             var withdrawal = await Account.WithdrawAsync(
+                WithdrawType.Address,
                 request.Asset,
                 request.Address,
                 request.Quantity,

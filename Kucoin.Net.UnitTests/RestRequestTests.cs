@@ -43,7 +43,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetWithdrawalsAsync("ETH"), "GetWithdrawals");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetHistoricalWithdrawalsAsync("ETH"), "GetHistoricalWithdrawals");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetWithdrawalQuotasAsync("ETH"), "GetWithdrawalQuotas");
-            await tester.ValidateAsync(client => client.SpotApi.Account.WithdrawAsync("ETH", "123", 1), "Withdraw");
+            await tester.ValidateAsync(client => client.SpotApi.Account.WithdrawAsync(WithdrawType.Address, "ETH", "123", 1), "Withdraw");
             await tester.ValidateAsync(client => client.SpotApi.Account.CancelWithdrawalAsync("123"), "CancelWithdrawal");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetMarginAccountAsync(), "GetMarginAccount");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetCrossMarginAccountsAsync(), "GetCrossMarginAccounts", ignoreProperties: new List<string> { "timestamp" });
