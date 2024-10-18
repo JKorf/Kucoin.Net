@@ -232,7 +232,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                 UpdateTime = order.Data.UpdateTime,
                 Leverage = order.Data.Leverage,
-                ReduceOnly = order.Data.ReduceOnly
+                ReduceOnly = order.Data.ReduceOnly,
+                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice
             });
         }
 
@@ -264,7 +265,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
-                ReduceOnly = x.ReduceOnly
+                ReduceOnly = x.ReduceOnly,
+                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice
             }).ToArray());
         }
 
@@ -316,7 +318,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
-                ReduceOnly = x.ReduceOnly
+                ReduceOnly = x.ReduceOnly,
+                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice
             }).ToArray(), nextToken);
         }
 
