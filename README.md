@@ -144,6 +144,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.16.0 - 18 Oct 2024
+    * Added restClient.FuturesApi.Trading.CancelMultipleOrdersAsync endpoint
+    * Added restClient.SpotApi.Account.GetIsHfAccountAsync endpoint
+    * Added restClient.SpotApi.ExchangeData.GetAnnouncementsAsync endpoint
+    * Added AveragePrice to Futures order response model
+    * Added AveragePrice setting to Shared IFuturesOrderRestClient responses
+    * Updated restClient.SpotApi.Account.WithdrawAsync to V3 endpoint
+    * Updated KucoinAssetNetwork response model
+    * Fixed CancelAfter parameter type for restClient.SpotApi.Trading.PlaceBulkOrderAsync endpoint
+    * Fixed Shared IBalanceRestClient implementation to only return spot balances
+
 * Version 5.15.1 - 14 Oct 2024
     * Updated CryptoExchange.Net to version 8.0.3, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.3
     * Fixed TypeLoadException during initialization
