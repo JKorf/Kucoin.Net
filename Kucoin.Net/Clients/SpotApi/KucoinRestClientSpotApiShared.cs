@@ -167,7 +167,14 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Holds)).ToArray());
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            var data = result.Data;
+            if (hfAccount == false)
+                data = result.Data.Where(x => x.Type == AccountType.Trade);
+            else
+                data = result.Data.Where(x => x.Type == AccountType.SpotHf);
+
+            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, TradingMode.Spot, data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Holds)).ToArray());
         }
 
         #endregion
