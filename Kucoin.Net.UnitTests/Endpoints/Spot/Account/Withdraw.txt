@@ -1,5 +1,5 @@
 POST
-/api/v1/withdrawals
+/api/v3/withdrawals
 true
 {
   "data": {
