@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
+using Kucoin.Net;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients;
@@ -61,6 +62,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
+            services.AddTransient<IKucoinTrackerFactory, KucoinTrackerFactory>();
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.CommonSpotClient);
             services.AddTransient(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.CommonFuturesClient);
 

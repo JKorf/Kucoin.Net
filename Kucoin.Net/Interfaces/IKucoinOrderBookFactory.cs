@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Objects.Options;
 using System;
 
@@ -18,6 +19,14 @@ namespace Kucoin.Net.Interfaces
         /// Futures order book factory methods
         /// </summary>
         public IOrderBookFactory<KucoinOrderBookOptions> Futures { get; }
+
+        /// <summary>
+        /// Create a SymbolOrderBook for the symbol
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="options">Book options</param>
+        /// <returns></returns>
+        ISymbolOrderBook Create(SharedSymbol symbol, Action<KucoinOrderBookOptions>? options = null);
 
         /// <summary>
         /// Create a futures ISymbolOrderBook instance for the symbol

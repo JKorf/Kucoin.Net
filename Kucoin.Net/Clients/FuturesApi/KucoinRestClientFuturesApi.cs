@@ -70,15 +70,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
-        {
-            if (baseAsset.Equals("BTC", StringComparison.OrdinalIgnoreCase))
-                baseAsset = "XBT";
-
-            if (!deliverTime.HasValue)
-                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
-
-            return baseAsset.ToUpperInvariant() + "M" + ExchangeHelpers.GetDeliveryMonthSymbol(deliverTime.Value) + deliverTime.Value.ToString("yy");
-        }
+            => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         internal async Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {

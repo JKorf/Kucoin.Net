@@ -1,8 +1,10 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.RateLimiting;
 using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,28 @@ namespace Kucoin.Net
         public static string[] ApiDocsUrl { get; } = new[] {
             "https://www.kucoin.com/docs/beginners/introduction"
             };
+
+        /// <summary>
+        /// Format a base and quote asset to a Kucoin recognized symbol 
+        /// </summary>
+        /// <param name="baseAsset">Base asset</param>
+        /// <param name="quoteAsset">Quote asset</param>
+        /// <param name="tradingMode">Trading mode</param>
+        /// <param name="deliverTime">Delivery time for delivery futures</param>
+        /// <returns></returns>
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (tradingMode == TradingMode.Spot)
+                return baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
+
+            if (baseAsset.Equals("BTC", StringComparison.OrdinalIgnoreCase))
+                baseAsset = "XBT";
+
+            if (!deliverTime.HasValue)
+                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
+
+            return baseAsset.ToUpperInvariant() + "M" + ExchangeHelpers.GetDeliveryMonthSymbol(deliverTime.Value) + deliverTime.Value.ToString("yy");
+        }
 
         /// <summary>
         /// Rate limiter configuration for the Kucoin API
