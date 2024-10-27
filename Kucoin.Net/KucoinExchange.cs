@@ -159,7 +159,7 @@ namespace Kucoin.Net
             PublicRest = new RateLimitGate("Public Rest").AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, Array.Empty<IGuardFilter>(), 2000, TimeSpan.FromSeconds(30), RateLimitWindowType.FixedAfterFirst)); // Might be fixed but from the first request timestamp instead of the the whole interval
             Socket = new RateLimitGate("Socket")
                     .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new LimitItemTypeFilter(RateLimitItemType.Connection), 30, TimeSpan.FromMinutes(1), RateLimitWindowType.Fixed))
-                    .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, new LimitItemTypeFilter(RateLimitItemType.Request), 100, TimeSpan.FromSeconds(10), RateLimitWindowType.Fixed));
+                    .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new LimitItemTypeFilter(RateLimitItemType.Request), 100, TimeSpan.FromSeconds(10), RateLimitWindowType.Fixed));
 
             SpotRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             FuturesRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);

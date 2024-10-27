@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,14 @@ namespace Kucoin.Net
     /// <inheritdoc />
     public class KucoinTrackerFactory : IKucoinTrackerFactory
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider? _serviceProvider;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public KucoinTrackerFactory()
+        {
+        }
 
         /// <summary>
         /// ctor
@@ -26,23 +34,26 @@ namespace Kucoin.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
-            IKlineRestClient restClient;
-            IKlineSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IKucoinRestClient>() ?? new KucoinRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IKucoinSocketClient>() ?? new KucoinSocketClient();
+
+            IKlineRestClient sharedRestClient;
+            IKlineSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IKucoinRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedClient;
+                sharedRestClient = restClient.FuturesApi.SharedClient;
+                sharedSocketClient = socketClient.FuturesApi.SharedClient;
             }
 
             return new KlineTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                sharedSocketClient,
                 symbol,
                 interval,
                 limit,
@@ -52,23 +63,27 @@ namespace Kucoin.Net
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
         {
-            IRecentTradeRestClient? restClient = null;
-            ITradeSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IKucoinRestClient>() ?? new KucoinRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IKucoinSocketClient>() ?? new KucoinSocketClient();
+
+            IRecentTradeRestClient? sharedRestClient;
+            ITradeSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IKucoinRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedClient;
+                sharedRestClient = restClient.FuturesApi.SharedClient;
+                sharedSocketClient = socketClient.FuturesApi.SharedClient;
             }
 
             return new TradeTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                null,
+                sharedSocketClient,
                 symbol,
                 limit,
                 period
