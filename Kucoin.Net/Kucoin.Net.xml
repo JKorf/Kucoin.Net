@@ -5407,6 +5407,11 @@
         <member name="T:Kucoin.Net.KucoinTrackerFactory">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.KucoinTrackerFactory.#ctor(System.IServiceProvider)">
             <summary>
             ctor
