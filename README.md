@@ -145,6 +145,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.17.0 - 28 Oct 2024
+    * Updated CryptoExchange.Net to version 8.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.1.0
+    * Moved FormatSymbol to KucoinExchange class
+    * Added support Side setting on SharedTrade model
+    * Added KucoinTrackerFactory for creating trackers
+    * Added overload to Create method on KucoinOrderBookFactory support SharedSymbol parameter
+
 * Version 5.16.0 - 18 Oct 2024
     * Added restClient.FuturesApi.Trading.CancelMultipleOrdersAsync endpoint
     * Added restClient.SpotApi.Account.GetIsHfAccountAsync endpoint
