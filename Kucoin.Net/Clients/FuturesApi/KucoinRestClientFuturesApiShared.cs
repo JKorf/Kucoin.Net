@@ -60,7 +60,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 request.Symbol.TradingMode,
                 new SharedFuturesTicker(
                     result.Data.Symbol,
-                    result.Data.LastTradePrice ?? 0,
+                    result.Data.LastTradePrice,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
                     result.Data.Volume24H,
@@ -95,7 +95,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange,
                 request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value },
                 result.Data.Select(x =>
-                new SharedFuturesTicker(x.Symbol, x.LastTradePrice ?? 0, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
+                new SharedFuturesTicker(x.Symbol, x.LastTradePrice, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
                 {
                     IndexPrice = x.IndexPrice,
                     MarkPrice = x.MarkPrice,
@@ -598,7 +598,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.TradingMode, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.TradingMode, result.Data.Take(request.Limit ?? 100).Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            {
+                Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+            }).ToArray());
         }
 
         #endregion

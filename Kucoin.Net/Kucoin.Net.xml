@@ -5266,6 +5266,14 @@
             Futures order book factory methods
             </summary>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions})">
+            <summary>
+            Create a SymbolOrderBook for the symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="options">Book options</param>
+            <returns></returns>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.IKucoinOrderBookFactory.CreateFutures(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions})">
             <summary>
             Create a futures ISymbolOrderBook instance for the symbol
@@ -5280,6 +5288,30 @@
             </summary>
             <param name="symbol">The symbol of the order book</param>
             <param name="optionsDelegate">Option configuration delegate</param>
+            <returns></returns>
+        </member>
+        <member name="T:Kucoin.Net.Interfaces.IKucoinTrackerFactory">
+            <summary>
+            Tracker factory
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new kline tracker
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="interval">Kline interval</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new trade tracker for a symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
             <returns></returns>
         </member>
         <member name="T:Kucoin.Net.KucoinEnvironment">
@@ -5336,6 +5368,16 @@
             Urls to the API documentation
             </summary>
         </member>
+        <member name="M:Kucoin.Net.KucoinExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <summary>
+            Format a base and quote asset to a Kucoin recognized symbol 
+            </summary>
+            <param name="baseAsset">Base asset</param>
+            <param name="quoteAsset">Quote asset</param>
+            <param name="tradingMode">Trading mode</param>
+            <param name="deliverTime">Delivery time for delivery futures</param>
+            <returns></returns>
+        </member>
         <member name="P:Kucoin.Net.KucoinExchange.RateLimiter">
             <summary>
             Rate limiter configuration for the Kucoin API
@@ -5361,6 +5403,26 @@
             Configure the rate limit with a different VIP level
             </summary>
             <param name="level"></param>
+        </member>
+        <member name="T:Kucoin.Net.KucoinTrackerFactory">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinApiAddresses">
             <summary>
@@ -12501,6 +12563,9 @@
             ctor
             </summary>
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions})">
+            <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.CreateSpot(System.String,System.Action{Kucoin.Net.Objects.Options.KucoinOrderBookOptions})">
             <summary>

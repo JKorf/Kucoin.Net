@@ -71,17 +71,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
+
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
-        {
-            if (baseAsset.Equals("BTC", StringComparison.OrdinalIgnoreCase))
-                baseAsset = "XBT";
-
-            if (!deliverTime.HasValue)
-                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant() + "M";
-
-            return baseAsset.ToUpperInvariant() + "M" + ExchangeHelpers.GetDeliveryMonthSymbol(deliverTime.Value) + deliverTime.Value.ToString("yy");
-        }
+            => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
         protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;
