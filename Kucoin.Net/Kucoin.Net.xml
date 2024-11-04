@@ -544,6 +544,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetIsHfAccountAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -3704,6 +3707,13 @@
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetIsHfAccountAsync(System.Threading.CancellationToken)">
             <summary>
             Get whether the current account is a High-Frequency account
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get API key info
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -8472,6 +8482,46 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAnnouncement.Types">
             <summary>
             Announcement types
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinApiKey">
+            <summary>
+            API key info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.Apikey">
+            <summary>
+            Api key
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.ApiKeyVersion">
+            <summary>
+            Version of the API key
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.Permissions">
+            <summary>
+            Permissions, comma seperated
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinApiKey.IsMaster">
+            <summary>
+            Is master account
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinAssetBase">

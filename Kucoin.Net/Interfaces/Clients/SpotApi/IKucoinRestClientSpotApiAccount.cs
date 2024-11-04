@@ -314,5 +314,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<bool>> GetIsHfAccountAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get API key info
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinApiKey>> GetApiKeyInfoAsync(CancellationToken ct = default);
     }
 }
