@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    /// Base class for index data
+    /// Base record for index data
     /// </summary>
-    public class KucoinIndexBase
+    public record KucoinIndexBase
     {
         /// <summary>
         /// Symbol
@@ -16,7 +16,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Granularity in milliseconds
         /// </summary>
-        public int Granularity { get; set; }
+        public int? Granularity { get; set; }
         /// <summary>
         /// Time point
         /// </summary>

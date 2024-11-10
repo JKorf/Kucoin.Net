@@ -3,7 +3,7 @@
     /// <summary>
     /// Stream tick
     /// </summary>
-    public class KucoinStreamTick: KucoinTick
+    public record KucoinStreamTick: KucoinTick
     {
         /// <summary>
         /// The symbol

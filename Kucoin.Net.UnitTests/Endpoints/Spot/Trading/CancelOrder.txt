@@ -1,0 +1,8 @@
+DELETE
+/api/v1/orders/123
+true
+{"code":"200000","data":
+{
+  "cancelledOrderIds": ["5bd6e9286d99522a52e458de"]
+}
+}

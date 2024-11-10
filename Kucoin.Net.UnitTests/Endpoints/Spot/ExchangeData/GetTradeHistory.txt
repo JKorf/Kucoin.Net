@@ -1,0 +1,21 @@
+GET
+/api/v1/market/histories
+false
+{"code":"200000","data":
+[
+  {
+    "sequence": "1545896668571",
+    "price": "0.07", //Filled price
+    "size": "0.004", //Filled amount
+    "side": "buy", //Filled side. The filled side is set to the taker by default.
+    "time": 1545904567062140823 //Transaction time
+  },
+  {
+    "sequence": "1545896668578",
+    "price": "0.054",
+    "size": "0.066",
+    "side": "buy",
+    "time": 1545904581619888405
+  }
+]
+}

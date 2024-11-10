@@ -1,0 +1,9 @@
+DELETE
+/api/v1/stop-order/123
+true
+{
+  "code": "200000",
+  "data": {
+  "cancelledOrderIds": ["611477889281bc0006d68aea"]
+}
+}

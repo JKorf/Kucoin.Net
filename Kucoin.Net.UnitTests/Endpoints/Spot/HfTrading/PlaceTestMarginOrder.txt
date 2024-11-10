@@ -1,0 +1,12 @@
+POST
+/api/v3/hf/margin/order/test
+true
+{
+    "success": true,
+    "code": "200000",
+    "data": {
+      "orderId": "5bd6e9286d99522a52e458de",
+      "borrowSize":10.2,
+      "loanApplyId":"600656d9a33ac90009de4f6f"
+    }
+  }

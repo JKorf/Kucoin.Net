@@ -1,6 +1,4 @@
-﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
+﻿using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
@@ -9,7 +7,7 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Match info
     /// </summary>
-    public class KucoinStreamMatchBase
+    public record KucoinStreamMatchBase
     {
         /// <summary>
         /// The sequence of the match

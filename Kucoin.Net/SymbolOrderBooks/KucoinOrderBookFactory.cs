@@ -1,4 +1,6 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.OrderBook;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects.Options;
@@ -15,6 +17,12 @@ namespace Kucoin.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public IOrderBookFactory<KucoinOrderBookOptions> Spot { get; }
+
+        /// <inheritdoc />
+        public IOrderBookFactory<KucoinOrderBookOptions> Futures { get; }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -22,6 +30,23 @@ namespace Kucoin.Net.SymbolOrderBooks
         public KucoinOrderBookFactory(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+
+            Spot = new OrderBookFactory<KucoinOrderBookOptions>(
+                CreateSpot,
+                (sharedSymbol, options) => CreateSpot(KucoinExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            Futures = new OrderBookFactory<KucoinOrderBookOptions>(
+                CreateFutures,
+                (sharedSymbol, options) => CreateFutures(KucoinExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+        }
+
+        /// <inheritdoc />
+        public ISymbolOrderBook Create(SharedSymbol symbol, Action<KucoinOrderBookOptions>? options = null)
+        {
+            var symbolName = KucoinExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            if (symbol.TradingMode == TradingMode.Spot)
+                return CreateSpot(symbolName, options);
+
+            return CreateFutures(symbolName, options);
         }
 
         /// <summary>
@@ -33,7 +58,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         public ISymbolOrderBook CreateSpot(string symbol, Action<KucoinOrderBookOptions>? options = null)
             => new KucoinSpotSymbolOrderBook(symbol,
                                              options,
-                                             _serviceProvider.GetRequiredService<ILogger<KucoinSpotSymbolOrderBook>>(),
+                                             _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                              _serviceProvider.GetRequiredService<IKucoinRestClient>(),
                                              _serviceProvider.GetRequiredService<IKucoinSocketClient>());
 
@@ -46,7 +71,7 @@ namespace Kucoin.Net.SymbolOrderBooks
         public ISymbolOrderBook CreateFutures(string symbol, Action<KucoinOrderBookOptions>? options = null)
             => new KucoinFuturesSymbolOrderBook(symbol,
                                                 options,
-                                                _serviceProvider.GetRequiredService<ILogger<KucoinFuturesSymbolOrderBook>>(),
+                                                _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                                 _serviceProvider.GetRequiredService<IKucoinRestClient>(),
                                                 _serviceProvider.GetRequiredService<IKucoinSocketClient>());
     }

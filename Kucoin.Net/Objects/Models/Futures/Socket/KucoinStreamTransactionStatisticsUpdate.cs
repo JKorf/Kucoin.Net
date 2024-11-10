@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// 24 Hour statistics update
     /// </summary>
-    public class KucoinStreamTransactionStatisticsUpdate
+    public record KucoinStreamTransactionStatisticsUpdate
     {
         /// <summary>
         /// Volume

@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book
     /// </summary>
-    public class KucoinFullOrderBook
+    public record KucoinFullOrderBook
     {
         /// <summary>
         /// The last sequence number of this order book state
@@ -33,12 +33,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book
     /// </summary>
-    public class KucoinOrderBook
+    public record KucoinOrderBook
     {
         /// <summary>
         /// The last sequence number of this order book state
         /// </summary>
-        public long Sequence { get; set; }
+        public long? Sequence { get; set; }
         /// <summary>
         /// The timestamp of the data
         /// </summary>
@@ -69,7 +69,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// Order book entry
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinFullOrderBookEntry: ISymbolOrderBookEntry
+    public record KucoinFullOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>
         /// The order id of the entry
@@ -92,7 +92,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// Order book entry
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class KucoinOrderBookEntry : ISymbolOrderBookEntry
+    public record KucoinOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>
         /// The price of the entry

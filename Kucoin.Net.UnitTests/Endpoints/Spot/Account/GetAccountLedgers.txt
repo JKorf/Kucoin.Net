@@ -1,0 +1,38 @@
+GET
+/api/v1/accounts/ledgers
+true
+{
+  "code": "200000",
+  "data": {
+  "currentPage": 1,
+  "pageSize": 50,
+  "totalNum": 2,
+  "totalPage": 1,
+  "items": [
+    {
+      "id": "611a1e7c6a053300067a88d9", //unique key
+      "currency": "USDT", //Currency
+      "amount": "10.00059547", //Change amount of the funds
+      "fee": "0", //Deposit or withdrawal fee
+      "balance": "0", //Total assets of a currency
+      "accountType": "MAIN", //Account Type
+      "bizType": "Loans Repaid", //business type
+      "direction": "in", //side, in or out
+      "createdAt": 1629101692950, //Creation time
+      "context": "{\"borrowerUserId\":\"601ad03e50dc810006d242ea\",\"loanRepayDetailNo\":\"611a1e7cc913d000066cf7ec\"}" //Business core parameters
+    },
+    {
+      "id": "611a18bc6a0533000671e1bf",
+      "currency": "USDT",
+      "amount": "10.00059547",
+      "fee": "0",
+      "balance": "0",
+      "accountType": "MAIN",
+      "bizType": "Loans Repaid",
+      "direction": "in",
+      "createdAt": 1629100220843,
+      "context": "{\"borrowerUserId\":\"5e3f4623dbf52d000800292f\",\"loanRepayDetailNo\":\"611a18bc7255c200063ea545\"}"
+    }
+  ]
+}
+}

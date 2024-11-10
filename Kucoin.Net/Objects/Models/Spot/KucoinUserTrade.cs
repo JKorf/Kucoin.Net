@@ -1,6 +1,4 @@
-﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
+﻿using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
@@ -9,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// User trade info
     /// </summary>
-    public class KucoinUserTrade: KucoinTradeBase
+    public record KucoinUserTrade: KucoinTradeBase
     {        
         /// <summary>
         /// The type of the order
@@ -24,7 +22,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The stop condition of the fill
         /// </summary>
-        public StopCondition Stop { get; set; }
+        public StopCondition? Stop { get; set; }
         /// <summary>
         /// The id of the counter order
         /// </summary>

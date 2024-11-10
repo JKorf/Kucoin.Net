@@ -3,7 +3,7 @@
     /// <summary>
     /// Trade fee
     /// </summary>
-    public class KucoinTradeFee
+    public record KucoinTradeFee
     {
         /// <summary>
         /// Symbol

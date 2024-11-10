@@ -1,0 +1,33 @@
+> {"id":"|1|","type":"subscribe","topic":"/spotMarket/tradeOrdersV2","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/spotMarket/tradeOrdersV2",
+  "subject": "orderChange",
+  "channelType": "private",
+  "data": {
+    "symbol": "KCS-USDT",
+    "orderType": "limit",
+    "side": "sell",
+    "orderId": "5efab07953bdea00089965fa",
+    "liquidity": "taker",
+    "type": "match",
+    "feeType": "takerFee", //Fee type, this parameter is only included when type=match, message type: "takerFee", "makerFee"
+    "orderTime": 1593487482038606180,
+    "size": "0.1",
+    "filledSize": "0.1",
+    "price": "0.938",
+    "matchPrice": "0.96738",
+    "matchSize": "0.1",
+    "tradeId": "5efab07a4ee4c7000a82d6d9",
+    "clientOid": "1593487481000313",
+    "remainSize": "0",
+    "status": "match",
+    "canceledSize": "0.1", // Cumulative number of cancellations
+    "canceledFunds": "0.1", // Market order accumulative cancellation funds
+    "originSize": "0.1", // original quantity
+    "originFunds": "0.1", // Market order original funds
+    "ts": 1593487482038606180
+  }
+}

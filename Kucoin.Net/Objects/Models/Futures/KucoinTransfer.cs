@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Transfer info
     /// </summary>
-    public class KucoinTransfer
+    public record KucoinTransfer
     {
         /// <summary>
         /// Apply id
@@ -44,5 +44,20 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("createdAt")]
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// User remark
+        /// </summary>
+        [JsonProperty("remark")]
+        public string? Remark { get; set; }
+        /// <summary>
+        /// Receive account tx remark
+        /// </summary>
+        [JsonProperty("recRemark")]
+        public string? ReceiveRemark { get; set; }
+        /// <summary>
+        /// Receive system
+        /// </summary>
+        [JsonProperty("recSystem")]
+        public string? ReceiveSystem { get; set; }
     }
 }

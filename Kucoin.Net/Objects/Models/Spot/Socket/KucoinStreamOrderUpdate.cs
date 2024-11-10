@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
-    /// Base class for a stream update
+    /// Base record for a stream update
     /// </summary>
-    public class KucoinStreamOrderBaseUpdate
+    public record KucoinStreamOrderBaseUpdate
     {
         /// <summary>
         /// The symbol of the update
@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// The type of the update
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(MatchUpdateTypeConverter))]
-        public MatchUpdateType UpdateType { get; set; }
+        public MatchUpdateType? UpdateType { get; set; }
         /// <summary>
         /// The side of the order
         /// </summary>
@@ -47,7 +47,41 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// The client order id
         /// </summary>
         [JsonProperty("clientOid")]
-        public string ClientOrderid { get; set; } = string.Empty;
+        public string? ClientOrderid { get; set; }
+        /// <summary>
+        /// Order status
+        /// </summary>
+        [JsonConverter(typeof(ExtendedOrderStatusConverter))]
+        public ExtendedOrderStatus? Status { get; set; }
+        /// <summary>
+        /// Order time
+        /// </summary>
+        [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? OrderTime { get; set; }
+        /// <summary>
+        /// Origin quantity
+        /// </summary>
+        [JsonProperty("originSize")]
+        public decimal OriginalQuantity { get; set; }
+        /// <summary>
+        /// Origin value
+        /// </summary>
+        [JsonProperty("originFunds")]
+        public decimal OriginalValue { get; set; }
+    }
+
+    /// <summary>
+    /// New order update
+    /// </summary>
+    public record KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
+    {
+    }
+    
+    /// <summary>
+    /// Order update
+    /// </summary>
+    public record KucoinStreamOrderUpdate : KucoinStreamOrderBaseUpdate
+    {
         /// <summary>
         /// The quantity of the order
         /// </summary>
@@ -69,21 +103,27 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         [JsonProperty("remainSize")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Order status
+        /// Quantity remaining
         /// </summary>
-        [JsonConverter(typeof(ExtendedOrderStatusConverter))]
-        public ExtendedOrderStatus Status { get; set; }
+        [JsonProperty("remainFunds")]
+        public decimal? QuoteQuantityRemaining { get; set; }
         /// <summary>
-        /// Order time
+        /// Quantity canceled
         /// </summary>
-        [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
-        public DateTime? OrderTime { get; set; }
+        [JsonProperty("canceledSize")]
+        public decimal QuantityCanceled { get; set; }
+        /// <summary>
+        /// Value canceled
+        /// </summary>
+        [JsonProperty("canceledFunds")]
+        public decimal ValueCanceled { get; set; }
+
     }
-    
+
     /// <summary>
     /// Stream order update (match)
     /// </summary>
-    public class KucoinStreamOrderMatchUpdate : KucoinStreamOrderBaseUpdate
+    public record KucoinStreamOrderMatchUpdate : KucoinStreamOrderUpdate
     {
         /// <summary>
         /// The trade id

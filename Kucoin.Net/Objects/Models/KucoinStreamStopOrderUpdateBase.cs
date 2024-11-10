@@ -9,12 +9,13 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Stop order update
     /// </summary>
-    public abstract class KucoinStreamStopOrderUpdateBase
+    public record KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
         /// Order side
         /// </summary>
-        public abstract OrderSide OrderSide { get; set; }
+        [JsonProperty("side")]
+        public OrderSide OrderSide { get; set; }
 
         /// <summary>
         /// Creation time
@@ -71,5 +72,12 @@ namespace Kucoin.Net.Objects.Models
         /// Update type
         /// </summary>
         public StopOrderEvent Type { get; set; }
+
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("marginMode")]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

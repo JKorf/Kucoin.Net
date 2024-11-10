@@ -1,0 +1,8 @@
+POST
+/api/v3/purchase
+true
+{"code":"200000","data":
+{
+  "orderNo": "5da6dba0f943c0c81f5d5db5"
+}
+}

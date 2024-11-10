@@ -1,0 +1,16 @@
+GET
+/api/v1/contract/funding-rates
+false
+ {
+      "success": true,
+      "code": "200000",
+      "msg": "success",
+      "retry": false,
+      "data": [
+          {
+              "symbol": "IDUSDTM",
+              "fundingRate": 0.018750,
+              "timepoint": 1702310700000
+          }
+      ]
+  }

@@ -1,0 +1,19 @@
+> {"id":"|1|","type":"subscribe","topic":"/margin/fundingBook:BTC","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "id": "5c24c5da03aa673885cd67ab",
+  "type": "message",
+  "topic": "/margin/fundingBook:BTC",
+  "subject": "funding.update",
+  "data": {
+    "sequence": 1000000, //Sequence number
+    "currency": "BTC", //Currency
+    "dailyIntRate": "0.00007", //Daily interest rate. e.g. 0.002 is 0.2%
+    "annualIntRate": "0.12", //Annual interest rate. e.g. 0.12 is 12%
+    "term": 7, //Term (Unit: Day)
+    "size": "1017.5", //Current total size. When this value is 0, remove this record from the order book.
+    "side": "lend", //Lend or borrow. Currently, only "Lend" is available
+    "ts": 1553846081210004941 //Timestamp (nanosecond)
+  }
+}

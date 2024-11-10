@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-using Kucoin.Net.Enums;
+﻿using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 using System;
 

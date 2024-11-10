@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Futures order update
     /// </summary>
-    public class KucoinStreamFuturesOrderUpdate
+    public record KucoinStreamFuturesOrderUpdate
     {
         /// <summary>
         /// Order id
@@ -102,5 +102,18 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("ts")]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Trade direction
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("feeType")]
+        public FeeType? FeeType { get; set; }
+
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("marginMode")]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

@@ -1,0 +1,39 @@
+GET
+/api/v1/history-positions
+true
+{
+    "success": true,
+    "code": "200",
+    "msg": "success",
+    "retry": false,
+    "data": {
+        "currentPage": 1,
+        "pageSize": 10, 
+        "totalNum": 25, 
+        "totalPage": 3, 
+        "items": [
+            {
+                "closeId": "300000000000000030", 
+                "positionId": "300000000000000009", 
+                "uid": 99996908309485, 
+                "userId": "6527d4fc8c7f3d0001f40f5f",
+                "symbol": "XBTUSDM",
+                "settleCurrency": "XBT", 
+                "leverage": "0.0", 
+                "type": "LIQUID_LONG", 
+                "side": null, 
+                "closeSize": null, 
+                "pnl": "-1.0000003793999999", 
+                "realisedGrossCost": "0.9993849748999999", 
+                "withdrawPnl": "0.0", 
+                "roe": null, 
+                "tradeFee": "0.0006154045", 
+                "fundingFee": "0.0", 
+                "openTime": 1713785751181, 
+                "closeTime": 1713785752784, 
+                "openPrice": null, 
+                "closePrice": null 
+            }
+        ]
+    }
+}

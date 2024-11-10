@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Hold info
     /// </summary>
-    public class KucoinHold
+    public record KucoinHold
     {
         /// <summary>
         /// The asset of the hold

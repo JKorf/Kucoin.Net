@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients;
@@ -51,9 +51,9 @@ namespace Kucoin.Net.SymbolOrderBooks
         public KucoinFuturesSymbolOrderBook(
             string symbol,
             Action<KucoinOrderBookOptions>? optionsDelegate,
-            ILogger<KucoinFuturesSymbolOrderBook>? logger = null,
+            ILoggerFactory? logger = null,
             IKucoinRestClient? restClient = null,
-            IKucoinSocketClient? socketClient = null) : base(logger, "Kucoin", symbol)
+            IKucoinSocketClient? socketClient = null) : base(logger, "Kucoin", "Futures", symbol)
         {
             var options = KucoinOrderBookOptions.Default.Copy();
             if (optionsDelegate != null)
@@ -99,7 +99,7 @@ namespace Kucoin.Net.SymbolOrderBooks
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
-                SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
+                SetInitialOrderBook(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else
             {
@@ -121,7 +121,7 @@ namespace Kucoin.Net.SymbolOrderBooks
 
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
-            
+
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
@@ -135,7 +135,7 @@ namespace Kucoin.Net.SymbolOrderBooks
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetInitialOrderBook(bookResult.Data.Sequence, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetInitialOrderBook(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 

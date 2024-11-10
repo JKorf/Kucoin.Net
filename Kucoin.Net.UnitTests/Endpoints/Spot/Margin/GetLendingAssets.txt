@@ -1,0 +1,20 @@
+GET
+/api/v3/project/list
+true
+{"code":"200000","data":
+ [
+    {
+      "currency": "BTC",
+      "purchaseEnable": true,
+      "redeemEnable": true,
+      "increment": "1",
+      "minPurchaseSize": "10",
+      "minInterestRate": "0.004",
+      "maxInterestRate": "0.02",
+      "interestIncrement": "0.0001",
+      "maxPurchaseSize": "20000",
+      "marketInterestRate": "0.009",
+      "autoPurchaseEnable": true
+    }
+  ]
+}

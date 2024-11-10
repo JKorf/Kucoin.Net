@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Historical deposit info
     /// </summary>
-    public class KucoinHistoricalDeposit
+    public record KucoinHistoricalDeposit
     {
         /// <summary>
         /// The asset of the deposit

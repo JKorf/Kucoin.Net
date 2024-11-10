@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream snapshot wrapper
     /// </summary>
-    public class KucoinStreamSnapshotWrapper
+    public record KucoinStreamSnapshotWrapper
     {
         /// <summary>
         /// The sequence number of the update
@@ -24,7 +24,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream snapshot
     /// </summary>
-    public class KucoinStreamSnapshot
+    public record KucoinStreamSnapshot
     {
         /// <summary>
         /// Whether the symbol is trading
@@ -45,6 +45,16 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         [JsonProperty("sell")]
         public decimal? BestAskPrice { get; set; }
 
+        /// <summary>
+        /// The current best ask quantity
+        /// </summary>
+        [JsonProperty("askSize")]
+        public decimal? BestAskQuantity { get; set; }
+        /// <summary>
+        /// The current best bid quantity
+        /// </summary>
+        [JsonProperty("bidSize")]
+        public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// Unknown
         /// </summary>
@@ -152,5 +162,57 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// Markets
         /// </summary>
         public IEnumerable<string> Markets { get; set; } = new string[0];
+        /// <summary>
+        /// Change info last hour
+        /// </summary>
+        [JsonProperty("marketChange1h")]
+        public KucoinMarketChange MarketChange1h { get; set; } = null!;
+        /// <summary>
+        /// Change info last 4 hours
+        /// </summary>
+        [JsonProperty("marketChange4h")]
+        public KucoinMarketChange MarketChange4h { get; set; } = null!;
+        /// <summary>
+        /// Change info last 24 hours
+        /// </summary>
+        [JsonProperty("marketChange24h")]
+        public KucoinMarketChange MarketChange24h { get; set; } = null!;
+    }
+
+    /// <summary>
+    /// Change info
+    /// </summary>
+    public record KucoinMarketChange
+    {
+        /// <summary>
+        /// Change price
+        /// </summary>
+        public decimal ChangePrice { get; set; }
+        /// <summary>
+        /// Change percentage
+        /// </summary>
+        public decimal ChangeRate { get; set; }
+        /// <summary>
+        /// High
+        /// </summary>
+        public decimal High { get; set; }
+        /// <summary>
+        /// Low
+        /// </summary>
+        public decimal Low { get; set; }
+        /// <summary>
+        /// Open
+        /// </summary>
+        public decimal Open { get; set; }
+        /// <summary>
+        /// Volume
+        /// </summary>
+        [JsonProperty("vol")]
+        public decimal Volume { get; set; }
+        /// <summary>
+        /// Volume value
+        /// </summary>
+        [JsonProperty("volValue")]
+        public decimal VolumeValue { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order info
     /// </summary>
-    public class KucoinOrder: KucoinOrderBase
+    public record KucoinOrder: KucoinOrderBase
     {        
         /// <summary>
         /// The operation type
@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The stop condition
         /// </summary>
-        public StopCondition Stop { get; set; }
+        public StopCondition? Stop { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
@@ -66,7 +66,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Stop order info
     /// </summary>
-    public class KucoinStopOrder: KucoinOrder
+    public record KucoinStopOrder: KucoinOrder
     {
         /// <summary>
         /// User id

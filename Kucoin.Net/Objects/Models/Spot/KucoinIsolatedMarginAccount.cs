@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin accounts info
     /// </summary>
-    public class KucoinIsolatedMarginAccountsInfo
+    public record KucoinIsolatedMarginAccountsInfo
     {
         /// <summary>
         /// The total balance of the isolated margin account (in the specified coin)
@@ -28,7 +28,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Isolated margin account info
     /// </summary>
-    public class KucoinIsolatedMarginAccount
+    public record KucoinIsolatedMarginAccount
     {
         /// <summary>
         /// Symbol
@@ -56,7 +56,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Isolate margin account asset info
     /// </summary>
-    public class KucoinIsolatedMarginAccountAsset
+    public record KucoinIsolatedMarginAccountAsset
     {
         /// <summary>
         /// Currency

@@ -1,0 +1,14 @@
+> {"id":"|1|","type":"subscribe","topic":"/contractMarket/level2:XBTUSDM","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+    "subject": "level2",
+    "topic": "/contractMarket/level2:XBTUSDM",
+    "type": "message",
+    "data": {
+      "sequence": 18,					//Sequence number which is used to judge the continuity of pushed messages
+      "change": "5000.0,sell,83",		//Price, side, quantity
+      "timestamp": 1551770400000
+
+      }
+  }

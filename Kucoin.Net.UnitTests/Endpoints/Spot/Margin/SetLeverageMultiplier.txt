@@ -1,0 +1,7 @@
+POST
+/api/v3/position/update-user-leverage
+true
+{
+    "code": "200000",
+    "data": null
+}

@@ -1,0 +1,9 @@
+POST
+/api/v3/lend/purchase/update
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false
+}

@@ -11,19 +11,19 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The response for bulk order creation
     /// </summary>
-    public class KucoinBulkOrderResponse
+    public record KucoinBulkOrderResponse
     {
         /// <summary>
         /// List of orders
         /// </summary>
         [JsonProperty("data")]
-        public IEnumerable<KucoinBulkOrderResponseEntry> Orders = default!;
+        public IEnumerable<KucoinBulkOrderResponseEntry> Orders { get; set; } = default!;
     }
 
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
-    public class KucoinBulkOrderResponseEntry
+    public record KucoinBulkOrderResponseEntry
     {
         /// <summary>
         /// The id of the order
@@ -70,7 +70,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The stop condition
         /// </summary>
-        public StopCondition Stop { get; set; }
+        public StopCondition? Stop { get; set; }
         /// <summary>
         /// The stop price
         /// </summary>

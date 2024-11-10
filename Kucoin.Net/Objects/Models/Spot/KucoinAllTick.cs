@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinAllTick
+    public record KucoinAllTick
     {
         /// <summary>
         /// The symbol of the tick
@@ -21,10 +21,20 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonProperty("sell")]
         public decimal? BestAskPrice { get; set; }
         /// <summary>
+        /// The quantity of the best ask
+        /// </summary>
+        [JsonProperty("bestAskSize")]
+        public decimal? BestAskQuantity { get; set; }
+        /// <summary>
         /// The best bid price
         /// </summary>
         [JsonProperty("buy")]
         public decimal? BestBidPrice { get; set; }
+        /// <summary>
+        /// The quantity of the best bid
+        /// </summary>
+        [JsonProperty("bestBidSize")]
+        public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// The percentage change
         /// </summary>

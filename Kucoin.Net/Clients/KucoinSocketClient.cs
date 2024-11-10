@@ -1,18 +1,6 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Objects;
+﻿using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
-using System.Threading;
-using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
@@ -20,6 +8,7 @@ using Kucoin.Net.Clients.SpotApi;
 using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
+using CryptoExchange.Net.Clients;
 
 namespace Kucoin.Net.Clients
 {
@@ -34,12 +23,19 @@ namespace Kucoin.Net.Clients
         public IKucoinSocketClientFuturesApi FuturesApi { get; }
 
         #endregion
+        /// <summary>
+        /// Create a new instance of the OKXSocketClient
+        /// </summary>
+        /// <param name="loggerFactory">The logger</param>
+        public KucoinSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
+        {
+        }
 
         /// <summary>
         /// Create a new instance of KucoinSocketClient
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public KucoinSocketClient(Action<KucoinSocketOptions>? optionsDelegate = null) : this(null, optionsDelegate)
+        public KucoinSocketClient(Action<KucoinSocketOptions> optionsDelegate) : this(optionsDelegate, null)
         {
         }
 
@@ -49,7 +45,7 @@ namespace Kucoin.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         /// <param name="loggerFactory">The logger factory</param>
         [ActivatorUtilitiesConstructor]
-        public KucoinSocketClient(ILoggerFactory? loggerFactory, Action<KucoinSocketOptions>? optionsDelegate = null) : base(loggerFactory, "Kucoin")
+        public KucoinSocketClient(Action<KucoinSocketOptions>? optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Kucoin")
         {
             var options = KucoinSocketOptions.Default.Copy();
             if (optionsDelegate != null)

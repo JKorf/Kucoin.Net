@@ -1,0 +1,10 @@
+POST
+/api/v1/st-orders
+true
+{
+	  "code": "200000",
+	  "data": {
+		"orderId": "5bd6e9286d99522a52e458de",
+		"clientOid": "5c52e11203aa677f33e493fb"
+		}
+	}

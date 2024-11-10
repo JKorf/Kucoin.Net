@@ -1,0 +1,13 @@
+POST
+/api/v3/margin/borrow
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": {
+    "orderNo": "5da6dba0f943c0c81f5d5db5",
+    "actualSize": 10
+  }
+}

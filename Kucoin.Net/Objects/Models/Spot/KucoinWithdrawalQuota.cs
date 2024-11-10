@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Withdrawal quota info
     /// </summary>
-    public class KucoinWithdrawalQuota
+    public record KucoinWithdrawalQuota
     {
         /// <summary>
         /// The asset the quota is for
@@ -59,5 +59,30 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("chain")]
         public string Network { get; set; } = string.Empty;
+        /// <summary>
+        /// Withdrawal limit asset
+        /// </summary>
+        [JsonProperty("quotaCurrency")]
+        public string QuotaAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// The intraday available withdrawal amount
+        /// </summary>
+        [JsonProperty("limitQuotaCurrencyAmount")]
+        public decimal LimitQuotaAssetQuantity { get; set; }
+        /// <summary>
+        /// The intraday used withdrawal amount
+        /// </summary>
+        [JsonProperty("usedQuotaCurrencyAmount")]
+        public decimal UsedQuotaAssetQuantity { get; set; }
+        /// <summary>
+        /// Total locked amount
+        /// </summary>
+        [JsonProperty("lockedAmount")]
+        public decimal LockedQuantity { get; set; }
+        /// <summary>
+        /// Reason
+        /// </summary>
+        [JsonProperty("reason")]
+        public string? Reason { get; set; }
     }
 }

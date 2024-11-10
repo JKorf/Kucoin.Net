@@ -1,0 +1,31 @@
+GET
+/api/v3/hf/margin/fills
+true
+{
+  "code": "200000",
+  "data": {
+    "items": [
+      {
+        "id": 2678765568,
+        "symbol": "BTC-ETC",
+        "tradeId": 616179312641,
+        "orderId": "6306cf6e27ecbe0001e1e03a",
+        "counterOrderId": "6306cf4027ecbe0001e1df4d",
+        "side": "buy",
+        "liquidity": "taker",
+        "forceTaker": false,
+        "price": "1",
+        "size": "1",
+        "funds": "1",
+        "fee": "0.00021",
+        "feeRate": "0.00021",
+        "feeCurrency": "USDT",
+        "stop": "",
+        "tradeType": "MARGIN_TRADE",
+        "type": "limit",
+        "createdAt": 1661390702919
+      }
+    ],
+    "lastId": 2678765568
+  }
+}

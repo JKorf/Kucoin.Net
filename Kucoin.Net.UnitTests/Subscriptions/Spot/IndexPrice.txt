@@ -1,0 +1,4 @@
+> {"id":"|1|","type":"subscribe","topic":"/indicator/index:USDT-BTC","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{"topic":"/indicator/index:USDT-BTC","type":"message","subject":"tick","data":{"symbol":"USDT-BTC","granularity":1000,"value":0.000015880000000,"timestamp":1714769146000}}

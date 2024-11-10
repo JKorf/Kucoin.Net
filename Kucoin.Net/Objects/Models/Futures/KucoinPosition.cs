@@ -1,13 +1,14 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
+using Kucoin.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    /// Base class for position info
+    /// Base record for position info
     /// </summary>
-    public class KucoinPositionBase
+    public record KucoinPositionBase
     {
         /// <summary>
         /// Symbol
@@ -84,6 +85,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Is open
         /// </summary>
         public bool IsOpen { get; set; }
+        /// <summary>
+        /// Is inverse
+        /// </summary>
+        public bool IsInverse { get; set; }
         /// <summary>
         /// Mark price
         /// </summary>
@@ -183,12 +188,39 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// User id
         /// </summary>
         public long? UserId { get; set; }
+        /// <summary>
+        /// Maintenance margin rate
+        /// </summary>
+        [JsonProperty("maintainMargin")]
+        public decimal MaintenanceMarginRate { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("marginMode")]
+        public FuturesMarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Position side
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("positionSide")]
+        public PositionSide? PositionSide { get; set; }
+        /// <summary>
+        /// Leverage
+        /// </summary>
+        [JsonProperty("leverage")]
+        public decimal? Leverage { get; set; }
+        /// <summary>
+        /// The current remaining unsettled funding fee for the position Only applicable to Isolated Margin
+        /// </summary>
+        [JsonProperty("posFunding")]
+        public decimal? PositionFunding { get; set; }
     }
 
     /// <summary>
     /// Position info
     /// </summary>
-    public class KucoinPosition: KucoinPositionBase
+    public record KucoinPosition: KucoinPositionBase
     {
         /// <summary>
         /// Position id
@@ -199,7 +231,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Position update
     /// </summary>
-    public class KucoinPositionUpdate: KucoinPositionBase
+    public record KucoinPositionUpdate: KucoinPositionBase
     {
         /// <summary>
         /// Change reason

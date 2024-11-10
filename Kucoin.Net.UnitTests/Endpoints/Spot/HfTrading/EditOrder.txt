@@ -1,0 +1,9 @@
+POST
+/api/v1/hf/orders/alter
+true
+{
+  "code": "200000",
+  "data": {
+    "newOrderId": "6d539dc614db3"
+  }
+}

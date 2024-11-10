@@ -1,0 +1,25 @@
+> {"id":"|1|","type":"subscribe","topic":"/market/level2:BTC-USDT","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/market/level2:BTC-USDT",
+  "subject": "trade.l2update",
+  "data": {
+    "changes": {
+      "asks": [
+        [
+          "18906", //price
+          "0.00331", //size
+          "14103845" //sequence
+        ],
+        ["18907.3", "0.58751503", "14103844"]
+      ],
+      "bids": [["18891.9", "0.15688", "14103847"]]
+    },
+    "sequenceEnd": 14103847,
+    "sequenceStart": 14103844,
+    "symbol": "BTC-USDT",
+    "time": 1663747970273 //milliseconds
+  }
+}

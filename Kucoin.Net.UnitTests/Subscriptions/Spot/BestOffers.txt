@@ -1,0 +1,17 @@
+> {"id":"|1|","type":"subscribe","topic":"/spotMarket/level1:ETH-USDT","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+    "type": "message",
+    "topic": "/spotMarket/level1:ETH-USDT",
+    "subject": "level1",
+    "data": {
+	    "asks":
+            ["9989","8"]    //price, size
+        ,
+        "bids":
+            ["9984","10"]
+        ,
+        "timestamp": 1586948108193
+    }
+}

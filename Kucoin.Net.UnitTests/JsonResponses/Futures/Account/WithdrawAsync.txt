@@ -1,6 +1,0 @@
- {
-   "code": "200000",
-    "data": {
-    "withdrawalId": "5bffb63303aa675e8bbe18f9" // Withdrawal ID. This ID can be used to cancel the withdrawal
-    }
-  }

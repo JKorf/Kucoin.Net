@@ -1,0 +1,9 @@
+DELETE
+/api/v1/hf/orders/client-order/123
+true
+{
+  "code": "200000",
+  "data": {
+    "clientOid": "6d539dc614db3"
+  }
+}

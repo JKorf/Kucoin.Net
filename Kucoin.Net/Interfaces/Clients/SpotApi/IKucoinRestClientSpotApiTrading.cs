@@ -65,6 +65,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="selfTradePrevention">Self trade prevention setting</param>
         /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
         /// <param name="autoBorrow">Auto-borrow to place order.</param>
+        /// <param name="autoRepay">Auto-Repay to place order.</param>
         /// <param name="price">The price of the order. Only valid for limit orders.</param>
         /// <param name="quantity">Quantity of base asset to buy or sell of the order</param>
         /// <param name="timeInForce">The time the order is in force</param>
@@ -92,6 +93,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? remark = null,
             MarginMode? marginMode = null,
             bool? autoBorrow = null,
+            bool? autoRepay = null,
             SelfTradePrevention? selfTradePrevention = null,
             string? clientOrderId = null,
             CancellationToken ct = default);
@@ -562,5 +564,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinNewRepay>> MarginRepayAsync(string asset, decimal quantity, bool? isIsolated, string? symbol = null, CancellationToken ct = default);
         Task<WebCallResult<KucoinPaginated<MarginBorrowHistory>>> MarginBorrowHistoryAsync(string asset, bool? isIsolated, string? symbol = null, string? Id = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
         Task<WebCallResult<KucoinPaginated<MarginRepayHistory>>> MarginRepayHistoryAsync(string asset, bool? isIsolated, string? symbol = null, string? Id = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(string symbol, OrderSide side, NewOrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, TimeInForce? timeInForce = null, TimeSpan? cancelAfter = null, bool? postOnly = null, bool? hidden = null, bool? iceBerg = null, decimal? visibleIceBergSize = null, string? remark = null, string? clientOrderId = null, SelfTradePrevention? selfTradePrevention = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinNewMarginOrder>> PlaceTestMarginOrderAsync(string symbol, OrderSide side, NewOrderType type, decimal? price = null, decimal? quantity = null, decimal? quoteQuantity = null, TimeInForce? timeInForce = null, TimeSpan? cancelAfter = null, bool? postOnly = null, bool? hidden = null, bool? iceBerg = null, decimal? visibleIceBergSize = null, string? remark = null, MarginMode? marginMode = null, bool? autoBorrow = null, bool? autoRepay = null, SelfTradePrevention? selfTradePrevention = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOrderId>> PlaceOcoOrderAsync(string symbol, OrderSide side, decimal quantity, decimal price, decimal stopPrice, decimal limitPrice, TradeType? tradeType = null, string? remark = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrderAsync(string orderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrdersAsync(IEnumerable<string> orderIds, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinOcoOrder>>> GetOcoOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderAsync(string orderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOcoOrder>> GetOcoOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinOcoOrderDetails>> GetOcoOrderDetailsAsync(string orderId, CancellationToken ct = default);
     }
 }

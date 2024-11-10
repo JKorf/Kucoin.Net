@@ -1,0 +1,10 @@
+DELETE
+/api/v1/stop-order/cancelOrderByClientOid
+true
+{
+  "code": "200000",
+  "data":{
+  "cancelledOrderId": "vs8hoo8ksc8mario0035a74n",
+  "clientOid": "689ff597f4414061aa819cc414836abd"
+}
+}

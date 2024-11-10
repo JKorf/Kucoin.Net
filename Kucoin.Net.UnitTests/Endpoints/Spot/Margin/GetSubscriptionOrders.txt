@@ -1,0 +1,29 @@
+GET
+/api/v3/purchase/orders
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data":
+  {
+  "currentPage": 1,
+  "pageSize": 100,
+  "totalNum": 1,
+  "totalPage": 1,
+  "items": [
+    {
+      "currency": "BTC",
+      "purchaseOrderNo": "5da6dba0f943c0c81f5d5db5",
+      "purchaseAmount": "300000",
+      "lendAmount": "0",
+      "redeemAmount": "300000",
+      "interestRate": "0.0003",
+      "incomeAmount": "200",
+      "applyTime": 1669508513820,
+      "status": "DONE"
+    }
+  ]
+}
+}

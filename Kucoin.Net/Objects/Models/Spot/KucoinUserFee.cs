@@ -3,7 +3,7 @@
     /// <summary>
     /// User fee
     /// </summary>
-    public class KucoinUserFee
+    public record KucoinUserFee
     {
         /// <summary>
         /// Fee rate for trades as taker

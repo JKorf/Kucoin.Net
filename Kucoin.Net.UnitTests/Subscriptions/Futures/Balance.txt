@@ -1,0 +1,14 @@
+> {"id":"|1|","type":"subscribe","topic":"/contractAccount/wallet","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "userId": "xbc453tg732eba53a88ggyt8c", // Deprecated, will detele later
+  "topic": "/contractAccount/wallet",
+  "subject": "availableBalance.change",
+  "data": {
+    "availableBalance": 5923, //Current available amount
+    "holdBalance": 2312, //Frozen amount = positionMargin + orderMargin + frozenFunds
+    "currency": "USDT", //Currency
+    "timestamp": 1553842862614
+  }
+}

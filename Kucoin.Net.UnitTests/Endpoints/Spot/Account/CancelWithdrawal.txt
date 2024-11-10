@@ -1,0 +1,9 @@
+DELETE
+/api/v1/withdrawals/123
+true
+{
+  "data": {
+	  "withdrawalId": "5bffb63303aa675e8bbe18f9"
+	},
+  "code": "200000"
+}

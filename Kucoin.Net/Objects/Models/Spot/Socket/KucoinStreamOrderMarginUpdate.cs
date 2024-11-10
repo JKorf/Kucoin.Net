@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Margin update
     /// </summary>
-    public class KucoinStreamOrderMarginUpdate
+    public record KucoinStreamOrderMarginUpdate
     {
         /// <summary>
         /// Order margin

@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream tick
     /// </summary>
-    public class KucoinStreamCandle
+    public record KucoinStreamCandle
     {
         /// <summary>
         /// The symbol

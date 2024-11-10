@@ -1,0 +1,7 @@
+POST
+/api/v1/margin/withdrawMargin
+true
+{
+  "code": "200000",
+  "data": 1
+}

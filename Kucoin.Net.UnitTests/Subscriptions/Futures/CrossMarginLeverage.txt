@@ -1,0 +1,15 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/crossLeverage","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+    "topic": "/contract/crossLeverage",
+    "type": "message",
+    "subject": "user.config",
+    "userId": "6687a53f5bda600001284bf",
+    "channelType": "private",
+    "data": {
+        "ANTUSDTM": {
+            "leverage": 5
+        }
+    }
+}

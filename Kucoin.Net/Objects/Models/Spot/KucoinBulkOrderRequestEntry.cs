@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
@@ -12,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// The order model to be sent via bulk order endpoint
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore, NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class KucoinBulkOrderRequestEntry
+    public record KucoinBulkOrderRequestEntry
     {
         /// <summary>
         /// The client order id
@@ -69,8 +68,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
-        [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime? CancelAfter { get; set; }
+        public int? CancelAfter { get; set; }
         /// <summary>
         /// Whether the order is post only
         /// </summary>

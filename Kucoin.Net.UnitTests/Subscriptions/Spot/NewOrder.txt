@@ -1,0 +1,23 @@
+> {"id":"|1|","type":"subscribe","topic":"/spotMarket/tradeOrdersV2","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/spotMarket/tradeOrdersV2",
+  "subject": "orderChange",
+  "channelType": "private",
+  "data": {
+    "symbol": "KCS-USDT",
+    "orderType": "limit",
+    "side": "buy",
+    "orderId": "5efab07953bdea00089965d2",
+    "type": "received",
+    "orderTime": 1593487481683297666,
+    "price": "0.937",
+    "clientOid": "1593487481000906",
+    "status": "new",
+    "originSize": "0.1", //original quantity
+    "originFunds": "0.1", //The original funds of the market order
+    "ts": 1593487481683297666
+  }
+}

@@ -1,0 +1,13 @@
+GET
+/api/v1/mark-price/ETHUSDT/current
+false
+{
+  "code": "200000",
+  "data": {
+  "symbol": "XBTUSDM", //Symbol
+  "granularity": 1000, //Granularity (milisecond)
+  "timePoint": 1557999585000, //Time point (milisecond)
+  "value": 8052.51, //Mark price
+  "indexPrice": 8041.95 //Index price
+}
+}

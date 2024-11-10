@@ -1,0 +1,14 @@
+DELETE
+/api/v1/stop-order/cancel
+true
+{
+  "code": "200000",
+  "data":{
+  "cancelledOrderIds": [
+    "vs8hoo8m4751f5np0032t7gk",
+    "vs8hoo8m4758qjjp0037mslk",
+    "vs8hoo8prp98qjjp0037q9gb",
+    "vs8hoo8prp91f5np00330k6p"
+  ]
+}
+}

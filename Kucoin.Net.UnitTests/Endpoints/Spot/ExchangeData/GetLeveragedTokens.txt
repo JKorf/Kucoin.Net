@@ -1,0 +1,19 @@
+GET
+/api/v3/etf/info
+true
+{
+    "success": true,
+    "code": "200",
+    "msg": "success",
+    "retry": false,
+    "data": [
+      {
+          "currency": "BTCUP",
+          "netAsset": 0.001,
+          "targetLeverage": "2-4",
+          "actualLeverage": "2.33",
+          "assetsUnderManagement": "766834.764756714775 USDT",
+          "basket": "-78.671762 XBTUSDTM"
+      }
+    ]
+}

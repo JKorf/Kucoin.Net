@@ -1,0 +1,34 @@
+GET
+/api/v1/fills
+true
+{
+  "code": "200000",
+  "msg": "",
+  "data": {
+  "currentPage": 1,
+  "pageSize": 1,
+  "totalNum": 251915,
+  "totalPage": 251915,
+  "items": [
+    {
+      "symbol": "BTC-USDT",
+      "tradeId": "5c35c02709e4f67d5266954e",
+      "orderId": "5c35c02703aa673ceec2a168",
+      "counterOrderId": "5c1ab46003aa676e487fa8e3",
+      "side": "buy",
+      "liquidity": "taker",
+      "forceTaker": true,
+      "price": "0.083",
+      "size": "0.8424304",
+      "funds": "0.0699217232",
+      "fee": "0",
+      "feeRate": "0",
+      "feeCurrency": "USDT",
+      "stop": "",
+      "type": "limit",
+      "createdAt": 1547026472000,
+      "tradeType": "TRADE"
+    }
+  ]
+}
+}

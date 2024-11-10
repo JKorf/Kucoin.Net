@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Funding settlement update
     /// </summary>
-    public class KucoinPositionFundingSettlementUpdate
+    public record KucoinPositionFundingSettlementUpdate
     {
         /// <summary>
         /// Funding time

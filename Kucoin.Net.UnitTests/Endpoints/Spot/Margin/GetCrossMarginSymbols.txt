@@ -1,0 +1,27 @@
+GET
+/api/v3/margin/symbols
+true
+{
+    "code": "200000",
+    "data": {
+        "timestamp": 1718779915377,
+        "items": [{
+            "symbol": "ATOM-USDT",
+            "name": "ATOM-USDT",
+            "enableTrading": true,
+            "market": "USDS",
+            "baseCurrency": "ATOM",
+            "quoteCurrency": "USDT",
+            "baseIncrement": 0.0001,
+            "baseMinSize": 0.1,
+            "quoteIncrement": 0.0001,
+            "quoteMinSize": 0.1,
+            "baseMaxSize": 10000000000,
+            "quoteMaxSize": 99999999,
+            "priceIncrement": 0.0001,
+            "feeCurrency": "USDT",
+            "priceLimitRate": 0.1,
+            "minFunds": 0.1
+        }]
+    }
+}

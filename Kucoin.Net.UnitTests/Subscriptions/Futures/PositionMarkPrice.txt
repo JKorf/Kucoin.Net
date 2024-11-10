@@ -1,0 +1,20 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/positionAll","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "userId": "5cd3f1a7b7ebc19ae9558591", // Deprecated, will detele later
+  "topic": "/contract/positionAll",
+  "subject": "position.change",
+  "data": {
+    "markPrice": 7947.83, //Mark price
+    "markValue": 0.0025164, //Mark value
+    "maintMargin": 0.00252044, //Position margin
+    "realLeverage": 10.06, //Leverage of the order
+    "unrealisedPnl": -0.00014735, //Unrealised profit and lost
+    "unrealisedRoePcnt": -0.0553, //Rate of return on investment
+    "unrealisedPnlPcnt": -0.0553, //Position profit and loss ratio
+    "delevPercentage": 0.52, //ADL ranking percentile
+    "currentTimestamp": 1558087175068, //Current timestamp
+    "settleCurrency": "XBT" //Currency used to clear and settle the trades
+  }
+}

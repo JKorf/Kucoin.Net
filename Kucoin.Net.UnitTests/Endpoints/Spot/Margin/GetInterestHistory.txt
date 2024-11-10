@@ -1,0 +1,4 @@
+GET
+/api/v3/margin/interest
+true
+{"code":"200000","data":{"currentPage":1,"pageSize":50,"totalNum":168,"totalPage":4,"items":[{"currency":"ETH","dayRatio":"0.000013","interestAmount":"0.00000002","createdTime":1714824014656},{"currency":"ETH","dayRatio":"0.000013","interestAmount":"0.00000002","createdTime":1714820415912}]}}

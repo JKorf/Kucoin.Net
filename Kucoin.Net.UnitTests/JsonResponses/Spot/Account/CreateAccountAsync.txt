@@ -1,7 +1,0 @@
-{
-    "code": "200000",
-    "data": 
- {
-    "id": "5bd6e9286d99522a52e458de"  //accountId
-}
-}

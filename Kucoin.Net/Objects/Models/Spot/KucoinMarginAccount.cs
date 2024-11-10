@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin account info
     /// </summary>
-    public class KucoinMarginAccount
+    public record KucoinMarginAccount
     {
         /// <summary>
         /// Accounts
@@ -22,7 +22,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Account details
     /// </summary>
-    public class KucoinMarginAccountDetails
+    public record KucoinMarginAccountDetails
     {
         /// <summary>
         /// Asset

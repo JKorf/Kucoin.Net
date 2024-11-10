@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Asset info
     /// </summary>
-    public class KucoinAssetBase
+    public record KucoinAssetBase
     {
         /// <summary>
         /// The asset identifier
@@ -47,7 +47,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Asset info
     /// </summary>
-    public class KucoinAsset: KucoinAssetBase
+    public record KucoinAsset: KucoinAssetBase
     {        
         /// <summary>
         /// The minimum quantity of a withdrawal
@@ -71,7 +71,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Asset details
     /// </summary>
-    public class KucoinAssetDetails: KucoinAssetBase
+    public record KucoinAssetDetails: KucoinAssetBase
     {
         /// <summary>
         /// Networks

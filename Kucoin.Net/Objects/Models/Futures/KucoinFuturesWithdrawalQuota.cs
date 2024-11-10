@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Withdrawal quota
     /// </summary>
-    public class KucoinFuturesWithdrawalQuota
+    public record KucoinFuturesWithdrawalQuota
     {
         /// <summary>
         /// The asset the quota is for

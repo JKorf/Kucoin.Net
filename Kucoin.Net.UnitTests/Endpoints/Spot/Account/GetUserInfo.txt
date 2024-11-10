@@ -1,0 +1,20 @@
+GET
+/api/v2/user-info
+true
+{
+  "data": {
+    "level": 0,
+    "subQuantity": 5,
+    "maxDefaultSubQuantity": 5,
+    "maxSubQuantity": 5,
+
+    "spotSubQuantity": 5,
+    "marginSubQuantity": 5,
+    "futuresSubQuantity": 5,
+
+    "maxSpotSubQuantity": 0,
+    "maxMarginSubQuantity": 0,
+    "maxFuturesSubQuantity": 0
+  },
+  "code": "200000"
+}

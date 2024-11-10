@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Deposit address
     /// </summary>
-    public class KucoinDepositAddress
+    public record KucoinDepositAddress
     {
         /// <summary>
         /// The address

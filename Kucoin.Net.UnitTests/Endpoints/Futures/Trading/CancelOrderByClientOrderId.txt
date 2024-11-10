@@ -1,0 +1,9 @@
+DELETE
+/api/v1/orders/client-order/123
+true
+ {
+    "code": "200000",
+    "data": {
+      "clientOid":"253c3536-c4e5-45a5-9bec-ed7d17657474"
+    }
+  }

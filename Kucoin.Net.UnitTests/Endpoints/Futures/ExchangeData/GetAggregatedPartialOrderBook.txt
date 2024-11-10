@@ -1,0 +1,19 @@
+GET
+/api/v1/level2/depth20
+false
+{
+  "code": "200000",
+  "data": {
+    "symbol": "XBTUSDM", //Symbol
+    "sequence": 100, //Ticker sequence number
+    "asks": [
+      ["5000.0", 1000], //Price, quantity
+      ["6000.0", 1983] //Price, quantity
+    ],
+    "bids": [
+      ["3200.0", 800], //Price, quantity
+      ["3100.0", 100] //Price, quantity
+    ],
+    "ts": 1604643655040584408 // timestamp
+  }
+}

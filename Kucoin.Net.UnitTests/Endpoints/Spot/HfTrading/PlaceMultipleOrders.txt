@@ -1,0 +1,19 @@
+POST
+/api/v1/hf/orders/multi
+true
+{
+  "success": true,
+  "code": "200",
+  "msg": "success",
+  "retry": false,
+  "data": [
+    {
+      "orderId": "641d669c9ca34800017a2a3c",
+      "success": true
+    },
+    {
+      "orderId": "641d669c9ca34800017a2a45",
+      "success": true
+    }
+  ]
+}

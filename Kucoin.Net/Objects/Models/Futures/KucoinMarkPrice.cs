@@ -3,7 +3,7 @@
     /// <summary>
     /// Mark price
     /// </summary>
-    public class KucoinMarkPrice: KucoinIndexBase
+    public record KucoinMarkPrice: KucoinIndexBase
     {        
         /// <summary>
         /// Index price

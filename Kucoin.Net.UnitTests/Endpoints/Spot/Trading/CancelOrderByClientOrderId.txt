@@ -1,0 +1,9 @@
+DELETE
+/api/v1/order/client-order/123
+true
+{"code":"200000","data":
+{
+  "cancelledOrderId": "5f311183c9b6d539dc614db3",
+  "clientOid": "6d539dc614db3"
+}
+}

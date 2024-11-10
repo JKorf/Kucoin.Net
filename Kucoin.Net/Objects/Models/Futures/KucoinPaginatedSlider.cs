@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// Data container for paged lists
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class KucoinPaginatedSlider<T>
+    public record KucoinPaginatedSlider<T>
     {
         /// <summary>
         /// If there are more pages

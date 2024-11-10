@@ -1,0 +1,11 @@
+DELETE
+/api/v3/oco/order/123
+true
+{"code":"200000","data":
+{
+    "cancelledOrderIds": [
+        "vs9hqpbivnbpkfdj003ql1kj",
+        "vs9hqpbivnbpkfdj003ql1kk"
+    ]
+}
+}

@@ -1,0 +1,29 @@
+GET
+/api/v1/premium/query
+false
+{
+  "code": "200000",
+  "data": {
+  "dataList": [
+    {
+      "symbol": ".XBTUSDMPI", //Premium index symbol
+      "granularity": 60000, //Granularity (milisecond)
+      "timePoint": 1558000320000, //Time point (milisecond)
+      "value": 0.022585 //Premium index
+    },
+    {
+      "symbol": ".XBTUSDMPI",
+      "granularity": 60000,
+      "timePoint": 1558000260000,
+      "value": 0.022611
+    },
+    {
+      "symbol": ".XBTUSDMPI",
+      "granularity": 60000,
+      "timePoint": 1558000200000,
+      "value": 0.021421
+    }
+  ],
+  "hasMore": true //Whether there are more pages
+}
+}

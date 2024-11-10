@@ -1,0 +1,58 @@
+GET
+/api/v1/isolated/accounts
+true
+{
+  "code": "200000",
+  "data": {
+    "totalConversionBalance": "3.4939947",
+    "liabilityConversionBalance": "0.00239066",
+    "assets": [
+      {
+        "symbol": "MANA-USDT",
+        "status": "CLEAR",
+        "debtRatio": "0",
+        "baseAsset": {
+          "currency": "MANA",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        },
+        "quoteAsset": {
+          "currency": "USDT",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        }
+      },
+      {
+        "symbol": "EOS-USDC",
+        "status": "CLEAR",
+        "debtRatio": "0",
+        "baseAsset": {
+          "currency": "EOS",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        },
+        "quoteAsset": {
+          "currency": "USDC",
+          "totalBalance": "0",
+          "holdBalance": "0",
+          "availableBalance": "0",
+          "liability": "0",
+          "interest": "0",
+          "borrowableAmount": "0"
+        }
+      }
+    ]
+  }
+}

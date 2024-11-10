@@ -9,13 +9,23 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Futures order info
     /// </summary>
-    public class KucoinFuturesOrder: KucoinOrderBase
+    public record KucoinFuturesOrder: KucoinOrderBase
     {
         /// <summary>
         /// Value of the order
         /// </summary>
         [JsonProperty("value")]
         public decimal QuoteQantity { get; set; }
+        /// <summary>
+        /// Filled value
+        /// </summary>
+        [JsonProperty("dealValue")]
+        public decimal? ExecutedValue { get; set; }
+        /// <summary>
+        /// Filled quantity
+        /// </summary>
+        [JsonProperty("dealSize")]
+        public decimal? ExecutedQuantity { get; set; }
         /// <summary>
         /// Filled value
         /// </summary>
@@ -70,8 +80,30 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonProperty("orderTime")]
         public DateTime? OrderTime { get; set; }
         /// <summary>
+        /// End time
+        /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonProperty("endAt")]
+        public DateTime? EndTime { get; set; }
+        /// <summary>
         /// Status
         /// </summary>
-        public string Status { get; set; } = string.Empty;
+        [JsonConverter(typeof(EnumConverter))]
+        public OrderStatus Status { get; set; }
+        /// <summary>
+        /// Tags
+        /// </summary>
+        [JsonProperty("tags")]
+        public string? Tags { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        public FuturesMarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Average fill price
+        /// </summary>
+        [JsonProperty("avgDealPrice")]
+        public decimal? AveragePrice { get; set; }
     }
 }

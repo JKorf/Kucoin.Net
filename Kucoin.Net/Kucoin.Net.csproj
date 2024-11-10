@@ -12,7 +12,7 @@
     <FileVersion>5.0.7</FileVersion>
     <Description>Kucoin.Net is a .Net wrapper for the Kucoin API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Kucoin Kucoin.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
+    <PackageTags>Kucoin;Kucoin.Net;Kucoin Client;Kucoin API;CryptoCurrency;CryptoCurrency Exchange</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/JKorf/Kucoin.Net.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JKorf/Kucoin.Net</PackageProjectUrl>
@@ -21,7 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>5.0.7 - Fixed broker signing</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/JKorf/Kucoin.Net?tab=readme-ov-file#release-notes</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -31,7 +31,7 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
   <ItemGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -45,15 +45,15 @@
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0">
+    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="CryptoExchange.Net" Version="8.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="6.2.0" />
   </ItemGroup>
 
 </Project>

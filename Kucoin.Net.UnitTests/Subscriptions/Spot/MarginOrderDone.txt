@@ -1,0 +1,16 @@
+> {"id":"|1|","type":"subscribe","topic":"/margin/loan:BTC","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/margin/loan:BTC",
+  "subject": "order.done",
+  "channelType": "private",
+  "data": {
+    "currency": "BTC", //Currency
+    "orderId": "ac928c66ca53498f9c13a127a60e8", //Order ID
+    "reason": "filled", //Done reason (filled or canceled)
+    "side": "lend", //Lend or borrow. Currently, only "Lend" is available
+    "ts": 1553846081210004941 //Timestamp (nanosecond)
+  }
+}

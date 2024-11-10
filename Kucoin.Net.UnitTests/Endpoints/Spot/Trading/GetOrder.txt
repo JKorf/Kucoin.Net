@@ -1,0 +1,39 @@
+GET
+/api/v1/orders/123
+true
+{
+  "code": "200000",
+  "msg": "",
+  "data": {
+  "id": "5c35c02703aa673ceec2a168",
+  "symbol": "BTC-USDT",
+  "opType": "DEAL",
+  "type": "limit",
+  "side": "buy",
+  "price": "10",
+  "size": "2",
+  "funds": "0",
+  "dealFunds": "0.166",
+  "dealSize": "2",
+  "fee": "0",
+  "feeCurrency": "USDT",
+  "stp": "",
+  "stop": "",
+  "stopTriggered": false,
+  "stopPrice": "0",
+  "timeInForce": "GTC",
+  "postOnly": false,
+  "hidden": false,
+  "iceberg": false,
+  "visibleSize": "0",
+  "cancelAfter": 0,
+  "channel": "IOS",
+  "clientOid": "",
+  "remark": "",
+  "tags": "",
+  "isActive": false,
+  "cancelExist": false,
+  "createdAt": 1547026471000,
+  "tradeType": "TRADE"
+}
+}

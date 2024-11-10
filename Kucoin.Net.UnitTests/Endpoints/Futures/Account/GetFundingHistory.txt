@@ -1,0 +1,44 @@
+GET
+/api/v1/funding-history
+true
+{
+  "code": "200000",
+  "data": {
+  "dataList": [
+    {
+      "id": 36275152660006, //id
+      "symbol": "XBTUSDM", //Symbol
+      "timePoint": 1557918000000, //Time point (milisecond)
+      "fundingRate": 0.000013, //Funding rate
+      "markPrice": 8058.27, //Mark price
+      "positionQty": 10, //Position size
+      "positionCost": -0.001241, //Position value at settlement period
+      "funding": -0.00000464, //Settled funding fees. A positive number means that the user received the funding fee, and vice versa.
+      "settleCurrency": "XBT" //settlement currency
+    },
+    {
+      "id": 36275152660004,
+      "symbol": "XBTUSDM",
+      "timePoint": 1557914400000,
+      "fundingRate": 0.00375,
+      "markPrice": 8079.65,
+      "positionQty": 10,
+      "positionCost": -0.0012377,
+      "funding": -0.00000465,
+      "settleCurrency": "XBT"
+    },
+    {
+      "id": 36275152660002,
+      "symbol": "XBTUSDM",
+      "timePoint": 1557910800000,
+      "fundingRate": 0.00375,
+      "markPrice": 7889.03,
+      "positionQty": 10,
+      "positionCost": -0.0012676,
+      "funding": -0.00000476,
+      "settleCurrency": "XBT"
+    }
+  ],
+  "hasMore": true //Whether there are more pages
+}
+}

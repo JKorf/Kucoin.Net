@@ -1,0 +1,9 @@
+POST
+/api/v1/transfer-in
+true
+{
+  "code": "200", //If the code is 200, it means the transfer is successful, otherwise it means failure.
+  "msg": "",
+  "retry": true,
+  "success": true
+}

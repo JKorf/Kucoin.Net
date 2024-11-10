@@ -1,0 +1,26 @@
+GET
+/api/v2/deposit-addresses
+true
+{
+  "code": "200000",
+  "data": [
+  {
+    "address": "bc1qaj6kkv85w5d6lr8p8h7tckyce5hnwmyq8dd84d",
+    "memo": "",
+    "chain": "BTC-Segwit",
+    "contractAddress": ""
+  },
+  {
+    "address": "3HwsFot9TW6jL4K4EUHxDSyL8myttxV7Av",
+    "memo": "",
+    "chain": "BTC",
+    "contractAddress": ""
+  },
+  {
+    "address": "TUDybru26JmozStbg2cJGDbR9EPSbQaAie",
+    "memo": "",
+    "chain": "TRC20",
+    "contractAddress": ""
+  }
+]
+}

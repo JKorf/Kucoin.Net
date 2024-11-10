@@ -1,0 +1,14 @@
+GET
+/api/v3/oco/order/123
+true
+{
+  "code": "200000",
+  "msg": "",
+  "data": {
+  "orderId": "6572fdd65723280007deb5e0",
+  "symbol": "FRM-USDT",
+  "clientOid": "9a05f706a39eff673045b89foco1",
+  "orderTime": 1702034902724,
+  "status": "NEW"
+}
+}

@@ -1,0 +1,4 @@
+GET
+/api/v1/interest/query
+false
+{"code":"200000","data":{"dataList":[{"symbol":".XBTINT","granularity":60000,"timePoint":1714755420000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755360000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755300000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755240000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755180000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755120000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755060000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714755000000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714754940000,"value":3.0E-4},{"symbol":".XBTINT","granularity":60000,"timePoint":1714754880000,"value":3.0E-4}],"hasMore":true}}

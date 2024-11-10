@@ -1,0 +1,29 @@
+GET
+/api/v1/withdrawals
+true
+{
+  "code": "200000",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 50,
+    "totalNum": 1,
+    "totalPage": 1,
+    "items": [
+      {
+        "id": "63564dbbd17bef00019371fb",
+        "currency": "XRP",
+        "chain": "xrp",
+        "status": "SUCCESS",
+        "address": "rNFugeoj3ZN8Wv6xhuLegUBBPXKCyWLRkB",
+        "memo": "1919537769",
+        "isInner": false,
+        "amount": "20.50000000",
+        "fee": "0.50000000",
+        "walletTxId": "2C24A6D5B3E7D5B6AA6534025B9B107AC910309A98825BF5581E25BEC94AD83B",
+        "createdAt": 1666600379000,
+        "updatedAt": 1666600511000,
+        "remark": "test"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+GET
+/api/v1/transfer-list
+true
+{
+  "code": "200000",
+  "data": {
+      "currentPage": 1,
+      "pageSize": 50,
+      "totalNum": 1,
+      "totalPage": 1,
+      "items": [
+        {
+          "applyId": "620a0bbefeaa6a000110e833", //Transfer-out request ID
+          "currency": "USDT", //Currency
+          "recRemark": "", //Receive account tx remark
+          "recSystem": "KUCOIN", //Receive system
+          "status": "SUCCESS", //Status  PROCESSING, SUCCESS, FAILURE
+          "amount": "0.001", //Transaction amount
+          "reason": "", //Reason caused the failure
+          "offset": 889048787670001, //Offset
+          "createdAt": 1644825534000, //Request application time
+          "remark": "" //User remark
+        }
+      ]
+    }
+}

@@ -1,0 +1,16 @@
+POST
+/api/v1/hf/orders/sync
+true
+{
+  "code": "200000",
+  "data": {
+    "orderId": "6d539dc614db3",
+    "orderTime": "1507725176595", //order time
+    "originSize": "10.01",
+    "dealSize": "2.01",
+    "remainSize": "8",
+    "canceledSize": "0",
+    "status": "open", //open: the order is active: the order has been completed
+    "matchTime": "1507725176595" //begin match time
+  }
+}

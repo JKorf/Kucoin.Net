@@ -1,8 +1,11 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.CommonObjects;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects;
@@ -19,7 +22,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
-    public class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
+    internal partial class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi, IFuturesClient
     {
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
@@ -65,33 +68,32 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
 
-        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
+        /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+            => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
+
+        internal async Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition).ConfigureAwait(false);
+            var result = await base.SendAsync<KucoinResult>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.AsDataless();
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
+        internal async Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            var result = await base.SendAsync<KucoinResult<T>>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
             if (!result)
                 return result.AsError<T>(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
-        }
-
-        internal Uri GetUri(string path, int apiVersion = 1)
-        {
-            return new Uri(BaseAddress.AppendPath("api").AppendPath("v" + apiVersion, path));
         }
 
         /// <inheritdoc />
@@ -379,6 +381,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public IFuturesClient CommonFuturesClient => this;
+        public IKucoinRestClientFuturesApiShared SharedClient => this;
 
         private static FuturesKlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
         {
@@ -395,6 +398,23 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (timeSpan == TimeSpan.FromDays(7)) return FuturesKlineInterval.OneWeek;
 
             throw new ArgumentException("Unsupported timespan for Kucoin kline interval, check supported intervals using Kucoin.Net.Objects.KucoinKlineInterval");
+        }
+
+        /// <inheritdoc />
+        protected override void WriteParamBody(IRequest request, IDictionary<string, object> parameters, string contentType)
+        {
+            if (contentType == "application/json")
+            {
+                string data = parameters.Count == 1 && parameters.First().Key == "<BODY>"
+                    ? CreateSerializer().Serialize(parameters.First().Value)
+                    : CreateSerializer().Serialize(parameters);
+                request.SetContent(data, contentType);
+            }
+            else if (contentType == "application/x-www-form-urlencoded")
+            {
+                string data2 = parameters.ToFormData();
+                request.SetContent(data2, contentType);
+            }
         }
 
         internal void InvokeOrderPlaced(OrderId id)

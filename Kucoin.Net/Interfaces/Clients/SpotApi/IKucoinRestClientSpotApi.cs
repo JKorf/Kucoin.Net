@@ -15,6 +15,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IKucoinRestClientSpotApiAccount Account { get; }
 
         /// <summary>
+        /// Endpoints related to sub-account settings, info or actions
+        /// </summary>
+        IKucoinRestClientSpotApiSubAccount SubAccount { get; }
+
+        /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
         IKucoinRestClientSpotApiExchangeData ExchangeData { get; }
@@ -25,14 +30,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IKucoinRestClientSpotApiTrading Trading { get; }
 
         /// <summary>
-        /// Endpoints related to orders and trades from Pro Account (High Frequency)
+        /// Endpoints related to orders and trades using the HighFrequency/ProAccount
         /// </summary>
-        IKucoinRestClientSpotApiProAccount ProAccount { get; }
+        IKucoinRestClientSpotApiHfTrading HfTrading { get; }
 
         /// <summary>
-        /// Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+        /// Endpoints for margin borrowing and lending
         /// </summary>
-        /// <returns></returns>
+        public IKucoinRestClientSpotApiMargin Margin { get; }
+
+        /// <summary>
+        /// DEPRECATED; use <see cref="CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
+        /// </summary>
         public ISpotClient CommonSpotClient { get; }
+
+        /// <summary>
+        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        IKucoinRestClientSpotApiShared SharedClient { get; }
+
     }
 }

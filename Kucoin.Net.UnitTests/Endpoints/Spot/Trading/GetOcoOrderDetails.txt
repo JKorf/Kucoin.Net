@@ -1,0 +1,34 @@
+GET
+/api/v3/oco/order/details/123
+true
+{
+  "code": "200000",
+  "msg": "",
+  "data": {
+    "orderId": "6572fdd65723280007deb5e0",
+    "symbol": "FRM-USDT",
+    "clientOid": "9a05f706a39eff673045b89foco1",
+    "orderTime": 1702034902724,
+    "status": "NEW",
+    "orders": [
+        {
+            "id": "vs9hqpbivnb5e8p8003ttdf1",
+            "symbol": "FRM-USDT",
+            "side": "sell",
+            "price": "1.00000000000000000000",
+            "stopPrice": "1.00000000000000000000",
+            "size": "25.00000000000000000000",
+            "status": "NEW"
+        },
+        {
+            "id": "vs9hqpbivnb5e8p8003ttdf2",
+            "symbol": "FRM-USDT",
+            "side": "sell",
+            "price": "3.00000000000000000000",
+            "stopPrice": "0.06000000000000000000",
+            "size": "25.00000000000000000000",
+            "status": "NEW"
+        }
+    ]
+}
+}

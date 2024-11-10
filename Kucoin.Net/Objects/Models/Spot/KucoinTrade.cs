@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Trade info
     /// </summary>
-    public class KucoinTrade
+    public record KucoinTrade
     {
         /// <summary>
         /// The sequence number of the trade

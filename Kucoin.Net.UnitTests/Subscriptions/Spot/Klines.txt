@@ -1,0 +1,21 @@
+> {"id":"|1|","type":"subscribe","topic":"/market/candles:BTC-USDT_8hour","privateChannel":false,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/market/candles:BTC-USDT_8hour",
+  "subject": "trade.candles.update",
+  "data": {
+    "symbol": "BTC-USDT", // symbol
+    "candles": [
+      "1589968800", // Start time of the candle cycle
+      "9786.9", // open price
+      "9740.8", // close price
+      "9806.1", // high price
+      "9732", // low price
+      "27.45649579", // Transaction volume
+      "268280.09830877" // Transaction amount
+    ],
+    "time": 1589970010253893337 // no
+  }
+}

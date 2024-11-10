@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Update to funds wich are withdrawable
     /// </summary>
-    public class KucoinStreamFuturesWithdrawableUpdate
+    public record KucoinStreamFuturesWithdrawableUpdate
     {
         /// <summary>
         /// Current frozen quantity for withdrawal

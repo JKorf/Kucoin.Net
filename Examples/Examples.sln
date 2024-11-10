@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.Api", "Kucoin.Examples.Api\Kucoin.Examples.Api.csproj", "{ECA139DF-CA98-4E98-89DA-C594FEBC0865}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.Console", "Kucoin.Examples.Console\Kucoin.Examples.Console.csproj", "{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Net", "..\Kucoin.Net\Kucoin.Net.csproj", "{5A503CA9-F47D-4961-8669-F39CBC358F93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.OrderBook", "Kucoin.Examples.OrderBook\Kucoin.Examples.OrderBook.csproj", "{2FEAA7EE-782F-4C56-AE24-DB734B1B5F5F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.Tracker", "Kucoin.Examples.Tracker\Kucoin.Examples.Tracker.csproj", "{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECA139DF-CA98-4E98-89DA-C594FEBC0865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA139DF-CA98-4E98-89DA-C594FEBC0865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA139DF-CA98-4E98-89DA-C594FEBC0865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA139DF-CA98-4E98-89DA-C594FEBC0865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A503CA9-F47D-4961-8669-F39CBC358F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A503CA9-F47D-4961-8669-F39CBC358F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A503CA9-F47D-4961-8669-F39CBC358F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A503CA9-F47D-4961-8669-F39CBC358F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FEAA7EE-782F-4C56-AE24-DB734B1B5F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FEAA7EE-782F-4C56-AE24-DB734B1B5F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FEAA7EE-782F-4C56-AE24-DB734B1B5F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FEAA7EE-782F-4C56-AE24-DB734B1B5F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84A4E6CE-9D3A-43FF-97B1-D91CE93B7E8F}
+	EndGlobalSection
+EndGlobal

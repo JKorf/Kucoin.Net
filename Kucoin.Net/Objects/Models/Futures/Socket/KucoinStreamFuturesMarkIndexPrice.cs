@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Market info
     /// </summary>
-    public class KucoinStreamFuturesMarkIndexPrice
+    public record KucoinStreamFuturesMarkIndexPrice
     {
         /// <summary>
         /// Mark price

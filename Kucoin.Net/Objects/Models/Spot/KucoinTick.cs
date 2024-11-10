@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Tick info
     /// </summary>
-    public class KucoinTick
+    public record KucoinTick
     {
         /// <summary>
         /// The sequence of the tick

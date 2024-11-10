@@ -1,0 +1,28 @@
+GET
+/api/v3/margin/accounts
+true
+{
+    "success": true,
+    "code": "200",
+    "msg": "success",
+    "retry": false,
+    "data": {
+        "totalLiabilityOfQuoteCurrency": "0.976",
+        "totalAssetOfQuoteCurrency": "1.00",
+        "debtRatio": "0.976",
+        "status": "LIQUIDATION",
+        "accounts": [
+            {
+                "currency": "BTC",
+                "borrowEnabled": true,
+                "repayEnabled": true,
+                "transferEnabled": false,
+                "borrowed": "0.976",
+                "totalAsset": "1.00",
+                "available": "0.024",
+                "hold": "0",
+                "maxBorrowSize": "0"
+            }
+        ]
+    }
+}

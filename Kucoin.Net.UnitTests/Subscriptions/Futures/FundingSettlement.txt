@@ -1,0 +1,17 @@
+> {"id":"|1|","type":"subscribe","topic":"/contract/positionAll","privateChannel":true,"response":true}
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "userId": "xbc453tg732eba53a88ggyt8c", // Deprecated, will detele later
+  "topic": "/contract/positionAll",
+  "subject": "position.settlement",
+  "data": {
+    "fundingTime": 1551770400000, //Funding time
+    "qty": 100, //Position size
+    "markPrice": 3610.85, //Settlement price
+    "fundingRate": -0.002966, //Funding rate
+    "fundingFee": -296, //Funding fees
+    "ts": 1547697294838004923, //Current time (nanosecond)
+    "settleCurrency": "XBT" //Currency used to clear and settle the trades
+  }
+}

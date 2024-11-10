@@ -1,0 +1,17 @@
+GET
+/api/v1/kline/query
+false
+{
+  "code": "200000",
+  "data": [
+    [
+      1575331200000, //Time
+      7495.01, //Entry price
+      8309.67, //Highest price
+      7250, //Lowest price
+      7463.55, //Close price
+      0 //Trading volume
+    ],
+    [1575374400000, 7464.37, 8297.85, 7273.02, 7491.44, 0]
+  ]
+}

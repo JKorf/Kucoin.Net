@@ -1,0 +1,52 @@
+GET
+/api/v1/stopOrders
+true
+{
+  "code": "200000",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 100,
+    "totalNum": 1000,
+    "totalPage": 10,
+    "items": [
+      {
+        "id": "622076e79f12700001f84138",
+        "symbol": "XBTUSDTM",
+        "type": "limit",
+        "side": "sell",
+        "price": "32000",
+        "size": 2,
+        "value": "0",
+        "dealValue": "0",
+        "dealSize": 0,
+        "stp": "",
+        "stop": "down",
+        "stopPriceType": "TP",
+        "stopTriggered": null,
+        "stopPrice": "3000",
+        "timeInForce": "GTC",
+        "postOnly": false,
+        "hidden": false,
+        "iceberg": false,
+        "leverage": "20",
+        "forceHold": false,
+        "closeOrder": false,
+        "visibleSize": null,
+        "clientOid": null,
+        "remark": null,
+        "tags": null,
+        "isActive": true,
+        "cancelExist": false,
+        "createdAt": 1646294759000,
+        "updatedAt": 1646294759000,
+        "endAt": null,
+        "orderTime": null,
+        "settleCurrency": "USDT",
+        "status": "open",
+        "filledValue": "0",
+        "filledSize": 0,
+        "reduceOnly": false
+      }
+    ]
+  }
+}

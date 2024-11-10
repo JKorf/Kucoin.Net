@@ -1,0 +1,44 @@
+GET
+/api/v1/orders/123
+true
+{
+  "code": "200000",
+  "data": {
+    "id": "5cdfc138b21023a909e5ad55", //Order ID
+    "symbol": "XBTUSDM", //Symbol of the contract
+    "type": "limit", //Order type, market order or limit order
+    "side": "buy", //Transaction side
+    "price": "3600", //Order price
+    "size": 20000, //Order quantity
+    "value": "56.1167227833", //Order value
+    "dealValue": "56.1167227833", //Executed size of funds
+    "dealSize": 20000, //Executed quantity
+    "stp": "", //Self trade prevention types
+    "stop": "", //Stop order type (stop limit or stop market)
+    "stopPriceType": "", //Trigger price type of stop orders
+    "stopTriggered": true, //Mark to show whether the stop order is triggered
+    "stopPrice": null, //Trigger price of stop orders
+    "timeInForce": "GTC", //Time in force policy type
+    "postOnly": false, //Mark of post only
+    "hidden": false, //Mark of the hidden order
+    "iceberg": false, //Mark of the iceberg order
+    "leverage": "20", //Leverage of the order
+    "forceHold": false, //A mark to forcely hold the funds for an order
+    "closeOrder": false, //A mark to close the position
+    "visibleSize": null, // Visible size of the iceberg order
+    "clientOid": "5ce24c16b210233c36ee321d", //Unique order id created by users to identify their orders
+    "remark": null, //Remark of the order
+    "tags": null, //Tag order source
+    "isActive": false, //Mark of the active orders
+    "cancelExist": false, //Mark of the canceled orders
+    "createdAt": 1558167872000, //Time the order created
+    "updatedAt": 1558167872000, //last update time
+    "endAt": 1558167872000, //End time
+    "orderTime": 1558167872000000000, //order create time in nanosecond
+    "settleCurrency": "XBT", //settlement currency
+    "status": "done", //order status: “open” or “done”
+    "filledValue": "56.1167227833", //Value of the executed orders
+    "filledSize": 20000, //Executed order quantity
+    "reduceOnly": false //A mark to reduce the position size only
+  }
+}

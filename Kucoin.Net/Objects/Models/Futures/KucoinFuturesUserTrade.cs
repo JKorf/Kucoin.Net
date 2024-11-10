@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Trade info
     /// </summary>
-    public class KucoinFuturesUserTrade: KucoinTradeBase
+    public record KucoinFuturesUserTrade: KucoinTradeBase
     {
         /// <summary>
         /// The type of the order
@@ -51,5 +51,15 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Closing transaction fee
         /// </summary>
         public decimal? CloseFeePay { get; set; }
+        /// <summary>
+        /// Whether to force processing as a taker
+        /// </summary>
+        [JsonProperty("forceTaker")]
+        public bool ForceTaker { get; set; }
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        public FuturesMarginMode? MarginMode { get; set; }
     }
 }

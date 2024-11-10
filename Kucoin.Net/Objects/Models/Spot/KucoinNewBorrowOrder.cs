@@ -14,14 +14,14 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The id of the new borrow order
         /// </summary>
-        [JsonProperty("orderId")]
+        [JsonProperty("orderNo")]
         public string Id { get; set; } = string.Empty;
 
         /// <summary>
-        /// Currency of current Order
+        /// Actual borrowed quantity
         /// </summary>
-        [JsonProperty("currency")]
-        public string Asset { get; set; } = string.Empty;
+        [JsonProperty("actualSize")]
+        public decimal BorrowedQuantity { get; set; }
     }
 
     public class MarginBorrowHistory

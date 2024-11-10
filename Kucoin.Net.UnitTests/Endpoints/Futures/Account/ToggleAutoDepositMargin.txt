@@ -1,0 +1,7 @@
+POST
+/api/v1/position/margin/auto-deposit-status
+true
+{
+  "code": "200000",
+  "data": false
+}

@@ -1,15 +1,18 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.CommonObjects;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +23,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinRestClientSpotApi" />
-    public class KucoinRestClientSpotApi : RestApiClient, IKucoinRestClientSpotApi, ISpotClient
+    internal partial class KucoinRestClientSpotApi : RestApiClient, IKucoinRestClientSpotApi, ISpotClient
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
@@ -38,6 +41,8 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public IKucoinRestClientSpotApiAccount Account { get; }
+        /// <inheritdoc />
+        public IKucoinRestClientSpotApiSubAccount SubAccount { get; }
 
         /// <inheritdoc />
         public IKucoinRestClientSpotApiExchangeData ExchangeData { get; }
@@ -46,15 +51,20 @@ namespace Kucoin.Net.Clients.SpotApi
         public IKucoinRestClientSpotApiTrading Trading { get; }
 
         /// <inheritdoc />
-        public IKucoinRestClientSpotApiProAccount ProAccount { get; }
+        public IKucoinRestClientSpotApiHfTrading HfTrading { get; }
+
+        /// <inheritdoc />
+        public IKucoinRestClientSpotApiMargin Margin { get; }
 
         internal KucoinRestClientSpotApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
             : base(logger, httpClient, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             Account = new KucoinRestClientSpotApiAccount(this);
+            SubAccount = new KucoinRestClientSpotApiSubAccount(this);
             ExchangeData = new KucoinRestClientSpotApiExchangeData(this);
             Trading = new KucoinRestClientSpotApiTrading(this);
-            ProAccount = new KucoinRestClientSpotApiProAccount(this);
+            HfTrading = new KucoinRestClientSpotApiHfTrading(this);
+            Margin = new KucoinRestClientSpotApiMargin(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
@@ -62,6 +72,10 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+
+        /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+            => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         #region common interface
 
@@ -342,57 +356,72 @@ namespace Kucoin.Net.Clients.SpotApi
             OnOrderCanceled?.Invoke(id);
         }
 
-        internal async Task<WebCallResult> Execute(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
+        internal async Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await SendRequestAsync<KucoinResult<object>>(uri, method, ct, parameters, signed, parameterPosition).ConfigureAwait(false);
+            var result = await base.SendAsync<KucoinResult>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
             if (!result)
                 return result.AsDatalessError(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.AsDataless();
         }
 
-        internal async Task<WebCallResult<T>> Execute<T>(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object>? parameters = null, bool signed = false, int weight = 1, bool ignoreRatelimit = false, HttpMethodParameterPosition? parameterPosition = null)
+        internal async Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await SendRequestAsync<KucoinResult<T>>(uri, method, ct, parameters, signed, parameterPosition, requestWeight: weight, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            var result = await base.SendAsync<KucoinResult<T>>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
             if (!result)
                 return result.AsError<T>(result.Error!);
 
-            if (result.Data.Code != 200000)
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
                 return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             return result.As(result.Data.Data);
         }
 
-        internal Uri GetUri(string path, int apiVersion = 1)
+        internal async Task<WebCallResult<T>> SendRawAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
-            return new Uri(BaseAddress.AppendPath("api").AppendPath("v" + apiVersion, path));
+            var result = await base.SendAsync<T>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<T>(result.Error!);
+
+            return result.As(result.Data);
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, string data)
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
         {
-            var errorData = ValidateJson(data);
-            if (!errorData)
-                return new ServerError(data);
+            var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("gw-ratelimit-reset", StringComparison.InvariantCultureIgnoreCase));
+            if (retryAfterHeader.Value?.Any() != true)
+                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
 
-            if (!errorData.Data.HasValues)
+            var value = retryAfterHeader.Value.First();
+            if (!int.TryParse(value, out var milliseconds))
+                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
+
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            return new ServerRateLimitError(msg!)
             {
-                return new ServerError(string.IsNullOrEmpty(data) ? "Unknown error" : data);
-            }
+                RetryAfter = DateTime.UtcNow.AddMilliseconds(milliseconds)
+            };
+        }
 
-            if (errorData.Data["code"] != null && errorData.Data["msg"] != null)
-            {
-                var result = errorData.Data.ToObject<KucoinResult<object>>();
-                if (result == null)
-                    return new ServerError(errorData.Data["msg"]!.ToString());
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
 
-                return new ServerError(result.Code, result.Message!);
-            }
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
 
-            return new ServerError(errorData.Data.ToString());
+            if (code == null)
+                return new ServerError(msg);
+
+            return new ServerError(code.Value, msg);
         }
 
         /// <inheritdoc />
@@ -409,5 +438,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IKucoinRestClientSpotApiShared SharedClient => this;
+
     }
 }

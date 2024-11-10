@@ -1,0 +1,18 @@
+> { "id": "|1|", "type": "subscribe", "topic": "/market/ticker:BTC-USDT", "response": true }
+< { "id": "|1|", "type": "ack" }
+= 
+{
+  "type": "message",
+  "topic": "/market/ticker:BTC-USDT",
+  "subject": "trade.ticker",
+  "data": {
+    "sequence": "1545896668986", // Sequence number
+    "price": "0.08", // Last traded price
+    "size": "0.011", //  Last traded amount
+    "bestAsk": "0.08", // Best ask price
+    "bestAskSize": "0.18", // Best ask size
+    "bestBid": "0.049", // Best bid price
+    "bestBidSize": "0.036", // Best bid size
+	"time": 1704873323416	//The matching time of the latest transaction
+  }
+}

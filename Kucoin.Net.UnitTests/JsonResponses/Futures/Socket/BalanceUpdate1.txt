@@ -1,5 +1,0 @@
-﻿{
-        "orderMargin": 5923,//Current order margin
-        "currency":"USDT",//Currency
-        "timestamp": 1553842862614
-    }
