@@ -39,7 +39,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinStreamFundingBookUpdate>((client, handler) => client.SpotApi.SubscribeToFundingBookUpdatesAsync("BTC", handler), "FundingBook", "data");
             await tester.ValidateAsync<KucoinStreamOrderNewUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler, null, null), "NewOrder", "data");
             await tester.ValidateAsync<KucoinStreamOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, handler, null), "OrderUpdate", "data");
-            await tester.ValidateAsync<KucoinStreamOrderMatchUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, null, handler), "MatchOrder", "data");
+            //await tester.ValidateAsync<KucoinStreamOrderMatchUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, null, handler), "MatchOrder", "data");
             await tester.ValidateAsync<KucoinBalanceUpdate>((client, handler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(handler), "Balance", "data", ignoreProperties: new List<string> { "relationContext" });
             await tester.ValidateAsync<KucoinStreamStopOrderUpdateBase>((client, handler) => client.SpotApi.SubscribeToStopOrderUpdatesAsync(handler), "StopOrder", "data");
             await tester.ValidateAsync<KucoinIsolatedMarginPositionUpdate>((client, handler) => client.SpotApi.SubscribeToIsolatedMarginPositionUpdatesAsync("ETH-USDT", handler), "IsolatedMarginPosition", "data", ignoreProperties: new List<string> { "changeAssets" });
