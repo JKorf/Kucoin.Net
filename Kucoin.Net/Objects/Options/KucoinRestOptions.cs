@@ -14,10 +14,18 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static KucoinRestOptions Default { get; set; } = new KucoinRestOptions()
+        internal static KucoinRestOptions Default { get; set; } = new KucoinRestOptions()
         {
             Environment = KucoinEnvironment.Live
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public KucoinRestOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// Spot API options
@@ -29,12 +37,12 @@ namespace Kucoin.Net.Objects.Options
         /// </summary>
         public KucoinRestApiOptions FuturesOptions { get; private set; } = new KucoinRestApiOptions();
 
-        internal KucoinRestOptions Copy()
+        internal KucoinRestOptions Set(KucoinRestOptions targetOptions)
         {
-            var options = Copy<KucoinRestOptions>();
-            options.SpotOptions = SpotOptions.Copy();
-            options.FuturesOptions = FuturesOptions.Copy();
-            return options;
+            targetOptions = base.Set<KucoinRestOptions>(targetOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
+            return targetOptions;
         }
     }
 }

@@ -15,12 +15,12 @@ namespace Kucoin.Net.Objects.Options
         /// </summary>
         public string? BrokerKey { get; set; }
 
-        internal KucoinRestApiOptions Copy()
+        internal KucoinRestApiOptions Set(KucoinRestApiOptions targetOptions)
         {
-            var result = base.Copy<KucoinRestApiOptions>();
-            result.BrokerKey = BrokerKey;
-            result.BrokerName = BrokerName;
-            return result;
+            targetOptions = base.Set<KucoinRestApiOptions>(targetOptions);
+            targetOptions.BrokerName = BrokerName;
+            targetOptions.BrokerKey = BrokerKey;
+            return targetOptions;
         }
     }
 }

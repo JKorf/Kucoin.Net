@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Kucoin.Net.Objects.Options;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -28,11 +30,11 @@ namespace Kucoin.Net.UnitTests
             var pass = Environment.GetEnvironmentVariable("APIPASS");
 
             Authenticated = key != null && sec != null;
-            return new KucoinRestClient(null, loggerFactory, opts =>
+            return new KucoinRestClient(null, loggerFactory, Options.Create(new KucoinRestOptions
             {
-                opts.OutputOriginalData = true;
-                opts.ApiCredentials = Authenticated ? new KucoinApiCredentials(key, sec, pass) : null;
-            });
+                OutputOriginalData = true,
+                ApiCredentials = Authenticated ? new KucoinApiCredentials(key, sec, pass) : null
+            }));
         }
 
         [Test]
