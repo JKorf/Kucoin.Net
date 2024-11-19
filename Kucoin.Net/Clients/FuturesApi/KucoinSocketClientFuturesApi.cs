@@ -241,7 +241,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
-            if (ClientOptions.Environment.EnvironmentName == "UnitTesting")
+            if (ClientOptions.Environment.Name == "UnitTesting")
                 return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
 
             var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);

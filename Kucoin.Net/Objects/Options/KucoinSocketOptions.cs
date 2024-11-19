@@ -10,11 +10,19 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static KucoinSocketOptions Default { get; set; } = new KucoinSocketOptions()
+        internal static KucoinSocketOptions Default { get; set; } = new KucoinSocketOptions()
         {
             Environment = KucoinEnvironment.Live,
             SocketSubscriptionsCombineTarget = 10
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public KucoinSocketOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// Spot API options
@@ -32,12 +40,12 @@ namespace Kucoin.Net.Objects.Options
             MaxSocketConnections = 50
         };
 
-        internal KucoinSocketOptions Copy()
+        internal KucoinSocketOptions Set(KucoinSocketOptions targetOptions)
         {
-            var options = Copy<KucoinSocketOptions>();
-            options.SpotOptions = SpotOptions.Copy<SocketApiOptions<KucoinApiCredentials>>();
-            options.FuturesOptions = FuturesOptions.Copy<SocketApiOptions<KucoinApiCredentials>>();
-            return options;
+            targetOptions = base.Set<KucoinSocketOptions>(targetOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
+            return targetOptions;
         }
     }
 }

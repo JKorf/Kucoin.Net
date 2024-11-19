@@ -23,6 +23,16 @@ namespace Kucoin.Net
         public static string ExchangeName => "Kucoin";
 
         /// <summary>
+        /// Exchange name
+        /// </summary>
+        public static string DisplayName => "Kucoin";
+
+        /// <summary>
+        /// Url to exchange image
+        /// </summary>
+        public static string ImageUrl { get; } = "https://raw.githubusercontent.com/JKorf/Kucoin.Net/master/Kucoin.Net/Icon/icon.png";
+
+        /// <summary>
         /// Url to the main website
         /// </summary>
         public static string Url { get; } = "https://www.kucoin.com";

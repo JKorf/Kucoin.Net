@@ -8,6 +8,7 @@ using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 
@@ -26,25 +27,23 @@ namespace Kucoin.Net.Clients
         /// Create a new instance of KucoinClient
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public KucoinRestClient(Action<KucoinRestOptions>? optionsDelegate = null) : this(null, null, optionsDelegate)
+        public KucoinRestClient(Action<KucoinRestOptions>? optionsDelegate = null)
+            : this(null, null, Options.Create(ApplyOptionsDelegate(optionsDelegate)))
         {
         }
 
         /// <summary>
         /// Create a new instance of KucoinClient
         /// </summary>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
+        /// <param name="options">Option configuration</param>
         /// <param name="loggerFactory">The logger factory</param>
         /// <param name="httpClient">Http client for this client</param>
-        public KucoinRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, Action<KucoinRestOptions>? optionsDelegate = null) : base(loggerFactory, "Kucoin")
+        public KucoinRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, IOptions<KucoinRestOptions> options) : base(loggerFactory, "Kucoin")
         {
-            var options = KucoinRestOptions.Default.Copy();
-            if (optionsDelegate != null)
-                optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new KucoinRestClientSpotApi(_logger, httpClient, this, options));
-            FuturesApi = AddApiClient(new KucoinRestClientFuturesApi(_logger, httpClient, this, options));
+            SpotApi = AddApiClient(new KucoinRestClientSpotApi(_logger, httpClient, this, options.Value));
+            FuturesApi = AddApiClient(new KucoinRestClientFuturesApi(_logger, httpClient, this, options.Value));
         }
 
         /// <inheritdoc />
@@ -60,9 +59,7 @@ namespace Kucoin.Net.Clients
         /// <param name="optionsFunc">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<KucoinRestOptions> optionsFunc)
         {
-            var options = KucoinRestOptions.Default.Copy();
-            optionsFunc(options);
-            KucoinRestOptions.Default = options;
+            KucoinRestOptions.Default = ApplyOptionsDelegate(optionsFunc);
         }
     }
 }

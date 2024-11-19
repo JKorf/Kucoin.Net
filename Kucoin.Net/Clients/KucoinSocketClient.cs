@@ -9,6 +9,7 @@ using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoExchange.Net.Clients;
+using Microsoft.Extensions.Options;
 
 namespace Kucoin.Net.Clients
 {
@@ -23,37 +24,28 @@ namespace Kucoin.Net.Clients
         public IKucoinSocketClientFuturesApi FuturesApi { get; }
 
         #endregion
+
         /// <summary>
-        /// Create a new instance of the OKXSocketClient
+        /// Create a new instance of KucoinSocketClient
         /// </summary>
-        /// <param name="loggerFactory">The logger</param>
-        public KucoinSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        public KucoinSocketClient(Action<KucoinSocketOptions>? optionsDelegate = null)
+            : this(Options.Create(ApplyOptionsDelegate(optionsDelegate)), null)
         {
         }
 
         /// <summary>
         /// Create a new instance of KucoinSocketClient
         /// </summary>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
-        public KucoinSocketClient(Action<KucoinSocketOptions> optionsDelegate) : this(optionsDelegate, null)
-        {
-        }
-
-        /// <summary>
-        /// Create a new instance of KucoinSocketClient
-        /// </summary>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
+        /// <param name="options">Option configuration</param>
         /// <param name="loggerFactory">The logger factory</param>
         [ActivatorUtilitiesConstructor]
-        public KucoinSocketClient(Action<KucoinSocketOptions>? optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Kucoin")
+        public KucoinSocketClient(IOptions<KucoinSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Kucoin")
         {
-            var options = KucoinSocketOptions.Default.Copy();
-            if (optionsDelegate != null)
-                optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new KucoinSocketClientSpotApi(_logger, this, options));
-            FuturesApi = AddApiClient(new KucoinSocketClientFuturesApi(_logger, this, options));
+            SpotApi = AddApiClient(new KucoinSocketClientSpotApi(_logger, this, options.Value));
+            FuturesApi = AddApiClient(new KucoinSocketClientFuturesApi(_logger, this, options.Value));
         }
 
         /// <summary>
@@ -62,9 +54,7 @@ namespace Kucoin.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<KucoinSocketOptions> optionsDelegate)
         {
-            var options = KucoinSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            KucoinSocketOptions.Default = options;
+            KucoinSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <summary>

@@ -337,11 +337,11 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Kucoin.Net.Clients.KucoinRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{Kucoin.Net.Objects.Options.KucoinRestOptions})">
+        <member name="M:Kucoin.Net.Clients.KucoinRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{Kucoin.Net.Objects.Options.KucoinRestOptions})">
             <summary>
             Create a new instance of KucoinClient
             </summary>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
@@ -363,23 +363,17 @@
         <member name="P:Kucoin.Net.Clients.KucoinSocketClient.FuturesApi">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
-            <summary>
-            Create a new instance of the OKXSocketClient
-            </summary>
-            <param name="loggerFactory">The logger</param>
-        </member>
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.#ctor(System.Action{Kucoin.Net.Objects.Options.KucoinSocketOptions})">
             <summary>
             Create a new instance of KucoinSocketClient
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.#ctor(System.Action{Kucoin.Net.Objects.Options.KucoinSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.#ctor(Microsoft.Extensions.Options.IOptions{Kucoin.Net.Objects.Options.KucoinSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             Create a new instance of KucoinSocketClient
             </summary>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
             <param name="loggerFactory">The logger factory</param>
         </member>
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.SetDefaultOptions(System.Action{Kucoin.Net.Objects.Options.KucoinSocketOptions})">
@@ -5339,6 +5333,16 @@
             Futures API address
             </summary>
         </member>
+        <member name="M:Kucoin.Net.KucoinEnvironment.#ctor">
+            <summary>
+            ctor for DI, use <see cref="M:Kucoin.Net.KucoinEnvironment.CreateCustom(System.String,System.String,System.String)"/> for creating a custom environment
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.KucoinEnvironment.GetEnvironmentByName(System.String)">
+            <summary>
+            Get the Kucoin environment by name
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.KucoinEnvironment.Live">
             <summary>
             Live environment
@@ -5366,6 +5370,16 @@
         <member name="P:Kucoin.Net.KucoinExchange.ExchangeName">
             <summary>
             Exchange name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.ImageUrl">
+            <summary>
+            Url to exchange image
             </summary>
         </member>
         <member name="P:Kucoin.Net.KucoinExchange.Url">
@@ -5473,11 +5487,11 @@
             <summary>
             Creates new api credentials. Keep this information safe.
             </summary>
-            <param name="apiKey">The API key</param>
-            <param name="apiSecret">The API secret</param>
-            <param name="apiPassPhrase">The API passPhrase</param>
+            <param name="key">The API key</param>
+            <param name="secret">The API secret</param>
+            <param name="passPhrase">The API passPhrase</param>
         </member>
-        <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.#ctor(System.IO.Stream,System.String,System.String,System.String)">
+        <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.FromStream(System.IO.Stream,System.String,System.String,System.String)">
             <summary>
             Create Api credentials providing a stream containing json data. The json data should include three values: apiKey, apiSecret and apiPassPhrase
             </summary>
@@ -12486,6 +12500,36 @@
             The symbol
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Options.KucoinOptions">
+            <summary>
+            Kucoin options
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.Rest">
+            <summary>
+            Rest client options
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.Socket">
+            <summary>
+            Socket client options
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.Environment">
+            <summary>
+            Trade environment. Contains info about URL's to use to connect to the API. Use `KucoinEnvironment` to swap environment, for example `Environment = KucoinEnvironment.Live`
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.ApiCredentials">
+            <summary>
+            The api credentials used for signing requests.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.SocketClientLifeTime">
+            <summary>
+            The DI service lifetime for the IKucoinSocketClient
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Options.KucoinOrderBookOptions">
             <summary>
             Options for the Kucoin SymbolOrderBook
@@ -12534,6 +12578,11 @@
             Default options for new clients
             </summary>
         </member>
+        <member name="M:Kucoin.Net.Objects.Options.KucoinRestOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Options.KucoinRestOptions.SpotOptions">
             <summary>
             Spot API options
@@ -12552,6 +12601,11 @@
         <member name="P:Kucoin.Net.Objects.Options.KucoinSocketOptions.Default">
             <summary>
             Default options for new clients
+            </summary>
+        </member>
+        <member name="M:Kucoin.Net.Objects.Options.KucoinSocketOptions.#ctor">
+            <summary>
+            ctor
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Options.KucoinSocketOptions.SpotOptions">
@@ -12690,15 +12744,26 @@
             Extensions for DI
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddKucoin(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Kucoin.Net.Objects.Options.KucoinRestOptions},System.Action{Kucoin.Net.Objects.Options.KucoinSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddKucoin(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Add the IKucoinClient and IKucoinSocketClient to the sevice collection so they can be injected
+            Add services such as the IKucoinRestClient and IKucoinSocketClient. Configures the services based on the provided configuration.
             </summary>
             <param name="services">The service collection</param>
-            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-            <param name="socketClientLifeTime">The lifetime of the IKucoinSocketClient for the service collection. Defaults to Singleton.</param>
+            <param name="configuration">The configuration(section) containing the options</param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddKucoin(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Kucoin.Net.Objects.Options.KucoinOptions})">
+            <summary>
+            Add services such as the IKucoinRestClient and IKucoinSocketClient. Services will be configured based on the provided options.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="optionsDelegate">Set options for the Kucoin services</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddKucoin(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Kucoin.Net.Objects.Options.KucoinRestOptions},System.Action{Kucoin.Net.Objects.Options.KucoinSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddKucoin(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Kucoin.Net.Objects.Options.KucoinOptions})" /> instead
+            </summary>
         </member>
     </members>
 </doc>
