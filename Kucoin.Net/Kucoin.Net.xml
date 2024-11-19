@@ -5372,6 +5372,16 @@
             Exchange name
             </summary>
         </member>
+        <member name="P:Kucoin.Net.KucoinExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.KucoinExchange.Url">
             <summary>
             Url to the main website
