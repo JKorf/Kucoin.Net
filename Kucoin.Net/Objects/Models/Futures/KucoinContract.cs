@@ -245,5 +245,20 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Funding quote symbol
         /// </summary>
         public string? FundingQuoteSymbol1M { get; set; }
+        /// <summary>
+        /// Whether symbols supports cross margin position
+        /// </summary>
+        [JsonProperty("supportCross")]
+        public bool SupportsCross { get; set; }
+        /// <summary>
+        /// Maximum limit buying price
+        /// </summary>
+        [JsonProperty("buyLimit")]
+        public decimal? MaxLimitBuyPrice { get; set; }
+        /// <summary>
+        /// Minimum limit selling price
+        /// </summary>
+        [JsonProperty("sellLimit")]
+        public decimal? MinLimitSellPrice { get; set; }
     }
 }
