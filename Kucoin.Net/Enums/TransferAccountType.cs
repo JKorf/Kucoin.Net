@@ -48,6 +48,11 @@ namespace Kucoin.Net.Enums
         /// Isolated
         /// </summary>
         [Map("ISOLATED_V2")]
-        IsolatedV2
+        IsolatedV2,
+        /// <summary>
+        /// Option
+        /// </summary>
+        [Map("OPTION")]
+        Option
     }
 }

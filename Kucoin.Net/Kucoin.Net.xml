@@ -1042,6 +1042,11 @@
             High Frequency (PRO Account) isolated account
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.AccountType.Option">
+            <summary>
+            Option Account
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.AssetType">
             <summary>
             Asset type
@@ -2265,6 +2270,11 @@
         <member name="F:Kucoin.Net.Enums.TransferAccountType.IsolatedV2">
             <summary>
             Isolated
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.TransferAccountType.Option">
+            <summary>
+            Option
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.TransferType">

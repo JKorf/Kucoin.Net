@@ -51,5 +51,10 @@ namespace Kucoin.Net.Enums
         /// </summary>
         [Map("ISOLATED_V2")]
         IsolatedMarginHf,
+        /// <summary>
+        /// Option Account
+        /// </summary>
+        [Map("OPTION")]
+        Option,
     }
 }
