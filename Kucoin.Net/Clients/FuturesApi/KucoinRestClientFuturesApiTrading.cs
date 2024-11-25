@@ -38,7 +38,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             OrderSide side,
             NewOrderType type,
             decimal leverage,
-            int quantity,
+            int? quantity = null,
 
             decimal? price = null,
             TimeInForce? timeInForce = null,
@@ -57,6 +57,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
             FuturesMarginMode? marginMode = null,
+            decimal? quantityInBaseAsset = null,
+            decimal? quantityInQuoteAsset = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -64,7 +66,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddParameter("type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)));
             parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
-            parameters.AddParameter("size", quantity.ToString(CultureInfo.InvariantCulture));
+
+            parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("qty", quantityInBaseAsset?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("valueQty", quantityInQuoteAsset?.ToString(CultureInfo.InvariantCulture));
+
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalParameter("stop", stopType != null ? JsonConvert.SerializeObject(stopType, new StopTypeConverter(false)) : null);
@@ -144,7 +150,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             OrderSide side,
             NewOrderType type,
             decimal leverage,
-            int quantity,
+            int? quantity = null,
 
             decimal? price = null,
             TimeInForce? timeInForce = null,
@@ -162,6 +168,9 @@ namespace Kucoin.Net.Clients.FuturesApi
             bool? forceHold = null,
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
+
+            decimal? quantityInBaseAsset = null,
+            decimal? quantityInQuoteAsset = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -169,7 +178,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddParameter("type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)));
             parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
-            parameters.AddParameter("size", quantity.ToString(CultureInfo.InvariantCulture));
+
+            parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("qty", quantityInBaseAsset?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("valueQty", quantityInQuoteAsset?.ToString(CultureInfo.InvariantCulture));
+
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalString("triggerStopUpPrice", takeProfitPrice);

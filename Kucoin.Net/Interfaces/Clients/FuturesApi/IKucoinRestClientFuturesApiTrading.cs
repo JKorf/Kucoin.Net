@@ -29,7 +29,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
         /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
         /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quantity">Quantity of contract to buy or sell</param>
+        /// <param name="quantity">Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
         /// <param name="remark">Remark for the order</param>
         /// <param name="stopType"></param>
         /// <param name="stopPriceType"></param>
@@ -40,6 +40,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="marginMode">Margin mode, defaults to Isolated</param>
+        /// <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
@@ -47,7 +49,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             OrderSide side,
             NewOrderType type,
             decimal leverage,
-            int quantity,
+            int? quantity = null,
             decimal? price = null,
             TimeInForce? timeInForce = null,
             bool? postOnly = null,
@@ -64,6 +66,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
             FuturesMarginMode? marginMode = null,
+            decimal? quantityInBaseAsset = null,
+            decimal? quantityInQuoteAsset = null,
             CancellationToken ct = default);
 
         /// <summary>
@@ -132,7 +136,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
         /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
         /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quantity">Quantity of contract to buy or sell</param>
+        /// <param name="quantity">Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
         /// <param name="remark">Remark for the order</param>
         /// <param name="stopPriceType">Price type</param>
         /// <param name="takeProfitPrice">Take profit price</param>
@@ -142,6 +146,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
         /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
         /// <param name="clientOrderId">Client order id</param>
+        /// <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
@@ -149,7 +155,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             OrderSide side,
             NewOrderType type,
             decimal leverage,
-            int quantity,
+            int? quantity = null,
 
             decimal? price = null,
             TimeInForce? timeInForce = null,
@@ -167,6 +173,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             bool? forceHold = null,
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
+            decimal? quantityInBaseAsset = null,
+            decimal? quantityInQuoteAsset = null,
             CancellationToken ct = default);
 
         /// <summary>

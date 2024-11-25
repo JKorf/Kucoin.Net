@@ -28,10 +28,20 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal? Leverage { get; set; }
         /// <summary>
-        /// Amount of contracts to buy or sell
+        /// Amount of contracts to buy or sell, one of `Quantity`, `QuantityInBaseAsset` or `QuantityInQuoteAsset` should be provided
         /// </summary>
         [JsonProperty("size")]
         public int? Quantity { get; set; }
+        /// <summary>
+        /// Quantity in base asset, one of `Quantity`, `QuantityInBaseAsset` or `QuantityInQuoteAsset` should be provided
+        /// </summary>
+        [JsonProperty("qty")]
+        public decimal? QuantityInBaseAsset { get; set; }
+        /// <summary>
+        /// Quantity in quote asset, one of `Quantity`, `QuantityInBaseAsset` or `QuantityInQuoteAsset` should be provided
+        /// </summary>
+        [JsonProperty("valueQty")]
+        public decimal? QuantityInQuoteAsset { get; set; }
         /// <summary>
         /// Limit price
         /// </summary>
