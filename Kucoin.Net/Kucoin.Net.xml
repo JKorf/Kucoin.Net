@@ -12559,31 +12559,6 @@
             Kucoin options
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.Rest">
-            <summary>
-            Rest client options
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.Socket">
-            <summary>
-            Socket client options
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.Environment">
-            <summary>
-            Trade environment. Contains info about URL's to use to connect to the API. Use `KucoinEnvironment` to swap environment, for example `Environment = KucoinEnvironment.Live`
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.ApiCredentials">
-            <summary>
-            The api credentials used for signing requests.
-            </summary>
-        </member>
-        <member name="P:Kucoin.Net.Objects.Options.KucoinOptions.SocketClientLifeTime">
-            <summary>
-            The DI service lifetime for the IKucoinSocketClient
-            </summary>
-        </member>
         <member name="T:Kucoin.Net.Objects.Options.KucoinOrderBookOptions">
             <summary>
             Options for the Kucoin SymbolOrderBook
