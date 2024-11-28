@@ -146,6 +146,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.21.0 - 28 Nov 2024
+    * Updated CryptoExchange.Net to version 8.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.4.0
+    * Added GetFeesAsync Shared REST client implementations
+    * Updated KucoinOptions to LibraryOptions implementation
+    * Updated test and analyzer package versions
+
 * Version 5.20.0 - 25 Nov 2024
     * Added Option enum values for account types
     * Added quantityInBaseAsset and quantityInQuoteAsset to futures orders endpoints
