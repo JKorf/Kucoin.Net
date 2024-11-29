@@ -31,18 +31,14 @@ namespace Kucoin.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
 
-            Spot = new OrderBookFactory<KucoinOrderBookOptions>(
-                CreateSpot,
-                (sharedSymbol, options) => CreateSpot(KucoinExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
-            Futures = new OrderBookFactory<KucoinOrderBookOptions>(
-                CreateFutures,
-                (sharedSymbol, options) => CreateFutures(KucoinExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            Spot = new OrderBookFactory<KucoinOrderBookOptions>(CreateSpot, Create);
+            Futures = new OrderBookFactory<KucoinOrderBookOptions>(CreateFutures, Create);
         }
 
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<KucoinOrderBookOptions>? options = null)
         {
-            var symbolName = KucoinExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            var symbolName = symbol.GetSymbol(KucoinExchange.FormatSymbol);
             if (symbol.TradingMode == TradingMode.Spot)
                 return CreateSpot(symbolName, options);
 
