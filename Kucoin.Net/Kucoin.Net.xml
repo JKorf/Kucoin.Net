@@ -778,6 +778,12 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.DeleteSubAccountApiKeyAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.EnableMarginPermissionsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount.EnableFuturesPermissionsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiTrading">
             <inheritdoc />
         </member>
@@ -4603,6 +4609,22 @@
             <param name="apiKey">The api key</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.EnableMarginPermissionsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Allow subaccount margin permissions
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/add-subaccount-margin-permission" /></para>
+            </summary>
+            <param name="subAccountId">Sub account id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount.EnableFuturesPermissionsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Allow subaccount futures permissions
+            <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/add-subaccount-futures-permission" /></para>
+            </summary>
+            <param name="subAccountId">Sub account id</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiTrading">
             <summary>

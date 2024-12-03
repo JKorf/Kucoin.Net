@@ -171,5 +171,45 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return result.As(result.Data.Data);
         }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> EnableMarginPermissionsAsync(string subAccountId, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("subName", subAccountId);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v3/sub/user/margin/enable", KucoinExchange.RateLimiter.ManagementRest, 15, true);
+            var result = await _baseClient.SendRawAsync<KucoinResult>(request, parameters, ct).ConfigureAwait(false);
+
+            if (!result)
+                return result.AsDatalessError(result.Error!);
+
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            if (!string.IsNullOrEmpty(result.Data.Message))
+                return result.AsDatalessError(new ServerError(result.Data.Message!));
+
+            return result.AsDataless();
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> EnableFuturesPermissionsAsync(string subAccountId, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("subName", subAccountId);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v3/sub/user/futures/enable", KucoinExchange.RateLimiter.ManagementRest, 15, true);
+            var result = await _baseClient.SendRawAsync<KucoinResult>(request, parameters, ct).ConfigureAwait(false);
+
+            if (!result)
+                return result.AsDatalessError(result.Error!);
+
+            if (result.Data.Code != 200000 && result.Data.Code != 200)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+
+            if (!string.IsNullOrEmpty(result.Data.Message))
+                return result.AsDatalessError(new ServerError(result.Data.Message!));
+
+            return result.AsDataless();
+        }
     }
 }

@@ -118,5 +118,21 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string apiKey,
             string passphrase,
             CancellationToken ct = default);
+
+        /// <summary>
+        /// Allow subaccount margin permissions
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/add-subaccount-margin-permission" /></para>
+        /// </summary>
+        /// <param name="subAccountId">Sub account id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult> EnableMarginPermissionsAsync(string subAccountId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Allow subaccount futures permissions
+        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/add-subaccount-futures-permission" /></para>
+        /// </summary>
+        /// <param name="subAccountId">Sub account id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult> EnableFuturesPermissionsAsync(string subAccountId, CancellationToken ct = default);
     }
 }
