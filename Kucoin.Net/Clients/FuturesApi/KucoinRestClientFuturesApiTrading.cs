@@ -323,13 +323,15 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Fills
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("orderId", orderId);
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("type", type == null ? null : JsonConvert.SerializeObject(type, new OrderTypeConverter(false)));
+            if (tradeTypes?.Any() == true)
+                parameters.Add("tradeTypes", string.Join(",", tradeTypes.Select(EnumConverter.GetString)));
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);

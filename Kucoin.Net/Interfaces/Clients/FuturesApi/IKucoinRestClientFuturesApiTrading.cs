@@ -300,13 +300,14 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderId">Filter by order id</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
+        /// <param name="tradeTypes">Filter by trade types</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="currentPage">Current page</param>
         /// <param name="pageSize">Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of 1000 most recent user trades in the last 24 hours

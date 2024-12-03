@@ -223,7 +223,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Collections.Generic.IEnumerable{Kucoin.Net.Enums.FuturesTradeType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.GetRecentUserTradesAsync(System.Threading.CancellationToken)">
@@ -3066,7 +3066,7 @@
             <param name="ct">Cancellation token</param>
             <returns>List of orders</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderType},System.Collections.Generic.IEnumerable{Kucoin.Net.Enums.FuturesTradeType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of user trades
             <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-filled-list" /></para>
@@ -3075,6 +3075,7 @@
             <param name="orderId">Filter by order id</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
+            <param name="tradeTypes">Filter by trade types</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="currentPage">Current page</param>

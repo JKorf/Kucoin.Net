@@ -144,7 +144,7 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetOrdersAsync(default, default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetUntriggeredStopOrdersAsync(default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetClosedOrdersAsync(default, default), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetRecentUserTradesAsync(default), true);
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetMaxOpenPositionSizeAsync("XBTUSDTM", 50000, 1, default), true);
         }
