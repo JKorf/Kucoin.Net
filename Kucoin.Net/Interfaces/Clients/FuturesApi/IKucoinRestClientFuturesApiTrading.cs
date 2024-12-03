@@ -197,12 +197,14 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel multiple orders
+        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/batch-cancel-orders" /></para>
         /// </summary>
+        /// <param name="symbol">Symbol, required when specifying clientOrderIds</param>
         /// <param name="orderIds">Order ids to cancel</param>
         /// <param name="clientOrderIds">Client order ids to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by client order id

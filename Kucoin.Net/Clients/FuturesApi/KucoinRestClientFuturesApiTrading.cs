@@ -222,9 +222,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
             parameters.AddOptional("orderIdsList", orderIds.ToArray());
             parameters.AddOptional("clientOidsList", clientOrderIds.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/multi-cancel", KucoinExchange.RateLimiter.FuturesRest, 30, true, parameterPosition: HttpMethodParameterPosition.InBody);

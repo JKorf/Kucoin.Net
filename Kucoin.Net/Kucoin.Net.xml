@@ -196,7 +196,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelOrderAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelMultipleOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.String,System.Threading.CancellationToken)">
@@ -2969,10 +2969,12 @@
             <param name="ct">Cancellation token</param>
             <returns>Canceled id</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.CancelMultipleOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.CancelMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinCancelRequest},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple orders
+            <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/batch-cancel-orders" /></para>
             </summary>
+            <param name="symbol">Symbol, required when specifying clientOrderIds</param>
             <param name="orderIds">Order ids to cancel</param>
             <param name="clientOrderIds">Client order ids to cancel</param>
             <param name="ct">Cancellation token</param>
