@@ -146,6 +146,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.22.0 - 03 Dec 2024
+    * Updated CryptoExchange.Net to version 8.4.3, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added restClient.SpotApi.SubAccount.EnableMarginPermissionsAsync and EnableFuturesPermissionsAsync endpoints
+    * Added symbol parameter to restClient.FuturesApi.Trading.CancelMultipleOrdersAsync endpoint
+    * Added tradeTypes parameter to restClient.FuturesApi.Trading.GetUserTradesAsync endpoint
+    * Fixed orderbook creation via KucoinOrderBookFactory
+
 * Version 5.21.0 - 28 Nov 2024
     * Updated CryptoExchange.Net to version 8.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.4.0
     * Added GetFeesAsync Shared REST client implementations
