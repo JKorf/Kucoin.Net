@@ -115,5 +115,12 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         [JsonConverter(typeof(EnumConverter))]
         [JsonProperty("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
+
+        /// <summary>
+        /// Trade type
+        /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
+        [JsonProperty("tradeType")]
+        public FuturesTradeType? TradeType { get; set; }
     }
 }

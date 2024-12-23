@@ -7688,6 +7688,11 @@
             Margin mode
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesOrderUpdate.TradeType">
+            <summary>
+            Trade type
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesStopOrderUpdate">
             <summary>
             Futures stop order update
