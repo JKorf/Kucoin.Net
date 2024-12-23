@@ -248,7 +248,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 30, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/orders", KucoinExchange.RateLimiter.FuturesRest, 30, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
         }
 
