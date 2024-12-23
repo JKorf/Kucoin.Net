@@ -10,6 +10,7 @@ using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Options;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Kucoin.Net.Clients
 {
@@ -46,6 +47,13 @@ namespace Kucoin.Net.Clients
 
             SpotApi = AddApiClient(new KucoinSocketClientSpotApi(_logger, this, options.Value));
             FuturesApi = AddApiClient(new KucoinSocketClientFuturesApi(_logger, this, options.Value));
+        }
+
+        /// <inheritdoc />
+        public void SetOptions(UpdateOptions options)
+        {
+            SpotApi.SetOptions(options);
+            FuturesApi.SetOptions(options);
         }
 
         /// <summary>

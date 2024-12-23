@@ -345,6 +345,9 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="M:Kucoin.Net.Clients.KucoinRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.KucoinRestClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
             <inheritdoc />
         </member>
@@ -375,6 +378,9 @@
             </summary>
             <param name="options">Option configuration</param>
             <param name="loggerFactory">The logger factory</param>
+        </member>
+        <member name="M:Kucoin.Net.Clients.KucoinSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.KucoinSocketClient.SetDefaultOptions(System.Action{Kucoin.Net.Objects.Options.KucoinSocketOptions})">
             <summary>
@@ -3361,6 +3367,12 @@
             Futures API endpoints
             </summary>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinRestClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
             <summary>
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
@@ -3381,6 +3393,12 @@
             <summary>
             Futures socket api
             </summary>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient.SetApiCredentials(Kucoin.Net.Objects.KucoinApiCredentials)">
             <summary>

@@ -48,7 +48,19 @@ namespace Kucoin.Net.Clients.FuturesApi
             _baseClient = baseClient;
 
             AddSystemSubscription(new KucoinWelcomeSubscription(_logger));
-            RegisterPeriodicQuery("Ping", TimeSpan.FromSeconds(30), x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()), null);
+            RegisterPeriodicQuery(
+                "Ping", 
+                TimeSpan.FromSeconds(30), 
+                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()),
+                (connection, result) =>
+                {
+                if (result.Error?.Message.Equals("Query timeout") == true)
+                {
+                    // Ping timeout, reconnect
+                    _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                    _ = connection.TriggerReconnectAsync();
+                }
+            });
         }
 
         /// <inheritdoc />
