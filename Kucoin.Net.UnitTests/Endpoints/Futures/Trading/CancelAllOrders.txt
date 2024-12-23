@@ -1,5 +1,5 @@
 DELETE
-/api/v1/orders
+/api/v3/orders
 true
 {
   "code": "200000",
