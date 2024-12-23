@@ -151,6 +151,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.23.0 - 23 Dec 2024
+    * Updated CryptoExchange.Net to version 8.5.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added SetOptions methods on Rest and Socket clients
+    * Added setting of DefaultProxyCredentials to CredentialCache.DefaultCredentials on the DI http client
+    * Added TradeType property to socketClient.FuturesApi.SubscribeToOrderUpdatesAsync update
+    * Improved websocket disconnect detection
+    * Updated SpotApi MaxSocketConnections from 150 to 500
+    * Updated restClient.FuturesApi.Trading.CancelAllOrdersAsync from V1 to V3
+
 * Version 5.22.0 - 03 Dec 2024
     * Updated CryptoExchange.Net to version 8.4.3, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added restClient.SpotApi.SubAccount.EnableMarginPermissionsAsync and EnableFuturesPermissionsAsync endpoints
