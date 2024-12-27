@@ -151,6 +151,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.23.1 - 27 Dec 2024
+    * Fixed incorrect caching of passphrase with multiple credentials
+
 * Version 5.23.0 - 23 Dec 2024
     * Updated CryptoExchange.Net to version 8.5.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added SetOptions methods on Rest and Socket clients
