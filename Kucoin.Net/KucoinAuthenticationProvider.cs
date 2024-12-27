@@ -56,11 +56,11 @@ namespace Kucoin.Net
             headers ??= new Dictionary<string, string>();
             headers.Add("KC-API-KEY", _credentials.Key);
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
-            var phrase = _credentials.PassPhrase;
-            if (!_phraseCache.TryGetValue(phrase, out var phraseSign))
+            var phraseKey = _credentials.Key + "|" + _credentials.PassPhrase;
+            if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
             {
-                phraseSign = SignHMACSHA256(phrase, SignOutputType.Base64);
-                _phraseCache.TryAdd(phrase, phraseSign);
+                phraseSign = SignHMACSHA256(_credentials.PassPhrase, SignOutputType.Base64);
+                _phraseCache.TryAdd(phraseKey, phraseSign);
             }
 
             headers.Add("KC-API-PASSPHRASE", phraseSign);
