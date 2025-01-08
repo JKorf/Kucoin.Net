@@ -169,10 +169,19 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
             var data = result.Data;
-            if (hfAccount == false)
-                data = result.Data.Where(x => x.Type == AccountType.Trade);
+            if (data.Any(x => x.Type == AccountType.Trade) && data.Any(x => x.Type == AccountType.SpotHf))
+            {
+                // If there are both Trade and SpotHF balance present check which to take
+                if (hfAccount == false)
+                    data = result.Data.Where(x => x.Type == AccountType.Trade);
+                else
+                    data = result.Data.Where(x => x.Type == AccountType.SpotHf);
+            }
             else
-                data = result.Data.Where(x => x.Type == AccountType.SpotHf);
+            {
+                // If only Trade or Spot HF balance are available use that
+                data = result.Data.Where(x => x.Type == AccountType.SpotHf || x.Type == AccountType.Trade);
+            }
 
             return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, TradingMode.Spot, data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Holds)).ToArray());
         }
