@@ -151,6 +151,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.23.3 - 08 Jan 2025
+    * Updated Spot Shared IBalanceRestClient GetBalancesAsync implementation to only filter account types if there are both Trade and SpotHf being returned
+
 * Version 5.23.2 - 07 Jan 2025
     * Updated CryptoExchange.Net version
     * Added Type property to KucoinExchange class
