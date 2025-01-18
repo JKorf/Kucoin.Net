@@ -151,6 +151,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.23.4 - 18 Jan 2025
+    * Fixed shared interfaces balance subscription providing updates for all accounts
+
 * Version 5.23.3 - 08 Jan 2025
     * Updated Spot Shared IBalanceRestClient GetBalancesAsync implementation to only filter account types if there are both Trade and SpotHf being returned
 
