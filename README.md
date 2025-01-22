@@ -152,6 +152,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.23.5 - 22 Jan 2025
+    * Fixed restClient.FuturesApi.Account.GetPositionHistoryAsync deserialization error and updated response model
+
 * Version 5.23.4 - 18 Jan 2025
     * Fixed shared interfaces balance subscription providing updates for all accounts
 
