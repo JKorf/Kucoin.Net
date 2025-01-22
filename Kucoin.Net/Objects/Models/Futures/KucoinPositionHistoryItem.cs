@@ -20,12 +20,12 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Position id
         /// </summary>
         [JsonProperty("positionId")]
-        public string PositionId { get; set; } = string.Empty;
+        public string? PositionId { get; set; }
         /// <summary>
         /// Uid
         /// </summary>
         [JsonProperty("uid")]
-        public long Uid { get; set; }
+        public long? Uid { get; set; }
         /// <summary>
         /// User id
         /// </summary>
@@ -45,12 +45,12 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Leverage
         /// </summary>
         [JsonProperty("leverage")]
-        public decimal Leverage { get; set; }
+        public decimal? Leverage { get; set; }
         /// <summary>
         /// Side
         /// </summary>
         [JsonProperty("side"), JsonConverter(typeof(EnumConverter))]
-        public OrderSide? Side { get; set; }
+        public PositionSide? Side { get; set; }
         /// <summary>
         /// Close quantity
         /// </summary>
@@ -66,6 +66,11 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("realisedGrossCost")]
         public decimal? RealisedGrossCost { get; set; }
+        /// <summary>
+        /// Realised gross cost (new?)
+        /// </summary>
+        [JsonProperty("realisedGrossCostNew")]
+        public decimal? RealisedGrossCostNew { get; set; }
         /// <summary>
         /// Withdraw profit and loss
         /// </summary>
@@ -106,5 +111,20 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("type")]
         public string CloseType { get; set; } = string.Empty;
+        /// <summary>
+        /// Margin mode
+        /// </summary>
+        [JsonProperty("marginMode"), JsonConverter(typeof(EnumConverter))]
+        public MarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Tax
+        /// </summary>
+        [JsonProperty("tax")]
+        public decimal? Tax { get; set; }
+        /// <summary>
+        /// Return on equity
+        /// </summary>
+        [JsonProperty("roe")]
+        public decimal? ReturnOnEquity { get; set; }
     }
 }

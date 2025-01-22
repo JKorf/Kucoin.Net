@@ -7048,6 +7048,11 @@
             Realised gross cost
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.RealisedGrossCostNew">
+            <summary>
+            Realised gross cost (new?)
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.WithdrawPnl">
             <summary>
             Withdraw profit and loss
@@ -7086,6 +7091,21 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.CloseType">
             <summary>
             Closing type
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.Tax">
+            <summary>
+            Tax
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.ReturnOnEquity">
+            <summary>
+            Return on equity
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinPremiumIndex">

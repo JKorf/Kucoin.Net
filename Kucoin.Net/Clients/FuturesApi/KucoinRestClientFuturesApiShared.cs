@@ -726,7 +726,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             return orders.AsExchangeResult<IEnumerable<SharedPositionHistory>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedPositionHistory(
                 x.Symbol,
-                x.Side == OrderSide.Sell ? SharedPositionSide.Long : SharedPositionSide.Short,
+                x.Side == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 x.OpenPrice ?? 0,
                 x.ClosePrice ?? 0,
                 x.CloseQuantity ?? 0,
