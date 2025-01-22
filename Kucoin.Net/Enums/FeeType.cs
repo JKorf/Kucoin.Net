@@ -10,7 +10,7 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Maker fee rate
         /// </summary>
-        [Map("maker")]
+        [Map("makerFee")]
         MakerFee,
         /// <summary>
         /// Taker fee rate
