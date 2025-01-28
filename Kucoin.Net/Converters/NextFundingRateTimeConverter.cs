@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Kucoin.Net.Converters
 {
@@ -10,30 +10,20 @@ namespace Kucoin.Net.Converters
     /// </summary>
     internal class NextFundingRateTimeConverter : JsonConverter<DateTime?>
     {
-        public override DateTime? ReadJson(
-            JsonReader reader,
-            Type objectType,
-            DateTime? existingValue,
-            bool hasExistingValue,
-            JsonSerializer serializer
-        )
+        public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.Value == null)
+            if (reader.TokenType == JsonTokenType.Null)
             {
                 return null;
             }
 
-            var value = (long)reader.Value;
+            var value = reader.GetInt64();
             var now = DateTime.UtcNow;
             var offset = TimeSpan.FromMilliseconds(value);
             return now + offset;
         }
 
-        public override void WriteJson(
-            JsonWriter writer,
-            DateTime? value,
-            JsonSerializer serializer
-        )
+        public override void Write(Utf8JsonWriter writer, DateTime? value, JsonSerializerOptions options)
         {
             throw new NotSupportedException("This converter only supports reading");
         }

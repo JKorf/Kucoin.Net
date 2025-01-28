@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
-using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi

@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kucoin.Net.Objects.Models.Futures
+﻿namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Max open size
@@ -13,18 +8,18 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Max buy size
         /// </summary>
-        [JsonProperty("maxBuyOpenSize")]
+        [JsonPropertyName("maxBuyOpenSize")]
         public long MaxBuyOpenSize { get; set; }
 
         /// <summary>
         /// Max sell size
         /// </summary>
-        [JsonProperty("maxSellOpenSize")]
+        [JsonPropertyName("maxSellOpenSize")]
         public long MaxSellOpenSize { get; set; }
     }
 }

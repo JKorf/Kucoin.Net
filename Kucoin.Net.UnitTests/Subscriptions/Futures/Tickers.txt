@@ -5,11 +5,11 @@
   "subject": "tickerV2",
   "topic": "/contractMarket/tickerV2:XBTUSDM",
   "data": {
-    "symbol": "XBTUSDM", //Market of the symbol
-    "bestBidSize": 795, // Best bid size
-    "bestBidPrice": 3200.0, // Best bid
-    "bestAskPrice": 3600.0, // Best ask
-    "bestAskSize": 284, // Best ask size
-    "ts": 1553846081210004941 // Filled time - nanosecond
+    "symbol": "XBTUSDM",
+    "bestBidSize": 795, 
+    "bestBidPrice": 3200.0, 
+    "bestAskPrice": 3600.0,
+    "bestAskSize": 284,
+    "ts": 1553846081210004941 
   }
 }

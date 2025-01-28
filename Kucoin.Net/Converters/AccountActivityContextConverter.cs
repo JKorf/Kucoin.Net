@@ -1,29 +1,27 @@
 ﻿using System;
-using System.IO;
+using System.Text.Json;
 using Kucoin.Net.Objects.Models.Spot;
-using Newtonsoft.Json;
 
 namespace Kucoin.Net.Converters
 {
     internal class AccountActivityContextConverter : JsonConverter<KucoinAccountActivityContext>
     {
-        public override KucoinAccountActivityContext ReadJson(JsonReader reader, Type objectType, KucoinAccountActivityContext? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override KucoinAccountActivityContext? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.Value == null)
+            if (reader.TokenType == JsonTokenType.Null)
                 return new KucoinAccountActivityContext();
 
-            var obj = new JsonSerializer().Deserialize(new JsonTextReader(new StringReader(reader.Value.ToString())), typeof(KucoinAccountActivityContext));
-            if (obj == null)
-                return new KucoinAccountActivityContext();
-            else
-                return (KucoinAccountActivityContext)obj;
+            var str = reader.GetString()!;
+            var doc = JsonDocument.Parse(str);
+            return doc.Deserialize<KucoinAccountActivityContext>();
         }
 
-        public override void WriteJson(JsonWriter writer, KucoinAccountActivityContext? value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, KucoinAccountActivityContext value, JsonSerializerOptions options)
         {
-            if (value == null) return;
-
-            serializer.Serialize(writer, value);
+            if (value == null)
+                writer.WriteNullValue();
+            else
+                JsonSerializer.Serialize(writer, value);
         }
     }
 }

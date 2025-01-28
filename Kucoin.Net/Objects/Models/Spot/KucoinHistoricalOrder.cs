@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -14,40 +12,43 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The id of the order
         /// </summary>
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The symbol of the order
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The price of the order
         /// </summary>
-        [JsonProperty("dealPrice")]
+        [JsonPropertyName("dealPrice")]
         public decimal Price { get; set; }
         /// <summary>
         /// The value of the order
         /// </summary>
-        [JsonProperty("dealValue")]
+        [JsonPropertyName("dealValue")]
         public decimal QuoteQuantity { get; set; }
         /// <summary>
         /// The quantity of the order
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// The fee of the order
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// The side of the order
         /// </summary>        
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// The time the order was created
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("createdAt")]
+        [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
     }
 }

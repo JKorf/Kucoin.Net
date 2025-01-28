@@ -8,6 +8,7 @@
         /// <summary>
         /// The id of the new sub transfer
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
     }
 }

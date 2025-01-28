@@ -10,12 +10,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Cross Mode
         /// </summary>
-        [Map("CROSS")]
+        [Map("CROSS", "cross")]
         CrossMode,
         /// <summary>
         /// Isolated Mode, This mode is not supported by platform yet.
         /// </summary>
-        [Map("ISOLATED")]
+        [Map("ISOLATED", "isolated")]
         IsolatedMode,
     }
 }

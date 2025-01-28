@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -14,59 +12,62 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The symbol of the update
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp of the event
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The type of the update
         /// </summary>
-        [JsonProperty("type"), JsonConverter(typeof(MatchUpdateTypeConverter))]
+        [JsonPropertyName("type")]
         public MatchUpdateType? UpdateType { get; set; }
         /// <summary>
         /// The side of the order
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// The order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// The type of the order
         /// </summary>
-        [JsonConverter(typeof(OrderTypeConverter))]
+        [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
         /// <summary>
         /// The price of the order
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// The client order id
         /// </summary>
-        [JsonProperty("clientOid")]
+        [JsonPropertyName("clientOid")]
         public string? ClientOrderid { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
-        [JsonConverter(typeof(ExtendedOrderStatusConverter))]
+        [JsonPropertyName("status")]
         public ExtendedOrderStatus? Status { get; set; }
         /// <summary>
         /// Order time
         /// </summary>
-        [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("orderTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? OrderTime { get; set; }
         /// <summary>
         /// Origin quantity
         /// </summary>
-        [JsonProperty("originSize")]
+        [JsonPropertyName("originSize")]
         public decimal OriginalQuantity { get; set; }
         /// <summary>
         /// Origin value
         /// </summary>
-        [JsonProperty("originFunds")]
+        [JsonPropertyName("originFunds")]
         public decimal OriginalValue { get; set; }
     }
 
@@ -85,37 +86,37 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The quantity of the order
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Quantity before the update
         /// </summary>
-        [JsonProperty("oldSize")]
+        [JsonPropertyName("oldSize")]
         public decimal? OldQuantity { get; set; }
         /// <summary>
         /// Quantity filled
         /// </summary>
-        [JsonProperty("filledSize")]
+        [JsonPropertyName("filledSize")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Quantity remaining
         /// </summary>
-        [JsonProperty("remainSize")]
+        [JsonPropertyName("remainSize")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Quantity remaining
         /// </summary>
-        [JsonProperty("remainFunds")]
+        [JsonPropertyName("remainFunds")]
         public decimal? QuoteQuantityRemaining { get; set; }
         /// <summary>
         /// Quantity canceled
         /// </summary>
-        [JsonProperty("canceledSize")]
+        [JsonPropertyName("canceledSize")]
         public decimal QuantityCanceled { get; set; }
         /// <summary>
         /// Value canceled
         /// </summary>
-        [JsonProperty("canceledFunds")]
+        [JsonPropertyName("canceledFunds")]
         public decimal ValueCanceled { get; set; }
 
     }
@@ -128,25 +129,27 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The trade id
         /// </summary>
+        [JsonPropertyName("tradeId")]
         public string TradeId { get; set; } = string.Empty;
         /// <summary>
         /// The price of the match
         /// </summary>
+        [JsonPropertyName("matchPrice")]
         public decimal MatchPrice { get; set; }
         /// <summary>
         /// The quantity of the match
         /// </summary>
-        [JsonProperty("matchSize")]
+        [JsonPropertyName("matchSize")]
         public decimal MatchQuantity { get; set; }
         /// <summary>
         /// The liquidity
         /// </summary>
-        [JsonConverter(typeof(LiquidityTypeConverter))]
+        [JsonPropertyName("liquidity")]
         public LiquidityType Liquidity { get; set; }
         /// <summary>
         /// Type of fee paid
         /// </summary>
-        [JsonProperty("feeType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("feeType"), JsonConverter(typeof(EnumConverter))]
         public FeeType FeeType { get; set; }
     }
 }

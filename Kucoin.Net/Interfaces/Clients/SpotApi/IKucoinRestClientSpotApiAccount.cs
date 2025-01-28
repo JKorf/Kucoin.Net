@@ -81,7 +81,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a transferable balance of a specified account.

@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -14,96 +12,102 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Value of the order
         /// </summary>
-        [JsonProperty("value")]
+        [JsonPropertyName("value")]
         public decimal QuoteQantity { get; set; }
         /// <summary>
         /// Filled value
         /// </summary>
-        [JsonProperty("dealValue")]
+        [JsonPropertyName("dealValue")]
         public decimal? ExecutedValue { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>
-        [JsonProperty("dealSize")]
+        [JsonPropertyName("dealSize")]
         public decimal? ExecutedQuantity { get; set; }
         /// <summary>
         /// Filled value
         /// </summary>
-        [JsonProperty("filledValue")]
+        [JsonPropertyName("filledValue")]
         public decimal QuoteQuantityFilled { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>
-        [JsonProperty("filledSize")]
+        [JsonPropertyName("filledSize")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
         /// The type of the stop order
         /// </summary>
-        [JsonProperty("stop")]
+        [JsonPropertyName("stop")]
         public StopCondition? StopOrderType { get; set; }
         /// <summary>
         /// Stop price type
         /// </summary>
-        [JsonConverter(typeof(StopPriceTypeConverter))]
+        [JsonPropertyName("stopPriceType")]
         public StopPriceType? StopPriceType { get; set; }
         /// <summary>
         /// Leverage
         /// </summary>
+        [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
         /// Force hold
         /// </summary>
+        [JsonPropertyName("forceHold")]
         public bool ForceHold { get; set; }
         /// <summary>
         /// Close order
         /// </summary>
+        [JsonPropertyName("closeOrder")]
         public bool CloseOrder { get; set; }
         /// <summary>
         /// Reduce only
         /// </summary>
+        [JsonPropertyName("reduceOnly")]
         public bool ReduceOnly { get; set; }
         /// <summary>
         /// Settle asset
         /// </summary>
-        [JsonProperty("settleCurrency")]
+        [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
         /// <summary>
         /// The time the order was last updated
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("updatedAt")]
+        [JsonPropertyName("updatedAt")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
         /// Order create time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("orderTime")]
+        [JsonPropertyName("orderTime")]
         public DateTime? OrderTime { get; set; }
         /// <summary>
         /// End time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("endAt")]
+        [JsonPropertyName("endAt")]
         public DateTime? EndTime { get; set; }
         /// <summary>
         /// Status
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
         /// <summary>
         /// Tags
         /// </summary>
-        [JsonProperty("tags")]
+        [JsonPropertyName("tags")]
         public string? Tags { get; set; }
         /// <summary>
         /// Margin mode
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
         /// <summary>
         /// Average fill price
         /// </summary>
-        [JsonProperty("avgDealPrice")]
+        [JsonPropertyName("avgDealPrice")]
         public decimal? AveragePrice { get; set; }
     }
 }

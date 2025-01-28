@@ -55,9 +55,6 @@
         <member name="P:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.CommonFuturesClient">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApi.WriteParamBody(CryptoExchange.Net.Interfaces.IRequest,System.Collections.Generic.IDictionary{System.String,System.Object},System.String)">
-            <inheritdoc />
-        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount">
             <inheritdoc />
         </member>
@@ -481,7 +478,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetSymbolTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizTypeFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetTransferableAsync(System.String,Kucoin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
@@ -1104,11 +1101,6 @@
             Trade
             </summary>
         </member>
-        <member name="F:Kucoin.Net.Enums.BizType.Exchange">
-            <summary>
-            Exchange
-            </summary>
-        </member>
         <member name="F:Kucoin.Net.Enums.BizType.VoteForCoin">
             <summary>
             Vote for Coin
@@ -1279,6 +1271,11 @@
             Convert to KCS
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.BizType.BrokerTransfer">
+            <summary>
+            Broker transfer
+            </summary>
+        </member>
         <member name="F:Kucoin.Net.Enums.BizType.CrossMargin">
             <summary>
             Cross margin
@@ -1309,6 +1306,51 @@
             Return of liquidation takeover
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.BizTypeFilter">
+            <summary>
+            Biz type filter
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.Deposit">
+            <summary>
+            Deposit
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.Withdrawal">
+            <summary>
+            Withdrawal
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.Transfer">
+            <summary>
+            Transfer
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.SubTransfer">
+            <summary>
+            Subaccount transfer
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.TradeExchange">
+            <summary>
+            Trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.MarginExchange">
+            <summary>
+            Margin trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.KucoinBonus">
+            <summary>
+            Bonus
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizTypeFilter.BrokerTransfer">
+            <summary>
+            Broker transfer
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BorrowOrderType">
             <summary>
             Borrow order type
@@ -1316,12 +1358,12 @@
         </member>
         <member name="F:Kucoin.Net.Enums.BorrowOrderType.FOK">
             <summary>
-            FOK
+            Fill or kill
             </summary>
         </member>
         <member name="F:Kucoin.Net.Enums.BorrowOrderType.IOC">
             <summary>
-            IOC
+            Immediate or cancel
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.BorrowStatus">
@@ -3510,7 +3552,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizTypeFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of account activity
             <para><a href="https://www.kucoin.com/docs/rest/account/basic-info/get-account-ledgers-spot-margin" /></para>
@@ -5553,15 +5595,6 @@
             <param name="secret">The API secret</param>
             <param name="passPhrase">The API passPhrase</param>
         </member>
-        <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.FromStream(System.IO.Stream,System.String,System.String,System.String)">
-            <summary>
-            Create Api credentials providing a stream containing json data. The json data should include three values: apiKey, apiSecret and apiPassPhrase
-            </summary>
-            <param name="inputStream">The stream containing the json data</param>
-            <param name="identifierKey">A key to identify the credentials for the API. For example, when set to `binanceKey` the json data should contain a value for the property `binanceKey`. Defaults to 'apiKey'.</param>
-            <param name="identifierSecret">A key to identify the credentials for the API. For example, when set to `binanceSecret` the json data should contain a value for the property `binanceSecret`. Defaults to 'apiSecret'.</param>
-            <param name="identifierPassPhrase">A key to identify the credentials for the API. For example, when set to `kucoinPass` the json data should contain a value for the property `kucoinPass`. Defaults to 'apiPassPhrase'.</param>
-        </member>
         <member name="M:Kucoin.Net.Objects.KucoinApiCredentials.Copy">
             <inheritdoc />
         </member>
@@ -7346,6 +7379,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinFuturesOrderBookChange.Sequence">
             <summary>
             Sequence number
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinFuturesOrderBookChange.Timestamp">
+            <summary>
+            Data timestamp
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinFuturesOrderBookChange.Price">
@@ -10857,7 +10895,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimit.Precision">
             <summary>
-            Prevision
+            Precision
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin">
@@ -10882,7 +10920,7 @@
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitCrossMargin.Precision">
             <summary>
-            Prevision
+            Precision
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinRiskLimitIsolatedMargin">

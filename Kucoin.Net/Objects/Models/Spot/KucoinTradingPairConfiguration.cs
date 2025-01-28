@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,73 +10,73 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// Symbol Name
         /// </summary>
-        [JsonProperty("symbolName")]
+        [JsonPropertyName("symbolName")]
         public string SymbolName { get; set; } = string.Empty;
 
         /// <summary>
         /// Base Asset
         /// </summary>
-        [JsonProperty("baseCurrency")]
+        [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
 
         /// <summary>
         /// Quote Asset
         /// </summary>
-        [JsonProperty("quoteCurrency")]
+        [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
 
         /// <summary>
         /// Max Leverage
         /// </summary>
-        [JsonProperty("maxLeverage")]
+        [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }
         
         /// <summary>
         /// FlDebtRatio
         /// </summary>
-        [JsonProperty("flDebtRatio")]
+        [JsonPropertyName("flDebtRatio")]
         public decimal FlDebtRatio { get; set; }
 
         /// <summary>
         /// Trade Enable
         /// </summary>
-        [JsonProperty("tradeEnable")]
+        [JsonPropertyName("tradeEnable")]
         public bool TradeEnable { get; set; }
 
         /// <summary>
         /// Auto Renew Max Debt Ratio
         /// </summary>
-        [JsonProperty("autoRenewMaxDebtRatio")]
+        [JsonPropertyName("autoRenewMaxDebtRatio")]
         public decimal AutoRenewMaxDebtRatio { get; set; }
 
         /// <summary>
         /// Base Borrow Enable
         /// </summary>
-        [JsonProperty("baseBorrowEnable")]
+        [JsonPropertyName("baseBorrowEnable")]
         public bool BaseBorrowEnable { get; set; }
 
         /// <summary>
         /// Quote Borrow Enable
         /// </summary>
-        [JsonProperty("quoteBorrowEnable")]
+        [JsonPropertyName("quoteBorrowEnable")]
         public bool QuoteBorrowEnable { get; set; }
 
         /// <summary>
         /// Base Transfer In Enable
         /// </summary>
-        [JsonProperty("baseTransferInEnable")]
+        [JsonPropertyName("baseTransferInEnable")]
         public bool BaseTransferInEnable { get; set; }
 
         /// <summary>
         /// Quote Transfer In Enable
         /// </summary>
-        [JsonProperty("quoteTransferInEnable")]
+        [JsonPropertyName("quoteTransferInEnable")]
         public bool QuoteTransferInEnable { get; set; }
     }
 }

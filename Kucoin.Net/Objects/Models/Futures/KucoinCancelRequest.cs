@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kucoin.Net.Objects.Models.Futures
+﻿namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Cancel request
@@ -13,12 +8,12 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonProperty("clientOid")]
+        [JsonPropertyName("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;
     }
 }

@@ -7,9 +7,9 @@
   "subject": "debt.ratio",
   "channelType": "private",
   "data": {
-    "debtRatio": 0.7505, //Debt ratio
-    "totalDebt": "21.7505", //Total debt in BTC (interest included)
-    "debtList": { "BTC": "1.21", "USDT": "2121.2121", "EOS": "0" }, //Debt list (interest included)
-    "timestamp": 15538460812100 //Timestamp (millisecond)
+    "debtRatio": 0.7505, 
+    "totalDebt": "21.7505", 
+    "debtList": { "BTC": "1.21", "USDT": "2121.2121", "EOS": "0" }, 
+    "timestamp": 15538460812100
   }
 }

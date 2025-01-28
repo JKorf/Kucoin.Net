@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -14,59 +12,64 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The deposit address
         /// </summary>
+        [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
         /// A memo for this deposit
         /// </summary>
+        [JsonPropertyName("memo")]
         public string Memo { get; set; } = string.Empty;
         /// <summary>
         /// A remark for this deposit
         /// </summary>
+        [JsonPropertyName("remark")]
         public string Remark { get; set; } = string.Empty;
         /// <summary>
         /// The chain
         /// </summary>
-        [JsonProperty("chain")]
+        [JsonPropertyName("chain")]
         public string? Network { get; set; }
         /// <summary>
         /// The quantity of the deposit
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// The fee of the deposit
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// The asset of the deposit
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Whether it is an internal deposit
         /// </summary>
+        [JsonPropertyName("isInner")]
         public bool IsInner { get; set; }
         /// <summary>
         /// The wallet transaction id
         /// </summary>
-        [JsonProperty("walletTxId")]
+        [JsonPropertyName("walletTxId")]
         public string WalletTransactionId { get; set; } = string.Empty;
         /// <summary>
         /// The deposit status
         /// </summary>
-        [JsonConverter(typeof(DepositStatusConverter))]
+        [JsonPropertyName("status")]
         public DepositStatus Status { get; set; }
         /// <summary>
         /// When the deposit was created
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("createdAt")]
+        [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// When the deposit was last updated
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("updatedAt")]
+        [JsonPropertyName("updatedAt")]
         public DateTime UpdateTime { get; set; }
     }
 }

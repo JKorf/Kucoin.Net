@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -10,7 +10,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Transaction volume in last 24h
         /// </summary>
-        [JsonProperty("turnoverOf24h")]
+        [JsonPropertyName("turnoverOf24h")]
         public decimal Turnover { get; set; }
     }
 }

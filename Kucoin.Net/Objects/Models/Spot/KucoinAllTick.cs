@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,85 +10,93 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The symbol of the tick
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Name of trading pairs, it would change after renaming
         /// </summary>
+        [JsonPropertyName("symbolName")]
         public string SymbolName { get; set; } = string.Empty;
         /// <summary>
         /// The best ask price
         /// </summary>
-        [JsonProperty("sell")]
+        [JsonPropertyName("sell")]
         public decimal? BestAskPrice { get; set; }
         /// <summary>
         /// The quantity of the best ask
         /// </summary>
-        [JsonProperty("bestAskSize")]
+        [JsonPropertyName("bestAskSize")]
         public decimal? BestAskQuantity { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
-        [JsonProperty("buy")]
+        [JsonPropertyName("buy")]
         public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// The quantity of the best bid
         /// </summary>
-        [JsonProperty("bestBidSize")]
+        [JsonPropertyName("bestBidSize")]
         public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// The percentage change
         /// </summary>
-        [JsonProperty("changeRate")]
+        [JsonPropertyName("changeRate")]
         public decimal? ChangePercentage { get; set; }
         /// <summary>
         /// The price change
         /// </summary>
+        [JsonPropertyName("changePrice")]
         public decimal? ChangePrice { get; set; }
         /// <summary>
         /// The highest price
         /// </summary>
-        [JsonProperty("high")]
+        [JsonPropertyName("high")]
         public decimal? HighPrice { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        [JsonProperty("low")]
+        [JsonPropertyName("low")]
         public decimal? LowPrice { get; set; }
         /// <summary>
         /// The volume in this tick
         /// </summary>
-        [JsonProperty("vol")]
+        [JsonPropertyName("vol")]
         public decimal? Volume { get; set; }
         /// <summary>
         /// The value of the volume in this tick
         /// </summary>
-        [JsonProperty("volValue")]
+        [JsonPropertyName("volValue")]
         public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// The last trade price
         /// </summary>
-        [JsonProperty("last")]
+        [JsonPropertyName("last")]
         public decimal? LastPrice { get; set; }
         /// <summary>
         /// The average trade price in the last 24 hours
         /// </summary>
+        [JsonPropertyName("averagePrice")]
         public decimal? AveragePrice { get; set; }
 
         /// <summary>
         /// Basic Taker Fee
         /// </summary>
+        [JsonPropertyName("takerFeeRate")]
         public decimal? TakerFeeRate { get; set; }
         /// <summary>
         /// Basic Maker Fee
         /// </summary>
+        [JsonPropertyName("makerFeeRate")]
         public decimal? MakerFeeRate { get; set; }
         /// <summary>
         /// Taker Fee Coefficient
         /// </summary>
+        [JsonPropertyName("takerCoefficient")]
         public decimal? TakerCoefficient { get; set; }
         /// <summary>
         /// Maker Fee Coefficient
         /// </summary>
+        [JsonPropertyName("makerCoefficient")]
         public decimal? MakerCoefficient { get; set; }
     }
 }

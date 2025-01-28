@@ -1,9 +1,7 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,8 +11,6 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
-using System.Security.Cryptography;
-using Kucoin.Net.Objects.Models.Futures.Socket;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -200,7 +196,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
-            parameters.AddParameter("granularity", JsonConvert.SerializeObject(interval, new FuturesKlineIntervalConverter(false)));
+            parameters.AddEnum("granularity", interval);
             parameters.AddOptionalParameter("from", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToMilliseconds(endTime));
 

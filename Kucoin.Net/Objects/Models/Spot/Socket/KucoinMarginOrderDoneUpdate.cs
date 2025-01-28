@@ -1,5 +1,5 @@
 ﻿using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
@@ -12,28 +12,28 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Asset name
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
-        [JsonProperty("orderId")]
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order done reason
         /// </summary>
-        [JsonProperty("reason")]
+        [JsonPropertyName("reason")]
         [JsonConverter(typeof(EnumConverter))]
         public MarginOrderDoneReason Reason { get; set; }
         /// <summary>
         /// Lend
         /// </summary>
-        [JsonProperty("side")]
+        [JsonPropertyName("side")]
         public string Side { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("ts")]
+        [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }

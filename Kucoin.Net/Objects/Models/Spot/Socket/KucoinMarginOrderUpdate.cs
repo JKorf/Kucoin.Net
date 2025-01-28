@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
@@ -11,42 +11,42 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Asset name
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
-        [JsonProperty("orderId")]
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Daily interest rate
         /// </summary>
-        [JsonProperty("dailyIntRate")]
+        [JsonPropertyName("dailyIntRate")]
         public decimal DailyInterestRate { get; set; }
         /// <summary>
         /// Term in days
         /// </summary>
-        [JsonProperty("term")]
+        [JsonPropertyName("term")]
         public int Term { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public int Quantity { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("lentSize")]
+        [JsonPropertyName("lentSize")]
         public decimal? LentQuantity { get; set; }
         /// <summary>
         /// Lend
         /// </summary>
-        [JsonProperty("side")]
+        [JsonPropertyName("side")]
         public string Side { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("ts")]
+        [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }

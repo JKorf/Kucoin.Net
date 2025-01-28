@@ -6,8 +6,8 @@
   "topic": "/contract/positionAll",
   "subject": "position.adjustRiskLimit",
   "data": {
-    "success": true, // Successful or not
-    "riskLimitLevel": 1, // Current risk limit level
-    "msg": "" // Failure reason
+    "success": true, 
+    "riskLimitLevel": 1, 
+    "msg": ""
   }
 }

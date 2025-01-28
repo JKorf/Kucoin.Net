@@ -1,17 +1,14 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,7 +37,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
-            parameters.AddOptionalParameter("type", accountType.HasValue ? JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("type", accountType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinAccount>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -79,28 +76,14 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizType? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            string bizTypeString = string.Empty;
-            string directionString = string.Empty;
-
-            if (bizType.HasValue)
-            {
-                bizTypeString = JsonConvert.SerializeObject(bizType, new BizTypeConverter(true));
-                bizTypeString.ValidateNullOrNotEmpty(nameof(bizType));
-            }
-
-            if (direction.HasValue)
-            {
-                directionString = JsonConvert.SerializeObject(direction, new AccountDirectionConverter(false)).ToLowerInvariant();
-            }
-
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
-            parameters.AddOptionalParameter("direction", direction.HasValue ? directionString : null);
-            parameters.AddOptionalParameter("bizType", bizType.HasValue ? bizTypeString : null);
+            parameters.AddOptionalEnum("direction", direction);
+            parameters.AddOptionalEnum("bizType", bizType);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
@@ -115,9 +98,9 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection
             {
-                { "currency", asset },
-                { "type", JsonConvert.SerializeObject(accountType, new AccountTypeConverter(false, true))}
+                { "currency", asset }
             };
+            parameters.AddEnum("type", accountType);
             parameters.AddOptional("tag", isolatedMarginSymbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts/transferable", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             return await _baseClient.SendAsync<KucoinTransferableAccount>(request, parameters, ct).ConfigureAwait(false);
@@ -162,11 +145,11 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "currency", asset },
-                { "from", JsonConvert.SerializeObject(from, new AccountTypeConverter(false))},
-                { "to", JsonConvert.SerializeObject(to, new AccountTypeConverter(false))},
                 { "amount", quantity },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString()},
             };
+            parameters.AddEnum("from", from);
+            parameters.AddEnum("to", to);
             parameters.AddOptionalParameter("fromTag", fromTag);
             parameters.AddOptionalParameter("toTag", toTag);
 
@@ -183,7 +166,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
+            parameters.AddOptionalEnum("status", status);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/deposits", KucoinExchange.RateLimiter.ManagementRest, 5, true);
@@ -199,7 +182,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new DepositStatusConverter(false)) : null);
+            parameters.AddOptionalEnum("status", status);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hist-deposits", KucoinExchange.RateLimiter.ManagementRest, 5, true);
@@ -244,7 +227,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
+            parameters.AddOptionalEnum("status", status);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/withdrawals", KucoinExchange.RateLimiter.ManagementRest, 20, true);
@@ -260,7 +243,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new WithdrawalStatusConverter(false)) : null);
+            parameters.AddOptionalEnum("status", status);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hist-withdrawals", KucoinExchange.RateLimiter.ManagementRest, 20, true);

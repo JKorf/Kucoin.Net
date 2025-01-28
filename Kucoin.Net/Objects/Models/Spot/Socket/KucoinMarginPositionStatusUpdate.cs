@@ -1,5 +1,5 @@
 ﻿using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
@@ -12,13 +12,13 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Event type
         /// </summary>
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         [JsonConverter(typeof(EnumConverter))]
         public MarginEventType TotalDebt { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
     }
 }

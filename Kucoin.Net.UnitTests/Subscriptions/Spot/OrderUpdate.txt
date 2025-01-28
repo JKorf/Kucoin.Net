@@ -19,10 +19,10 @@
     "clientOid": "1593487481000906",
     "remainSize": "0.1",
     "status": "open",
-    "canceledSize": "0.1", // Cumulative number of cancellations
-    "canceledFunds": "0.1", // Market order accumulative cancellation funds
-    "originSize": "0.1", // original quantity
-    "originFunds": "0.1", // Market order original funds
+    "canceledSize": "0.1",
+    "canceledFunds": "0.1",
+    "originSize": "0.1", 
+    "originFunds": "0.1",
     "ts": 1593487481683297666
   }
 }

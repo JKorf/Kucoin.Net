@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,45 +10,45 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// Max borrow quantity
         /// </summary>
-        [JsonProperty("baseMaxBorrowAmount")]
+        [JsonPropertyName("baseMaxBorrowAmount")]
         public decimal BaseMaxBorrowQuantity { get; set; }
 
         /// <summary>
         /// Max borrow quantity
         /// </summary>
-        [JsonProperty("quoteMaxBorrowAmount")]
+        [JsonPropertyName("quoteMaxBorrowAmount")]
         public decimal QuoteMaxBorrowQuantity { get; set; }
 
         /// <summary>
         /// BaseMax buy quantity
         /// </summary>
-        [JsonProperty("baseMaxBuyAmount")]
+        [JsonPropertyName("baseMaxBuyAmount")]
         public decimal BaseMaxBuyQuantity { get; set; }
 
         /// <summary>
         /// Quote Max buy quantity
         /// </summary>
-        [JsonProperty("quoteMaxBuyAmount")]
+        [JsonPropertyName("quoteMaxBuyAmount")]
         public decimal QuoteMaxBuyQuantity { get; set; }
 
         /// <summary>
         /// Base Precision
         /// </summary>
         ///         
-        [JsonProperty("basePrecision")]
+        [JsonPropertyName("basePrecision")]
         public int BasePrecision { get; set; }
 
         /// <summary>
         /// Quote Precision
         /// </summary>
         ///         
-        [JsonProperty("quotePrecision")]
+        [JsonPropertyName("quotePrecision")]
         public int QuotePrecision { get; set; }
     }
 }

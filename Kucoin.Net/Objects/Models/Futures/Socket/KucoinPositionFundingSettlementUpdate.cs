@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -12,34 +11,37 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Funding time
         /// </summary>
-        [JsonProperty("fundingTime"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("fundingTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime FundTime { get; set; }
         /// <summary>
         /// Position size
         /// </summary>
-        [JsonProperty("qty")]
+        [JsonPropertyName("qty")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Settlement price
         /// </summary>
+        [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
         /// Funding rate
         /// </summary>
+        [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
         /// Funding fee
         /// </summary>
+        [JsonPropertyName("fundingFee")]
         public decimal FundingFee { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Asset used to clear and settle the trades
         /// </summary>
-        [JsonProperty("settleCurrency")]
+        [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
     }
 }

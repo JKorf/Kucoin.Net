@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -14,24 +12,27 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The symbol of the update
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Update sequence
         /// </summary>
+        [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
         /// The timestamp of the event
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Id of the order
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Id of the order
         /// </summary>
-        [JsonProperty("clientOId")]
+        [JsonPropertyName("clientOId")]
         public string ClientOrderId { get; set; } = string.Empty;
     }
     
@@ -43,21 +44,23 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Price
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Order time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("orderTime")]
         public DateTime OrderTime { get; set; }
     }
 
@@ -69,7 +72,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Reason of the done update
         /// </summary>
-        [JsonConverter(typeof(MatchUpdateReasonConverter))]
+        [JsonPropertyName("reason")]
         public MatchUpdateReason Reason { get; set; }
     }
 
@@ -81,7 +84,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// New quantity of the order
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
     }
 
@@ -93,33 +96,37 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Price of the match
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Match side
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Match quantity
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Remaing quantity on the order
         /// </summary>
-        [JsonProperty("remainingSize")]
+        [JsonPropertyName("remainingSize")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Order id of taker
         /// </summary>
+        [JsonPropertyName("takerOrderId")]
         public string TakerOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order id of maker
         /// </summary>
+        [JsonPropertyName("makerOrderId")]
         public string MakerOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Id of the trade
         /// </summary>
+        [JsonPropertyName("tradeId")]
         public string TradeId { get; set; } = string.Empty;
     }
 }

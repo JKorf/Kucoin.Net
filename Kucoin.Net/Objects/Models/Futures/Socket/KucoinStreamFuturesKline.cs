@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     internal record KucoinStreamFuturesKlineUpdate
     {
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
-        [JsonProperty("candles")]
+        [JsonPropertyName("candles")]
         public KucoinStreamFuturesKline Klines { get; set; } = null!;
     }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -13,13 +12,13 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// The ticker data
         /// </summary>
-        [JsonProperty("ticker")]
+        [JsonPropertyName("ticker")]
         public IEnumerable<KucoinAllTick> Data { get; set; } = Array.Empty<KucoinAllTick>();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -12,33 +11,37 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Sequence number
         /// </summary>
+        [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
         /// Symbol
         /// </summary>
-        public string Symbol { get; set; } = string.Empty;        
+        [JsonPropertyName("symbol")]
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Best bid quantity
         /// </summary>
-        [JsonProperty("bestBidSize")]
+        [JsonPropertyName("bestBidSize")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
         /// Best bid price
         /// </summary>
+        [JsonPropertyName("bestBidPrice")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
         /// Best ask quantity
         /// </summary>
-        [JsonProperty("bestAskSize")]
+        [JsonPropertyName("bestAskSize")]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
         /// Best ask price
         /// </summary>
+        [JsonPropertyName("bestAskPrice")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
         /// Filled time
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -14,52 +12,57 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The operation type
         /// </summary>
-        [JsonProperty("opType"), JsonConverter(typeof(OperationTypeConverter))]
+        [JsonPropertyName("opType")]
         public OrderOperationType? OperationType { get; set; }        
         /// <summary>
         /// The funds of the order
         /// </summary>
-        [JsonProperty("funds")]
+        [JsonPropertyName("funds")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
         /// The funds of the deal
         /// </summary>
-        [JsonProperty("dealFunds")]
+        [JsonPropertyName("dealFunds")]
         public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
         /// The quantity of the deal
         /// </summary>
-        [JsonProperty("dealSize")]
+        [JsonPropertyName("dealSize")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
         /// The fee of the order
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// The asset of the fee
         /// </summary>
-        [JsonProperty("feeCurrency")]
+        [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
         /// The stop condition
         /// </summary>
+        [JsonPropertyName("stop")]
         public StopCondition? Stop { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
+        [JsonPropertyName("cancelAfter")]
         public int? CancelAfter { get; set; }
         /// <summary>
         /// The source of the order
         /// </summary>
+        [JsonPropertyName("channel")]
         public string Channel { get; set; } = string.Empty;
         /// <summary>
         /// Tags for the order
         /// </summary>
-        public string Tags { get; set; } = string.Empty;        
+        [JsonPropertyName("tags")]
+        public string Tags { get; set; } = string.Empty;
         /// <summary>
         /// Trade type
         /// </summary>
-        [JsonConverter(typeof(TradeTypeConverter))]
+        [JsonPropertyName("tradeType")]
         public TradeType TradeType { get; set; }
     }
 
@@ -71,37 +74,44 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// User id
         /// </summary>
+        [JsonPropertyName("userId")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
         /// Status
         /// </summary>
-        [JsonConverter(typeof(StopOrderStatusConverter))]
+        [JsonPropertyName("status")]
         public StopOrderStatus Status { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("orderTime")]
         public DateTime OrderTime { get; set; }
         /// <summary>
         /// Domain id
         /// </summary>
+        [JsonPropertyName("domainId")]
         public string DomainId { get; set; } = string.Empty;
         /// <summary>
         /// Trade source
         /// </summary>
+        [JsonPropertyName("tradeSource")]
         public string TradeSource { get; set; } = string.Empty;
         /// <summary>
         /// Taker fee rate
         /// </summary>
+        [JsonPropertyName("takerFeeRate")]
         public decimal TakerFeeRate { get; set; }
         /// <summary>
         /// Taker fee rate
         /// </summary>
+        [JsonPropertyName("makerFeeRate")]
         public decimal MakerFeeRate { get; set; }
         /// <summary>
         /// Time stop order was triggered
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("stopTriggerTime")]
         public DateTime? StopTriggerTime { get; set; }
     }
 }

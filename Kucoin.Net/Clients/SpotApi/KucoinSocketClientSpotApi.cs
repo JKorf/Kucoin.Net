@@ -3,11 +3,10 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using System.Threading;
 using Kucoin.Net.Objects.Internal;
@@ -20,9 +19,7 @@ using System.Linq;
 using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
-using CryptoExchange.Net.Converters;
 using Kucoin.Net.Objects.Sockets.Queries;
-using Kucoin.Net.ExtensionMethods;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
@@ -61,6 +58,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     }
                 });
         }
+
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -170,7 +170,8 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, $"/market/candles", new List<string> { $"{symbol}_{JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))}" }, x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, $"/market/candles", new List<string> { $"{symbol}_{EnumConverter.GetString(interval)}" }, x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 

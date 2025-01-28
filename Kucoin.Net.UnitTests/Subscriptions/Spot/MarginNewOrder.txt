@@ -7,12 +7,12 @@
   "subject": "order.open",
   "channelType": "private",
   "data": {
-    "currency": "BTC", //Currency
-    "orderId": "ac928c66ca53498f9c13a127a60e8", //Trade ID
-    "dailyIntRate": 0.0001, //Daily interest rate.
-    "term": 7, //Term (Unit: Day)
-    "size": 1, //Size
-    "side": "lend", //Lend or borrow. Currently, only "Lend" is available
-    "ts": 1553846081210004941 //Timestamp (nanosecond)
+    "currency": "BTC",
+    "orderId": "ac928c66ca53498f9c13a127a60e8",
+    "dailyIntRate": 0.0001, 
+    "term": 7,
+    "size": 1,
+    "side": "lend", 
+    "ts": 1553846081210004941
   }
 }

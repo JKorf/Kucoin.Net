@@ -1,8 +1,7 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,7 +11,6 @@ using System.Threading.Tasks;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
-using CryptoExchange.Net.Converters;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Spot;
 
@@ -46,7 +44,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("type", type == null ? null : JsonConvert.SerializeObject(type, new TransactionTypeConverter(false)));
+            parameters.AddOptionalEnum("type", type);
             parameters.AddOptionalParameter("offset", offset?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("maxCount", pageSize?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("forward", forward);

@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -12,16 +11,18 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Order margin
         /// </summary>
+        [JsonPropertyName("orderMargin")]
         public decimal OrderMargin { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Borrow order type
@@ -6,12 +8,14 @@
     public enum BorrowOrderType
     {
         /// <summary>
-        /// FOK
+        /// Fill or kill
         /// </summary>
+        [Map("FOK")]
         FOK,
         /// <summary>
-        /// IOC
+        /// Immediate or cancel
         /// </summary>
+        [Map("IOC")]
         IOC
     }
 }
