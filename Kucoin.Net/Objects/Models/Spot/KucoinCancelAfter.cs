@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -13,12 +11,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Current time
         /// </summary>
-        [JsonProperty("currentTime")]
+        [JsonPropertyName("currentTime")]
         public DateTime CurrentTime { get; set; }
         /// <summary>
         /// Trigger time
         /// </summary>
-        [JsonProperty("triggerTime")]
+        [JsonPropertyName("triggerTime")]
         public DateTime TriggerTime { get; set; }
     }
 
@@ -30,12 +28,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Timeout in seconds
         /// </summary>
-        [JsonProperty("timeout")]
+        [JsonPropertyName("timeout")]
         public int Timeout { get; set; }
         /// <summary>
         /// Symbols, comma separated
         /// </summary>
-        [JsonProperty("symbols")]
+        [JsonPropertyName("symbols")]
         public string Symbols { get; set; } = string.Empty;
     }
 }

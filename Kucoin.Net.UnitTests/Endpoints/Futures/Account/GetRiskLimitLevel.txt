@@ -7,11 +7,11 @@ true
     {
       "symbol": "ADAUSDTM",
       "level": 1,
-      "maxRiskLimit": 500, // Upper limit (includes)
-      "minRiskLimit": 0, // Lower limit
-      "maxLeverage": 20, // Max leverage
-      "initialMargin": 0.05, // Initial margin rate
-      "maintainMargin": 0.025 // Maintenance margin rate
+      "maxRiskLimit": 500, 
+      "minRiskLimit": 0,
+      "maxLeverage": 20, 
+      "initialMargin": 0.05, 
+      "maintainMargin": 0.025 
     },
     {
       "symbol": "ADAUSDTM",

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -11,22 +11,22 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Daily interest rate
         /// </summary>
-        [JsonProperty("dayRatio")]
+        [JsonPropertyName("dayRatio")]
         public decimal DailyInterestRate { get; set; }
         /// <summary>
         /// Interest quantity
         /// </summary>
-        [JsonProperty("interestAmount")]
+        [JsonPropertyName("interestAmount")]
         public decimal InterestQuantity { get; set; }
         /// <summary>
         /// Timesatmp
         /// </summary>
-        [JsonProperty("createdTime")]
+        [JsonPropertyName("createdTime")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }

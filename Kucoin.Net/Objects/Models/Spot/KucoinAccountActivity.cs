@@ -1,8 +1,7 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
 using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -15,49 +14,53 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Creation timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("createdAt")]
+        [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// The quantity of the activity
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// The remaining balance after the activity
         /// </summary>
+        [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
         /// The fee of the activity
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// The type of activity
         /// </summary>
-        [JsonConverter(typeof(BizTypeConverter))]
+        [JsonPropertyName("bizType")]
         public BizType BizType { get; set; } = default!;
         /// <summary>
         /// The type of activity
         /// </summary>
-        [JsonConverter(typeof(AccountTypeConverter))]
+        [JsonPropertyName("accountType")]
         public AccountType AccountType { get; set; } = default!;
         /// <summary>
         /// The unique key for this activity 
         /// </summary>
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Additional info for this activity
         /// </summary>
         [JsonConverter(typeof(AccountActivityContextConverter))]
+        [JsonPropertyName("context")]
         public KucoinAccountActivityContext Context { get; set; } = default!;
         /// <summary>
         /// The asset of the activity
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The direction of the activity
         /// </summary>
-        [JsonConverter(typeof(AccountDirectionConverter))]
+        [JsonPropertyName("direction")]
         public AccountDirection Direction { get; set; }
     }
 
@@ -69,26 +72,32 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The id for the order
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// The id for the trade (for trades)
         /// </summary>
+        [JsonPropertyName("tradeId")]
         public string TradeId { get; set; } = string.Empty;
         /// <summary>
         /// The symbol of the order (for trades)
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The transaction id (for withdrawal/deposit)
         /// </summary>
+        [JsonPropertyName("transactionId")]
         public string TransactionId { get; set; } = string.Empty;
         /// <summary>
         /// The txId (for orders)
         /// </summary>
+        [JsonPropertyName("txId")]
         public string TxId { get; set; } = string.Empty;
         /// <summary>
         /// The Description (for pool-x staking rewards)
         /// </summary>
+        [JsonPropertyName("description")]
         public string Description { get; set; } = string.Empty;
     }
 }

@@ -6,8 +6,8 @@
     "topic": "/contractMarket/level2:XBTUSDM",
     "type": "message",
     "data": {
-      "sequence": 18,					//Sequence number which is used to judge the continuity of pushed messages
-      "change": "5000.0,sell,83",		//Price, side, quantity
+      "sequence": 18,					
+      "change": "5000.0,sell,83",	
       "timestamp": 1551770400000
 
       }

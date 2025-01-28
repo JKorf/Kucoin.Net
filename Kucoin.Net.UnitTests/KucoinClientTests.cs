@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using NUnit.Framework;
 using Kucoin.Net.Objects;
 using Kucoin.Net.UnitTests.TestImplementations;
@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Kucoin.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
+using System.Text.Json;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -32,7 +33,7 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((KucoinRestClient)client, JsonConvert.SerializeObject(resultObj));
+            TestHelpers.SetResponse((KucoinRestClient)client, JsonSerializer.Serialize(resultObj));
 
             // act
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
@@ -71,7 +72,7 @@ namespace Kucoin.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((KucoinRestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+            TestHelpers.SetResponse((KucoinRestClient)client, JsonSerializer.Serialize(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();

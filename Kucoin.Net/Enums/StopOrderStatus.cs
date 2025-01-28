@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Stop order status
@@ -8,10 +10,12 @@
         /// <summary>
         /// New
         /// </summary>
+        [Map("NEW")]
         New,
         /// <summary>
         /// Triggered
         /// </summary>
+        [Map("TRIGGERED")]
         Triggered
     }
 }

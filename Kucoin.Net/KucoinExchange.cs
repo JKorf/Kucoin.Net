@@ -8,7 +8,6 @@ using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net
 {

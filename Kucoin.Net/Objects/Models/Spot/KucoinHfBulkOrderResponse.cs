@@ -1,7 +1,5 @@
 ﻿using System;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -13,63 +11,63 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The id of the order
         /// </summary>
-        [JsonProperty("orderId")]
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order timestamp
         /// </summary>
-        [JsonProperty("orderTime"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("orderTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderTime { get; set; }
         /// <summary>
         /// Trade timestamp
         /// </summary>
-        [JsonProperty("matchTime"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("matchTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? TradeTime { get; set; }
         /// <summary>
         /// The quantity of the order
         /// </summary>
-        [JsonProperty("originSize")]
+        [JsonPropertyName("originSize")]
         public decimal? Quantity { get; set; }
         /// <summary>
         /// The quote quantity of the order
         /// </summary>
-        [JsonProperty("originFunds")]
+        [JsonPropertyName("originFunds")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
         /// The quantity of the order which was filled
         /// </summary>
-        [JsonProperty("dealSize")]
+        [JsonPropertyName("dealSize")]
         public decimal? QuantityFilled { get; set; }
         /// <summary>
         /// The quote quantity of the order which was filled
         /// </summary>
-        [JsonProperty("dealFunds")]
+        [JsonPropertyName("dealFunds")]
         public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
         /// The quantity of the order which is still open
         /// </summary>
-        [JsonProperty("remainSize")]
+        [JsonPropertyName("remainSize")]
         public decimal? QuantityRemaining { get; set; }
         /// <summary>
         /// The quote quantity of the order which is still open
         /// </summary>
-        [JsonProperty("remainFunds")]
+        [JsonPropertyName("remainFunds")]
         public decimal? QuoteQuantityRemaining { get; set; }
         /// <summary>
         /// The quantity of the order which was canceled
         /// </summary>
-        [JsonProperty("canceledSize")]
+        [JsonPropertyName("canceledSize")]
         public decimal? QuantityCanceled { get; set; }
         /// <summary>
         /// The quote quantity of the order which was canceled
         /// </summary>
-        [JsonProperty("canceledFunds")]
+        [JsonPropertyName("canceledFunds")]
         public decimal? QuoteQuantityCanceled { get; set; }
         /// <summary>
         /// Status
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
     }
 
@@ -81,7 +79,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Successful or not
         /// </summary>
-        [JsonProperty("success")]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
     }
 }

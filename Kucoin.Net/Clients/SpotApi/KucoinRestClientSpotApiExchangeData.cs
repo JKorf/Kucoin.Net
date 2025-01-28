@@ -1,9 +1,7 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
-using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects;
-using Kucoin.Net.ExtensionMethods;
-using System.Security.Cryptography;
 using Kucoin.Net.Objects.Models;
 
 namespace Kucoin.Net.Clients.SpotApi
@@ -35,8 +30,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/timestamp", KucoinExchange.RateLimiter.PublicRest, 3);
-            var result = await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
-            return result.As(result ? JsonConvert.DeserializeObject<DateTime>(result.Data.ToString(), new DateTimeConverter()) : default);
+            return await _baseClient.SendAsync<DateTime>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -143,9 +137,9 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection
             {
-                { "symbol", symbol },
-                { "type", JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false)) }
+                { "symbol", symbol }
             };
+            parameters.AddEnum("type", interval);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToSeconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToSeconds(endTime));
 

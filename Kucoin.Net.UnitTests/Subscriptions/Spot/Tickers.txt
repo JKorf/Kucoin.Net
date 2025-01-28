@@ -13,6 +13,6 @@
     "bestAskSize": "0.18",
     "bestBid": "0.049",
     "bestBidSize": "0.036",
-	"time": 1704873323416	//The matching time of the latest transaction
+	"time": 1704873323416	
   }
 }

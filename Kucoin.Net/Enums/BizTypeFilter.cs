@@ -1,0 +1,51 @@
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
+{
+    /// <summary>
+    /// Biz type filter
+    /// </summary>
+    public enum BizTypeFilter
+    {
+        /// <summary>
+        /// Deposit
+        /// </summary>
+        [Map("DEPOSIT")]
+        Deposit,
+        /// <summary>
+        /// Withdrawal
+        /// </summary>
+        [Map("WITHDRAWAL")]
+        Withdrawal,
+        /// <summary>
+        /// Transfer
+        /// </summary>
+        [Map("TRANFER")]
+        Transfer,
+        /// <summary>
+        /// Subaccount transfer
+        /// </summary>
+        [Map("SUB_TRANSFER")]
+        SubTransfer,
+        /// <summary>
+        /// Trade
+        /// </summary>
+        [Map("TRADE_EXCHANGE")]
+        TradeExchange,
+        /// <summary>
+        /// Margin trade
+        /// </summary>
+        [Map("MARGIN_EXCHANGE")]
+        MarginExchange,
+        /// <summary>
+        /// Bonus
+        /// </summary>
+        [Map("KUCOIN_BONUS")]
+        KucoinBonus,
+        /// <summary>
+        /// Broker transfer
+        /// </summary>
+        [Map("BROKER_TRANSFER")]
+        BrokerTransfer
+    }
+}

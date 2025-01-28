@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -11,12 +11,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Order id of the canceled order
         /// </summary>
         
-        [JsonProperty("cancelledOrderId")]
+        [JsonPropertyName("cancelledOrderId")]
         public string CanceledOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Client order id of the canceled order
         /// </summary>
-        [JsonProperty("clientOid")]
+        [JsonPropertyName("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;
     }
 }

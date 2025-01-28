@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,22 +10,25 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The address
         /// </summary>
+        [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
 
         /// <summary>
         /// A memo for the address
         /// </summary>
+        [JsonPropertyName("memo")]
         public string Memo { get; set; } = string.Empty;
 
         /// <summary>
         /// The chain of the address
         /// </summary>
-        [JsonProperty("chain")]
+        [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
 
         /// <summary>
         /// The token contract address
         /// </summary>
+        [JsonPropertyName("contractAddress")]
         public string ContractAddress { get; set; } = string.Empty;
     }
 }

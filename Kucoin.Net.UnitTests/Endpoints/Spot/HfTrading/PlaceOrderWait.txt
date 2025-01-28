@@ -5,12 +5,12 @@ true
   "code": "200000",
   "data": {
     "orderId": "6d539dc614db3",
-    "orderTime": "1507725176595", //order time
+    "orderTime": "1507725176595",
     "originSize": "10.01",
     "dealSize": "2.01",
     "remainSize": "8",
     "canceledSize": "0",
-    "status": "open", //open: the order is active: the order has been completed
-    "matchTime": "1507725176595" //begin match time
+    "status": "open", 
+    "matchTime": "1507725176595" 
   }
 }

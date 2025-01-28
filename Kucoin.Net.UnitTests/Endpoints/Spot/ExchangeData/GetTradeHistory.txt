@@ -5,10 +5,10 @@ false
 [
   {
     "sequence": "1545896668571",
-    "price": "0.07", //Filled price
-    "size": "0.004", //Filled amount
-    "side": "buy", //Filled side. The filled side is set to the taker by default.
-    "time": 1545904567062140823 //Transaction time
+    "price": "0.07", 
+    "size": "0.004", 
+    "side": "buy",
+    "time": 1545904567062140823 
   },
   {
     "sequence": "1545896668578",

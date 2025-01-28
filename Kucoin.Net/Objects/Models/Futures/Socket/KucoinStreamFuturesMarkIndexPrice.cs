@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -12,19 +11,23 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Mark price
         /// </summary>
+        [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
         /// Index price
         /// </summary>
+        [JsonPropertyName("indexPrice")]
         public decimal IndexPrice { get; set; }
         /// <summary>
         /// Granularity
         /// </summary>
+        [JsonPropertyName("granularity")]
         public int Granularity { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
     }
 }

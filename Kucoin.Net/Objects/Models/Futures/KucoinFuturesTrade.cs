@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -14,38 +12,42 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// The sequence number of the trade
         /// </summary>
+        [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
         /// The price of the trade
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// The quantity of the trade
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// The side of the trade
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Trade id
         /// </summary>
-        [JsonProperty("tradeId")]
+        [JsonPropertyName("tradeId")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Taker order id
         /// </summary>
+        [JsonPropertyName("takerOrderId")]
         public string TakerOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Maker order id
         /// </summary>
+        [JsonPropertyName("makerOrderId")]
         public string MakerOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

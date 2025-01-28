@@ -7,7 +7,7 @@
     "subject": "level1",
     "data": {
 	    "asks":
-            ["9989","8"]    //price, size
+            ["9989","8"]  
         ,
         "bids":
             ["9984","10"]

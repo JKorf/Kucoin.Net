@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 using System.Collections.Generic;
 
@@ -12,27 +12,27 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The sub user id
         /// </summary>
-        [JsonProperty("subUserId")]
+        [JsonPropertyName("subUserId")]
         public string SubAccountId { get; set; } = string.Empty;
         /// <summary>
         /// The sub user name
         /// </summary>
-        [JsonProperty("subName")]
+        [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
         /// Main account balances
         /// </summary>
-        [JsonProperty("mainAccounts")]
+        [JsonPropertyName("mainAccounts")]
         public IEnumerable<KucoinSubUserBalance> MainAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
         /// <summary>
         /// Trade account balances
         /// </summary>
-        [JsonProperty("tradeAccounts")]
+        [JsonPropertyName("tradeAccounts")]
         public IEnumerable<KucoinSubUserBalance> TradeAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
         /// <summary>
         /// Margin account balances
         /// </summary>
-        [JsonProperty("marginAccounts")]
+        [JsonPropertyName("marginAccounts")]
         public IEnumerable<KucoinSubUserBalance> MarginAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
     }
 
@@ -44,37 +44,37 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Available quantity
         /// </summary>
-        [JsonProperty("available")]
+        [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
         /// Total balance
         /// </summary>
-        [JsonProperty("balance")]
+        [JsonPropertyName("balance")]
         public decimal Total { get; set; }
         /// <summary>
         /// Frozen quantity
         /// </summary>
-        [JsonProperty("holds")]
+        [JsonPropertyName("holds")]
         public decimal Frozen { get; set; }
         /// <summary>
         /// Base asset
         /// </summary>
-        [JsonProperty("baseCurrency")]
+        [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
         /// Base asset price
         /// </summary>
-        [JsonProperty("baseCurrencyPrice")]
+        [JsonPropertyName("baseCurrencyPrice")]
         public decimal BaseAssetPrice { get; set; }
         /// <summary>
         /// Base asset quantity
         /// </summary>
-        [JsonProperty("baseAmount")]
+        [JsonPropertyName("baseAmount")]
         public decimal BaseAssetQuantity { get; set; }
     }
 }

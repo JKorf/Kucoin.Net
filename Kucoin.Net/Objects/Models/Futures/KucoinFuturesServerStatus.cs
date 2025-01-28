@@ -1,6 +1,5 @@
-﻿using Kucoin.Net.Converters;
-using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+﻿using Kucoin.Net.Enums;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -12,12 +11,12 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Service status
         /// </summary>
-        [JsonConverter(typeof(ServiceStatusConverter))]
+        [JsonPropertyName("status")]
         public ServiceStatus Status { get; set; }
         /// <summary>
         /// Info
         /// </summary>
-        [JsonProperty("msg")]
+        [JsonPropertyName("msg")]
         public string Message { get; set; } = string.Empty;
     }
 }

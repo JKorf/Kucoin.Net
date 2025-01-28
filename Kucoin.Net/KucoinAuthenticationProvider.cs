@@ -1,11 +1,12 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Options;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Kucoin.Net
     internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinApiCredentials>
     {
         private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
+        private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
 
         public KucoinAuthenticationProvider(KucoinApiCredentials credentials): base(credentials)
         {
@@ -71,9 +73,7 @@ namespace Kucoin.Net
             {
                 if (bodyParameters?.Any() == true)
                 {
-                    jsonContent = bodyParameters.Count == 1 && bodyParameters.First().Key == "<BODY>"
-                        ? JsonConvert.SerializeObject(bodyParameters.First().Value)
-                        : JsonConvert.SerializeObject(bodyParameters);
+                    jsonContent = GetSerializedBody(_serializer, bodyParameters);
                 }
                 else
                 {

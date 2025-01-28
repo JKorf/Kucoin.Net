@@ -2,12 +2,12 @@
 < { "id": "|1|", "type": "ack" }
 = 
 {
-  "userId": "xbc453tg732eba53a88ggyt8c", // Deprecated, will detele later
+  "userId": "xbc453tg732eba53a88ggyt8c",
   "topic": "/contractAccount/wallet",
   "subject": "withdrawHold.change",
   "data": {
-    "withdrawHold": 5923, // Current frozen amount for withdrawal
-    "currency": "USDT", //Currency
+    "withdrawHold": 5923, 
+    "currency": "USDT", 
     "timestamp": 1553842862614
   }
 }

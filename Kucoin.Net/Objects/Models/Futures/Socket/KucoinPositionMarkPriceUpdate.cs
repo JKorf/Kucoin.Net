@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -12,49 +11,52 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Mark price
         /// </summary>
+        [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
         /// Mark value
         /// </summary>
+        [JsonPropertyName("markValue")]
         public decimal MarkValue { get; set; }
         /// <summary>
         /// Maintenance margin
         /// </summary>
-        [JsonProperty("maintMargin")]
+        [JsonPropertyName("maintMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
         /// Real leverage
         /// </summary>
+        [JsonPropertyName("realLeverage")]
         public decimal RealLeverage { get; set; }
         /// <summary>
         /// Unrealized profit and loss
         /// </summary>
-        [JsonProperty("unrealisedPnl")]
+        [JsonPropertyName("unrealisedPnl")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
         /// Unrealized ROE
         /// </summary>
-        [JsonProperty("unrealisedRoePcnt")]
+        [JsonPropertyName("unrealisedRoePcnt")]
         public decimal UnrealizedRoePercentage { get; set; }
         /// <summary>
         /// Unrealized profit and loss percentage
         /// </summary>
-        [JsonProperty("unrealisedPnlPcnt")]
+        [JsonPropertyName("unrealisedPnlPcnt")]
         public decimal UnrealizedPnlPercentage { get; set; }
         /// <summary>
         /// Adl ranking percentile
         /// </summary>
-        [JsonProperty("delevPercentage")]
+        [JsonPropertyName("delevPercentage")]
         public decimal DeleveragePercentage { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("currentTimestamp"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("currentTimestamp"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Currency used to clear and settle the trades
         /// </summary>
-        [JsonProperty("settleCurrency")]
+        [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
     }
 }

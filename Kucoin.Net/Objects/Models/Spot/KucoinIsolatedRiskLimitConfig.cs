@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -11,83 +11,83 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Symbol name
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Base asset max borrow quantity
         /// </summary>
-        [JsonProperty("baseMaxBorrowAmount")]
+        [JsonPropertyName("baseMaxBorrowAmount")]
         public decimal BaseBorrowMaxQuantity { get; set; }
         /// <summary>
         /// Base asset max buy quantity
         /// </summary>
-        [JsonProperty("baseMaxBuyAmount")]
+        [JsonPropertyName("baseMaxBuyAmount")]
         public decimal BaseBuyMaxQuantity { get; set; }
         /// <summary>
         /// Base asset max hold quantity
         /// </summary>
-        [JsonProperty("baseMaxHoldAmount")]
+        [JsonPropertyName("baseMaxHoldAmount")]
         public decimal BaseHoldMaxQuantity { get; set; }
         /// <summary>
         /// Base asset precision
         /// </summary>
-        [JsonProperty("basePrecision")]
+        [JsonPropertyName("basePrecision")]
         public int BasePrecision { get; set; }
         /// <summary>
         /// Base asset min borrow quantity
         /// </summary>
-        [JsonProperty("baseBorrowMinAmount")]
+        [JsonPropertyName("baseBorrowMinAmount")]
         public decimal? BaseBorrowMinQuantity { get; set; }
         /// <summary>
         /// Base asset minimum unit for borrowing
         /// </summary>
-        [JsonProperty("baseBorrowMinUnit")]
+        [JsonPropertyName("baseBorrowMinUnit")]
         public decimal? BaseBorrowMinUnit { get; set; }
         /// <summary>
         /// Base asset borrow is enabled
         /// </summary>
-        [JsonProperty("baseBorrowEnabled")]
+        [JsonPropertyName("baseBorrowEnabled")]
         public bool BaseBorrowEnabled { get; set; }
         /// <summary>
         /// Quote asset max borrow quantity
         /// </summary>
-        [JsonProperty("quoteMaxBorrowAmount")]
+        [JsonPropertyName("quoteMaxBorrowAmount")]
         public decimal QuoteBorrowMaxQuantity { get; set; }
         /// <summary>
         /// Quote asset max buy quantity
         /// </summary>
-        [JsonProperty("quoteMaxBuyAmount")]
+        [JsonPropertyName("quoteMaxBuyAmount")]
         public decimal QuoteBuyMaxQuantity { get; set; }
         /// <summary>
         /// Quote asset max hold quantity
         /// </summary>
-        [JsonProperty("quoteMaxHoldAmount")]
+        [JsonPropertyName("quoteMaxHoldAmount")]
         public decimal QuoteHoldMaxQuantity { get; set; }
         /// <summary>
         /// Quote asset precision
         /// </summary>
-        [JsonProperty("quotePrecision")]
+        [JsonPropertyName("quotePrecision")]
         public int QuotePrecision { get; set; }
         /// <summary>
         /// Quote asset min borrow quantity
         /// </summary>
-        [JsonProperty("quoteBorrowMinAmount")]
+        [JsonPropertyName("quoteBorrowMinAmount")]
         public decimal? QuoteBorrowMinQuantity { get; set; }
         /// <summary>
         /// Quote asset minimum unit for borrowing
         /// </summary>
-        [JsonProperty("quoteBorrowMinUnit")]
+        [JsonPropertyName("quoteBorrowMinUnit")]
         public decimal? QuoteBorrowMinUnit { get; set; }
         /// <summary>
         /// Quote asset borrow is enabled
         /// </summary>
-        [JsonProperty("quoteBorrowEnabled")]
+        [JsonPropertyName("quoteBorrowEnabled")]
         public bool QuoteBorrowEnabled { get; set; }
     }
 }

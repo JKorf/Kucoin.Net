@@ -7,7 +7,7 @@
   "subject": "position.status",
   "channelType": "private",
   "data": {
-    "type": "FROZEN_FL", //Event type
-    "timestamp": 15538460812100 //Timestamp (millisecond)
+    "type": "FROZEN_FL",
+    "timestamp": 15538460812100 
   }
 }

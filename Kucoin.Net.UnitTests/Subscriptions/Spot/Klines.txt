@@ -6,16 +6,16 @@
   "topic": "/market/candles:BTC-USDT_8hour",
   "subject": "trade.candles.update",
   "data": {
-    "symbol": "BTC-USDT", // symbol
+    "symbol": "BTC-USDT", 
     "candles": [
-      "1589968800", // Start time of the candle cycle
-      "9786.9", // open price
-      "9740.8", // close price
-      "9806.1", // high price
-      "9732", // low price
-      "27.45649579", // Transaction volume
-      "268280.09830877" // Transaction amount
+      "1589968800", 
+      "9786.9",
+      "9740.8", 
+      "9806.1",
+      "9732", 
+      "27.45649579", 
+      "268280.09830877"
     ],
-    "time": 1589970010253893337 // no
+    "time": 1589970010253893337
   }
 }

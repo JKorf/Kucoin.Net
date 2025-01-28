@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// New order type
@@ -8,10 +10,12 @@
         /// <summary>
         /// Limit order
         /// </summary>
+        [Map("limit")]
         Limit,
         /// <summary>
         /// Market order
         /// </summary>
+        [Map("market")]
         Market
     }
 }

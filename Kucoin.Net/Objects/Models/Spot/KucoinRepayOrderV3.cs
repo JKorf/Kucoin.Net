@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -11,42 +11,42 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Order id
         /// </summary>
-        [JsonProperty("orderNo")]
+        [JsonPropertyName("orderNo")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Isolated margin symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string? Symbol { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Iniated quantity
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Principal to be paid
         /// </summary>
-        [JsonProperty("principal")]
+        [JsonPropertyName("principal")]
         public decimal Principal { get; set; }
         /// <summary>
         /// Interest to be paid
         /// </summary>
-        [JsonProperty("interest")]
+        [JsonPropertyName("interest")]
         public decimal Interest { get; set; }
         /// <summary>
         /// Status
         /// </summary>
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
         /// Time of repayment
         /// </summary>
-        [JsonProperty("createdTime")]
+        [JsonPropertyName("createdTime")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }

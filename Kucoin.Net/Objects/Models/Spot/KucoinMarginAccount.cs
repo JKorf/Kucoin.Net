@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -12,10 +12,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Accounts
         /// </summary>
+        [JsonPropertyName("accounts")]
         public IEnumerable<KucoinMarginAccountDetails> Accounts { get; set; } = Array.Empty<KucoinMarginAccountDetails>();
         /// <summary>
         /// Debt ratio
         /// </summary>
+        [JsonPropertyName("debtRatio")]
         public decimal DebtRatio { get; set; }
     }
 
@@ -27,28 +29,32 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Available balance
         /// </summary>
+        [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
         /// Hold balance
         /// </summary>
+        [JsonPropertyName("holdBalance")]
         public decimal HoldBalance { get; set; }
         /// <summary>
         /// Liability
         /// </summary>
+        [JsonPropertyName("liability")]
         public decimal Liability { get; set; }
         /// <summary>
         /// Max borrow quantity
         /// </summary>
-        [JsonProperty("maxBorrowSize")]
+        [JsonPropertyName("maxBorrowSize")]
         public decimal MaxBorrowQuantity { get; set; }
         /// <summary>
         /// Total balance
         /// </summary>
+        [JsonPropertyName("totalBalance")]
         public decimal TotalBalance { get; set; }
     }
 }

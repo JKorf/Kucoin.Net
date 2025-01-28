@@ -25,7 +25,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Account", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Account", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetUserInfoAsync(), "GetUserInfo");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountsAsync(), "GetAccounts");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountAsync("123"), "GetAccount");
@@ -59,7 +59,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountsAsync(), "GetSubAccounts");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateSubAccountAsync("123", "123", "123"), "CreateSubAccount");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountBalancesAsync("123"), "GetSubAccountBalances");
@@ -78,7 +78,7 @@ namespace Kucoin.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolsAsync(), "GetSymbols");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT"), "GetTicker");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickersAsync(), "GetTickers");
@@ -102,7 +102,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Margin", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Margin", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.Margin.BorrowAsync("ETH", Enums.BorrowOrderType.FOK, 1), "Borrow");
             await tester.ValidateAsync(client => client.SpotApi.Margin.RepayAsync("ETH", 1), "Repay");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetBorrowHistoryAsync("ETH"), "GetBorrowHistory");
@@ -128,7 +128,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Trading", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Trading", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceTestOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceTestOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMarginOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceMarginOrder");
@@ -168,7 +168,7 @@ namespace Kucoin.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Account", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Account", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetAccountOverviewAsync(), "GetAccountOverview");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransactionHistoryAsync(), "GetTransactionHistory");
             await tester.ValidateAsync(client => client.FuturesApi.Account.TransferToMainAccountAsync("ETH", 1, Enums.AccountType.Main), "TransferToMainAccount");
@@ -200,7 +200,7 @@ namespace Kucoin.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetOpenContractsAsync(), "GetOpenContracts", ignoreProperties: new List<string> { "nextFundingRateTime" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetContractAsync("ETHUSDT"), "GetContract", ignoreProperties: new List<string> { "nextFundingRateTime" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickerAsync("ETHUSDT"), "GetTicker");
@@ -227,7 +227,7 @@ namespace Kucoin.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Trading", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Trading", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTestOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTestOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTpSlOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTpSlOrder");
@@ -255,7 +255,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/HfTrading", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: false);
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/HfTrading", "https://api.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceOrderWaitAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrderWait");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersAsync(new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrders");

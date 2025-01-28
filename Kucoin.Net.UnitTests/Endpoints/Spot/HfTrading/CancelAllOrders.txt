@@ -12,6 +12,6 @@ true
         "symbol": "BTC-USDT",
         "error": "can't cancel, system timeout"
     }
-  ],
+  ]
 }
 }

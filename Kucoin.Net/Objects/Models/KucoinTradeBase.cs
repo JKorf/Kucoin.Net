@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models
 {
@@ -14,57 +12,61 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// The symbol the fill is for
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The side of the fill
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// The price of the fill
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// The quantity of the fill
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
 
         /// <summary>
         /// The quantity of fee of the fill
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// The price of the fee
         /// </summary>
-        [JsonProperty("feeRate")]
+        [JsonPropertyName("feeRate")]
         public decimal FeePrice { get; set; }
         /// <summary>
         /// The asset of the fee
         /// </summary>
-        [JsonProperty("feeCurrency")]
+        [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
 
         /// <summary>
         /// The time the fill was created
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("createdAt")]
+        [JsonPropertyName("createdAt")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The id of the trade
         /// </summary>
-        [JsonProperty("tradeId")]
+        [JsonPropertyName("tradeId"), JsonConverter(typeof(NumberStringConverter))]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The id of the order
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
 
         /// <summary>
         /// Maker or taker
         /// </summary>
-        [JsonConverter(typeof(LiquidityTypeConverter))]
+        [JsonPropertyName("liquidity")]
         public LiquidityType Liquidity { get; set; }
     }
 }

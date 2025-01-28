@@ -5,7 +5,6 @@ using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Objects.Internal;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Kucoin.Net.Objects.Sockets.Queries
 {

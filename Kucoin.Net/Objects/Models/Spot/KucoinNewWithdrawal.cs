@@ -8,6 +8,7 @@
         /// <summary>
         /// The id of the new withdrawal
         /// </summary>
+        [JsonPropertyName("withdrawalId")]
         public string WithdrawalId { get; set; } = string.Empty;
     }
 }

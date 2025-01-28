@@ -1,6 +1,5 @@
-﻿using Kucoin.Net.Converters;
-using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+﻿using Kucoin.Net.Enums;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -8,132 +7,125 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Futures order request
     /// </summary>
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public record KucoinFuturesOrderRequestEntry
     {
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonProperty("clientOid")]
+        [JsonPropertyName("clientOid"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? ClientOrderId { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
         /// Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Leverage
         /// </summary>
-        [JsonProperty("leverage")]
+        [JsonPropertyName("leverage"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal? Leverage { get; set; }
         /// <summary>
         /// Amount of contracts to buy or sell, one of `Quantity`, `QuantityInBaseAsset` or `QuantityInQuoteAsset` should be provided
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int? Quantity { get; set; }
         /// <summary>
         /// Quantity in base asset, one of `Quantity`, `QuantityInBaseAsset` or `QuantityInQuoteAsset` should be provided
         /// </summary>
-        [JsonProperty("qty")]
+        [JsonPropertyName("qty"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? QuantityInBaseAsset { get; set; }
         /// <summary>
         /// Quantity in quote asset, one of `Quantity`, `QuantityInBaseAsset` or `QuantityInQuoteAsset` should be provided
         /// </summary>
-        [JsonProperty("valueQty")]
+        [JsonPropertyName("valueQty"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? QuantityInQuoteAsset { get; set; }
         /// <summary>
         /// Limit price
         /// </summary>
-        [JsonProperty("price")]
+        [JsonPropertyName("price"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal? Price { get; set; }
         /// <summary>
         /// Time in force
         /// </summary>
-        [JsonConverter(typeof(TimeInForceConverter))]
-        [JsonProperty("timeInForce")]
+        [JsonPropertyName("timeInForce"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
-        [JsonProperty("side")]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
-        [JsonConverter(typeof(NewOrderTypeConverter))]
-        [JsonProperty("type")]
+        [JsonPropertyName("type"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public NewOrderType? OrderType { get; set; }
         /// <summary>
         /// Remark
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonPropertyName("remark"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Remark { get; set; }
         /// <summary>
         /// Stop type
         /// </summary>
-        [JsonProperty("stop")]
-        [JsonConverter(typeof(StopTypeConverter))]
+        [JsonPropertyName("stop"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public StopType? Stop { get; set; }
         /// <summary>
         /// Stop price type
         /// </summary>
-        [JsonProperty("stopPriceType")]
-        [JsonConverter(typeof(StopPriceTypeConverter))]
+        [JsonPropertyName("stopPriceType"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public StopPriceType? StopPriceType { get; set; }
         /// <summary>
         /// Stop price
         /// </summary>
-        [JsonProperty("stopPrice")]
-        [JsonConverter(typeof(DecimalStringWriterConverter))]
+        [JsonPropertyName("stopPrice"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? StopPrice { get; set; }
         /// <summary>
         /// Reduce only
         /// </summary>
-        [JsonProperty("reduceOnly")]
+        [JsonPropertyName("reduceOnly"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? ReduceOnly { get; set; }
         /// <summary>
         /// Close order
         /// </summary>
-        [JsonProperty("closeOrder")]
+        [JsonPropertyName("closeOrder"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? CloseOrder { get; set; }
         /// <summary>
         /// Force hold
         /// </summary>
-        [JsonProperty("forceHold")]
+        [JsonPropertyName("forceHold"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? ForceHold { get; set; }
         /// <summary>
         /// Post only
         /// </summary>
-        [JsonProperty("postOnly")]
+        [JsonPropertyName("postOnly"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? PostOnly { get; set; }
         /// <summary>
         /// Is hidden
         /// </summary>
-        [JsonProperty("hidden")]
+        [JsonPropertyName("hidden"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? Hidden { get; set; }
         /// <summary>
         /// Is iceberg order
         /// </summary>
-        [JsonProperty("iceberg")]
+        [JsonPropertyName("iceberg"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? Iceberg { get; set; }
         /// <summary>
         /// Visible size
         /// </summary>
-        [JsonProperty("visibleSize")]
+        [JsonPropertyName("visibleSize"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? VisibleSize { get; set; }
         /// <summary>
         /// Self trade prevention type
         /// </summary>
-        [JsonProperty("stp")]
+        [JsonPropertyName("stp"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonConverter(typeof(EnumConverter))]
         public SelfTradePrevention? SelfTradePrevention { get; set; }
         /// <summary>
         /// Margin mode
         /// </summary>
-        [JsonProperty("marginMode")]
+        [JsonPropertyName("marginMode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonConverter(typeof(EnumConverter))]
         public FuturesMarginMode? MarginMode { get; set; }
     }

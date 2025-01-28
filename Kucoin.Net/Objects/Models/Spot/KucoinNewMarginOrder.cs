@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,11 +10,12 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Borrow quantity
         /// </summary>
-        [JsonProperty("borrowSize")]
+        [JsonPropertyName("borrowSize")]
         public decimal? BorrowQuantity { get; set; }
         /// <summary>
         /// Loan apply id
         /// </summary>
+        [JsonPropertyName("loanApplyId")]
         public string LoanApplyId { get; set; } = string.Empty;
     }
 }

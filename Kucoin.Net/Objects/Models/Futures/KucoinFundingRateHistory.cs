@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -11,17 +11,17 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Funding rate
         /// </summary>
-        [JsonProperty("fundingRate")]
+        [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("timepoint")]
+        [JsonPropertyName("timepoint")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }

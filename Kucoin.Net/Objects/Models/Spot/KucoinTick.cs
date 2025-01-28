@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -12,41 +11,42 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The sequence of the tick
         /// </summary>
+        [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
         /// The price of the last trade
         /// </summary>
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public decimal? LastPrice { get; set; }
         /// <summary>
         /// The quantity of the last trade
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal? LastQuantity { get; set; }
         /// <summary>
         /// The best ask price
         /// </summary>
-        [JsonProperty("bestAsk")]
+        [JsonPropertyName("bestAsk")]
         public decimal? BestAskPrice { get; set; }
         /// <summary>
         /// The quantity of the best ask price
         /// </summary>
-        [JsonProperty("bestAskSize")]
+        [JsonPropertyName("bestAskSize")]
         public decimal? BestAskQuantity { get; set; }
         /// <summary>
         /// The best bid price
         /// </summary>
-        [JsonProperty("bestBid")]
+        [JsonPropertyName("bestBid")]
         public decimal? BestBidPrice { get; set; }
         /// <summary>
         /// The quantity of the best bid
         /// </summary>
-        [JsonProperty("bestBidSize")]
+        [JsonPropertyName("bestBidSize")]
         public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

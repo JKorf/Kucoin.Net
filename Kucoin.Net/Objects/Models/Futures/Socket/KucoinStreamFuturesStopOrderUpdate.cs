@@ -1,6 +1,5 @@
-﻿using Kucoin.Net.Converters;
-using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+﻿using Kucoin.Net.Enums;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -12,12 +11,13 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Stop price type
         /// </summary>
-        [JsonConverter(typeof(StopPriceTypeConverter))]
+        [JsonPropertyName("stopPriceType")]
         public StopPriceType StopPriceType { get; set; }
 
         /// <summary>
         /// Error info if there was an error with the order
         /// </summary>
+        [JsonPropertyName("error")]
         public string? Error { get; set; }
     }
 }

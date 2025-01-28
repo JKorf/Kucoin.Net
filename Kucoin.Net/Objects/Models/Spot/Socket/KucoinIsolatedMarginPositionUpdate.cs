@@ -1,8 +1,7 @@
 ﻿using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -14,28 +13,28 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Tag
         /// </summary>
-        [JsonProperty("tag")]
+        [JsonPropertyName("tag")]
         public string Tag { get; set; } = string.Empty;
         /// <summary>
         /// Accumelated principal
         /// </summary>
-        [JsonProperty("accumulatedPrincipal")]
+        [JsonPropertyName("accumulatedPrincipal")]
         public decimal AccumelatedPrincipal { get; set; }
         /// <summary>
         /// Data timestamp
         /// </summary>
-        [JsonProperty("timestamp"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("timestamp"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// Position status
         /// </summary>
-        [JsonProperty("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
         public IsolatedPositionStatus Status { get; set; }
         /// <summary>
         /// Changed assets
         /// </summary>
-        [JsonProperty("changeAssets")]
+        [JsonPropertyName("changeAssets")]
         public Dictionary<string, KucoinIsolatedMarginAsset> ChangedAssets { get; set; } = new Dictionary<string, KucoinIsolatedMarginAsset>();
 
     }
@@ -48,22 +47,22 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Total asset
         /// </summary>
-        [JsonProperty("total")]
+        [JsonPropertyName("total")]
         public decimal Total { get; set; }
         /// <summary>
         /// Frozen asset
         /// </summary>
-        [JsonProperty("hold")]
+        [JsonPropertyName("hold")]
         public decimal Hold { get; set; }
         /// <summary>
         /// Liability principal
         /// </summary>
-        [JsonProperty("liabilityPrincipal")]
+        [JsonPropertyName("liabilityPrincipal")]
         public decimal LiabilityPrincipal { get; set; }
         /// <summary>
         /// Liability interest
         /// </summary>
-        [JsonProperty("liabilityInterest")]
+        [JsonPropertyName("liabilityInterest")]
         public decimal LiabilityInterest { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
-namespace Kucoin.Net.Objects.Models.Spot
+﻿namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// The order model in bulk order creation response
@@ -11,17 +8,17 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The id of the order
         /// </summary>
-        [JsonProperty("orderId")]
+        [JsonPropertyName("orderId")]
         public string? OrderId { get; set; }
         /// <summary>
         /// The cause of failure
         /// </summary>
-        [JsonProperty("failMsg")]
+        [JsonPropertyName("failMsg")]
         public string? Error { get; set; }
         /// <summary>
         /// Whether the call is successful
         /// </summary>
-        [JsonProperty("success")]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
     }
 }

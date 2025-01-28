@@ -1,4 +1,6 @@
-﻿namespace Kucoin.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Reason for an update
@@ -8,10 +10,12 @@
         /// <summary>
         /// Canceled
         /// </summary>
+        [Map("canceled")]
         Canceled,
         /// <summary>
         /// Filled
         /// </summary>
+        [Map("filled")]
         Filled
     }
 }

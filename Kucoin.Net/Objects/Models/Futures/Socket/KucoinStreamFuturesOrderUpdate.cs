@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -14,113 +12,119 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The type of the update
         /// </summary>
-        [JsonProperty("type"), JsonConverter(typeof(MatchUpdateTypeConverter))]
+        [JsonPropertyName("type")]
         public MatchUpdateType UpdateType { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
-        [JsonConverter(typeof(ExtendedOrderStatusConverter))]
+        [JsonPropertyName("status")]
         public ExtendedOrderStatus Status { get; set; }
         /// <summary>
         /// Match quantity (for match update types)
         /// </summary>
-        [JsonProperty("matchSize")]
+        [JsonPropertyName("matchSize")]
         public decimal? MatchQuantity { get; set; }
         /// <summary>
         /// Match price (for match update types)
         /// </summary>
+        [JsonPropertyName("matchPrice")]
         public decimal? MatchPrice { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
-        [JsonConverter(typeof(OrderTypeConverter))]
+        [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Price
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Remaining quantity
         /// </summary>
-        [JsonProperty("remainSize")]
+        [JsonPropertyName("remainSize")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Filled quantity
         /// </summary>
-        [JsonProperty("filledSize")]
+        [JsonPropertyName("filledSize")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Canceled quantity
         /// </summary>
-        [JsonProperty("canceledSize")]
+        [JsonPropertyName("canceledSize")]
         public decimal QuantityCanceled { get; set; }
         /// <summary>
         /// Trade id
         /// </summary>
+        [JsonPropertyName("tradeId")]
         public string? TradeId { get; set; }
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonProperty("clientOid")]
+        [JsonPropertyName("clientOid")]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Order timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("orderTime")]
         public DateTime OrderTime { get; set; }
         /// <summary>
         /// Quantity before the update
         /// </summary>
-        [JsonProperty("oldSize")]
+        [JsonPropertyName("oldSize")]
         public decimal? OldQuantity { get; set; }
         /// <summary>
         /// Trade direction
         /// </summary>
-        [JsonConverter(typeof(LiquidityTypeConverter))]
+        [JsonPropertyName("liquidity")]
         public LiquidityType? Liquidity { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("ts")]
+        [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Trade direction
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        [JsonProperty("feeType")]
+        [JsonPropertyName("feeType")]
         public FeeType? FeeType { get; set; }
 
         /// <summary>
         /// Margin mode
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        [JsonProperty("marginMode")]
+        [JsonPropertyName("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
 
         /// <summary>
         /// Trade type
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        [JsonProperty("tradeType")]
+        [JsonPropertyName("tradeType")]
         public FuturesTradeType? TradeType { get; set; }
     }
 }

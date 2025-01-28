@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -13,11 +13,12 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// If there are more pages
         /// </summary>
+        [JsonPropertyName("hasMore")]
         public bool HasMore { get; set; }
         /// <summary>
         /// Data list
         /// </summary>
-        [JsonProperty("dataList")]
+        [JsonPropertyName("dataList")]
         public IEnumerable<T> Data { get; set; } = Array.Empty<T>();
     }
 }

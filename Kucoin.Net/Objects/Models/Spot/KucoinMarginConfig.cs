@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -12,20 +12,22 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Available assets for margin trade
         /// </summary>
-        [JsonProperty("currencyList")]
+        [JsonPropertyName("currencyList")]
         public IEnumerable<string> Assets { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Warning debt ratio
         /// </summary>
+        [JsonPropertyName("warningDebtRatio")]
         public decimal WarningDebtRatio { get; set; }
         /// <summary>
         /// Forced liquidation ratio
         /// </summary>
-        [JsonProperty("liqDebtRatio")]
+        [JsonPropertyName("liqDebtRatio")]
         public decimal LiquidationDebtRatio { get; set; }
         /// <summary>
         /// Max leverage
         /// </summary>
+        [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,52 +10,52 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// User level
         /// </summary>
-        [JsonProperty("level")]
+        [JsonPropertyName("level")]
         public int Level { get; set; }
         /// <summary>
         /// Max number of default open sub-accounts (according to level)
         /// </summary>
-        [JsonProperty("subQuantity")]
+        [JsonPropertyName("subQuantity")]
         public decimal SubQuantity { get; set; }
         /// <summary>
         /// Max number of default open sub-accounts (according to level)
         /// </summary>
-        [JsonProperty("maxDefaultSubQuantity")]
+        [JsonPropertyName("maxDefaultSubQuantity")]
         public decimal MaxDefaultSubQuantity { get; set; }
         /// <summary>
         /// Max number of sub-accounts = maxDefaultSubQuantity + maxSpotSubQuantity
         /// </summary>
-        [JsonProperty("maxSubQuantity")]
+        [JsonPropertyName("maxSubQuantity")]
         public decimal MaxSubQuantity { get; set; }
         /// <summary>
         /// Number of sub-accounts with spot trading permissions enabled
         /// </summary>
-        [JsonProperty("spotSubQuantity")]
+        [JsonPropertyName("spotSubQuantity")]
         public decimal SpotSubQuantity { get; set; }
         /// <summary>
         /// Number of sub-accounts with margin trading permissions enabled
         /// </summary>
-        [JsonProperty("marginSubQuantity")]
+        [JsonPropertyName("marginSubQuantity")]
         public decimal MarginSubQuantity { get; set; }
         /// <summary>
         /// Number of sub-accounts with futures trading permissions enabled
         /// </summary>
-        [JsonProperty("futuresSubQuantity")]
+        [JsonPropertyName("futuresSubQuantity")]
         public decimal FuturesSubQuantity { get; set; }
         /// <summary>
         /// Max number of sub-accounts with additional Spot trading permissions
         /// </summary>
-        [JsonProperty("maxSpotSubQuantity")]
+        [JsonPropertyName("maxSpotSubQuantity")]
         public decimal MaxSpotSubQuantity { get; set; }
         /// <summary>
         /// Max number of sub-accounts with additional margin trading permissions
         /// </summary>
-        [JsonProperty("maxMarginSubQuantity")]
+        [JsonPropertyName("maxMarginSubQuantity")]
         public decimal MaxMarginSubQuantity { get; set; }
         /// <summary>
         /// Max number of sub-accounts with additional futures trading permissions
         /// </summary>
-        [JsonProperty("maxFuturesSubQuantity")]
+        [JsonPropertyName("maxFuturesSubQuantity")]
         public decimal MaxFuturesSubQuantity { get; set; }
     }
 }

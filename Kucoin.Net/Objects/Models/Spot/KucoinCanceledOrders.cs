@@ -11,6 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// List of canceled order ids
         /// </summary>
+        [JsonPropertyName("cancelledOrderIds")]
         public IEnumerable<string> CancelledOrderIds { get; set; } = Array.Empty<string>();
     }
 }

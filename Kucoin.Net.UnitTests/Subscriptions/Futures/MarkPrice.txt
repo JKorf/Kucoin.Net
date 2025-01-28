@@ -5,9 +5,9 @@
   "topic": "/contract/instrument:XBTUSDM",
   "subject": "mark.index.price",
   "data": {
-    "granularity": 1000, //Granularity
-    "indexPrice": 4000.23, //Index price
-    "markPrice": 4010.52, //Mark price
+    "granularity": 1000, 
+    "indexPrice": 4000.23, 
+    "markPrice": 4010.52, 
     "timestamp": 1551770400000
   }
 }

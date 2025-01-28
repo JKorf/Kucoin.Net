@@ -1,9 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Objects.Options;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CryptoExchange.Net.Objects.Options;
 
 namespace Kucoin.Net.Objects.Options
 {

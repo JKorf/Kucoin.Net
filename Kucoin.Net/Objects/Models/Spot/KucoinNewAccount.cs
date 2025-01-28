@@ -8,6 +8,7 @@
         /// <summary>
         /// The id of the new account
         /// </summary>
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
     }
 }

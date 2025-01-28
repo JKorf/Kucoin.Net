@@ -1,8 +1,6 @@
 ﻿using CryptoExchange.Net.Objects;
-using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

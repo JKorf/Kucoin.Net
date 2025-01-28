@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -10,16 +10,17 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Predicted value
         /// </summary>
+        [JsonPropertyName("predictedValue")]
         public decimal PredictedValue { get; set; }
         /// <summary>
         /// Funding rate cap
         /// </summary>
-        [JsonProperty("fundingRateCap")]
+        [JsonPropertyName("fundingRateCap")]
         public decimal? FundingRateCap { get; set; }
         /// <summary>
         /// Funding rate floor
         /// </summary>
-        [JsonProperty("fundingRateFloor")]
+        [JsonPropertyName("fundingRateFloor")]
         public decimal? FundingRateFloor { get; set; }
     }
 }

@@ -8,7 +8,6 @@ using System;
 using System.Threading.Tasks;
 using System.Threading;
 using Kucoin.Net.Objects.Internal;
-using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
@@ -16,7 +15,6 @@ using CryptoExchange.Net.Authentication;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Linq;
 using Kucoin.Net.Objects.Options;
-using CryptoExchange.Net.Converters;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
 using CryptoExchange.Net.Objects.Sockets;
@@ -24,8 +22,6 @@ using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
-using Newtonsoft.Json;
-using Kucoin.Net.Converters;
 using CryptoExchange.Net.SharedApis;
 
 namespace Kucoin.Net.Clients.FuturesApi
@@ -62,6 +58,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
             });
         }
+
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
 
         /// <inheritdoc />
         public override string GetListenerIdentifier(IMessageAccessor message)
@@ -109,7 +108,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamFuturesKline>> onData, CancellationToken ct = default)
         {
-            var symbolTopics = symbols.Select(x => x + "_" + JsonConvert.SerializeObject(interval, new KlineIntervalConverter(false))).ToList();
+            var symbolTopics = symbols.Select(x => x + "_" + EnumConverter.GetString(interval)).ToList();
             var subscription = new KucoinSubscription<KucoinStreamFuturesKlineUpdate>(_logger, "/contractMarket/limitCandle", symbolTopics, x => onData(x.As(x.Data.Klines).WithSymbol(x.Data.Symbol)), false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }

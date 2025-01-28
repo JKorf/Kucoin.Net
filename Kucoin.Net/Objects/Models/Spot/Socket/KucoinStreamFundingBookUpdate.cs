@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -12,44 +11,48 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
 
         /// <summary>
         /// Sequence number
         /// </summary>
+        [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
 
         /// <summary>
         /// The daily interest rate
         /// </summary>
-        [JsonProperty("dailyIntRate")]
+        [JsonPropertyName("dailyIntRate")]
         public decimal DailyInterestRate { get; set; }
 
         /// <summary>
         /// The anual interest rate
         /// </summary>
-        [JsonProperty("annualIntRate")]
+        [JsonPropertyName("annualIntRate")]
         public decimal AnnualInterestRate { get; set; }
 
         /// <summary>
         /// Term (days)
         /// </summary>
+        [JsonPropertyName("term")]
         public int Term { get; set; }
         /// <summary>
         /// Current total size
         /// </summary>
+        [JsonPropertyName("size")]
         public decimal Size { get; set; }
 
         /// <summary>
         /// Lend or borrow
         /// </summary>
+        [JsonPropertyName("side")]
         public string Side { get; set; } = string.Empty;
 
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

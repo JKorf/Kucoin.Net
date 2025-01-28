@@ -6,16 +6,15 @@ false
   "data": {
   "dataList": [
     {
-      "symbol": ".KXBT", //Symbol of Bitcoin spot
-      "granularity": 1000, //Granularity (milisecond)
-      "timePoint": 1557998570000, //Time point (milisecond)
-      "value": 8016.24, //Index Value
+      "symbol": ".KXBT",
+      "granularity": 1000, 
+      "timePoint": 1557998570000, 
+      "value": 8016.24, 
       "decomposionList": [
-        //Component List
         {
-          "exchange": "gemini", //Exchange
-          "price": 8016.24, //Last traded price
-          "weight": 0.08042611 //Weight
+          "exchange": "gemini", 
+          "price": 8016.24,
+          "weight": 0.08042611 
         },
         {
           "exchange": "kraken",
@@ -45,6 +44,6 @@ false
       ]
     }
   ],
-  "hasMore": true //Whether there are more pages
+  "hasMore": true
 }
 }

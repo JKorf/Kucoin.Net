@@ -8,6 +8,7 @@
         /// <summary>
         /// Index price
         /// </summary>
+        [JsonPropertyName("indexPrice")]
         public decimal IndexPrice { get; set; }
     }
 }

@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Internal
 {
     internal class KucoinRequest
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
-        [JsonProperty("topic")]
+        [JsonPropertyName("topic")]
         public string Topic { get; set; }
-        [JsonProperty("privateChannel")]
+        [JsonPropertyName("privateChannel")]
         public bool PrivateChannel { get; set; }
-        [JsonProperty("response")]
+        [JsonPropertyName("response")]
         public bool Response { get; set; }
         
         public KucoinRequest(string id, string type, string topic, bool userEvents)

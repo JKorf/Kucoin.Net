@@ -1,90 +1,92 @@
-﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
-using Kucoin.Net.Enums;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// The order model to be sent via bulk order endpoint
     /// </summary>
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore, NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public record KucoinBulkOrderRequestEntry
     {
         /// <summary>
         /// The client order id
         /// </summary>
-        [JsonProperty("clientOid")]
+        [JsonPropertyName("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
         /// The side of the order
         /// </summary>
-        [JsonConverter(typeof(OrderSideConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// The price of the order
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// The quantity of the order
         /// </summary>
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// The type of the order
         /// </summary>
-        [JsonConverter(typeof(NewOrderTypeConverter))]
+        [JsonPropertyName("type")]
         public NewOrderType Type { get; set; }
 
         /// <summary>
         /// Remark for the order
         /// </summary>
+        [JsonPropertyName("remark"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Remark { get; set; }
         /// <summary>
         /// The stop condition
         /// </summary>
+        [JsonPropertyName("stop"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public StopCondition? Stop { get; set; }
         /// <summary>
         /// The stop price
         /// </summary>
+        [JsonPropertyName("stopPrice"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? StopPrice { get; set; }
         /// <summary>
         /// The self trade prevention type
         /// </summary>
-        [JsonProperty("stp"), JsonConverter(typeof(SelfTradePreventionConverter))]
+        [JsonPropertyName("stp"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SelfTradePrevention? SelfTradePrevention { get; set; }
         /// <summary>
         /// Trade type
         /// </summary>
-        [JsonConverter(typeof(TradeTypeConverter))]
+        [JsonPropertyName("tradeType"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TradeType? TradeType { get; set; }
         /// <summary>
         /// The time in force of the order
         /// </summary>
-        [JsonConverter(typeof(TimeInForceConverter))]
+        [JsonPropertyName("timeInForce"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
         /// Time after which the order is canceled
         /// </summary>
+        [JsonPropertyName("cancelAfter"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int? CancelAfter { get; set; }
         /// <summary>
         /// Whether the order is post only
         /// </summary>
+        [JsonPropertyName("postOnly"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? PostOnly { get; set; }
         /// <summary>
         /// Whether the order is hidden
         /// </summary>
+        [JsonPropertyName("hidden"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? Hidden { get; set; }
         /// <summary>
         /// Whether it is an iceberg order
         /// </summary>
+        [JsonPropertyName("iceberg"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? Iceberg { get; set; }
         /// <summary>
         /// The max visible size of the iceberg
         /// </summary>
-        [JsonProperty("visibleSize")]
+        [JsonPropertyName("visibleSize"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? VisibleIcebergSize { get; set; }
     }
 }

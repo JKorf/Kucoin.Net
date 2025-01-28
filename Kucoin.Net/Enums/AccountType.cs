@@ -25,6 +25,7 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Pool account
         /// </summary>
+        [Map("POOl")]
         Pool,
         /// <summary>
         /// Contract

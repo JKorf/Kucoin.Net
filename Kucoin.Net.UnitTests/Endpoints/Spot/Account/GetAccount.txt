@@ -3,10 +3,10 @@ GET
 true
 {
   "data": {
-  "currency": "KCS", //Currency
-  "balance": "1000000060.6299", //Total assets of a currency
-  "available": "1000000060.6299", //Available assets of a currency
-  "holds": "0" //Hold assets of a currency
+  "currency": "KCS", 
+  "balance": "1000000060.6299", 
+  "available": "1000000060.6299", 
+  "holds": "0"
 },
   "code": "200000"
 }

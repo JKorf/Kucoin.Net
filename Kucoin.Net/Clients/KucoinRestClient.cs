@@ -7,7 +7,6 @@ using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Options;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;

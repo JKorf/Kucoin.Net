@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -14,27 +14,31 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The sequence id of the first event this order book update covers
         /// </summary>
+        [JsonPropertyName("sequenceStart")]
         public long SequenceStart { get; set; }
         /// <summary>
         /// The sequence id of the last event this order book update covers
         /// </summary>
+        [JsonPropertyName("sequenceEnd")]
         public long SequenceEnd { get; set; }
 
         /// <summary>
         /// Data timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("time")]
+        [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// The symbol of the order book
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// The changes
         /// </summary>
+        [JsonPropertyName("changes")]
         public KucoinStreamOrderBookChanged Changes { get; set; } = default!;
     }
 
@@ -46,19 +50,21 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// The changes in bids
         /// </summary>
+        [JsonPropertyName("bids")]
         public IEnumerable<KucoinStreamOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
         /// The changes in asks
         /// </summary>
+        [JsonPropertyName("asks")]
         public IEnumerable<KucoinStreamOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("timestamp"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("timestamp"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? Timestamp { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-        internal DateTime? Ts { set => Timestamp = value; }
+        [JsonInclude, JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
+        internal DateTime? Ts { set => Timestamp = value; get => Timestamp; }
     }
 
     /// <summary>

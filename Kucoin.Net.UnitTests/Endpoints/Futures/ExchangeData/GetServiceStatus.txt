@@ -4,7 +4,7 @@ false
 {
   "code": "200000",
   "data": {
-    "status": "open", //open, close, cancelonly
-    "msg": "upgrade match engine" //remark for operation
+    "status": "open", 
+    "msg": "upgrade match engine"
   }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models
 {
@@ -13,24 +13,27 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// The total number of results
         /// </summary>
-        [JsonProperty("totalNum")]
+        [JsonPropertyName("totalNum")]
         public int TotalItems { get; set; }
         /// <summary>
         /// The total number of pages
         /// </summary>
-        [JsonProperty("totalPage")]
+        [JsonPropertyName("totalPage")]
         public int TotalPages { get; set; }
         /// <summary>
         /// The amount of items per page
         /// </summary>
+        [JsonPropertyName("pageSize")]
         public int PageSize { get; set; }
         /// <summary>
         /// The current page
         /// </summary>
+        [JsonPropertyName("currentPage")]
         public int CurrentPage { get; set; }
         /// <summary>
         /// The items on this page
         /// </summary>
+        [JsonPropertyName("items")]
         public IEnumerable<T> Items { get; set; } = Array.Empty<T>();
     }
 }
