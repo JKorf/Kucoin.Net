@@ -29,15 +29,19 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var resultXbt = Account.GetAccountOverviewAsync("XBT", ct: ct);
             var resultUsdt = Account.GetAccountOverviewAsync("USDT", ct: ct);
-            await Task.WhenAll(resultUsdt, resultXbt).ConfigureAwait(false);
+            var resultUsdc = Account.GetAccountOverviewAsync("USDC", ct: ct);
+            await Task.WhenAll(resultUsdc, resultUsdt, resultXbt).ConfigureAwait(false);
             if (!resultXbt.Result)
                 return resultXbt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
             if (!resultUsdt.Result)
                 return resultUsdt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
+            if (!resultUsdc.Result)
+                return resultUsdc.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
 
             var result = new List<SharedBalance>();
             result.Add(new SharedBalance(resultXbt.Result.Data.Asset, resultXbt.Result.Data.AvailableBalance, resultXbt.Result.Data.AccountEquity));
             result.Add(new SharedBalance(resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.AvailableBalance, resultUsdt.Result.Data.AccountEquity));
+            result.Add(new SharedBalance(resultUsdc.Result.Data.Asset, resultUsdc.Result.Data.AvailableBalance, resultUsdc.Result.Data.AccountEquity));
             return resultXbt.Result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, SupportedTradingModes, result);
         }
 
