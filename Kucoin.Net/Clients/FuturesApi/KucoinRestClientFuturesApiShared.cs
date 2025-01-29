@@ -80,7 +80,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesTicker>>(Exchange, validationError);
 
-            var result = await ExchangeData.GetOpenContractsAsync(ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetSymbolsAsync(ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, null, default);
 
@@ -116,7 +116,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>(Exchange, validationError);
 
-            var result = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, null, default);
 

@@ -1,9 +1,0 @@
-POST
-/api/v1/transfer-in
-true
-{
-  "code": "200", 
-  "msg": "",
-  "retry": true,
-  "success": true
-}

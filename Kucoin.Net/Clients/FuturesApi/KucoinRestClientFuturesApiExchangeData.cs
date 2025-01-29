@@ -28,7 +28,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Symbol
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinContract>>> GetOpenContractsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<KucoinContract>>> GetSymbolsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contracts/active", KucoinExchange.RateLimiter.PublicRest, 3);
             return await _baseClient.SendAsync<IEnumerable<KucoinContract>>(request, null, ct).ConfigureAwait(false);

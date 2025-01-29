@@ -34,14 +34,10 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountLedgersAsync("ETHUSDT"), "GetAccountLedgers", ignoreProperties: new List<string> { "context" });
             await tester.ValidateAsync(client => client.SpotApi.Account.GetTransferableAsync("ETHUSDT", Enums.AccountType.Isolated), "GetTransferable");
             await tester.ValidateAsync(client => client.SpotApi.Account.UniversalTransferAsync(1, Enums.TransferAccountType.IsolatedV2, Enums.TransferAccountType.IsolatedV2, Enums.TransferType.Internal), "UniversalTransfer");
-            await tester.ValidateAsync(client => client.SpotApi.Account.InnerTransferAsync("ETH", Enums.AccountType.Isolated, Enums.AccountType.Isolated, 1), "InnerTransfer");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositsAsync("ETH"), "GetDeposits");
-            await tester.ValidateAsync(client => client.SpotApi.Account.GetHistoricalDepositsAsync("ETH"), "GetHistoricalDeposits");
-            await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositAddressAsync("ETH"), "GetDepositAddress");
-            await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositAddressesAsync("ETH"), "GetDepositAddresses");
-            await tester.ValidateAsync(client => client.SpotApi.Account.CreateDepositAddressAsync("ETH"), "CreateDepositAddress");
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositAddressesV3Async("ETH"), "GetDepositAddresses");
+            await tester.ValidateAsync(client => client.SpotApi.Account.CreateDepositAddressV3Async("ETH"), "CreateDepositAddress");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetWithdrawalsAsync("ETH"), "GetWithdrawals");
-            await tester.ValidateAsync(client => client.SpotApi.Account.GetHistoricalWithdrawalsAsync("ETH"), "GetHistoricalWithdrawals");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetWithdrawalQuotasAsync("ETH"), "GetWithdrawalQuotas");
             await tester.ValidateAsync(client => client.SpotApi.Account.WithdrawAsync(WithdrawType.Address, "ETH", "123", 1), "Withdraw");
             await tester.ValidateAsync(client => client.SpotApi.Account.CancelWithdrawalAsync("123"), "CancelWithdrawal");
@@ -171,9 +167,6 @@ namespace Kucoin.Net.UnitTests
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Account", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: true);
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetAccountOverviewAsync(), "GetAccountOverview");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransactionHistoryAsync(), "GetTransactionHistory");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.TransferToMainAccountAsync("ETH", 1, Enums.AccountType.Main), "TransferToMainAccount");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.TransferToFuturesAccountAsync("ETH", 1, Enums.AccountType.Main), "TransferToFuturesAccount");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransferToMainAccountHistoryAsync("ETH"), "GetTransferToMainAccountHistory");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionAsync("ETHUSDT"), "GetPosition");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionsAsync(), "GetPositions");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionHistoryAsync(), "GetPositionHistory", ignoreProperties: new List<string> { "roe" });
@@ -201,7 +194,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api-futures.kucoin.com", IsAuthenticated, "data", stjCompare: true);
-            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetOpenContractsAsync(), "GetOpenContracts", ignoreProperties: new List<string> { "nextFundingRateTime" });
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(), "GetOpenContracts", ignoreProperties: new List<string> { "nextFundingRateTime" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetContractAsync("ETHUSDT"), "GetContract", ignoreProperties: new List<string> { "nextFundingRateTime" });
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickerAsync("ETHUSDT"), "GetTicker");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickersAsync(), "GetTickers");

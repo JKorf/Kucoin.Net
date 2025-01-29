@@ -122,7 +122,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         
         async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
@@ -154,7 +154,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Ticker>>(null);
 

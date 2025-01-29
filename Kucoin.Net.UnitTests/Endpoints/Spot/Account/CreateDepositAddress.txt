@@ -1,11 +1,15 @@
 POST
-/api/v1/deposit-addresses
+/api/v3/deposit-address/create
 true
 {
   "code": "200000",
   "data": {
-  "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",
-  "memo": "5c247c8a03aa677cea2a251d",
-  "chain": "OMNI"
-}
+    "address": "EQCA1BI4QRZ8qYmskSRDzJmkucGodYRTZCf_b9hckjla6dZl",
+    "memo": "2090821203",
+    "chainId": "ton",
+    "to": "TRADE",
+    "expirationDate": 0,
+    "currency": "TON",
+    "chainName": "TON"
+  }
 }

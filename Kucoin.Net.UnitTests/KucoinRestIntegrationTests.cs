@@ -60,9 +60,7 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.Account.GetAccountLedgersAsync(default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetTransferableAsync("ETH", Enums.AccountType.SpotHf, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetDepositsAsync(default, default, default, default, default, default, default), true);
-            await RunAndCheckResult(client => client.SpotApi.Account.GetHistoricalDepositsAsync(default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawalsAsync(default, default, default, default, default, default, default), true);
-            await RunAndCheckResult(client => client.SpotApi.Account.GetHistoricalWithdrawalsAsync(default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawalQuotasAsync("ETH", default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetMarginAccountAsync(default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetCrossMarginAccountsAsync(default, default), true);
@@ -119,7 +117,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task TestFuturesExchangeData()
         {
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetOpenContractsAsync(default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetContractAsync("XBTUSDM", default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickerAsync("XBTUSDM", default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickersAsync(default), false);

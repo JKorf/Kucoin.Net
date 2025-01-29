@@ -210,19 +210,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(string asset, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default) => SubscribeToFundingBookUpdatesAsync(new string[] { asset }, onData, ct);
-
-        /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingBookUpdatesAsync(IEnumerable<string> assets, Action<DataEvent<KucoinStreamFundingBookUpdate>> onData, CancellationToken ct = default)
-        {
-            foreach (var asset in assets)
-                asset.ValidateNotNull(asset);
-
-            var subscription = new KucoinSubscription<KucoinStreamFundingBookUpdate>(_logger, $"/margin/fundingBook", assets.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
-            return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
             Action<DataEvent<KucoinStreamOrderNewUpdate>>? onNewOrder = null,
             Action<DataEvent<KucoinStreamOrderUpdate>>? onOrderData = null,
