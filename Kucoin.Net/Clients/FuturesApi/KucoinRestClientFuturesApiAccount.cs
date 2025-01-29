@@ -53,51 +53,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
         #endregion
 
-        #region Transfer
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, AccountType receiveAccountType, CancellationToken ct = default)
-        {
-            if (receiveAccountType != AccountType.Main && receiveAccountType != AccountType.Trade)
-                throw new ArgumentException("Receiving account type should be Main or Trade");
-
-            var parameters = new ParameterCollection();
-            parameters.AddParameter("currency", asset);
-            parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
-            parameters.AddParameter("recAccountType", EnumConverter.GetString(receiveAccountType));
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/transfer-out", KucoinExchange.RateLimiter.ManagementRest, 20, true);
-            return await _baseClient.SendAsync<KucoinTransferResult>(request, parameters, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult> TransferToFuturesAccountAsync(string asset, decimal quantity, AccountType payAccountType, CancellationToken ct = default)
-        {
-            if (payAccountType != AccountType.Main && payAccountType != AccountType.Trade)
-                throw new ArgumentException("Receiving account type should be Main or Trade");
-
-            var parameters = new ParameterCollection();
-            parameters.AddParameter("currency", asset);
-            parameters.AddParameter("amount", quantity.ToString(CultureInfo.InvariantCulture));
-            parameters.AddParameter("payAccountType", EnumConverter.GetString(payAccountType));
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/transfer-in", KucoinExchange.RateLimiter.ManagementRest, 20, true);
-            return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinTransfer>>> GetTransferToMainAccountHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, DepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("currency", asset);
-            parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("currentPage", currentPage);
-            parameters.AddOptionalParameter("pageSize", pageSize);
-            parameters.AddOptionalParameter("status", EnumConverter.GetString(status));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/transfer-list", KucoinExchange.RateLimiter.ManagementRest, 20, true);
-            return await _baseClient.SendAsync<KucoinPaginated<KucoinTransfer>>(request, parameters, ct).ConfigureAwait(false);
-        }
-
-        #endregion
-
         #region Positions
 
         /// <inheritdoc />

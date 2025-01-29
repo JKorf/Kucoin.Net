@@ -1,26 +1,48 @@
 GET
-/api/v2/deposit-addresses
+/api/v3/deposit-addresses
 true
 {
   "code": "200000",
   "data": [
-  {
-    "address": "bc1qaj6kkv85w5d6lr8p8h7tckyce5hnwmyq8dd84d",
-    "memo": "",
-    "chain": "BTC-Segwit",
-    "contractAddress": ""
-  },
-  {
-    "address": "3HwsFot9TW6jL4K4EUHxDSyL8myttxV7Av",
-    "memo": "",
-    "chain": "BTC",
-    "contractAddress": ""
-  },
-  {
-    "address": "TUDybru26JmozStbg2cJGDbR9EPSbQaAie",
-    "memo": "",
-    "chain": "TRC20",
-    "contractAddress": ""
-  }
-]
+    {
+      "address": "TSv3L1fS7yA3SxzKD8c1qdX4nLP6rqNxYz",
+      "memo": "",
+      "chainId": "trx",
+      "to": "TRADE",
+      "expirationDate": 0,
+      "currency": "USDT",
+      "contractAddress": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "chainName": "TRC20"
+    },
+    {
+      "address": "0x551e823a3b36865e8c5dc6e6ac6cc0b00d98533e",
+      "memo": "",
+      "chainId": "kcc",
+      "to": "TRADE",
+      "expirationDate": 0,
+      "currency": "USDT",
+      "contractAddress": "0x0039f574ee5cc39bdd162e9a88e3eb1f111baf48",
+      "chainName": "KCC"
+    },
+    {
+      "address": "EQCA1BI4QRZ8qYmskSRDzJmkucGodYRTZCf_b9hckjla6dZl",
+      "memo": "2085202643",
+      "chainId": "ton",
+      "to": "TRADE",
+      "expirationDate": 0,
+      "currency": "USDT",
+      "contractAddress": "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",
+      "chainName": "TON"
+    },
+    {
+      "address": "0x0a2586d5a901c8e7e68f6b0dc83bfd8bd8600ff5",
+      "memo": "",
+      "chainId": "eth",
+      "to": "MAIN",
+      "expirationDate": 0,
+      "currency": "USDT",
+      "contractAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "chainName": "ERC20"
+    }
+  ]
 }

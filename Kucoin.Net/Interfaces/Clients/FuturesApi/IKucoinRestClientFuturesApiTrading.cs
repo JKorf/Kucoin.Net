@@ -17,7 +17,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-order" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order" /></para>
         /// </summary>
         /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
         /// <param name="side">Side of the order</param>
@@ -72,7 +72,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place a test order. The order will not be executed or added to the order book, but can be used to verify the request parameters
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-order-test" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test" /></para>
         /// </summary>
         /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
         /// <param name="side">Side of the order</param>
@@ -124,7 +124,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place a new take profit / stop loss order
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-take-profit-and-stop-loss-order" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order" /></para>
         /// </summary>
         /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
         /// <param name="side">Side of the order</param>
@@ -179,7 +179,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place multiple orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/place-multiple-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders" /></para>
         /// </summary>
         /// <param name="orders">The orders to place</param>
         /// <param name="ct">Cancellation token</param>
@@ -188,7 +188,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel an order
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-order-by-orderid" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld" /></para>
         /// </summary>
         /// <param name="orderId">Id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -197,7 +197,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel multiple orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/batch-cancel-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/3470241e0" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, required when specifying clientOrderIds</param>
         /// <param name="orderIds">Order ids to cancel</param>
@@ -208,7 +208,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel an order by client order id
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-order-by-clientoid" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="clientOrderId">Client order id of the order to cancel</param>
@@ -218,7 +218,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel all open orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-multiple-futures-limit-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders" /></para>
         /// </summary>
         /// <param name="symbol">Cancel only orders for this symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -227,7 +227,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel all open stop orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/cancel-multiple-futures-stop-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders" /></para>
         /// </summary>
         /// <param name="symbol">Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -236,7 +236,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-order-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="status">Filter by status</param>
@@ -252,7 +252,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of untriggered stop orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-untriggered-stop-order-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="side">Filter by side</param>
@@ -267,7 +267,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of 1000 most recent orders in the last 24 hours
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-list-of-orders-completed-in-24h" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-recent-closed-orders" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -276,7 +276,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get details on an order
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-order-details-by-orderid-clientoid" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld" /></para>
         /// </summary>
         /// <param name="orderId">Id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -285,7 +285,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get details on an order
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/orders/get-order-details-by-orderid-clientoid" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid" /></para>
         /// </summary>
         /// <param name="clientOrderId">Client order id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -294,7 +294,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of user trades
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-filled-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/est/futures-trading/orders/get-trade-history" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="orderId">Filter by order id</param>
@@ -311,7 +311,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of 1000 most recent user trades in the last 24 hours
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/fills/get-recent-filled-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/est/futures-trading/orders/get-recent-trade-history" /></para>
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
@@ -319,7 +319,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the max position size
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/get-maximum-open-position-size" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-max-open-size" /></para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="price">Price</param>

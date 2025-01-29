@@ -1,5 +1,8 @@
 ﻿
 
+using Kucoin.Net.Enums;
+using System;
+
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -22,7 +25,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The chain of the address
         /// </summary>
-        [JsonPropertyName("chain")]
+        [JsonPropertyName("chainName")]
         public string Network { get; set; } = string.Empty;
 
         /// <summary>
@@ -30,5 +33,29 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("contractAddress")]
         public string ContractAddress { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The deposit account type
+        /// </summary>
+        [JsonPropertyName("to")]
+        public AccountType ToAccount { get; set; }
+
+        /// <summary>
+        /// The asset
+        /// </summary>
+        [JsonPropertyName("currency")]
+        public string Asset { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The id of the network
+        /// </summary>
+        [JsonPropertyName("chainId")]
+        public string NetworkId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Expiration time
+        /// </summary>
+        [JsonPropertyName("expirationDate")]
+        public DateTime? ExpirationTime { get; set; }
     }
 }
