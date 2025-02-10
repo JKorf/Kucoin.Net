@@ -15,7 +15,7 @@ using Kucoin.Net.Objects.Options;
 namespace Kucoin.Net.UnitTests
 {
     [NonParallelizable]
-    internal class KucoinRestIntegrationTests : RestIntergrationTest<KucoinRestClient>
+    internal class KucoinRestIntegrationTests : RestIntegrationTest<KucoinRestClient>
     {
         public override bool Run { get; set; }
 

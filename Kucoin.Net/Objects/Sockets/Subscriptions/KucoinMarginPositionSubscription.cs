@@ -45,9 +45,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinMarginDebtRatioUpdate> debtUpdate)
-                _onDebtRatioChange?.Invoke(message.As(debtUpdate.Data, debtUpdate.Topic, null, SocketUpdateType.Update));
+                _onDebtRatioChange?.Invoke(message.As(debtUpdate.Data, debtUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(debtUpdate.Data.Timestamp));
             if (message.Data is KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> statusUpdate)
-                _onPositionStatusChange?.Invoke(message.As(statusUpdate.Data, statusUpdate.Topic, null, SocketUpdateType.Update));
+                _onPositionStatusChange?.Invoke(message.As(statusUpdate.Data, statusUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(statusUpdate.Data.Timestamp));
 
             return new CallResult(null);
         }

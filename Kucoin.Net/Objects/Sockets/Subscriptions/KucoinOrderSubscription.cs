@@ -49,11 +49,11 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderMatchUpdate> matchUpdate)
-                _onTradeData?.Invoke(message.As(matchUpdate.Data, matchUpdate.Topic, matchUpdate.Data.Symbol, SocketUpdateType.Update));
+                _onTradeData?.Invoke(message.As(matchUpdate.Data, matchUpdate.Topic, matchUpdate.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(matchUpdate.Data.Timestamp));
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderUpdate> orderUpdate)
-                _onOrderData?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, orderUpdate.Data.Symbol, SocketUpdateType.Update));
+                _onOrderData?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, orderUpdate.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(orderUpdate.Data.Timestamp));
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderNewUpdate> newOrderUpdate)
-                _onNewOrder?.Invoke(message.As(newOrderUpdate.Data, newOrderUpdate.Topic, newOrderUpdate.Data.Symbol, SocketUpdateType.Update));
+                _onNewOrder?.Invoke(message.As(newOrderUpdate.Data, newOrderUpdate.Topic, newOrderUpdate.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(newOrderUpdate.Data.Timestamp));
 
             return new CallResult(null);
         }

@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = (KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>)message.Data;
-            _onPositionChange?.Invoke(message.As(data.Data, data.Topic, data.Data.Tag, SocketUpdateType.Update));
+            _onPositionChange?.Invoke(message.As(data.Data, data.Topic, data.Data.Tag, SocketUpdateType.Update).WithDataTimestamp(data.Data.Timestamp));
 
             return new CallResult(null);
         }

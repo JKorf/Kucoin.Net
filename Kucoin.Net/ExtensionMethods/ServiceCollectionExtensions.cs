@@ -114,8 +114,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
                     handler.DefaultProxyCredentials = CredentialCache.DefaultCredentials;
                 }
-                catch (PlatformNotSupportedException)
-                { }
+                catch (PlatformNotSupportedException) { }
+                catch (NotImplementedException) { } // Mono runtime throws NotImplementedException for DefaultProxyCredentials setting
 
                 var options = serviceProvider.GetRequiredService<IOptions<KucoinRestOptions>>().Value;
                 if (options.Proxy != null)

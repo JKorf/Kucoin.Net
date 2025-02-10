@@ -527,7 +527,18 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Klines client
 
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationSupport.Descending, true, 500, false);
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationSupport.Descending, true, 500, false,
+            SharedKlineInterval.OneMinute,
+            SharedKlineInterval.FiveMinutes,
+            SharedKlineInterval.FifteenMinutes,
+            SharedKlineInterval.ThirtyMinutes,
+            SharedKlineInterval.OneHour,
+            SharedKlineInterval.TwoHours,
+            SharedKlineInterval.FourHours,
+            SharedKlineInterval.EightHours,
+            SharedKlineInterval.TwelveHours,
+            SharedKlineInterval.OneDay,
+            SharedKlineInterval.OneWeek);
 
         async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
