@@ -29,7 +29,7 @@ namespace Kucoin.Net.Objects.Options
         /// </summary>
         public SocketApiOptions<KucoinApiCredentials> SpotOptions { get; private set; } = new SocketApiOptions<KucoinApiCredentials>()
         {
-            MaxSocketConnections = 500
+            MaxSocketConnections = 800
         };
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Kucoin.Net.Objects.Options
         /// </summary>
         public SocketApiOptions<KucoinApiCredentials> FuturesOptions { get; private set; } = new SocketApiOptions<KucoinApiCredentials>()
         {
-            MaxSocketConnections = 50
+            MaxSocketConnections = 800
         };
 
         internal KucoinSocketOptions Set(KucoinSocketOptions targetOptions)
