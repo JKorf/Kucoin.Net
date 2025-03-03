@@ -90,8 +90,7 @@ namespace Kucoin.Net.UnitTests
         [Test]
         public async Task TestSpotTrading()
         {
-            await RunAndCheckResult(client => client.SpotApi.Trading.GetOpenOrdersAsync("ETH-USDT", default), true);
-            await RunAndCheckResult(client => client.SpotApi.Trading.GetClosedOrdersAsync("ETH-USDT", default, default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Trading.GetOrdersAsync(default, default, default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Trading.GetOcoOrdersAsync(default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Trading.GetRecentOrdersAsync(default), true);
             await RunAndCheckResult(client => client.SpotApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default), true);

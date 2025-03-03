@@ -215,22 +215,44 @@ namespace Kucoin.Net.Clients.SpotApi
                 ((ISpotOrderRestClient)this).SpotSupportedOrderQuantity);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
-                        
-            var result = await Trading.PlaceOrderAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
-                request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
-                GetPlaceOrderType(request.OrderType),
-                request.Quantity,
-                request.Price,
-                request.QuoteQuantity,
-                timeInForce: GetTimeInForce(request.TimeInForce),
-                postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
-                clientOrderId: request.ClientOrderId).ConfigureAwait(false);
 
-            if (!result)
-                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
+            {
+                var result = await Trading.PlaceOrderAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
+                    GetPlaceOrderType(request.OrderType),
+                    request.Quantity,
+                    request.Price,
+                    request.QuoteQuantity,
+                    timeInForce: GetTimeInForce(request.TimeInForce),
+                    postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
+                    clientOrderId: request.ClientOrderId).ConfigureAwait(false);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));            
+                if (!result)
+                    return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
+            }
+            else
+            {
+                var result = await HfTrading.PlaceOrderAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
+                    GetPlaceOrderType(request.OrderType),
+                    request.Quantity,
+                    request.Price,
+                    request.QuoteQuantity,
+                    timeInForce: GetTimeInForce(request.TimeInForce),
+                    postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
+                    clientOrderId: request.ClientOrderId).ConfigureAwait(false);
+
+                if (!result)
+                    return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
+            }
         }
 
         EndpointOptions<GetOrderRequest> ISpotOrderRestClient.GetSpotOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
@@ -240,67 +262,122 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
 
-            var order = await Trading.GetOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
-            if (!order)
-                return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
-
-            return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
-                order.Data.Symbol,
-                order.Data.Id.ToString(),
-                ParseOrderType(order.Data.Type, order.Data.PostOnly),
-                order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(order.Data.IsActive ?? true, order.Data.CancelExist),
-                order.Data.CreateTime)
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
             {
-                ClientOrderId = order.Data.ClientOrderId,
-                Fee = order.Data.Fee,
-                OrderPrice = order.Data.Price,
-                Quantity = order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantity = order.Data.QuoteQuantity,
-                QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
-                TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
-                FeeAsset = order.Data.FeeAsset
-            });
+                var order = await Trading.GetOrderAsync(request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                    order.Data.Symbol,
+                    order.Data.Id.ToString(),
+                    ParseOrderType(order.Data.Type, order.Data.PostOnly),
+                    order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(order.Data.IsActive ?? true, order.Data.CancelExist),
+                    order.Data.CreateTime)
+                {
+                    ClientOrderId = order.Data.ClientOrderId,
+                    Fee = order.Data.Fee,
+                    OrderPrice = order.Data.Price,
+                    Quantity = order.Data.Quantity,
+                    QuantityFilled = order.Data.QuantityFilled,
+                    QuoteQuantity = order.Data.QuoteQuantity,
+                    QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                    TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
+                    FeeAsset = order.Data.FeeAsset
+                });
+            }
+            else
+            {
+                var order = await HfTrading.GetOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                    order.Data.Symbol,
+                    order.Data.Id.ToString(),
+                    ParseOrderType(order.Data.Type, order.Data.PostOnly),
+                    order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(order.Data.IsActive ?? true, order.Data.CancelExist),
+                    order.Data.CreateTime)
+                {
+                    ClientOrderId = order.Data.ClientOrderId,
+                    Fee = order.Data.Fee,
+                    OrderPrice = order.Data.Price,
+                    Quantity = order.Data.Quantity,
+                    QuantityFilled = order.Data.QuantityFilled,
+                    QuoteQuantity = order.Data.QuoteQuantity,
+                    QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                    TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
+                    FeeAsset = order.Data.FeeAsset
+                });
+            }
         }
 
-        EndpointOptions<GetOpenOrdersRequest> ISpotOrderRestClient.GetOpenSpotOrdersOptions { get; } = new EndpointOptions<GetOpenOrdersRequest>(true)
-        {
-            RequiredOptionalParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(GetOpenOrdersRequest.Symbol), typeof(SharedSymbol), "Symbol to request open orders for", "ETHUSDT")
-            }
-        };
-
+        EndpointOptions<GetOpenOrdersRequest> ISpotOrderRestClient.GetOpenSpotOrdersOptions { get; } = new EndpointOptions<GetOpenOrdersRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenSpotOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetOpenSpotOrdersOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, validationError);
-                        
-            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var order = await Trading.GetOpenOrdersAsync(symbol: symbol).ConfigureAwait(false);
-            if (!order)
-                return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
 
-            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Select(x => new SharedSpotOrder(
-                x.Symbol,
-                x.Id.ToString(),
-                ParseOrderType(x.Type, x.PostOnly),
-                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.IsActive ?? true, x.CancelExist),
-                x.CreateTime)
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
             {
-                ClientOrderId = x.ClientOrderId,
-                Fee = x.Fee,
-                OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.QuoteQuantity,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
-                TimeInForce = ParseTimeInForce(x.TimeInForce),
-                FeeAsset = x.FeeAsset
-            }).ToArray());
+                var symbol = request.Symbol?.GetSymbol(FormatSymbol);
+                var order = await Trading.GetOrdersAsync(symbol: symbol, status: OrderStatus.Active).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
+
+                return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
+                    x.Symbol,
+                    x.Id.ToString(),
+                    ParseOrderType(x.Type, x.PostOnly),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(x.IsActive ?? true, x.CancelExist),
+                    x.CreateTime)
+                {
+                    ClientOrderId = x.ClientOrderId,
+                    Fee = x.Fee,
+                    OrderPrice = x.Price,
+                    Quantity = x.Quantity,
+                    QuantityFilled = x.QuantityFilled,
+                    QuoteQuantity = x.QuoteQuantity,
+                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    TimeInForce = ParseTimeInForce(x.TimeInForce),
+                    FeeAsset = x.FeeAsset
+                }).ToArray());
+            }
+            else
+            {
+                if (request.Symbol == null)
+                    return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, new ArgumentError("Symbol parameter is required for HfTrading account"));
+
+                var symbol = request.Symbol.GetSymbol(FormatSymbol);
+                var order = await HfTrading.GetOpenOrdersAsync(symbol).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
+
+                return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Select(x => new SharedSpotOrder(
+                    x.Symbol,
+                    x.Id.ToString(),
+                    ParseOrderType(x.Type, x.PostOnly),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(x.IsActive ?? true, x.CancelExist),
+                    x.CreateTime)
+                {
+                    ClientOrderId = x.ClientOrderId,
+                    Fee = x.Fee,
+                    OrderPrice = x.Price,
+                    Quantity = x.Quantity,
+                    QuantityFilled = x.QuantityFilled,
+                    QuoteQuantity = x.QuoteQuantity,
+                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    TimeInForce = ParseTimeInForce(x.TimeInForce),
+                    FeeAsset = x.FeeAsset
+                }).ToArray());
+            }
         }
 
         PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationSupport.Descending, true, 100, true);
@@ -310,45 +387,96 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, validationError);
 
-            // Determine page token
-            long? lastId = null;
-            if (pageToken is FromIdToken token)
-                lastId = long.Parse(token.FromToken);
-
-            // Get data
-            var order = await Trading.GetClosedOrdersAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
-                startTime: request.StartTime,
-                endTime: request.EndTime,
-                limit: request.Limit,
-                lastId: lastId,
-                ct: ct).ConfigureAwait(false);
-            if (!order)
-                return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
-
-            // Get next token
-            FromIdToken? nextToken = null;
-            if (order.Data.LastId != 0)
-                nextToken = new FromIdToken(order.Data.LastId.ToString());
-
-            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
-                x.Symbol,
-                x.Id.ToString(),
-                ParseOrderType(x.Type, x.PostOnly),
-                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.IsActive ?? true, x.CancelExist),
-                x.CreateTime)
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
             {
-                ClientOrderId = x.ClientOrderId,
-                Fee = x.Fee,
-                OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.QuoteQuantity,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
-                TimeInForce = ParseTimeInForce(x.TimeInForce),
-                FeeAsset = x.FeeAsset
-            }).ToArray(), nextToken);            
+                // Determine page token
+                int page = 1;
+                int pageSize = request.Limit ?? 500;
+                if (pageToken is PageToken token)
+                {
+                    page = token.Page;
+                    pageSize = token.PageSize;
+                }
+
+                // Get data
+                var order = await Trading.GetOrdersAsync(
+                    request.Symbol.GetSymbol(FormatSymbol), 
+                    status: OrderStatus.Done,
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
+                    currentPage: page,
+                    pageSize: pageSize,
+                    ct: ct).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
+
+                // Get next token
+                PageToken? nextToken = null;
+                if (order.Data.Items.Any() && order.Data.TotalItems > (page * pageSize))
+                    nextToken = new PageToken(page + 1, pageSize);
+
+                return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
+                    x.Symbol,
+                    x.Id.ToString(),
+                    ParseOrderType(x.Type, x.PostOnly),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(x.IsActive ?? true, x.CancelExist),
+                    x.CreateTime)
+                {
+                    ClientOrderId = x.ClientOrderId,
+                    Fee = x.Fee,
+                    OrderPrice = x.Price,
+                    Quantity = x.Quantity,
+                    QuantityFilled = x.QuantityFilled,
+                    QuoteQuantity = x.QuoteQuantity,
+                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    TimeInForce = ParseTimeInForce(x.TimeInForce),
+                    FeeAsset = x.FeeAsset
+                }).ToArray(), nextToken);
+            }
+            else
+            {
+                // Determine page token
+                long? lastId = null;
+                if (pageToken is FromIdToken token)
+                    lastId = long.Parse(token.FromToken);
+
+                // Get data
+                var order = await HfTrading.GetClosedOrdersAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
+                    limit: request.Limit,
+                    lastId: lastId,
+                    ct: ct).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
+
+                // Get next token
+                FromIdToken? nextToken = null;
+                if (order.Data.LastId != 0)
+                    nextToken = new FromIdToken(order.Data.LastId.ToString());
+
+                return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
+                    x.Symbol,
+                    x.Id.ToString(),
+                    ParseOrderType(x.Type, x.PostOnly),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(x.IsActive ?? true, x.CancelExist),
+                    x.CreateTime)
+                {
+                    ClientOrderId = x.ClientOrderId,
+                    Fee = x.Fee,
+                    OrderPrice = x.Price,
+                    Quantity = x.Quantity,
+                    QuantityFilled = x.QuantityFilled,
+                    QuoteQuantity = x.QuoteQuantity,
+                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    TimeInForce = ParseTimeInForce(x.TimeInForce),
+                    FeeAsset = x.FeeAsset
+                }).ToArray(), nextToken);
+            }
         }
 
         EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
@@ -358,24 +486,48 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var order = await Trading.GetUserTradesAsync(symbol, orderId: request.OrderId).ConfigureAwait(false);
-            if (!order)
-                return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
-
-            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
-                x.Symbol,
-                x.OrderId.ToString(),
-                x.Id.ToString(),
-                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
-                x.Price,
-                x.Timestamp)
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
             {
-                Fee = x.Fee,
-                FeeAsset = x.FeeAsset,
-                Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
-            }).ToArray());            
+                var order = await Trading.GetUserTradesAsync(orderId: request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
+
+                return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    x.Symbol,
+                    x.OrderId.ToString(),
+                    x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    x.Quantity,
+                    x.Price,
+                    x.Timestamp)
+                {
+                    Fee = x.Fee,
+                    FeeAsset = x.FeeAsset,
+                    Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
+                }).ToArray());
+            }
+            else
+            {
+                var symbol = request.Symbol.GetSymbol(FormatSymbol);
+                var order = await HfTrading.GetUserTradesAsync(symbol, orderId: request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
+
+                return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    x.Symbol,
+                    x.OrderId.ToString(),
+                    x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    x.Quantity,
+                    x.Price,
+                    x.Timestamp)
+                {
+                    Fee = x.Fee,
+                    FeeAsset = x.FeeAsset,
+                    Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
+                }).ToArray());
+            }
         }
 
         PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationSupport.Descending, true, 100, true);
@@ -385,41 +537,86 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
-            // Determine page token
-            long? lastId = null;
-            if (nextPageToken is FromIdToken token)
-                lastId = long.Parse(token.FromToken);
-
-            // Get data
-            var order = await Trading.GetUserTradesAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
-                startTime: request.StartTime,
-                endTime: request.EndTime,
-                limit: request.Limit,
-                lastId: lastId,
-                ct: ct).ConfigureAwait(false);
-            if (!order)
-                return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
-
-            // Get next token
-            FromIdToken? nextToken = null;
-            if (order.Data.LastId != 0)
-                nextToken = new FromIdToken(order.Data.LastId.ToString());
-
-            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
-                x.Symbol,
-                x.OrderId.ToString(),
-                x.Id.ToString(),
-                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
-                x.Price,
-                x.Timestamp)
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
             {
-                Fee = x.Fee,
-                FeeAsset = x.FeeAsset,
-                Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
-            }).ToArray(),
-            nextToken);            
+                // Determine page token
+                int page = 1;
+                int pageSize = request.Limit ?? 500;
+                if (nextPageToken is PageToken pageToken)
+                {
+                    page = pageToken.Page;
+                    pageSize = pageToken.PageSize;
+                }
+
+                // Get data
+                var order = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol(FormatSymbol),
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
+                    currentPage: page,
+                    pageSize: pageSize,
+                    ct: ct).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
+
+                // Get next token
+                PageToken? nextToken = null;
+                if (order.Data.Items.Any() && order.Data.TotalItems > (page * pageSize))
+                    nextToken = new PageToken(page + 1, pageSize);
+
+                return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    x.Symbol,
+                    x.OrderId.ToString(),
+                    x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    x.Quantity,
+                    x.Price,
+                    x.Timestamp)
+                {
+                    Fee = x.Fee,
+                    FeeAsset = x.FeeAsset,
+                    Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
+                }).ToArray(),
+                nextToken);
+            }
+            else
+            {
+                // Determine page token
+                long? lastId = null;
+                if (nextPageToken is FromIdToken token)
+                    lastId = long.Parse(token.FromToken);
+
+                // Get data
+                var order = await HfTrading.GetUserTradesAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
+                    limit: request.Limit,
+                    lastId: lastId,
+                    ct: ct).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
+
+                // Get next token
+                FromIdToken? nextToken = null;
+                if (order.Data.LastId != 0)
+                    nextToken = new FromIdToken(order.Data.LastId.ToString());
+
+                return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    x.Symbol,
+                    x.OrderId.ToString(),
+                    x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    x.Quantity,
+                    x.Price,
+                    x.Timestamp)
+                {
+                    Fee = x.Fee,
+                    FeeAsset = x.FeeAsset,
+                    Role = x.ForceTaker ? SharedRole.Taker : SharedRole.Taker
+                }).ToArray(),
+                nextToken);
+            }
         }
 
         EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelSpotOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -429,11 +626,24 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
-            if (!order)
-                return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));            
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
+            {
+                var order = await Trading.CancelOrderAsync(request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+            else
+            {
+                var order = await HfTrading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
         }
 
         private SharedOrderStatus ParseOrderStatus(bool active, bool canceled)

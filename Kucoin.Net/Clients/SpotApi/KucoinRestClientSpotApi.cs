@@ -50,6 +50,9 @@ namespace Kucoin.Net.Clients.SpotApi
         public IKucoinRestClientSpotApiTrading Trading { get; }
 
         /// <inheritdoc />
+        public IKucoinRestClientSpotApiHfTrading HfTrading { get; }
+
+        /// <inheritdoc />
         public IKucoinRestClientSpotApiMargin Margin { get; }
 
         internal KucoinRestClientSpotApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
@@ -59,6 +62,7 @@ namespace Kucoin.Net.Clients.SpotApi
             SubAccount = new KucoinRestClientSpotApiSubAccount(this);
             ExchangeData = new KucoinRestClientSpotApiExchangeData(this);
             Trading = new KucoinRestClientSpotApiTrading(this);
+            HfTrading = new KucoinRestClientSpotApiHfTrading(this);
             Margin = new KucoinRestClientSpotApiMargin(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
@@ -214,10 +218,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<Order>> IBaseRestClient.GetOrderAsync(string orderId, string? symbol, CancellationToken ct)
         {
-            if (string.IsNullOrEmpty(symbol))
-                throw new ArgumentException("Symbol required");
-
-            var order = await Trading.GetOrderAsync(symbol!, orderId, ct: ct).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(orderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.As<Order>(null);
 
@@ -238,10 +239,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol, CancellationToken ct)
         {
-            if (string.IsNullOrEmpty(symbol))
-                throw new ArgumentException("Symbol required");
-
-            var trades = await Trading.GetUserTradesAsync(symbol!, orderId: orderId, ct: ct).ConfigureAwait(false);
+            var trades = await Trading.GetUserTradesAsync(orderId: orderId, ct: ct).ConfigureAwait(false);
             if (!trades)
                 return trades.As<IEnumerable<UserTrade>>(null);
 
@@ -261,14 +259,11 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol, CancellationToken ct)
         {
-            if (string.IsNullOrEmpty(symbol))
-                throw new ArgumentException("Symbol required");
-
-            var orders = await Trading.GetOpenOrdersAsync(symbol!, ct: ct).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(status: Enums.OrderStatus.Active, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
-            return orders.As(orders.Data.Select(d => new Order
+            return orders.As(orders.Data.Items.Select(d => new Order
             {
                 SourceObject = d,
                 Id = d.Id,
@@ -285,10 +280,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol, CancellationToken ct)
         {
-            if (string.IsNullOrEmpty(symbol))
-                throw new ArgumentException("Symbol required");
-
-            var orders = await Trading.GetClosedOrdersAsync(symbol!, ct: ct).ConfigureAwait(false);
+            var orders = await Trading.GetOrdersAsync(status: Enums.OrderStatus.Done, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
@@ -309,17 +301,17 @@ namespace Kucoin.Net.Clients.SpotApi
 
         async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol, CancellationToken ct)
         {
-            if (string.IsNullOrEmpty(symbol))
-                throw new ArgumentException("Symbol required");
-
-            var result = await Trading.CancelOrderAsync(symbol!, orderId, ct: ct).ConfigureAwait(false);
+            var result = await Trading.CancelOrderAsync(orderId, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<OrderId>(null);
+
+            if (!result.Data.CancelledOrderIds.Any())
+                return result.AsError<OrderId>(new ServerError("Order not canceled"));
 
             return result.As(new OrderId
             {
                 SourceObject = result.Data,
-                Id = result.Data.Id
+                Id = result.Data.CancelledOrderIds.First()
             });
         }
 
