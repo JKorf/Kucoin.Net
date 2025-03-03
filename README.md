@@ -153,6 +153,34 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.0 - 03 Mar 2025
+    * Updated library from Newtonsoft.Json to System.Text.Json for json (de)serialization
+    * Added USDC balance info to Futures API shared GetBalancesAsync
+    * Added restClient.SpotApi.Account.GetDepositAddressesV3Async endpoint
+    * Added restClient.SpotApi.Account.CreateDepositAddressV3Async endpoint
+    * Added restClient.SpotApi.ExchangeData.GetCallAuctionOrderBookAsync endpoint
+    * Added restClient.SpotApi.ExchangeData.GetCallAuctionInfoAsync endpoint
+    * Added socketClient.SpotApi.SubscribeToCallAuctionOrderBookUpdatesAsync endpoint
+    * Added socketClient.SpotApi.SubscribeToCallAuctionInfoUpdatesAsync endpoint
+    * Updated takeProfitPrice and stopLossPrice on restClient.FuturesApi.Trading.PlaceTpSlOrderAsync to triggerStopUpPrice and triggerStopDownPrice
+    * Updated KucoinSymbol response model with call auction info
+    * Updated Enum mappings
+    * Updated API documentation references to new API docs
+    * Removed no longer needed converters
+    * Renamed restClient.FuturesApi.ExchangeData.GetOpenContractsAsync to GetSymbolsAsync
+    * Renamed restClient.SpotApi.Margin.GetMarginTradingPairConfigurationAsync to GetSymbolsAsync
+    * Renamed socketClient.FuturesApi.SubscribeToTickerUpdatesAsync to SubscribeToBookTickerUpdatesAsync
+    * Renamed socketClient.FuturesApi.SubscribeToMarketUpdatesAsync to SubscribeToSymbolUpdatesAsync
+    * Renamed socketClient.FuturesApi.SubscribeToSystemAnnouncementsAsync to SubscribeToFundingFeeSettlementUpdatesAsync
+    * Renamed socketClient.FuturesApi.SubscribeTo24HourSnapshotUpdatesAsync to SubscribeTo24HTickerUpdatesAsync
+    * Removed deprecated restClient.FuturesApi.Account transfer endpoints
+    * Removed deprecated restClient.SpotApi.Account.InnerTransferAsync
+    * Removed deprecated restClient.SpotApi.Account.GetHistoricalDepositsAsync
+    * Removed deprecated restClient.SpotApi.Account.GetHistoricalWithdrawalsAsync
+    * Removed deprecated restClient.SpotApi.Account.GetDepositAddressAsync
+    * Removed deprecated restClient.SpotApi.Account.CreateDepositAddressAsync
+    * Removed deprecated socketClient.SpotApi.SubscribeToFundingBookUpdatesAsync
+
 * Version 5.24.0 - 11 Feb 2025
     * Updated CryptoExchange.Net to version 8.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added support for more SharedKlineInterval values
