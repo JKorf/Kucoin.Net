@@ -6,10 +6,10 @@ true
   "data": 
   [
   {
-    "userId": "5cbd31ab9c93e9280cd36a0a", //subUserId
+    "userId": "5cbd31ab9c93e9280cd36a0a", 
     "uid": "1789234",
     "subName": "kucoin1",
-    "type": 0, //type:0-nomal
+    "type": 0, 
     "remarks": "kucoin1",
     "access": "All"
   },
@@ -17,7 +17,7 @@ true
     "userId": "5cbd31b89c93e9280cd36a0d",
     "uid": "1789431",
     "subName": "kucoin2",
-    "type": 1, //type:1-rebot
+    "type": 1,
     "remarks": "kucoin2",
     "access": "All"
   }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models
 {
@@ -13,12 +13,12 @@ namespace Kucoin.Net.Objects.Models
         /// <summary>
         /// The last result id
         /// </summary>
-        [JsonProperty("lastId")]
+        [JsonPropertyName("lastId")]
         public long LastId { get; set; }
         /// <summary>
         /// The items on this page
         /// </summary>
-        [JsonProperty("items")]
+        [JsonPropertyName("items")]
         public IEnumerable<T> Items { get; set; } = Array.Empty<T>();
     }
 }

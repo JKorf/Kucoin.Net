@@ -64,6 +64,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
         }
 
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
+
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
@@ -118,7 +122,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         
         async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
@@ -150,7 +154,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetOpenContractsAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Ticker>>(null);
 
@@ -398,23 +402,6 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (timeSpan == TimeSpan.FromDays(7)) return FuturesKlineInterval.OneWeek;
 
             throw new ArgumentException("Unsupported timespan for Kucoin kline interval, check supported intervals using Kucoin.Net.Objects.KucoinKlineInterval");
-        }
-
-        /// <inheritdoc />
-        protected override void WriteParamBody(IRequest request, IDictionary<string, object> parameters, string contentType)
-        {
-            if (contentType == "application/json")
-            {
-                string data = parameters.Count == 1 && parameters.First().Key == "<BODY>"
-                    ? CreateSerializer().Serialize(parameters.First().Value)
-                    : CreateSerializer().Serialize(parameters);
-                request.SetContent(data, contentType);
-            }
-            else if (contentType == "application/x-www-form-urlencoded")
-            {
-                string data2 = parameters.ToFormData();
-                request.SetContent(data2, contentType);
-            }
         }
 
         internal void InvokeOrderPlaced(OrderId id)

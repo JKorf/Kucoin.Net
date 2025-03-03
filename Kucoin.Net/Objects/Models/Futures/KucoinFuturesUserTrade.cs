@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -14,52 +12,57 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// The type of the order
         /// </summary>
-        [JsonConverter(typeof(OrderTypeConverter))]
+        [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
 
         /// <summary>
         /// Trade type
         /// </summary>
-        [JsonConverter(typeof(FuturesTradeTypeConverter))]
+        [JsonPropertyName("tradeType")]
         public FuturesTradeType TradeType { get; set; }
 
         /// <summary>
         /// Order value
         /// </summary>
-        [JsonProperty("value")]
+        [JsonPropertyName("value")]
         public decimal QuoteQuantity { get; set; }
         /// <summary>
         /// Fixed fee
         /// </summary>
+        [JsonPropertyName("fixFee")]
         public decimal FixFee { get; set; }
 
         /// <summary>
         /// Trade time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("tradeTime")]
         public DateTime TradeTime { get; set; }
         /// <summary>
         /// Settlement asset
         /// </summary>
-        [JsonProperty("settleCurrency")]
+        [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
         /// <summary>
         /// Opening transaction fee
         /// </summary>
+        [JsonPropertyName("openFeePay")]
         public decimal? OpenFeePay { get; set; }
         /// <summary>
         /// Closing transaction fee
         /// </summary>
+        [JsonPropertyName("closeFeePay")]
         public decimal? CloseFeePay { get; set; }
         /// <summary>
         /// Whether to force processing as a taker
         /// </summary>
-        [JsonProperty("forceTaker")]
+        [JsonPropertyName("forceTaker")]
         public bool ForceTaker { get; set; }
         /// <summary>
         /// Margin mode
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
     }
 }

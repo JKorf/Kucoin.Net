@@ -1,16 +1,14 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Kucoin.Net.ExtensionMethods;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -64,21 +62,21 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
-                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
-                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
             };
+            parameters.AddEnum("side", side);
+            parameters.AddEnum("type", type);
             parameters.AddOptionalParameter("price", price);
             parameters.AddOptionalParameter("size", quantity);
             parameters.AddOptionalParameter("funds", quoteQuantity);
-            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalEnum("timeInForce", timeInForce);
             parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceBerg", iceBerg);
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            parameters.AddOptionalEnum("stp", selfTradePrevention);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.SpotRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
@@ -121,21 +119,21 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
-                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
-                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
             };
+            parameters.AddEnum("side", side);
+            parameters.AddEnum("type", type);
             parameters.AddOptionalParameter("price", price);
             parameters.AddOptionalParameter("size", quantity);
             parameters.AddOptionalParameter("funds", quoteQuantity);
-            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalEnum("timeInForce", timeInForce);
             parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceBerg", iceBerg);
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            parameters.AddOptionalEnum("stp", selfTradePrevention);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiter.SpotRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -178,24 +176,24 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
-                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
-                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
             };
+            parameters.AddEnum("side", side);
+            parameters.AddEnum("type", type);
             parameters.AddOptionalParameter("price", price);
             parameters.AddOptionalParameter("size", quantity);
             parameters.AddOptionalParameter("funds", quoteQuantity);
-            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalEnum("timeInForce", timeInForce);
             parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceBerg", iceBerg);
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
+            parameters.AddOptionalEnum("marginMode", marginMode);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("autoRepay", autoRepay);
-            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            parameters.AddOptionalEnum("stp", selfTradePrevention);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/order", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinNewMarginOrder>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -238,24 +236,24 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
-                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
-                { "type", JsonConvert.SerializeObject(type, new NewOrderTypeConverter(false)) },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
             };
+            parameters.AddEnum("side", side);
+            parameters.AddEnum("type", type);
             parameters.AddOptionalParameter("price", price);
             parameters.AddOptionalParameter("size", quantity);
             parameters.AddOptionalParameter("funds", quoteQuantity);
-            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce.Value, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalEnum("timeInForce", timeInForce);
             parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
             parameters.AddOptionalParameter("iceBerg", iceBerg);
             parameters.AddOptionalParameter("visibleSize", visibleIceBergSize);
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("marginMode", marginMode.HasValue ? JsonConvert.SerializeObject(marginMode.Value, new MarginModeConverter(false)) : null);
+            parameters.AddOptionalEnum("marginMode", marginMode);
             parameters.AddOptionalParameter("autoBorrow", autoBorrow);
             parameters.AddOptionalParameter("autoRepay", autoRepay);
-            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention.Value, new SelfTradePreventionConverter(false)) : null);
+            parameters.AddOptionalEnum("stp", selfTradePrevention);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/margin/order/test", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinNewMarginOrder>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -276,9 +274,9 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
-                { "side", JsonConvert.SerializeObject(side, new OrderSideConverter(false)) },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() }
             };
+            parameters.AddEnum("side", side);
             parameters.AddString("price", price);
             parameters.AddString("size", quantity);
             parameters.AddString("stopPrice", stopPrice);
@@ -396,12 +394,12 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
-            parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("side", side);
+            parameters.AddOptionalEnum("type", type);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("status", status.HasValue ? JsonConvert.SerializeObject(status, new OrderStatusConverter(false)) : null);
-            parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("status", status);
+            parameters.AddOptionalEnum("tradeType", tradeType);
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
 
@@ -483,9 +481,9 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
-            parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
-            parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("side", side);
+            parameters.AddOptionalEnum("type", type);
+            parameters.AddOptionalEnum("tradeType", tradeType);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("orderId", orderId);
@@ -543,19 +541,19 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 { "symbol", symbol },
                 { "clientOid", clientOrderId ?? Guid.NewGuid().ToString() },
-                { "side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },
-                { "type", JsonConvert.SerializeObject(orderType, new NewOrderTypeConverter(false)) },
                 { "stop", EnumConverter.GetString(stopCondition) },
                 { "stopPrice", stopPrice.ToString(CultureInfo.InvariantCulture) },
             };
+            parameters.AddEnum("side", orderSide);
+            parameters.AddEnum("type", orderType);
 
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalParameter("stp", selfTradePrevention.HasValue ? JsonConvert.SerializeObject(selfTradePrevention, new SelfTradePreventionConverter(false)) : null);
-            parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("stp", selfTradePrevention);
+            parameters.AddOptionalEnum("tradeType", tradeType);
 
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("timeInForce", timeInForce.HasValue ? JsonConvert.SerializeObject(timeInForce, new TimeInForceConverter(false)) : null);
+            parameters.AddOptionalEnum("timeInForce", timeInForce);
             parameters.AddOptionalParameter("cancelAfter", cancelAfter.HasValue ? (long)Math.Round(cancelAfter.Value.TotalSeconds, 0) : (long?)null);
             parameters.AddOptionalParameter("postOnly", postOnly);
             parameters.AddOptionalParameter("hidden", hidden);
@@ -592,7 +590,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("orderIds", orderIds == null ? null : string.Join(",", orderIds));
-            parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("tradeType", tradeType);
 
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stop-order/cancel", KucoinExchange.RateLimiter.SpotRest, 3, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
@@ -605,14 +603,14 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("status", activeOrders.HasValue ? activeOrders == true ? "active" : "done" : null);
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("side", side.HasValue ? JsonConvert.SerializeObject(side, new OrderSideConverter(false)) : null);
-            parameters.AddOptionalParameter("type", type.HasValue ? JsonConvert.SerializeObject(type, new OrderTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("side", side);
+            parameters.AddOptionalEnum("type", type);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("orderIds", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            parameters.AddOptionalParameter("tradeType", tradeType.HasValue ? JsonConvert.SerializeObject(tradeType, new TradeTypeConverter(false)) : null);
+            parameters.AddOptionalEnum("tradeType", tradeType);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stop-order", KucoinExchange.RateLimiter.SpotRest, 8, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinStopOrder>>(request, parameters, ct).ConfigureAwait(false);

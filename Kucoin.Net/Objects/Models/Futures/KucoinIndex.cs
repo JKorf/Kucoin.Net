@@ -11,6 +11,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Component list
         /// </summary>
+        [JsonPropertyName("decomposionList")]
         public IEnumerable<KucoinDecomposionItem> DecomposionList { get; set; } = Array.Empty<KucoinDecomposionItem>();
     }
 
@@ -22,14 +23,17 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Exchange
         /// </summary>
+        [JsonPropertyName("exchange")]
         public string Exchange { get; set; } = string.Empty;
         /// <summary>
         /// Price
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Weight
         /// </summary>
+        [JsonPropertyName("weight")]
         public decimal Weight { get; set; }
     }
 }

@@ -6,20 +6,20 @@
       "topic": "/contractAccount/wallet",
       "subject": "walletBalance.change",
       "data": {
-            "currency": "XBT",  // Currency Symbol
-            "walletBalance": "2.002", // Wallet Balance
-            "availableBalance": "2.002", // Available Balance
-            "holdBalance": "0", // Frozen Balance
-            "isolatedOrderMargin": "0", // Margin of the isolated margin order
-            "isolatedPosMargin": "0", // Margin of the isolated margin position, including isolated margin funding fees
-            "isolatedUnPnl": "0", // Unrealized P&L in isolated margin mode
-            "isolatedFundingFeeMargin":"0", // Isolated margin funding fee
-            "crossOrderMargin": "0", // Margin of the cross margin order
-            "crossPosMargin": "0", // Margin of the cross margin position
-            "crossUnPnl": "0", // Unrealized P&L in cross margin mode
-            "equity": "2.002", // Equity
-            "totalCrossMargin": "2.002", // Total margin under cross margin mode
-            "version": "9", // Version. When holding a cross margin position, the available balance may change with fluctuations in the mark price, leading to discrepancies in the available balance for the same version number.
-            "timestamp": "1714632069838" // Last modified time
+            "currency": "XBT",  
+            "walletBalance": "2.002", 
+            "availableBalance": "2.002", 
+            "holdBalance": "0",
+            "isolatedOrderMargin": "0", 
+            "isolatedPosMargin": "0",
+            "isolatedUnPnl": "0", 
+            "isolatedFundingFeeMargin":"0",
+            "crossOrderMargin": "0", 
+            "crossPosMargin": "0", 
+            "crossUnPnl": "0",
+            "equity": "2.002", 
+            "totalCrossMargin": "2.002", 
+            "version": "9", 
+            "timestamp": "1714632069838"
       }
 }

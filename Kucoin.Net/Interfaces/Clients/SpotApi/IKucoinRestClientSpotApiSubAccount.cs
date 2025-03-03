@@ -1,8 +1,6 @@
 ﻿using CryptoExchange.Net.Objects;
-using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,14 +14,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Gets a list of sub account
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-info-v2-" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account/get-subaccount-list-spot-balance-v2" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinPaginated<KucoinSubUser>>> GetSubAccountsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Create a new sub account
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/create-sub-account" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account/add-subaccount" /></para>
         /// </summary>
         /// <param name="subName">Sub account name</param>
         /// <param name="password">Password (7-24 characters, must contain letters and numbers, cannot only contain numbers or include special characters)</param>
@@ -34,7 +32,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get balances of a sub account
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-a-sub-account-balance" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account/get-subaccount-detail-balance" /></para>
         /// </summary>
         /// <param name="subAccountId">Sub account id</param>
         /// <param name="includeZeroBalances">Include zero balance assets or not</param>
@@ -44,7 +42,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get balances of all sub accounts
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/get-all-sub-accounts-balance-v2-" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account/get-subaccount-detail-balance" /></para>
         /// </summary>
         /// <param name="page">Page number</param>
         /// <param name="pageSize">page size, max 100</param>
@@ -54,7 +52,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on sub account api keys
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/get-sub-account-api-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account-api/get-subaccount-api-list" /></para>
         /// </summary>
         /// <param name="subAccountName">The sub account name</param>
         /// <param name="apiKey">Filter by API key</param>
@@ -64,7 +62,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Create a new API key for a sub account
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/get-sub-account-api-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account-api/add-subaccount-api" /></para>
         /// </summary>
         /// <param name="subAccountName">Sub account name</param>
         /// <param name="passphrase">Password/passphrase for the key</param>
@@ -85,7 +83,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Edit an existing API key for a sub account
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/modify-sub-account-api" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account-api/modify-subaccount-api" /></para>
         /// </summary>
         /// <param name="subAccountName">Sub account name</param>
         /// <param name="passphrase">Password/passphrase for the key</param>
@@ -106,7 +104,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Remove an API key for a sub account
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account-api/delete-sub-account-api" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account-api/delete-subaccount-api" /></para>
         /// </summary>
         /// <param name="subAccountName">Sub account name</param>
         /// <param name="passphrase">Password/passphrase for the key</param>
@@ -121,7 +119,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Allow subaccount margin permissions
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/add-subaccount-margin-permission" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account/add-subaccount-margin-permission" /></para>
         /// </summary>
         /// <param name="subAccountId">Sub account id</param>
         /// <param name="ct">Cancellation token</param>
@@ -129,7 +127,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Allow subaccount futures permissions
-        /// <para><a href="https://www.kucoin.com/docs/rest/account/sub-account/add-subaccount-futures-permission" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/sub-account/add-subaccount-futures-permission" /></para>
         /// </summary>
         /// <param name="subAccountId">Sub account id</param>
         /// <param name="ct">Cancellation token</param>

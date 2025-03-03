@@ -1,8 +1,4 @@
 ﻿using Kucoin.Net.Enums;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -14,7 +10,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Status of migration
         /// </summary>
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public MigrateStatus Status { get; set; }
     }
 }

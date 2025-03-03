@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -15,43 +13,47 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Event time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("time")]
+        [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Type of the transaction
         /// </summary>
-        [JsonConverter(typeof(TransactionTypeConverter))]
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public TransactionType TransactionType { get; set; }
         /// <summary>
         /// Quantity of the transaction
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Fee of the transaction
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal? Fee { get; set; }
         /// <summary>
         /// Account equity
         /// </summary>
+        [JsonPropertyName("accountEquity")]
         public decimal AccountEquity { get; set; }
         /// <summary>
         /// Status 
         /// </summary>
+        [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
         /// Ticker of the contract
         /// </summary>
+        [JsonPropertyName("remark")]
         public string Remark { get; set; } = string.Empty;
         /// <summary>
         /// Offset
         /// </summary>
+        [JsonPropertyName("offset")]
         public int Offset { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
     }
 }

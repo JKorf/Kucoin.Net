@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,80 +10,87 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Network id
         /// </summary>
-        [JsonProperty("chainId")]
+        [JsonPropertyName("chainId")]
         public string NetworkId { get; set; } = string.Empty;
         /// <summary>
         /// Network name
         /// </summary>
-        [JsonProperty("chainName")]
+        [JsonPropertyName("chainName")]
         public string NetworkName { get; set; } = string.Empty;
         /// <summary>
         /// Min withdrawal quantity
         /// </summary>
-        [JsonProperty("withdrawalMinSize")]
+        [JsonPropertyName("withdrawalMinSize")]
         public decimal WithdrawalMinQuantity { get; set; }
         /// <summary>
         /// Min withdrawal fee
         /// </summary>
+        [JsonPropertyName("withdrawalMinFee")]
         public decimal WithdrawalMinFee { get; set; }
         /// <summary>
         /// Is withdrawing enabled
         /// </summary>
+        [JsonPropertyName("isWithdrawEnabled")]
         public bool IsWithdrawEnabled { get; set; }
         /// <summary>
         /// Is deposit enabled
         /// </summary>
+        [JsonPropertyName("isDepositEnabled")]
         public bool IsDepositEnabled { get; set; }
         /// <summary>
         /// Confirmations needed on the network
         /// </summary>
+        [JsonPropertyName("confirms")]
         public int? Confirms { get; set; }
         /// <summary>
         /// The number of blocks (confirmations) for advance on-chain verification
         /// </summary>
+        [JsonPropertyName("preConfirms")]
         public int? Preconfirms { get; set; }
         /// <summary>
         /// Contract address
         /// </summary>
+        [JsonPropertyName("contractAddress")]
         public string ContractAddress { get; set; } = string.Empty;
         /// <summary>
         /// Deposit fee rate
         /// </summary>
+        [JsonPropertyName("depositFeeRate")]
         public decimal? DepositFeeRate { get; set; }
         /// <summary>
         /// Min deposit quantity
         /// </summary>
-        [JsonProperty("depositMinSize")]
+        [JsonPropertyName("depositMinSize")]
         public decimal? DepositMinQuantity { get; set; }
         /// <summary>
         /// Withdrawal fee rate
         /// </summary>
-        [JsonProperty("withdrawFeeRate")]
+        [JsonPropertyName("withdrawFeeRate")]
         public decimal? WithdrawFeeRate { get; set; }
         /// <summary>
         /// Withdraw max fee
         /// </summary>
-        [JsonProperty("withdrawMaxFee")]
+        [JsonPropertyName("withdrawMaxFee")]
         public decimal? WithdrawMaxFee { get; set; }
         /// <summary>
         /// Max deposit quantity (only for lightning network)
         /// </summary>
-        [JsonProperty("maxDeposit")]
+        [JsonPropertyName("maxDeposit")]
         public decimal? MaxDeposit { get; set; }
         /// <summary>
         /// Maximum amount of single withdrawal
         /// </summary>
-        [JsonProperty("maxWithdraw")]
+        [JsonPropertyName("maxWithdraw")]
         public decimal? MaxWithdraw { get; set; }
         /// <summary>
         /// Needs a tag
         /// </summary>
-        [JsonProperty("needTag")]
+        [JsonPropertyName("needTag")]
         public bool? NeedTag { get; set; }
         /// <summary>
         /// Maximum withdraw precision
         /// </summary>
-        [JsonProperty("withdrawPrecision")]
+        [JsonPropertyName("withdrawPrecision")]
         public decimal? WithdrawPrecision { get; set; }
 
     }

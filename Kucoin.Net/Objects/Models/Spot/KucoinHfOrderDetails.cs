@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -11,38 +11,38 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Whether the order is active
         /// </summary>
-        [JsonProperty("active")]
+        [JsonPropertyName("active")]
         public override bool? IsActive { get; set; }
 
         /// <summary>
         /// Is the order in the order book
         /// </summary>
-        [JsonProperty("inOrderBook")]
+        [JsonPropertyName("inOrderBook")]
         public bool InOrderBook { get; set; }
         /// <summary>
         /// Last update time
         /// </summary>
-        [JsonProperty("lastUpdatedAt")]
+        [JsonPropertyName("lastUpdatedAt")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
         /// Quantity canceled
         /// </summary>
-        [JsonProperty("cancelledSize")]
+        [JsonPropertyName("cancelledSize")]
         public decimal? QuantityCanceled { get; set; }
         /// <summary>
         /// Quote quantity canceled
         /// </summary>
-        [JsonProperty("cancelledFunds")]
+        [JsonPropertyName("cancelledFunds")]
         public decimal? QuoteQuantityCanceled { get; set; }
         /// <summary>
         /// Remaining quantity
         /// </summary>
-        [JsonProperty("remainSize")]
+        [JsonPropertyName("remainSize")]
         public decimal? QuantityRemaining { get; set; }
         /// <summary>
         /// Remaining quote quantity
         /// </summary>
-        [JsonProperty("remainFunds")]
+        [JsonPropertyName("remainFunds")]
         public decimal? QuoteQuantityRemaining { get; set; }
     }
 }

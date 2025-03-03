@@ -6,23 +6,23 @@
     "type": "message",
     "data": {
         "tag": "ETH-USDT",  
-        "status": "CLEAR",  					// Position status
-        "accumulatedPrincipal": "9.9778022", 	// Accumulated principal
+        "status": "CLEAR",  					
+        "accumulatedPrincipal": "9.9778022", 	
         "changeAssets": {
             "BTC": {
-                "total": "0.00001",				// Total assets
-                "hold": "0",					// Freeze assets
-                "liabilityPrincipal": "0", 		// Liability principal
-                "liabilityInterest": "0" 		// Debt interest
+                "total": "0.00001",				
+                "hold": "0",				
+                "liabilityPrincipal": "0", 		
+                "liabilityInterest": "0" 		
             },
             "USDT": {
-                "total": "9", 					// Total assets
-                "hold": "0", 					// Freeze assets
-                "liabilityPrincipal": "0", 		// Liability principal
-                "liabilityInterest": "0" 		// Debt interest
+                "total": "9", 				
+                "hold": "0", 			
+                "liabilityPrincipal": "0", 	
+                "liabilityInterest": "0" 	
             }
         },
-        "timestamp": 1714446276318 				// Timestamp (milliseconds)
+        "timestamp": 1714446276318 			
     },
     "subject": "positionChange",
     "channelType": "private"

@@ -1,5 +1,5 @@
 ﻿using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
@@ -12,8 +12,15 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Sequence number
         /// </summary>
+        [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
-        [JsonProperty("change")]
+        /// <summary>
+        /// Data timestamp
+        /// </summary>
+        [JsonPropertyName("timestamp")]
+        public DateTime Timestamp { get; set; }
+
+        [JsonInclude, JsonPropertyName("change")]
         internal string Change { get; set; } = string.Empty;
         /// <summary>
         /// Price

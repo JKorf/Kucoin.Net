@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -12,35 +12,42 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The asset identifier
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The name of the asset
         /// </summary>
+        [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
         /// The full name of the asset
         /// </summary>
+        [JsonPropertyName("fullName")]
         public string FullName { get; set; } = string.Empty;
         /// <summary>
         /// The precision of the asset
         /// </summary>
+        [JsonPropertyName("precision")]
         public int Precision { get; set; }
         /// <summary>
         /// Number of block confirmations
         /// </summary>
+        [JsonPropertyName("confirms")]
         public int? Confirms { get; set; }
         /// <summary>
         /// Contract address
         /// </summary>
+        [JsonPropertyName("contractAddress")]
         public string ContractAddress { get; set; } = string.Empty;
         /// <summary>
         /// Is margin enabled
         /// </summary>
+        [JsonPropertyName("isMarginEnabled")]
         public bool IsMarginEnabled { get; set; }
         /// <summary>
         /// Is debit enabled
         /// </summary>
+        [JsonPropertyName("isDebitEnabled")]
         public bool IsDebitEnabled { get; set; }
     }
 
@@ -52,19 +59,22 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The minimum quantity of a withdrawal
         /// </summary>
-        [JsonProperty("withdrawalMinSize")]
+        [JsonPropertyName("withdrawalMinSize")]
         public decimal WithdrawalMinQuantity { get; set; }
         /// <summary>
         /// The minimum fee of a withdrawal
         /// </summary>
+        [JsonPropertyName("withdrawalMinFee")]
         public decimal WithdrawalMinFee { get; set; }
         /// <summary>
         /// Is withdrawing enabled for this asset
         /// </summary>
+        [JsonPropertyName("isWithdrawalEnabled")]
         public bool IsWithdrawEnabled { get; set; }
         /// <summary>
         /// Is depositing enabled for this asset
         /// </summary>
+        [JsonPropertyName("isDepositEnabled")]
         public bool IsDepositEnabled { get; set; }
     }
 
@@ -76,7 +86,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Networks
         /// </summary>
-        [JsonProperty("chains")]
+        [JsonPropertyName("chains")]
         public IEnumerable<KucoinAssetNetwork> Networks { get; set; } = Array.Empty<KucoinAssetNetwork>();
     }
 }

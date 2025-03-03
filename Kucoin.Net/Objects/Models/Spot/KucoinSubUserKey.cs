@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -12,37 +11,37 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The sub user name
         /// </summary>
-        [JsonProperty("subName")]
+        [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
         /// The API key
         /// </summary>
-        [JsonProperty("apiKey")]
+        [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
         /// Remark
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
         /// Permissions
         /// </summary>
-        [JsonProperty("permission")]
+        [JsonPropertyName("permission")]
         public string Permissions { get; set; } = string.Empty;
         /// <summary>
         /// IP whitelist
         /// </summary>
-        [JsonProperty("ipWhitelist")]
+        [JsonPropertyName("ipWhitelist")]
         public string IpWhitelist { get; set; } = string.Empty;
         /// <summary>
         /// Key creation time
         /// </summary>
-        [JsonProperty("createdAt"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("createdAt"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// Version of the API key
         /// </summary>
-        [JsonProperty("apiVersion")]
+        [JsonPropertyName("apiVersion")]
         public int ApiKeyVersion { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -14,50 +12,53 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Apply id
         /// </summary>
+        [JsonPropertyName("applyId")]
         public string ApplyId { get; set; } = string.Empty;
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Status of the transfer
         /// </summary>
-        [JsonConverter(typeof(DepositStatusConverter))]
+        [JsonPropertyName("status")]
         public DepositStatus Status { get; set; }
         /// <summary>
         /// Quantity of the transfer
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Reason if failed
         /// </summary>
+        [JsonPropertyName("reason")]
         public string Reason { get; set; } = string.Empty;
         /// <summary>
         /// Offset
         /// </summary>
+        [JsonPropertyName("offset")]
         public long Offset { get; set; }
         /// <summary>
         /// Creation time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("createdAt")]
+        [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// User remark
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
         /// Receive account tx remark
         /// </summary>
-        [JsonProperty("recRemark")]
+        [JsonPropertyName("recRemark")]
         public string? ReceiveRemark { get; set; }
         /// <summary>
         /// Receive system
         /// </summary>
-        [JsonProperty("recSystem")]
+        [JsonPropertyName("recSystem")]
         public string? ReceiveSystem { get; set; }
     }
 }

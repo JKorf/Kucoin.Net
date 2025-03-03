@@ -15,12 +15,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Liquidation
         /// </summary>
-        [Map("liquid")]
+        [Map("liquid", "liquidation")]
         Liquidation,
         /// <summary>
         /// Adl
         /// </summary>
-        [Map("adl")]
+        [Map("adl", "ADL")]
         ADL,
         /// <summary>
         /// Settlement

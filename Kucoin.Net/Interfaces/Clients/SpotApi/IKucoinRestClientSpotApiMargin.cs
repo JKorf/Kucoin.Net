@@ -17,7 +17,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get margin configuration
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-margin-configuration-info" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-margin-config" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -25,7 +25,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the mark price of a symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-mark-price" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-detail" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve, for example `USDT-BTC`</param>
         /// <param name="ct">Cancellation token</param>
@@ -34,23 +34,23 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the mark price for all symbols
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-all-margin-trading-pairs-mark-prices" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<KucoinIndexBase>>> GetMarginMarkPricesAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Get Margin Trading Pair ConfigurationAsync
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/isolated-margin/get-isolated-margin-symbols-configuration" /></para>
+        /// Get Margin symbols
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-symbols-cross-margin" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetMarginTradingPairConfigurationAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin risk limit and asset configuration info
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/risk-limit/get-margin-risk-limit" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
@@ -58,7 +58,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin risk limit and asset configuration info
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-cross-isolated-margin-risk-limit-currency-config" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/risk-limit/get-margin-risk-limit" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param> 
@@ -67,7 +67,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Borrow an asset
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/margin-borrowing" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/borrow" /></para>
         /// </summary>
         /// <param name="asset">Currency to Borrow e.g USDT etc</param>
         /// <param name="timeInForce">Time in force (FOK, IOC)</param>
@@ -88,7 +88,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Repayment for previously borrowed asset
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/repayment" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/repay" /></para>
         /// </summary>
         /// <param name="asset">Currency to Repay e.g USDT etc</param>
         /// <param name="quantity">Total size</param>
@@ -107,7 +107,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get borrow history
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-margin-borrowing-history" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-borrow-history" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="isIsolated">Filter by is isolated margin</param>
@@ -123,7 +123,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get repayment history
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-margin-borrowing-history" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-repay-history" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="isIsolated">Filter by is isolated margin</param>
@@ -139,7 +139,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get margin interest records
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-cross-isolated-margin-interest-records" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="isIsolated">Filter by is isolated margin</param>
@@ -154,7 +154,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get lending asset info
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/get-currency-information" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/get-loan-market" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -163,7 +163,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get lending interest rates
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/get-interest-rates" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/get-loan-market-interest-rate" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -172,7 +172,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Initiate subscriptions of margin lending
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/subscription" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/purchase" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="quantity">Quantity</param>
@@ -183,7 +183,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Initiate redemptions of margin lending.
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/redemption" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/redeem" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="quantity">Quantity</param>
@@ -194,7 +194,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Update interest rate of a subscription order
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/modify-subscription-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/modify-purchase" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="interestRate">New interest rate</param>
@@ -205,7 +205,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get redemption orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/get-redemption-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/get-redeem-orders" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="redeemOrderId">Filter by redeem order id</param>
@@ -218,7 +218,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get subscription orders
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/lending-market-v3-/get-subscription-orders" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/credit/get-purchase-orders" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="status">Status, DONE or PENDING</param>
@@ -231,7 +231,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Modify the leverage multiplier for cross margin or isolated margin.
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/modify-leverage-multiplier" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage" /></para>
         /// </summary>
         /// <param name="leverage">New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage</param>
         /// <param name="symbol">Symbol. Leave empty for cross margin, or specify for isolated margin, for example `ETH-USDT`</param>
@@ -242,7 +242,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin symbols
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-trading-v3-/get-cross-margin-trading-pairs-configuration" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-symbols-cross-margin" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>

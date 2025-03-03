@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-
-namespace Kucoin.Net.Objects.Models.Spot
+﻿namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Sub user api key info
@@ -12,22 +8,22 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The sub user name
         /// </summary>
-        [JsonProperty("subName")]
+        [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
         /// The API key
         /// </summary>
-        [JsonProperty("apiKey")]
+        [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
         /// Permissions
         /// </summary>
-        [JsonProperty("permission")]
+        [JsonPropertyName("permission")]
         public string? Permissions { get; set; }
         /// <summary>
         /// IP whitelist
         /// </summary>
-        [JsonProperty("ipWhitelist")]
+        [JsonPropertyName("ipWhitelist")]
         public string? IpWhitelist { get; set; }       
     }
 }

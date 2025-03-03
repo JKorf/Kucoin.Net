@@ -25,7 +25,7 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress);
             });
-            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data", stjCompare: false);
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data", stjCompare: true);
             await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "Ticker");
             await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToAllTickerUpdatesAsync(handler), "Tickers");
             await tester.ValidateAsync<KucoinStreamSnapshot>((client, handler) => client.SpotApi.SubscribeToSnapshotUpdatesAsync("BTC", handler), "Snapshot", "data.data");
@@ -36,7 +36,6 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinStreamOrderBookChanged>((client, handler) => client.SpotApi.SubscribeToOrderBookUpdatesAsync("BTC-USDT", 5, handler), "Book", "data");
             await tester.ValidateAsync<KucoinStreamIndicatorPrice>((client, handler) => client.SpotApi.SubscribeToIndexPriceUpdatesAsync("USDT-BTC", handler), "IndexPrice", "data");
             await tester.ValidateAsync<KucoinStreamIndicatorPrice>((client, handler) => client.SpotApi.SubscribeToMarkPriceUpdatesAsync("USDT-BTC", handler), "MarkPrice", "data");
-            await tester.ValidateAsync<KucoinStreamFundingBookUpdate>((client, handler) => client.SpotApi.SubscribeToFundingBookUpdatesAsync("BTC", handler), "FundingBook", "data");
             await tester.ValidateAsync<KucoinStreamOrderNewUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler, null, null), "NewOrder", "data");
             await tester.ValidateAsync<KucoinStreamOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, handler, null), "OrderUpdate", "data");
             await tester.ValidateAsync<KucoinStreamOrderMatchUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, null, handler), "MatchOrder", "data");
@@ -58,15 +57,15 @@ namespace Kucoin.Net.UnitTests
                 opts.ApiCredentials = new KucoinApiCredentials("123", "456", "789");
                 opts.Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress);
             });
-            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-spot.kucoin.com", "data", stjCompare: false);
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-spot.kucoin.com", "data", stjCompare: true);
             await tester.ValidateAsync<KucoinStreamFuturesMatch>((client, handler) => client.FuturesApi.SubscribeToTradeUpdatesAsync("XBTUSDTM", handler), "Trades");
-            await tester.ValidateAsync<KucoinStreamFuturesTick>((client, handler) => client.FuturesApi.SubscribeToTickerUpdatesAsync("XBTUSDM", handler), "Tickers");
+            await tester.ValidateAsync<KucoinStreamFuturesTick>((client, handler) => client.FuturesApi.SubscribeToBookTickerUpdatesAsync("XBTUSDM", handler), "Tickers");
             await tester.ValidateAsync<KucoinFuturesOrderBookChange>((client, handler) => client.FuturesApi.SubscribeToOrderBookUpdatesAsync("XBTUSDM", handler), "Book", ignoreProperties: new List<string> { "change", "timestamp" });
             await tester.ValidateAsync<KucoinStreamOrderBookChanged>((client, handler) => client.FuturesApi.SubscribeToPartialOrderBookUpdatesAsync("XBTUSDM", 5, handler), "PartialBook", ignoreProperties: new List<string> { "ts" });
-            await tester.ValidateAsync<KucoinStreamFuturesMarkIndexPrice>((client, handler) => client.FuturesApi.SubscribeToMarketUpdatesAsync("XBTUSDM", handler, null), "MarkPrice");
-            await tester.ValidateAsync<KucoinStreamFuturesFundingRate>((client, handler) => client.FuturesApi.SubscribeToMarketUpdatesAsync("XBTUSDM", null, handler), "FundingRate");
-            await tester.ValidateAsync<KucoinContractAnnouncement>((client, handler) => client.FuturesApi.SubscribeToSystemAnnouncementsAsync(handler), "Announcement");
-            await tester.ValidateAsync<KucoinStreamTransactionStatisticsUpdate>((client, handler) => client.FuturesApi.SubscribeTo24HourSnapshotUpdatesAsync("XBTUSDM", handler), "Snapshot");
+            await tester.ValidateAsync<KucoinStreamFuturesMarkIndexPrice>((client, handler) => client.FuturesApi.SubscribeToSymbolUpdatesAsync("XBTUSDM", handler, null), "MarkPrice");
+            await tester.ValidateAsync<KucoinStreamFuturesFundingRate>((client, handler) => client.FuturesApi.SubscribeToSymbolUpdatesAsync("XBTUSDM", null, handler), "FundingRate");
+            await tester.ValidateAsync<KucoinContractAnnouncement>((client, handler) => client.FuturesApi.SubscribeToFundingFeeSettlementUpdatesAsync(handler), "Announcement");
+            await tester.ValidateAsync<KucoinStreamTransactionStatisticsUpdate>((client, handler) => client.FuturesApi.SubscribeTo24HTickerUpdatesAsync("XBTUSDM", handler), "Snapshot");
             await tester.ValidateAsync<KucoinStreamFuturesOrderUpdate>((client, handler) => client.FuturesApi.SubscribeToOrderUpdatesAsync("XBTUSDM", handler), "Order");
             await tester.ValidateAsync<KucoinStreamFuturesStopOrderUpdate>((client, handler) => client.FuturesApi.SubscribeToStopOrderUpdatesAsync(handler), "StopOrder");
             await tester.ValidateAsync<KucoinStreamOrderMarginUpdate>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(handler, null, null, null), "OrderMargin");

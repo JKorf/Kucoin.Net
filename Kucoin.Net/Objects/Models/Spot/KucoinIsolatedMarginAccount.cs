@@ -1,6 +1,5 @@
-﻿using CryptoExchange.Net.Converters;
-using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+﻿using Kucoin.Net.Enums;
+
 using System;
 using System.Collections.Generic;
 
@@ -14,14 +13,17 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The total balance of the isolated margin account (in the specified coin)
         /// </summary>
+        [JsonPropertyName("totalConversionBalance")]
         public decimal TotalConversionBalance { get; set; }
         /// <summary>
         /// Total liabilities of the isolated margin account (in the specified coin)
         /// </summary>
+        [JsonPropertyName("liabilityConversionBalance")]
         public decimal LiabilityConversionBalance { get; set; }
         /// <summary>
         /// Account list
         /// </summary>
+        [JsonPropertyName("assets")]
         public IEnumerable<KucoinIsolatedMarginAccount> Assets { get; set; } = Array.Empty<KucoinIsolatedMarginAccount>();
     }
 
@@ -33,23 +35,28 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Position status
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public IsolatedMargingAccountStatus Status { get; set; }
         /// <summary>
         /// Debt ratio
         /// </summary>
+        [JsonPropertyName("debtRatio")]
         public decimal DebtRatio { get; set; }
         /// <summary>
         /// Base asset info
         /// </summary>
+        [JsonPropertyName("baseAsset")]
         public KucoinIsolatedMarginAccountAsset BaseAsset { get; set; } = null!;
         /// <summary>
         /// Quote asset info
         /// </summary>
+        [JsonPropertyName("quoteAsset")]
         public KucoinIsolatedMarginAccountAsset QuoteAsset { get; set; } = null!;
     }
 
@@ -61,31 +68,37 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Currency
         /// </summary>
+        [JsonPropertyName("currency")]
         public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Total balance
         /// </summary>
+        [JsonPropertyName("totalBalance")]
         public decimal TotalBalance { get; set; }
         /// <summary>
         /// Frozen balance
         /// </summary>
+        [JsonPropertyName("holdBalance")]
         public decimal HoldBalance { get; set; }
         /// <summary>
         /// Available balance
         /// </summary>
+        [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
         /// Liability
         /// </summary>
+        [JsonPropertyName("liability")]
         public decimal Liability { get; set; }
         /// <summary>
         /// Interset
         /// </summary>
+        [JsonPropertyName("interest")]
         public decimal Interest { get; set; }
         /// <summary>
         /// Borrowable quantity
         /// </summary>
-        [JsonProperty("borrowableAmount")]
+        [JsonPropertyName("borrowableAmount")]
         public decimal BorrowableQuantity { get; set; }
     }
 }

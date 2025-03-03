@@ -1,5 +1,5 @@
 ﻿using Kucoin.Net.Enums;
-using Newtonsoft.Json;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -12,87 +12,87 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Request id
         /// </summary>
-        [JsonProperty("applyId")]
+        [JsonPropertyName("applyId")]
         public string ApplyId { get; set; } = string.Empty;
         /// <summary>
         /// Business number
         /// </summary>
-        [JsonProperty("bizNo")]
+        [JsonPropertyName("bizNo")]
         public string BusinessNumber { get; set; } = string.Empty;
         /// <summary>
         /// Pay account type
         /// </summary>
-        [JsonProperty("payAccountType")]
+        [JsonPropertyName("payAccountType")]
         public string PayAccountType { get; set; } = string.Empty;
         /// <summary>
         /// Pay tag
         /// </summary>
-        [JsonProperty("payTag")]
+        [JsonPropertyName("payTag")]
         public string PayTag { get; set; } = string.Empty;
         /// <summary>
         /// Remark
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
         /// Remark
         /// </summary>
-        [JsonProperty("recAccountType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("recAccountType"), JsonConverter(typeof(EnumConverter))]
         public AccountType? ReceiveAccountType { get; set; }
         /// <summary>
         /// Receive tag
         /// </summary>
-        [JsonProperty("recTag")]
+        [JsonPropertyName("recTag")]
         public string ReceiveTag { get; set; } = string.Empty;
         /// <summary>
         /// Receive remark
         /// </summary>
-        [JsonProperty("recRemark")]
+        [JsonPropertyName("recRemark")]
         public string ReceiveRemark { get; set; } = string.Empty;
         /// <summary>
         /// Receive system
         /// </summary>
-        [JsonProperty("recSystem")]
+        [JsonPropertyName("recSystem")]
         public string ReceiveSystem { get; set; } = string.Empty;
         /// <summary>
         /// Status
         /// </summary>
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Fee
         /// </summary>
-        [JsonProperty("fee")]
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// Serial number
         /// </summary>
-        [JsonProperty("sn")]
+        [JsonPropertyName("sn")]
         public long? SerialNumber { get; set; }
         /// <summary>
         /// Reason
         /// </summary>
-        [JsonProperty("reason")]
+        [JsonPropertyName("reason")]
         public string? Reason { get; set; }
         /// <summary>
         /// Create time
         /// </summary>
-        [JsonProperty("createdAt"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("createdAt"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? CreateTime { get; set; }
         /// <summary>
         /// Updated time
         /// </summary>
-        [JsonProperty("updatedAt"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("updatedAt"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? UpdateTime { get; set; }
     }
 }

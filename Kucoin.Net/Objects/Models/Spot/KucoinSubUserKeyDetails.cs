@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -12,42 +11,42 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The sub user name
         /// </summary>
-        [JsonProperty("subName")]
+        [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
         /// The API key
         /// </summary>
-        [JsonProperty("apiKey")]
+        [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
         /// The secret value
         /// </summary>
-        [JsonProperty("apiSecret")]
+        [JsonPropertyName("apiSecret")]
         public string Secret { get; set; } = string.Empty;
         /// <summary>
         /// The passphrase/password
         /// </summary>
-        [JsonProperty("passphrase")]
+        [JsonPropertyName("passphrase")]
         public string Passphrase { get; set; } = string.Empty;
         /// <summary>
         /// Remark
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
         /// Permissions
         /// </summary>
-        [JsonProperty("permission")]
+        [JsonPropertyName("permission")]
         public string Permissions { get; set; } = string.Empty;
         /// <summary>
         /// IP whitelist
         /// </summary>
-        [JsonProperty("ipWhitelist")]
+        [JsonPropertyName("ipWhitelist")]
         public string IpWhitelist { get; set; } = string.Empty;
         /// <summary>
         /// Key creation time
         /// </summary>
-        [JsonProperty("createdAt"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("createdAt"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
     }
 }

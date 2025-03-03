@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
-using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
@@ -17,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Gets the server time
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-server-time" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-server-time" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The time of the server</returns>
@@ -25,7 +24,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of symbols supported by the server
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-symbols-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-symbols" /></para>
         /// </summary>
         /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
@@ -34,7 +33,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-symbol-detail" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-symbol" /></para>
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -43,7 +42,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets ticker info of a symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-ticker" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-ticker" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get info for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -52,7 +51,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the ticker for all trading pairs
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-all-tickers" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-tickers" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of tickers</returns>
@@ -60,7 +59,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the 24 hour stats of a symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-24hr-stats" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-tickers" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get stats for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -69,7 +68,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of supported markets
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-market-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-market-list" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
@@ -77,7 +76,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-part-order-book-aggregated-" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-part-orderbook" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get order book for, for example `ETH-USDT`</param>
         /// <param name="limit">The limit of results (20 / 100)</param>
@@ -87,7 +86,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a full aggregated order book for a symbol. Orders for the same price are combined.
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-full-orderbook" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get order book for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -96,7 +95,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the recent trade history for a symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-trade-histories" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-trade-history" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get trade history for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -105,7 +104,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline data for a symbol
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-klines" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get klines for, for example `ETH-USDT`</param>
         /// <param name="interval">The interval of a kline</param>
@@ -117,7 +116,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of supported currencies
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-currency-list" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-currencies" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of currencies</returns>
@@ -125,7 +124,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a specific asset
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-currency-detail" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-currency" /></para>
         /// </summary>
         /// <param name="asset">The asset to get, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -134,7 +133,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of prices for all 
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-fiat-price" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-fiat-price" /></para>
         /// </summary>
         /// <param name="fiatBase">The three letter code of the fiat to convert to. Defaults to USD</param>
         /// <param name="assets">The assets to get price for. Defaults to all, for example `ETH`</param>
@@ -144,7 +143,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get leveraged token information
-        /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/margin-info/get-leveraged-token-info" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-etf-info" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
@@ -152,7 +151,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get system announcements
-        /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/market-data/get-announcements?x=nl_NL" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-announcements" /></para>
         /// </summary>
         /// <param name="page">Current page</param>
         /// <param name="pageSize">Page size</param>

@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Sockets
 {
     internal class KucoinSocketUpdate<T>
     {
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;
-        [JsonProperty("topic")]
+        [JsonPropertyName("topic")]
         public string Topic { get; set; } = string.Empty;
-        [JsonProperty("subject")]
+        [JsonPropertyName("subject")]
         public string Subject { get; set; } = string.Empty;
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
     }
 }

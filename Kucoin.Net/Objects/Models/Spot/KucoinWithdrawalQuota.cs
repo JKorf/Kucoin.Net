@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
@@ -10,79 +10,82 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// The asset the quota is for
         /// </summary>
-        [JsonProperty("currency")]
+        [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The max BTC value that can be withdrawn
         /// </summary>
-        [JsonProperty("limitBTCAmount")]
+        [JsonPropertyName("limitBTCAmount")]
         public decimal LimitBTCQuantity { get; set; }
         /// <summary>
         /// The used BTC value
         /// </summary>
-        [JsonProperty("usedBTCAmount")]
+        [JsonPropertyName("usedBTCAmount")]
         public decimal UsedBTCQuantity { get; set; }
         /// <summary>
         /// The remaining quantity which can be withdrawn
         /// </summary>
-        [JsonProperty("remainAmount")]
+        [JsonPropertyName("remainAmount")]
         public decimal RemainingQuantity { get; set; }
         /// <summary>
         /// The current quantity available for withdrawal
         /// </summary>
-        [JsonProperty("availableAmount")]
+        [JsonPropertyName("availableAmount")]
         public decimal AvailableQuantity { get; set; }
         /// <summary>
         /// The minimum fee for withdrawing
         /// </summary>
+        [JsonPropertyName("withdrawMinFee")]
         public decimal WithdrawMinFee { get; set; }
         /// <summary>
         /// The minimum fee for an internal withdrawal
         /// </summary>
+        [JsonPropertyName("innerWithdrawMinFee")]
         public decimal InnerWithdrawMinFee { get; set; }
         /// <summary>
         /// The min quantity of a withdrawal
         /// </summary>
-        [JsonProperty("withdrawMinSize")]
+        [JsonPropertyName("withdrawMinSize")]
         public decimal WithdrawMinQuantity { get; set; }
         /// <summary>
         /// Whether withdrawing is enabled
         /// </summary>
+        [JsonPropertyName("isWithdrawEnabled")]
         public bool IsWithdrawEnabled { get; set; }
         /// <summary>
         /// The precision of a withdrawal
         /// </summary>
-        [JsonProperty("precision")]
+        [JsonPropertyName("precision")]
         public int WithdrawPrecision { get; set; }
         /// <summary>
         /// The network
         /// </summary>
-        [JsonProperty("chain")]
+        [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
         /// Withdrawal limit asset
         /// </summary>
-        [JsonProperty("quotaCurrency")]
+        [JsonPropertyName("quotaCurrency")]
         public string QuotaAsset { get; set; } = string.Empty;
         /// <summary>
         /// The intraday available withdrawal amount
         /// </summary>
-        [JsonProperty("limitQuotaCurrencyAmount")]
+        [JsonPropertyName("limitQuotaCurrencyAmount")]
         public decimal LimitQuotaAssetQuantity { get; set; }
         /// <summary>
         /// The intraday used withdrawal amount
         /// </summary>
-        [JsonProperty("usedQuotaCurrencyAmount")]
+        [JsonPropertyName("usedQuotaCurrencyAmount")]
         public decimal UsedQuotaAssetQuantity { get; set; }
         /// <summary>
         /// Total locked amount
         /// </summary>
-        [JsonProperty("lockedAmount")]
+        [JsonPropertyName("lockedAmount")]
         public decimal LockedQuantity { get; set; }
         /// <summary>
         /// Reason
         /// </summary>
-        [JsonProperty("reason")]
+        [JsonPropertyName("reason")]
         public string? Reason { get; set; }
     }
 }

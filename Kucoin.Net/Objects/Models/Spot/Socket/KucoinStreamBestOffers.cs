@@ -1,6 +1,5 @@
 ﻿using System;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
@@ -13,18 +12,18 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// Data timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// The current best ask
         /// </summary>
-        [JsonProperty("asks")]
+        [JsonPropertyName("asks")]
         public KucoinStreamOrderBookEntry BestAsk { get; set; } = null!;
         /// <summary>
         /// The current best bid
         /// </summary>
-        [JsonProperty("bids")]
+        [JsonPropertyName("bids")]
         public KucoinStreamOrderBookEntry BestBid { get; set; } = null!;
     }
 }
