@@ -8,6 +8,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
+using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
@@ -241,6 +242,42 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to call auction order book updates
+        /// <para><a href="https://www.kucoin.com/docs-new/3470137w0" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe, for example `ETH-USDT`</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to call auction order book updates
+        /// <para><a href="https://www.kucoin.com/docs-new/3470137w0" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to call auction info updates
+        /// <para><a href="https://www.kucoin.com/docs-new/3470138w0" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbols to subscribe, for example `ETH-USDT`</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionInfoUpdatesAsync(string symbol, Action<DataEvent<KucoinCallAuctionInfo>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to call auction info updates
+        /// <para><a href="https://www.kucoin.com/docs-new/3470138w0" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionInfoUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinCallAuctionInfo>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to cross margin position events

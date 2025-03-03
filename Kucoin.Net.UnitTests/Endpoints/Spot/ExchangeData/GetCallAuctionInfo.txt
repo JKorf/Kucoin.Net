@@ -1,0 +1,16 @@
+GET
+/api/v1/market/callauctionData
+false
+{
+  "code": "200000",
+  "data": {
+    "symbol": "BTC-USDT",
+    "estimatedPrice": "0.17",
+    "estimatedSize": "0.03715004",
+    "sellOrderRangeLowPrice": "1.788",
+    "sellOrderRangeHighPrice": "2.788",
+    "buyOrderRangeLowPrice": "1.788",
+    "buyOrderRangeHighPrice": "2.788",
+    "time": 1550653727731
+  }
+}

@@ -199,5 +199,36 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Call Auction Order Book
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinOrderBook>> GetCallAuctionOrderBookAsync(string symbol, int depth, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v1/market/orderbook/callauction/level2_{depth}", KucoinExchange.RateLimiter.PublicRest, 1, false);
+            var result = await _baseClient.SendAsync<KucoinOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            if (!result)
+                return result;
+
+            result.Data.Symbol = symbol;
+            return result;
+        }
+
+        #endregion
+
+        #region Get Call Auction Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v1/market/callauctionData", KucoinExchange.RateLimiter.PublicRest, 1, false);
+            var result = await _baseClient.SendAsync<KucoinCallAuctionInfo>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
     }
 }

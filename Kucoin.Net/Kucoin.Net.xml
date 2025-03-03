@@ -574,6 +574,12 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetAnnouncementsAsync(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetCallAuctionOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiExchangeData.GetCallAuctionInfoAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading">
             <inheritdoc />
         </member>
@@ -926,6 +932,18 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToMarkPriceUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamIndicatorPrice}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToCallAuctionOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToCallAuctionOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToCallAuctionInfoUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToCallAuctionInfoUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderNewUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderMatchUpdate}},System.Threading.CancellationToken)">
@@ -2925,11 +2943,11 @@
             <param name="quantity">Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
             <param name="remark">Remark for the order</param>
             <param name="stopPriceType">Price type</param>
-            <param name="takeProfitPrice">Take profit price</param>
-            <param name="stopLossPrice">Stop loss price</param>
+            <param name="triggerStopUpPrice">Up trigger price, take profit price for long positions, stop loss price for short positions</param>
+            <param name="triggerStopDownPrice">Down trigger price, take profit price for short positions, stop loss price for long positions</param>
             <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
             <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-            <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+            <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
             <param name="selfTradePrevention">Self Trade Prevention mode</param>
             <param name="clientOrderId">Client order id</param>
             <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
@@ -3838,6 +3856,23 @@
             <param name="language">Language, defaults to en_US</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetCallAuctionOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get Call Auction order book
+            <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-call-auction-part-orderbook" /></para>
+            </summary>
+            <param name="symbol">Symbol name, for example `ETH-USDT`</param>
+            <param name="depth">Depth of the book, 20 or 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData.GetCallAuctionInfoAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get call auction info for a symbol
+            <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-call-auction-info" /></para>
+            </summary>
+            <param name="symbol">Symbol name, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading">
@@ -5188,6 +5223,42 @@
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToCallAuctionOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to call auction order book updates
+            <para><a href="https://www.kucoin.com/docs-new/3470137w0" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe, for example `ETH-USDT`</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToCallAuctionOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to call auction order book updates
+            <para><a href="https://www.kucoin.com/docs-new/3470137w0" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToCallAuctionInfoUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to call auction info updates
+            <para><a href="https://www.kucoin.com/docs-new/3470138w0" /></para>
+            </summary>
+            <param name="symbol">Symbols to subscribe, for example `ETH-USDT`</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToCallAuctionInfoUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to call auction info updates
+            <para><a href="https://www.kucoin.com/docs-new/3470138w0" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginDebtRatioUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinMarginPositionStatusUpdate}},System.Threading.CancellationToken)">
             <summary>
@@ -9005,6 +9076,51 @@
             The cause of failure
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo">
+            <summary>
+            Call auction info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.Symbol">
+            <summary>
+            Symbol name 
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.EstimatedPrice">
+            <summary>
+            Estimated price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.EstimatedQuantity">
+            <summary>
+            Estimated quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.SellOrderRangeLowPrice">
+            <summary>
+            Sell order range low price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.SellOrderRangeHighPrice">
+            <summary>
+            Sell order range high price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.BuyOrderRangeLowPrice">
+            <summary>
+            Buy order range low price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.BuyOrderRangeHighPrice">
+            <summary>
+            Buy order range high price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCallAuctionInfo.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCancelAfter">
             <summary>
             Cancel after setting
@@ -11170,6 +11286,61 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.MinFunds">
             <summary>
             Minimum spot and margin trade amounts
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.FeeCategory">
+            <summary>
+            Fee category
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.MakerFeeCoefficient">
+            <summary>
+            Maker fee coefficient
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.TakerFeeCoefficient">
+            <summary>
+            Taker fee coefficient
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.SpecialTreatment">
+            <summary>
+            Is special treatment symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.IsCallAuction">
+            <summary>
+            Is call auction enabled
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.CallAuctionPriceFloor">
+            <summary>
+            Call auction price floor
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.CallAuctionPriceCeiling">
+            <summary>
+            Call auction price ceiling
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.CallAuctionFirstStageStartTime">
+            <summary>
+            Call auction first stage start time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.CallAuctionSecondStageStartTime">
+            <summary>
+            Call auction second stage start time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.CallAuctionThirdStageStartTime">
+            <summary>
+            Call auction third stage start time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinSymbol.TradingStartTime">
+            <summary>
+            Start trading time (end of call auction)
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinTick">

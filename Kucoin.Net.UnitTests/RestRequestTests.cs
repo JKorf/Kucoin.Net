@@ -87,6 +87,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAssetsAsync(), "GetAssets");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetFiatPricesAsync(), "GetFiatPrices");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetLeveragedTokensAsync(), "GetLeveragedTokens");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetCallAuctionInfoAsync("ETHUSDT"), "GetCallAuctionInfo");
         }
 
         [Test]

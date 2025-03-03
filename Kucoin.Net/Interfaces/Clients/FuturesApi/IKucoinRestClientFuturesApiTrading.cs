@@ -139,11 +139,11 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="quantity">Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
         /// <param name="remark">Remark for the order</param>
         /// <param name="stopPriceType">Price type</param>
-        /// <param name="takeProfitPrice">Take profit price</param>
-        /// <param name="stopLossPrice">Stop loss price</param>
+        /// <param name="triggerStopUpPrice">Up trigger price, take profit price for long positions, stop loss price for short positions</param>
+        /// <param name="triggerStopDownPrice">Down trigger price, take profit price for short positions, stop loss price for long positions</param>
         /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
         /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
         /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
@@ -165,8 +165,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             decimal? visibleSize = null,
 
             string? remark = null,
-            decimal? takeProfitPrice = null,
-            decimal? stopLossPrice = null,
+            decimal? triggerStopUpPrice = null,
+            decimal? triggerStopDownPrice = null,
             StopPriceType? stopPriceType = null,
             bool? reduceOnly = null,
             bool? closeOrder = null,

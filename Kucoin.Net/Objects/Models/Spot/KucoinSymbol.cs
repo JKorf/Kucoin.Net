@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -92,5 +94,61 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("minFunds")]
         public decimal? MinFunds { get; set; }
+
+        /// <summary>
+        /// Fee category
+        /// </summary>
+        [JsonPropertyName("feeCategory")]
+        public int FeeCategory { get; set; }
+        /// <summary>
+        /// Maker fee coefficient
+        /// </summary>
+        [JsonPropertyName("makerFeeCoefficient")]
+        public decimal MakerFeeCoefficient { get; set; }
+        /// <summary>
+        /// Taker fee coefficient
+        /// </summary>
+        [JsonPropertyName("takerFeeCoefficient")]
+        public decimal TakerFeeCoefficient { get; set; }
+        /// <summary>
+        /// Is special treatment symbol
+        /// </summary>
+        [JsonPropertyName("st")]
+        public bool SpecialTreatment { get; set; }
+        /// <summary>
+        /// Is call auction enabled
+        /// </summary>
+        [JsonPropertyName("callauctionIsEnabled")]
+        public bool IsCallAuction { get; set; }
+        /// <summary>
+        /// Call auction price floor
+        /// </summary>
+        [JsonPropertyName("callauctionPriceFloor")]
+        public decimal? CallAuctionPriceFloor { get; set; }
+        /// <summary>
+        /// Call auction price ceiling
+        /// </summary>
+        [JsonPropertyName("callauctionPriceCeiling")]
+        public decimal? CallAuctionPriceCeiling { get; set; }
+        /// <summary>
+        /// Call auction first stage start time
+        /// </summary>
+        [JsonPropertyName("callauctionFirstStageStartTime")]
+        public DateTime? CallAuctionFirstStageStartTime { get; set; }
+        /// <summary>
+        /// Call auction second stage start time
+        /// </summary>
+        [JsonPropertyName("callauctionSecondStageStartTime")]
+        public DateTime? CallAuctionSecondStageStartTime { get; set; }
+        /// <summary>
+        /// Call auction third stage start time
+        /// </summary>
+        [JsonPropertyName("callauctionThirdStageStartTime")]
+        public DateTime? CallAuctionThirdStageStartTime { get; set; }
+        /// <summary>
+        /// Start trading time (end of call auction)
+        /// </summary>
+        [JsonPropertyName("tradingStartTime")]
+        public DateTime? TradingStartTime { get; set; }
     }
 }

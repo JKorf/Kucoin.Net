@@ -157,8 +157,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             decimal? visibleSize = null,
 
             string? remark = null,
-            decimal? takeProfitPrice = null,
-            decimal? stopLossPrice = null,
+            decimal? triggerStopUpPrice = null,
+            decimal? triggerStopDownPrice = null,
             StopPriceType? stopPriceType = null,
             bool? reduceOnly = null,
             bool? closeOrder = null,
@@ -182,9 +182,10 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalString("triggerStopUpPrice", takeProfitPrice);
+
+            parameters.AddOptionalString("triggerStopUpPrice", triggerStopUpPrice);
             parameters.AddOptionalEnum("stopPriceType", stopPriceType);
-            parameters.AddOptionalString("triggerStopDownPrice", stopLossPrice);
+            parameters.AddOptionalString("triggerStopDownPrice", triggerStopDownPrice);
             parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
             parameters.AddOptionalParameter("forceHold", forceHold?.ToString());

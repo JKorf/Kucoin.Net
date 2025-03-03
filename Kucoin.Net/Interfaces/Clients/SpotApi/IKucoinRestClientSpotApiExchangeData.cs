@@ -162,5 +162,21 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinPaginated<KucoinAnnouncement>>> GetAnnouncementsAsync(int? page = null, int? pageSize = null, string? announcementType = null, string? language = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get Call Auction order book
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-call-auction-part-orderbook" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol name, for example `ETH-USDT`</param>
+        /// <param name="depth">Depth of the book, 20 or 100</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinOrderBook>> GetCallAuctionOrderBookAsync(string symbol, int depth, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get call auction info for a symbol
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-call-auction-info" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol name, for example `ETH-USDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default);
     }
 }

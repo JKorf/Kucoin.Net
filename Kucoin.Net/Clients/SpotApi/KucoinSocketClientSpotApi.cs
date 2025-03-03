@@ -24,6 +24,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -206,6 +207,26 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
         {
             var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, $"/indicator/markPrice", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionOrderBookUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default) => SubscribeToCallAuctionOrderBookUpdatesAsync(new string[] { symbol }, onData, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default)
+        {
+            var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, $"/callauction/level2Depth50", symbols.ToList(), onData, false);
+            return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionInfoUpdatesAsync(string symbol, Action<DataEvent<KucoinCallAuctionInfo>> onData, CancellationToken ct = default) => SubscribeToCallAuctionInfoUpdatesAsync(new string[] { symbol }, onData, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionInfoUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinCallAuctionInfo>> onData, CancellationToken ct = default)
+        {
+            var subscription = new KucoinSubscription<KucoinCallAuctionInfo>(_logger, $"/callauction/callauctionData", symbols.ToList(), onData, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
