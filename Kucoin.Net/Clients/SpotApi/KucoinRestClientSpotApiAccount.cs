@@ -37,7 +37,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
-            parameters.AddOptionalEnum("type", accountType);
+            parameters.AddOptional("type", EnumConverter.GetString(accountType)?.ToLowerInvariant());
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             return await _baseClient.SendAsync<IEnumerable<KucoinAccount>>(request, parameters, ct).ConfigureAwait(false);
         }
