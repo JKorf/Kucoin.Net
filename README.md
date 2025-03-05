@@ -154,6 +154,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.1 - 05 Mar 2025
+    * Fix restClient.SpotApi.Account.GetAccountsAsync accountType parameter serialization
+
 * Version 6.0.0 - 03 Mar 2025
     * Updated library from Newtonsoft.Json to System.Text.Json for json (de)serialization
     * Added USDC balance info to Futures API shared GetBalancesAsync
