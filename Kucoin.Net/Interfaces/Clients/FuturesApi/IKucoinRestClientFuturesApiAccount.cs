@@ -131,7 +131,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<Objects.Models.Futures.KucoinRiskLimit[]>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<Objects.Models.Futures.KucoinFuturesRiskLimit[]>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Set risk limit level

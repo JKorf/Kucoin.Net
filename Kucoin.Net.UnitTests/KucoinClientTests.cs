@@ -9,12 +9,13 @@ using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using System.Net.Http;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.JsonNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Kucoin.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using System.Text.Json;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -88,7 +89,7 @@ namespace Kucoin.Net.UnitTests
         public void CheckSignatureExample()
         {
             var authProvider = new KucoinAuthenticationProvider(
-                new KucoinApiCredentials("5c2db93503aa674c74a31734", "f03a5284-5c39-4aaa-9b20-dea10bdcf8e3", "QWIxMjM0NTY3OCkoKiZeJSQjQA==")
+                new ApiCredentials("5c2db93503aa674c74a31734", "f03a5284-5c39-4aaa-9b20-dea10bdcf8e3", "QWIxMjM0NTY3OCkoKiZeJSQjQA==")
                 );
             var client = (RestApiClient)new KucoinRestClient().SpotApi;
 

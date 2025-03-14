@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// Risk limit info
     /// </summary>
     [SerializationModel]
-    public record KucoinRiskLimit
+    public record KucoinFuturesRiskLimit
     {
         /// <summary>
         /// Symbol

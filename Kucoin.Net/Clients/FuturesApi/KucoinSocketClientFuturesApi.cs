@@ -80,7 +80,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+            => new KucoinAuthenticationProvider(credentials);
 
 
         /// <inheritdoc />
@@ -255,7 +255,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (ClientOptions.Environment.Name == "UnitTesting")
                 return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
 
-            var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);
+            var apiCredentials = (ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {
                 options.ApiCredentials = apiCredentials;

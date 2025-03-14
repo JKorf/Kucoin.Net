@@ -65,7 +65,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+            => new KucoinAuthenticationProvider(credentials);
         
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
@@ -282,7 +282,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (ClientOptions.Environment.Name == "UnitTesting")
                 return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
 
-            var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);
+            var apiCredentials = (ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {
                 options.ApiCredentials = apiCredentials;
