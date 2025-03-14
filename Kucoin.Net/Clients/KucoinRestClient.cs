@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects.Options;
 using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.SpotApi;
@@ -54,7 +55,7 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        public void SetApiCredentials(KucoinApiCredentials credentials)
+        public void SetApiCredentials(ApiCredentials credentials)
         {
             SpotApi.SetApiCredentials(credentials);
             FuturesApi.SetApiCredentials(credentials);

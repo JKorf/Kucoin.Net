@@ -1,6 +1,7 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using CryptoExchange.Net.Converters;
+using Kucoin.Net.Converters;
 
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -8,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Kline info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<KucoinFuturesKline, KucoinSourceGenerationContext>))]
     [SerializationModel]
     public record KucoinFuturesKline
     {

@@ -17,12 +17,12 @@ using System.Text;
 
 namespace Kucoin.Net
 {
-    internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinApiCredentials>
+    internal class KucoinAuthenticationProvider : AuthenticationProvider
     {
         private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
-        private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
+        private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
-        public KucoinAuthenticationProvider(KucoinApiCredentials credentials): base(credentials)
+        public KucoinAuthenticationProvider(ApiCredentials credentials): base(credentials)
         {
             if (credentials.CredentialType != ApiCredentialsType.Hmac)
                 throw new Exception("Only Hmac authentication is supported");
@@ -58,10 +58,10 @@ namespace Kucoin.Net
             headers ??= new Dictionary<string, string>();
             headers.Add("KC-API-KEY", _credentials.Key);
             headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
-            var phraseKey = _credentials.Key + "|" + _credentials.PassPhrase;
+            var phraseKey = _credentials.Key + "|" + _credentials.Pass;
             if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
             {
-                phraseSign = SignHMACSHA256(_credentials.PassPhrase, SignOutputType.Base64);
+                phraseSign = SignHMACSHA256(_credentials.Pass, SignOutputType.Base64);
                 _phraseCache.TryAdd(phraseKey, phraseSign);
             }
 

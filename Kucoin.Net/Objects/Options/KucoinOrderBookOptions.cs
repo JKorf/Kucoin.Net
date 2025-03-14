@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 using System;
 
 namespace Kucoin.Net.Objects.Options
@@ -26,13 +27,14 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// API credentials to use. The Kucoin order book endpoint requires authentication
         /// </summary>
-        public KucoinApiCredentials? ApiCredentials { get; set; }
+        public ApiCredentials? ApiCredentials { get; set; }
 
         internal KucoinOrderBookOptions Copy()
         {
             var result = Copy<KucoinOrderBookOptions>();
             result.Limit = Limit;
             result.InitialDataTimeout = InitialDataTimeout;
+            result.ApiCredentials = ApiCredentials?.Copy();
             return result;
         }
     }

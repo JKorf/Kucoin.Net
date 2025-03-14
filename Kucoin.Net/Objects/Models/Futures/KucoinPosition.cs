@@ -6,7 +6,6 @@ using Kucoin.Net.Enums;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    [SerializationModel]
     /// Base record for position info
     /// </summary>
     [SerializationModel]

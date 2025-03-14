@@ -5,7 +5,6 @@ using System;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
-    [SerializationModel]
     /// Base record for index data
     /// </summary>
     [SerializationModel]

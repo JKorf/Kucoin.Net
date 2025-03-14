@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Interfaces.CommonClients;
 using System;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
@@ -40,12 +39,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         public IKucoinRestClientSpotApiMargin Margin { get; }
 
         /// <summary>
-        /// DEPRECATED; use <see cref="CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
-        /// </summary>
-        public ISpotClient CommonSpotClient { get; }
-
-        /// <summary>
-        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         IKucoinRestClientSpotApiShared SharedClient { get; }
 

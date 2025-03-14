@@ -8,7 +8,6 @@ namespace Kucoin.Net.Enums
     /// <summary>
     /// Stop order event
     /// </summary>
-    [JsonConverter(typeof(EnumConverter))]
     [JsonConverter(typeof(EnumConverter<StopOrderEvent>))]
     public enum StopOrderEvent
     {

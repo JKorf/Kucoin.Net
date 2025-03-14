@@ -7,11 +7,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
+using CryptoExchange.Net;
+using Kucoin.Net.Objects.Models.Futures;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinRestClientFuturesApi : IKucoinRestClientFuturesApiShared
     {
+        private const string _topicId = "KucoinFutures";
+
         public string Exchange => KucoinExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse };
 
@@ -42,7 +46,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             result.Add(new SharedBalance(resultXbt.Result.Data.Asset, resultXbt.Result.Data.AvailableBalance, resultXbt.Result.Data.AccountEquity));
             result.Add(new SharedBalance(resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.AvailableBalance, resultUsdt.Result.Data.AccountEquity));
             result.Add(new SharedBalance(resultUsdc.Result.Data.Asset, resultUsdc.Result.Data.AvailableBalance, resultUsdc.Result.Data.AccountEquity));
-            return resultXbt.Result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result);
+            return resultXbt.Result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.ToArray());
         }
 
         #endregion
@@ -63,6 +67,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             return result.AsExchangeResult(Exchange,
                 request.Symbol.TradingMode,
                 new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, result.Data.Symbol),
                     result.Data.Symbol,
                     result.Data.LastTradePrice,
                     result.Data.HighPrice,
@@ -88,7 +93,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedFuturesTicker[]>(Exchange, null, default);
 
-            var data = result.Data;
+            IEnumerable<KucoinContract> data = result.Data;
             if (request.TradingMode != null)
                 data = data.Where(x =>
                     request.TradingMode == TradingMode.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
@@ -99,7 +104,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             return result.AsExchangeResult<SharedFuturesTicker[]>(Exchange,
                 request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value },
                 result.Data.Select(x =>
-                new SharedFuturesTicker(x.Symbol, x.LastTradePrice, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
+                new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastTradePrice, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
                 {
                     IndexPrice = x.IndexPrice,
                     MarkPrice = x.MarkPrice,
@@ -124,7 +129,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedFuturesSymbol[]>(Exchange, null, default);
 
-            var data = result.Data;
+            IEnumerable<KucoinContract> data = result.Data;
             if (request.TradingMode.HasValue)
                 data = data.Where(x =>
                     request.TradingMode == TradingMode.PerpetualLinear ? (!x.IsInverse && !x.SettleDate.HasValue) :
@@ -132,13 +137,13 @@ namespace Kucoin.Net.Clients.FuturesApi
                       request.TradingMode == TradingMode.DeliveryLinear ? (!x.IsInverse && x.SettleDate.HasValue) :
                        (x.IsInverse && x.SettleDate.HasValue));
 
-            return result.AsExchangeResult<SharedFuturesSymbol[]>(Exchange, 
+            var response = result.AsExchangeResult<SharedFuturesSymbol[]>(Exchange, 
                 request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value },
                 data.Select(s => new SharedFuturesSymbol(
-                s.IsInverse && s.SettleDate.HasValue ? SharedSymbolType.DeliveryInverse :
-                s.IsInverse && !s.SettleDate.HasValue ? SharedSymbolType.PerpetualInverse:
-                s.SettleDate.HasValue ? SharedSymbolType.DeliveryLinear:
-                SharedSymbolType.PerpetualLinear,
+                s.IsInverse && s.SettleDate.HasValue ? TradingMode.DeliveryInverse :
+                s.IsInverse && !s.SettleDate.HasValue ? TradingMode.PerpetualInverse:
+                s.SettleDate.HasValue ? TradingMode.DeliveryLinear:
+                TradingMode.PerpetualLinear,
                 s.BaseAsset,
                 s.QuoteAsset,
                 s.Symbol,
@@ -151,6 +156,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 ContractSize = s.Multiplier == -1 ? 1 : s.Multiplier,
                 DeliveryTime = s.SettleDate
             }).ToArray());
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data);
+            return response;
         }
 
         #endregion
@@ -167,6 +175,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 SharedQuantityType.Contracts,
                 SharedQuantityType.Contracts,
                 SharedQuantityType.Contracts);
+
+        string IFuturesOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
 
         PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions()
         {
@@ -221,6 +231,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
             return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
                 order.Data.Symbol,
                 order.Data.Id.ToString(),
                 order.Data.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(order.Data.Type),
@@ -254,6 +265,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, null, default);
 
             return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -307,6 +319,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 nextToken = new PageToken(page + 1, pageSize);
 
             return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, SupportedTradingModes ,orders.Data.Items.Select(x => new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -339,6 +352,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
             return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode,orders.Data.Items.Select(x => new SharedUserTrade(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -388,6 +402,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 nextToken = new PageToken(page + 1, pageSize);
 
             return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode,orders.Data.Items.Select(x => new SharedUserTrade(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -430,11 +445,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedPosition[]>(Exchange, null, default);
 
-            var data = result.Data;
+            IEnumerable<KucoinPosition> data = result.Data;
             if (symbol != null)
                 data = data.Where(x => x.Symbol == symbol);
 
-            return result.AsExchangeResult<SharedPosition[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
+            return result.AsExchangeResult<SharedPosition[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
             {
                 UnrealizedPnl = x.UnrealizedPnl,
                 LiquidationPrice = x.LiquidationPrice,
@@ -740,6 +755,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 nextToken = new PageToken(page + 1, pageSize);
 
             return orders.AsExchangeResult<SharedPositionHistory[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedPositionHistory(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                 x.Symbol,
                 x.Side == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 x.OpenPrice ?? 0,

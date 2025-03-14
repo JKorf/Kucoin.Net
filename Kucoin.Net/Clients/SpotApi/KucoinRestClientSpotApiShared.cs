@@ -7,11 +7,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Enums;
+using CryptoExchange.Net;
+using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinRestClientSpotApi : IKucoinRestClientSpotApiShared
     {
+        private const string _topicId = "KucoinSpot";
         public string Exchange => KucoinExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
@@ -86,7 +89,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotSymbol[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedSpotSymbol[]>(Exchange, TradingMode.Spot, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.EnableTrading)
+            var response = result.AsExchangeResult<SharedSpotSymbol[]>(Exchange, TradingMode.Spot, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.EnableTrading)
             {
                 MinTradeQuantity = s.BaseMinQuantity,
                 MaxTradeQuantity = s.BaseMaxQuantity,
@@ -94,6 +97,9 @@ namespace Kucoin.Net.Clients.SpotApi
                 PriceStep = s.PriceIncrement,
                 MinNotionalValue = s.MinFunds
             }).ToArray());
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data);
+            return response;
         }
 
         #endregion
@@ -112,7 +118,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100));
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100));
         }
 
         EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
@@ -126,7 +132,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, TradingMode.Spot, result.Data.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)).ToArray());
+            return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, TradingMode.Spot, result.Data.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)).ToArray());
         }
 
         #endregion
@@ -168,7 +174,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
             var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
-            var data = result.Data;
+            IEnumerable<KucoinAccount> data = result.Data;
             if (data.Any(x => x.Type == AccountType.Trade) && data.Any(x => x.Type == AccountType.SpotHf))
             {
                 // If there are both Trade and SpotHF balance present check which to take
@@ -201,6 +207,8 @@ namespace Kucoin.Net.Clients.SpotApi
                 SharedQuantityType.BaseAsset,
                 SharedQuantityType.BaseAndQuoteAsset,
                 SharedQuantityType.BaseAndQuoteAsset);
+
+        string ISpotOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
 
         PlaceSpotOrderOptions ISpotOrderRestClient.PlaceSpotOrderOptions { get; } = new PlaceSpotOrderOptions();
         async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
@@ -270,6 +278,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
 
                 return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
                     order.Data.Symbol,
                     order.Data.Id.ToString(),
                     ParseOrderType(order.Data.Type, order.Data.PostOnly),
@@ -295,6 +304,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
 
                 return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
                     order.Data.Symbol,
                     order.Data.Id.ToString(),
                     ParseOrderType(order.Data.Type, order.Data.PostOnly),
@@ -331,6 +341,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, null, default);
 
                 return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -360,6 +371,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, null, default);
 
                 return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, TradingMode.Spot, order.Data.Select(x => new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -417,6 +429,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     nextToken = new PageToken(page + 1, pageSize);
 
                 return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -459,6 +472,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     nextToken = new FromIdToken(order.Data.LastId.ToString());
 
                 return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -494,6 +508,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return order.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
                 return order.AsExchangeResult<SharedUserTrade[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -515,6 +530,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return order.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
                 return order.AsExchangeResult<SharedUserTrade[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -565,6 +581,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     nextToken = new PageToken(page + 1, pageSize);
 
                 return order.AsExchangeResult<SharedUserTrade[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -603,6 +620,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     nextToken = new FromIdToken(order.Data.LastId.ToString());
 
                 return order.AsExchangeResult<SharedUserTrade[]>(Exchange, TradingMode.Spot, order.Data.Items.Select(x => new SharedUserTrade(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),

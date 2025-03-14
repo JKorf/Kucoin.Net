@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
+using Kucoin.Net.Converters;
 
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
@@ -73,7 +74,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<KucoinStreamOrderBookEntry, KucoinSourceGenerationContext>))]
     [SerializationModel]
     public record KucoinStreamOrderBookEntry: ISymbolOrderSequencedBookEntry
     {

@@ -6,7 +6,6 @@ using Kucoin.Net.Enums;
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
-    [SerializationModel]
     /// Base record for a stream update
     /// </summary>
     [SerializationModel]

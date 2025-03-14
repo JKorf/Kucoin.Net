@@ -199,7 +199,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection
             {
-                { "orderList", orderList }
+                { "orderList", orderList.ToArray() }
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/multi", KucoinExchange.RateLimiter.SpotRest, 1, true);
@@ -220,7 +220,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection
             {
-                { "orderList", orderList }
+                { "orderList", orderList.ToArray() }
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/multi/sync", KucoinExchange.RateLimiter.SpotRest, 1, true);

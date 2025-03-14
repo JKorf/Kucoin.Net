@@ -8,7 +8,6 @@ namespace Kucoin.Net.Enums
     /// <summary>
     /// Cross margin status
     /// </summary>
-    [JsonConverter(typeof(EnumConverter))]
     [JsonConverter(typeof(EnumConverter<CrossMarginStatus>))]
     public enum CrossMarginStatus
     {

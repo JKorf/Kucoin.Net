@@ -302,7 +302,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection
             {
                 { "symbol", symbol },
-                { "orderList", orderList }
+                { "orderList", orderList.ToArray() }
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.SpotRest, 3, true);

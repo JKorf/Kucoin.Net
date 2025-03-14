@@ -58,7 +58,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+            => new KucoinAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
@@ -99,5 +99,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()
             => TimeSyncState.TimeOffset;
+
+        public IKucoinRestClientFuturesApiShared SharedClient => this;
     }
 }

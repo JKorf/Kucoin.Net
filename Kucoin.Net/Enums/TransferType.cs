@@ -8,7 +8,6 @@ namespace Kucoin.Net.Enums
     /// <summary>
     /// Transfer type
     /// </summary>
-    [JsonConverter(typeof(EnumConverter))]
     [JsonConverter(typeof(EnumConverter<TransferType>))]
     public enum TransferType
     {
