@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
@@ -80,8 +79,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.SpotRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
         }
 
@@ -286,8 +283,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v3/oco/order", KucoinExchange.RateLimiter.SpotRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.Id });
             return result;
         }
 
@@ -312,13 +307,6 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.SpotRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinBulkOrderResponse>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-            {
-                foreach (var order in result.Data.Orders.Where(o => o.Status == BulkOrderCreationStatus.Success))
-                {
-                    _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = order, Id = order.Id });
-                }
-            }
             return result;
         }
 
@@ -328,8 +316,6 @@ namespace Kucoin.Net.Clients.SpotApi
             orderId.ValidateNotNull(nameof(orderId));
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
             return result;
         }
 
@@ -339,8 +325,6 @@ namespace Kucoin.Net.Clients.SpotApi
             orderId.ValidateNotNull(nameof(orderId));
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/oco/order/{orderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = orderId });
             return result;
         }
 
@@ -361,8 +345,6 @@ namespace Kucoin.Net.Clients.SpotApi
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/order/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrder>(request, null, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = clientOrderId });
             return result;
         }
 
@@ -372,8 +354,6 @@ namespace Kucoin.Net.Clients.SpotApi
             clientOrderId.ValidateNotNull(nameof(clientOrderId));
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/oco/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = clientOrderId });
             return result;
         }
 

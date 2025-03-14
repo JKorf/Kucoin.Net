@@ -5,6 +5,7 @@ using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Converters;
 using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,8 @@ namespace Kucoin.Net
         /// Type of exchange
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
+
+        internal static JsonSerializerContext SerializerContext = new KucoinSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a Kucoin recognized symbol 
