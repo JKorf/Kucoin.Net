@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 using System;
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Margin order done event
     /// </summary>
+    [SerializationModel]
     public record KucoinMarginOrderDoneUpdate
     {
         /// <summary>
@@ -23,7 +25,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// Order done reason
         /// </summary>
         [JsonPropertyName("reason")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginOrderDoneReason Reason { get; set; }
         /// <summary>
         /// Lend

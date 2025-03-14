@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -6,18 +7,20 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Index info
     /// </summary>
+    [SerializationModel]
     public record KucoinIndex: KucoinIndexBase
     {
         /// <summary>
         /// Component list
         /// </summary>
         [JsonPropertyName("decomposionList")]
-        public IEnumerable<KucoinDecomposionItem> DecomposionList { get; set; } = Array.Empty<KucoinDecomposionItem>();
+        public KucoinDecomposionItem[] DecomposionList { get; set; } = Array.Empty<KucoinDecomposionItem>();
     }
 
     /// <summary>
     /// Decomposion item
     /// </summary>
+    [SerializationModel]
     public record KucoinDecomposionItem
     {
         /// <summary>

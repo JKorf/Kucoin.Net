@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Transferable Account info
     /// </summary>
+    [SerializationModel]
     public record KucoinTransferableAccount
     {
         /// <summary>

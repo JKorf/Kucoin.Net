@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Type of transaction
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<TransactionType>))]
     public enum TransactionType
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
@@ -33,13 +33,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinAccount>>> GetAccountsAsync(string? asset = null, AccountType? accountType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinAccount[]>> GetAccountsAsync(string? asset = null, AccountType? accountType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptional("type", EnumConverter.GetString(accountType)?.ToLowerInvariant());
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/accounts", KucoinExchange.RateLimiter.ManagementRest, 5, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinAccount>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinAccount[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -61,18 +61,18 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default)
             => await GetSymbolTradingFeesAsync(new[] { symbol }, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection
             {
                 { "symbols",  string.Join(",", symbols) }
             };
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/trade-fees", KucoinExchange.RateLimiter.SpotRest, 3, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinTradeFee>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinTradeFee[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -155,14 +155,14 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinDepositAddress>>> GetDepositAddressesV3Async(string asset, string? networkId = null, decimal? quantity = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinDepositAddress[]>> GetDepositAddressesV3Async(string asset, string? networkId = null, decimal? quantity = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
             var parameters = new ParameterCollection { { "currency", asset } };
             parameters.AddOptionalParameter("chain", networkId);
             parameters.AddOptionalString("amount", quantity);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/deposit-addresses", KucoinExchange.RateLimiter.ManagementRest, 5, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinDepositAddress>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinDepositAddress[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

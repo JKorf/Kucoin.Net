@@ -1,10 +1,12 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Migration status
     /// </summary>
+    [SerializationModel]
     public record KucoinMigrateStatus
     {
         /// <summary>

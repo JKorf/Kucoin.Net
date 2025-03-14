@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Objects.Models.Spot;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Objects.Models.Spot;
 
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Order result
     /// </summary>
+    [SerializationModel]
     public record KucoinFuturesOrderResult: KucoinOrderId
     {
         /// <summary>

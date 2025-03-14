@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using Kucoin.Net.Enums;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Futures order info
     /// </summary>
+    [SerializationModel]
     public record KucoinFuturesOrder: KucoinOrderBase
     {
         /// <summary>
@@ -90,7 +92,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
         /// <summary>
@@ -101,7 +103,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Margin mode
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
         /// <summary>

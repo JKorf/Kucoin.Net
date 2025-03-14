@@ -1,8 +1,10 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot.Socket
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
     /// Stream tick
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamTick: KucoinTick
     {
         /// <summary>

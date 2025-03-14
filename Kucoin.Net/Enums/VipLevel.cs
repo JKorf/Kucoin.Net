@@ -1,8 +1,12 @@
-﻿namespace Kucoin.Net.Enums
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
+namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Account VIP level
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<VipLevel>))]
     public enum VipLevel
     {
         /// <summary>

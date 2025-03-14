@@ -1,4 +1,6 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 
 namespace Kucoin.Net.Enums
@@ -7,6 +9,7 @@ namespace Kucoin.Net.Enums
     /// Cross margin status
     /// </summary>
     [JsonConverter(typeof(EnumConverter))]
+    [JsonConverter(typeof(EnumConverter<CrossMarginStatus>))]
     public enum CrossMarginStatus
     {
         /// <summary>

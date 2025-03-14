@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Order value info
     /// </summary>
+    [SerializationModel]
     public record KucoinOrderValuation
     {
         /// <summary>

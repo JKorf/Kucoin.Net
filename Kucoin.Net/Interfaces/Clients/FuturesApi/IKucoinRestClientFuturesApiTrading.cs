@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -184,7 +184,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orders">The orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order results. Each result should be checked for success</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesOrderResult[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order
@@ -204,7 +204,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderIds">Client order ids to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by client order id
@@ -272,7 +272,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get details on an order
@@ -315,7 +315,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the max position size

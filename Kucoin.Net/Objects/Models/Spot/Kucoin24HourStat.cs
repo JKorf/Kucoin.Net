@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// 24 hours stats
     /// </summary>
+    [SerializationModel]
     public record Kucoin24HourStat
     {
         /// <summary>

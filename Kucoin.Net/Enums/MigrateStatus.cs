@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Migration status
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<MigrateStatus>))]
     public enum MigrateStatus
     {
         /// <summary>

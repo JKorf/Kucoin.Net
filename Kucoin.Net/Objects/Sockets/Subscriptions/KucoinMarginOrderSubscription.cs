@@ -59,7 +59,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     _onOrderData?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(orderUpdate.Data.Timestamp));
             }
 
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

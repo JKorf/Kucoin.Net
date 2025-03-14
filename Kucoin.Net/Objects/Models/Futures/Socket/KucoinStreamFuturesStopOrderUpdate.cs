@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Futures stop order update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamFuturesStopOrderUpdate: KucoinStreamStopOrderUpdateBase
     {
         /// <summary>

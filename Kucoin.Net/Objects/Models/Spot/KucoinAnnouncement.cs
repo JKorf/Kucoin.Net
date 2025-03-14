@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Announcement
     /// </summary>
+    [SerializationModel]
     public record KucoinAnnouncement
     {
         /// <summary>
@@ -43,7 +45,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Announcement types
         /// </summary>
         [JsonPropertyName("annType")]
-        public IEnumerable<string> Types { get; set; } = Array.Empty<string>();
+        public string[] Types { get; set; } = Array.Empty<string>();
     }
 
 

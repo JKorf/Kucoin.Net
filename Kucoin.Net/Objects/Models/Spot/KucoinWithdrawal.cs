@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using Kucoin.Net.Enums;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Withdrawal info
     /// </summary>
+    [SerializationModel]
     public record KucoinWithdrawal
     {
         /// <summary>

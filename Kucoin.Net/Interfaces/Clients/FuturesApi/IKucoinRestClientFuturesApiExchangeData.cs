@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinContract>>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinContract[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a contract
@@ -46,7 +46,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesTick>>> GetTickersAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesTick[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the full order book, aggregated by price
@@ -134,7 +134,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the server time
@@ -162,7 +162,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">End time to retrieve klines for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesKline>>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h transaction volume
@@ -181,6 +181,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">End time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFundingRateHistory>>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default);
     }
 }

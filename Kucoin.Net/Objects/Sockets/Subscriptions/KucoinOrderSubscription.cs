@@ -54,7 +54,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (message.Data is KucoinSocketUpdate<KucoinStreamOrderNewUpdate> newOrderUpdate)
                 _onNewOrder?.Invoke(message.As(newOrderUpdate.Data, newOrderUpdate.Topic, newOrderUpdate.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(newOrderUpdate.Data.Timestamp));
 
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
@@ -30,7 +30,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Filter on type of account</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of accounts</returns>
-        Task<WebCallResult<IEnumerable<KucoinAccount>>> GetAccountsAsync(string? asset = null, AccountType? accountType = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinAccount[]>> GetAccountsAsync(string? asset = null, AccountType? accountType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a specific account
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">The symbol to retrieve fees for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the trading fees for symbols
@@ -66,7 +66,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">The symbols to retrieve fees for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinTradeFee>>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default);
+        Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of account activity
@@ -146,7 +146,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="quantity">Deposit amount. This parameter is only used when applying for invoices on the Lightning Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The deposit address for the asset</returns>
-        Task<WebCallResult<IEnumerable<KucoinDepositAddress>>> GetDepositAddressesV3Async(string asset, string? networkId = null, decimal? quantity = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinDepositAddress[]>> GetDepositAddressesV3Async(string asset, string? networkId = null, decimal? quantity = null, CancellationToken ct = default);
 
         /// <summary>
         /// Creates a new deposit address for an asset

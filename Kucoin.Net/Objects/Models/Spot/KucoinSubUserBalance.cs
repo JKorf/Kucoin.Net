@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Sub user balances
     /// </summary>
+    [SerializationModel]
     public record KucoinSubUserBalances
     {
         /// <summary>
@@ -23,22 +25,23 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Main account balances
         /// </summary>
         [JsonPropertyName("mainAccounts")]
-        public IEnumerable<KucoinSubUserBalance> MainAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
+        public KucoinSubUserBalance[] MainAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
         /// <summary>
         /// Trade account balances
         /// </summary>
         [JsonPropertyName("tradeAccounts")]
-        public IEnumerable<KucoinSubUserBalance> TradeAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
+        public KucoinSubUserBalance[] TradeAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
         /// <summary>
         /// Margin account balances
         /// </summary>
         [JsonPropertyName("marginAccounts")]
-        public IEnumerable<KucoinSubUserBalance> MarginAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
+        public KucoinSubUserBalance[] MarginAccounts { get; set; } = Array.Empty<KucoinSubUserBalance>();
     }
 
     /// <summary>
     /// Sub user info
     /// </summary>
+    [SerializationModel]
     public record KucoinSubUserBalance
     {
         /// <summary>

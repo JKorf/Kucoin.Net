@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Isolated margin position update
     /// </summary>
+    [SerializationModel]
     public record KucoinIsolatedMarginPositionUpdate
     {
         /// <summary>
@@ -29,7 +31,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Position status
         /// </summary>
-        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public IsolatedPositionStatus Status { get; set; }
         /// <summary>
         /// Changed assets
@@ -42,6 +44,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Isolated margin asset info
     /// </summary>
+    [SerializationModel]
     public record KucoinIsolatedMarginAsset
     {
         /// <summary>

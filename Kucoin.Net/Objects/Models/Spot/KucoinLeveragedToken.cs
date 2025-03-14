@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Leveraged token info
     /// </summary>
+    [SerializationModel]
     public record KucoinLeveragedToken
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
@@ -38,7 +38,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinIndexBase>>> GetMarginMarkPricesAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinIndexBase[]>> GetMarginMarkPricesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get Margin symbols
@@ -46,7 +46,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinTradingPairConfiguration[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin risk limit and asset configuration info
@@ -54,7 +54,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinCrossRiskLimitConfig>>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
+        Task<WebCallResult<KucoinCrossRiskLimitConfig[]>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin risk limit and asset configuration info
@@ -63,7 +63,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinIsolatedRiskLimitConfig[]>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Borrow an asset
@@ -159,7 +159,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinLendingAsset>>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinLendingAsset[]>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get lending interest rates
@@ -168,7 +168,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinLendingInterest>>> GetInterestRatesAsync(string asset, CancellationToken ct = default);
+        Task<WebCallResult<KucoinLendingInterest[]>> GetInterestRatesAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Initiate subscriptions of margin lending
@@ -247,6 +247,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinCrossMarginSymbol>>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinCrossMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
     }
 }

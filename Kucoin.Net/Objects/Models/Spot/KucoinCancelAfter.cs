@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Cancel after setting
     /// </summary>
+    [SerializationModel]
     public record KucoinCancelAfter
     {
         /// <summary>
@@ -23,6 +25,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Cancel after status
     /// </summary>
+    [SerializationModel]
     public record KucoinCancelAfterStatus : KucoinCancelAfter
     {
         /// <summary>

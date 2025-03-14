@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using Kucoin.Net.Enums;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order info
     /// </summary>
+    [SerializationModel]
     public record KucoinOrder: KucoinOrderBase
     {        
         /// <summary>
@@ -69,6 +71,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Stop order info
     /// </summary>
+    [SerializationModel]
     public record KucoinStopOrder: KucoinOrder
     {
         /// <summary>

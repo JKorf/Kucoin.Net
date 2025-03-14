@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Update to funds wich are withdrawable
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamFuturesWithdrawableUpdate
     {
         /// <summary>

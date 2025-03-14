@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using Kucoin.Net.Converters;
 
@@ -8,6 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Contract info
     /// </summary>
+    [SerializationModel]
     public record KucoinContract
     {
         /// <summary>
@@ -255,7 +257,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Source exchanges
         /// </summary>
         [JsonPropertyName("sourceExchanges")]
-        public IEnumerable<string> SourceExchanges { get; set; } = Array.Empty<string>();
+        public string[] SourceExchanges { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Mark price
         /// </summary>

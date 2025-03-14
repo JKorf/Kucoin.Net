@@ -49,7 +49,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (message.Data is KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> statusUpdate)
                 _onPositionStatusChange?.Invoke(message.As(statusUpdate.Data, statusUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(statusUpdate.Data.Timestamp));
 
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

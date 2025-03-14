@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
@@ -9,6 +10,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Order book info
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamOrderBook
     {
         /// <summary>
@@ -45,18 +47,19 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Order book changes
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamOrderBookChanged
     {
         /// <summary>
         /// The changes in bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<KucoinStreamOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
+        public KucoinStreamOrderBookEntry[] Bids { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
         /// The changes in asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<KucoinStreamOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
+        public KucoinStreamOrderBookEntry[] Asks { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
         /// Timestamp
         /// </summary>
@@ -71,6 +74,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// Order book entry
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
+    [SerializationModel]
     public record KucoinStreamOrderBookEntry: ISymbolOrderSequencedBookEntry
     {
         /// <summary>

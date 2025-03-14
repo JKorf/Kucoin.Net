@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 using Kucoin.Net.Enums;
 using System;
@@ -8,6 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Deposit address
     /// </summary>
+    [SerializationModel]
     public record KucoinDepositAddress
     {
         /// <summary>

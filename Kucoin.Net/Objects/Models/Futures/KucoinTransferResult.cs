@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 using System;
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Transfer result
     /// </summary>
+    [SerializationModel]
     public record KucoinTransferResult
     {
         /// <summary>
@@ -37,7 +39,7 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// <summary>
         /// Remark
         /// </summary>
-        [JsonPropertyName("recAccountType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("recAccountType")]
         public AccountType? ReceiveAccountType { get; set; }
         /// <summary>
         /// Receive tag

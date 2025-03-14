@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 using System;
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Order book change
     /// </summary>
+    [SerializationModel]
     public record KucoinFuturesOrderBookChange
     {
         /// <summary>

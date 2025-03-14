@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// New Borrow order
     /// </summary>
+    [SerializationModel]
     public record KucoinNewBorrowOrder
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 
@@ -28,10 +28,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Symbol
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinContract>>> GetSymbolsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinContract[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contracts/active", KucoinExchange.RateLimiter.PublicRest, 3);
-            return await _baseClient.SendAsync<IEnumerable<KucoinContract>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinContract[]>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -59,10 +59,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Get Tickers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesTick>>> GetTickersAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesTick[]>> GetTickersAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/allTickers", KucoinExchange.RateLimiter.PublicRest, 15);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesTick>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesTick[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -96,12 +96,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Trade history
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/trade/history", KucoinExchange.RateLimiter.PublicRest, 5);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -192,7 +192,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesKline>>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
@@ -201,7 +201,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToMilliseconds(endTime));
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/kline/query", KucoinExchange.RateLimiter.PublicRest, 3);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesKline>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesKline[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -220,7 +220,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Get Funding Rate History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFundingRateHistory>>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
@@ -228,9 +228,9 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddMilliseconds("to", endTime);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contract/funding-rates", KucoinExchange.RateLimiter.PublicRest, 5);
-            var result = await _baseClient.SendAsync<IEnumerable<KucoinFundingRateHistory>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinFundingRateHistory[]>(request, parameters, ct).ConfigureAwait(false);
             if (result && result.Data == null)
-                return result.As<IEnumerable<KucoinFundingRateHistory>>(Array.Empty<KucoinFundingRateHistory>());
+                return result.As<KucoinFundingRateHistory[]>(Array.Empty<KucoinFundingRateHistory>());
             
             return result;
         }

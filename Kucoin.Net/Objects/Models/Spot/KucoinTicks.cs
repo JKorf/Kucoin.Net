@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Tick info
     /// </summary>
+    [SerializationModel]
     public record KucoinTicks
     {
         /// <summary>
@@ -19,6 +21,6 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The ticker data
         /// </summary>
         [JsonPropertyName("ticker")]
-        public IEnumerable<KucoinAllTick> Data { get; set; } = Array.Empty<KucoinAllTick>();
+        public KucoinAllTick[] Data { get; set; } = Array.Empty<KucoinAllTick>();
     }
 }

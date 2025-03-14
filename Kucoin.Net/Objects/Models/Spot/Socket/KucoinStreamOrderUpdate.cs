@@ -1,12 +1,15 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using Kucoin.Net.Enums;
 
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket
 {
     /// <summary>
+    [SerializationModel]
     /// Base record for a stream update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -74,6 +77,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// New order update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamOrderNewUpdate : KucoinStreamOrderBaseUpdate
     {
     }
@@ -81,6 +85,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Order update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamOrderUpdate : KucoinStreamOrderBaseUpdate
     {
         /// <summary>
@@ -124,6 +129,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order update (match)
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamOrderMatchUpdate : KucoinStreamOrderUpdate
     {
         /// <summary>
@@ -149,7 +155,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// <summary>
         /// Type of fee paid
         /// </summary>
-        [JsonPropertyName("feeType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("feeType")]
         public FeeType FeeType { get; set; }
     }
 }

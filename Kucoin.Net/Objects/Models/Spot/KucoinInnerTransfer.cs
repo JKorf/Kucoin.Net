@@ -1,8 +1,10 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Sub transfer info
     /// </summary>
+    [SerializationModel]
     public record KucoinInnerTransfer
     {
         /// <summary>

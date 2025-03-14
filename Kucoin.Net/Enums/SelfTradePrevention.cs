@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Self trade prevention types
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<SelfTradePrevention>))]
     public enum SelfTradePrevention
     {
         /// <summary>

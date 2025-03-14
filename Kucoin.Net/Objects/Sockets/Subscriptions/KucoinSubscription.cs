@@ -43,7 +43,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 topic = data.Subject;
 
             _handler.Invoke(message.As(data.Data, data.Topic, topic, SocketUpdateType.Update));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message) => typeof(KucoinSocketUpdate<T>);

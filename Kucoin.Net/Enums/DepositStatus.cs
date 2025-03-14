@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Status of a deposit
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<DepositStatus>))]
     public enum DepositStatus
     {
         /// <summary>

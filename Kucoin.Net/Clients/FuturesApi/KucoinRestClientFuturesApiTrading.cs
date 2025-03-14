@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 
@@ -202,12 +202,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesOrderResult[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.SetBody(orders);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.FuturesRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesOrderResult>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -218,14 +218,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             parameters.AddOptional("orderIdsList", orderIds.ToArray());
             parameters.AddOptional("clientOidsList", clientOrderIds.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/multi-cancel", KucoinExchange.RateLimiter.FuturesRest, 30, true, parameterPosition: HttpMethodParameterPosition.InBody);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesOrderResult>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -291,12 +291,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/recentDoneOrders", KucoinExchange.RateLimiter.FuturesRest, 5, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -337,10 +337,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/recentFills", KucoinExchange.RateLimiter.FuturesRest, 3, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinFuturesUserTrade>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinFuturesUserTrade[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion

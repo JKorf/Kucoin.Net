@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Stop direction
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<StopType>))]
     public enum StopType
     {
         /// <summary>
