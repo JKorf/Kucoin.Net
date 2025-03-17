@@ -222,8 +222,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("orderIdsList", orderIds.ToArray());
-            parameters.AddOptional("clientOidsList", clientOrderIds.ToArray());
+            parameters.AddOptional("orderIdsList", orderIds?.ToArray());
+            parameters.AddOptional("clientOidsList", clientOrderIds?.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/multi-cancel", KucoinExchange.RateLimiter.FuturesRest, 30, true, parameterPosition: HttpMethodParameterPosition.InBody);
             return await _baseClient.SendAsync<KucoinFuturesOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
         }

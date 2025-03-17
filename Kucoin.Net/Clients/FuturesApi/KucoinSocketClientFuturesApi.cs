@@ -47,7 +47,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             RegisterPeriodicQuery(
                 "Ping", 
                 TimeSpan.FromSeconds(30), 
-                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()),
+                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!),
                 (connection, result) =>
                 {
                 if (result.Error?.Message.Equals("Query timeout") == true)
@@ -280,7 +280,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return null;
 
-            return new Uri(result.Data);
+            return new Uri(result.Data!);
         }
     }
 }

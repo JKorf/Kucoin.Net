@@ -26,6 +26,9 @@ namespace Kucoin.Net
         {
             if (credentials.CredentialType != ApiCredentialsType.Hmac)
                 throw new Exception("Only Hmac authentication is supported");
+
+            if (string.IsNullOrEmpty(credentials.Pass))
+                throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for Kucoin authentication");
         }
 
         public override void AuthenticateRequest(
@@ -61,7 +64,7 @@ namespace Kucoin.Net
             var phraseKey = _credentials.Key + "|" + _credentials.Pass;
             if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
             {
-                phraseSign = SignHMACSHA256(_credentials.Pass, SignOutputType.Base64);
+                phraseSign = SignHMACSHA256(_credentials.Pass!, SignOutputType.Base64);
                 _phraseCache.TryAdd(phraseKey, phraseSign);
             }
 
@@ -87,7 +90,7 @@ namespace Kucoin.Net
             // Partner info
             headers.Add("KC-API-PARTNER", brokerName!);
             var partnerSignData = headers["KC-API-TIMESTAMP"] + brokerName + _credentials.Key;
-            using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey));
+            using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey!));
             byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
             headers.Add("KC-API-PARTNER-SIGN", BytesToBase64String(buff));
         }
