@@ -159,10 +159,8 @@ namespace Kucoin.Net.Clients.SpotApi
                             update.OrderTime)
                 {
                     ClientOrderId = update.ClientOrderid?.ToString(),
-                    Quantity = update.OriginalQuantity,
-                    QuantityFilled = 0,
-                    QuoteQuantity = update.OriginalValue,
-                    QuoteQuantityFilled = 0,
+                    OrderQuantity = new SharedOrderQuantity(update.OriginalQuantity, update.OriginalValue),
+                    QuantityFilled = new SharedOrderQuantity(0, 0),
                     OrderPrice = update.Price,
                     Fee = 0
                 };
@@ -179,10 +177,8 @@ namespace Kucoin.Net.Clients.SpotApi
                             matchUpdate.OrderTime)
                 {
                     ClientOrderId = matchUpdate.ClientOrderid?.ToString(),
-                    Quantity = matchUpdate.OriginalQuantity,
-                    QuantityFilled = matchUpdate.QuantityFilled,
-                    QuoteQuantity = matchUpdate.OriginalValue,
-                    QuoteQuantityFilled = matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled),
+                    OrderQuantity = new SharedOrderQuantity(matchUpdate.OriginalQuantity, matchUpdate.OriginalValue),
+                    QuantityFilled = new SharedOrderQuantity(matchUpdate.QuantityFilled, matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled)),
                     OrderPrice = matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
                     LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
@@ -203,10 +199,8 @@ namespace Kucoin.Net.Clients.SpotApi
                             upd.OrderTime)
                 {
                     ClientOrderId = upd.ClientOrderid?.ToString(),
-                    Quantity = upd.OriginalQuantity,
-                    QuantityFilled = upd.QuantityFilled,
-                    QuoteQuantity = upd.OriginalValue,
-                    QuoteQuantityFilled = upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled),
+                    OrderQuantity = new SharedOrderQuantity(upd.OriginalQuantity, upd.OriginalValue),
+                    QuantityFilled = new SharedOrderQuantity(upd.QuantityFilled, upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled)),
                     OrderPrice = upd.Price,
                     UpdateTime = upd.Timestamp
                 };

@@ -231,9 +231,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     request.Symbol.GetSymbol(FormatSymbol),
                     request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                     GetPlaceOrderType(request.OrderType),
-                    request.Quantity,
+                    request.Quantity?.QuantityInBaseAsset,
                     request.Price,
-                    request.QuoteQuantity,
+                    request.Quantity?.QuantityInQuoteAsset,
                     timeInForce: GetTimeInForce(request.TimeInForce),
                     postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
                     clientOrderId: request.ClientOrderId).ConfigureAwait(false);
@@ -249,9 +249,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     request.Symbol.GetSymbol(FormatSymbol),
                     request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                     GetPlaceOrderType(request.OrderType),
-                    request.Quantity,
+                    request.Quantity?.QuantityInBaseAsset,
                     request.Price,
-                    request.QuoteQuantity,
+                    request.Quantity?.QuantityInQuoteAsset,
                     timeInForce: GetTimeInForce(request.TimeInForce),
                     postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
                     clientOrderId: request.ClientOrderId).ConfigureAwait(false);
@@ -289,10 +289,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     ClientOrderId = order.Data.ClientOrderId,
                     Fee = order.Data.Fee,
                     OrderPrice = order.Data.Price,
-                    Quantity = order.Data.Quantity,
-                    QuantityFilled = order.Data.QuantityFilled,
-                    QuoteQuantity = order.Data.QuoteQuantity,
-                    QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                    OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                     FeeAsset = order.Data.FeeAsset
                 });
@@ -315,10 +313,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     ClientOrderId = order.Data.ClientOrderId,
                     Fee = order.Data.Fee,
                     OrderPrice = order.Data.Price,
-                    Quantity = order.Data.Quantity,
-                    QuantityFilled = order.Data.QuantityFilled,
-                    QuoteQuantity = order.Data.QuoteQuantity,
-                    QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                    OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                     FeeAsset = order.Data.FeeAsset
                 });
@@ -352,10 +348,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
                     OrderPrice = x.Price,
-                    Quantity = x.Quantity,
-                    QuantityFilled = x.QuantityFilled,
-                    QuoteQuantity = x.QuoteQuantity,
-                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
                     FeeAsset = x.FeeAsset
                 }).ToArray());
@@ -382,10 +376,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
                     OrderPrice = x.Price,
-                    Quantity = x.Quantity,
-                    QuantityFilled = x.QuantityFilled,
-                    QuoteQuantity = x.QuoteQuantity,
-                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
                     FeeAsset = x.FeeAsset
                 }).ToArray());
@@ -440,10 +432,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
                     OrderPrice = x.Price,
-                    Quantity = x.Quantity,
-                    QuantityFilled = x.QuantityFilled,
-                    QuoteQuantity = x.QuoteQuantity,
-                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
                     FeeAsset = x.FeeAsset
                 }).ToArray(), nextToken);
@@ -483,10 +473,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
                     OrderPrice = x.Price,
-                    Quantity = x.Quantity,
-                    QuantityFilled = x.QuantityFilled,
-                    QuoteQuantity = x.QuoteQuantity,
-                    QuoteQuantityFilled = x.QuoteQuantityFilled,
+                    OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
                     FeeAsset = x.FeeAsset
                 }).ToArray(), nextToken);
@@ -644,7 +632,6 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-
             var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
             if (hfAccount == false)
             {
@@ -705,6 +692,93 @@ namespace Kucoin.Net.Clients.SpotApi
             return null;
         }
 
+        #endregion
+
+        #region Spot Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
+
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
+            {
+                var order = await Trading.GetOrderByClientOrderIdAsync(request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                    order.Data.Symbol,
+                    order.Data.Id.ToString(),
+                    ParseOrderType(order.Data.Type, order.Data.PostOnly),
+                    order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(order.Data.IsActive ?? true, order.Data.CancelExist),
+                    order.Data.CreateTime)
+                {
+                    ClientOrderId = order.Data.ClientOrderId,
+                    Fee = order.Data.Fee,
+                    OrderPrice = order.Data.Price,
+                    OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
+                    TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
+                    FeeAsset = order.Data.FeeAsset
+                });
+            }
+            else
+            {
+                var order = await HfTrading.GetOrderByClientOrderIdAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                    order.Data.Symbol,
+                    order.Data.Id.ToString(),
+                    ParseOrderType(order.Data.Type, order.Data.PostOnly),
+                    order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(order.Data.IsActive ?? true, order.Data.CancelExist),
+                    order.Data.CreateTime)
+                {
+                    ClientOrderId = order.Data.ClientOrderId,
+                    Fee = order.Data.Fee,
+                    OrderPrice = order.Data.Price,
+                    OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
+                    TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
+                    FeeAsset = order.Data.FeeAsset
+                });
+            }
+        }
+
+        EndpointOptions<CancelOrderRequest> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
+            if (hfAccount == false)
+            {
+                var order = await Trading.CancelOrderByClientOrderIdAsync(request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+            else
+            {
+                var order = await HfTrading.CancelOrderByClientOrderIdAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+        }
         #endregion
 
         #region Asset client

@@ -204,7 +204,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 GetOrderSide(request.Side, request.PositionSide),
                 request.OrderType == SharedOrderType.Limit ? Enums.NewOrderType.Limit : Enums.NewOrderType.Market,
                 request.Leverage!.Value,
-                quantity: (int)(request.Quantity ?? 0),
+                quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
                 price: request.Price,
                 postOnly: request.OrderType == SharedOrderType.LimitMaker ? true: null,
                 reduceOnly: request.ReduceOnly,
@@ -241,9 +241,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             {
                 ClientOrderId = order.Data.ClientOrderId,
                 OrderPrice = order.Data.Price,
-                Quantity = order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantityFilled = order.Data.ExecutedValue,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Data.Quantity),
+                QuantityFilled = new SharedOrderQuantity(quoteAssetQuantity: order.Data.ExecutedValue, contractQuantity: order.Data.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                 UpdateTime = order.Data.UpdateTime,
                 Leverage = order.Data.Leverage,
@@ -275,9 +274,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantityFilled = x.ExecutedValue,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                QuantityFilled = new SharedOrderQuantity(quoteAssetQuantity: x.ExecutedValue, contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
@@ -329,9 +327,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantityFilled = x.ExecutedValue,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                QuantityFilled = new SharedOrderQuantity(quoteAssetQuantity: x.ExecutedValue, contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
@@ -542,6 +539,55 @@ namespace Kucoin.Net.Clients.FuturesApi
             return null;
         }
 
+        #endregion
+
+        #region Futures Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
+
+            var order = await Trading.GetOrderByClientOrderIdAsync(request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                order.Data.Symbol,
+                order.Data.Id.ToString(),
+                order.Data.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(order.Data.Type),
+                order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(order.Data.Status, order.Data.CancelExist),
+                order.Data.CreateTime)
+            {
+                ClientOrderId = order.Data.ClientOrderId,
+                OrderPrice = order.Data.Price,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Data.Quantity),
+                QuantityFilled = new SharedOrderQuantity(quoteAssetQuantity: order.Data.ExecutedValue, contractQuantity: order.Data.QuantityFilled),
+                TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
+                UpdateTime = order.Data.UpdateTime,
+                Leverage = order.Data.Leverage,
+                ReduceOnly = order.Data.ReduceOnly,
+                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice
+            });
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelOrderByClientOrderIdAsync(request.Symbol.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(order.Data.CanceledOrderId));
+        }
         #endregion
 
         #region Klines client

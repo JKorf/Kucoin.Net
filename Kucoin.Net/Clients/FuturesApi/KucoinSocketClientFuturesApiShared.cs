@@ -148,8 +148,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                         update.OrderTime)
             {
                 ClientOrderId = update.ClientOrderId?.ToString(),
-                Quantity = update.Quantity,
-                QuantityFilled = update.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: update.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: update.QuantityFilled),
                 OrderPrice = update.Price == 0 ? null : update.Price,
                 LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol), update.Symbol, update.OrderId, update.TradeId!, update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
                 {
