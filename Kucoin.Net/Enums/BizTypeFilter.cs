@@ -15,12 +15,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Withdrawal
         /// </summary>
-        [Map("WITHDRAWAL")]
+        [Map("WITHDRAW")]
         Withdrawal,
         /// <summary>
         /// Transfer
         /// </summary>
-        [Map("TRANFER")]
+        [Map("TRANSFER")]
         Transfer,
         /// <summary>
         /// Subaccount transfer
