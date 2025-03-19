@@ -43,7 +43,7 @@ namespace Kucoin.Net.Enums
         [Map("KuCoin Bonus")]
         KuCoinBonus,
         /// <summary>
-        /// Referal Bonus
+        /// Referral Bonus
         /// </summary>
         [Map("Referral Bonus")]
         ReferralBonus,
@@ -237,5 +237,10 @@ namespace Kucoin.Net.Enums
         /// </summary>
         [Map("Return of Liquidation Takeover")]
         ReturnOfLiquidationTakeover,
+        /// <summary>
+        /// KuCoin Event
+        /// </summary>
+        [Map("KuCoin Event")]
+        KuCoinEvent,
     }
 }
