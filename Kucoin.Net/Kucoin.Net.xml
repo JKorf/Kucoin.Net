@@ -4261,7 +4261,7 @@
         </member>
         <member name="F:Kucoin.Net.Enums.BizType.ReferralBonus">
             <summary>
-            Referal Bonus
+            Referral Bonus
             </summary>
         </member>
         <member name="F:Kucoin.Net.Enums.BizType.Rewards">
@@ -4452,6 +4452,11 @@
         <member name="F:Kucoin.Net.Enums.BizType.ReturnOfLiquidationTakeover">
             <summary>
             Return of liquidation takeover
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.KuCoinEvent">
+            <summary>
+            KuCoin Event
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.BizTypeFilter">
@@ -14757,6 +14762,11 @@
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinUserTrade">
             <summary>
             User trade info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUserTrade.TransactionId">
+            <summary>
+            Transaction id
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinUserTrade.Type">

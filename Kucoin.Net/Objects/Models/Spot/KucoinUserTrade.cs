@@ -9,7 +9,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// </summary>
     [SerializationModel]
     public record KucoinUserTrade: KucoinTradeBase
-    {        
+    {
+        /// <summary>
+        /// Transaction id
+        /// </summary>
+        [JsonPropertyName("id"), JsonConverter(typeof(NumberStringConverter))]
+        public string TransactionId { get; set; } = string.Empty;
         /// <summary>
         /// The type of the order
         /// </summary>

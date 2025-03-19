@@ -154,6 +154,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.2 - 19 Mar 2025
+    * Added TransactionId property to KucoinUserTrade model
+    * Added missing value to BizType enum
+    * Fixed some values for restClient.SpotApi.Account.GetAccountLedgersAsync bizType parameter
+    * Fixed deserialization issue for restClient.SpotApi.Account.GetAccountLedgersAsync
+
 * Version 6.0.1 - 05 Mar 2025
     * Fix restClient.SpotApi.Account.GetAccountsAsync accountType parameter serialization
 
