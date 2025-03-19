@@ -12,6 +12,9 @@ namespace Kucoin.Net.Converters
                 return new KucoinAccountActivityContext();
 
             var str = reader.GetString()!;
+            if (string.IsNullOrEmpty(str))
+                return new KucoinAccountActivityContext();
+
             var doc = JsonDocument.Parse(str);
             return doc.Deserialize<KucoinAccountActivityContext>();
         }
