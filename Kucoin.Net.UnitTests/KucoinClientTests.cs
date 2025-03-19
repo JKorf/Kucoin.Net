@@ -189,10 +189,10 @@ namespace Kucoin.Net.UnitTests
                 {
                     { "ApiCredentials:Key", "123" },
                     { "ApiCredentials:Secret", "456" },
-                    { "ApiCredentials:PassPhrase", "222" },
+                    { "ApiCredentials:Pass", "222" },
                     { "Socket:ApiCredentials:Key", "456" },
                     { "Socket:ApiCredentials:Secret", "789" },
-                    { "Socket:ApiCredentials:PassPhrase", "111" },
+                    { "Socket:ApiCredentials:Pass", "111" },
                     { "Rest:OutputOriginalData", "true" },
                     { "Socket:OutputOriginalData", "false" },
                     { "Rest:Proxy:Host", "host" },

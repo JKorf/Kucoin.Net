@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
+using Kucoin.Net.SymbolOrderBooks;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -141,6 +142,16 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetRecentUserTradesAsync(default), true);
             await RunAndCheckResult(client => client.FuturesApi.Trading.GetMaxOpenPositionSizeAsync("XBTUSDTM", 50000, 1, default), true);
+        }
+
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            if (!Authenticated)
+                return;
+
+            await TestOrderBook(new KucoinSpotSymbolOrderBook("ETH-USDT"));
+            await TestOrderBook(new KucoinFuturesSymbolOrderBook("ETHUSDTM"));
         }
     }
 }
