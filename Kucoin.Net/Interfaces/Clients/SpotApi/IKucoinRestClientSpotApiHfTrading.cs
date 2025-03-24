@@ -246,13 +246,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinCanceledSymbols>> CancelAllOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Get list open orders
+        /// DEPRECATED, use <see cref="GetOpenOrdersV2Async(string, int?, int?, CancellationToken)"/> instead
         /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinHfOrderDetails[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get open orders page
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders-by-page" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">Page size, max 50</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinPaginated<KucoinHfOrderDetails>>> GetOpenOrdersV2Async(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of symbols which have open orders

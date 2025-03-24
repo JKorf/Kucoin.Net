@@ -265,6 +265,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelAllOrdersBySymbolAsync("ETHUSDT"), "CancelAllOrdersBySymbol");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelAllOrdersAsync(), "CancelAllOrders");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetOpenOrdersAsync("ETHUSDT"), "GetOpenOrders");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetOpenOrdersV2Async("ETHUSDT"), "GetOpenOrdersV2", ignoreProperties: [ "tax" ]);
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetSymbolsWithOpenOrdersAsync(), "GetSymbolsWithOpenOrders");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetClosedOrdersAsync("ETHUSDT"), "GetClosedOrders");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetUserTradesAsync("ETHUSDT"), "GetUserTrades", ignoreProperties: new List<string> { "id" });
