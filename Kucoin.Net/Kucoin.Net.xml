@@ -628,6 +628,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.GetOpenOrdersAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.GetOpenOrdersV2Async(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiHfTrading.GetSymbolsWithOpenOrdersAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -4064,10 +4067,21 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.GetOpenOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get list open orders
+            DEPRECATED, use <see cref="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.GetOpenOrdersV2Async(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)"/> instead
             <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders" /></para>
             </summary>
             <param name="symbol">Symbol, for example `ETH-USDT`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading.GetOpenOrdersV2Async(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open orders page
+            <para><a href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders-by-page" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETH-USDT`</param>
+            <param name="page">Page number</param>
+            <param name="pageSize">Page size, max 50</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5594,6 +5608,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinAccountOverview.RiskRatio">
             <summary>
             Cross margin risk ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinAccountOverview.MaxWithdrawQuantity">
+            <summary>
+            Max withdrawable quantity
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinAccountTransaction">
@@ -7837,6 +7856,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.Timestamp">
             <summary>
             Timestamp
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWalletUpdate.MaxWithdrawQuantity">
+            <summary>
+            Max withdrawable quantity
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesWithdrawableUpdate">

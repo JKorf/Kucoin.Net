@@ -83,6 +83,11 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Max withdrawable quantity
+        /// </summary>
+        [JsonPropertyName("maxWithdrawAmount")]
+        public decimal? MaxWithdrawQuantity { get; set; }
     }
 
 

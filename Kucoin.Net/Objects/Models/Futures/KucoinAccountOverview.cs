@@ -52,5 +52,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("riskRatio")]
         public decimal? RiskRatio { get; set; }
+        /// <summary>
+        /// Max withdrawable quantity
+        /// </summary>
+        [JsonPropertyName("maxWithdrawAmount")]
+        public decimal? MaxWithdrawQuantity { get; set; }
     }
 }

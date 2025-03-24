@@ -393,6 +393,25 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPaginated<KucoinHfOrderDetails>>> GetOpenOrdersV2Async(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddParameter("symbol", symbol);
+            parameters.AddOptionalParameter("pageNum", page);
+            parameters.AddOptionalParameter("pageSize", pageSize);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/active/page", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinPaginated<KucoinHfOrderDetails>>(request, parameters, ct).ConfigureAwait(false);
+            if (!result)
+                return result;
+
+            if (result.Data.Items == null)
+                result.Data.Items = new KucoinHfOrderDetails[0];
+
+            return result;
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinOpenOrderSymbols>> GetSymbolsWithOpenOrdersAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
