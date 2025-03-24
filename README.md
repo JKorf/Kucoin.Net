@@ -154,6 +154,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.1.0 - 24 Mar 2025
+    * Added restClient.SpotApi.HfTrading.GetOpenOrdersV2Async endpoint
+
 * Version 6.0.2 - 19 Mar 2025
     * Added TransactionId property to KucoinUserTrade model
     * Added missing value to BizType enum
