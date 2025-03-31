@@ -144,9 +144,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
             string symbol,
-            OrderSide side,
+            OrderSide? side,
             NewOrderType type,
-            decimal leverage,
+            decimal? leverage = null,
             int? quantity = null,
 
             decimal? price = null,
@@ -172,9 +172,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
-            parameters.AddEnum("side", side);
+            parameters.AddOptionalEnum("side", side);
             parameters.AddEnum("type", type);
-            parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("leverage", leverage?.ToString(CultureInfo.InvariantCulture));
 
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("qty", quantityInBaseAsset?.ToString(CultureInfo.InvariantCulture));
