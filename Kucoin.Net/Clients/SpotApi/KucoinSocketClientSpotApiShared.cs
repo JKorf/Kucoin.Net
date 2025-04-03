@@ -162,7 +162,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(update.OriginalQuantity, update.OriginalValue),
                     QuantityFilled = new SharedOrderQuantity(0, 0),
                     OrderPrice = update.Price,
-                    Fee = 0
+                    Fee = 0,
+                    IsTriggerOrder = update.OrderType == OrderType.Stop || update.OrderType == OrderType.MarketStop || update.OrderType == OrderType.LimitStop
                 };
             }
             if (orderUpdate is KucoinStreamOrderMatchUpdate matchUpdate)
@@ -181,6 +182,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     QuantityFilled = new SharedOrderQuantity(matchUpdate.QuantityFilled, matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled)),
                     OrderPrice = matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
+                    IsTriggerOrder = matchUpdate.OrderType == OrderType.Stop || matchUpdate.OrderType == OrderType.MarketStop || matchUpdate.OrderType == OrderType.LimitStop,
                     LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
                     {
                         Role = matchUpdate.Liquidity == LiquidityType.Taker ? SharedRole.Taker : SharedRole.Maker
@@ -202,7 +204,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(upd.OriginalQuantity, upd.OriginalValue),
                     QuantityFilled = new SharedOrderQuantity(upd.QuantityFilled, upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled)),
                     OrderPrice = upd.Price,
-                    UpdateTime = upd.Timestamp
+                    UpdateTime = upd.Timestamp,
+                    IsTriggerOrder = upd.OrderType == OrderType.Stop || upd.OrderType == OrderType.MarketStop || upd.OrderType == OrderType.LimitStop,
                 };
             }
 

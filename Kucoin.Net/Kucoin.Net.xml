@@ -4046,6 +4046,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinWelcome">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.DictionaryStringDecimal">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.

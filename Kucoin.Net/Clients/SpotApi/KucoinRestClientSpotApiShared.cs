@@ -137,6 +137,31 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var resultTicker = await ExchangeData.GetTickerAsync(symbol, ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
+                symbol,
+                resultTicker.Data.BestAskPrice ?? 0,
+                resultTicker.Data.BestAskQuantity ?? 0,
+                resultTicker.Data.BestBidPrice ?? 0,
+                resultTicker.Data.BestBidQuantity ?? 0));
+        }
+
+        #endregion
+
         #region Recent Trade client
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(100, false);
 
@@ -195,7 +220,6 @@ namespace Kucoin.Net.Clients.SpotApi
         #endregion
 
         #region Spot Order client
-
 
         SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
         SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.QuoteAsset;
@@ -292,7 +316,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
-                    FeeAsset = order.Data.FeeAsset
+                    FeeAsset = order.Data.FeeAsset,
+                    TriggerPrice = order.Data.StopPrice,
+                    IsTriggerOrder = order.Data.StopPrice > 0
                 });
             }
             else
@@ -316,7 +342,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
-                    FeeAsset = order.Data.FeeAsset
+                    FeeAsset = order.Data.FeeAsset,
+                    TriggerPrice = order.Data.StopPrice,
+                    IsTriggerOrder = order.Data.StopPrice > 0
                 });
             }
         }
@@ -351,7 +379,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
-                    FeeAsset = x.FeeAsset
+                    FeeAsset = x.FeeAsset,
+                    TriggerPrice = x.StopPrice,
+                    IsTriggerOrder = x.StopPrice > 0
                 }).ToArray());
             }
             else
@@ -379,7 +409,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
-                    FeeAsset = x.FeeAsset
+                    FeeAsset = x.FeeAsset,
+                    TriggerPrice = x.StopPrice,
+                    IsTriggerOrder = x.StopPrice > 0
                 }).ToArray());
             }
         }
@@ -435,7 +467,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
-                    FeeAsset = x.FeeAsset
+                    FeeAsset = x.FeeAsset,
+                    TriggerPrice = x.StopPrice,
+                    IsTriggerOrder = x.StopPrice > 0
                 }).ToArray(), nextToken);
             }
             else
@@ -476,7 +510,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
-                    FeeAsset = x.FeeAsset
+                    FeeAsset = x.FeeAsset,
+                    TriggerPrice = x.StopPrice,
+                    IsTriggerOrder = x.StopPrice > 0
                 }).ToArray(), nextToken);
             }
         }
@@ -725,7 +761,9 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
-                    FeeAsset = order.Data.FeeAsset
+                    FeeAsset = order.Data.FeeAsset,
+                    TriggerPrice = order.Data.StopPrice,
+                    IsTriggerOrder = order.Data.StopPrice > 0
                 });
             }
             else
@@ -749,7 +787,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
-                    FeeAsset = order.Data.FeeAsset
+                    FeeAsset = order.Data.FeeAsset,
+                    TriggerPrice = order.Data.StopPrice
                 });
             }
         }
@@ -1065,7 +1104,6 @@ namespace Kucoin.Net.Clients.SpotApi
                 order.Data.StopPrice ?? 0,
                 order.Data.CreateTime)
             {
-                PlacedOrderId = order.Data.Id,
                 Fee = order.Data.Fee,
                 OrderPrice = order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),

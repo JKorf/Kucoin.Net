@@ -118,6 +118,30 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var resultTicker = await ExchangeData.GetTickerAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, resultTicker.Data.Symbol),
+                resultTicker.Data.Symbol,
+                resultTicker.Data.BestAskPrice,
+                resultTicker.Data.BestAskQuantity,
+                resultTicker.Data.BestBidPrice,
+                resultTicker.Data.BestBidQuantity));
+        }
+
+        #endregion
+
         #region Futures Symbol client
 
         EndpointOptions<GetSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetSymbolsRequest>(false);
@@ -168,7 +192,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         #endregion
 
         #region Futures Order Client
-
 
         SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.InputAsset;
@@ -251,7 +274,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 UpdateTime = order.Data.UpdateTime,
                 Leverage = order.Data.Leverage,
                 ReduceOnly = order.Data.ReduceOnly,
-                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice
+                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
+                TriggerPrice = order.Data.StopPrice
             });
         }
 
@@ -284,7 +308,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
                 ReduceOnly = x.ReduceOnly,
-                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice
+                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
+                TriggerPrice = x.StopPrice
             }).ToArray());
         }
 
@@ -337,7 +362,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
                 ReduceOnly = x.ReduceOnly,
-                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice
+                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
+                TriggerPrice = x.StopPrice
             }).ToArray(), nextToken);
         }
 
@@ -575,7 +601,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 UpdateTime = order.Data.UpdateTime,
                 Leverage = order.Data.Leverage,
                 ReduceOnly = order.Data.ReduceOnly,
-                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice
+                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
+                TriggerPrice = order.Data.StopPrice
             });
         }
 
