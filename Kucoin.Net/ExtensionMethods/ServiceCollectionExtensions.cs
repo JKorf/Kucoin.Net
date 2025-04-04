@@ -32,7 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
             IConfiguration configuration)
         {
             var options = new KucoinOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             configuration.Bind(options);
@@ -65,7 +65,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<KucoinOptions>? optionsDelegate = null)
         {
             var options = new KucoinOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             optionsDelegate?.Invoke(options);
@@ -81,21 +81,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(x => Options.Options.Create(options.Socket));
 
             return AddKucoinCore(services, options.SocketClientLifeTime);
-        }
-
-        /// <summary>
-        /// DEPRECATED; use <see cref="AddKucoin(IServiceCollection, Action{KucoinOptions}?)" /> instead
-        /// </summary>
-        public static IServiceCollection AddKucoin(
-            this IServiceCollection services,
-            Action<KucoinRestOptions> restDelegate,
-            Action<KucoinSocketOptions>? socketDelegate = null,
-            ServiceLifetime? socketClientLifeTime = null)
-        {
-            services.Configure<KucoinRestOptions>((x) => { restDelegate?.Invoke(x); });
-            services.Configure<KucoinSocketOptions>((x) => { socketDelegate?.Invoke(x); });
-
-            return AddKucoinCore(services, socketClientLifeTime);
         }
 
         private static IServiceCollection AddKucoinCore(
