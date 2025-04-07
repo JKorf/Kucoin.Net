@@ -36,7 +36,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="stopPrice">Stop price</param>
         /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
         /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
         /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="marginMode">Margin mode, defaults to Isolated</param>
@@ -48,7 +48,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             string symbol,
             OrderSide side,
             NewOrderType type,
-            decimal leverage,
+            decimal? leverage = null,
             int? quantity = null,
             decimal? price = null,
             TimeInForce? timeInForce = null,

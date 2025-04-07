@@ -231,7 +231,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 GetOrderSide(request.Side, request.PositionSide),
                 request.OrderType == SharedOrderType.Limit ? Enums.NewOrderType.Limit : Enums.NewOrderType.Market,
                 request.Leverage!.Value,
-                quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
+                quantity: (int?)request.Quantity?.QuantityInContracts,
+                quantityInBaseAsset: request.Quantity?.QuantityInContracts == null ? request.Quantity?.QuantityInBaseAsset : null,
                 price: request.Price,
                 postOnly: request.OrderType == SharedOrderType.LimitMaker ? true: null,
                 reduceOnly: request.ReduceOnly,
@@ -275,7 +276,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Leverage = order.Data.Leverage,
                 ReduceOnly = order.Data.ReduceOnly,
                 AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
-                TriggerPrice = order.Data.StopPrice
+                TriggerPrice = order.Data.StopPrice,
+                IsTriggerOrder = order.Data.StopPrice > 0,
+                IsCloseOrder = order.Data.CloseOrder
             });
         }
 
@@ -287,17 +290,25 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedFuturesOrder[]>(Exchange, validationError);
 
             var symbol = request.Symbol?.GetSymbol(FormatSymbol);
-            var orders = await Trading.GetOrdersAsync(symbol, OrderStatus.Active, ct: ct).ConfigureAwait(false);
-            if (!orders)
-                return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, null, default);
+            var ordersTask = Trading.GetOrdersAsync(symbol, OrderStatus.Active, ct: ct);
+            var stopOrdersTask = Trading.GetUntriggeredStopOrdersAsync(symbol, ct: ct);
+            await Task.WhenAll(ordersTask, stopOrdersTask).ConfigureAwait(false);
+            if (!ordersTask.Result)
+                return ordersTask.Result.AsExchangeResult<SharedFuturesOrder[]>(Exchange, null, default);
+            if (!stopOrdersTask.Result)
+                return stopOrdersTask.Result.AsExchangeResult<SharedFuturesOrder[]>(Exchange, null, default);
 
-            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedFuturesOrder(
+            var orders = ordersTask.Result;
+            var stopOrders = stopOrdersTask.Result;
+
+            var result = orders.Data.Items.Concat(stopOrders.Data.Items).OrderByDescending(x => x.CreateTime);
+            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, result.Select(x => new SharedFuturesOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.Status, x.CancelExist),
+                SharedOrderStatus.Open,
                 x.CreateTime)
             {
                 ClientOrderId = x.ClientOrderId,
@@ -309,7 +320,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Leverage = x.Leverage,
                 ReduceOnly = x.ReduceOnly,
                 AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
-                TriggerPrice = x.StopPrice
+                TriggerPrice = x.StopPrice,
+                IsTriggerOrder = x.StopPrice > 0,
+                IsCloseOrder = x.CloseOrder
             }).ToArray());
         }
 
@@ -363,7 +376,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Leverage = x.Leverage,
                 ReduceOnly = x.ReduceOnly,
                 AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
-                TriggerPrice = x.StopPrice
+                TriggerPrice = x.StopPrice,
+                IsTriggerOrder = x.StopPrice > 0,
+                IsCloseOrder = x.CloseOrder
             }).ToArray(), nextToken);
         }
 
@@ -602,7 +617,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 Leverage = order.Data.Leverage,
                 ReduceOnly = order.Data.ReduceOnly,
                 AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
-                TriggerPrice = order.Data.StopPrice
+                TriggerPrice = order.Data.StopPrice,
+                IsTriggerOrder = order.Data.StopPrice > 0,
+                IsCloseOrder = order.Data.CloseOrder
             });
         }
 
@@ -872,6 +889,10 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Tp/SL Client
         EndpointOptions<SetTpSlRequest> IFuturesTpSlRestClient.SetTpSlOptions { get; } = new EndpointOptions<SetTpSlRequest>(true)
         {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(SetTpSlRequest.PositionSide), typeof(SharedPositionSide), "Side of the position", SharedPositionSide.Long)
+            }
         };
 
         async Task<ExchangeWebResult<SharedId>> IFuturesTpSlRestClient.SetTpSlAsync(SetTpSlRequest request, CancellationToken ct)
@@ -880,12 +901,13 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var result = await Trading.PlaceTpSlOrderAsync(
+            var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                null,
+                GetTpSlSide(request),
                 NewOrderType.Market,
-                triggerStopUpPrice: request.TpSlSide == SharedTpSlSide.TakeProfit ? request.TriggerPrice: null,
-                triggerStopDownPrice: request.TpSlSide == SharedTpSlSide.StopLoss ? request.TriggerPrice: null,
+                stopType: GetStopType(request),
+                stopPriceType: StopPriceType.MarkPrice,
+                stopPrice: request.TriggerPrice,
                 closeOrder: true,
                 ct: ct).ConfigureAwait(false);
 
@@ -894,6 +916,22 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             // Return
             return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.Id.ToString()));
+        }
+
+        private StopType GetStopType(SetTpSlRequest request)
+        {
+            if (request.PositionSide == SharedPositionSide.Long)
+                return request.TpSlSide == SharedTpSlSide.TakeProfit ? StopType.Up : StopType.Down;
+
+            return request.TpSlSide == SharedTpSlSide.TakeProfit ? StopType.Down : StopType.Up;
+        }
+
+        private OrderSide GetTpSlSide(SetTpSlRequest request)
+        {
+            if (request.PositionSide == SharedPositionSide.Long)
+                return OrderSide.Sell;
+
+            return OrderSide.Buy;
         }
 
         EndpointOptions<CancelTpSlRequest> IFuturesTpSlRestClient.CancelTpSlOptions { get; } = new EndpointOptions<CancelTpSlRequest>(true)
