@@ -5656,16 +5656,19 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi.SharedClient">
             <summary>
@@ -6536,11 +6539,13 @@
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.IKucoinRestClient.FuturesApi">
             <summary>
             Futures API endpoints
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApi"/>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
@@ -6563,11 +6568,13 @@
             <summary>
             Spot socket api
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient.FuturesApi">
             <summary>
             Futures socket api
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinSocketClientFuturesApi"/>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
@@ -6590,31 +6597,37 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.SubAccount">
             <summary>
             Endpoints related to sub-account settings, info or actions
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiSubAccount"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiExchangeData"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiTrading"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.HfTrading">
             <summary>
             Endpoints related to orders and trades using the HighFrequency/ProAccount
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiHfTrading"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.Margin">
             <summary>
             Endpoints for margin borrowing and lending
             </summary>
+            <see cref="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin"/>
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApi.SharedClient">
             <summary>
@@ -8189,7 +8202,7 @@
         </member>
         <member name="P:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">

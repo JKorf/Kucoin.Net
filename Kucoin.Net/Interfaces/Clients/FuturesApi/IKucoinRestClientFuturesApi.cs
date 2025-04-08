@@ -11,16 +11,19 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
+        /// <see cref="IKucoinRestClientFuturesApiAccount"/>
         IKucoinRestClientFuturesApiAccount Account { get; }
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
+        /// <see cref="IKucoinRestClientFuturesApiExchangeData"/>
         IKucoinRestClientFuturesApiExchangeData ExchangeData { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
+        /// <see cref="IKucoinRestClientFuturesApiTrading"/>
         IKucoinRestClientFuturesApiTrading Trading { get; }
 
         /// <summary>

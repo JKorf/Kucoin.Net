@@ -15,11 +15,13 @@ namespace Kucoin.Net.Interfaces.Clients
         /// <summary>
         /// Spot socket api
         /// </summary>
-        IKucoinSocketClientSpotApi  SpotApi { get; }
+        /// <see cref="IKucoinSocketClientSpotApi"/>
+        IKucoinSocketClientSpotApi SpotApi { get; }
         /// <summary>
         /// Futures socket api
         /// </summary>
-        IKucoinSocketClientFuturesApi  FuturesApi { get; }
+        /// <see cref="IKucoinSocketClientFuturesApi"/>
+        IKucoinSocketClientFuturesApi FuturesApi { get; }
 
         /// <summary>
         /// Update specific options
