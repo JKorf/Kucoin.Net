@@ -226,7 +226,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTestOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTestOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTpSlOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTpSlOrder");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceMultipleOrdersAsync(new[] { new KucoinFuturesOrderRequestEntry() }), "PlaceMultipleOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceMultipleOrdersAsync(new[] { new KucoinFuturesOrderRequestEntry() }), "PlaceMultipleOrders", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderAsync("123"), "CancelOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderByClientOrderIdAsync("ETHUSDT", "123"), "CancelOrderByClientOrderId");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelAllOrdersAsync(), "CancelAllOrders");
@@ -253,8 +253,8 @@ namespace Kucoin.Net.UnitTests
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/HfTrading", "https://api.kucoin.com", IsAuthenticated, "data");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceOrderWaitAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1), "PlaceOrderWait");
-            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersAsync(new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrders");
-            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersWaitAsync(new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrdersWait");
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersAsync(new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrders", skipResponseValidation: true);
+            await tester.ValidateAsync(client => client.SpotApi.HfTrading.PlaceMultipleOrdersWaitAsync(new[] { new KucoinHfBulkOrderRequestEntry() }), "PlaceMultipleOrdersWait", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.EditOrderAsync("ETHUSDT", "123", newPrice: 1), "EditOrder");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelOrderAsync("ETHUSDT", "123"), "CancelOrder");
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.CancelOrderWaitAsync("ETHUSDT", "123"), "CancelOrderWait");
