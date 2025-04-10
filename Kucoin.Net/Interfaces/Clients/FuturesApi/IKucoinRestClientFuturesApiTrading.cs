@@ -184,7 +184,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orders">The orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order results. Each result should be checked for success</returns>
-        Task<WebCallResult<KucoinFuturesOrderResult[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<WebCallResult<CallResult<KucoinFuturesOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order

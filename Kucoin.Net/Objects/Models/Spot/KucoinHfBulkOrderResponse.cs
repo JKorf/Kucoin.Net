@@ -84,5 +84,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
+
+        /// <summary>
+        /// Error message
+        /// </summary>
+        [JsonPropertyName("failMsg")]
+        public string? ErrorMessage { get; set; }
     }
 }

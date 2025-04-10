@@ -187,7 +187,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinBulkMinimalResponseEntry[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<WebCallResult<CallResult<KucoinBulkMinimalResponseEntry>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var orderList = orders.ToList();
             if (!orderList.Any())
@@ -203,12 +203,27 @@ namespace Kucoin.Net.Clients.SpotApi
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/multi", KucoinExchange.RateLimiter.SpotRest, 1, true);
-            var result = await _baseClient.SendAsync<KucoinBulkMinimalResponseEntry[]>(request, parameters, ct).ConfigureAwait(false);
-            return result;
+            var resultData = await _baseClient.SendAsync<KucoinBulkMinimalResponseEntry[]>(request, parameters, ct).ConfigureAwait(false);
+            if (!resultData)
+                return resultData.As<CallResult<KucoinBulkMinimalResponseEntry>[]>(default);
+
+            var result = new List<CallResult<KucoinBulkMinimalResponseEntry>>();
+            foreach (var item in resultData.Data)
+            {
+                if (!string.IsNullOrEmpty(item.Error))
+                    result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(new ServerError(item.Error!)));
+                else
+                    result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(item));
+            }
+
+            if (result.All(x => !x.Success))
+                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+
+            return resultData.As(result.ToArray());
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinHfBulkOrderResponse[]>> PlaceMultipleOrdersWaitAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<WebCallResult<CallResult<KucoinHfBulkOrderResponse>[]>> PlaceMultipleOrdersWaitAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var orderList = orders.ToList();
             if (!orderList.Any())
@@ -224,8 +239,23 @@ namespace Kucoin.Net.Clients.SpotApi
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/multi/sync", KucoinExchange.RateLimiter.SpotRest, 1, true);
-            var result = await _baseClient.SendAsync<KucoinHfBulkOrderResponse[]>(request, parameters, ct).ConfigureAwait(false);
-            return result;
+            var resultData = await _baseClient.SendAsync<KucoinHfBulkOrderResponse[]>(request, parameters, ct).ConfigureAwait(false);
+            if (!resultData)
+                return resultData.As<CallResult<KucoinHfBulkOrderResponse>[]>(default);
+
+            var result = new List<CallResult<KucoinHfBulkOrderResponse>>();
+            foreach (var item in resultData.Data)
+            {
+                if (!string.IsNullOrEmpty(item.ErrorMessage))
+                    result.Add(new CallResult<KucoinHfBulkOrderResponse>(new ServerError(item.ErrorMessage!)));
+                else
+                    result.Add(new CallResult<KucoinHfBulkOrderResponse>(item));
+            }
+
+            if (result.All(x => !x.Success))
+                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+
+            return resultData.As(result.ToArray());
         }
 
         /// <inheritdoc />

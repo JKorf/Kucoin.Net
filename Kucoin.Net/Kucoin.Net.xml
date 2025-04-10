@@ -12889,6 +12889,11 @@
             Successful or not
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinHfBulkOrderResponse.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinHfOrderDetails">
             <summary>
             Order info
