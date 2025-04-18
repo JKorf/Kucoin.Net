@@ -151,6 +151,11 @@ namespace Kucoin.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal KucoinRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -179,10 +184,15 @@ namespace Kucoin.Net
                     .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new LimitItemTypeFilter(RateLimitItemType.Request), 100, TimeSpan.FromSeconds(10), RateLimitWindowType.Fixed));
 
             SpotRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SpotRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             FuturesRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            FuturesRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             ManagementRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            ManagementRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             PublicRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            PublicRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             Socket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            Socket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
     }
 }
