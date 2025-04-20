@@ -4,12 +4,13 @@ using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 using Kucoin.Net.Objects;
+using CryptoExchange.Net.Authentication;
 
 var collection = new ServiceCollection();
 collection.AddKucoin(opts =>
 {
     // NOTE Kucoin requires credentials to subscribe order book data
-    opts.ApiCredentials = new KucoinApiCredentials("APIKEY", "APISECRET", "APIPASS");
+    opts.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET", "APIPASS");
 });
 var provider = collection.BuildServiceProvider();
 
