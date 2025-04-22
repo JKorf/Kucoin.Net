@@ -150,8 +150,8 @@ namespace Kucoin.Net.UnitTests
             if (!Authenticated)
                 return;
 
-            await TestOrderBook(new KucoinSpotSymbolOrderBook("ETH-USDT"));
-            await TestOrderBook(new KucoinFuturesSymbolOrderBook("ETHUSDTM"));
+            await TestOrderBook(new KucoinSpotSymbolOrderBook("ETH-USDT", null, null, GetClient(null), new KucoinSocketClient()));
+            await TestOrderBook(new KucoinFuturesSymbolOrderBook("ETHUSDTM", null, null, GetClient(null), new KucoinSocketClient()));
         }
     }
 }
