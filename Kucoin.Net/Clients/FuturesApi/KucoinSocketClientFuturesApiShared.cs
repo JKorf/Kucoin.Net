@@ -30,7 +30,10 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeTo24HTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.LastPrice, null, null, update.Data.Volume, update.Data.PriceChangePercentage * 100))), ct).ConfigureAwait(false);
+            var result = await SubscribeTo24HTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.LastPrice, null, null, update.Data.Volume, update.Data.PriceChangePercentage * 100)
+            {
+                QuoteVolume = update.Data.Turnover
+            })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }

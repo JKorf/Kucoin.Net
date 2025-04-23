@@ -118,7 +118,10 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100));
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100)
+            {
+                QuoteVolume = result.Data.QuoteVolume
+            });
         }
 
         EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
@@ -132,7 +135,10 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, TradingMode.Spot, result.Data.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)).ToArray());
+            return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, TradingMode.Spot, result.Data.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)
+            {
+                QuoteVolume = x.QuoteVolume
+            }).ToArray());
         }
 
         #endregion
@@ -732,8 +738,8 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Spot Client Id Order Client
 
-        EndpointOptions<GetOrderRequest> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
-        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        EndpointOptions<GetOrderRequest> ISpotOrderClientIdRestClient.GetSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderClientIdRestClient.GetSpotOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -793,8 +799,8 @@ namespace Kucoin.Net.Clients.SpotApi
             }
         }
 
-        EndpointOptions<CancelOrderRequest> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
-        async Task<ExchangeWebResult<SharedId>> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        EndpointOptions<CancelOrderRequest> ISpotOrderClientIdRestClient.CancelSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderClientIdRestClient.CancelSpotOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)

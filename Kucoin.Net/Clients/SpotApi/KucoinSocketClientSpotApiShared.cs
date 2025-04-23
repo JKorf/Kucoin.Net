@@ -30,7 +30,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume, update.Data.ChangePercentage * 100))), ct).ConfigureAwait(false);
+            var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume, update.Data.ChangePercentage * 100)
+            {
+                QuoteVolume = update.Data.VolumeValue
+            })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
