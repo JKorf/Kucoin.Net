@@ -255,10 +255,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (ClientOptions.Environment.Name == "UnitTesting")
                 return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
 
-            var apiCredentials = (ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {
-                options.ApiCredentials = apiCredentials;
+                options.ApiCredentials = ApiCredentials;
+                options.Environment = ClientOptions.Environment;
             }))
             {
                 WebCallResult<KucoinToken> tokenResult;
