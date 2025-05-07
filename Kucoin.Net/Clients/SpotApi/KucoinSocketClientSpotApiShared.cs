@@ -162,9 +162,9 @@ namespace Kucoin.Net.Clients.SpotApi
                             update.OrderTime)
                 {
                     ClientOrderId = update.ClientOrderid?.ToString(),
-                    OrderQuantity = new SharedOrderQuantity(update.OriginalQuantity, update.OriginalValue),
+                    OrderQuantity = new SharedOrderQuantity(update.OriginalQuantity == 0 ? null : update.OriginalQuantity, update.OriginalValue),
                     QuantityFilled = new SharedOrderQuantity(0, 0),
-                    OrderPrice = update.Price,
+                    OrderPrice = update.Price == 0 ? null : update.Price,
                     Fee = 0,
                     IsTriggerOrder = update.OrderType == OrderType.Stop || update.OrderType == OrderType.MarketStop || update.OrderType == OrderType.LimitStop
                 };
@@ -181,9 +181,9 @@ namespace Kucoin.Net.Clients.SpotApi
                             matchUpdate.OrderTime)
                 {
                     ClientOrderId = matchUpdate.ClientOrderid?.ToString(),
-                    OrderQuantity = new SharedOrderQuantity(matchUpdate.OriginalQuantity, matchUpdate.OriginalValue),
+                    OrderQuantity = new SharedOrderQuantity(matchUpdate.OriginalQuantity == 0 ? null : matchUpdate.OriginalQuantity, matchUpdate.OriginalValue),
                     QuantityFilled = new SharedOrderQuantity(matchUpdate.QuantityFilled, matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled)),
-                    OrderPrice = matchUpdate.Price,
+                    OrderPrice = matchUpdate.Price == 0 ? null : matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
                     IsTriggerOrder = matchUpdate.OrderType == OrderType.Stop || matchUpdate.OrderType == OrderType.MarketStop || matchUpdate.OrderType == OrderType.LimitStop,
                     LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
@@ -204,9 +204,9 @@ namespace Kucoin.Net.Clients.SpotApi
                             upd.OrderTime)
                 {
                     ClientOrderId = upd.ClientOrderid?.ToString(),
-                    OrderQuantity = new SharedOrderQuantity(upd.OriginalQuantity, upd.OriginalValue),
+                    OrderQuantity = new SharedOrderQuantity(upd.OriginalQuantity == 0 ? null : upd.OriginalQuantity, upd.OriginalValue),
                     QuantityFilled = new SharedOrderQuantity(upd.QuantityFilled, upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled)),
-                    OrderPrice = upd.Price,
+                    OrderPrice = upd.Price == 0 ? null : upd.Price,
                     UpdateTime = upd.Timestamp,
                     IsTriggerOrder = upd.OrderType == OrderType.Stop || upd.OrderType == OrderType.MarketStop || upd.OrderType == OrderType.LimitStop,
                 };

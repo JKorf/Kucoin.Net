@@ -318,7 +318,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = order.Data.ClientOrderId,
                     Fee = order.Data.Fee,
-                    OrderPrice = order.Data.Price,
+                    OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
@@ -344,7 +344,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = order.Data.ClientOrderId,
                     Fee = order.Data.Fee,
-                    OrderPrice = order.Data.Price,
+                    OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
@@ -381,7 +381,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
-                    OrderPrice = x.Price,
+                    OrderPrice = x.Price == 0 ? null : x.Price,
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
@@ -411,7 +411,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
-                    OrderPrice = x.Price,
+                    OrderPrice = x.Price == 0 ? null : x.Price,
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
@@ -469,7 +469,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
-                    OrderPrice = x.Price,
+                    OrderPrice = x.Price == 0 ? null : x.Price,
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
@@ -512,7 +512,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = x.ClientOrderId,
                     Fee = x.Fee,
-                    OrderPrice = x.Price,
+                    OrderPrice = x.Price == 0 ? null : x.Price,
                     OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(x.TimeInForce),
@@ -763,7 +763,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = order.Data.ClientOrderId,
                     Fee = order.Data.Fee,
-                    OrderPrice = order.Data.Price,
+                    OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
@@ -789,7 +789,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 {
                     ClientOrderId = order.Data.ClientOrderId,
                     Fee = order.Data.Fee,
-                    OrderPrice = order.Data.Price,
+                    OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                     OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                     QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                     TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
@@ -1111,7 +1111,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 order.Data.CreateTime)
             {
                 Fee = order.Data.Fee,
-                OrderPrice = order.Data.Price,
+				OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
