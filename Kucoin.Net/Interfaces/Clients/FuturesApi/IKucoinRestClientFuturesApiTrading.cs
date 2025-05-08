@@ -123,7 +123,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
 
         /// <summary>
-        /// Place a new take profit / stop loss order
+        /// Place a new take profit / stop loss order. Note that both triggerStopUpPrice and triggerStopDownPrice should be provided or the order will execute immediately.
         /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order" /></para>
         /// </summary>
         /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>

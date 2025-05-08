@@ -6105,7 +6105,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
-            Place a new take profit / stop loss order
+            Place a new take profit / stop loss order. Note that both triggerStopUpPrice and triggerStopDownPrice should be provided or the order will execute immediately.
             <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order" /></para>
             </summary>
             <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
