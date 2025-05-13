@@ -282,7 +282,7 @@ namespace Kucoin.Net.Clients.SpotApi
             parameters.AddOptionalParameter("newPrice", newPrice);
             parameters.AddOptionalParameter("newSize", newQuantity);
             
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/alter", KucoinExchange.RateLimiter.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/hf/orders/alter", KucoinExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<KucoinModifiedOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
