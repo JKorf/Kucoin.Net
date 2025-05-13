@@ -197,6 +197,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinWithdrawal>> GetWithdrawalAsync(string id, CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/withdrawals/{id}", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            return await _baseClient.SendAsync<KucoinWithdrawal>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string asset, string? network = null, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));

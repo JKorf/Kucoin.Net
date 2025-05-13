@@ -175,6 +175,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawalsAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, WithdrawalStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get info on a withdrawal
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-by-id" /></para>
+        /// </summary>
+        /// <param name="id">Id of the withdrawal</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinWithdrawal>> GetWithdrawalAsync(string id, CancellationToken ct = default);
+
+        /// <summary>
         /// Get the withdrawal quota for a asset
         /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas" /></para>
         /// </summary>

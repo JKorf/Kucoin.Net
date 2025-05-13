@@ -448,6 +448,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetWithdrawalsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Kucoin.Net.Enums.WithdrawalStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetWithdrawalAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -6787,6 +6790,14 @@
             <param name="pageSize">The amount of results per page</param>
             <param name="ct">Cancellation token</param>
             <returns>List of withdrawals</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetWithdrawalAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get info on a withdrawal
+            <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-by-id" /></para>
+            </summary>
+            <param name="id">Id of the withdrawal</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
