@@ -65,7 +65,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (message.Data is KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate> riskAdjust)
                 _onRiskAdjustUpdate?.Invoke(message.As(riskAdjust.Data, riskAdjust.Topic, null, SocketUpdateType.Update));
 
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

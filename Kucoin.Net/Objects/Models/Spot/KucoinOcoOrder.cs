@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// One Cancels Other order
     /// </summary>
+    [SerializationModel]
     public record KucoinOcoOrder
     {
         /// <summary>
@@ -35,25 +37,27 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Order status
         /// </summary>
         [JsonPropertyName("status")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public OcoOrderStatus Status { get; set; }
     }
 
     /// <summary>
     /// Oco order details
     /// </summary>
+    [SerializationModel]
     public record KucoinOcoOrderDetails : KucoinOcoOrder
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<KucoinOcoOrderInfo> Orders { get; set; } = Array.Empty<KucoinOcoOrderInfo>();
+        public KucoinOcoOrderInfo[] Orders { get; set; } = Array.Empty<KucoinOcoOrderInfo>();
     }
 
     /// <summary>
     /// Oco stop order info
     /// </summary>
+    [SerializationModel]
     public record KucoinOcoOrderInfo
     {
         /// <summary>

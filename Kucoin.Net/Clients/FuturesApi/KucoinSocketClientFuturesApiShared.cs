@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,13 @@ using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Futures.Socket;
+using CryptoExchange.Net;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinSocketClientFuturesApi: IKucoinSocketClientFuturesApiShared
     {
+        private const string _topicId = "KucoinFutures";
         public string Exchange => KucoinExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse };
 
@@ -28,7 +30,10 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeTo24HTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.LastPrice, null, null, update.Data.Volume, update.Data.PriceChangePercentage * 100))), ct).ConfigureAwait(false);
+            var result = await SubscribeTo24HTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.LastPrice, null, null, update.Data.Volume, update.Data.PriceChangePercentage * 100)
+            {
+                QuoteVolume = update.Data.Turnover
+            })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -37,14 +42,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Trade client
 
         EndpointOptions<SubscribeTradeRequest> ITradeSocketClient.SubscribeTradeOptions { get; } = new EndpointOptions<SubscribeTradeRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
             var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
+            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
                 Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             } })), ct).ConfigureAwait(false);
 
@@ -62,7 +67,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -104,13 +109,13 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Balance client
         EndpointOptions<SubscribeBalancesRequest> IBalanceSocketClient.SubscribeBalanceOptions { get; } = new EndpointOptions<SubscribeBalancesRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = ((IBalanceSocketClient)this).SubscribeBalanceOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
             var result = await SubscribeToBalanceUpdatesAsync(
-                onBalanceUpdate: update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.AvailableBalance, update.Data.AvailableBalance + update.Data.HoldBalance) })),
+                onBalanceUpdate: update => handler(update.AsExchangeEvent<SharedBalance[]>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.AvailableBalance, update.Data.AvailableBalance + update.Data.HoldBalance) })),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -120,7 +125,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Futures Order client
 
         EndpointOptions<SubscribeFuturesOrderRequest> IFuturesOrderSocketClient.SubscribeFuturesOrderOptions { get; } = new EndpointOptions<SubscribeFuturesOrderRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<IEnumerable<SharedFuturesOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderSocketClient)this).SubscribeFuturesOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -128,7 +133,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = await SubscribeToOrderUpdatesAsync(
                 null,
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedFuturesOrder>>(Exchange, new[] { ParseOrder(update.Data) })),
+                update => handler(update.AsExchangeEvent<SharedFuturesOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -137,6 +142,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         private SharedFuturesOrder ParseOrder(KucoinStreamFuturesOrderUpdate update)
         {
             return new SharedFuturesOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
                         update.Symbol,
                         update.OrderId.ToString(),
                         update.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
@@ -145,10 +151,10 @@ namespace Kucoin.Net.Clients.FuturesApi
                         update.OrderTime)
             {
                 ClientOrderId = update.ClientOrderId?.ToString(),
-                Quantity = update.Quantity,
-                QuantityFilled = update.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: update.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: update.QuantityFilled),
                 OrderPrice = update.Price == 0 ? null : update.Price,
-                LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(update.Symbol, update.OrderId, update.TradeId!, update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
+                LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol), update.Symbol, update.OrderId, update.TradeId!, update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
                 {
                     Role = update.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
                 }
@@ -166,14 +172,14 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Position client
         EndpointOptions<SubscribePositionRequest> IPositionSocketClient.SubscribePositionOptions { get; } = new EndpointOptions<SubscribePositionRequest>(true);
-        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<IEnumerable<SharedPosition>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
             var validationError = ((IPositionSocketClient)this).SubscribePositionOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToPositionUpdatesAsync(
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedPosition>>(Exchange, new[] { new SharedPosition(update.Data.Symbol, update.Data.CurrentQuantity, update.Data.CurrentTime)
+                update => handler(update.AsExchangeEvent<SharedPosition[]>(Exchange, new[] { new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.CurrentQuantity, update.Data.CurrentTime)
                 {
                     AverageOpenPrice = update.Data.AverageEntryPrice,
                     PositionSide = update.Data.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,

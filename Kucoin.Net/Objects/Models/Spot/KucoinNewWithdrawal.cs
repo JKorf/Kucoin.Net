@@ -1,8 +1,10 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// New withdrawal id
     /// </summary>
+    [SerializationModel]
     public record KucoinNewWithdrawal
     {
         /// <summary>

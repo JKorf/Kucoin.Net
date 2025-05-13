@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Withdrawal quota
     /// </summary>
+    [SerializationModel]
     public record KucoinFuturesWithdrawalQuota
     {
         /// <summary>

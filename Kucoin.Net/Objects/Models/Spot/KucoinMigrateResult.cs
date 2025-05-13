@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -6,13 +7,14 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Migration result
     /// </summary>
+    [SerializationModel]
     public record KucoinMigrateResult
     {
         /// <summary>
         /// Ids of user accounts successfully migrated
         /// </summary>
         [JsonPropertyName("successUsers")]
-        public IEnumerable<string> SuccessUsers { get; set; } = Array.Empty<string>();
+        public string[] SuccessUsers { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Ids of user accounts failed to migrate
         /// </summary>

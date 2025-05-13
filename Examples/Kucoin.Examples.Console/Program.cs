@@ -1,6 +1,8 @@
 ﻿using Kucoin.Net.Clients;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
+using Kucoin.Net.Objects.Options;
+using Microsoft.Extensions.Options;
 
 // REST
 var restClient = new KucoinRestClient();
@@ -16,7 +18,7 @@ Console.ReadLine();
 var logFactory = new LoggerFactory();
 logFactory.AddProvider(new TraceLoggerProvider());
 
-var socketClient = new KucoinSocketClient(logFactory);
+var socketClient = new KucoinSocketClient(Options.Create(new KucoinSocketOptions { }), logFactory);
 var subscription = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH-USDT", update =>
 {
     Console.WriteLine($"Websocket client ticker price for ETHUSDT: {update.Data.LastPrice}");

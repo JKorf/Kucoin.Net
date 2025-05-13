@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// The time for each candlestick, the int value represent the time in seconds
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<KlineInterval>))]
     public enum KlineInterval
     {
         /// <summary>

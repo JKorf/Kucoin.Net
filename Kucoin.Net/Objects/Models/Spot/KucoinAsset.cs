@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record KucoinAssetBase
     {
         /// <summary>
@@ -54,6 +56,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record KucoinAsset: KucoinAssetBase
     {        
         /// <summary>
@@ -81,12 +84,13 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Asset details
     /// </summary>
+    [SerializationModel]
     public record KucoinAssetDetails: KucoinAssetBase
     {
         /// <summary>
         /// Networks
         /// </summary>
         [JsonPropertyName("chains")]
-        public IEnumerable<KucoinAssetNetwork> Networks { get; set; } = Array.Empty<KucoinAssetNetwork>();
+        public KucoinAssetNetwork[] Networks { get; set; } = Array.Empty<KucoinAssetNetwork>();
     }
 }

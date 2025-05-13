@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 
@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Internal
         [JsonPropertyName("token")]
         public string Token { get; set; } = string.Empty;
         [JsonPropertyName("instanceServers")]
-        public IEnumerable<KucoinInstanceServer> Servers { get; set; } = Array.Empty<KucoinInstanceServer>();
+        public KucoinInstanceServer[] Servers { get; set; } = Array.Empty<KucoinInstanceServer>();
     }
 
     internal class KucoinInstanceServer

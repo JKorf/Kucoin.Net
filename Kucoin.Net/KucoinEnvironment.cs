@@ -47,6 +47,12 @@ namespace Kucoin.Net
          };
 
         /// <summary>
+        /// Available environment names
+        /// </summary>
+        /// <returns></returns>
+        public static string[] All => [Live.Name, Testnet.Name];
+
+        /// <summary>
         /// Live environment
         /// </summary>
         public static KucoinEnvironment Live { get; } = new KucoinEnvironment(TradeEnvironmentNames.Live, KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress);

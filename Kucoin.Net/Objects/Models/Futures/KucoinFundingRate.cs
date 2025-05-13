@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Funding rate info
     /// </summary>
+    [SerializationModel]
     public record KucoinFundingRate: KucoinIndexBase
     {
         /// <summary>

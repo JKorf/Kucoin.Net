@@ -1,10 +1,12 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// The order model to be sent via bulk order endpoint
     /// </summary>
+    [SerializationModel]
     public record KucoinBulkOrderRequestEntry
     {
         /// <summary>

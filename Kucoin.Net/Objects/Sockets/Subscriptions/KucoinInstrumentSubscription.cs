@@ -48,7 +48,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesFundingRate> fundingUpdate)
                 _fundingRateHandler?.Invoke(message.As(fundingUpdate.Data, fundingUpdate.Topic, fundingUpdate.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

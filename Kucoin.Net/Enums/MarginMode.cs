@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
     /// <summary>
     /// Mode of Margin
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<MarginMode>))]
     public enum MarginMode
     {
         /// <summary>

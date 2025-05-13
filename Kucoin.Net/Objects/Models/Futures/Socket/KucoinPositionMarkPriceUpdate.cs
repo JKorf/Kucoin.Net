@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Position change caused by mark price
     /// </summary>
+    [SerializationModel]
     public record KucoinPositionMarkPriceUpdate
     {
         /// <summary>

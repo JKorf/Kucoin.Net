@@ -1,18 +1,21 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using System;
 using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
+    [SerializationModel]
     internal record KucoinCrossMarginSymbols
     {
         [JsonPropertyName("items")]
-        public IEnumerable<KucoinCrossMarginSymbol> Items { get; set; } = Array.Empty<KucoinCrossMarginSymbol>();
+        public KucoinCrossMarginSymbol[] Items { get; set; } = Array.Empty<KucoinCrossMarginSymbol>();
     }
 
     /// <summary>
     /// Cross margin symbol
     /// </summary>
+    [SerializationModel]
     public record KucoinCrossMarginSymbol
     {
         /// <summary>

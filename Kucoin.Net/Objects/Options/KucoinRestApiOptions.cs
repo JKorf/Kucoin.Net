@@ -3,7 +3,7 @@
 namespace Kucoin.Net.Objects.Options
 {
     /// <inheritdoc />
-    public class KucoinRestApiOptions : RestApiOptions<KucoinApiCredentials>
+    public class KucoinRestApiOptions : RestApiOptions
     {
         /// <summary>
         /// The broker reference name to use

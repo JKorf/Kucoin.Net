@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
 using System.Collections.Generic;
@@ -58,7 +58,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="apiKey">Filter by API key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinSubUserKey>>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinSubUserKey[]>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default);
 
         /// <summary>
         /// Create a new API key for a sub account

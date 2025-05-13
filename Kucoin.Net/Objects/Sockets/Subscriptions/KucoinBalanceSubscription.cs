@@ -60,7 +60,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate> withdrawableUpdate)
                 _onWithdrawableUpdate?.Invoke(message.As(withdrawableUpdate.Data, withdrawableUpdate.Topic, null, SocketUpdateType.Update));
 
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
     /// <summary>
     /// Result of updating risk limit level
     /// </summary>
+    [SerializationModel]
     public record KucoinPositionRiskAdjustResultUpdate
     {
         /// <summary>

@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Trading Pair Configuration
     /// </summary>
+    [SerializationModel]
     public record KucoinTradingPairConfiguration
     {
         /// <summary>

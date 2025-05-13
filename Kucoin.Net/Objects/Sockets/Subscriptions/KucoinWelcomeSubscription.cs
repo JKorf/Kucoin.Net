@@ -14,6 +14,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
         }
 
-        public override CallResult HandleMessage(SocketConnection connection, DataEvent<KucoinWelcome> message) => new CallResult(null);
+        public override CallResult HandleMessage(SocketConnection connection, DataEvent<KucoinWelcome> message) => CallResult.SuccessResult;
     }
 }

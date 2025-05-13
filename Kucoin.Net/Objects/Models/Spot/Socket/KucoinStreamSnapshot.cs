@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream snapshot wrapper
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamSnapshotWrapper
     {
         /// <summary>
@@ -25,6 +27,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream snapshot
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamSnapshot
     {
         /// <summary>
@@ -177,7 +180,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
         /// Markets
         /// </summary>
         [JsonPropertyName("markets")]
-        public IEnumerable<string> Markets { get; set; } = new string[0];
+        public string[] Markets { get; set; } = new string[0];
         /// <summary>
         /// Change info last hour
         /// </summary>
@@ -198,6 +201,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Change info
     /// </summary>
+    [SerializationModel]
     public record KucoinMarketChange
     {
         /// <summary>

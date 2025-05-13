@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Enums;
 using System;
@@ -31,10 +31,10 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinIndexBase>>> GetMarginMarkPricesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinIndexBase[]>> GetMarginMarkPricesAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/mark-price/all-symbols", KucoinExchange.RateLimiter.PublicRest, 10);
-            return await _baseClient.SendAsync<IEnumerable<KucoinIndexBase>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinIndexBase[]>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -45,25 +45,25 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinTradingPairConfiguration>>> GetSymbolsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinTradingPairConfiguration[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/isolated/symbols", KucoinExchange.RateLimiter.SpotRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinTradingPairConfiguration>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinTradingPairConfiguration[]>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinCrossRiskLimitConfig>>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCrossRiskLimitConfig[]>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
                 { "isIsolated", false }
             };
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/currencies", KucoinExchange.RateLimiter.SpotRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinCrossRiskLimitConfig>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinCrossRiskLimitConfig[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinIsolatedRiskLimitConfig>>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinIsolatedRiskLimitConfig[]>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -71,7 +71,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/currencies", KucoinExchange.RateLimiter.SpotRest, 20, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinIsolatedRiskLimitConfig>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinIsolatedRiskLimitConfig[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -181,17 +181,17 @@ namespace Kucoin.Net.Clients.SpotApi
 
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinLendingAsset>>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinLendingAsset[]>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/project/list", KucoinExchange.RateLimiter.SpotRest, 10, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinLendingAsset>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinLendingAsset[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinLendingInterest>>> GetInterestRatesAsync(string asset, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinLendingInterest[]>> GetInterestRatesAsync(string asset, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -199,7 +199,7 @@ namespace Kucoin.Net.Clients.SpotApi
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/project/marketInterestRate", KucoinExchange.RateLimiter.SpotRest, 5, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinLendingInterest>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinLendingInterest[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -291,14 +291,14 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinCrossMarginSymbol>>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinCrossMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/symbols", KucoinExchange.RateLimiter.SpotRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinCrossMarginSymbols>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<KucoinCrossMarginSymbol>>(result.Data?.Items);
+            return result.As<KucoinCrossMarginSymbol[]>(result.Data?.Items);
         }
 
     }

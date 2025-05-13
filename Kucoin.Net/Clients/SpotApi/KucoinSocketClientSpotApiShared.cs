@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Enums;
+using CryptoExchange.Net;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinSocketClientSpotApi : IKucoinSocketClientSpotApiShared
     {
+        private const string _topicId = "KucoinSpot";
         public string Exchange => KucoinExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
@@ -28,7 +30,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume, update.Data.ChangePercentage * 100))), ct).ConfigureAwait(false);
+            var result = await SubscribeToSnapshotUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.LastPrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume, update.Data.ChangePercentage * 100)
+            {
+                QuoteVolume = update.Data.VolumeValue
+            })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -37,14 +42,14 @@ namespace Kucoin.Net.Clients.SpotApi
         #region Trade client
 
         EndpointOptions<SubscribeTradeRequest> ITradeSocketClient.SubscribeTradeOptions { get; } = new EndpointOptions<SubscribeTradeRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
             var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
+            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
                 Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             } })), ct).ConfigureAwait(false);
 
@@ -62,7 +67,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(update.Data.BestAsk.Price, update.Data.BestAsk.Quantity, update.Data.BestBid.Price, update.Data.BestBid.Quantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.BestAsk.Price, update.Data.BestAsk.Quantity, update.Data.BestBid.Price, update.Data.BestBid.Quantity))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -104,7 +109,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Balance client
         EndpointOptions<SubscribeBalancesRequest> IBalanceSocketClient.SubscribeBalanceOptions { get; } = new EndpointOptions<SubscribeBalancesRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = ((IBalanceSocketClient)this).SubscribeBalanceOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -116,7 +121,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     if (!update.Data.RelationEvent.StartsWith("trade"))
                         return;
 
-                    handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Total) }));
+                    handler(update.AsExchangeEvent<SharedBalance[]>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Total) }));
                 },
                 ct: ct).ConfigureAwait(false);
 
@@ -127,16 +132,16 @@ namespace Kucoin.Net.Clients.SpotApi
         #region Spot Order client
 
         EndpointOptions<SubscribeSpotOrderRequest> ISpotOrderSocketClient.SubscribeSpotOrderOptions { get; } = new EndpointOptions<SubscribeSpotOrderRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<ExchangeEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<ExchangeEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
         {
             var validationError = ((ISpotOrderSocketClient)this).SubscribeSpotOrderOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToOrderUpdatesAsync(
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotOrder>>(Exchange, new[] { ParseOrder(update.Data) })),
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotOrder>>(Exchange, new[] { ParseOrder(update.Data) })),
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotOrder>>(Exchange, new[] { ParseOrder(update.Data) })),
+                update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
+                update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
+                update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -148,6 +153,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (orderUpdate is KucoinStreamOrderNewUpdate update)
             {
                 return new SharedSpotOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
                             update.Symbol,
                             update.OrderId.ToString(),
                             update.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
@@ -156,17 +162,17 @@ namespace Kucoin.Net.Clients.SpotApi
                             update.OrderTime)
                 {
                     ClientOrderId = update.ClientOrderid?.ToString(),
-                    Quantity = update.OriginalQuantity,
-                    QuantityFilled = 0,
-                    QuoteQuantity = update.OriginalValue,
-                    QuoteQuantityFilled = 0,
-                    OrderPrice = update.Price,
-                    Fee = 0
+                    OrderQuantity = new SharedOrderQuantity(update.OriginalQuantity == 0 ? null : update.OriginalQuantity, update.OriginalValue),
+                    QuantityFilled = new SharedOrderQuantity(0, 0),
+                    OrderPrice = update.Price == 0 ? null : update.Price,
+                    Fee = 0,
+                    IsTriggerOrder = update.OrderType == OrderType.Stop || update.OrderType == OrderType.MarketStop || update.OrderType == OrderType.LimitStop
                 };
             }
             if (orderUpdate is KucoinStreamOrderMatchUpdate matchUpdate)
             {
                 return new SharedSpotOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol),
                             matchUpdate.Symbol,
                             matchUpdate.OrderId.ToString(),
                             matchUpdate.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : matchUpdate.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
@@ -175,13 +181,12 @@ namespace Kucoin.Net.Clients.SpotApi
                             matchUpdate.OrderTime)
                 {
                     ClientOrderId = matchUpdate.ClientOrderid?.ToString(),
-                    Quantity = matchUpdate.OriginalQuantity,
-                    QuantityFilled = matchUpdate.QuantityFilled,
-                    QuoteQuantity = matchUpdate.OriginalValue,
-                    QuoteQuantityFilled = matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled),
-                    OrderPrice = matchUpdate.Price,
+                    OrderQuantity = new SharedOrderQuantity(matchUpdate.OriginalQuantity == 0 ? null : matchUpdate.OriginalQuantity, matchUpdate.OriginalValue),
+                    QuantityFilled = new SharedOrderQuantity(matchUpdate.QuantityFilled, matchUpdate.OriginalValue - (matchUpdate.QuoteQuantityRemaining + matchUpdate.ValueCanceled)),
+                    OrderPrice = matchUpdate.Price == 0 ? null : matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
-                    LastTrade = new SharedUserTrade(matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
+                    IsTriggerOrder = matchUpdate.OrderType == OrderType.Stop || matchUpdate.OrderType == OrderType.MarketStop || matchUpdate.OrderType == OrderType.LimitStop,
+                    LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
                     {
                         Role = matchUpdate.Liquidity == LiquidityType.Taker ? SharedRole.Taker : SharedRole.Maker
                     }
@@ -190,6 +195,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (orderUpdate is KucoinStreamOrderUpdate upd)
             {
                 return new SharedSpotOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, upd.Symbol),
                             upd.Symbol,
                             upd.OrderId.ToString(),
                             upd.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : upd.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
@@ -198,12 +204,11 @@ namespace Kucoin.Net.Clients.SpotApi
                             upd.OrderTime)
                 {
                     ClientOrderId = upd.ClientOrderid?.ToString(),
-                    Quantity = upd.OriginalQuantity,
-                    QuantityFilled = upd.QuantityFilled,
-                    QuoteQuantity = upd.OriginalValue,
-                    QuoteQuantityFilled = upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled),
-                    OrderPrice = upd.Price,
-                    UpdateTime = upd.Timestamp
+                    OrderQuantity = new SharedOrderQuantity(upd.OriginalQuantity == 0 ? null : upd.OriginalQuantity, upd.OriginalValue),
+                    QuantityFilled = new SharedOrderQuantity(upd.QuantityFilled, upd.OriginalValue - (upd.QuoteQuantityRemaining + upd.ValueCanceled)),
+                    OrderPrice = upd.Price == 0 ? null : upd.Price,
+                    UpdateTime = upd.Timestamp,
+                    IsTriggerOrder = upd.OrderType == OrderType.Stop || upd.OrderType == OrderType.MarketStop || upd.OrderType == OrderType.LimitStop,
                 };
             }
 

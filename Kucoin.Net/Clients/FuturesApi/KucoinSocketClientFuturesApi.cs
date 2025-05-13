@@ -47,7 +47,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             RegisterPeriodicQuery(
                 "Ping", 
                 TimeSpan.FromSeconds(30), 
-                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()),
+                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!),
                 (connection, result) =>
                 {
                 if (result.Error?.Message.Equals("Query timeout") == true)
@@ -59,8 +59,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             });
         }
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
         /// <inheritdoc />
         public override string GetListenerIdentifier(IMessageAccessor message)
@@ -80,7 +80,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+            => new KucoinAuthenticationProvider(credentials);
 
 
         /// <inheritdoc />
@@ -255,10 +255,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (ClientOptions.Environment.Name == "UnitTesting")
                 return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
 
-            var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials ?? KucoinSocketOptions.Default.ApiCredentials ?? KucoinRestOptions.Default.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {
-                options.ApiCredentials = apiCredentials;
+                options.ApiCredentials = ApiCredentials;
+                options.Environment = ClientOptions.Environment;
             }))
             {
                 WebCallResult<KucoinToken> tokenResult;
@@ -280,7 +280,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result)
                 return null;
 
-            return new Uri(result.Data);
+            return new Uri(result.Data!);
         }
     }
 }

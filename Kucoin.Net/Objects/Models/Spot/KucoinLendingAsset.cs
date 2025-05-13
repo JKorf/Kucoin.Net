@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Lending asset
     /// </summary>
+    [SerializationModel]
     public record KucoinLendingAsset
     {
         /// <summary>

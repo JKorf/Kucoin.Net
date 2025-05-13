@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 
@@ -8,6 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// Data container for paged lists
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [SerializationModel]
     public record KucoinPaginatedSlider<T>
     {
         /// <summary>
@@ -19,6 +21,6 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Data list
         /// </summary>
         [JsonPropertyName("dataList")]
-        public IEnumerable<T> Data { get; set; } = Array.Empty<T>();
+        public T[] Data { get; set; } = Array.Empty<T>();
     }
 }

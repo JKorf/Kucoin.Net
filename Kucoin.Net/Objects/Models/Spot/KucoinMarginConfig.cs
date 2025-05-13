@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 
 
@@ -7,13 +8,14 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin configuration
     /// </summary>
+    [SerializationModel]
     public record KucoinMarginConfig
     {
         /// <summary>
         /// Available assets for margin trade
         /// </summary>
         [JsonPropertyName("currencyList")]
-        public IEnumerable<string> Assets { get; set; } = Array.Empty<string>();
+        public string[] Assets { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Warning debt ratio
         /// </summary>

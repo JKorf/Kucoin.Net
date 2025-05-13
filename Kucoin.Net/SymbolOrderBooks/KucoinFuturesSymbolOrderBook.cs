@@ -67,11 +67,11 @@ namespace Kucoin.Net.SymbolOrderBooks
             _initialDataTimeout = options.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
             _socketClient = socketClient ?? new KucoinSocketClient(x =>
             {
-                x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinSocketOptions.Default.ApiCredentials?.Copy();
+                x.ApiCredentials = options.ApiCredentials?.Copy() ?? KucoinSocketOptions.Default.ApiCredentials?.Copy();
             });
             _restClient = restClient ?? new KucoinRestClient(x =>
             {
-                x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinRestOptions.Default.ApiCredentials?.Copy();
+                x.ApiCredentials = options.ApiCredentials?.Copy() ?? KucoinRestOptions.Default.ApiCredentials?.Copy();
             });
         }
 
@@ -148,9 +148,9 @@ namespace Kucoin.Net.SymbolOrderBooks
             };
 
             if (data.Data.Side == OrderSide.Buy)
-                UpdateOrderBook(data.Data.Sequence, new List<ISymbolOrderBookEntry> { entry }, new List<ISymbolOrderBookEntry>());
+                UpdateOrderBook(data.Data.Sequence, new ISymbolOrderBookEntry[] { entry }, Array.Empty<ISymbolOrderBookEntry>());
             else
-                UpdateOrderBook(data.Data.Sequence, new List<ISymbolOrderBookEntry>(), new List<ISymbolOrderBookEntry> { entry });
+                UpdateOrderBook(data.Data.Sequence, Array.Empty<ISymbolOrderBookEntry>(), new ISymbolOrderBookEntry[] { entry });
         }
 
         private void HandleUpdate(DataEvent<KucoinStreamOrderBookChanged> data)

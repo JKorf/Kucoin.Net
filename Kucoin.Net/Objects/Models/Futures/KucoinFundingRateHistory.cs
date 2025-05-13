@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using System;
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Funding rate history
     /// </summary>
+    [SerializationModel]
     public record KucoinFundingRateHistory
     {
         /// <summary>

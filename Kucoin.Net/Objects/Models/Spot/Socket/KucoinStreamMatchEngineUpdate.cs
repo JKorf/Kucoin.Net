@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using Kucoin.Net.Enums;
 
 
@@ -7,6 +8,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Base record for a stream update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamMatchEngineUpdate
     {
         /// <summary>
@@ -39,6 +41,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order open update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamMatchEngineOpenUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
@@ -67,6 +70,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order done update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamMatchEngineDoneUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
@@ -79,6 +83,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order change update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamMatchEngineChangeUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
@@ -91,6 +96,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Stream order match update
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamMatchEngineMatchUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>

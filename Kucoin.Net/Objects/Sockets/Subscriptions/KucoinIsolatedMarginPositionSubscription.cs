@@ -44,7 +44,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             var data = (KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>)message.Data;
             _onPositionChange?.Invoke(message.As(data.Data, data.Topic, data.Data.Tag, SocketUpdateType.Update).WithDataTimestamp(data.Data.Timestamp));
 
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

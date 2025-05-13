@@ -1,7 +1,9 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
+using Kucoin.Net.Converters;
 
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -9,6 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record KucoinFullOrderBook
     {
         /// <summary>
@@ -25,17 +28,18 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The list of asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<KucoinFullOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
+        public KucoinFullOrderBookEntry[] Asks { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
         /// <summary>
         /// The list of bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<KucoinFullOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
+        public KucoinFullOrderBookEntry[] Bids { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
     }
 
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record KucoinOrderBook
     {
         /// <summary>
@@ -65,18 +69,19 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// The list of asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<KucoinOrderBookEntry> Asks { get; set; } = Array.Empty<KucoinOrderBookEntry>();
+        public KucoinOrderBookEntry[] Asks { get; set; } = Array.Empty<KucoinOrderBookEntry>();
         /// <summary>
         /// The list of bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<KucoinOrderBookEntry> Bids { get; set; } = Array.Empty<KucoinOrderBookEntry>();
+        public KucoinOrderBookEntry[] Bids { get; set; } = Array.Empty<KucoinOrderBookEntry>();
     }
 
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<KucoinFullOrderBookEntry>))]
+    [SerializationModel]
     public record KucoinFullOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>
@@ -99,7 +104,8 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<KucoinOrderBookEntry>))]
+    [SerializationModel]
     public record KucoinOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>

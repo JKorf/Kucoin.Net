@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Options
     /// <summary>
     /// Kucoin Rest client options
     /// </summary>
-    public class KucoinRestOptions : RestExchangeOptions<KucoinEnvironment, KucoinApiCredentials>
+    public class KucoinRestOptions : RestExchangeOptions<KucoinEnvironment>
     {
         /// <summary>
         /// Default options for new clients

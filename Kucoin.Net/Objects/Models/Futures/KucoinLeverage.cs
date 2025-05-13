@@ -1,8 +1,10 @@
-﻿namespace Kucoin.Net.Objects.Models.Futures
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Leverage info
     /// </summary>
+    [SerializationModel]
     public record KucoinLeverage
     {
         /// <summary>

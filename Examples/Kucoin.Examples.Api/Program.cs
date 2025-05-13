@@ -14,13 +14,10 @@ builder.Services.AddKucoin();
 
 // OR to provide API credentials for accessing private endpoints, or setting other options:
 /*
-builder.Services.AddKucoin(restOptions =>
-{
-    restOptions.ApiCredentials = new KucoinApiCredentials("<APIKEY>", "<APISECRET>", "<PASS>");
-    restOptions.RequestTimeout = TimeSpan.FromSeconds(5);
-}, socketOptions =>
-{
-    socketOptions.ApiCredentials = new KucoinApiCredentials("<APIKEY>", "<APISECRET>", "<PASS>");
+builder.Services.AddKucoin(options =>
+{    
+   options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
+   options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
 

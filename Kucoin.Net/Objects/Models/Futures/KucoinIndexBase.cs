@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Base record for index data
     /// </summary>
+    [SerializationModel]
     public record KucoinIndexBase
     {
         /// <summary>

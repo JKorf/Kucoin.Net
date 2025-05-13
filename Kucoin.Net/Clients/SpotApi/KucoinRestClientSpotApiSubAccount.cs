@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
@@ -55,22 +55,22 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinSubUserKey>>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinSubUserKey[]>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("subName", subAccountName);
             parameters.AddOptional("apiKey", apiKey);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v1/sub/api-key", KucoinExchange.RateLimiter.ManagementRest, 20, true);
-            var result = await _baseClient.SendRawAsync<KucoinResult<IEnumerable<KucoinSubUserKey>>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendRawAsync<KucoinResult<KucoinSubUserKey[]>>(request, parameters, ct).ConfigureAwait(false);
 
             if (!result)
-                return result.AsError<IEnumerable<KucoinSubUserKey>>(result.Error!);
+                return result.AsError<KucoinSubUserKey[]>(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<IEnumerable<KucoinSubUserKey>>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<KucoinSubUserKey[]>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<IEnumerable<KucoinSubUserKey>>(new ServerError(result.Data.Message!));
+                return result.AsError<KucoinSubUserKey[]>(new ServerError(result.Data.Message!));
 
             return result.As(result.Data.Data);
         }

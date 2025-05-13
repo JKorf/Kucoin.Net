@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="market">Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        Task<WebCallResult<IEnumerable<KucoinSymbol>>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinSymbol[]>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific symbol
@@ -72,7 +72,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
-        Task<WebCallResult<IEnumerable<string>>> GetMarketsAsync(CancellationToken ct = default);
+        Task<WebCallResult<string[]>> GetMarketsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
@@ -100,7 +100,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">The symbol to get trade history for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades for the symbol</returns>
-        Task<WebCallResult<IEnumerable<KucoinTrade>>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data for a symbol
@@ -112,7 +112,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">The end time of the data</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of klines</returns>
-        Task<WebCallResult<IEnumerable<KucoinKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of supported currencies
@@ -120,7 +120,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of currencies</returns>
-        Task<WebCallResult<IEnumerable<KucoinAssetDetails>>> GetAssetsAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinAssetDetails[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific asset
@@ -147,7 +147,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinLeveragedToken>>> GetLeveragedTokensAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinLeveragedToken[]>> GetLeveragedTokensAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get system announcements

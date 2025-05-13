@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Interfaces.CommonClients;
 using System;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
@@ -12,25 +11,23 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
+        /// <see cref="IKucoinRestClientFuturesApiAccount"/>
         IKucoinRestClientFuturesApiAccount Account { get; }
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
+        /// <see cref="IKucoinRestClientFuturesApiExchangeData"/>
         IKucoinRestClientFuturesApiExchangeData ExchangeData { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
+        /// <see cref="IKucoinRestClientFuturesApiTrading"/>
         IKucoinRestClientFuturesApiTrading Trading { get; }
 
         /// <summary>
-        /// DEPRECATED; use <see cref="CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
-        /// </summary>
-        public IFuturesClient CommonFuturesClient { get; }
-
-        /// <summary>
-        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         public IKucoinRestClientFuturesApiShared SharedClient { get; }
     }

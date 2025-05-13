@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Spot;
@@ -297,7 +297,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<IEnumerable<KucoinOrder>>> GetRecentOrdersAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinOrder[]>> GetRecentOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get OCO orders list
@@ -381,7 +381,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
-        Task<WebCallResult<IEnumerable<KucoinUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Place a new stop order
@@ -492,7 +492,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">The client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinStopOrder>>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<WebCallResult<KucoinStopOrder[]>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
     }
 }

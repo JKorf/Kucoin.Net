@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Options;
 using CryptoExchange.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.Clients
 {
@@ -69,7 +70,7 @@ namespace Kucoin.Net.Clients
         /// Set the API credentials to use in this client
         /// </summary>
         /// <param name="credentials">Credentials to use</param>
-        public void SetApiCredentials(KucoinApiCredentials credentials)
+        public void SetApiCredentials(ApiCredentials credentials)
         {
             SpotApi.SetApiCredentials(credentials);
             FuturesApi.SetApiCredentials(credentials);

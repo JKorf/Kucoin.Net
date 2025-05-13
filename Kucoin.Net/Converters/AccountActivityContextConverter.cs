@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using Kucoin.Net.Objects.Models.Spot;
 
 namespace Kucoin.Net.Converters
@@ -16,7 +18,7 @@ namespace Kucoin.Net.Converters
                 return new KucoinAccountActivityContext();
 
             var doc = JsonDocument.Parse(str);
-            return doc.Deserialize<KucoinAccountActivityContext>();
+            return doc.Deserialize<KucoinAccountActivityContext>((JsonTypeInfo<KucoinAccountActivityContext>)options.GetTypeInfo(typeof(KucoinAccountActivityContext)));
         }
 
         public override void Write(Utf8JsonWriter writer, KucoinAccountActivityContext value, JsonSerializerOptions options)
@@ -24,7 +26,7 @@ namespace Kucoin.Net.Converters
             if (value == null)
                 writer.WriteNullValue();
             else
-                JsonSerializer.Serialize(writer, value);
+                JsonSerializer.Serialize(writer, value, (JsonTypeInfo<KucoinAccountActivityContext>)options.GetTypeInfo(typeof(KucoinAccountActivityContext)));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
+    [SerializationModel]
     public record KucoinHfOrder
     {
         /// <summary>
@@ -66,7 +68,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
     }
@@ -74,6 +76,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
+    [SerializationModel]
     public record KucoinHfBulkOrderResponse : KucoinHfOrder
     {
         /// <summary>
@@ -81,5 +84,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
+
+        /// <summary>
+        /// Error message
+        /// </summary>
+        [JsonPropertyName("failMsg")]
+        public string? ErrorMessage { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="stopPrice">Stop price</param>
         /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
         /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
         /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="marginMode">Margin mode, defaults to Isolated</param>
@@ -48,7 +48,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             string symbol,
             OrderSide side,
             NewOrderType type,
-            decimal leverage,
+            decimal? leverage = null,
             int? quantity = null,
             decimal? price = null,
             TimeInForce? timeInForce = null,
@@ -91,7 +91,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="stopPrice">Stop price</param>
         /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
         /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcely hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
         /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -123,11 +123,11 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
 
         /// <summary>
-        /// Place a new take profit / stop loss order
+        /// Place a new take profit / stop loss order. Note that both triggerStopUpPrice and triggerStopDownPrice should be provided or the order will execute immediately.
         /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order" /></para>
         /// </summary>
         /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
-        /// <param name="side">Side of the order</param>
+        /// <param name="side">Side of the order, not required when setting closeOrder to true</param>
         /// <param name="type">Type of order</param>
         /// <param name="leverage">Leverage of the order</param>
         /// <param name="price">Limit price, only for limit orders</param>
@@ -152,9 +152,9 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
             string symbol,
-            OrderSide side,
+            OrderSide? side,
             NewOrderType type,
-            decimal leverage,
+            decimal? leverage = null,
             int? quantity = null,
 
             decimal? price = null,
@@ -184,7 +184,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orders">The orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order results. Each result should be checked for success</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<WebCallResult<CallResult<KucoinFuturesOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order
@@ -204,7 +204,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderIds">Client order ids to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrderResult>>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by client order id
@@ -272,7 +272,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesOrder>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get details on an order
@@ -315,7 +315,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<IEnumerable<KucoinFuturesUserTrade>>> GetRecentUserTradesAsync(CancellationToken ct = default);
+        Task<WebCallResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the max position size

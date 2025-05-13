@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Margin accounts info
     /// </summary>
+    [SerializationModel]
     public record KucoinIsolatedMarginAccountsInfo
     {
         /// <summary>
@@ -24,12 +26,13 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// Account list
         /// </summary>
         [JsonPropertyName("assets")]
-        public IEnumerable<KucoinIsolatedMarginAccount> Assets { get; set; } = Array.Empty<KucoinIsolatedMarginAccount>();
+        public KucoinIsolatedMarginAccount[] Assets { get; set; } = Array.Empty<KucoinIsolatedMarginAccount>();
     }
 
     /// <summary>
     /// Isolated margin account info
     /// </summary>
+    [SerializationModel]
     public record KucoinIsolatedMarginAccount
     {
         /// <summary>
@@ -40,7 +43,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Position status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("status")]
         public IsolatedMargingAccountStatus Status { get; set; }
         /// <summary>
@@ -63,6 +66,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Isolate margin account asset info
     /// </summary>
+    [SerializationModel]
     public record KucoinIsolatedMarginAccountAsset
     {
         /// <summary>

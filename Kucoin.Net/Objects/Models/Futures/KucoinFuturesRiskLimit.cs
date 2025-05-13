@@ -1,9 +1,11 @@
-﻿namespace Kucoin.Net.Objects.Models.Futures
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Risk limit info
     /// </summary>
-    public record KucoinRiskLimit
+    [SerializationModel]
+    public record KucoinFuturesRiskLimit
     {
         /// <summary>
         /// Symbol

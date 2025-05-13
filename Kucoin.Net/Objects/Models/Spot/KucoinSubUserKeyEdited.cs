@@ -1,8 +1,10 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Sub user api key info
     /// </summary>
+    [SerializationModel]
     public record KucoinSubUserKeyEdited
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using Kucoin.Net.Enums;
 
@@ -7,18 +8,20 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// The response for bulk order creation
     /// </summary>
+    [SerializationModel]
     public record KucoinBulkOrderResponse
     {
         /// <summary>
         /// List of orders
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<KucoinBulkOrderResponseEntry> Orders { get; set; } = default!;
+        public KucoinBulkOrderResponseEntry[] Orders { get; set; } = default!;
     }
 
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
+    [SerializationModel]
     public record KucoinBulkOrderResponseEntry
     {
         /// <summary>

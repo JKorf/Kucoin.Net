@@ -63,11 +63,11 @@ namespace Kucoin.Net.SymbolOrderBooks
             _clientOwner = socketClient == null;
             _socketClient = socketClient ?? new KucoinSocketClient(x =>
             {
-                x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinSocketOptions.Default.ApiCredentials?.Copy();
+                x.ApiCredentials = options.ApiCredentials?.Copy() ?? KucoinSocketOptions.Default.ApiCredentials?.Copy();
             });
             _restClient = restClient ?? new KucoinRestClient(x =>
             {
-                x.ApiCredentials = (KucoinApiCredentials?)options.ApiCredentials?.Copy() ?? (KucoinApiCredentials?)KucoinRestOptions.Default.ApiCredentials?.Copy();
+                x.ApiCredentials = options.ApiCredentials?.Copy() ?? KucoinRestOptions.Default.ApiCredentials?.Copy();
             });
         }
 

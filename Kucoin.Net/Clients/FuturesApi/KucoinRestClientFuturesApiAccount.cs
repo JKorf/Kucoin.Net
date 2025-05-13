@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 
@@ -65,12 +65,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPosition[]>> GetPositionsAsync(string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/positions", KucoinExchange.RateLimiter.FuturesRest, 2, true);
-            return await _baseClient.SendAsync<IEnumerable<KucoinPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<KucoinPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -152,12 +152,12 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Get Risk Limit Level
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<Objects.Models.Futures.KucoinFuturesRiskLimit[]>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contracts/risk-limit/" + symbol, KucoinExchange.RateLimiter.FuturesRest, 5, true);
-            return await _baseClient.SendAsync<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<Objects.Models.Futures.KucoinFuturesRiskLimit[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

@@ -48,7 +48,7 @@ namespace Kucoin.Net.Clients.SpotApi
             RegisterPeriodicQuery(
                 "Ping",
                 TimeSpan.FromSeconds(30), 
-                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()),
+                x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!),
                 (connection, result) =>
                 {
                     if (result.Error?.Message.Equals("Query timeout") == true)
@@ -60,12 +60,12 @@ namespace Kucoin.Net.Clients.SpotApi
                 });
         }
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new KucoinAuthenticationProvider((KucoinApiCredentials)credentials);
+            => new KucoinAuthenticationProvider(credentials);
         
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
@@ -282,10 +282,9 @@ namespace Kucoin.Net.Clients.SpotApi
             if (ClientOptions.Environment.Name == "UnitTesting")
                 return new CallResult<string?>("wss://ws-api-spot.kucoin.com");
 
-            var apiCredentials = (KucoinApiCredentials?)(ApiOptions.ApiCredentials ?? _baseClient.ClientOptions.ApiCredentials);
             using (var restClient = new KucoinRestClient((options) =>
             {
-                options.ApiCredentials = apiCredentials;
+                options.ApiCredentials = ApiCredentials;
                 options.Environment = ClientOptions.Environment;
             }))
             {
@@ -308,7 +307,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result)
                 return null;
 
-            return new Uri(result.Data);
+            return new Uri(result.Data!);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Kucoin.Net.Enums;
 
 
 namespace Kucoin.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace Kucoin.Net.Objects.Models
     /// <summary>
     /// Match info
     /// </summary>
+    [SerializationModel]
     public record KucoinStreamMatchBase
     {
         /// <summary>

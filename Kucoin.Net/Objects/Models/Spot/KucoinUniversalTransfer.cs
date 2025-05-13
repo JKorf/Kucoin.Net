@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Universal transfer
     /// </summary>
+    [SerializationModel]
     public record KucoinUniversalTransfer
     {
         /// <summary>

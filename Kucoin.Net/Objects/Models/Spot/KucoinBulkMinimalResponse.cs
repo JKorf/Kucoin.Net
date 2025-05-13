@@ -1,8 +1,10 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// The order model in bulk order creation response
     /// </summary>
+    [SerializationModel]
     public record KucoinBulkMinimalResponseEntry
     {
         /// <summary>

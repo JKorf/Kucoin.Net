@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -64,7 +64,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Position info</returns>
-        Task<WebCallResult<IEnumerable<KucoinPosition>>> GetPositionsAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPosition[]>> GetPositionsAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get position closure history
@@ -131,7 +131,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<Objects.Models.Futures.KucoinRiskLimit>>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<Objects.Models.Futures.KucoinFuturesRiskLimit[]>> GetRiskLimitLevelAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Set risk limit level
