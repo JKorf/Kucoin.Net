@@ -74,7 +74,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<KucoinStreamOrderBookEntry, KucoinSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<KucoinStreamOrderBookEntry>))]
     [SerializationModel]
     public record KucoinStreamOrderBookEntry: ISymbolOrderSequencedBookEntry
     {

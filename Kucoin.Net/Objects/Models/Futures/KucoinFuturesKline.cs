@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     /// <summary>
     /// Kline info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<KucoinFuturesKline, KucoinSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<KucoinFuturesKline>))]
     [SerializationModel]
     public record KucoinFuturesKline
     {

@@ -18,7 +18,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     /// <summary>
     /// Kline info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<KucoinStreamFuturesKline, KucoinSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<KucoinStreamFuturesKline>))]
     [SerializationModel]
     public record KucoinStreamFuturesKline
     {

@@ -80,7 +80,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<KucoinFullOrderBookEntry, KucoinSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<KucoinFullOrderBookEntry>))]
     [SerializationModel]
     public record KucoinFullOrderBookEntry: ISymbolOrderBookEntry
     {
@@ -104,7 +104,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<KucoinOrderBookEntry, KucoinSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<KucoinOrderBookEntry>))]
     [SerializationModel]
     public record KucoinOrderBookEntry : ISymbolOrderBookEntry
     {

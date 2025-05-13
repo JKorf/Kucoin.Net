@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Kline info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<KucoinKline, KucoinSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<KucoinKline>))]
     [SerializationModel]
     public record KucoinKline
     {
