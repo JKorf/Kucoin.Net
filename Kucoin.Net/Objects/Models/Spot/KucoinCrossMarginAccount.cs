@@ -35,7 +35,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Accounts
         /// </summary>
-        [JsonPropertyName("accounts")] // API docs incorrectly has this as 'assets'
+        [JsonPropertyName("accounts")]
         public KucoinCrossMarginAccountAsset[] Accounts { get; set; } = Array.Empty<KucoinCrossMarginAccountAsset>();
     }
 
@@ -56,14 +56,9 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonPropertyName("borrowEnabled")]
         public bool BorrowEnabled { get; set; }
         /// <summary>
-        /// Support repay or not
-        /// </summary>
-        [JsonPropertyName("repayEnabled")]
-        public bool RepayEnabled { get; set; }
-        /// <summary>
         /// Support transfer or not
         /// </summary>
-        [JsonPropertyName("transferEnabled")]
+        [JsonPropertyName("transferInEnabled")]
         public bool TransferEnabled { get; set; }
         /// <summary>
         /// Borrowed
@@ -73,7 +68,7 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// <summary>
         /// Total Assets
         /// </summary>
-        [JsonPropertyName("totalAsset")]
+        [JsonPropertyName("total")]
         public decimal TotalAsset { get; set; }
         /// <summary>
         /// Account available assets (total assets - frozen)
@@ -90,5 +85,20 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("maxBorrowSize")]
         public decimal MaxBorrowQuantity { get; set; }
+        /// <summary>
+        /// Liabilities
+        /// </summary>
+        [JsonPropertyName("liability")]
+        public decimal Liability { get; set; }
+        /// <summary>
+        /// Outstanding principal – the unpaid loan amount
+        /// </summary>
+        [JsonPropertyName("liabilityPrincipal")]
+        public decimal LiabilityPrincipal { get; set; }
+        /// <summary>
+        /// Accrued interest – the unpaid interest amount
+        /// </summary>
+        [JsonPropertyName("liabilityInterest")]
+        public decimal LiabilityInterest { get; set; }
     }
 }

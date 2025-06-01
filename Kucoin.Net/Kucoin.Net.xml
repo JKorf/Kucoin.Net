@@ -12663,11 +12663,6 @@
             Support borrow or not
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginAccountAsset.RepayEnabled">
-            <summary>
-            Support repay or not
-            </summary>
-        </member>
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginAccountAsset.TransferEnabled">
             <summary>
             Support transfer or not
@@ -12696,6 +12691,21 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginAccountAsset.MaxBorrowQuantity">
             <summary>
             The user's remaining maximum loan amount
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginAccountAsset.Liability">
+            <summary>
+            Liabilities
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginAccountAsset.LiabilityPrincipal">
+            <summary>
+            Outstanding principal – the unpaid loan amount
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginAccountAsset.LiabilityInterest">
+            <summary>
+            Accrued interest – the unpaid interest amount
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinCrossMarginSymbol">
