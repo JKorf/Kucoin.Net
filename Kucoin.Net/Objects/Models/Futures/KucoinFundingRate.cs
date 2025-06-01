@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -24,5 +25,15 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("fundingRateFloor")]
         public decimal? FundingRateFloor { get; set; }
+        /// <summary>
+        /// Indicates whether the current funding fee is charged within this cycle
+        /// </summary>
+        [JsonPropertyName("period")]
+        public bool Period { get; set; }
+        /// <summary>
+        /// Next funding time
+        /// </summary>
+        [JsonPropertyName("fundingTime")]
+        public DateTime NextFundingTime { get; set; }
     }
 }

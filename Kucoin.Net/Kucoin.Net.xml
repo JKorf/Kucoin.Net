@@ -9385,6 +9385,16 @@
             Funding rate floor
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFundingRate.Period">
+            <summary>
+            Indicates whether the current funding fee is charged within this cycle
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFundingRate.NextFundingTime">
+            <summary>
+            Next funding time
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFundingRateHistory">
             <summary>
             Funding rate history
