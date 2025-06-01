@@ -85,6 +85,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetMarginModeAsync(System.String,Kucoin.Net.Enums.FuturesMarginMode,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetMarginModesAsync(System.Collections.Generic.IEnumerable{System.String},Kucoin.Net.Enums.FuturesMarginMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetCrossMarginLeverageAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1382,6 +1385,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinMarginModes">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinMarkPrice">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -2143,6 +2151,21 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinMarginModeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinMarginModeError">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinMarginModeErrorArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinMarginModes">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -5866,6 +5889,15 @@
             <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode" /></para>
             </summary>
             <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="marginMode">The new margin mode</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.SetMarginModesAsync(System.Collections.Generic.IEnumerable{System.String},Kucoin.Net.Enums.FuturesMarginMode,System.Threading.CancellationToken)">
+            <summary>
+            Set the margin mode for multiple symbols
+            <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/batch-switch-margin-mode" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `XBTUSDTM`</param>
             <param name="marginMode">The new margin mode</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -9938,6 +9970,41 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginMode.MarginMode">
             <summary>
             Margin mode
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinMarginModes">
+            <summary>
+            Margin mode info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginModes.Errors">
+            <summary>
+            Errors
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginModes.MarginModes">
+            <summary>
+            Margin modes for each symbol
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinMarginModeError">
+            <summary>
+            Error info
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginModeError.Code">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginModeError.Message">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinMarginModeError.Symbol">
+            <summary>
+            Symbol
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinMarkPrice">

@@ -179,6 +179,15 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<KucoinMarginMode>> SetMarginModeAsync(string symbol, FuturesMarginMode marginMode, CancellationToken ct = default);
 
         /// <summary>
+        /// Set the margin mode for multiple symbols
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/batch-switch-margin-mode" /></para>
+        /// </summary>
+        /// <param name="symbols">The symbols, for example `XBTUSDTM`</param>
+        /// <param name="marginMode">The new margin mode</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinMarginModes>> SetMarginModesAsync(IEnumerable<string> symbols, FuturesMarginMode marginMode, CancellationToken ct = default);
+
+        /// <summary>
         /// Get the current cross margin leverage setting
         /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage" /></para>
         /// </summary>

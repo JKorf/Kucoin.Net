@@ -15,6 +15,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKey[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyDetails>))]    
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyEdited>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinMarginModes>))]
     [JsonSerializable(typeof(KucoinResult<KucoinPaginated<KucoinHfOrderDetails>>))]
     [JsonSerializable(typeof(KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>))]
     [JsonSerializable(typeof(KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>))]    

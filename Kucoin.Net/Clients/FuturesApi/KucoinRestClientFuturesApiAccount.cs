@@ -13,6 +13,7 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Spot;
+using System.Linq;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -88,6 +89,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Toggle Auto Deposit Margin
+
         /// <inheritdoc />
         public async Task<WebCallResult> ToggleAutoDepositMarginAsync(string symbol, bool enabled, CancellationToken ct = default)
         {
@@ -97,6 +100,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/position/margin/auto-deposit-status", KucoinExchange.RateLimiter.FuturesRest, 4, true);
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Add Margin
 
         /// <inheritdoc />
         public async Task<WebCallResult> AddMarginAsync(string symbol, decimal quantity, string? clientId = null, CancellationToken ct = default)
@@ -109,6 +116,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Remove Margin
+
         /// <inheritdoc />
         public async Task<WebCallResult> RemoveMarginAsync(string symbol, decimal quantity, CancellationToken ct = default)
         {
@@ -119,6 +130,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
 
         #region Funding fees
 
@@ -223,6 +235,21 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddEnum("marginMode", marginMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/position/changeMarginMode", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinMarginMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Set Margin Modes
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinMarginModes>> SetMarginModesAsync(IEnumerable<string> symbols, FuturesMarginMode marginMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbols", symbols.ToArray());
+            parameters.AddEnum("marginMode", marginMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/position/batchChangeMarginMode", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinMarginModes>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
