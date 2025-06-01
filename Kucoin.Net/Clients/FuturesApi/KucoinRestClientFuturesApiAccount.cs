@@ -284,6 +284,21 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Cross Margin Risk Limit
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCrossMarginRiskLimit[]>> GetCrossMarginRiskLimitAsync(string symbol, decimal? totalMargin = null, int? leverage = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddOptionalString("totalMargin", totalMargin);
+            parameters.AddOptional("leverage", leverage);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v2/batchGetCrossOrderLimit", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinCrossMarginRiskLimit[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
         #region Websocket token
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPublicAsync(CancellationToken ct = default)

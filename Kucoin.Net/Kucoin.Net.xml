@@ -94,6 +94,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetCrossMarginLeverageAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetCrossMarginRiskLimitAsync(System.String,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData">
             <inheritdoc />
         </member>
@@ -1305,6 +1308,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinCrossMarginRiskLimitArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinFundingRate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1951,6 +1959,16 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinContractArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinCrossMarginRiskLimit">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinCrossMarginRiskLimitArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -5918,6 +5936,16 @@
             <param name="leverage">The leverage</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetCrossMarginRiskLimitAsync(System.String,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin risk limits
+            <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-risk-limit" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="totalMargin">The position opening amount, in the contract's settlement asset. Defaults to 10,000 </param>
+            <param name="leverage">Calculates the max position size at the specified leverage. Defaults to the symbol’s max cross leverage.</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData">
             <summary>
             Kucoin Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -9235,6 +9263,56 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.MinLimitSellPrice">
             <summary>
             Minimum limit selling price
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit">
+            <summary>
+            Cross margin risk limit
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.MaxOpenQuantity">
+            <summary>
+            Max open quantity
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.MaxOpenValue">
+            <summary>
+            Max open value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.TotalMargin">
+            <summary>
+            Total margin
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.MaintenanceMarginRate">
+            <summary>
+            Maintenance margin rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.InitialMarginRate">
+            <summary>
+            Initial margin rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit.Asset">
+            <summary>
+            Margin asset
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFundingItem">
