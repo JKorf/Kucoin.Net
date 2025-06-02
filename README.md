@@ -155,6 +155,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.1.0 - 02 Jun 2025
+    * Updated CryptoExchange.Net to version 9.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added (I)KucoinUserClientProvider allowing for easy client management when handling multiple users
+    * Added restClient.FuturesApi.Account.SetMarginModesAsync endpoint
+    * Added restClient.FuturesApi.Account.GetCrossMarginRiskLimitAsync endpoint
+    * Added Period and NextFundingTime to restClient.FuturesApi.ExchangeData.GetCurrentFundingRateAsync response model
+    * Adjusted margin endpoint ratelimits
+    * Updated restClient.SpotApi.Account.GetCrossMarginAccountsAsync response model
+
 * Version 7.0.0 - 13 May 2025
     * Updated CryptoExchange.Net to version 9.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added support for Native AOT compilation
