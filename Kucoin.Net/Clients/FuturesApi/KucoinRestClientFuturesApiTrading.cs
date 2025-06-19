@@ -94,8 +94,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             string symbol,
             OrderSide side,
             NewOrderType type,
-            decimal leverage,
-            int quantity,
+            decimal? leverage = null,
+            int? quantity = null,
 
             decimal? price = null,
             TimeInForce? timeInForce = null,
@@ -119,8 +119,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("symbol", symbol);
             parameters.AddEnum("side", side);
             parameters.AddEnum("type", type);
-            parameters.AddParameter("leverage", leverage.ToString(CultureInfo.InvariantCulture));
-            parameters.AddParameter("size", quantity.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("leverage", leverage?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalEnum("stop", stopType);

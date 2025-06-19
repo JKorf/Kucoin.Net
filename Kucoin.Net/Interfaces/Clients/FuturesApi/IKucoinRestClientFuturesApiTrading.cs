@@ -100,8 +100,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
             string symbol,
             OrderSide side,
             NewOrderType type,
-            decimal leverage,
-            int quantity,
+            decimal? leverage = null,
+            int? quantity = null,
 
             decimal? price = null,
             TimeInForce? timeInForce = null,
