@@ -25,6 +25,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Objects.Models.Spot;
+using System.Net.WebSockets;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -60,7 +61,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 });
         }
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
         /// <inheritdoc />
