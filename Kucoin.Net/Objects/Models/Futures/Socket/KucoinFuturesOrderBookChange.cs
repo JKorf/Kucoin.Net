@@ -2,6 +2,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using Kucoin.Net.Enums;
 
 using System;
+using System.Globalization;
 
 namespace Kucoin.Net.Objects.Models.Futures.Socket
 {
@@ -27,7 +28,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Price
         /// </summary>
-        public decimal Price => decimal.Parse(Change.Split(',')[0]);
+        public decimal Price => decimal.Parse(Change.Split(',')[0], NumberStyles.Float, CultureInfo.InvariantCulture);
         /// <summary>
         /// Side
         /// </summary>
@@ -35,6 +36,6 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// <summary>
         /// Quantity
         /// </summary>
-        public decimal Quantity => decimal.Parse(Change.Split(',')[2]);
+        public decimal Quantity => decimal.Parse(Change.Split(',')[2], NumberStyles.Float, CultureInfo.InvariantCulture);
     }
 }
