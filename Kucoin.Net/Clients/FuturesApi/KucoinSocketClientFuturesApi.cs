@@ -87,7 +87,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (topic.StartsWith("/contract/position", StringComparison.Ordinal))
             {
                 var subject = message.GetValue<string?>(_subjectPath);
-                if (subject.Equals("position.change", StringComparison.Ordinal))
+                if (subject?.Equals("position.change", StringComparison.Ordinal) == true)
                 {
                     var changeReason = message.GetValue<string?>(_changeReasonPath);
                     if (changeReason?.Equals("markPriceChange") == true)
