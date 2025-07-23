@@ -15,8 +15,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private readonly Action<DataEvent<KucoinIsolatedMarginPositionUpdate>>? _onPositionChange;
         private string _topic;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public KucoinIsolatedMarginPositionSubscription(
             ILogger logger,
             string symbol,
@@ -26,7 +24,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onPositionChange = onPositionChange;
             _topic = "/margin/isolatedPosition:" + symbol;
 
-            ListenerIdentifiers = new HashSet<string> { _topic };
+            MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(_topic, DoHandleMessage);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -39,17 +37,11 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>> message)
         {
-            var data = (KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>)message.Data;
-            _onPositionChange?.Invoke(message.As(data.Data, data.Topic, data.Data.Tag, SocketUpdateType.Update).WithDataTimestamp(data.Data.Timestamp));
+            _onPositionChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Tag, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
 
             return CallResult.SuccessResult;
-        }
-
-        public override Type? GetMessageType(IMessageAccessor message)
-        {
-            return typeof(KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>);
         }
     }
 }

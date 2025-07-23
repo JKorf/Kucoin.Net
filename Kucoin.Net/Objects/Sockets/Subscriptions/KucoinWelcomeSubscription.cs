@@ -6,14 +6,11 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinWelcomeSubscription : SystemSubscription<KucoinWelcome>
+    internal class KucoinWelcomeSubscription : SystemSubscription
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string>() { "welcome" };
-
         public KucoinWelcomeSubscription(ILogger logger) : base(logger, false)
         {
+            MessageMatcher = MessageMatcher.Create<KucoinWelcome>("welcome");
         }
-
-        public override CallResult HandleMessage(SocketConnection connection, DataEvent<KucoinWelcome> message) => CallResult.SuccessResult;
     }
 }

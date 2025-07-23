@@ -36,6 +36,8 @@ namespace Kucoin.Net.Clients.SpotApi
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
         private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
+        private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
+        private static readonly MessagePath _orderEventTypePath = MessagePath.Get().Property("data").Property("type");
 
         /// <inheritdoc />
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
@@ -95,7 +97,18 @@ namespace Kucoin.Net.Clients.SpotApi
                 return id;
             }
 
-            return topic!;
+            if (topic!.StartsWith("/margin/loan", StringComparison.Ordinal)
+             || topic!.StartsWith("/margin/position", StringComparison.Ordinal))
+                {
+                return topic + message.GetValue<string?>(_subjectPath);
+            }
+
+            if (topic.Equals("/spotMarket/tradeOrdersV2"))
+            {
+                return topic + message.GetValue<string?>(_orderEventTypePath);
+            }
+
+            return topic;
         }
 
         /// <inheritdoc />

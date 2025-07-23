@@ -17,9 +17,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private readonly Action<DataEvent<KucoinMarginOrderUpdate>>? _onOrderData;
         private readonly Action<DataEvent<KucoinMarginOrderDoneUpdate>>? _onOrderDone;
         private readonly string _topic;
-        private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
-
-        public override HashSet<string> ListenerIdentifiers { get; set; }
 
         public KucoinMarginOrderSubscription(
             ILogger logger,
@@ -34,7 +31,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onNewOrder = onNewOrder;
 
             _topic = "/margin/loan:" + asset;
-;            ListenerIdentifiers = new HashSet<string> { _topic };
+
+            MessageMatcher = MessageMatcher.Create([
+                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(_topic + "order.open", DoHandleOpenMessage),
+                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(_topic + "order.update", DoHandleUpdateMessage),
+                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>(_topic + "order.done", DoHandleDoneMessage)
+                ]);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -47,32 +49,22 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleDoneMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>> message)
         {
-            if (message.Data is KucoinSocketUpdate<KucoinMarginOrderDoneUpdate> matchUpdate)
-                _onOrderDone?.Invoke(message.As(matchUpdate.Data, matchUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(matchUpdate.Data.Timestamp));
-            if (message.Data is KucoinSocketUpdate<KucoinMarginOrderUpdate> orderUpdate)
-            {
-                if (string.Equals(orderUpdate.Subject, "order.open", StringComparison.Ordinal))
-                    _onNewOrder?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(orderUpdate.Data.Timestamp));
-                else
-                    _onOrderData?.Invoke(message.As(orderUpdate.Data, orderUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(orderUpdate.Data.Timestamp));
-            }
-
+            _onOrderDone?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public override Type? GetMessageType(IMessageAccessor message)
+        public CallResult DoHandleOpenMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderUpdate>> message)
         {
-            var type = message.GetValue<string>(_subjectPath);
-            if (string.Equals(type, "order.open", StringComparison.Ordinal))
-                return typeof(KucoinSocketUpdate<KucoinMarginOrderUpdate>);
-            if (string.Equals(type, "order.update", StringComparison.Ordinal))
-                return typeof(KucoinSocketUpdate<KucoinMarginOrderUpdate>);
-            if (string.Equals(type, "order.done", StringComparison.Ordinal))
-                return typeof(KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>);
+            _onNewOrder?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            return CallResult.SuccessResult;
+        }
 
-            return null;
+        public CallResult DoHandleUpdateMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderUpdate>> message)
+        {
+            _onOrderData?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            return CallResult.SuccessResult;
         }
     }
 }

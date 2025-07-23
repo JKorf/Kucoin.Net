@@ -15,14 +15,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private string _topic;
         private Action<DataEvent<T>> _handler;
 
-        public override HashSet<string> ListenerIdentifiers { get; set;  }
-
         public KucoinSubscription(ILogger logger, string topic, List<string>? symbols, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _topic = symbols?.Any() == true ? topic + ":" + string.Join(",", symbols) : topic;
             _handler = handler;
 
-            ListenerIdentifiers = symbols?.Any() == true ? new HashSet<string>(symbols.Select(s => topic + ":" + s)) : new HashSet<string> { topic };
+            if (symbols?.Count > 0)
+                MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
+            else
+                MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -35,17 +36,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<T>> message)
         {
-            var data = (KucoinSocketUpdate<T>)message.Data;
-            string? topic = data.Topic.Contains(":") ? data.Topic.Split(':').Last() : null;
+            string? topic = message.Data.Topic.Contains(":") ? message.Data.Topic.Split(':').Last() : null;
             if (string.Equals(topic, "all", StringComparison.Ordinal))
-                topic = data.Subject;
+                topic = message.Data.Subject;
 
-            _handler.Invoke(message.As(data.Data, data.Topic, topic, SocketUpdateType.Update));
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Topic, topic, SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
-
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(KucoinSocketUpdate<T>);
     }
 }

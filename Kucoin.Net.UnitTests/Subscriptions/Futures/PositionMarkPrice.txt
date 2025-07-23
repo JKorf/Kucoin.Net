@@ -15,6 +15,7 @@
     "unrealisedPnlPcnt": -0.0553, 
     "delevPercentage": 0.52, 
     "currentTimestamp": 1558087175068, 
-    "settleCurrency": "XBT" 
+    "settleCurrency": "XBT",
+    "changeReason": "markPriceChange"
   }
 }

@@ -33,6 +33,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
         private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
+        private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
+        private static readonly MessagePath _changeReasonPath = MessagePath.Get().Property("data").Property("changeReason");
 
         private readonly KucoinSocketClient _baseClient;
 
@@ -74,7 +76,30 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!string.Equals(type, "message", StringComparison.Ordinal) && id != null)
                 return id;
 
-            return message.GetValue<string>(_topicPath)!;
+            var topic = message.GetValue<string>(_topicPath)!;
+            if (topic.Equals("/contractAccount/wallet", StringComparison.Ordinal)
+                || topic.StartsWith("/margin/position", StringComparison.Ordinal)
+                || topic.StartsWith("/contract/instrument", StringComparison.Ordinal))
+            {
+                return topic + message.GetValue<string?>(_subjectPath);
+            }
+
+            if (topic.StartsWith("/contract/position", StringComparison.Ordinal))
+            {
+                var subject = message.GetValue<string?>(_subjectPath);
+                if (subject.Equals("position.change", StringComparison.Ordinal))
+                {
+                    var changeReason = message.GetValue<string?>(_changeReasonPath);
+                    if (changeReason?.Equals("markPriceChange") == true)
+                        return topic + subject + changeReason;
+
+                    return topic + subject;
+                }
+
+                return topic + subject;
+            }
+
+            return topic;
         }
 
         public IKucoinSocketClientFuturesApiShared SharedClient => this;

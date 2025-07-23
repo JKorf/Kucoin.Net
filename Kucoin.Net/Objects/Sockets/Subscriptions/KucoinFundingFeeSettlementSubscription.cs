@@ -15,10 +15,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private string _topic;
         private Action<DataEvent<KucoinContractAnnouncement>> _dataHandler;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string> { "/contract/announcement" };
-
         public KucoinFundingFeeSettlementSubscription(ILogger logger, Action<DataEvent<KucoinContractAnnouncement>> dataHandler) : base(logger, false)
         {
+            MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
+
             _topic = "/contract/announcement";
             _dataHandler = dataHandler;
         }
@@ -33,14 +33,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinContractAnnouncement>> message)
         {
-            var data = (KucoinSocketUpdate<KucoinContractAnnouncement>)message.Data;
-            data.Data.Event = data.Subject;
-            _dataHandler.Invoke(message.As(data.Data, data.Topic, data.Data.Symbol, SocketUpdateType.Update));
+            message.Data.Data.Event = message.Data.Subject;
+            _dataHandler.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
 
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(KucoinSocketUpdate<KucoinContractAnnouncement>);
     }
 }

@@ -17,9 +17,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private string _topic;
         private Action<DataEvent<KucoinStreamFuturesMarkIndexPrice>> _markIndexPriceHandler;
         private Action<DataEvent<KucoinStreamFuturesFundingRate>> _fundingRateHandler;
-        private readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
-
-        public override HashSet<string> ListenerIdentifiers { get; set;  }
 
         public KucoinInstrumentSubscription(ILogger logger,List<string>? symbols, Action<DataEvent<KucoinStreamFuturesMarkIndexPrice>> markIndexPriceHandler, Action<DataEvent<KucoinStreamFuturesFundingRate>> fundingRateHandler) : base(logger, false)
         {
@@ -28,7 +25,23 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _markIndexPriceHandler = markIndexPriceHandler;
             _fundingRateHandler = fundingRateHandler;
 
-            ListenerIdentifiers = symbols?.Any() == true ? new HashSet<string>(symbols.Select(s => topic + ":" + s)) : new HashSet<string> { topic };
+            if (symbols?.Count > 0)
+            {
+                var checkers = new List<MessageHandlerLink>();
+                foreach(var symbol in symbols)
+                {
+                    checkers.Add(new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + ":" + symbol + "mark.index.price", DoHandleMessage));
+                    checkers.Add(new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + ":" + symbol + "funding.rate", DoHandleMessage));
+                }
+
+                MessageMatcher = MessageMatcher.Create(checkers.ToArray());
+            }
+            else
+            {
+                MessageMatcher = MessageMatcher.Create(
+                    new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + "mark.index.price", DoHandleMessage),
+                    new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + "funding.rate", DoHandleMessage));
+            }
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -41,22 +54,16 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>> message)
         {
-            if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice> markUpdate)
-                _markIndexPriceHandler?.Invoke(message.As(markUpdate.Data, markUpdate.Topic, markUpdate.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
-
-            if (message.Data is KucoinSocketUpdate<KucoinStreamFuturesFundingRate> fundingUpdate)
-                _fundingRateHandler?.Invoke(message.As(fundingUpdate.Data, fundingUpdate.Topic, fundingUpdate.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
+            _markIndexPriceHandler?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
 
-        public override Type? GetMessageType(IMessageAccessor message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>> message)
         {
-            var subject = message.GetValue<string>(_subjectPath);
-            if (string.Equals(subject, "mark.index.price", StringComparison.Ordinal))
-                return typeof(KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>);
-            return typeof(KucoinSocketUpdate<KucoinStreamFuturesFundingRate>);
+            _fundingRateHandler?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
+            return CallResult.SuccessResult;
         }
     }
 }

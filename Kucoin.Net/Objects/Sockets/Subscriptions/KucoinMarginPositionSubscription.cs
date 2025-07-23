@@ -16,9 +16,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private readonly Action<DataEvent<KucoinMarginDebtRatioUpdate>>? _onDebtRatioChange;
         private readonly Action<DataEvent<KucoinMarginPositionStatusUpdate>>? _onPositionStatusChange;
         private readonly string _topic = "/margin/position";
-        private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
-
-        public override HashSet<string> ListenerIdentifiers { get; set; }
+        
 
         public KucoinMarginPositionSubscription(
             ILogger logger,
@@ -29,7 +27,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onDebtRatioChange = onDebtRatioChange;
             _onPositionStatusChange = onPositionStatusChange;
 
-            ListenerIdentifiers = new HashSet<string> { _topic };
+            MessageMatcher = MessageMatcher.Create([
+                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>(_topic + "debt.ratio", DoHandleMessage),
+                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>(_topic + "position.status", DoHandleMessage)
+                ]);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -42,25 +43,16 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery("unsubscribe", _topic, Authenticated);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>> message)
         {
-            if (message.Data is KucoinSocketUpdate<KucoinMarginDebtRatioUpdate> debtUpdate)
-                _onDebtRatioChange?.Invoke(message.As(debtUpdate.Data, debtUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(debtUpdate.Data.Timestamp));
-            if (message.Data is KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> statusUpdate)
-                _onPositionStatusChange?.Invoke(message.As(statusUpdate.Data, statusUpdate.Topic, null, SocketUpdateType.Update).WithDataTimestamp(statusUpdate.Data.Timestamp));
-
+            _onDebtRatioChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public override Type? GetMessageType(IMessageAccessor message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>> message)
         {
-            var type = message.GetValue<string>(_subjectPath);
-            if (string.Equals(type, "debt.ratio", StringComparison.Ordinal))
-                return typeof(KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>);
-            if (string.Equals(type, "position.status", StringComparison.Ordinal))
-                return typeof(KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>);
-
-            return null;
+            _onPositionStatusChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            return CallResult.SuccessResult;
         }
     }
 }
