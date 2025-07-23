@@ -299,6 +299,23 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         #endregion
+
+        #region Get Cross Margin Requirement
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCrossMarginRequirement>> GetCrossMarginRequirementAsync(string symbol, decimal positionValue, int? leverage = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddString("positionValue", positionValue);
+            parameters.AddOptionalString("leverage", leverage);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/getCrossModeMarginRequirement", KucoinExchange.RateLimiter.FuturesRest, 3, true);
+            var result = await _baseClient.SendAsync<KucoinCrossMarginRequirement>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Websocket token
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPublicAsync(CancellationToken ct = default)

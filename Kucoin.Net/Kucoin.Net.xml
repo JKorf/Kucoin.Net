@@ -97,6 +97,9 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetCrossMarginRiskLimitAsync(System.String,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetCrossMarginRequirementAsync(System.String,System.Decimal,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData">
             <inheritdoc />
         </member>
@@ -5946,6 +5949,16 @@
             <param name="leverage">Calculates the max position size at the specified leverage. Defaults to the symbol’s max cross leverage.</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetCrossMarginRequirementAsync(System.String,System.Decimal,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin requirement
+            </summary>
+            <param name="symbol">The symbol, for example `XBTUSDTM`</param>
+            <param name="positionValue">Position value</param>
+            <param name="leverage">Leverage to use</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData">
             <summary>
             Kucoin Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -9263,6 +9276,41 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.MinLimitSellPrice">
             <summary>
             Minimum limit selling price
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement">
+            <summary>
+            Margin requirements
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement.InitialMarginRequirement">
+            <summary>
+            Initial margin requirements
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement.MaintenanceMarginRequirement">
+            <summary>
+            Maintenance margin requirement
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement.PositionSize">
+            <summary>
+            Position size in contracts
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement.PositionValue">
+            <summary>
+            Position value
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement.Price">
+            <summary>
+            Trade price
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRiskLimit">
