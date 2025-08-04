@@ -184,7 +184,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
-            => SubscribeToKlineUpdatesAsync(symbol, interval, onData, ct);
+            => SubscribeToKlineUpdatesAsync([symbol], interval, onData, ct);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
