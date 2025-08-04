@@ -183,9 +183,13 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
+        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
+            => SubscribeToKlineUpdatesAsync(symbol, interval, onData, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, $"/market/candles", new List<string> { $"{symbol}_{EnumConverter.GetString(interval)}" }, x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, $"/market/candles", symbols.Select(x => $"{x}_{EnumConverter.GetString(interval)}").ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
 
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }

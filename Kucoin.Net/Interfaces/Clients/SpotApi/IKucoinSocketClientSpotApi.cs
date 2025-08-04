@@ -126,6 +126,17 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to kline updates
+        /// <para><a href="https://www.kucoin.com/docs-new/3470071w0" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe, for example `ETH-USDT`</param>
+        /// <param name="interval">Interval of the klines</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to book ticker (best ask/bid) updates
         /// <para><a href="https://www.kucoin.com/docs-new/3470067w0" /></para>
         /// </summary>
