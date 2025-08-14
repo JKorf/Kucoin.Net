@@ -13,6 +13,7 @@ using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System.Linq;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -215,13 +216,13 @@ namespace Kucoin.Net.Clients.FuturesApi
             foreach (var item in resultData.Data)
             {
                 if (item.Message != "success")
-                    result.Add(new CallResult<KucoinFuturesOrderResult>(new ServerError(item.Code, item.Message!)));
+                    result.Add(new CallResult<KucoinFuturesOrderResult>(new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, item.Message))));
                 else
                     result.Add(new CallResult<KucoinFuturesOrderResult>(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
             return resultData.As(result.ToArray());
         }

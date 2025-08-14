@@ -1,5 +1,6 @@
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models;
@@ -211,13 +212,14 @@ namespace Kucoin.Net.Clients.SpotApi
             foreach (var item in resultData.Data)
             {
                 if (!string.IsNullOrEmpty(item.Error))
-                    result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(new ServerError(item.Error!)));
+#warning check
+                    result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(new ServerError(ErrorInfo.Unknown with { Message = item.Error! })));
                 else
                     result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
             return resultData.As(result.ToArray());
         }
@@ -247,13 +249,13 @@ namespace Kucoin.Net.Clients.SpotApi
             foreach (var item in resultData.Data)
             {
                 if (!string.IsNullOrEmpty(item.ErrorMessage))
-                    result.Add(new CallResult<KucoinHfBulkOrderResponse>(new ServerError(item.ErrorMessage!)));
+                    result.Add(new CallResult<KucoinHfBulkOrderResponse>(new ServerError(ErrorInfo.Unknown with { Message = item.ErrorMessage! })));
                 else
                     result.Add(new CallResult<KucoinHfBulkOrderResponse>(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
             return resultData.As(result.ToArray());
         }
@@ -348,7 +350,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/{orderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinHfOrderDetails>(request, parameters, ct).ConfigureAwait(false);
             if (result.Data == null)
-                return result.AsError<KucoinHfOrderDetails>(new ServerError("Order not found"));
+                return result.AsError<KucoinHfOrderDetails>(new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
             return result;
         }
 
@@ -360,7 +362,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/orders/client-order/{clientOrderId}", KucoinExchange.RateLimiter.SpotRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinHfOrderDetails>(request, parameters, ct).ConfigureAwait(false);
             if (result.Data == null)
-                return result.AsError<KucoinHfOrderDetails>(new ServerError("Order not found"));
+                return result.AsError<KucoinHfOrderDetails>(new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
             return result;
         }
 

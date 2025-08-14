@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -14,6 +15,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinPositionUpdate>>? _onPositionUpdate;
         private readonly Action<DataEvent<KucoinPositionMarkPriceUpdate>>? _onMarkPriceUpdate;
         private readonly Action<DataEvent<KucoinPositionFundingSettlementUpdate>>? _onFundingSettlementUpdate;
@@ -22,6 +24,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinPositionSubscription(
             ILogger logger,
+            SocketApiClient client,
             string? symbol,
             Action<DataEvent<KucoinPositionUpdate>>? onPositionUpdate,
             Action<DataEvent<KucoinPositionMarkPriceUpdate>>? onMarkPriceUpdate,
@@ -29,6 +32,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             Action<DataEvent<KucoinPositionRiskAdjustResultUpdate>>? onRiskAdjustUpdate
             ) : base(logger, true)
         {
+            _client = client;
             _topic = symbol == null ? "/contract/positionAll" : "/contract/position:" + symbol;
             _onPositionUpdate = onPositionUpdate;
             _onMarkPriceUpdate = onMarkPriceUpdate;
@@ -45,12 +49,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>> message)

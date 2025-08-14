@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
@@ -12,15 +13,19 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinIsolatedMarginPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
+
         private readonly Action<DataEvent<KucoinIsolatedMarginPositionUpdate>>? _onPositionChange;
         private string _topic;
 
         public KucoinIsolatedMarginPositionSubscription(
             ILogger logger,
+            SocketApiClient client,
             string symbol,
             Action<DataEvent<KucoinIsolatedMarginPositionUpdate>>? onPositionChange
             ) : base(logger, true)
         {
+            _client = client;
             _onPositionChange = onPositionChange;
             _topic = "/margin/isolatedPosition:" + symbol;
 
@@ -29,12 +34,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>> message)

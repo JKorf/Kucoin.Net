@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
 using Kucoin.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -43,7 +44,8 @@ namespace Kucoin.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetKlinesAsync("TSTTST", Enums.KlineInterval.OneDay, default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Code, Is.EqualTo(400100));
+            Assert.That(result.Error.ErrorCode, Is.EqualTo("400100"));
+            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]

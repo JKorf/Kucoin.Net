@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
@@ -12,11 +13,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinSubscription<T> : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private string _topic;
         private Action<DataEvent<T>> _handler;
 
-        public KucoinSubscription(ILogger logger, string topic, List<string>? symbols, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public KucoinSubscription(ILogger logger, SocketApiClient client, string topic, List<string>? symbols, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
+            _client = client;
             _topic = symbols?.Any() == true ? topic + ":" + string.Join(",", symbols) : topic;
             _handler = handler;
 
@@ -28,12 +31,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<T>> message)

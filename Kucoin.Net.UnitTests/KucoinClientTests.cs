@@ -31,7 +31,7 @@ namespace Kucoin.Net.UnitTests
             {
                 Code = 400001,
                 Data = default!,
-                Message = "Error occured"
+                Message = "Error occurred"
             };
 
             TestHelpers.SetResponse((KucoinRestClient)client, JsonSerializer.Serialize(resultObj));
@@ -42,8 +42,8 @@ namespace Kucoin.Net.UnitTests
             // assert
             ClassicAssert.IsFalse(result.Success);
             ClassicAssert.IsNotNull(result.Error);
-            Assert.That(result.Error!.Code == 400001);
-            Assert.That(result.Error.Message == "Error occured");
+            Assert.That(result.Error.ErrorCode == "400001");
+            Assert.That(result.Error.Message == "Error occurred");
         }
 
         [TestCase()]
@@ -70,7 +70,7 @@ namespace Kucoin.Net.UnitTests
             {
                 Code = 400001,
                 Data = default!,
-                Message = "Error occured"
+                Message = "Error occurred"
             };
 
             TestHelpers.SetResponse((KucoinRestClient)client, JsonSerializer.Serialize(resultObj), System.Net.HttpStatusCode.BadRequest);
@@ -81,8 +81,8 @@ namespace Kucoin.Net.UnitTests
             // assert
             ClassicAssert.IsFalse(result.Success);
             ClassicAssert.IsNotNull(result.Error);
-            Assert.That(result.Error!.Code == 400001);
-            Assert.That(result.Error.Message == "Error occured");
+            Assert.That(result.Error!.ErrorCode == "400001");
+            Assert.That(result.Error.Message == "Error occurred");
         }
 
         [Test]

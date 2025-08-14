@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -14,6 +15,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinBalanceSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinStreamFuturesWalletUpdate>>? _onWalletUpdate;
         private readonly Action<DataEvent<KucoinStreamOrderMarginUpdate>>? _onOrderMarginUpdate;
         private readonly Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? _onBalanceUpdate;
@@ -22,12 +24,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinBalanceSubscription(
             ILogger logger,
+            SocketApiClient client,
             Action<DataEvent<KucoinStreamOrderMarginUpdate>>? onOrderMarginUpdate,
             Action<DataEvent<KucoinStreamFuturesBalanceUpdate>>? onBalanceUpdate,
             Action<DataEvent<KucoinStreamFuturesWithdrawableUpdate>>? onWithdrawableUpdate,
             Action<DataEvent<KucoinStreamFuturesWalletUpdate>>? onWalletUpdate
             ) : base(logger, true)
         {
+            _client = client;
             _onOrderMarginUpdate = onOrderMarginUpdate;
             _onBalanceUpdate = onBalanceUpdate;
             _onWithdrawableUpdate = onWithdrawableUpdate;
@@ -43,12 +47,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleWalletChange(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>> message)

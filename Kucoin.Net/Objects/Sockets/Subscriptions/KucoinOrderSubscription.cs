@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -13,6 +14,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinOrderSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinStreamOrderNewUpdate>>? _onNewOrder;
         private readonly Action<DataEvent<KucoinStreamOrderUpdate>>? _onOrderData;
         private readonly Action<DataEvent<KucoinStreamOrderMatchUpdate>>? _onTradeData;
@@ -21,11 +23,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinOrderSubscription(
             ILogger logger,
+            SocketApiClient client,
             Action<DataEvent<KucoinStreamOrderNewUpdate>>? onNewOrder,
             Action<DataEvent<KucoinStreamOrderUpdate>>? onOrderData,
             Action<DataEvent<KucoinStreamOrderMatchUpdate>>? onTradeData
             ) : base(logger, true)
         {
+            _client = client;
             _onOrderData = onOrderData;
             _onTradeData = onTradeData;
             _onNewOrder = onNewOrder;
@@ -42,12 +46,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleMatchMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>> message)

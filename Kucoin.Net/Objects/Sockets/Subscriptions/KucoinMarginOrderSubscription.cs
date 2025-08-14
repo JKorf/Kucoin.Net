@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -13,6 +14,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinMarginOrderSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinMarginOrderUpdate>>? _onNewOrder;
         private readonly Action<DataEvent<KucoinMarginOrderUpdate>>? _onOrderData;
         private readonly Action<DataEvent<KucoinMarginOrderDoneUpdate>>? _onOrderDone;
@@ -20,12 +22,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinMarginOrderSubscription(
             ILogger logger,
+            SocketApiClient client,
             string asset,
             Action<DataEvent<KucoinMarginOrderUpdate>>? onNewOrder,
             Action<DataEvent<KucoinMarginOrderUpdate>>? onOrderData,
             Action<DataEvent<KucoinMarginOrderDoneUpdate>>? onOrderDone
             ) : base(logger, true)
         {
+            _client = client;
             _onOrderData = onOrderData;
             _onOrderDone = onOrderDone;
             _onNewOrder = onNewOrder;
@@ -41,12 +45,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleDoneMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>> message)

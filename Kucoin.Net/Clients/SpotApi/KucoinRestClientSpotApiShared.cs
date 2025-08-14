@@ -29,7 +29,7 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -393,7 +393,7 @@ namespace Kucoin.Net.Clients.SpotApi
             else
             {
                 if (request.Symbol == null)
-                    return new ExchangeWebResult<SharedSpotOrder[]>(Exchange, new ArgumentError("Symbol parameter is required for HfTrading account"));
+                    return new ExchangeWebResult<SharedSpotOrder[]>(Exchange, ArgumentError.Missing("Symbol", "Symbol parameter is required for HfTrading account"));
 
                 var symbol = request.Symbol.GetSymbol(FormatSymbol);
                 var order = await HfTrading.GetOpenOrdersAsync(symbol).ConfigureAwait(false);
