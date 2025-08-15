@@ -25,50 +25,7 @@ namespace Kucoin.Net.Clients.SpotApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
-        protected override ErrorCollection ErrorMapping { get; } = new ErrorCollection([
-
-            new ErrorInfo(ErrorType.Unauthorized, false, "KYC required", "200009"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "API key invalid", "400003"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "Passphrase invalid", "400004"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "IP address not allowed", "400006"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "Access denied", "400007"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "Order placement forbidden", "400200"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "Token now allowed based on region", "400500"),
-            new ErrorInfo(ErrorType.Unauthorized, false, "User frozen", "411100"),
-
-            new ErrorInfo(ErrorType.SignatureInvalid, false, "Signature error", "400005"),
-
-            new ErrorInfo(ErrorType.TimestampInvalid, false, "Invalid timestamp", "400002"),
-
-            new ErrorInfo(ErrorType.SystemError, true, "Internal server error", "500000"),
-            new ErrorInfo(ErrorType.SystemError, true, "System busy", "230005"),
-
-            new ErrorInfo(ErrorType.InvalidParameter, false, "Parameter error", "102411", "400100"),
-            new ErrorInfo(ErrorType.InvalidParameter, false, "Time range not supported", "102425"),
-
-            new ErrorInfo(ErrorType.PriceInvalid, false, "Price too low", "102429"),
-
-            new ErrorInfo(ErrorType.QuantityInvalid, false, "Order quantity too large", "102434"),
-            new ErrorInfo(ErrorType.QuantityInvalid, false, "Order quantity too low", "102435"),
-
-            new ErrorInfo(ErrorType.UnknownOrder, false, "Unknown order", "102436"),
-
-            new ErrorInfo(ErrorType.UnknownSymbol, false, "Unknown symbol", "900001"),
-
-            new ErrorInfo(ErrorType.SymbolNotTrading, false, "Symbol does not allow new orders currently", "200001"),
-            new ErrorInfo(ErrorType.SymbolNotTrading, false, "Symbol does not allow cancellation currently", "200002"),
-            new ErrorInfo(ErrorType.SymbolNotTrading, false, "Symbol is not yet trading", "400600"),
-            new ErrorInfo(ErrorType.SymbolNotTrading, false, "Symbol is not currently trading", "600203"),
-
-            new ErrorInfo(ErrorType.DuplicateClientOrderId, false, "Duplicate clientOrderId", "102426"),
-
-            new ErrorInfo(ErrorType.OrderRateLimited, false, "Too many open orders", "102427", "200003"),
-
-            new ErrorInfo(ErrorType.BalanceInsufficient, false, "Insufficient balance", "102421", "200004"),
-
-            new ErrorInfo(ErrorType.TargetIncorrectState, false, "Order is being processed and can't be canceled", "102428"),
-
-            ]);
+        protected override ErrorCollection ErrorMapping => KucoinErrors.SpotErrors;
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";
@@ -164,6 +121,18 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 RetryAfter = DateTime.UtcNow.AddMilliseconds(milliseconds)
             };
+        }
+
+        /// <inheritdoc />
+        protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        {
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            if (code != null && code != 200000 && code != 200) {
+                var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+                return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
+            }
+
+            return null;
         }
 
         /// <inheritdoc />

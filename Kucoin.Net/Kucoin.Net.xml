@@ -426,6 +426,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.TryParseError(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>

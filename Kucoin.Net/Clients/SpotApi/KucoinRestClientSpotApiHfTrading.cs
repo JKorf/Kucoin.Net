@@ -212,7 +212,6 @@ namespace Kucoin.Net.Clients.SpotApi
             foreach (var item in resultData.Data)
             {
                 if (!string.IsNullOrEmpty(item.Error))
-#warning check
                     result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(new ServerError(ErrorInfo.Unknown with { Message = item.Error! })));
                 else
                     result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(item));
