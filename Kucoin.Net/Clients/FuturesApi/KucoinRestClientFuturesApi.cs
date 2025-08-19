@@ -29,7 +29,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
 
-        protected override ErrorCollection ErrorMapping => KucoinErrors.FuturesErrors;
+        protected override ErrorMapping ErrorMapping => KucoinErrors.FuturesErrors;
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";

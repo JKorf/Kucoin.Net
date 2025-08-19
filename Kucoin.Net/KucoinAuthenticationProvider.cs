@@ -31,19 +31,9 @@ namespace Kucoin.Net
                 throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for Kucoin authentication");
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
             var brokerName = ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerName;
@@ -55,12 +45,9 @@ namespace Kucoin.Net
                 brokerKey = apiClient is KucoinRestClientFuturesApi ? "9e08c05f-454d-4580-82af-2f4c7027fd00" : "f8ae62cb-2b3d-420c-8c98-e1c17dd4e30a";
             }
 
-            if (uriParameters != null)
-                uri = uri.SetParameters(uriParameters, arraySerialization);
-
-            headers ??= new Dictionary<string, string>();
-            headers.Add("KC-API-KEY", _credentials.Key);
-            headers.Add("KC-API-TIMESTAMP", GetMillisecondTimestamp(apiClient).ToString());
+            var timestamp = GetMillisecondTimestamp(apiClient).ToString();
+            request.Headers.Add("KC-API-KEY", _credentials.Key);
+            request.Headers.Add("KC-API-TIMESTAMP", timestamp);
             var phraseKey = _credentials.Key + "|" + _credentials.Pass;
             if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
             {
@@ -68,31 +55,27 @@ namespace Kucoin.Net
                 _phraseCache.TryAdd(phraseKey, phraseSign);
             }
 
-            headers.Add("KC-API-PASSPHRASE", phraseSign);
-            headers.Add("KC-API-KEY-VERSION", "3");
+            request.Headers.Add("KC-API-PASSPHRASE", phraseSign);
+            request.Headers.Add("KC-API-KEY-VERSION", "3");
 
-            string jsonContent = string.Empty;
-            if (parameterPosition == HttpMethodParameterPosition.InBody)
-            {
-                if (bodyParameters?.Any() == true)
-                {
-                    jsonContent = GetSerializedBody(_serializer, bodyParameters);
-                }
-                else
-                {
-                    jsonContent = "{}";
-                }
-            }
+            var bodyData = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var queryString = request.GetQueryString(false);
+            if (!string.IsNullOrEmpty(queryString))
+                queryString = $"?{queryString}";
 
-            var signData = headers["KC-API-TIMESTAMP"] + method + Uri.UnescapeDataString(uri.PathAndQuery) + jsonContent;
-            headers.Add("KC-API-SIGN", SignHMACSHA256(signData, SignOutputType.Base64));
+            var signData = $"{timestamp}{request.Method}{request.Path}{queryString}{bodyData}";
+            request.Headers.Add("KC-API-SIGN", SignHMACSHA256(signData, SignOutputType.Base64));
 
             // Partner info
-            headers.Add("KC-API-PARTNER", brokerName!);
-            var partnerSignData = headers["KC-API-TIMESTAMP"] + brokerName + _credentials.Key;
+            request.Headers.Add("KC-API-PARTNER", brokerName!);
+            var partnerSignData = $"{timestamp}{brokerName}{_credentials.Key}";
+
             using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey!));
             byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
-            headers.Add("KC-API-PARTNER-SIGN", BytesToBase64String(buff));
+            request.Headers.Add("KC-API-PARTNER-SIGN", BytesToBase64String(buff));
+
+            request.SetBodyContent(bodyData);
+            request.SetQueryString(queryString);
         }
     }
 }

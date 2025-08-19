@@ -25,7 +25,7 @@ namespace Kucoin.Net.Clients.SpotApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
-        protected override ErrorCollection ErrorMapping => KucoinErrors.SpotErrors;
+        protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";

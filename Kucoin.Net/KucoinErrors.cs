@@ -9,7 +9,7 @@ namespace Kucoin.Net
 {
     internal static class KucoinErrors
     {
-        public static ErrorCollection SpotErrors { get; } = new ErrorCollection([
+        public static ErrorMapping SpotErrors { get; } = new ErrorMapping([
 
             new ErrorInfo(ErrorType.Unauthorized, false, "KYC required", "200009"),
             new ErrorInfo(ErrorType.Unauthorized, false, "API key invalid", "400003"),
@@ -64,7 +64,7 @@ namespace Kucoin.Net
                 })
                 ]);
 
-        public static ErrorCollection FuturesErrors { get; } = new ErrorCollection([
+        public static ErrorMapping FuturesErrors { get; } = new ErrorMapping([
             new ErrorInfo(ErrorType.Unauthorized, false, "Not allowed to place orders based on region", "40010"),
             new ErrorInfo(ErrorType.Unauthorized, false, "API key does not exist", "400003"),
             new ErrorInfo(ErrorType.Unauthorized, false, "Passphrase invalid", "400004"),
@@ -89,6 +89,8 @@ namespace Kucoin.Net
             new ErrorInfo(ErrorType.DuplicateClientOrderId, false, "Duplicate client order id", "300018"),
 
             new ErrorInfo(ErrorType.NoPosition, false, "No open position to close", "300009"),
+
+            new ErrorInfo(ErrorType.MaxPosition, false, "Max position limit exceeded", "126042"),
 
             new ErrorInfo(ErrorType.UnavailableSymbol, false, "Order placement/cancellation suspended", "300002"),
             new ErrorInfo(ErrorType.UnavailableSymbol, false, "Symbol is in settlement and does not accept orders", "300015"),

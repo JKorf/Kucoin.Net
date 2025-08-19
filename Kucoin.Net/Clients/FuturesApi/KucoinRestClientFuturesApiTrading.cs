@@ -216,7 +216,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             foreach (var item in resultData.Data)
             {
                 if (item.Message != "success")
-                    result.Add(new CallResult<KucoinFuturesOrderResult>(new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, item.Message))));
+                    result.Add(new CallResult<KucoinFuturesOrderResult>(item, null, new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, item.Message))));
                 else
                     result.Add(new CallResult<KucoinFuturesOrderResult>(item));
             }

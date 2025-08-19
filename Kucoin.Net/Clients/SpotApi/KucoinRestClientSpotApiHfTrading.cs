@@ -212,7 +212,7 @@ namespace Kucoin.Net.Clients.SpotApi
             foreach (var item in resultData.Data)
             {
                 if (!string.IsNullOrEmpty(item.Error))
-                    result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(new ServerError(ErrorInfo.Unknown with { Message = item.Error! })));
+                    result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(item, null, new ServerError(ErrorInfo.Unknown with { Message = item.Error! })));
                 else
                     result.Add(new CallResult<KucoinBulkMinimalResponseEntry>(item));
             }
@@ -248,7 +248,7 @@ namespace Kucoin.Net.Clients.SpotApi
             foreach (var item in resultData.Data)
             {
                 if (!string.IsNullOrEmpty(item.ErrorMessage))
-                    result.Add(new CallResult<KucoinHfBulkOrderResponse>(new ServerError(ErrorInfo.Unknown with { Message = item.ErrorMessage! })));
+                    result.Add(new CallResult<KucoinHfBulkOrderResponse>(item, null, new ServerError(ErrorInfo.Unknown with { Message = item.ErrorMessage! })));
                 else
                     result.Add(new CallResult<KucoinHfBulkOrderResponse>(item));
             }
