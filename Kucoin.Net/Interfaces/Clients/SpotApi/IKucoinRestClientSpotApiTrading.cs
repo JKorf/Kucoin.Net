@@ -217,7 +217,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Up to 5 orders to be placed at the same time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of new orders</returns>
-        Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<WebCallResult<CallResult<KucoinBulkOrderResponseEntry>[]>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order

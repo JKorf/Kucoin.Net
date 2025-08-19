@@ -1,8 +1,10 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
@@ -25,7 +27,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
 
-        internal static TimeSyncState TimeSyncState = new TimeSyncState("Futures Api");
+        internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
+
+        protected override ErrorMapping ErrorMapping => KucoinErrors.FuturesErrors;
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";
@@ -71,7 +75,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.AsDatalessError(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             return result.AsDataless();
         }
@@ -83,9 +87,25 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.AsError<T>(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             return result.As(result.Data.Data);
+        }
+
+        protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        {
+            if (!accessor.IsValid)
+                return new ServerError(ErrorInfo.Unknown);
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (code == null)
+                return new ServerError(ErrorInfo.Unknown);
+
+            if (code == 200 || code == 200000)
+                return null;
+
+            return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
         }
 
         /// <inheritdoc />
@@ -94,11 +114,11 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), TimeSyncState);
+            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), _timeSyncState);
 
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()
-            => TimeSyncState.TimeOffset;
+            => _timeSyncState.TimeOffset;
 
         public IKucoinRestClientFuturesApiShared SharedClient => this;
     }

@@ -1,5 +1,6 @@
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models;
@@ -287,7 +288,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinBulkOrderResponse>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<WebCallResult<CallResult<KucoinBulkOrderResponseEntry>[]>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default)
         {
             var orderList = orders.ToList();
             if (!orderList.Any())
@@ -306,8 +307,25 @@ namespace Kucoin.Net.Clients.SpotApi
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.SpotRest, 3, true);
-            var result = await _baseClient.SendAsync<KucoinBulkOrderResponse>(request, parameters, ct).ConfigureAwait(false);
-            return result;
+            var response = await _baseClient.SendAsync<KucoinBulkOrderResponse>(request, parameters, ct).ConfigureAwait(false);
+
+            var result = new List<CallResult<KucoinBulkOrderResponseEntry>>();
+            foreach (var item in response.Data.Orders)
+            {
+                if (string.IsNullOrEmpty(item.FailMsg))
+                {
+                    result.Add(new CallResult<KucoinBulkOrderResponseEntry>(item));
+                }
+                else
+                {
+                    result.Add(new CallResult<KucoinBulkOrderResponseEntry>(item, null, new ServerError(ErrorInfo.Unknown with { Message = item.FailMsg })));
+                }
+            }
+
+            if (result.All(x => !x.Success))
+                return response.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, false, "All orders failed")), result.ToArray());
+
+            return response.As(result.ToArray());
         }
 
         /// <inheritdoc />

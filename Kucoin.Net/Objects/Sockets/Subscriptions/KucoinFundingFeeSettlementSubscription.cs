@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
@@ -12,11 +13,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
     internal class KucoinFundingFeeSettlementSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private string _topic;
         private Action<DataEvent<KucoinContractAnnouncement>> _dataHandler;
 
-        public KucoinFundingFeeSettlementSubscription(ILogger logger, Action<DataEvent<KucoinContractAnnouncement>> dataHandler) : base(logger, false)
+        public KucoinFundingFeeSettlementSubscription(ILogger logger, SocketApiClient client, Action<DataEvent<KucoinContractAnnouncement>> dataHandler) : base(logger, false)
         {
+            _client = client;
             MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
 
             _topic = "/contract/announcement";
@@ -25,12 +28,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new KucoinQuery("subscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
         public override Query? GetUnsubQuery()
         {
-            return new KucoinQuery("unsubscribe", _topic, Authenticated);
+            return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinContractAnnouncement>> message)

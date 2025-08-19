@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
@@ -67,10 +68,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKey[]>(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<KucoinSubUserKey[]>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<KucoinSubUserKey[]>(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKey[]>(new ServerError(result.Data.Message!));
+                return result.AsError<KucoinSubUserKey[]>(new ServerError(ErrorInfo.Unknown with { Message = result.Data.Message! }));
 
             return result.As(result.Data.Data);
         }
@@ -99,10 +100,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKeyDetails>(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<KucoinSubUserKeyDetails>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<KucoinSubUserKeyDetails>(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKeyDetails>(new ServerError(result.Data.Message!));
+                return result.AsError<KucoinSubUserKeyDetails>(new ServerError(ErrorInfo.Unknown with { Message = result.Data.Message! }));
 
             return result.As(result.Data.Data);
         }
@@ -131,10 +132,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKeyEdited>(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Message!));
+                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(ErrorInfo.Unknown with { Message = result.Data.Message! }));
 
             return result.As(result.Data.Data);
         }
@@ -157,10 +158,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<KucoinSubUserKeyEdited>(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(result.Data.Message!));
+                return result.AsError<KucoinSubUserKeyEdited>(new ServerError(ErrorInfo.Unknown with { Message = result.Data.Message! }));
 
             return result.As(result.Data.Data);
         }
@@ -177,10 +178,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsDatalessError(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsDatalessError(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsDatalessError(new ServerError(result.Data.Message!));
+                return result.AsDatalessError(new ServerError(ErrorInfo.Unknown with { Message = result.Data.Message! }));
 
             return result.AsDataless();
         }
@@ -197,10 +198,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsDatalessError(result.Error!);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message ?? "-"));
+                return result.AsDatalessError(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             if (!string.IsNullOrEmpty(result.Data.Message))
-                return result.AsDatalessError(new ServerError(result.Data.Message!));
+                return result.AsDatalessError(new ServerError(ErrorInfo.Unknown with { Message = result.Data.Message! }));
 
             return result.AsDataless();
         }

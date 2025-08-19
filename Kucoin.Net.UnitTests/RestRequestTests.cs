@@ -132,7 +132,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMarginOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceMarginOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceTestMarginOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceTestMarginOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOcoOrderAsync("ETHUSDT", Enums.OrderSide.Buy, 1, 1, 1, 1), "PlaceOcoOrder");
-            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceBulkOrderAsync("ETHUSDT", new[] { new KucoinBulkOrderRequestEntry() }), "PlaceBulkOrder", ignoreProperties: new List<string> { "timeInForce", "iceberge" });
+            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceBulkOrderAsync("ETHUSDT", new[] { new KucoinBulkOrderRequestEntry() }), "PlaceBulkOrder", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderAsync("123"), "CancelOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOcoOrderAsync("123"), "CancelOcoOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOcoOrdersAsync(new[] { "123" }), "CancelOcoOrders");
