@@ -158,6 +158,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.5.0 - 20 Aug 2025
+    * Updated CryptoExchange.Net to version 9.5.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added improved error parsing
+    * Added restClient.SpotApi.Margin.GetBorrowInterestRateAsync endpoint
+    * Updated rest request sending too prevent duplicate parameter serialization
+    * Updated restClient.SpotApi.Trading.PlaceBulkOrderAsync to return CallResult objects with errors for failed orders
+    * Fixed error responses not correctly getting logged as error
+
 * Version 7.4.0 - 04 Aug 2025
     * Updated CryptoExchange.Net to version 9.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added support for multi-symbol Shared socket subscriptions
