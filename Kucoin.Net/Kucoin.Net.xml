@@ -7872,7 +7872,15 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.GetBorrowInterestRateAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)" -->
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.GetBorrowInterestRateAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get borrow interest rates
+            <para><a href="https://www.kucoin.com/docs-new/3474772e0" /></para>
+            </summary>
+            <param name="asset">Asset filter, comma separated up to 50</param>
+            <param name="vipLevel">VIP level</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiShared">
             <summary>
             Shared interface for Spot rest API usage
