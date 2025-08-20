@@ -738,6 +738,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetCrossMarginSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiMargin.GetBorrowInterestRateAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiSubAccount">
             <inheritdoc />
         </member>
@@ -1593,6 +1596,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinAssetDetails">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinBorrowInterestRates">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -2778,6 +2786,21 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinAssetNetworkArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinBorrowInterestRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinBorrowInterestRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinBorrowInterestRates">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -7849,6 +7872,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiMargin.GetBorrowInterestRateAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)" -->
         <member name="T:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiShared">
             <summary>
             Shared interface for Spot rest API usage
@@ -12301,6 +12325,41 @@
         <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinAssetNetwork.WithdrawPrecision">
             <summary>
             Maximum withdraw precision
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRates">
+            <summary>
+            Interest rates
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRates.VipLevel">
+            <summary>
+            VIP level
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRates.Rates">
+            <summary>
+            Asset rates
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRate">
+            <summary>
+            Interest rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRate.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRate.HourlyBorrowRate">
+            <summary>
+            Hourly borrow rate
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Spot.KucoinBorrowInterestRate.AnnualizedBorrowRate">
+            <summary>
+            Annualized borrow rate
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Spot.KucoinBorrowOrderV3">

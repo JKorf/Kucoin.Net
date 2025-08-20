@@ -22,6 +22,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>))]    
     [JsonSerializable(typeof(KucoinWelcome))]
     [JsonSerializable(typeof(KucoinResult<KucoinCrossMarginRequirement>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinBorrowInterestRates>))]
 
     // End manual defined attributes
     [JsonSerializable(typeof(KucoinResult<KucoinPaginatedSlider<KucoinAccountTransaction>>))]

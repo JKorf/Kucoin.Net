@@ -301,5 +301,14 @@ namespace Kucoin.Net.Clients.SpotApi
             return result.As<KucoinCrossMarginSymbol[]>(result.Data?.Items);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinBorrowInterestRates>> GetBorrowInterestRateAsync(string? asset = null, int? vipLevel = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("currency", asset);
+            parameters.AddOptional("vipLevel", vipLevel);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/borrowRate", KucoinExchange.RateLimiter.SpotRest, 5, true);
+            return await _baseClient.SendAsync<KucoinBorrowInterestRates>(request, parameters, ct).ConfigureAwait(false);
+        }
     }
 }

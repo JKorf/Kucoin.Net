@@ -248,5 +248,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCrossMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get borrow interest rates
+        /// <para><a href="https://www.kucoin.com/docs-new/3474772e0?x=nl_NL&" /></para>
+        /// </summary>
+        /// <param name="asset">Asset filter, comma separated up to 50</param>
+        /// <param name="vipLevel">VIP level</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinBorrowInterestRates>> GetBorrowInterestRateAsync(string? asset = null, int? vipLevel = null, CancellationToken ct = default);
     }
 }
