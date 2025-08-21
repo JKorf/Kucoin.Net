@@ -108,6 +108,16 @@ namespace Kucoin.Net.Clients.FuturesApi
             return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
         }
 
+        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception) {
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (code == null)
+                return new ServerError(ErrorInfo.Unknown);
+
+            return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
+        }
+
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
