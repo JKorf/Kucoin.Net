@@ -158,6 +158,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.6.0 - 25 Aug 2025
+    * Updated CryptoExchange.Net version to 9.6.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added ClearUserClients method to user client provider
+
 * Version 7.5.1 - 21 Aug 2025
     * Added error handling for non 200 http status code response for Futures api
 
