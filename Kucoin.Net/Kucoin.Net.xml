@@ -387,6 +387,9 @@
         <member name="M:Kucoin.Net.Clients.KucoinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.KucoinUserClientProvider.ClearUserClients(System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.KucoinUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
             <inheritdoc />
         </member>
@@ -426,7 +429,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.TryParseError(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
@@ -6738,6 +6741,11 @@
             <param name="userIdentifier">The identifier for the user</param>
             <param name="credentials">The credentials for the user</param>
             <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.IKucoinUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
             <summary>

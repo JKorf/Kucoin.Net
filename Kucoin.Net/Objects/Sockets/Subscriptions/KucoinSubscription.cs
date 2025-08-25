@@ -29,12 +29,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             return new KucoinQuery(_client, "subscribe", _topic, Authenticated);
         }
 
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
