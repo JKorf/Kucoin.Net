@@ -84,6 +84,21 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Gets a list of hf account activity
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf" /></para>
+        /// </summary>
+        /// <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
+        /// <param name="direction">Side</param>
+        /// <param name="bizType">Business type</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="limit">Displayed size per page. Default 100, max 200</param>
+        /// <param name="lastId">The ID of the last set of data from the previous data batch. By default, the latest information is given.</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Info on account activity</returns>
+        Task<WebCallResult<KucoinAccountActivity[]>> GetHfAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, long? lastId = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a transferable balance of a specified account.
         /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/transfer/get-transfer-quotas" /></para>
         /// </summary>
