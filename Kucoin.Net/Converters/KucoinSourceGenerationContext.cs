@@ -13,16 +13,17 @@ using System.Text.Json.Serialization;
 namespace Kucoin.Net.Converters
 {
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKey[]>))]
-    [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyDetails>))]    
+    [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyDetails>))]
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyEdited>))]
     [JsonSerializable(typeof(KucoinResult<KucoinMarginModes>))]
     [JsonSerializable(typeof(KucoinResult<KucoinCrossMarginRiskLimit[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinPaginated<KucoinHfOrderDetails>>))]
     [JsonSerializable(typeof(KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>))]
-    [JsonSerializable(typeof(KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>))]    
+    [JsonSerializable(typeof(KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>))]
     [JsonSerializable(typeof(KucoinWelcome))]
     [JsonSerializable(typeof(KucoinResult<KucoinCrossMarginRequirement>))]
     [JsonSerializable(typeof(KucoinResult<KucoinBorrowInterestRates>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinAccountActivity[]>))]
 
     // End manual defined attributes
     [JsonSerializable(typeof(KucoinResult<KucoinPaginatedSlider<KucoinAccountTransaction>>))]

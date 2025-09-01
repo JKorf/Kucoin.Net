@@ -468,6 +468,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizTypeFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetHfAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizTypeFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApiAccount.GetTransferableAsync(System.String,Kucoin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1579,6 +1582,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinAccountArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinAccountActivityArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -6880,6 +6888,21 @@
             <param name="endTime">Filter by end time</param>
             <param name="currentPage">The page to retrieve</param>
             <param name="pageSize">The amount of results per page</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Info on account activity</returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientSpotApiAccount.GetHfAccountLedgersAsync(System.String,System.Nullable{Kucoin.Net.Enums.AccountDirection},System.Nullable{Kucoin.Net.Enums.BizTypeFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of hf account activity
+            <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf" /></para>
+            </summary>
+            <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
+            <param name="direction">Side</param>
+            <param name="bizType">Business type</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Displayed size per page. Default 100, max 200</param>
+            <param name="lastId">The ID of the last set of data from the previous data batch. By default, the latest information is given.</param>
             <param name="ct">Cancellation token</param>
             <returns>Info on account activity</returns>
         </member>

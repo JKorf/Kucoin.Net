@@ -94,6 +94,24 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebCallResult<KucoinAccountActivity[]>> GetHfAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, long? lastId = null, CancellationToken ct = default)
+        {
+            limit?.ValidateIntBetween(nameof(limit), 1, 200);
+
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalEnum("direction", direction);
+            parameters.AddOptionalEnum("bizType", bizType);
+            parameters.AddOptionalMilliseconds("startAt", startTime);
+            parameters.AddOptionalMilliseconds("endAt", endTime);
+            parameters.AddOptionalParameter("limit", limit);
+            parameters.AddOptionalParameter("lastId", lastId);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/hf/accounts/ledgers", KucoinExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<KucoinAccountActivity[]>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, string? isolatedMarginSymbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection
