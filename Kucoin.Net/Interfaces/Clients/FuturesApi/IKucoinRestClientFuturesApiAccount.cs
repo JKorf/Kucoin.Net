@@ -231,5 +231,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionMode">New position mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get current position mode
+        /// <para><a href="https://www.kucoin.com/docs-new/3475216e0" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinPositionMode>> GetPositionModeAsync(CancellationToken ct = default);
     }
 }
