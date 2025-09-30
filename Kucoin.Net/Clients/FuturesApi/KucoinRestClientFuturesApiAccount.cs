@@ -316,6 +316,20 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Set Cross Margin Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("positionMode", positionMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/position/switchPositionMode", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Websocket token
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPublicAsync(CancellationToken ct = default)

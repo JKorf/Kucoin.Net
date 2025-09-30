@@ -223,5 +223,13 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCrossMarginRequirement>> GetCrossMarginRequirementAsync(string symbol, decimal positionValue, int? leverage = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set position mode
+        /// <para><a href="https://www.kucoin.com/docs-new/3475097e0" /></para>
+        /// </summary>
+        /// <param name="positionMode">New position mode</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
     }
 }
