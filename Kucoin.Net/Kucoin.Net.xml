@@ -100,6 +100,12 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetCrossMarginRequirementAsync(System.String,System.Decimal,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiAccount.SetPositionModeAsync(Kucoin.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiExchangeData">
             <inheritdoc />
         </member>
@@ -1176,6 +1182,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.PositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.PositionSide">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1467,6 +1478,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinPosition">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinPositionMode">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -2312,6 +2328,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinPositionHistoryItemArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinPositionMode">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -5327,6 +5348,21 @@
             Stop order
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.PositionMode.OneWay">
+            <summary>
+            One way position mode
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.PositionMode.HedgeMode">
+            <summary>
+            Hedge mode
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.PositionSide">
             <summary>
             Position side
@@ -6013,6 +6049,21 @@
             <param name="leverage">Leverage to use</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.SetPositionModeAsync(Kucoin.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <summary>
+            Set position mode
+            <para><a href="https://www.kucoin.com/docs-new/3475097e0" /></para>
+            </summary>
+            <param name="positionMode">New position mode</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get current position mode
+            <para><a href="https://www.kucoin.com/docs-new/3475216e0" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiExchangeData">
             <summary>
@@ -8766,25 +8817,6 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <summary>
-            Create a new kline tracker
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="interval">Kline interval</param>
-            <param name="limit">The max amount of klines to retain</param>
-            <param name="period">The max period the data should be retained</param>
-            <returns></returns>
-        </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <summary>
-            Create a new trade tracker for a symbol
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="limit">The max amount of klines to retain</param>
-            <param name="period">The max period the data should be retained</param>
-            <returns></returns>
-        </member>
         <member name="T:Kucoin.Net.KucoinEnvironment">
             <summary>
             Kucoin environments
@@ -8924,6 +8956,12 @@
             ctor
             </summary>
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CanCreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CanCreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol)">
+            <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
@@ -9594,6 +9632,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesKline.Volume">
+            <summary>
+            The volume of the kline in lots
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesKline.QuoteVolume">
             <summary>
             The volume of the kline
             </summary>
@@ -10672,6 +10715,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionHistoryItem.ReturnOnEquity">
             <summary>
             Return on equity
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinPositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinPositionMode.PositionMode">
+            <summary>
+            Position mode
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinPremiumIndex">

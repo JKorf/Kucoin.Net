@@ -102,6 +102,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
             services.AddTransient<IKucoinTrackerFactory, KucoinTrackerFactory>();
+            services.AddTransient<ITrackerFactory, KucoinTrackerFactory>();
             services.AddSingleton<IKucoinUserClientProvider, KucoinUserClientProvider>(x =>
             new KucoinUserClientProvider(
                 x.GetRequiredService<HttpClient>(),

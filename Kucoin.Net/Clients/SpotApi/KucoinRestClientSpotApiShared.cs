@@ -848,7 +848,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     DepositEnabled = x.IsDepositEnabled,
                     MinWithdrawQuantity = x.WithdrawalMinQuantity,
                     WithdrawEnabled = x.IsWithdrawEnabled,
-                    WithdrawFee = x.WithdrawalMinFee
+                    WithdrawFee = x.WithdrawalMinFee,
+                    ContractAddress = x.ContractAddress
                 }).ToArray()
             });
         }
@@ -875,7 +876,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     DepositEnabled = x.IsDepositEnabled,
                     MinWithdrawQuantity = x.WithdrawalMinQuantity,
                     WithdrawEnabled = x.IsWithdrawEnabled,
-                    WithdrawFee = x.WithdrawalMinFee
+                    WithdrawFee = x.WithdrawalMinFee,
+                    ContractAddress = x.ContractAddress
                 }).ToArray()
             }).ToArray());
         }
