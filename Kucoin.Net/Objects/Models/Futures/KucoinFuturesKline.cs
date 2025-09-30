@@ -39,9 +39,14 @@ namespace Kucoin.Net.Objects.Models.Futures
         [ArrayProperty(4)]
         public decimal ClosePrice { get; set; }
         /// <summary>
-        /// The volume of the kline
+        /// The volume of the kline in lots
         /// </summary>
         [ArrayProperty(5)]
         public decimal Volume { get; set; }
+        /// <summary>
+        /// The volume of the kline
+        /// </summary>
+        [ArrayProperty(6)]
+        public decimal QuoteVolume { get; set; }
     }
 }
