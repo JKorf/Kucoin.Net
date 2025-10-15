@@ -150,12 +150,13 @@ namespace Kucoin.Net.Clients.FuturesApi
                         ParseOrderStatus(update.Status, update.UpdateType),
                         update.OrderTime)
             {
-                ClientOrderId = update.ClientOrderId?.ToString(),
+                ClientOrderId = update.ClientOrderId,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: update.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: update.QuantityFilled),
                 OrderPrice = update.Price == 0 ? null : update.Price,
                 LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol), update.Symbol, update.OrderId, update.TradeId!, update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
                 {
+                    ClientOrderId = update.ClientOrderId,
                     Role = update.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
                 }
             };

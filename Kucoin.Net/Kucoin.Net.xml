@@ -4345,7 +4345,7 @@
         </member>
         <member name="F:Kucoin.Net.Enums.AccountType.Isolated">
             <summary>
-            Isolated marging account
+            Isolated margin account
             </summary>
         </member>
         <member name="F:Kucoin.Net.Enums.AccountType.SpotHf">

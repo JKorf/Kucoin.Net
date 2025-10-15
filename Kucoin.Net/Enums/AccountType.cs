@@ -36,7 +36,7 @@ namespace Kucoin.Net.Enums
         [Map("CONTRACT")]
         Contract,
         /// <summary>
-        /// Isolated marging account
+        /// Isolated margin account
         /// </summary>
         [Map("ISOLATED")]
         Isolated,

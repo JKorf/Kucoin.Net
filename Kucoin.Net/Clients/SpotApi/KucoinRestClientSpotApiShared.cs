@@ -192,11 +192,11 @@ namespace Kucoin.Net.Clients.SpotApi
         #endregion
 
         #region Balance client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions([AccountTypeFilter.Spot, AccountTypeFilter.Funding, AccountTypeFilter.Margin]);
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
@@ -206,18 +206,29 @@ namespace Kucoin.Net.Clients.SpotApi
 
             var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
             IEnumerable<KucoinAccount> data = result.Data;
-            if (data.Any(x => x.Type == AccountType.Trade) && data.Any(x => x.Type == AccountType.SpotHf))
+            if (request.AccountType == null || request.AccountType == SharedAccountType.Spot)
             {
-                // If there are both Trade and SpotHF balance present check which to take
-                if (hfAccount == false)
-                    data = result.Data.Where(x => x.Type == AccountType.Trade);
+                if (data.Any(x => x.Type == AccountType.Trade) && data.Any(x => x.Type == AccountType.SpotHf))
+                {
+                    // If there are both Trade and SpotHF balance present check which to take
+                    if (hfAccount == false)
+                        data = result.Data.Where(x => x.Type == AccountType.Trade);
+                    else
+                        data = result.Data.Where(x => x.Type == AccountType.SpotHf);
+                }
                 else
-                    data = result.Data.Where(x => x.Type == AccountType.SpotHf);
+                {
+                    // If only Trade or Spot HF balance are available use that
+                    data = result.Data.Where(x => x.Type == AccountType.SpotHf || x.Type == AccountType.Trade);
+                }
+            }
+            else if (request.AccountType == SharedAccountType.Funding)
+            {
+                data = result.Data.Where(x => x.Type == AccountType.Main);
             }
             else
             {
-                // If only Trade or Spot HF balance are available use that
-                data = result.Data.Where(x => x.Type == AccountType.SpotHf || x.Type == AccountType.Trade);
+                data = result.Data.Where(x => x.Type == AccountType.Margin || x.Type == AccountType.Isolated || x.Type == AccountType.IsolatedMarginHf || x.Type == AccountType.MarginHf);
             }
 
             return result.AsExchangeResult<SharedBalance[]>(Exchange, TradingMode.Spot, data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Holds)).ToArray());
@@ -533,7 +544,7 @@ namespace Kucoin.Net.Clients.SpotApi
             var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
             if (hfAccount == false)
             {
-                var order = await Trading.GetUserTradesAsync(orderId: request.OrderId).ConfigureAwait(false);
+                var order = await Trading.GetUserTradesAsync(orderId: request.OrderId,ct: ct).ConfigureAwait(false);
                 if (!order)
                     return order.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
@@ -1150,6 +1161,56 @@ namespace Kucoin.Net.Clients.SpotApi
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
             return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(request.OrderId));
+        }
+
+        #endregion
+
+        #region Transfer client
+
+        TransferOptions ITransferRestClient.TransferOptions { get; } = new TransferOptions([
+            SharedAccountType.Funding,
+            SharedAccountType.Spot,
+            SharedAccountType.PerpetualLinearFutures,
+            SharedAccountType.PerpetualInverseFutures,
+            SharedAccountType.DeliveryLinearFutures,
+            SharedAccountType.DeliveryInverseFutures,
+            SharedAccountType.CrossMargin,
+            SharedAccountType.IsolatedMargin
+            ]);
+        async Task<ExchangeWebResult<SharedId>> ITransferRestClient.TransferAsync(TransferRequest request, CancellationToken ct)
+        {
+            var validationError = ((ITransferRestClient)this).TransferOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var fromType = GetTransferType(request.FromAccountType);
+            var toType = GetTransferType(request.ToAccountType);
+            if (fromType == null || toType == null)
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid("To/From AccountType", "invalid to/from account combination"));
+
+            // Get data
+            var transfer = await Account.UniversalTransferAsync(
+                request.Quantity,
+                fromType.Value,
+                toType.Value,
+                TransferType.Internal,
+                request.Asset,
+                ct: ct).ConfigureAwait(false);
+            if (!transfer)
+                return transfer.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return transfer.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(transfer.Data.OrderId.ToString()));
+        }
+
+        private TransferAccountType? GetTransferType(SharedAccountType type)
+        {
+            if (type == SharedAccountType.Funding) return TransferAccountType.Main;
+            if (type == SharedAccountType.Spot) return TransferAccountType.Trade;
+            if (type.IsFuturesAccount()) return TransferAccountType.Contract;
+            if (type == SharedAccountType.CrossMargin) return TransferAccountType.Margin;
+            if (type == SharedAccountType.IsolatedMargin) return TransferAccountType.Isolated;
+
+            return null;
         }
 
         #endregion
