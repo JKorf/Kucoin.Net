@@ -119,7 +119,6 @@ namespace Kucoin.Net.UnitTests
 
         [Test]
         [TestCase(TradeEnvironmentNames.Live, "https://api.kucoin.com/")]
-        [TestCase(TradeEnvironmentNames.Testnet, "https://openapi-sandbox.kucoin.com/")]
         [TestCase("", "https://api.kucoin.com/")]
         public void TestConstructorEnvironments(string environmentName, string expected)
         {

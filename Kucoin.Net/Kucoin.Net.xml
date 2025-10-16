@@ -9482,11 +9482,6 @@
             Live environment
             </summary>
         </member>
-        <member name="P:Kucoin.Net.KucoinEnvironment.Testnet">
-            <summary>
-            Testnet/sandbox environment
-            </summary>
-        </member>
         <member name="M:Kucoin.Net.KucoinEnvironment.CreateCustom(System.String,System.String,System.String,System.String)">
             <summary>
             Create a custom environment
@@ -9617,11 +9612,6 @@
         <member name="F:Kucoin.Net.Objects.KucoinApiAddresses.Default">
             <summary>
             The default addresses to connect to the kucoin.com API
-            </summary>
-        </member>
-        <member name="F:Kucoin.Net.Objects.KucoinApiAddresses.TestNet">
-            <summary>
-            The addresses to connect to the kucoin.com sandbox API
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinAccountOverview">
