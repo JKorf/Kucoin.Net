@@ -39,18 +39,14 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("market", market);
-            // Testnet doesn't support V2
-            var apiVersion = _baseClient.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v{apiVersion}/symbols", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/symbols", KucoinExchange.RateLimiter.PublicRest, 4);
             return await _baseClient.SendAsync<KucoinSymbol[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinSymbol>> GetSymbolAsync(string symbol, CancellationToken ct = default)
         {
-            // Testnet doesn't support V2
-            var apiVersion = _baseClient.BaseAddress == KucoinApiAddresses.TestNet.SpotAddress ? 1 : 2;
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v{apiVersion}/symbols/{symbol}", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/symbols/{symbol}", KucoinExchange.RateLimiter.PublicRest, 4);
             return await _baseClient.SendAsync<KucoinSymbol>(request, null, ct).ConfigureAwait(false);
         }
 
