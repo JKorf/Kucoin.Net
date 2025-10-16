@@ -24,6 +24,9 @@ namespace Kucoin.Net.Clients
         /// <inheritdoc />
         public IKucoinRestClientFuturesApi FuturesApi { get; }
 
+        /// <inheritdoc />
+        public IKucoinRestClientUnifiedApi UnifiedApi { get; }
+
         /// <summary>
         /// Create a new instance of KucoinClient
         /// </summary>
@@ -45,6 +48,7 @@ namespace Kucoin.Net.Clients
 
             SpotApi = AddApiClient(new KucoinRestClientSpotApi(_logger, httpClient, this, options.Value));
             FuturesApi = AddApiClient(new KucoinRestClientFuturesApi(_logger, httpClient, this, options.Value));
+            UnifiedApi = AddApiClient(new KucoinRestClientUnifiedApi(_logger, httpClient, this, options.Value));
         }
 
         /// <inheritdoc />
@@ -52,6 +56,7 @@ namespace Kucoin.Net.Clients
         {
             SpotApi.SetOptions(options);
             FuturesApi.SetOptions(options);
+            UnifiedApi.SetOptions(options);
         }
 
         /// <inheritdoc />
@@ -59,6 +64,7 @@ namespace Kucoin.Net.Clients
         {
             SpotApi.SetApiCredentials(credentials);
             FuturesApi.SetApiCredentials(credentials);
+            UnifiedApi.SetApiCredentials(credentials);
         }
 
         /// <summary>

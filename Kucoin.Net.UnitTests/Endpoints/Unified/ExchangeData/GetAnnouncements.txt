@@ -1,0 +1,173 @@
+GET
+/api/ua/v1/market/announcement
+false
+{
+    "code": "200000",
+    "data": {
+        "totalNumber": 14,
+        "totalPage": 1,
+        "pageNumber": 1,
+        "pageSize": 50,
+        "list": [
+            {
+                "id": 129275,
+                "title": "KuCoin Trading Bot Will Delist the Orion Protocol (ORN) Project",
+                "type": [
+                    "latest-announcements",
+                    "delistings"
+                ],
+                "description": "KuCoin Trading Bot Will Delist the Orion Protocol (ORN) Project",
+                "releaseTime": 1729684087000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/kucoin-trading-bot-will-delist-the-orn-project?lang=en_US"
+            },
+            {
+                "id": 129253,
+                "title": "KuCoin Will Temporarily Close the Trading and Withdraw Services for Orion Protocol (ORN)",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "KuCoin will temporarily close the trading service for the ORN/USDT trading pair and withdraw service for Orion Protocol (ORN) at 8:00:00 on October 24, 2024 (UTC).",
+                "releaseTime": 1729681569000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-kucoin-will-temporarily-close-the-trading-and-withdraw-services-for-orion-protocol-orn-20241023?lang=en_US"
+            },
+            {
+                "id": 129209,
+                "title": "2024 September VTHO Distribution for VET Holders Completed",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "2024 September VTHO Distribution for VET Holders Completed",
+                "releaseTime": 1729679652000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-2024-september-vtho-distribution-for-vet-holders-completed?lang=en_US"
+            },
+            {
+                "id": 129231,
+                "title": "KuCoin Will Adjust the Price Increment of UNFIUP, UNFIDOWN",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "In order to increase market liquidity and improve trading experience, KuCoin will be adjusting the price increment unit (API symbol: Price Increment) of UNFIUP/USDT at 09:00:00 on October 25, 2024 (UTC), which will be more reasonable and beneficial for match making trade off.",
+                "releaseTime": 1729679041000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/kucoin-etf-notice-241023?lang=en_US"
+            },
+            {
+                "id": 129203,
+                "title": "KuCard Halloween $8,000 to Giveaway - Trick or Trade, & Win Big!",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "Dear KuCoin Users, During the Halloween event period, KuCoin is offering generous rewards for all KuCard users. Pay more, earn more with KuCard. Don't miss out!",
+                "releaseTime": 1729676521000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/kucard-halloween-activity?lang=en_US"
+            },
+            {
+                "id": 129091,
+                "title": "XDB Chain (XDB) GemSlot Campaign: Finish Easy Tasks to Share a 120 Million XDB Prize Pool!!",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "Complete simple tasks, and you can share the 120 million XDB prize pool!",
+                "releaseTime": 1729674847000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-xdb-chain-xdb-gemslot-campaign-finish-easy-tasks-to-share-a-120-million-xdb-prize-pool-20241023?lang=en_US"
+            },
+            {
+                "id": 129113,
+                "title": "KuCoin Earn Will Be Launching the SCR Saving Coin",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "KuCoin Earn Will Be Launching the SCR Saving Coin",
+                "releaseTime": 1729670536000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/kucoin-earn-will-be-launching-the-scr-saving-coin?lang=en_US"
+            },
+            {
+                "id": 129069,
+                "title": "Earn Wednesday Week 69: USDT Fixed 6% APR",
+                "type": [
+                    "latest-announcements",
+                    "activities"
+                ],
+                "description": "Earn Wednesday Week 69: USDT Fixed 6% APR",
+                "releaseTime": 1729670400000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-earn-wednesday-week-69-usdt-fixed-6-apr?lang=en_US"
+            },
+            {
+                "id": 128867,
+                "title": "Cros (CROS) Listing Campaign, 340,000 CROS to Giveaway!",
+                "type": [
+                    "latest-announcements",
+                    "activities"
+                ],
+                "description": "Cros (CROS) Listing Campaign, 340,000 CROS to Giveaway!",
+                "releaseTime": 1729667622000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-cros-cros-listing-campaign-340000-cros-to-giveaway?lang=en_US"
+            },
+            {
+                "id": 129135,
+                "title": "KuCoin Pre-Market Update: Closure & Delivery Schedule for X Empire (X)",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "KuCoin Pre-Market Update: Closure & Delivery Schedule for X Empire (X)",
+                "releaseTime": 1729666270000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-kucoin-pre-market-update-closure-delivery-schedule-for-x-empire-x?lang=en_US"
+            },
+            {
+                "id": 129157,
+                "title": "KuCoin Futures Has Launched the USDT-Margined SCR Contract",
+                "type": [
+                    "latest-announcements",
+                    "new-listings",
+                    "futures-announcements"
+                ],
+                "description": "KuCoin Futures Has Launched the USDT-Margined SCR Contract",
+                "releaseTime": 1729663200000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-kucoin-futures-has-launched-the-usdt-margined-scr-contract?lang=en_US"
+            },
+            {
+                "id": 129179,
+                "title": "KuCoin Futures Has Launched the USDT-Margined DEEP Contract",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "KuCoin Futures Has Launched the USDT-Margined DEEP Contract",
+                "releaseTime": 1729663200000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-kucoin-futures-has-launched-the-usdt-margined-deep-contract?lang=en_US"
+            },
+            {
+                "id": 128845,
+                "title": "Cros (CROS) Gets Listed on KuCoin! World Premiere!",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "Trading: 11:00 on October 23, 2024 (UTC)",
+                "releaseTime": 1729655431000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/en-cros-cros-gets-listed-on-kucoin-world-premiere?lang=en_US"
+            },
+            {
+                "id": 129045,
+                "title": "KuCoin Isolated Margin Adds the Scroll (SCR) Trading Pair",
+                "type": [
+                    "latest-announcements"
+                ],
+                "description": "To enrich the variety of assets available, KuCoin’s Isolated Margin Trading platform has added the Scroll (SCR) asset and trading pair.",
+                "releaseTime": 1729594043000,
+                "language": "en_US",
+                "url": "https://www.kucoin.com/announcement/kucoin-isolated-margin-adds-scr?lang=en_US"
+            }
+        ]
+    }
+}

@@ -1,0 +1,27 @@
+GET
+/api/ua/v1/market/ticker
+false
+{
+    "code": "200000",
+    "data": {
+        "tradeType": "SPOT",
+        "ts": 1750391429652,
+        "list": [
+            {
+                "symbol": "BTC-USDT",
+                "name": "BTC-USDT",
+                "bestBidSize": "1.33791608",
+                "bestBidPrice": "104636.2",
+                "bestAskSize": "0.49204496",
+                "bestAskPrice": "104636.3",
+                "lastPrice": "104636.2",
+                "size": "0.00090745",
+                "open": "104960.1",
+                "high": "105225.9",
+                "low": "103921.4",
+                "baseVolume": "1312.18562941",
+                "quoteVolume": "137190457.212533717"
+            }
+        ]
+    }
+}

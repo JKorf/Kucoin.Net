@@ -33,11 +33,17 @@ namespace Kucoin.Net.Objects.Options
         /// </summary>
         public KucoinRestApiOptions FuturesOptions { get; private set; } = new KucoinRestApiOptions();
 
+        /// <summary>
+        /// Spot API options
+        /// </summary>
+        public KucoinRestApiOptions UnifiedOptions { get; private set; } = new KucoinRestApiOptions();
+
         internal KucoinRestOptions Set(KucoinRestOptions targetOptions)
         {
             targetOptions = base.Set<KucoinRestOptions>(targetOptions);
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
+            targetOptions.UnifiedOptions = FuturesOptions.Set(targetOptions.UnifiedOptions);
             return targetOptions;
         }
     }

@@ -1,0 +1,24 @@
+GET
+/api/ua/v1/market/instrument
+false
+{
+    "code": "200000",
+    "data": {
+        "tradeType": "ISOLATED",
+        "list": [
+            {
+                "symbol": "BTC-USDT",
+                "name": "BTC-USDT",
+                "baseCurrency": "BTC",
+                "quoteCurrency": "USDT",
+                "maxLeverage": 10,
+                "alertRiskRatio": "0.97",
+                "liquidationRiskRatio": "0.96",
+                "baseBorrowEnable": true,
+                "quoteBorrowEnable": true,
+                "baseTransferInEnable": true,
+                "quoteTransferInEnable": true
+            }
+        ]
+    }
+}

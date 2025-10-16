@@ -1,0 +1,15 @@
+GET
+/api/ua/v1/market/funding-rate-history
+false
+{
+    "code": "200000",
+    "data": {
+        "symbol": "XBTUSDTM",
+        "list": [
+            {
+                "fundingRate": 2.1E-4,
+                "ts": 1702296000000
+            }
+        ]
+    }
+}

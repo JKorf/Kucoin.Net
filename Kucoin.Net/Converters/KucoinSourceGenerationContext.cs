@@ -5,6 +5,7 @@ using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using Kucoin.Net.Objects.Models.Unified;
 using Kucoin.Net.Objects.Sockets;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,21 @@ using System.Text.Json.Serialization;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinResult<KucoinUaServiceStatus>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaCrossMarginConfig>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaFundingRateEntry[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaFundingRate>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaKline[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaTrade[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaOrderBook>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaTicker[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaList<KucoinUaAnnouncement[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaAsset>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinSpotSymbol[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinFuturesSymbol[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<Kucoin.Net.Objects.Models.Unified.KucoinMarginSymbol[]>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinIsolatedMarginSymbol[]>>))]
+
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKey[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyDetails>))]
     [JsonSerializable(typeof(KucoinResult<KucoinSubUserKeyEdited>))]
@@ -244,7 +260,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinCrossMarginAccount[]))]
     [JsonSerializable(typeof(KucoinCrossMarginAccountAsset[]))]
     [JsonSerializable(typeof(KucoinCrossMarginSymbols[]))]
-    [JsonSerializable(typeof(KucoinCrossMarginSymbol[]))]
+    [JsonSerializable(typeof(Objects.Models.Spot.KucoinCrossMarginSymbol[]))]
     [JsonSerializable(typeof(KucoinDeposit[]))]
     [JsonSerializable(typeof(KucoinHfBulkOrderRequestEntry[]))]
     [JsonSerializable(typeof(KucoinHfOrder[]))]

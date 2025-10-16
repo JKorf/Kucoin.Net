@@ -1,0 +1,101 @@
+GET
+/api/ua/v1/market/currency
+false
+{
+    "code": "200000",
+    "data": {
+        "currency": "BTC",
+        "name": "BTC",
+        "fullName": "Bitcoin",
+        "precision": 8,
+        "confirms": null,
+        "contractAddress": null,
+        "list": [
+            {
+                "chainName": "BTC",
+                "minWithdrawSize": "0.0003",
+                "minDepositSize": "0.0002",
+                "withdrawFeeRate": "0",
+                "minWithdrawFee": "0.00015",
+                "isWithdrawEnabled": true,
+                "isDepositEnabled": true,
+                "confirms": 3,
+                "preConfirms": 1,
+                "contractAddress": "",
+                "withdrawPrecision": 8,
+                "maxWithdrawSize": null,
+                "maxDepositSize": null,
+                "needTag": false,
+                "chainId": "btc"
+            },
+            {
+                "chainName": "Lightning Network",
+                "minWithdrawSize": "0.00004",
+                "minDepositSize": "0.00001",
+                "withdrawFeeRate": "0",
+                "minWithdrawFee": "0.00002",
+                "isWithdrawEnabled": true,
+                "isDepositEnabled": true,
+                "confirms": 1,
+                "preConfirms": 1,
+                "contractAddress": "",
+                "withdrawPrecision": 8,
+                "maxWithdrawSize": null,
+                "maxDepositSize": "0.03",
+                "needTag": false,
+                "chainId": "btcln"
+            },
+            {
+                "chainName": "KCC",
+                "minWithdrawSize": "0.0008",
+                "minDepositSize": null,
+                "withdrawFeeRate": "0",
+                "minWithdrawFee": "0.00002",
+                "isWithdrawEnabled": true,
+                "isDepositEnabled": true,
+                "confirms": 20,
+                "preConfirms": 20,
+                "contractAddress": "0xfa93c12cd345c658bc4644d1d4e1b9615952258c",
+                "withdrawPrecision": 8,
+                "maxWithdrawSize": null,
+                "maxDepositSize": null,
+                "needTag": false,
+                "chainId": "kcc"
+            },
+            {
+                "chainName": "ARBITRUM",
+                "minWithdrawSize": "0.0005",
+                "minDepositSize": null,
+                "withdrawFeeRate": "0",
+                "minWithdrawFee": "0.0001",
+                "isWithdrawEnabled": false,
+                "isDepositEnabled": false,
+                "confirms": 1900,
+                "preConfirms": 120,
+                "contractAddress": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+                "withdrawPrecision": 8,
+                "maxWithdrawSize": null,
+                "maxDepositSize": null,
+                "needTag": false,
+                "chainId": "arbitrum"
+            },
+            {
+                "chainName": "BTC-Segwit",
+                "minWithdrawSize": "0.0008",
+                "minDepositSize": "0.0002",
+                "withdrawFeeRate": "0",
+                "minWithdrawFee": "0.0005",
+                "isWithdrawEnabled": false,
+                "isDepositEnabled": true,
+                "confirms": 2,
+                "preConfirms": 2,
+                "contractAddress": "",
+                "withdrawPrecision": 8,
+                "maxWithdrawSize": null,
+                "maxDepositSize": null,
+                "needTag": false,
+                "chainId": "bech32"
+            }
+        ]
+    }
+}

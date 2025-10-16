@@ -1,0 +1,26 @@
+GET
+/api/ua/v1/market/cross-config
+false
+{
+    "code": "200000",
+    "data": {
+        "maxLeverage": 5,
+        "alertRiskRatio": "0.95",
+        "liquidationRiskRatio": "0.97",
+        "currencyList": [
+            "SCR",
+            "VRA",
+            "APT",
+            "IOTX",
+            "SHIB",
+            "KDA",
+            "WCT",
+            "BCHSV",
+            "NEAR",
+            "AUDIO",
+            "AIOZ",
+            "FLOW",
+            "WLD"
+        ]
+    }
+}

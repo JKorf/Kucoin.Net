@@ -18,11 +18,17 @@ namespace Kucoin.Net
         /// </summary>
         public string FuturesAddress { get; }
 
-        internal KucoinEnvironment(string name, string spotAddress, string futuresAddress) : 
+        /// <summary>
+        /// Unified API address
+        /// </summary>
+        public string UnifiedAddress { get; }
+
+        internal KucoinEnvironment(string name, string spotAddress, string futuresAddress, string unifiedAddress) : 
             base(name)
         {
             SpotAddress = spotAddress;
             FuturesAddress = futuresAddress;
+            UnifiedAddress = unifiedAddress;
         }
 
         /// <summary>
@@ -40,7 +46,6 @@ namespace Kucoin.Net
          => name switch
          {
              TradeEnvironmentNames.Live => Live,
-             TradeEnvironmentNames.Testnet => Testnet,
              "" => Live,
              null => Live,
              _ => default
@@ -50,26 +55,21 @@ namespace Kucoin.Net
         /// Available environment names
         /// </summary>
         /// <returns></returns>
-        public static string[] All => [Live.Name, Testnet.Name];
+        public static string[] All => [Live.Name];
 
         /// <summary>
         /// Live environment
         /// </summary>
-        public static KucoinEnvironment Live { get; } = new KucoinEnvironment(TradeEnvironmentNames.Live, KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress);
-
-        /// <summary>
-        /// Testnet/sandbox environment
-        /// </summary>
-        public static KucoinEnvironment Testnet { get; } = new KucoinEnvironment(TradeEnvironmentNames.Testnet, KucoinApiAddresses.TestNet.SpotAddress, KucoinApiAddresses.TestNet.FuturesAddress);
+        public static KucoinEnvironment Live { get; } = new KucoinEnvironment(
+            TradeEnvironmentNames.Live,
+            KucoinApiAddresses.Default.SpotAddress, 
+            KucoinApiAddresses.Default.FuturesAddress,
+            KucoinApiAddresses.Default.UnifiedAddress);
 
         /// <summary>
         /// Create a custom environment
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="spotAddress"></param>
-        /// <param name="futuresAddress"></param>
-        /// <returns></returns>
-        public static KucoinEnvironment CreateCustom(string name, string spotAddress, string futuresAddress)
-            => new KucoinEnvironment(name, spotAddress, futuresAddress);
+        public static KucoinEnvironment CreateCustom(string name, string spotAddress, string futuresAddress, string unifiedAddress)
+            => new KucoinEnvironment(name, spotAddress, futuresAddress, unifiedAddress);
     }
 }

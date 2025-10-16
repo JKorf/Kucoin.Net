@@ -1,0 +1,27 @@
+GET
+/api/ua/v1/market/instrument
+false
+{
+    "code": "200000",
+    "data": {
+        "tradeType": "CROSS",
+        "list": [
+            {
+                "symbol": "BTC-USDT",
+                "name": "BTC-USDT",
+                "baseCurrency": "BTC",
+                "quoteCurrency": "USDT",
+                "market": "USDS",
+                "minBaseOrderSize": "0.00001",
+                "minQuoteOrderSize": "0.1",
+                "maxBaseOrderSize": "10000000000",
+                "maxQuoteOrderSize": "99999999",
+                "baseOrderStep": "0.00000001",
+                "quoteOrderStep": "0.000001",
+                "tickSize": "0.1",
+                "feeCurrency": "USDT",
+                "priceLimitRatio": "0.1"
+            }
+        ]
+    }
+}
