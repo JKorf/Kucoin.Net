@@ -160,6 +160,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.9.0 - 16 Oct 2025
+    * Updated CryptoExchange.Net version to 9.10.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added public Unified API endpoints
+    * Added ClientOrderId mapping on SharedUserTrade models
+    * Added ITransferRestClient.TransferAsync implementation
+    * Updated SpotApi IBalanceRestClient.GetBalancesAsync to support funding/margin wallet balance retrieval
+    * Removed old testnet environment settings
+
 * Version 7.8.0 - 30 Sep 2025
     * Updated CryptoExchange.Net version to 9.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added ITrackerFactory to TrackerFactory implementation
