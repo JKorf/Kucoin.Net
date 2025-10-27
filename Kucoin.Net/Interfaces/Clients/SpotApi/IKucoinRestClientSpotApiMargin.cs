@@ -257,5 +257,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="vipLevel">VIP level</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinBorrowInterestRates>> GetBorrowInterestRateAsync(string? asset = null, int? vipLevel = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get collateral ratios
+        /// <para><a href="https://www.kucoin.com/docs-new/3475578e0" /></para>
+        /// </summary>
+        /// <param name="symbols"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<KucoinCollateralRatios[]>> GetMarginCollateralRatioAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
     }
 }

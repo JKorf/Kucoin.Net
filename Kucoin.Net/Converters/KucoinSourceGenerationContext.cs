@@ -13,6 +13,7 @@ using System.Text.Json.Serialization;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinResult<KucoinCollateralRatios[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaServiceStatus>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaCrossMarginConfig>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaFundingRateEntry[]>>))]

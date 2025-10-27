@@ -310,5 +310,14 @@ namespace Kucoin.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/borrowRate", KucoinExchange.RateLimiter.SpotRest, 5, true);
             return await _baseClient.SendAsync<KucoinBorrowInterestRates>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinCollateralRatios[]>> GetMarginCollateralRatioAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("currencyList", symbols == null ? null : string.Join(",", symbols));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/margin/collateralRatio", KucoinExchange.RateLimiter.SpotRest, 10, true);
+            return await _baseClient.SendAsync<KucoinCollateralRatios[]>(request, parameters, ct).ConfigureAwait(false);
+        }
     }
 }
