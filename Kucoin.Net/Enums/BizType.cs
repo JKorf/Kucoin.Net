@@ -23,7 +23,7 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Withdrawal
         /// </summary>
-        [Map("Withdrawal")]
+        [Map("Withdrawal", "Withdraw")]
         Withdrawal,
         /// <summary>
         /// Transfer
@@ -245,5 +245,20 @@ namespace Kucoin.Net.Enums
         /// </summary>
         [Map("KuCoin Event")]
         KuCoinEvent,
+        /// <summary>
+        /// Fiat Deposit
+        /// </summary>
+        [Map("Fiat Deposit")]
+        FiatDeposit,
+        /// <summary>
+        /// Fiat Withdrawal
+        /// </summary>
+        [Map("Fiat Withdrawal")]
+        FiatWithdrawal,
+        /// <summary>
+        /// KuCoin Earn Profits
+        /// </summary>
+        [Map("KuCoin Earn Profits")]
+        KuCoinEarnProfits
     }
 }
