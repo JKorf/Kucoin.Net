@@ -5052,6 +5052,21 @@
             KuCoin Event
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.BizType.FiatDeposit">
+            <summary>
+            Fiat Deposit
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.FiatWithdrawal">
+            <summary>
+            Fiat Withdrawal
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.KuCoinEarnProfits">
+            <summary>
+            KuCoin Earn Profits
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BizTypeFilter">
             <summary>
             Biz type filter
