@@ -36,15 +36,9 @@ namespace Kucoin.Net
             if (!request.Authenticated)
                 return;
 
-            var brokerName = ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerName;
-            var brokerKey = ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerKey;
-
-            if (string.IsNullOrEmpty(brokerName) && string.IsNullOrEmpty(brokerKey))
-            {
-                brokerName = apiClient is KucoinRestClientFuturesApi ? "Easytradingfutures" : "Easytrading";
-                brokerKey = apiClient is KucoinRestClientFuturesApi ? "9e08c05f-454d-4580-82af-2f4c7027fd00" : "f8ae62cb-2b3d-420c-8c98-e1c17dd4e30a";
-            }
-
+            var brokerName = LibraryHelpers.GetClientReference(() => ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerName, "Kucoin", apiClient is KucoinRestClientFuturesApi ? "FuturesName" : "SpotName");
+            var brokerKey = LibraryHelpers.GetClientReference(() => ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerKey, "Kucoin", apiClient is KucoinRestClientFuturesApi ? "FuturesKey" : "SpotKey");
+            
             var timestamp = GetMillisecondTimestamp(apiClient).ToString();
             request.Headers.Add("KC-API-KEY", _credentials.Key);
             request.Headers.Add("KC-API-TIMESTAMP", timestamp);
