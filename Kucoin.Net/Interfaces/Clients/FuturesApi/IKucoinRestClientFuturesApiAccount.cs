@@ -55,7 +55,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Contract symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Position info</returns>
-        Task<WebCallResult<KucoinPosition>> GetPositionAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<KucoinPosition[]>> GetPositionAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of positions
