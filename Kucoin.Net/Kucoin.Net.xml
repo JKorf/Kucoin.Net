@@ -9574,6 +9574,11 @@
             Type of exchange
             </summary>
         </member>
+        <member name="P:Kucoin.Net.KucoinExchange.AssetAliases">
+            <summary>
+            Aliases for Kucoin assets
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.KucoinExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to a Kucoin recognized symbol 
