@@ -382,6 +382,9 @@
         <member name="T:Kucoin.Net.Clients.KucoinUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:Kucoin.Net.Clients.KucoinUserClientProvider.ExchangeName">
+            <inheritdoc/>
+        </member>
         <member name="M:Kucoin.Net.Clients.KucoinUserClientProvider.#ctor(System.Action{Kucoin.Net.Objects.Options.KucoinOptions})">
             <summary>
             ctor
@@ -18048,6 +18051,9 @@
             <summary>
             Kucoin order book factory
             </summary>
+        </member>
+        <member name="P:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="P:Kucoin.Net.SymbolOrderBooks.KucoinOrderBookFactory.Spot">
             <inheritdoc />

@@ -8,7 +8,7 @@ namespace Kucoin.Net.Interfaces
     /// <summary>
     /// Factory for creating Kucoin symbol orderbook instance
     /// </summary>
-    public interface IKucoinOrderBookFactory
+    public interface IKucoinOrderBookFactory : IExchangeService
     {
         /// <summary>
         /// Spot order book factory methods

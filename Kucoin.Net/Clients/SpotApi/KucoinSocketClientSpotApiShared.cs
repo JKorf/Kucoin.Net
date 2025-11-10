@@ -23,7 +23,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
         #region Ticker client
-        EndpointOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new EndpointOptions<SubscribeTickerRequest>(false)
+        SubscribeTickerOptions ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscribeTickerOptions()
         {
             SupportsMultipleSymbols = true,
             MaxSymbolCount = 100
@@ -58,7 +58,8 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, new[] { new SharedTrade(update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
+            var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, new[] {
+                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol!, update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
                 Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             } })), ct).ConfigureAwait(false);
 
@@ -103,7 +104,8 @@ namespace Kucoin.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update => handler(update.AsExchangeEvent(Exchange, new SharedKline(update.Data.Candles.OpenTime, update.Data.Candles.ClosePrice, update.Data.Candles.HighPrice, update.Data.Candles.LowPrice, update.Data.Candles.OpenPrice, update.Data.Candles.Volume))), ct).ConfigureAwait(false);
+            var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update => handler(update.AsExchangeEvent(Exchange,
+                new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol!, update.Data.Candles.OpenTime, update.Data.Candles.ClosePrice, update.Data.Candles.HighPrice, update.Data.Candles.LowPrice, update.Data.Candles.OpenPrice, update.Data.Candles.Volume))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }

@@ -52,8 +52,9 @@ namespace Kucoin.Net.Clients.SpotApi
             if (startTime < request.StartTime)
                 startTime = request.StartTime;
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetKlinesAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 interval,
                 startTime,
                 endTime,
@@ -71,7 +72,8 @@ namespace Kucoin.Net.Clients.SpotApi
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
             }
 
-            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => 
+                new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -106,7 +108,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Ticker client
 
-        EndpointOptions<GetTickerRequest> ISpotTickerRestClient.GetSpotTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
+        GetTickerOptions ISpotTickerRestClient.GetSpotTickerOptions { get; } = new GetTickerOptions();
         async Task<ExchangeWebResult<SharedSpotTicker>> ISpotTickerRestClient.GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotTickerRestClient)this).GetSpotTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -124,7 +126,7 @@ namespace Kucoin.Net.Clients.SpotApi
             });
         }
 
-        EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
+        GetTickersOptions ISpotTickerRestClient.GetSpotTickersOptions { get; } = new GetTickersOptions();
         async Task<ExchangeWebResult<SharedSpotTicker[]>> ISpotTickerRestClient.GetSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotTickerRestClient)this).GetSpotTickersOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
@@ -177,13 +179,15 @@ namespace Kucoin.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTradeHistoryAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x =>
+            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());

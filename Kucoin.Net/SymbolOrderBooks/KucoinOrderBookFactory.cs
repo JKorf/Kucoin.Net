@@ -18,6 +18,9 @@ namespace Kucoin.Net.SymbolOrderBooks
         private readonly IServiceProvider _serviceProvider;
 
         /// <inheritdoc />
+        public string ExchangeName => KucoinExchange.ExchangeName;
+
+        /// <inheritdoc />
         public IOrderBookFactory<KucoinOrderBookOptions> Spot { get; }
 
         /// <inheritdoc />
