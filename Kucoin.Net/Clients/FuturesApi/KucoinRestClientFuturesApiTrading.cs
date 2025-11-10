@@ -57,6 +57,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             FuturesMarginMode? marginMode = null,
             decimal? quantityInBaseAsset = null,
             decimal? quantityInQuoteAsset = null,
+            PositionSide? positionSide = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -85,6 +86,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
             parameters.AddOptionalEnum("stp", selfTradePrevention);
             parameters.AddOptionalEnum("marginMode", marginMode);
+            parameters.AddOptionalEnum("positionSide", positionSide);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
@@ -114,6 +116,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             bool? forceHold = null,
             string? clientOrderId = null,
             SelfTradePrevention? selfTradePrevention = null,
+            FuturesMarginMode? marginMode = null,
+            decimal? quantityInBaseAsset = null,
+            decimal? quantityInQuoteAsset = null,
+            PositionSide? positionSide = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -121,7 +127,11 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddEnum("side", side);
             parameters.AddEnum("type", type);
             parameters.AddOptionalParameter("leverage", leverage?.ToString(CultureInfo.InvariantCulture));
+
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("qty", quantityInBaseAsset?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("valueQty", quantityInQuoteAsset?.ToString(CultureInfo.InvariantCulture));
+
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
             parameters.AddOptionalEnum("stop", stopType);
@@ -137,6 +147,9 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("iceberg", iceberg);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
             parameters.AddOptionalEnum("stp", selfTradePrevention);
+            parameters.AddOptionalEnum("marginMode", marginMode);
+            parameters.AddOptionalEnum("marginMode", marginMode);
+            parameters.AddOptionalEnum("positionSide", positionSide);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
@@ -169,6 +182,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             decimal? quantityInBaseAsset = null,
             decimal? quantityInQuoteAsset = null,
+            PositionSide? positionSide = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -197,6 +211,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("iceberg", iceberg);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
             parameters.AddOptionalEnum("stp", selfTradePrevention);
+            parameters.AddOptionalEnum("positionSide", positionSide);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/st-orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
