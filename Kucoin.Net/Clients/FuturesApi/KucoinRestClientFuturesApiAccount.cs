@@ -57,12 +57,12 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPosition>> GetPositionAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinPosition[]>> GetPositionAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/position", KucoinExchange.RateLimiter.FuturesRest, 2, true);
-            return await _baseClient.SendAsync<KucoinPosition>(request, parameters, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/position", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            return await _baseClient.SendAsync<KucoinPosition[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

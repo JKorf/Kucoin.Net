@@ -1,9 +1,9 @@
 GET
-/api/v1/position
+/api/v2/position
 true
 {
     "code": "200000",
-    "data": {
+    "data": [{
     "id": "5e81a7827911f40008e80715",      
     "symbol": "XBTUSDTM",                  
     "autoDeposit": false, 					
@@ -43,5 +43,5 @@ true
     "maintainMargin": 0.25,  			
     "userId": 1234321123,
 	"riskLimitLevel": 1  			
-}
+}]
 }
