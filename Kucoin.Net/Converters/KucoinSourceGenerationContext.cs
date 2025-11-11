@@ -70,6 +70,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinResult<KucoinPaginated<KucoinOcoOrder>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinPaginated<KucoinUserTrade>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinPaginated<KucoinStopOrder>>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinPaginated<KucoinEarnHolding>>))]
     [JsonSerializable(typeof(KucoinSocketUpdate<Dictionary<string, KucoinLeverageUpdate>>))]
     [JsonSerializable(typeof(KucoinSocketUpdate<Dictionary<string, FuturesMarginMode>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinPosition[]>))]

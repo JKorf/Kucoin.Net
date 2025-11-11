@@ -119,6 +119,19 @@ namespace Kucoin.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateSpotEarnCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Earn", "https://api.kucoin.com", IsAuthenticated, "data");
+            await tester.ValidateAsync(client => client.SpotApi.Earn.GetEarnHoldingAsync(), "GetEarnHolding");
+        }
+
+        [Test]
         public async Task ValidateSpotTradingCalls()
         {
             var client = new KucoinRestClient(opts =>

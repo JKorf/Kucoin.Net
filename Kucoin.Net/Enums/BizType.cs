@@ -259,6 +259,11 @@ namespace Kucoin.Net.Enums
         /// KuCoin Earn Profits
         /// </summary>
         [Map("KuCoin Earn Profits")]
-        KuCoinEarnProfits
+        KuCoinEarnProfits,
+        /// <summary>
+        /// Hold to Earn Earnings
+        /// </summary>
+        [Map("Hold to Earn Earnings")]
+        HoldToEarnEarnings
     }
 }

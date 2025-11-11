@@ -45,6 +45,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         public IKucoinRestClientSpotApiMargin Margin { get; }
 
         /// <summary>
+        /// Endpoints for Kucoin Earn
+        /// </summary>
+        /// <see cref="IKucoinRestClientSpotApiEarn"/>
+        public IKucoinRestClientSpotApiEarn Earn { get; }
+
+        /// <summary>
         /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         IKucoinRestClientSpotApiShared SharedClient { get; }

@@ -1,0 +1,32 @@
+GET
+/api/v1/earn/hold-assets
+true
+{
+    "code": "200000",
+    "data": {
+        "totalNum": 1,
+        "totalPage": 1,
+        "currentPage": 1,
+        "pageSize": 15,
+        "items": [
+            {
+                "orderId": "2767291",
+                "productId": "2611",
+                "productCategory": "KCS_STAKING",
+                "productType": "DEMAND",
+                "currency": "KCS",
+                "incomeCurrency": "KCS",
+                "returnRate": "0.03471727",
+                "holdAmount": "1",
+                "redeemedAmount": "0",
+                "redeemingAmount": "1",
+                "lockStartTime": 1701252000000,
+                "lockEndTime": null,
+                "purchaseTime": 1729257513000,
+                "redeemPeriod": 3,
+                "status": "REDEEMING",
+                "earlyRedeemSupported": 0
+            }
+        ]
+    }
+}
