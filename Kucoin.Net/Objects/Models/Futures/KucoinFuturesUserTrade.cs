@@ -66,5 +66,11 @@ namespace Kucoin.Net.Objects.Models.Futures
 
         [JsonPropertyName("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Position side
+        /// </summary>
+
+        [JsonPropertyName("positionSide")]
+        public PositionSide? PositionSide { get; set; }
     }
 }

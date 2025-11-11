@@ -111,5 +111,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("avgDealPrice")]
         public decimal? AveragePrice { get; set; }
+        /// <summary>
+        /// Position side
+        /// </summary>
+        [JsonPropertyName("positionSide")]
+        public PositionSide? PositionSide { get; set; }
     }
 }

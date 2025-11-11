@@ -163,13 +163,13 @@
         <member name="T:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry},System.Threading.CancellationToken)">
@@ -6766,7 +6766,7 @@
             Kucoin Futures trading endpoints, placing and mananging orders.
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order" /></para>
@@ -6794,10 +6794,11 @@
             <param name="marginMode">Margin mode, defaults to Isolated</param>
             <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
             <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+            <param name="positionSide">Position side (required in HedgeMode)</param>
             <param name="ct">Cancellation token</param>
             <returns>Order details</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceTestOrderAsync(System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{Kucoin.Net.Enums.FuturesMarginMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <summary>
             Place a test order. The order will not be executed or added to the order book, but can be used to verify the request parameters
             <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test" /></para>
@@ -6822,10 +6823,14 @@
             <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
             <param name="selfTradePrevention">Self Trade Prevention mode</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="marginMode">Margin mode, defaults to Isolated</param>
+            <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+            <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+            <param name="positionSide">Position side (required in HedgeMode)</param>
             <param name="ct">Cancellation token</param>
             <returns>Order details</returns>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Kucoin.Net.Interfaces.Clients.FuturesApi.IKucoinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},Kucoin.Net.Enums.NewOrderType,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <summary>
             Place a new take profit / stop loss order. Note that both triggerStopUpPrice and triggerStopDownPrice should be provided or the order will execute immediately.
             <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order" /></para>
@@ -6852,6 +6857,7 @@
             <param name="clientOrderId">Client order id</param>
             <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
             <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+            <param name="positionSide">Position side (required in HedgeMode)</param>
             <param name="ct">Cancellation token</param>
             <returns>Order details</returns>
         </member>
@@ -10421,6 +10427,11 @@
             Average fill price
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrder.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry">
             <summary>
             Futures order request
@@ -10539,6 +10550,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.MarginMode">
             <summary>
             Margin mode
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderRequestEntry.PositionSide">
+            <summary>
+            Position side (required in HedgeMode)
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesOrderResult">
@@ -10774,6 +10790,11 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesUserTrade.MarginMode">
             <summary>
             Margin mode
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinFuturesUserTrade.PositionSide">
+            <summary>
+            Position side
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinFuturesWithdrawalQuota">

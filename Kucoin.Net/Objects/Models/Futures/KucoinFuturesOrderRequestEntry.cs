@@ -130,5 +130,11 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonPropertyName("marginMode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
 
         public FuturesMarginMode? MarginMode { get; set; }
+        /// <summary>
+        /// Position side (required in HedgeMode)
+        /// </summary>
+        [JsonPropertyName("positionSide"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+
+        public PositionSide? PositionSide { get; set; }
     }
 }
