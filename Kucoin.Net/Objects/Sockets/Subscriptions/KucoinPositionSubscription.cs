@@ -45,6 +45,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>(_topic + "position.settlement", DoHandleMessage),
                     new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>(_topic + "position.adjustRiskLimit", DoHandleMessage),
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                    new MessageRoute<KucoinSocketUpdate<KucoinPositionUpdate>>(_topic + "position.change", (string?)null, DoHandleMessage),
+                    new MessageRoute<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>>(_topic + "position.changemarkPriceChange", (string?)null, DoHandleMessage),
+                    new MessageRoute<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>(_topic + "position.settlement", (string?)null, DoHandleMessage),
+                    new MessageRoute<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>(_topic + "position.adjustRiskLimit", (string?)null, DoHandleMessage),
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -57,27 +64,45 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionMarkPriceUpdate> message)
         {
-            _onMarkPriceUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onMarkPriceUpdate?.Invoke(
+                    new DataEvent<KucoinPositionMarkPriceUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinPositionUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionUpdate> message)
         {
-            _onPositionUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update));
+            _onPositionUpdate?.Invoke(
+                    new DataEvent<KucoinPositionUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(message.Data.Symbol)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate> message)
         {
-            _onFundingSettlementUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onFundingSettlementUpdate?.Invoke(
+                    new DataEvent<KucoinPositionFundingSettlementUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate> message)
         {
-            _onRiskAdjustUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onRiskAdjustUpdate?.Invoke(
+                    new DataEvent<KucoinPositionRiskAdjustResultUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
     }

@@ -17,15 +17,15 @@ namespace Kucoin.Net.Objects.Sockets.Queries
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
+            MessageRouter = MessageRouter.Create<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
         }
 
-        public CallResult<KucoinSocketResponse> HandleMessage(SocketConnection connection, DataEvent<KucoinSocketResponse> message)
+        public CallResult<KucoinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketResponse message)
         {
-            var kucoinResponse = message.Data;
-            if (string.Equals(kucoinResponse.Type, "error", StringComparison.Ordinal))
-                return new CallResult<KucoinSocketResponse>(new ServerError(kucoinResponse.Code!.Value, _client.GetErrorInfo(kucoinResponse.Code.Value, kucoinResponse.Data!)));
+            if (string.Equals(message.Type, "error", StringComparison.Ordinal))
+                return new CallResult<KucoinSocketResponse>(new ServerError(message.Code!.Value, _client.GetErrorInfo(message.Code.Value, message.Data!)));
 
-            return message.ToCallResult();
+            return new CallResult<KucoinSocketResponse>(message, originalData, null);
         }
     }
 }

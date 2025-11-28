@@ -21,6 +21,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
+            MessageRouter = MessageRouter.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", (string?) null, DoHandleMessage);
 
             _topic = "/contract/announcement";
             _dataHandler = dataHandler;
@@ -36,10 +37,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinContractAnnouncement>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinContractAnnouncement> message)
         {
-            message.Data.Data.Event = message.Data.Subject;
-            _dataHandler.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update));
+            message.Data.Event = message.Subject;
+            _dataHandler.Invoke(
+                new DataEvent<KucoinContractAnnouncement>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithSymbol(message.Data.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
 

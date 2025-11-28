@@ -31,19 +31,28 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (symbols?.Count > 0)
             {
                 var checkers = new List<MessageHandlerLink>();
-                foreach(var symbol in symbols)
+                var routes = new List<MessageRoute>();
+                foreach (var symbol in symbols)
                 {
                     checkers.Add(new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + ":" + symbol + "mark.index.price", DoHandleMessage));
                     checkers.Add(new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + ":" + symbol + "funding.rate", DoHandleMessage));
+
+                    routes.Add(new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>("mark.index.price", topic + symbol, DoHandleMessage));
+                    routes.Add(new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>("funding.rate", topic + symbol, DoHandleMessage));
                 }
 
                 MessageMatcher = MessageMatcher.Create(checkers.ToArray());
+                MessageRouter = MessageRouter.Create(routes.ToArray());
             }
             else
             {
                 MessageMatcher = MessageMatcher.Create(
                     new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + "mark.index.price", DoHandleMessage),
                     new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + "funding.rate", DoHandleMessage));
+
+                MessageRouter = MessageRouter.Create(
+                    new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>("mark.index.price", topic, DoHandleMessage),
+                    new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>("funding.rate", topic, DoHandleMessage));
             }
         }
 
@@ -57,15 +66,25 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice> message)
         {
-            _markIndexPriceHandler?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
+            _markIndexPriceHandler?.Invoke(
+                new DataEvent<KucoinStreamFuturesMarkIndexPrice>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithSymbol(message.Topic.Split(new char[] { ':' }).Last())
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesFundingRate> message)
         {
-            _fundingRateHandler?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Topic.Split(new char[] { ':' }).Last(), SocketUpdateType.Update));
+            _fundingRateHandler?.Invoke(
+                new DataEvent<KucoinStreamFuturesFundingRate>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithSymbol(message.Topic.Split(new char[] { ':' }).Last())
+                );
             return CallResult.SuccessResult;
         }
     }

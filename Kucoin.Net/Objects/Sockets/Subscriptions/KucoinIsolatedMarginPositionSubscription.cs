@@ -30,6 +30,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _topic = "/margin/isolatedPosition:" + symbol;
 
             MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(_topic, DoHandleMessage);
+            MessageRouter = MessageRouter.Create<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(_topic, (string?)null, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -42,9 +43,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate> message)
         {
-            _onPositionChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Tag, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onPositionChange?.Invoke(
+                new DataEvent<KucoinIsolatedMarginPositionUpdate>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithSymbol(message.Data.Tag)
+                    .WithDataTimestamp(message.Data.Timestamp)
+                );
 
             return CallResult.SuccessResult;
         }

@@ -42,6 +42,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "filled", DoHandleUpdateMessage),
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "canceled", DoHandleUpdateMessage),
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>>(_topic + "match", (string?)null, DoHandleMatchMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>>(_topic + "received", (string?)null, DoHandleNewMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "open", (string?)null, DoHandleUpdateMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "update", (string?)null, DoHandleUpdateMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "filled", (string?)null, DoHandleUpdateMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "canceled", (string?)null, DoHandleUpdateMessage),
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -54,21 +63,40 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMatchMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>> message)
+        public CallResult DoHandleMatchMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderMatchUpdate> message)
         {
-            _onTradeData?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onTradeData?.Invoke(
+                    new DataEvent<KucoinStreamOrderMatchUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithSymbol(message.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
+            
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleUpdateMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderUpdate>> message)
+        public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderUpdate> message)
         {
-            _onOrderData?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onOrderData?.Invoke(
+                    new DataEvent<KucoinStreamOrderUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithSymbol(message.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleNewMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>> message)
+        public CallResult DoHandleNewMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderNewUpdate> message)
         {
-            _onNewOrder?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onNewOrder?.Invoke(
+                    new DataEvent<KucoinStreamOrderNewUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithSymbol(message.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

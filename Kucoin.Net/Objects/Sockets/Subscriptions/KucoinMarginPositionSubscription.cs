@@ -35,6 +35,11 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>(_topic + "debt.ratio", DoHandleMessage),
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>(_topic + "position.status", DoHandleMessage)
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                new MessageRoute<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>("debt.ratio", _topic, DoHandleMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>("position.status", _topic, DoHandleMessage)
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -47,15 +52,25 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginDebtRatioUpdate> message)
         {
-            _onDebtRatioChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onDebtRatioChange?.Invoke(
+                    new DataEvent<KucoinMarginDebtRatioUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> message)
         {
-            _onPositionStatusChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onPositionStatusChange?.Invoke(
+                    new DataEvent<KucoinMarginPositionStatusUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

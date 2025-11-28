@@ -5114,6 +5114,21 @@
             Hold to Earn Earnings
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.BizType.FeeRefundsKcs">
+            <summary>
+            Fee Refunds using KCS
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.KcsFeeDeduction">
+            <summary>
+            KCS Fee Deduction
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.Spot">
+            <summary>
+            Spot
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BizTypeFilter">
             <summary>
             Biz type filter

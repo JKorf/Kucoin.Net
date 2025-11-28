@@ -41,6 +41,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(_topic + "order.update", DoHandleUpdateMessage),
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>(_topic + "order.done", DoHandleDoneMessage)
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                new MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>("order.open", _topic, DoHandleOpenMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>("order.update",  _topic, DoHandleUpdateMessage),
+                new MessageRoute<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>("order.done",  _topic, DoHandleDoneMessage)
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -53,21 +59,36 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleDoneMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>> message)
+        public CallResult DoHandleDoneMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderDoneUpdate> message)
         {
-            _onOrderDone?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onOrderDone?.Invoke(
+                    new DataEvent<KucoinMarginOrderDoneUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleOpenMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderUpdate>> message)
+        public CallResult DoHandleOpenMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
         {
-            _onNewOrder?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onNewOrder?.Invoke(
+                    new DataEvent<KucoinMarginOrderUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleUpdateMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginOrderUpdate>> message)
+        public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
         {
-            _onOrderData?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onOrderData?.Invoke(
+                    new DataEvent<KucoinMarginOrderUpdate>(message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

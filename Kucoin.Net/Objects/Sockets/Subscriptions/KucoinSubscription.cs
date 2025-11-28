@@ -24,9 +24,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _handler = handler;
 
             if (symbols?.Count > 0)
+            {
                 MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
+                MessageRouter = MessageRouter.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
+            }
             else
+            {
                 MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
+                MessageRouter = MessageRouter.Create<KucoinSocketUpdate<T>>(topic, (string?)null, DoHandleMessage);
+            }
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -39,13 +45,17 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<T> message)
         {
-            string? topic = message.Data.Topic.Contains(":") ? message.Data.Topic.Split(':').Last() : null;
+            string? topic = message.Topic.Contains(":") ? message.Topic.Split(':').Last() : null;
             if (string.Equals(topic, "all", StringComparison.Ordinal))
-                topic = message.Data.Subject;
+                topic = message.Subject;
 
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Topic, topic, SocketUpdateType.Update));
+            _handler.Invoke(
+                new DataEvent<T>(message.Data, receiveTime, originalData)
+                    .WithSymbol(topic)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
     }
