@@ -18,11 +18,13 @@ namespace Kucoin.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [Test]
-        public async Task ValidateSpotAccountCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
@@ -48,11 +50,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetIsolatedMarginAccountsAsync(), "GetIsolatedMarginAccounts");
         }
 
-        [Test]
-        public async Task ValidateSpotSubAccountCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotSubAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
@@ -68,11 +72,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.DeleteSubAccountApiKeyAsync("123", "123", "123"), "DeleteSubAccountApiKey");
         }
 
-        [Test]
-        public async Task ValidateSpotExchangeDataCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
             });
@@ -92,11 +98,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetCallAuctionInfoAsync("ETHUSDT"), "GetCallAuctionInfo");
         }
 
-        [Test]
-        public async Task ValidateSpotMarginCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotMarginCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
@@ -118,11 +126,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossMarginSymbolsAsync(), "GetCrossMarginSymbols", "data.items");
         }
 
-        [Test]
-        public async Task ValidateSpotEarnCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotEarnCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
@@ -131,11 +141,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Earn.GetEarnHoldingAsync(), "GetEarnHolding");
         }
 
-        [Test]
-        public async Task ValidateSpotTradingCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotTradingCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
@@ -172,11 +184,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetStopOrderByClientOrderIdAsync("123"), "GetStopOrderByClientOrderId");
         }
 
-        [Test]
-        public async Task ValidateFuturesAccountCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateFuturesAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
             });
@@ -201,11 +215,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetCrossMarginLeverageAsync("123", 0.1m), "SetCrossMarginLeverage");
         }
 
-        [Test]
-        public async Task ValidateFuturesExchangeDataCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateFuturesExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
             });
@@ -228,11 +244,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETHUSDT", DateTime.UtcNow, DateTime.UtcNow), "GetFundingRateHistory");
         }
 
-        [Test]
-        public async Task ValidateFuturesTradingCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateFuturesTradingCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
             });
@@ -255,11 +273,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetMaxOpenPositionSizeAsync("XBTUSDTM", 1, 1), "GetMaxOpenPositionSize");
         }
 
-        [Test]
-        public async Task ValidateSpotHfTradingCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateSpotHfTradingCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
@@ -299,11 +319,13 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.HfTrading.GetMarginSymbolsWithOpenOrdersAsync(true), "GetMarginSymbolsWithOpenOrders");
         }
 
-        [Test]
-        public async Task ValidateUnifiedExchangeDataCalls()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ValidateUnifiedExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new KucoinRestClient(opts =>
             {
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;

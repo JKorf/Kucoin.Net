@@ -43,9 +43,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 ]);
 
             MessageRouter = MessageRouter.Create([
-                new MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>("order.open", _topic, DoHandleOpenMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>("order.update",  _topic, DoHandleUpdateMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>("order.done",  _topic, DoHandleDoneMessage)
+                MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.open", asset, DoHandleOpenMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.update",  asset, DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.done",  asset, DoHandleDoneMessage)
                 ]);
         }
 

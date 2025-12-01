@@ -37,8 +37,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 ]);
 
             MessageRouter = MessageRouter.Create([
-                new MessageRoute<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>("debt.ratio", _topic, DoHandleMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>("position.status", _topic, DoHandleMessage)
+                MessageRoute<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>.CreateWithoutTopicFilter(_topic + "debt.ratio", DoHandleMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>.CreateWithoutTopicFilter(_topic + "position.status", DoHandleMessage)
                 ]);
         }
 

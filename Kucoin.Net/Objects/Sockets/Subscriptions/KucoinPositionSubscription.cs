@@ -46,11 +46,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>(_topic + "position.adjustRiskLimit", DoHandleMessage),
                 ]);
 
+            var routerTopic = symbol == null ? "/contract/positionAll" : "/contract/position";
             MessageRouter = MessageRouter.Create([
-                    new MessageRoute<KucoinSocketUpdate<KucoinPositionUpdate>>(_topic + "position.change", (string?)null, DoHandleMessage),
-                    new MessageRoute<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>>(_topic + "position.changemarkPriceChange", (string?)null, DoHandleMessage),
-                    new MessageRoute<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>(_topic + "position.settlement", (string?)null, DoHandleMessage),
-                    new MessageRoute<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>(_topic + "position.adjustRiskLimit", (string?)null, DoHandleMessage),
+                    MessageRoute<KucoinSocketUpdate<KucoinPositionUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.change", symbol, DoHandleMessage),
+                    MessageRoute<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.changemarkPriceChange", symbol, DoHandleMessage),
+                    MessageRoute<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.settlement", symbol, DoHandleMessage),
+                    MessageRoute<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.adjustRiskLimit",symbol, DoHandleMessage),
                 ]);
         }
 

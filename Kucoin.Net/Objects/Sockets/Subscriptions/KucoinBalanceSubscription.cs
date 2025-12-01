@@ -45,10 +45,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 ]);
 
             MessageRouter = MessageRouter.Create([
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>>("walletBalance.change", _topic, DoHandleWalletChange),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>>("orderMargin.change", _topic, DoHandleMarginChange),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>>("availableBalance.change", _topic, DoHandleAvailableChange),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>>("withdrawHold.change", _topic, DoHandleWithdrawableChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>>.CreateWithoutTopicFilter(_topic + "walletBalance.change", DoHandleWalletChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>>.CreateWithoutTopicFilter(_topic + "orderMargin.change", DoHandleMarginChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>>.CreateWithoutTopicFilter(_topic + "availableBalance.change", DoHandleAvailableChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>>.CreateWithoutTopicFilter(_topic + "withdrawHold.change", DoHandleWithdrawableChange),
                 ]);
         }
 

@@ -10,7 +10,7 @@ namespace Kucoin.Net.Objects.Sockets.Queries
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create<KucoinPong>(id);
-            MessageRouter = MessageRouter.Create<KucoinPong>(id);
+            MessageRouter = MessageRouter.CreateWithoutHandler<KucoinPong>(id);
         }
     }
 }

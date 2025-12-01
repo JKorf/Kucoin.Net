@@ -30,7 +30,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _topic = "/margin/isolatedPosition:" + symbol;
 
             MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(_topic, DoHandleMessage);
-            MessageRouter = MessageRouter.Create<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(_topic, (string?)null, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithTopicFilter<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>("/margin/isolatedPosition", symbol, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

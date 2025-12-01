@@ -21,7 +21,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
-            MessageRouter = MessageRouter.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", (string?) null, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
 
             _topic = "/contract/announcement";
             _dataHandler = dataHandler;

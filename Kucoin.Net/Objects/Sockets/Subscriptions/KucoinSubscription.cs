@@ -15,9 +15,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
     {
         private readonly SocketApiClient _client;
         private string _topic;
-        private Action<DataEvent<T>> _handler;
+        private Action<DateTime, string?, KucoinSocketUpdate<T>> _handler;
 
-        public KucoinSubscription(ILogger logger, SocketApiClient client, string topic, List<string>? symbols, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public KucoinSubscription(ILogger logger, SocketApiClient client, string topic, List<string>? symbols, Action<DateTime, string?, KucoinSocketUpdate<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _client = client;
             _topic = symbols?.Any() == true ? topic + ":" + string.Join(",", symbols) : topic;
@@ -26,12 +26,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             if (symbols?.Count > 0)
             {
                 MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
-                MessageRouter = MessageRouter.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
+                MessageRouter = MessageRouter.CreateWithTopicFilters<KucoinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
             }
             else
             {
                 MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
-                MessageRouter = MessageRouter.Create<KucoinSocketUpdate<T>>(topic, (string?)null, DoHandleMessage);
+                if (topic.EndsWith(":all"))
+                    topic = topic.Replace(":all", "");
+                MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
             }
         }
 
@@ -47,15 +49,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<T> message)
         {
-            string? topic = message.Topic.Contains(":") ? message.Topic.Split(':').Last() : null;
-            if (string.Equals(topic, "all", StringComparison.Ordinal))
-                topic = message.Subject;
-
-            _handler.Invoke(
-                new DataEvent<T>(message.Data, receiveTime, originalData)
-                    .WithSymbol(topic)
-                    .WithStreamId(message.Topic)
-                    .WithUpdateType(SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
     }

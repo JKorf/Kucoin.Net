@@ -40,6 +40,7 @@ namespace Kucoin.Net
             var brokerKey = LibraryHelpers.GetClientReference(() => ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerKey, "Kucoin", apiClient is KucoinRestClientFuturesApi ? "FuturesKey" : "SpotKey");
             
             var timestamp = GetMillisecondTimestamp(apiClient).ToString();
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("KC-API-KEY", _credentials.Key);
             request.Headers.Add("KC-API-TIMESTAMP", timestamp);
             var phraseKey = _credentials.Key + "|" + _credentials.Pass;
@@ -52,7 +53,8 @@ namespace Kucoin.Net
             request.Headers.Add("KC-API-PASSPHRASE", phraseSign);
             request.Headers.Add("KC-API-KEY-VERSION", "3");
 
-            var bodyData = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var bodyData = request.ParameterPosition == HttpMethodParameterPosition.InBody 
+                ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
             var queryString = request.GetQueryString(false);
             if (!string.IsNullOrEmpty(queryString))
                 queryString = $"?{queryString}";

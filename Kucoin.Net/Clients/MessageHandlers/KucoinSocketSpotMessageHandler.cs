@@ -17,32 +17,23 @@ namespace Kucoin.Net.Clients.MessageHandlers
 
         public KucoinSocketSpotMessageHandler()
         {
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamTick>>(x => x.Topic.Equals("/market/ticker:all") ? ("/market/ticker:" + x.Subject) : x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamSnapshotWrapper>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamBestOffers>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBook>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamMatch>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamCandle>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBookChanged>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamIndicatorPrice>>(x => x.Topic);
-            AddTopicMapping<KucoinSocketUpdate<KucoinCallAuctionInfo>>(x => x.Topic);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamTick>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamSnapshotWrapper>>(x => x.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamBestOffers>>(x => x.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBook>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamMatch>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamCandle>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBookChanged>>(x => x.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamIndicatorPrice>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinCallAuctionInfo>>(x => x.Data.Symbol);
 
-#warning WIP implement further, not tested
+            AddTopicMapping<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(x => x.Data.Asset);
+            AddTopicMapping<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>(x => x.Data.Asset);
         }
 
         protected override MessageEvaluator[] TypeEvaluators { get; } = [
-
              new MessageEvaluator {
                 Priority = 1,
-                ForceIfFound = true,
-                Fields = [
-                    new PropertyFieldReference("id"),
-                ],
-                IdentifyMessageCallback = x => x.FieldValue("id")!
-            },
-
-             new MessageEvaluator {
-                Priority = 2,
                 Fields = [
                     new PropertyFieldReference("type") { Constraint = x => x!.Equals("welcome") },
                 ],
@@ -50,7 +41,38 @@ namespace Kucoin.Net.Clients.MessageHandlers
             },
 
              new MessageEvaluator {
+                Priority = 2,
+                Fields = [
+                    new PropertyFieldReference("id"),
+                ],
+                IdentifyMessageCallback = x => x.FieldValue("id")!
+            },
+
+             new MessageEvaluator {
                 Priority = 3,
+                Fields = [
+                    new PropertyFieldReference("topic") { Constraint = x => x!.Equals("/spotMarket/tradeOrdersV2", StringComparison.Ordinal) },
+                    new PropertyFieldReference("type") { Depth = 2 },
+                ],
+                IdentifyMessageCallback = x => x.FieldValue("topic") + x.FieldValue("type")
+            },
+
+
+             new MessageEvaluator {
+                Priority = 4,
+                Fields = [
+                    new PropertyFieldReference("topic") 
+                    { 
+                        Constraint = x => x!.StartsWith("/margin/position", StringComparison.Ordinal) 
+                                       || x!.StartsWith("/margin/loan", StringComparison.Ordinal)
+                    },
+                    new PropertyFieldReference("subject"),
+                ],
+                IdentifyMessageCallback = x => x.FieldValue("topic")!.Split(':')[0] + x.FieldValue("subject")
+            },
+
+             new MessageEvaluator {
+                Priority = 5,
                 Fields = [
                     new PropertyFieldReference("topic"),
                 ],

@@ -44,12 +44,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 ]);
 
             MessageRouter = MessageRouter.Create([
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>>(_topic + "match", (string?)null, DoHandleMatchMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>>(_topic + "received", (string?)null, DoHandleNewMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "open", (string?)null, DoHandleUpdateMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "update", (string?)null, DoHandleUpdateMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "filled", (string?)null, DoHandleUpdateMessage),
-                new MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "canceled", (string?)null, DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>>.CreateWithoutTopicFilter(_topic + "match", DoHandleMatchMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>>.CreateWithoutTopicFilter(_topic + "received", DoHandleNewMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "open", DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "update", DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "filled", DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "canceled", DoHandleUpdateMessage),
                 ]);
         }
 

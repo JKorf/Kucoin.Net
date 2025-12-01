@@ -37,8 +37,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     checkers.Add(new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + ":" + symbol + "mark.index.price", DoHandleMessage));
                     checkers.Add(new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + ":" + symbol + "funding.rate", DoHandleMessage));
 
-                    routes.Add(new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>("mark.index.price", topic + symbol, DoHandleMessage));
-                    routes.Add(new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>("funding.rate", topic + symbol, DoHandleMessage));
+                    routes.Add(MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>.CreateWithTopicFilter(topic + "mark.index.price",  symbol, DoHandleMessage));
+                    routes.Add(MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>.CreateWithTopicFilter(topic + "funding.rate", symbol, DoHandleMessage));
                 }
 
                 MessageMatcher = MessageMatcher.Create(checkers.ToArray());
@@ -51,8 +51,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + "funding.rate", DoHandleMessage));
 
                 MessageRouter = MessageRouter.Create(
-                    new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>("mark.index.price", topic, DoHandleMessage),
-                    new MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>("funding.rate", topic, DoHandleMessage));
+                    MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>.CreateWithoutTopicFilter(topic + "mark.index.price", DoHandleMessage),
+                    MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>.CreateWithoutTopicFilter(topic + "funding.rate", DoHandleMessage));
             }
         }
 

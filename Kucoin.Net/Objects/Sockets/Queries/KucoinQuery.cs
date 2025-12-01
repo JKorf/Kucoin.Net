@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Sockets.Queries
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
-            MessageRouter = MessageRouter.Create<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
         }
 
         public CallResult<KucoinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketResponse message)
