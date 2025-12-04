@@ -17,7 +17,14 @@ namespace Kucoin.Net.Clients.MessageHandlers
 
         public KucoinSocketSpotMessageHandler()
         {
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamTick>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamTick>>(x =>
+            {
+                var symbol = x.Topic.Split(':')[1];
+                if (symbol.Equals("all"))
+                    return x.Subject;
+
+                return symbol;
+            });
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamSnapshotWrapper>>(x => x.Symbol);
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamBestOffers>>(x => x.Symbol);
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBook>>(x => x.Data.Symbol);

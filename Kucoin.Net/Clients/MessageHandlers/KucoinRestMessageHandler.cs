@@ -37,9 +37,9 @@ namespace Kucoin.Net.Clients.MessageHandlers
             return new ServerError(kucoinResult.Code, _errorMapping.GetErrorInfo(kucoinResult.Code.ToString(), kucoinResult.Message));
         }
 
-        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
         {
-            var (parseError, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
+            var (parseError, document) = await GetJsonDocument(responseStream).ConfigureAwait(false);
             if (parseError != null)
                 return parseError;
 
@@ -51,19 +51,19 @@ namespace Kucoin.Net.Clients.MessageHandlers
             return new ServerError(code.Value!, _errorMapping.GetErrorInfo(code.Value.ToString(), msg));
         }
 
-        public override async ValueTask<ServerRateLimitError> ParseErrorRateLimitResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        public override async ValueTask<ServerRateLimitError> ParseErrorRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
         {
-            var (parseError, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
+            var (parseError, document) = await GetJsonDocument(responseStream).ConfigureAwait(false);
             if (parseError != null)
                 return new ServerRateLimitError();
 
             var resetHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("gw-ratelimit-reset", StringComparison.InvariantCultureIgnoreCase));
             if (resetHeader.Value == null)
-                return await base.ParseErrorRateLimitResponse(httpStatusCode, state, responseHeaders, responseStream).ConfigureAwait(false);
+                return await base.ParseErrorRateLimitResponse(httpStatusCode, responseHeaders, responseStream).ConfigureAwait(false);
 
             var value = resetHeader.Value.First();
             if (!int.TryParse(value, out var milliseconds))
-                return await base.ParseErrorRateLimitResponse(httpStatusCode, state, responseHeaders, responseStream).ConfigureAwait(false);
+                return await base.ParseErrorRateLimitResponse(httpStatusCode, responseHeaders, responseStream).ConfigureAwait(false);
 
             return new ServerRateLimitError()
             {

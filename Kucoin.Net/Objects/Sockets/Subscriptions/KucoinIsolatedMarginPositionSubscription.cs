@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinIsolatedMarginPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinIsolatedMarginPositionSubscription : Subscription
     {
         private readonly SocketApiClient _client;
 

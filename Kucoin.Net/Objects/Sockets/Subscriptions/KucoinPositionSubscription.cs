@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinPositionSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinPositionUpdate>>? _onPositionUpdate;

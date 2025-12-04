@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinSubscription<T> : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;

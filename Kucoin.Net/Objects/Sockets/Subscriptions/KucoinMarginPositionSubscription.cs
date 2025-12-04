@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinMarginPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinMarginPositionSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinMarginDebtRatioUpdate>>? _onDebtRatioChange;
