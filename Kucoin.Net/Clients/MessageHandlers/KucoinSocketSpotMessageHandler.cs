@@ -29,7 +29,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamBestOffers>>(x => x.Symbol);
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBook>>(x => x.Data.Symbol);
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamMatch>>(x => x.Data.Symbol);
-            AddTopicMapping<KucoinSocketUpdate<KucoinStreamCandle>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinSocketUpdate<KucoinStreamCandle>>(x => x.Topic.Split(':')[1]);
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamOrderBookChanged>>(x => x.Symbol);
             AddTopicMapping<KucoinSocketUpdate<KucoinStreamIndicatorPrice>>(x => x.Data.Symbol);
             AddTopicMapping<KucoinSocketUpdate<KucoinCallAuctionInfo>>(x => x.Data.Symbol);
@@ -38,52 +38,43 @@ namespace Kucoin.Net.Clients.MessageHandlers
             AddTopicMapping<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>(x => x.Data.Asset);
         }
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
-             new MessageEvaluator {
-                Priority = 1,
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
+             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("type") { Constraint = x => x!.Equals("welcome") },
+                    new PropertyFieldReference("type").WithEqualContstraint("welcome"),
                 ],
                 StaticIdentifier = "welcome"
             },
 
-             new MessageEvaluator {
-                Priority = 2,
+             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("id"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("id")!
+                TypeIdentifierCallback = x => x.FieldValue("id")!
             },
 
-             new MessageEvaluator {
-                Priority = 3,
+             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("topic") { Constraint = x => x!.Equals("/spotMarket/tradeOrdersV2", StringComparison.Ordinal) },
+                    new PropertyFieldReference("topic").WithEqualContstraint("/spotMarket/tradeOrdersV2"),
                     new PropertyFieldReference("type") { Depth = 2 },
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("topic") + x.FieldValue("type")
+                TypeIdentifierCallback = x => x.FieldValue("topic") + x.FieldValue("type")
             },
 
 
-             new MessageEvaluator {
-                Priority = 4,
+             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("topic") 
-                    { 
-                        Constraint = x => x!.StartsWith("/margin/position", StringComparison.Ordinal) 
-                                       || x!.StartsWith("/margin/loan", StringComparison.Ordinal)
-                    },
+                    new PropertyFieldReference("topic").WithStartsWithContstraints("/margin/position", "/margin/loan"),
                     new PropertyFieldReference("subject"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("topic")!.Split(':')[0] + x.FieldValue("subject")
+                TypeIdentifierCallback = x => x.FieldValue("topic")!.Split(':')[0] + x.FieldValue("subject")
             },
 
-             new MessageEvaluator {
-                Priority = 5,
+             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("topic"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("topic")!.Split(':')[0]
+                TypeIdentifierCallback = x => x.FieldValue("topic")!.Split(':')[0]
             },
         ];
     }

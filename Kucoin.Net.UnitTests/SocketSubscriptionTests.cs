@@ -8,6 +8,7 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using Kucoin.Net.Objects.Options;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -20,6 +21,27 @@ namespace Kucoin.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new KucoinSocketClient(Options.Create(new KucoinSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization,
+                Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data");
+            await tester.ValidateConcurrentAsync<KucoinStreamCandle>(
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
@@ -35,16 +57,16 @@ namespace Kucoin.Net.UnitTests
                 Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
             }), logFactory);
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data");
-            //await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "Ticker");
-            //await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToAllTickerUpdatesAsync(handler), "Tickers");
-            //await tester.ValidateAsync<KucoinStreamSnapshot>((client, handler) => client.SpotApi.SubscribeToSnapshotUpdatesAsync("BTC", handler), "Snapshot", "data.data");
-            //await tester.ValidateAsync<KucoinStreamBestOffers>((client, handler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETH-USDT", handler), "BestOffers", "data");
-            //await tester.ValidateAsync<KucoinStreamOrderBook>((client, handler) => client.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync("BTC-USDT", handler), "AggBook", "data");
-            //await tester.ValidateAsync<KucoinStreamMatch>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("BTC-USDT", handler), "Trades", "data");
-            //await tester.ValidateAsync<KucoinStreamCandle>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("BTC-USDT", Enums.KlineInterval.EightHours, handler), "Klines", "data");
-            //await tester.ValidateAsync<KucoinStreamOrderBookChanged>((client, handler) => client.SpotApi.SubscribeToOrderBookUpdatesAsync("BTC-USDT", 5, handler), "Book", "data");
-            //await tester.ValidateAsync<KucoinStreamIndicatorPrice>((client, handler) => client.SpotApi.SubscribeToIndexPriceUpdatesAsync("USDT-BTC", handler), "IndexPrice", "data");
-            //await tester.ValidateAsync<KucoinStreamIndicatorPrice>((client, handler) => client.SpotApi.SubscribeToMarkPriceUpdatesAsync("USDT-BTC", handler), "MarkPrice", "data");
+            await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "Ticker");
+            await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToAllTickerUpdatesAsync(handler), "Tickers");
+            await tester.ValidateAsync<KucoinStreamSnapshot>((client, handler) => client.SpotApi.SubscribeToSnapshotUpdatesAsync("BTC", handler), "Snapshot", "data.data");
+            await tester.ValidateAsync<KucoinStreamBestOffers>((client, handler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETH-USDT", handler), "BestOffers", "data");
+            await tester.ValidateAsync<KucoinStreamOrderBook>((client, handler) => client.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync("BTC-USDT", handler), "AggBook", "data");
+            await tester.ValidateAsync<KucoinStreamMatch>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("BTC-USDT", handler), "Trades", "data");
+            await tester.ValidateAsync<KucoinStreamCandle>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("BTC-USDT", Enums.KlineInterval.EightHours, handler), "Klines", "data");
+            await tester.ValidateAsync<KucoinStreamOrderBookChanged>((client, handler) => client.SpotApi.SubscribeToOrderBookUpdatesAsync("BTC-USDT", 5, handler), "Book", "data");
+            await tester.ValidateAsync<KucoinStreamIndicatorPrice>((client, handler) => client.SpotApi.SubscribeToIndexPriceUpdatesAsync("USDT-BTC", handler), "IndexPrice", "data");
+            await tester.ValidateAsync<KucoinStreamIndicatorPrice>((client, handler) => client.SpotApi.SubscribeToMarkPriceUpdatesAsync("USDT-BTC", handler), "MarkPrice", "data");
             await tester.ValidateAsync<KucoinStreamOrderNewUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler, null, null), "NewOrder", "data");
             await tester.ValidateAsync<KucoinStreamOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, handler, null), "OrderUpdate", "data");
             await tester.ValidateAsync<KucoinStreamOrderMatchUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, null, handler), "MatchOrder", "data");
@@ -56,6 +78,27 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinMarginOrderUpdate>((client, handler) => client.SpotApi.SubscribeToMarginOrderUpdatesAsync("BTC", handler, null, null), "MarginNewOrder", "data");
             await tester.ValidateAsync<KucoinMarginOrderUpdate>((client, handler) => client.SpotApi.SubscribeToMarginOrderUpdatesAsync("BTC", null, handler, null), "MarginOrderUpdate", "data");
             await tester.ValidateAsync<KucoinMarginOrderDoneUpdate>((client, handler) => client.SpotApi.SubscribeToMarginOrderUpdatesAsync("BTC", null, null, handler), "MarginOrderDone", "data");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentFuturesSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new KucoinSocketClient(Options.Create(new KucoinSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization,
+                Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-spot.kucoin.com", "data");
+            await tester.ValidateConcurrentAsync<KucoinStreamFuturesKline>(
+                (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("XBTUSDTM", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("XBTUSDTM", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
         }
 
         [TestCase(true)]
