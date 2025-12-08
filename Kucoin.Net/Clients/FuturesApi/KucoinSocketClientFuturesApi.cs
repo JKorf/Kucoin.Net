@@ -2,7 +2,6 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -28,6 +27,8 @@ using CryptoExchange.Net.Objects.Errors;
 using Kucoin.Net.Objects.Sockets;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using Kucoin.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Sockets.Interfaces;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {

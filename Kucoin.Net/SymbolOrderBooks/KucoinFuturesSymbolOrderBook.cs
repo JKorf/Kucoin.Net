@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
@@ -8,7 +7,6 @@ using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;

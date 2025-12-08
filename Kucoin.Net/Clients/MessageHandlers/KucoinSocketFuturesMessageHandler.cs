@@ -1,13 +1,9 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using Kucoin.Net;
+using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
-using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets;
-using System;
-using System.Linq;
 using System.Text.Json;
 
 namespace Kucoin.Net.Clients.MessageHandlers
@@ -56,7 +52,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
                 Fields = [
                     new PropertyFieldReference("topic").WithStartsWithContstraint("/contract/position"),
                     new PropertyFieldReference("subject").WithStartsWithContstraint("position.change"),
-                    new PropertyFieldReference("changeReason").WithStartsWithContstraint("markPriceChange")
+                    new PropertyFieldReference("changeReason") { Depth = 2 }.WithStartsWithContstraint("markPriceChange")
                 ],
                 TypeIdentifierCallback = x => $"{x.FieldValue("topic")}position.changemarkPriceChange"
             },

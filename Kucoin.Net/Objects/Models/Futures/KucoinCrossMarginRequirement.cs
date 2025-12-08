@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kucoin.Net.Objects.Models.Futures
+﻿namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Margin requirements

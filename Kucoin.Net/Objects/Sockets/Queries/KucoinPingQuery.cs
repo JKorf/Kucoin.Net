@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Queries
 {

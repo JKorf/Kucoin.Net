@@ -1,13 +1,11 @@
 ﻿using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.Net.Http;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Clients
 {

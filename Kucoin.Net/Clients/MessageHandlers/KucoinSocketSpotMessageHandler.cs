@@ -1,12 +1,9 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using Kucoin.Net;
+using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets;
-using System;
-using System.Linq;
 using System.Text.Json;
 
 namespace Kucoin.Net.Clients.MessageHandlers

@@ -4,14 +4,11 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Clients.FuturesApi;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Options;
 
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 

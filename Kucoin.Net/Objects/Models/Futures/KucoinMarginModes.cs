@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using Kucoin.Net.Enums;
 using System.Collections.Generic;
 

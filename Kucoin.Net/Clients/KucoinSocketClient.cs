@@ -1,5 +1,4 @@
-﻿using Kucoin.Net.Objects;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Interfaces.Clients.SpotApi;

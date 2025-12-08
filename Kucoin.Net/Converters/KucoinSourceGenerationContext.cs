@@ -9,7 +9,6 @@ using Kucoin.Net.Objects.Models.Unified;
 using Kucoin.Net.Objects.Sockets;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Kucoin.Net.Converters
 {
