@@ -277,6 +277,11 @@ namespace Kucoin.Net.Enums
         /// Spot
         /// </summary>
         [Map("Spot")]
-        Spot
+        Spot,
+        /// <summary>
+        /// Rebate
+        /// </summary>
+        [Map("Rebate")]
+        Rebate
     }
 }
