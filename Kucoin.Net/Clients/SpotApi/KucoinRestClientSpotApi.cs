@@ -112,50 +112,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("gw-ratelimit-reset", StringComparison.InvariantCultureIgnoreCase));
-            if (retryAfterHeader.Value?.Any() != true)
-                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
-
-            var value = retryAfterHeader.Value.First();
-            if (!int.TryParse(value, out var milliseconds))
-                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
-
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            return new ServerRateLimitError(msg!)
-            {
-                RetryAfter = DateTime.UtcNow.AddMilliseconds(milliseconds)
-            };
-        }
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            if (code != null && code != 200000 && code != 200) {
-                var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-                return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
-            }
-
-            return null;
-        }
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
-        }
-
-        /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 

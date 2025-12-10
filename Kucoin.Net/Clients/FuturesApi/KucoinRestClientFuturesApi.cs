@@ -91,32 +91,6 @@ namespace Kucoin.Net.Clients.FuturesApi
             return result.As(result.Data.Data);
         }
 
-        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown);
-
-            if (code == 200 || code == 200000)
-                return null;
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
-        }
-
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception) {
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown);
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
-        }
-
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
