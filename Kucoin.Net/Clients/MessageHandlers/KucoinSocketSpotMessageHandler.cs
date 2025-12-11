@@ -38,7 +38,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
              new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("type").WithEqualContstraint("welcome"),
+                    new PropertyFieldReference("type").WithEqualConstraint("welcome"),
                 ],
                 StaticIdentifier = "welcome"
             },
@@ -52,7 +52,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
 
              new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("topic").WithEqualContstraint("/spotMarket/tradeOrdersV2"),
+                    new PropertyFieldReference("topic").WithEqualConstraint("/spotMarket/tradeOrdersV2"),
                     new PropertyFieldReference("type") { Depth = 2 },
                 ],
                 TypeIdentifierCallback = x => x.FieldValue("topic") + x.FieldValue("type")
@@ -61,7 +61,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
 
              new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("topic").WithStartsWithContstraints("/margin/position", "/margin/loan"),
+                    new PropertyFieldReference("topic").WithStartsWithConstraints("/margin/position", "/margin/loan"),
                     new PropertyFieldReference("subject"),
                 ],
                 TypeIdentifierCallback = x => x.FieldValue("topic")!.Split(':')[0] + x.FieldValue("subject")

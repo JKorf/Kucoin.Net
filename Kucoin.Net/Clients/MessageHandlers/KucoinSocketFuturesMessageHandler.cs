@@ -35,7 +35,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
 
              new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("type").WithEqualContstraint("welcome"),
+                    new PropertyFieldReference("type").WithEqualConstraint("welcome"),
                 ],
                 StaticIdentifier = "welcome"
             },
@@ -43,16 +43,16 @@ namespace Kucoin.Net.Clients.MessageHandlers
              new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("id"),
-                    new PropertyFieldReference("type").WithNotEqualContstraint("message"),
+                    new PropertyFieldReference("type").WithNotEqualConstraint("message"),
                 ],
                 TypeIdentifierCallback = x => x.FieldValue("id")!
             },
 
              new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("topic").WithStartsWithContstraint("/contract/position"),
-                    new PropertyFieldReference("subject").WithStartsWithContstraint("position.change"),
-                    new PropertyFieldReference("changeReason") { Depth = 2 }.WithStartsWithContstraint("markPriceChange")
+                    new PropertyFieldReference("topic").WithStartsWithConstraint("/contract/position"),
+                    new PropertyFieldReference("subject").WithStartsWithConstraint("position.change"),
+                    new PropertyFieldReference("changeReason") { Depth = 2 }.WithStartsWithConstraint("markPriceChange")
                 ],
                 TypeIdentifierCallback = x => $"{x.FieldValue("topic")}position.changemarkPriceChange"
             },
@@ -60,7 +60,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("topic")
-                        .WithStartsWithContstraints(
+                        .WithStartsWithConstraints(
                             "/contract/instrument",
                             "/margin/position",
                             "/contract/position",
