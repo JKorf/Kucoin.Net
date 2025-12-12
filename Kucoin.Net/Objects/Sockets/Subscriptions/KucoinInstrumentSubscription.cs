@@ -27,6 +27,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _markIndexPriceHandler = markIndexPriceHandler;
             _fundingRateHandler = fundingRateHandler;
 
+            IndividualSubscriptionCount = symbols?.Count ?? 1;
+
             if (symbols?.Count > 0)
             {
                 var checkers = new List<MessageHandlerLink>();

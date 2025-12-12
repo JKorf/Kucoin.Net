@@ -22,6 +22,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _topic = symbols?.Any() == true ? topic + ":" + string.Join(",", symbols) : topic;
             _handler = handler;
 
+            IndividualSubscriptionCount = symbols?.Count ?? 1;
+
             if (symbols?.Count > 0)
             {
                 MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
