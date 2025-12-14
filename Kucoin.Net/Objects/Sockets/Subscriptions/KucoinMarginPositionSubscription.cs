@@ -53,7 +53,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginDebtRatioUpdate> message)
         {
             _onDebtRatioChange?.Invoke(
-                    new DataEvent<KucoinMarginDebtRatioUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinMarginDebtRatioUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp)
@@ -64,7 +64,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> message)
         {
             _onPositionStatusChange?.Invoke(
-                    new DataEvent<KucoinMarginPositionStatusUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinMarginPositionStatusUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp)

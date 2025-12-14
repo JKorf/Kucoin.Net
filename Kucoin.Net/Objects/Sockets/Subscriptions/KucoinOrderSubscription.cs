@@ -64,7 +64,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMatchMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderMatchUpdate> message)
         {
             _onTradeData?.Invoke(
-                    new DataEvent<KucoinStreamOrderMatchUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamOrderMatchUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithSymbol(message.Data.Symbol)
                         .WithUpdateType(SocketUpdateType.Update)
@@ -77,7 +77,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderUpdate> message)
         {
             _onOrderData?.Invoke(
-                    new DataEvent<KucoinStreamOrderUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithSymbol(message.Data.Symbol)
                         .WithUpdateType(SocketUpdateType.Update)
@@ -89,7 +89,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleNewMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderNewUpdate> message)
         {
             _onNewOrder?.Invoke(
-                    new DataEvent<KucoinStreamOrderNewUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamOrderNewUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithSymbol(message.Data.Symbol)
                         .WithUpdateType(SocketUpdateType.Update)

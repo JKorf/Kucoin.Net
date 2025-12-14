@@ -45,7 +45,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate> message)
         {
             _onPositionChange?.Invoke(
-                new DataEvent<KucoinIsolatedMarginPositionUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<KucoinIsolatedMarginPositionUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithSymbol(message.Data.Tag)
                     .WithDataTimestamp(message.Data.Timestamp)

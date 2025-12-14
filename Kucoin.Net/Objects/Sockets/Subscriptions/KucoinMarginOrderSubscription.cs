@@ -60,7 +60,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleDoneMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderDoneUpdate> message)
         {
             _onOrderDone?.Invoke(
-                    new DataEvent<KucoinMarginOrderDoneUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinMarginOrderDoneUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp)
@@ -71,7 +71,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleOpenMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
         {
             _onNewOrder?.Invoke(
-                    new DataEvent<KucoinMarginOrderUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinMarginOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp)
@@ -82,7 +82,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
         {
             _onOrderData?.Invoke(
-                    new DataEvent<KucoinMarginOrderUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinMarginOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp)

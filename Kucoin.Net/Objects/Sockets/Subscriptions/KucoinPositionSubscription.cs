@@ -66,7 +66,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionMarkPriceUpdate> message)
         {
             _onMarkPriceUpdate?.Invoke(
-                    new DataEvent<KucoinPositionMarkPriceUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinPositionMarkPriceUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp)
@@ -77,7 +77,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionUpdate> message)
         {
             _onPositionUpdate?.Invoke(
-                    new DataEvent<KucoinPositionUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinPositionUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(message.Data.Symbol)
@@ -88,7 +88,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate> message)
         {
             _onFundingSettlementUpdate?.Invoke(
-                    new DataEvent<KucoinPositionFundingSettlementUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinPositionFundingSettlementUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                 );
@@ -98,7 +98,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate> message)
         {
             _onRiskAdjustUpdate?.Invoke(
-                    new DataEvent<KucoinPositionRiskAdjustResultUpdate>(message.Data, receiveTime, originalData)
+                    new DataEvent<KucoinPositionRiskAdjustResultUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                 );

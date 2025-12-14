@@ -40,7 +40,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             message.Data.Event = message.Subject;
             _dataHandler.Invoke(
-                new DataEvent<KucoinContractAnnouncement>(message.Data, receiveTime, originalData)
+                new DataEvent<KucoinContractAnnouncement>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)

@@ -132,7 +132,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesMatch>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamFuturesMatch>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamFuturesMatch>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
@@ -154,7 +154,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesKlineUpdate>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamFuturesKline>(data.Data.Klines, receiveTime, originalData)
+                    new DataEvent<KucoinStreamFuturesKline>(KucoinExchange.ExchangeName, data.Data.Klines, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
@@ -176,7 +176,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesTick>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamFuturesTick>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamFuturesTick>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
@@ -198,7 +198,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinFuturesOrderBookChange>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinFuturesOrderBookChange>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinFuturesOrderBookChange>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
@@ -222,7 +222,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamOrderBookChanged>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamOrderBookChanged>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamOrderBookChanged>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
@@ -266,7 +266,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamTransactionStatisticsUpdate>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamTransactionStatisticsUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamTransactionStatisticsUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
@@ -286,7 +286,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesOrderUpdate>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamFuturesOrderUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamFuturesOrderUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
@@ -304,7 +304,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesStopOrderUpdate>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<KucoinStreamFuturesStopOrderUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<KucoinStreamFuturesStopOrderUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
@@ -359,7 +359,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<Dictionary<string, FuturesMarginMode>>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<Dictionary<string, FuturesMarginMode>>(data.Data, receiveTime, originalData)
+                    new DataEvent<Dictionary<string, FuturesMarginMode>>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                     );
@@ -375,7 +375,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<Dictionary<string, KucoinLeverageUpdate>>>((receiveTime, originalData, data) =>
             {
                 onData.Invoke(
-                    new DataEvent<Dictionary<string, KucoinLeverageUpdate>>(data.Data, receiveTime, originalData)
+                    new DataEvent<Dictionary<string, KucoinLeverageUpdate>>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                     );
