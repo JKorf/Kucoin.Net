@@ -9850,6 +9850,11 @@
             Max withdrawable quantity
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinAccountOverview.AvailableMargin">
+            <summary>
+            Available margin
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinAccountTransaction">
             <summary>
             Account transaction info
