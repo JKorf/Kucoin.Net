@@ -10212,6 +10212,16 @@
             Minimum limit selling price
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.EffectiveFundingRateCycleStartTime">
+            <summary>
+            Funding rate time interval (fundingRateGranularity) configuration start effective time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.CurrentFundingRateGranularity">
+            <summary>
+            Current effective funding rate period granularity (e.g., 8 hours/4 hours)
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement">
             <summary>
             Margin requirements
