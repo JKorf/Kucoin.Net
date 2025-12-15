@@ -310,11 +310,11 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// Funding rate time interval (fundingRateGranularity) configuration start effective time
         /// </summary>
         [JsonPropertyName("effectiveFundingRateCycleStartTime")]
-        public int EffectiveFundingRateCycleStartTime { get; set; }
+        public DateTime? EffectiveFundingRateCycleStartTime { get; set; }
         /// <summary>
         /// Current effective funding rate period granularity (e.g., 8 hours/4 hours)
         /// </summary>
         [JsonPropertyName("currentFundingRateGranularity")]
-        public int CurrentFundingRateGranularity { get; set; }
+        public int? CurrentFundingRateGranularity { get; set; }
     }
 }
