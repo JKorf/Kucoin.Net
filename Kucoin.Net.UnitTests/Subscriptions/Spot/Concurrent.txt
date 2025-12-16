@@ -1,0 +1,7 @@
+>1 {"id":"|*|","type":"subscribe","topic":"/market/candles:ETH-USDT_1hour","privateChannel":false,"response":true}
+>2 {"id":"|*|","type":"subscribe","topic":"/market/candles:ETH-USDT_1day","privateChannel":false,"response":true}
+<1 { "id": "|id|", "type": "ack" }
+<2 { "id": "|id|", "type": "ack" }
+=1 { "type": "message", "topic": "/market/candles:ETH-USDT_1hour", "subject": "trade.candles.update", "data": { "symbol": "ETH-USDT", "candles": [ "1589968800" ], "time": 1589970010253893337 }}
+=2 { "type": "message", "topic": "/market/candles:ETH-USDT_1day", "subject": "trade.candles.update", "data": { "symbol": "ETH-USDT", "candles": [ "1589968800" ], "time": 1589970010253893337 }}
+

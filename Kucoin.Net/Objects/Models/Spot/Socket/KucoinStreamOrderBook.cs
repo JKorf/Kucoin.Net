@@ -1,9 +1,6 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
-using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
-using Kucoin.Net.Converters;
 
 
 namespace Kucoin.Net.Objects.Models.Spot.Socket

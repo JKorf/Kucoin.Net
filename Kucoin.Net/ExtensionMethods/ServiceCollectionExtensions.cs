@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using Kucoin.Net;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
@@ -11,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Net;
 using System.Net.Http;
 
 namespace Microsoft.Extensions.DependencyInjection

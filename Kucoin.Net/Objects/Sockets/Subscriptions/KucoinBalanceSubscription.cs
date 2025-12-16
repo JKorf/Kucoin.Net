@@ -1,19 +1,17 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinBalanceSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinBalanceSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinStreamFuturesWalletUpdate>>? _onWalletUpdate;
@@ -43,6 +41,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>>(_topic + "availableBalance.change", DoHandleAvailableChange),
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>>(_topic + "withdrawHold.change", DoHandleWithdrawableChange),
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>>.CreateWithoutTopicFilter(_topic + "walletBalance.change", DoHandleWalletChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>>.CreateWithoutTopicFilter(_topic + "orderMargin.change", DoHandleMarginChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>>.CreateWithoutTopicFilter(_topic + "availableBalance.change", DoHandleAvailableChange),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>>.CreateWithoutTopicFilter(_topic + "withdrawHold.change", DoHandleWithdrawableChange),
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -55,27 +60,43 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleWalletChange(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>> message)
+        public CallResult DoHandleWalletChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate> message)
         {
-            _onWalletUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onWalletUpdate?.Invoke(
+                new DataEvent<KucoinStreamFuturesWalletUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMarginChange(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>> message)
+        public CallResult DoHandleMarginChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderMarginUpdate> message)
         {
-            _onOrderMarginUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onOrderMarginUpdate?.Invoke(
+                new DataEvent<KucoinStreamOrderMarginUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleAvailableChange(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>> message)
+        public CallResult DoHandleAvailableChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate> message)
         {
-            _onBalanceUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onBalanceUpdate?.Invoke(
+                new DataEvent<KucoinStreamFuturesBalanceUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleWithdrawableChange(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>> message)
+        public CallResult DoHandleWithdrawableChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate> message)
         {
-            _onWithdrawableUpdate?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update));
+            _onWithdrawableUpdate?.Invoke(
+                new DataEvent<KucoinStreamFuturesWithdrawableUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
     }

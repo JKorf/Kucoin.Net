@@ -2,7 +2,6 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
-using Kucoin.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -25,6 +24,11 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 using System.Net.WebSockets;
 using CryptoExchange.Net.Objects.Errors;
+using Kucoin.Net.Objects.Sockets;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using Kucoin.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Sockets.Interfaces;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -65,6 +69,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketFuturesMessageHandler();
 
         /// <inheritdoc />
         public override string GetListenerIdentifier(IMessageAccessor message)
@@ -124,7 +129,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamFuturesMatch>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamFuturesMatch>(_logger, this, "/contractMarket/execution", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesMatch>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamFuturesMatch>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamFuturesMatch>(_logger, this, "/contractMarket/execution", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -135,8 +151,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamFuturesKline>> onData, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesKlineUpdate>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamFuturesKline>(KucoinExchange.ExchangeName, data.Data.Klines, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                    );
+            });
+
             var symbolTopics = symbols.Select(x => x + "_" + EnumConverter.GetString(interval)).ToList();
-            var subscription = new KucoinSubscription<KucoinStreamFuturesKlineUpdate>(_logger, this, "/contractMarket/limitCandle", symbolTopics, x => onData(x.As(x.Data.Klines).WithSymbol(x.Data.Symbol)), false);
+            var subscription = new KucoinSubscription<KucoinStreamFuturesKlineUpdate>(_logger, this, "/contractMarket/limitCandle", symbolTopics, internalHandler, false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -147,7 +173,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamFuturesTick>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamFuturesTick>(_logger, this, "/contractMarket/tickerV2", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesTick>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamFuturesTick>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamFuturesTick>(_logger, this, "/contractMarket/tickerV2", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -158,7 +195,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinFuturesOrderBookChange>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinFuturesOrderBookChange>(_logger, this, "/contractMarket/level2", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinFuturesOrderBookChange>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinFuturesOrderBookChange>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinFuturesOrderBookChange>(_logger, this, "/contractMarket/level2", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -171,7 +219,17 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             limit.ValidateIntValues(nameof(limit), 5, 50);
 
-            var subscription = new KucoinSubscription<KucoinStreamOrderBookChanged>(_logger, this, $"/contractMarket/level2Depth{limit}", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamOrderBookChanged>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamOrderBookChanged>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamOrderBookChanged>(_logger, this, $"/contractMarket/level2Depth{limit}", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -205,7 +263,18 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeTo24HourSnapshotUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamTransactionStatisticsUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamTransactionStatisticsUpdate>(_logger, this, $"/contractMarket/snapshot", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamTransactionStatisticsUpdate>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamTransactionStatisticsUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamTransactionStatisticsUpdate>(_logger, this, $"/contractMarket/snapshot", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -214,14 +283,36 @@ namespace Kucoin.Net.Clients.FuturesApi
             Action<DataEvent<KucoinStreamFuturesOrderUpdate>> onData,
             CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamFuturesOrderUpdate>(_logger, this, $"/contractMarket/tradeOrders", symbol != null ? new List<string> { symbol }: null, onData, true);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesOrderUpdate>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamFuturesOrderUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamFuturesOrderUpdate>(_logger, this, $"/contractMarket/tradeOrders", symbol != null ? new List<string> { symbol }: null, internalHandler, true);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamFuturesStopOrderUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamFuturesStopOrderUpdate>(_logger, this, $"/contractMarket/advancedOrders", null, onData, true);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesStopOrderUpdate>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamFuturesStopOrderUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamFuturesStopOrderUpdate>(_logger, this, $"/contractMarket/advancedOrders", null, internalHandler, true);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -265,14 +356,32 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarginModeUpdatesAsync(Action<DataEvent<Dictionary<string, FuturesMarginMode>>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<Dictionary<string, FuturesMarginMode>>(_logger, this, $"/contract/marginMode", null, onData, true);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<Dictionary<string, FuturesMarginMode>>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<Dictionary<string, FuturesMarginMode>>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<Dictionary<string, FuturesMarginMode>>(_logger, this, $"/contract/marginMode", null, internalHandler, true);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginLeverageUpdatesAsync(Action<DataEvent<Dictionary<string, KucoinLeverageUpdate>>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<Dictionary<string, KucoinLeverageUpdate>>(_logger, this, $"/contract/crossLeverage", null, onData, true);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<Dictionary<string, KucoinLeverageUpdate>>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<Dictionary<string, KucoinLeverageUpdate>>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<Dictionary<string, KucoinLeverageUpdate>>(_logger, this, $"/contract/crossLeverage", null, internalHandler, true);
             return await SubscribeAsync("futures", subscription, ct).ConfigureAwait(false);
         }
 
@@ -301,9 +410,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
-            var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.Subscriptions.Any(s => s.Authenticated)).ConfigureAwait(false);
+            var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.HasAuthenticatedSubscription).ConfigureAwait(false);
             if (!result)
                 return null;
 

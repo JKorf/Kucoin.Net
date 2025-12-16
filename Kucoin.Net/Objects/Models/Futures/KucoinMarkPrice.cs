@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>

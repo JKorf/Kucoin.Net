@@ -229,7 +229,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Futures.Socket.KucoinStreamFuturesMatch}},System.Threading.CancellationToken)">
@@ -301,7 +301,7 @@
         <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetConnectionUrlAsync(System.String,System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Kucoin.Net.Clients.FuturesApi.KucoinSocketClientFuturesApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.Interfaces.ISocketConnection)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.KucoinRestClient">
@@ -439,15 +439,6 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientSpotApi.GetServerTimestampAsync">
@@ -909,7 +900,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Kucoin.Net.Objects.Models.Spot.Socket.KucoinStreamTick}},System.Threading.CancellationToken)">
@@ -1002,7 +993,7 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetConnectionUrlAsync(System.String,System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.Interfaces.ISocketConnection)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApi">
@@ -1018,15 +1009,6 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApi.GetServerTimestampAsync">
@@ -5112,6 +5094,26 @@
         <member name="F:Kucoin.Net.Enums.BizType.HoldToEarnEarnings">
             <summary>
             Hold to Earn Earnings
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.FeeRefundsKcs">
+            <summary>
+            Fee Refunds using KCS
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.KcsFeeDeduction">
+            <summary>
+            KCS Fee Deduction
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.Spot">
+            <summary>
+            Spot
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.Rebate">
+            <summary>
+            Rebate
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.BizTypeFilter">
@@ -9848,6 +9850,11 @@
             Max withdrawable quantity
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinAccountOverview.AvailableMargin">
+            <summary>
+            Available margin
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinAccountTransaction">
             <summary>
             Account transaction info
@@ -10208,6 +10215,16 @@
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.MinLimitSellPrice">
             <summary>
             Minimum limit selling price
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.EffectiveFundingRateCycleStartTime">
+            <summary>
+            Funding rate time interval (fundingRateGranularity) configuration start effective time
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.CurrentFundingRateGranularity">
+            <summary>
+            Current effective funding rate period granularity (e.g., 8 hours/4 hours)
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinCrossMarginRequirement">
@@ -18343,14 +18360,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Kucoin(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Kucoin(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the Kucoin REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Kucoin(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Kucoin(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the Kucoin Websocket Api client
             </summary>
@@ -18380,6 +18397,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_KucoinOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>

@@ -1,32 +1,35 @@
 ﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
-using Kucoin.Net.Objects;
-using Microsoft.Extensions.Logging;
-
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Interfaces;
+using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Enums;
-using System.Threading;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
-using Kucoin.Net.Objects.Models.Spot.Socket;
-using CryptoExchange.Net.Authentication;
-using Kucoin.Net.Interfaces.Clients.SpotApi;
-using System.Linq;
-using Kucoin.Net.Objects.Options;
-using CryptoExchange.Net.Objects.Sockets;
-using Kucoin.Net.Objects.Sockets.Subscriptions;
-using Kucoin.Net.Objects.Sockets.Queries;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Objects.Models.Spot.Socket;
+using Kucoin.Net.Objects.Options;
+using Kucoin.Net.Objects.Sockets;
+using Kucoin.Net.Objects.Sockets.Queries;
+using Kucoin.Net.Objects.Sockets.Subscriptions;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.WebSockets;
-using CryptoExchange.Net.Objects.Errors;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
@@ -66,6 +69,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketSpotMessageHandler();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -123,14 +127,37 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbols.ValidateNotNull(nameof(symbols));
 
-            var subscription = new KucoinSubscription<KucoinStreamTick>(_logger, this, "/market/ticker", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamTick>>((receiveTime, originalData, data) =>
+            {
+                data.Data.Symbol = data.Symbol!;
+                onData.Invoke(
+                    new DataEvent<KucoinStreamTick>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamTick>(_logger, this, "/market/ticker", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAllTickerUpdatesAsync(Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamTick>(_logger, this, "/market/ticker:all", null, x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamTick>>((receiveTime, originalData, data) =>
+            {
+                data.Data.Symbol = data.Subject;
+                onData.Invoke(
+                    new DataEvent<KucoinStreamTick>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamTick>(_logger, this, "/market/ticker:all", null, internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -143,7 +170,18 @@ namespace Kucoin.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToSnapshotUpdatesAsync(
             IEnumerable<string> symbolOrMarkets, Action<DataEvent<KucoinStreamSnapshot>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamSnapshotWrapper>(_logger, this, "/market/snapshot", symbolOrMarkets.ToList(), x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamSnapshotWrapper>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamSnapshot>(KucoinExchange.ExchangeName, data.Data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamSnapshotWrapper>(_logger, this, "/market/snapshot", symbolOrMarkets.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -155,7 +193,18 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbols.ValidateNotNull(nameof(symbols));
 
-            var subscription = new KucoinSubscription<KucoinStreamBestOffers>(_logger, this, "/spotMarket/level1", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamBestOffers>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamBestOffers>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamBestOffers>(_logger, this, "/spotMarket/level1", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -167,7 +216,17 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbols.ValidateNotNull(nameof(symbols));
 
-            var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, this, "/market/level2", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamOrderBook>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamOrderBook>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, this, "/market/level2", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -179,7 +238,18 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             symbols.ValidateNotNull(nameof(symbols));
 
-            var subscription = new KucoinSubscription<KucoinStreamMatch>(_logger, this, "/market/match", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamMatch>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamMatch>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamMatch>(_logger, this, "/market/match", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -190,8 +260,18 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<KucoinStreamCandle>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, this, $"/market/candles", symbols.Select(x => $"{x}_{EnumConverter.GetString(interval)}").ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamCandle>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamCandle>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
 
+            var subscription = new KucoinSubscription<KucoinStreamCandle>(_logger, this, $"/market/candles", symbols.Select(x => $"{x}_{EnumConverter.GetString(interval)}").ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -205,7 +285,17 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             limit.ValidateIntValues(nameof(limit), 5, 50);
 
-            var subscription = new KucoinSubscription<KucoinStreamOrderBookChanged>(_logger, this, $"/spotMarket/level2Depth{limit}", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamOrderBookChanged>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamOrderBookChanged>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamOrderBookChanged>(_logger, this, $"/spotMarket/level2Depth{limit}", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -215,7 +305,17 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, this, $"/indicator/index", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamIndicatorPrice>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamIndicatorPrice>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, this, $"/indicator/index", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -225,7 +325,17 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamIndicatorPrice>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, this, $"/indicator/markPrice", symbols.ToList(), x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamIndicatorPrice>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamIndicatorPrice>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamIndicatorPrice>(_logger, this, $"/indicator/markPrice", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -235,7 +345,17 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinStreamOrderBook>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, this, $"/callauction/level2Depth50", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamOrderBook>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamOrderBook>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, this, $"/callauction/level2Depth50", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -245,7 +365,17 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCallAuctionInfoUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<KucoinCallAuctionInfo>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinCallAuctionInfo>(_logger, this, $"/callauction/callauctionData", symbols.ToList(), onData, false);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinCallAuctionInfo>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinCallAuctionInfo>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinCallAuctionInfo>(_logger, this, $"/callauction/callauctionData", symbols.ToList(), internalHandler, false);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -263,14 +393,34 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<KucoinBalanceUpdate>> onBalanceChange, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinBalanceUpdate>(_logger, this, "/account/balance", null, x => onBalanceChange(x.WithDataTimestamp(x.Data.Timestamp)), true);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinBalanceUpdate>>((receiveTime, originalData, data) =>
+            {
+                onBalanceChange.Invoke(
+                    new DataEvent<KucoinBalanceUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+            var subscription = new KucoinSubscription<KucoinBalanceUpdate>(_logger, this, "/account/balance", null, internalHandler, true);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToStopOrderUpdatesAsync(Action<DataEvent<KucoinStreamStopOrderUpdateBase>> onData, CancellationToken ct = default)
         {
-            var subscription = new KucoinSubscription<KucoinStreamStopOrderUpdateBase>(_logger, this, "/spotMarket/advancedOrders", null, x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
+            var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamStopOrderUpdateBase>>((receiveTime, originalData, data) =>
+            {
+                onData.Invoke(
+                    new DataEvent<KucoinStreamStopOrderUpdateBase>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Topic)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Data.Timestamp)
+                    );
+            });
+
+            var subscription = new KucoinSubscription<KucoinStreamStopOrderUpdateBase>(_logger, this, "/spotMarket/advancedOrders", null, internalHandler, true);
             return await SubscribeAsync("spot", subscription, ct).ConfigureAwait(false);
         }
 
@@ -320,9 +470,9 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
-            var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.Subscriptions.Any(s => s.Authenticated)).ConfigureAwait(false);
+            var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.HasAuthenticatedSubscription).ConfigureAwait(false);
             if (!result)
                 return null;
 

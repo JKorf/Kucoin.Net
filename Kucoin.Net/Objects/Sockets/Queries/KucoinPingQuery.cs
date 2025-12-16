@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Queries
 {
@@ -10,6 +9,7 @@ namespace Kucoin.Net.Objects.Sockets.Queries
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create<KucoinPong>(id);
+            MessageRouter = MessageRouter.CreateWithoutHandler<KucoinPong>(id);
         }
     }
 }

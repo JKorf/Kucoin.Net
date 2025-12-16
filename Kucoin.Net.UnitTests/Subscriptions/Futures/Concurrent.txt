@@ -1,0 +1,7 @@
+>1 {"id":"|*|","type":"subscribe","topic":"/contractMarket/limitCandle:XBTUSDTM_1hour","privateChannel":false,"response":true}
+>2 {"id":"|*|","type":"subscribe","topic":"/contractMarket/limitCandle:XBTUSDTM_1day","privateChannel":false,"response":true}
+<1 { "id": "|id|", "type": "ack" }
+<2 { "id": "|id|", "type": "ack" }
+=1 { "topic": "/contractMarket/limitCandle:XBTUSDTM_1hour", "type": "message", "data": { "symbol": "XBTUSDTM", "candles": [ "1731898200" ], "time": 1731898208357 }, "subject": "candle.stick"}
+=2 { "topic": "/contractMarket/limitCandle:XBTUSDTM_1day", "type": "message", "data": { "symbol": "XBTUSDTM", "candles": [ "1731898200" ], "time": 1731898208357 }, "subject": "candle.stick"}
+

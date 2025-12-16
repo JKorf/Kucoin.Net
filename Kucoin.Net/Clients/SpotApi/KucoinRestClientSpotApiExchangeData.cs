@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models;
 using CryptoExchange.Net.Objects.Errors;
 

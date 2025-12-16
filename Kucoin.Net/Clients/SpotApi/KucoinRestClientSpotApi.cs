@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Kucoin.Net.Enums;
+using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,6 +26,8 @@ namespace Kucoin.Net.Clients.SpotApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
+
+        protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.SpotErrors);
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";
@@ -107,50 +109,6 @@ namespace Kucoin.Net.Clients.SpotApi
                 return result.AsError<T>(result.Error!);
 
             return result.As(result.Data);
-        }
-
-        /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
-        {
-            var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("gw-ratelimit-reset", StringComparison.InvariantCultureIgnoreCase));
-            if (retryAfterHeader.Value?.Any() != true)
-                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
-
-            var value = retryAfterHeader.Value.First();
-            if (!int.TryParse(value, out var milliseconds))
-                return base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
-
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            return new ServerRateLimitError(msg!)
-            {
-                RetryAfter = DateTime.UtcNow.AddMilliseconds(milliseconds)
-            };
-        }
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
-        {
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            if (code != null && code != 200000 && code != 200) {
-                var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-                return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
-            }
-
-            return null;
-        }
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
         }
 
         /// <inheritdoc />

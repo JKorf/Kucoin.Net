@@ -1,6 +1,4 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
-using System.Collections.Generic;
 using Kucoin.Net.Converters;
 
 
@@ -308,5 +306,15 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("sellLimit")]
         public decimal? MinLimitSellPrice { get; set; }
+        /// <summary>
+        /// Funding rate time interval (fundingRateGranularity) configuration start effective time
+        /// </summary>
+        [JsonPropertyName("effectiveFundingRateCycleStartTime")]
+        public DateTime? EffectiveFundingRateCycleStartTime { get; set; }
+        /// <summary>
+        /// Current effective funding rate period granularity (e.g., 8 hours/4 hours)
+        /// </summary>
+        [JsonPropertyName("currentFundingRateGranularity")]
+        public int? CurrentFundingRateGranularity { get; set; }
     }
 }

@@ -1,6 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
-
-
 namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
@@ -59,5 +56,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("maxWithdrawAmount")]
         public decimal? MaxWithdrawQuantity { get; set; }
+        /// <summary>
+        /// Available margin
+        /// </summary>
+        [JsonPropertyName("availableMargin")]
+        public decimal? AvailableMargin { get; set; }
     }
 }

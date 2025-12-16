@@ -1,17 +1,16 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinFundingFeeSettlementSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinFundingFeeSettlementSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -21,6 +20,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
 
             _topic = "/contract/announcement";
             _dataHandler = dataHandler;
@@ -36,10 +36,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinContractAnnouncement>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinContractAnnouncement> message)
         {
-            message.Data.Data.Event = message.Data.Subject;
-            _dataHandler.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update));
+            message.Data.Event = message.Subject;
+            _dataHandler.Invoke(
+                new DataEvent<KucoinContractAnnouncement>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Topic)
+                    .WithSymbol(message.Data.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                );
             return CallResult.SuccessResult;
         }
 

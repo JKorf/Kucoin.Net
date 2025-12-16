@@ -1,6 +1,4 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
-using System.Collections.Generic;
 using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Spot

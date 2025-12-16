@@ -6,7 +6,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     /// <summary>
     /// Earn account holding info
     /// </summary>
-    public class KucoinEarnHolding
+    public record KucoinEarnHolding
     {
         /// <summary>
         /// Holding ID

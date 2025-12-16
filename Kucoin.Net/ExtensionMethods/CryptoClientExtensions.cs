@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Clients;
+﻿using CryptoExchange.Net.Interfaces.Clients;
+using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces

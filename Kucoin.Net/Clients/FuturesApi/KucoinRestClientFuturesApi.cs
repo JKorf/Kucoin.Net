@@ -1,21 +1,19 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Kucoin.Net.Enums;
+using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
-using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,6 +28,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
 
         protected override ErrorMapping ErrorMapping => KucoinErrors.FuturesErrors;
+        protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.FuturesErrors);
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";
@@ -90,32 +89,6 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             return result.As(result.Data.Data);
-        }
-
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown);
-
-            if (code == 200 || code == 200000)
-                return null;
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
-        }
-
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception) {
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown);
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg));
         }
 
         /// <inheritdoc />

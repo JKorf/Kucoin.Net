@@ -15,7 +15,7 @@ namespace Kucoin.Net.UnitTests
     [NonParallelizable]
     internal class KucoinRestIntegrationTests : RestIntegrationTest<KucoinRestClient>
     {
-        public override bool Run { get; set; }
+        public override bool Run { get; set; } = false;
 
         public KucoinRestIntegrationTests()
         {
@@ -58,7 +58,7 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.Account.GetSymbolTradingFeesAsync("ETH-USDT", default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetAccountLedgersAsync(default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetHfAccountLedgersAsync(default, default, default, default, default, default, default, default), true);
-            await RunAndCheckResult(client => client.SpotApi.Account.GetTransferableAsync("ETH", Enums.AccountType.SpotHf, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetTransferableAsync("ETH", Enums.AccountType.Trade, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetDepositsAsync(default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawalsAsync(default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawalQuotasAsync("ETH", default, default), true);

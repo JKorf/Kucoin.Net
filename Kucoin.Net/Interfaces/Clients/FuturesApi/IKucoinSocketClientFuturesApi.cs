@@ -6,9 +6,9 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
-using CryptoExchange.Net.Interfaces;
 using System.Collections.Generic;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {

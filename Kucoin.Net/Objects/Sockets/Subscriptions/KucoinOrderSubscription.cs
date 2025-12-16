@@ -1,18 +1,16 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinOrderSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinOrderSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinStreamOrderNewUpdate>>? _onNewOrder;
@@ -42,6 +40,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "filled", DoHandleUpdateMessage),
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "canceled", DoHandleUpdateMessage),
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>>.CreateWithoutTopicFilter(_topic + "match", DoHandleMatchMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>>.CreateWithoutTopicFilter(_topic + "received", DoHandleNewMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "open", DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "update", DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "filled", DoHandleUpdateMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "canceled", DoHandleUpdateMessage),
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -54,21 +61,40 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMatchMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>> message)
+        public CallResult DoHandleMatchMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderMatchUpdate> message)
         {
-            _onTradeData?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onTradeData?.Invoke(
+                    new DataEvent<KucoinStreamOrderMatchUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithSymbol(message.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
+            
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleUpdateMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderUpdate>> message)
+        public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderUpdate> message)
         {
-            _onOrderData?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onOrderData?.Invoke(
+                    new DataEvent<KucoinStreamOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithSymbol(message.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleNewMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>> message)
+        public CallResult DoHandleNewMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderNewUpdate> message)
         {
-            _onNewOrder?.Invoke(message.As(message.Data.Data, message.Data.Topic, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onNewOrder?.Invoke(
+                    new DataEvent<KucoinStreamOrderNewUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithSymbol(message.Data.Symbol)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

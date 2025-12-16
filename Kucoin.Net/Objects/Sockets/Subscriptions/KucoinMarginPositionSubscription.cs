@@ -1,18 +1,16 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
-    internal class KucoinMarginPositionSubscription : Subscription<KucoinSocketResponse, KucoinSocketResponse>
+    internal class KucoinMarginPositionSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DataEvent<KucoinMarginDebtRatioUpdate>>? _onDebtRatioChange;
@@ -35,6 +33,11 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>(_topic + "debt.ratio", DoHandleMessage),
                 new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>(_topic + "position.status", DoHandleMessage)
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                MessageRoute<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>.CreateWithoutTopicFilter(_topic + "debt.ratio", DoHandleMessage),
+                MessageRoute<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>.CreateWithoutTopicFilter(_topic + "position.status", DoHandleMessage)
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -47,15 +50,25 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             return new KucoinQuery(_client, "unsubscribe", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginDebtRatioUpdate> message)
         {
-            _onDebtRatioChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onDebtRatioChange?.Invoke(
+                    new DataEvent<KucoinMarginDebtRatioUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> message)
         {
-            _onPositionStatusChange?.Invoke(message.As(message.Data.Data, message.Data.Topic, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.Timestamp));
+            _onPositionStatusChange?.Invoke(
+                    new DataEvent<KucoinMarginPositionStatusUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
+                        .WithStreamId(message.Topic)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(message.Data.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

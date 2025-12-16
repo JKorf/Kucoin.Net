@@ -1,9 +1,8 @@
 ﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
-using Kucoin.Net.Objects;
 
 namespace Kucoin.Net.Interfaces.Clients
 {
