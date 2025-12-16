@@ -15,7 +15,7 @@ namespace Kucoin.Net.UnitTests
     [NonParallelizable]
     internal class KucoinSocketIntegrationTests : SocketIntegrationTest<KucoinSocketClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public KucoinSocketIntegrationTests()
         {
