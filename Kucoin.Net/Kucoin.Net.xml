@@ -5116,6 +5116,16 @@
             Rebate
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.BizType.IsolatedMarginTrade">
+            <summary>
+            Isolated margin trade
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.BizType.CrossMarginTrade">
+            <summary>
+            Cross margin trade
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BizTypeFilter">
             <summary>
             Biz type filter

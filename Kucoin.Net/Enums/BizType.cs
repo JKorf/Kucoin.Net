@@ -146,7 +146,7 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Debt Repayment
         /// </summary>
-        [Map("Debt Repayment")]
+        [Map("Debt Repayment", "DebtRepayment")]
         DebtRepayment,
         /// <summary>
         /// Loans Repaid
@@ -282,6 +282,16 @@ namespace Kucoin.Net.Enums
         /// Rebate
         /// </summary>
         [Map("Rebate")]
-        Rebate
+        Rebate,
+        /// <summary>
+        /// Isolated margin trade
+        /// </summary>
+        [Map("Isolated Margin Trading")]
+        IsolatedMarginTrade,
+        /// <summary>
+        /// Cross margin trade
+        /// </summary>
+        [Map("Cross Margin Trading")]
+        CrossMarginTrade
     }
 }
