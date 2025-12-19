@@ -4,6 +4,8 @@ using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
 using Kucoin.Net.Objects.Sockets;
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace Kucoin.Net.Clients.MessageHandlers
@@ -41,6 +43,21 @@ namespace Kucoin.Net.Clients.MessageHandlers
                     new PropertyFieldReference("type").WithEqualConstraint("welcome"),
                 ],
                 StaticIdentifier = "welcome"
+            },
+
+             new MessageTypeDefinition {
+                Fields = [
+                    new PropertyFieldReference("id"),
+                    new PropertyFieldReference("topic").WithCustomConstraint(x => {
+                        if (x == null)
+                            return false;
+
+                        // These have an id field but should identify by topic regardless
+                        return string.Equals(x, "/account/balance", System.StringComparison.Ordinal)
+                             || x.StartsWith("/margin/fundingBook", StringComparison.Ordinal);
+                    }),
+                ],
+                TypeIdentifierCallback = x => x.FieldValue("topic")!
             },
 
              new MessageTypeDefinition {

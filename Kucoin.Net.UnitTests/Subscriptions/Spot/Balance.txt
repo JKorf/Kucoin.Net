@@ -2,10 +2,12 @@
 < { "id": "|1|", "type": "ack" }
 = 
 {
-  "type": "message",
-  "topic": "/account/balance",
-  "subject": "account.balance",
-  "channelType": "private",
+  "topic":"/account/balance",
+  "type":"message",
+  "subject":"account.balance",
+  "id":"2176438929850496",
+  "userId":"x",
+  "channelType":"private",
   "data": {
     "total": "88",
     "available": "88",
