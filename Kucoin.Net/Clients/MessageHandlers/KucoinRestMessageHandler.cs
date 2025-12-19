@@ -39,12 +39,14 @@ namespace Kucoin.Net.Clients.MessageHandlers
             if (parseError != null)
                 return parseError;
 
-            int? code = document!.RootElement.TryGetProperty("code", out var codeProp) ? codeProp.GetInt32() : null;
+            string? code = document!.RootElement.TryGetProperty("code", out var codeProp)
+                ? codeProp.ValueKind == JsonValueKind.Number ? codeProp.GetInt32().ToString() : codeProp.GetString()
+                : null;
             if(code == null)
                 return new ServerError(ErrorInfo.Unknown);
 
             var msg = document!.RootElement.TryGetProperty("msg", out var msgProp) ? msgProp.GetString() : null;
-            return new ServerError(code.Value!, _errorMapping.GetErrorInfo(code.Value.ToString(), msg));
+            return new ServerError(code, _errorMapping.GetErrorInfo(code, msg));
         }
 
         public override async ValueTask<ServerRateLimitError> ParseErrorRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
