@@ -162,6 +162,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.0.1 - 19 Dec 2025
+    * Fixed error response parsing
+    * Added BizType enum values
+    * Updated CryptoExchange.Net version to 10.0.2, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+
 * Version 8.0.0 - 16 Dec 2025
     * Added Net10.0 target framework
     * Updated CryptoExchange.Net version to 10.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
