@@ -201,7 +201,7 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Convert to KCS
         /// </summary>
-        [Map("Convert to KCS")]
+        [Map("Convert to KCS", "CONVERT_TO_KCS")]
         ConvertToKCS,
         /// <summary>
         /// Broker transfer
