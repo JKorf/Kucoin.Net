@@ -292,6 +292,11 @@ namespace Kucoin.Net.Enums
         /// Cross margin trade
         /// </summary>
         [Map("Cross Margin Trading")]
-        CrossMarginTrade
+        CrossMarginTrade,
+        /// <summary>
+        /// Coupon returned fees
+        /// </summary>
+        [Map("COUPON_RETURNED_FEES")]
+        CouponReturnedFees
     }
 }

@@ -5102,6 +5102,11 @@
             Cross margin trade
             </summary>
         </member>
+        <member name="F:Kucoin.Net.Enums.BizType.CouponReturnedFees">
+            <summary>
+            Coupon returned fees
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.BizTypeFilter">
             <summary>
             Biz type filter
