@@ -120,9 +120,6 @@ namespace Kucoin.Net.Clients.FuturesApi
             => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(null);
-
-        /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamFuturesMatch>> onData, CancellationToken ct = default)
             => SubscribeToTradeUpdatesAsync(new[] { symbol }, onData, ct);
 
@@ -131,12 +128,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesMatch>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onData.Invoke(
                     new DataEvent<KucoinStreamFuturesMatch>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -175,12 +174,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesTick>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onData.Invoke(
                     new DataEvent<KucoinStreamFuturesTick>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -197,12 +198,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinFuturesOrderBookChange>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onData.Invoke(
                     new DataEvent<KucoinFuturesOrderBookChange>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -221,12 +224,15 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamOrderBookChanged>>((receiveTime, originalData, data) =>
             {
+                if (data.Data.Timestamp != null)
+                    UpdateTimeOffset(data.Data.Timestamp.Value);
+
                 onData.Invoke(
                     new DataEvent<KucoinStreamOrderBookChanged>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
             var subscription = new KucoinSubscription<KucoinStreamOrderBookChanged>(_logger, this, $"/contractMarket/level2Depth{limit}", symbols.ToList(), internalHandler, false);
@@ -265,12 +271,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamTransactionStatisticsUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onData.Invoke(
                     new DataEvent<KucoinStreamTransactionStatisticsUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -285,12 +293,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesOrderUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onData.Invoke(
                     new DataEvent<KucoinStreamFuturesOrderUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -303,12 +313,14 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, KucoinSocketUpdate<KucoinStreamFuturesStopOrderUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onData.Invoke(
                     new DataEvent<KucoinStreamFuturesStopOrderUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithStreamId(data.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 

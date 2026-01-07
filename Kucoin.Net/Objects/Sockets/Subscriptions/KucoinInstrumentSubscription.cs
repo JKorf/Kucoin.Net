@@ -69,22 +69,28 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _markIndexPriceHandler?.Invoke(
                 new DataEvent<KucoinStreamFuturesMarkIndexPrice>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithSymbol(message.Topic.Split(new char[] { ':' }).Last())
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesFundingRate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _fundingRateHandler?.Invoke(
                 new DataEvent<KucoinStreamFuturesFundingRate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithSymbol(message.Topic.Split(new char[] { ':' }).Last())
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

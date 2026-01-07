@@ -24,9 +24,6 @@ namespace Kucoin.Net.Clients.SpotApi
     internal partial class KucoinRestClientUnifiedApi : RestApiClient, IKucoinRestClientUnifiedApi
     {
         private KucoinRestClient _baseClient;
-
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Unified Api");
-
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
         protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.SpotErrors);
 
@@ -94,14 +91,5 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
-
     }
 }

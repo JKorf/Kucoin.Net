@@ -44,11 +44,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onPositionChange?.Invoke(
                 new DataEvent<KucoinIsolatedMarginPositionUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithSymbol(message.Data.Tag)
-                    .WithDataTimestamp(message.Data.Timestamp)
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
 
             return CallResult.SuccessResult;

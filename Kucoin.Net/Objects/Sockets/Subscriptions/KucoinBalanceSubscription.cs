@@ -62,40 +62,52 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleWalletChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onWalletUpdate?.Invoke(
                 new DataEvent<KucoinStreamFuturesWalletUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMarginChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderMarginUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onOrderMarginUpdate?.Invoke(
                 new DataEvent<KucoinStreamOrderMarginUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleAvailableChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onBalanceUpdate?.Invoke(
                 new DataEvent<KucoinStreamFuturesBalanceUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleWithdrawableChange(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onWithdrawableUpdate?.Invoke(
                 new DataEvent<KucoinStreamFuturesWithdrawableUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

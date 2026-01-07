@@ -52,22 +52,26 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginDebtRatioUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onDebtRatioChange?.Invoke(
                     new DataEvent<KucoinMarginDebtRatioUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onPositionStatusChange?.Invoke(
                     new DataEvent<KucoinMarginPositionStatusUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

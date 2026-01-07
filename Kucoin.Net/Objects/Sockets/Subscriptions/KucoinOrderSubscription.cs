@@ -63,12 +63,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMatchMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderMatchUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onTradeData?.Invoke(
                     new DataEvent<KucoinStreamOrderMatchUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithSymbol(message.Data.Symbol)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             
             return CallResult.SuccessResult;
@@ -76,24 +78,28 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onOrderData?.Invoke(
                     new DataEvent<KucoinStreamOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithSymbol(message.Data.Symbol)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleNewMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderNewUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onNewOrder?.Invoke(
                     new DataEvent<KucoinStreamOrderNewUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithSymbol(message.Data.Symbol)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

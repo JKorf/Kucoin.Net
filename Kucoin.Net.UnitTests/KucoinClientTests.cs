@@ -107,7 +107,7 @@ namespace Kucoin.Net.UnitTests
                 {
                     { "currency", "BTC" }
                 },
-                time: DateTimeConverter.ConvertFromMilliseconds(1547015186532));
+                time: DateTimeConverter.ConvertFromMilliseconds(1547015187532));
         }
 
         [Test]

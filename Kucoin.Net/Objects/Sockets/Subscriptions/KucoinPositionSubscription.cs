@@ -65,28 +65,35 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionMarkPriceUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onMarkPriceUpdate?.Invoke(
                     new DataEvent<KucoinPositionMarkPriceUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.CurrentTime);
+
             _onPositionUpdate?.Invoke(
                     new DataEvent<KucoinPositionUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(message.Data.Symbol)
+                        .WithDataTimestamp(message.Data.CurrentTime, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onFundingSettlementUpdate?.Invoke(
                     new DataEvent<KucoinPositionFundingSettlementUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)

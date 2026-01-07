@@ -59,33 +59,39 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleDoneMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderDoneUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onOrderDone?.Invoke(
                     new DataEvent<KucoinMarginOrderDoneUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleOpenMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onNewOrder?.Invoke(
                     new DataEvent<KucoinMarginOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             _onOrderData?.Invoke(
                     new DataEvent<KucoinMarginOrderUpdate>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(message.Data.Timestamp)
+                        .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

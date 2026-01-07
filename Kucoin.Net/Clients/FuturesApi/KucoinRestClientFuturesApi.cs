@@ -24,9 +24,6 @@ namespace Kucoin.Net.Clients.FuturesApi
     {
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
-
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
-
         protected override ErrorMapping ErrorMapping => KucoinErrors.FuturesErrors;
         protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.FuturesErrors);
 
@@ -94,14 +91,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
 
         public IKucoinRestClientFuturesApiShared SharedClient => this;
     }

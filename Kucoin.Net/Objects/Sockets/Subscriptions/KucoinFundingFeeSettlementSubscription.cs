@@ -38,12 +38,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinContractAnnouncement> message)
         {
+            _client.UpdateTimeOffset(message.Data.Timestamp);
+
             message.Data.Event = message.Subject;
             _dataHandler.Invoke(
                 new DataEvent<KucoinContractAnnouncement>(KucoinExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Topic)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
