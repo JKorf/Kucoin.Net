@@ -16,6 +16,16 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
+        /// Display name
+        /// </summary>
+        [JsonPropertyName("displaySymbol")]
+        public string DisplaySymbol { get; set; } = string.Empty;
+        /// <summary>
+        /// Display base asset
+        /// </summary>
+        [JsonPropertyName("displayBaseCurrency")]
+        public string DisplayBaseAsset { get; set; } = string.Empty;
+        /// <summary>
         /// Fair method
         /// </summary>
         [JsonPropertyName("fairMethod")]
