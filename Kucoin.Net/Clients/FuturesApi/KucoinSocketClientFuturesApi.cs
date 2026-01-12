@@ -206,6 +206,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Symbol)
                         .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
+                        .WithSequenceNumber(data.Data.Sequence)
                     );
             });
 

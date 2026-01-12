@@ -231,6 +231,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithSymbol(data.Data.Symbol)
                         .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
+                        .WithSequenceNumber(data.Data.SequenceEnd)
                     );
             });
             var subscription = new KucoinSubscription<KucoinStreamOrderBook>(_logger, this, "/market/level2", symbols.ToList(), internalHandler, false);
