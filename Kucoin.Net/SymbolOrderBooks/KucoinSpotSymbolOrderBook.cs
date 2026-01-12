@@ -55,7 +55,7 @@ namespace Kucoin.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options.Limit == null;
+            _sequencesAreConsecutive = true;
 
             Levels = options.Limit;
             _initialDataTimeout = options.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
@@ -87,6 +87,9 @@ namespace Kucoin.Net.SymbolOrderBooks
                 }
 
                 Status = OrderBookStatus.Syncing;
+                
+                // Small delay to make sure the snapshot is after the first stream update
+                await Task.Delay(1000).ConfigureAwait(false);
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
@@ -95,7 +98,7 @@ namespace Kucoin.Net.SymbolOrderBooks
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
-                SetInitialOrderBook(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
+                SetSnapshot(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else
             {
@@ -131,22 +134,24 @@ namespace Kucoin.Net.SymbolOrderBooks
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
 
+            // Small delay to make sure the snapshot is after the first stream update
+            await Task.Delay(1000).ConfigureAwait(false);
             var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetInitialOrderBook(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetSnapshot(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 
         private void HandleFullUpdate(DataEvent<KucoinStreamOrderBook> data)
         {
-            UpdateOrderBook(data.Data.SequenceStart, data.Data.SequenceEnd, data.Data.Changes.Bids, data.Data.Changes.Asks);
+            UpdateOrderBook(data.Data.SequenceStart, data.Data.SequenceEnd, data.Data.Changes.Bids, data.Data.Changes.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         private void HandleUpdate(DataEvent<KucoinStreamOrderBookChanged> data)
         {
-            SetInitialOrderBook(DateTime.UtcNow.Ticks, data.Data.Bids, data.Data.Asks);
+            SetSnapshot(data.Data.Timestamp!.Value.Ticks, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <summary>

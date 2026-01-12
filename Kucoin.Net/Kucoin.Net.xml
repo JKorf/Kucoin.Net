@@ -9921,6 +9921,16 @@
             Base asset
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.DisplaySymbol">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.DisplayBaseAsset">
+            <summary>
+            Display base asset
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Futures.KucoinContract.FairMethod">
             <summary>
             Fair method
