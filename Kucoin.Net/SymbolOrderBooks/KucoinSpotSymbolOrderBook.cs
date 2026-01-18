@@ -87,9 +87,10 @@ namespace Kucoin.Net.SymbolOrderBooks
                 }
 
                 Status = OrderBookStatus.Syncing;
-                
-                // Small delay to make sure the snapshot is after the first stream update
-                await Task.Delay(1000).ConfigureAwait(false);
+
+                // Wait up to 1s until the first update has been received
+                await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
+
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
                 if (!bookResult)
                 {
@@ -134,8 +135,9 @@ namespace Kucoin.Net.SymbolOrderBooks
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
 
-            // Small delay to make sure the snapshot is after the first stream update
-            await Task.Delay(1000).ConfigureAwait(false);
+            // Wait up to 1s until the first update has been received
+            await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
+
             var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
