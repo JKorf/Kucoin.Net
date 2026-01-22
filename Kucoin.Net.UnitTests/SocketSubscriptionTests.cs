@@ -22,7 +22,7 @@ namespace Kucoin.Net.UnitTests
     public class SocketSubscriptionTests
     {
         [Test]
-        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        public async Task ValidateConcurrentSpotSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
