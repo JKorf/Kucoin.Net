@@ -162,6 +162,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.3.0 - 22 Jan 2026
+    * Updated CryptoExchange.Net to version 10.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Removed legacy websocket message handling and the corresponding UseUpdatedDeserialization client option
+    * Added Metadata to KucoinExchange
+
 * Version 8.2.2 - 19 Jan 2026
     * Updated CryptoExchange.Net to version 10.2.5, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Fixed some order book sync issues
