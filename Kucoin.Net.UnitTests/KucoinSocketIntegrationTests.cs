@@ -21,7 +21,7 @@ namespace Kucoin.Net.UnitTests
         {
         }
 
-        public override KucoinSocketClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
+        public override KucoinSocketClient GetClient(ILoggerFactory loggerFactory)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -31,19 +31,17 @@ namespace Kucoin.Net.UnitTests
             return new KucoinSocketClient(Options.Create(new KucoinSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task TestSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestSubscriptions()
         {
-            await RunAndCheckUpdate<KucoinStreamTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(default, default), false, true);
-            await RunAndCheckUpdate<KucoinStreamTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETH-USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<KucoinStreamTick>((client, updateHandler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(default, default), false, true);
+            await RunAndCheckUpdate<KucoinStreamTick>((client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETH-USDT", updateHandler, default), true, false);
 
-            await RunAndCheckUpdate<KucoinStreamTransactionStatisticsUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.FuturesApi.SubscribeTo24HTickerUpdatesAsync("ETHUSDTM", updateHandler, default), true, false);
+            await RunAndCheckUpdate<KucoinStreamTransactionStatisticsUpdate>((client, updateHandler) => client.FuturesApi.SubscribeTo24HTickerUpdatesAsync("ETHUSDTM", updateHandler, default), true, false);
         } 
     }
 }

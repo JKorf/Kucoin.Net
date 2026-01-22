@@ -26,12 +26,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
             if (symbols?.Count > 0)
             {
-                MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(symbols.Select(s => topic + ":" + s), DoHandleMessage);
                 MessageRouter = MessageRouter.CreateWithTopicFilters<KucoinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
             }
             else
             {
-                MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
                 if (topic.EndsWith(":all"))
                     topic = topic.Replace(":all", "");
                 MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketUpdate<T>>(topic, DoHandleMessage);

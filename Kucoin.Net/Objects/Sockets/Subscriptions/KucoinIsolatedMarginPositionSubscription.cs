@@ -28,7 +28,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onPositionChange = onPositionChange;
             _topic = "/margin/isolatedPosition:" + symbol;
 
-            MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(_topic, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithTopicFilter<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>("/margin/isolatedPosition", symbol, DoHandleMessage);
         }
 

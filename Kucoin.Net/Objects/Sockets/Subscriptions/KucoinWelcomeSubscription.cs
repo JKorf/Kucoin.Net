@@ -8,7 +8,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
     {
         public KucoinWelcomeSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<KucoinWelcome>("welcome");
             MessageRouter = MessageRouter.CreateWithoutHandler<KucoinWelcome>("welcome");
         }
     }

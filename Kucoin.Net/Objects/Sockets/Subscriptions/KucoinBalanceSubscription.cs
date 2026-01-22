@@ -35,13 +35,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onWithdrawableUpdate = onWithdrawableUpdate;
             _onWalletUpdate = onWalletUpdate;
 
-            MessageMatcher = MessageMatcher.Create([
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>>(_topic + "walletBalance.change", DoHandleWalletChange),
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>>(_topic + "orderMargin.change", DoHandleMarginChange),
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesBalanceUpdate>>(_topic + "availableBalance.change", DoHandleAvailableChange),
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinStreamFuturesWithdrawableUpdate>>(_topic + "withdrawHold.change", DoHandleWithdrawableChange),
-                ]);
-
             MessageRouter = MessageRouter.Create([
                 MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesWalletUpdate>>.CreateWithoutTopicFilter(_topic + "walletBalance.change", DoHandleWalletChange),
                 MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMarginUpdate>>.CreateWithoutTopicFilter(_topic + "orderMargin.change", DoHandleMarginChange),

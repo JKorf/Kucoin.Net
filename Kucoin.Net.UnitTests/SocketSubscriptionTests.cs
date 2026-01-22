@@ -21,8 +21,7 @@ namespace Kucoin.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
+        [Test]
         public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
         {
             var logger = new LoggerFactory();
@@ -31,7 +30,6 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinSocketClient(Options.Create(new KucoinSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization,
                 Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
             }), logger);
 
@@ -42,9 +40,8 @@ namespace Kucoin.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotSubscriptions()
         {
             var logFactory = new LoggerFactory();
             logFactory.AddProvider(new TraceLoggerProvider());
@@ -53,7 +50,6 @@ namespace Kucoin.Net.UnitTests
             {
                 ApiCredentials = new ApiCredentials("123", "456", "789"),
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
             }), logFactory);
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data");
@@ -80,9 +76,8 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinMarginOrderDoneUpdate>((client, handler) => client.SpotApi.SubscribeToMarginOrderUpdatesAsync("BTC", null, null, handler), "MarginOrderDone", "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentFuturesSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentFuturesSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
@@ -90,7 +85,6 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinSocketClient(Options.Create(new KucoinSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization,
                 Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
             }), logger);
 
@@ -101,16 +95,14 @@ namespace Kucoin.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task ValidateFuturesSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateFuturesSubscriptions()
         {
             var logFactory = new LoggerFactory();
             logFactory.AddProvider(new TraceLoggerProvider());
 
             var client = new KucoinSocketClient(Options.Create(new Objects.Options.KucoinSocketOptions
             {
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = new ApiCredentials("123", "456", "789"),
                 OutputOriginalData = true,
                 Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)

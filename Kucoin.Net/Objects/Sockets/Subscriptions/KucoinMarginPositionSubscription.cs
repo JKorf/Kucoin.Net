@@ -29,11 +29,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onDebtRatioChange = onDebtRatioChange;
             _onPositionStatusChange = onPositionStatusChange;
 
-            MessageMatcher = MessageMatcher.Create([
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>(_topic + "debt.ratio", DoHandleMessage),
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>(_topic + "position.status", DoHandleMessage)
-                ]);
-
             MessageRouter = MessageRouter.Create([
                 MessageRoute<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>.CreateWithoutTopicFilter(_topic + "debt.ratio", DoHandleMessage),
                 MessageRoute<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>.CreateWithoutTopicFilter(_topic + "position.status", DoHandleMessage)

@@ -34,12 +34,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
             _topic = "/margin/loan:" + asset;
 
-            MessageMatcher = MessageMatcher.Create([
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(_topic + "order.open", DoHandleOpenMessage),
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(_topic + "order.update", DoHandleUpdateMessage),
-                new MessageHandlerLink<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>(_topic + "order.done", DoHandleDoneMessage)
-                ]);
-
             MessageRouter = MessageRouter.Create([
                 MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.open", asset, DoHandleOpenMessage),
                 MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.update",  asset, DoHandleUpdateMessage),

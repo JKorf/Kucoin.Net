@@ -19,7 +19,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public KucoinFundingFeeSettlementSubscription(ILogger logger, SocketApiClient client, Action<DataEvent<KucoinContractAnnouncement>> dataHandler) : base(logger, false)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
 
             _topic = "/contract/announcement";

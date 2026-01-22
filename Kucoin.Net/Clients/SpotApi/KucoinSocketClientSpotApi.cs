@@ -37,11 +37,6 @@ namespace Kucoin.Net.Clients.SpotApi
     internal partial class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
     {
         private readonly KucoinSocketClient _baseClient;
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
-        private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
-        private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
-        private static readonly MessagePath _orderEventTypePath = MessagePath.Get().Property("data").Property("type");
 
         /// <inheritdoc />
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
@@ -67,7 +62,6 @@ namespace Kucoin.Net.Clients.SpotApi
                 });
         }
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketSpotMessageHandler();
 
@@ -80,41 +74,6 @@ namespace Kucoin.Net.Clients.SpotApi
             => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         public IKucoinSocketClientSpotApiShared SharedClient => this;
-
-        /// <inheritdoc />
-        public override string GetListenerIdentifier(IMessageAccessor message)
-        {
-            var type = message.GetValue<string>(_typePath);
-            if (string.Equals(type, "welcome", StringComparison.Ordinal))
-                return type!;
-
-            var topic = message.GetValue<string>(_topicPath);
-            var id = message.GetValue<string>(_idPath);
-            if (id != null)
-            {
-                if (string.Equals(topic, "/account/balance", StringComparison.Ordinal)
-                    || topic?.StartsWith("/margin/fundingBook", StringComparison.Ordinal) == true)
-                {
-                    // This update also contain an id field, but should be identified by the topic regardless
-                    return topic!;
-                }
-
-                return id;
-            }
-
-            if (topic!.StartsWith("/margin/loan", StringComparison.Ordinal)
-             || topic!.StartsWith("/margin/position", StringComparison.Ordinal))
-                {
-                return topic + message.GetValue<string?>(_subjectPath);
-            }
-
-            if (topic.Equals("/spotMarket/tradeOrdersV2"))
-            {
-                return topic + message.GetValue<string?>(_orderEventTypePath);
-            }
-
-            return topic;
-        }
 
         /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default) => SubscribeToTickerUpdatesAsync(new[] { symbol }, onData, ct);

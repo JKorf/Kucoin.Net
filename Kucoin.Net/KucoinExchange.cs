@@ -19,6 +19,19 @@ namespace Kucoin.Net
     public static class KucoinExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "Kucoin",
+                "Kucoin",
+                "https://raw.githubusercontent.com/JKorf/Kucoin.Net/master/Kucoin.Net/Icon/icon.png",
+                "https://www.kucoin.com",
+                ["https://www.kucoin.com/docs/beginners/introduction"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "Kucoin";

@@ -15,7 +15,6 @@ namespace Kucoin.Net.Objects.Sockets.Queries
         public KucoinQuery(SocketApiClient client, string type, string topic, bool auth) : base(new KucoinRequest(ExchangeHelpers.NextId().ToString(), type, topic, auth), auth)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketResponse>(((KucoinRequest)Request).Id, HandleMessage);
         }
 

@@ -35,12 +35,6 @@ namespace Kucoin.Net.Clients.FuturesApi
     /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
     internal partial class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
     {
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
-        private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
-        private static readonly MessagePath _subjectPath = MessagePath.Get().Property("subject");
-        private static readonly MessagePath _changeReasonPath = MessagePath.Get().Property("data").Property("changeReason");
-
         private readonly KucoinSocketClient _baseClient;
 
         /// <inheritdoc />
@@ -67,46 +61,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             });
         }
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketFuturesMessageHandler();
-
-        /// <inheritdoc />
-        public override string GetListenerIdentifier(IMessageAccessor message)
-        {
-            var type = message.GetValue<string>(_typePath);
-            if (string.Equals(type, "welcome", StringComparison.Ordinal))
-                return type!;
-
-            var id = message.GetValue<string>(_idPath);
-            if (!string.Equals(type, "message", StringComparison.Ordinal) && id != null)
-                return id;
-
-            var topic = message.GetValue<string>(_topicPath)!;
-            if (topic.Equals("/contractAccount/wallet", StringComparison.Ordinal)
-                || topic.StartsWith("/margin/position", StringComparison.Ordinal)
-                || topic.StartsWith("/contract/instrument", StringComparison.Ordinal))
-            {
-                return topic + message.GetValue<string?>(_subjectPath);
-            }
-
-            if (topic.StartsWith("/contract/position", StringComparison.Ordinal))
-            {
-                var subject = message.GetValue<string?>(_subjectPath);
-                if (subject?.Equals("position.change", StringComparison.Ordinal) == true)
-                {
-                    var changeReason = message.GetValue<string?>(_changeReasonPath);
-                    if (changeReason?.Equals("markPriceChange") == true)
-                        return topic + subject + changeReason;
-
-                    return topic + subject;
-                }
-
-                return topic + subject;
-            }
-
-            return topic;
-        }
 
         public IKucoinSocketClientFuturesApiShared SharedClient => this;
 

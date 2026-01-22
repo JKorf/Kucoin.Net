@@ -37,13 +37,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onFundingSettlementUpdate = onFundingSettlementUpdate;
             _onRiskAdjustUpdate = onRiskAdjustUpdate;
 
-            MessageMatcher = MessageMatcher.Create([
-                    new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionUpdate>>(_topic + "position.change", DoHandleMessage),
-                    new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>>(_topic + "position.changemarkPriceChange", DoHandleMessage),
-                    new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>(_topic + "position.settlement", DoHandleMessage),
-                    new MessageHandlerLink<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>(_topic + "position.adjustRiskLimit", DoHandleMessage),
-                ]);
-
             var routerTopic = symbol == null ? "/contract/positionAll" : "/contract/position";
             MessageRouter = MessageRouter.Create([
                     MessageRoute<KucoinSocketUpdate<KucoinPositionUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.change", symbol, DoHandleMessage),
