@@ -531,6 +531,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 LiquidationPrice = x.LiquidationPrice,
                 Leverage = x.RealLeverage,
                 AverageOpenPrice = x.AverageEntryPrice,
+                PositionMode = x.PositionSide == PositionSide.Both ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                 PositionSide = x.CurrentQuantity >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short,
             }).ToArray());
         }
