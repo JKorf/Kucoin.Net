@@ -9602,6 +9602,36 @@
             Tracker factory
             </summary>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+            <summary>
+            Create a new Spot user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            Create a new spot user data tracker
+            </summary>
+            <param name="config">Configuration</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="config">Configuration</param>
+        </member>
         <member name="T:Kucoin.Net.KucoinEnvironment">
             <summary>
             Kucoin environments
@@ -9759,6 +9789,37 @@
         </member>
         <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="T:Kucoin.Net.KucoinUserSpotDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="M:Kucoin.Net.KucoinUserSpotDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{Kucoin.Net.KucoinUserSpotDataTracker},Kucoin.Net.Interfaces.Clients.IKucoinRestClient,Kucoin.Net.Interfaces.Clients.IKucoinSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.KucoinUserFuturesDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="P:Kucoin.Net.KucoinUserFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
+            <inheritdoc/>
+        </member>
+        <member name="M:Kucoin.Net.KucoinUserFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{Kucoin.Net.KucoinUserFuturesDataTracker},Kucoin.Net.Interfaces.Clients.IKucoinRestClient,Kucoin.Net.Interfaces.Clients.IKucoinSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.KucoinApiAddresses">
             <summary>
