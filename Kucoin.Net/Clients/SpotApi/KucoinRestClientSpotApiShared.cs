@@ -989,7 +989,15 @@ namespace Kucoin.Net.Clients.SpotApi
             if (deposits.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Items.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == DepositStatus.Success, x.CreateTime)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Items.Select(x => 
+            new SharedDeposit(
+                x.Asset,
+                x.Quantity,
+                x.Status == DepositStatus.Success,
+                x.CreateTime,
+                x.Status == DepositStatus.Success ? SharedTransferStatus.Completed
+                : x.Status == DepositStatus.Failure ? SharedTransferStatus.Failed
+                : SharedTransferStatus.InProgress)
             {
                 Network = x.Network,
                 TransactionId = x.WalletTransactionId,
