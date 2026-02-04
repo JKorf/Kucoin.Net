@@ -202,7 +202,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
         /// <param name="leverage">The leverage</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinLeverage>> SetCrossMarginLeverageAsync(string symbol, decimal leverage, CancellationToken ct = default);
+        Task<WebCallResult> SetCrossMarginLeverageAsync(string symbol, decimal leverage, CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin risk limits
