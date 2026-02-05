@@ -9673,6 +9673,16 @@
             Live environment
             </summary>
         </member>
+        <member name="P:Kucoin.Net.KucoinEnvironment.Australia">
+            <summary>
+            Australian live environment
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.KucoinEnvironment.Europe">
+            <summary>
+            European live environment
+            </summary>
+        </member>
         <member name="M:Kucoin.Net.KucoinEnvironment.CreateCustom(System.String,System.String,System.String,System.String)">
             <summary>
             Create a custom environment
@@ -9844,6 +9854,16 @@
         <member name="F:Kucoin.Net.Objects.KucoinApiAddresses.Default">
             <summary>
             The default addresses to connect to the kucoin.com API
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinApiAddresses.Australia">
+            <summary>
+            Live environment for Australian users
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Objects.KucoinApiAddresses.Europe">
+            <summary>
+            Live environment for European users
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Futures.KucoinAccountOverview">

@@ -41,6 +41,9 @@ namespace Kucoin.Net.Clients.SpotApi
             ExchangeData = new KucoinRestClientUnifiedApiExchangeData(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
+
+            if (options.Environment.Name == KucoinEnvironment.Australia.Name)
+                StandardRequestHeaders.Add("X-SITE-TYPE", "australia");
         }
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
