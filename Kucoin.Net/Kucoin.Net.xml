@@ -9602,7 +9602,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,Kucoin.Net.KucoinEnvironment)">
             <summary>
             Create a new Spot user data tracker
             </summary>
@@ -9617,7 +9617,7 @@
             </summary>
             <param name="config">Configuration</param>
         </member>
-        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+        <member name="M:Kucoin.Net.Interfaces.IKucoinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,Kucoin.Net.KucoinEnvironment)">
             <summary>
             Create a new futures user data tracker
             </summary>
@@ -9793,13 +9793,13 @@
         <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,Kucoin.Net.KucoinEnvironment)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Kucoin.Net.KucoinEnvironment)">
+        <member name="M:Kucoin.Net.KucoinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,Kucoin.Net.KucoinEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:Kucoin.Net.KucoinUserSpotDataTracker">

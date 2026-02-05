@@ -17,7 +17,7 @@ namespace Kucoin.Net
             IKucoinRestClient restClient,
             IKucoinSocketClient socketClient,
             string? userIdentifier,
-            SpotUserDataTrackerConfig config) : base(
+            SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
                 null,
@@ -27,7 +27,7 @@ namespace Kucoin.Net
                 socketClient.SpotApi.SharedClient,
                 null,
                 userIdentifier,
-                config)
+                config ?? new SpotUserDataTrackerConfig())
         {
         }
     }
@@ -46,7 +46,7 @@ namespace Kucoin.Net
             IKucoinRestClient restClient,
             IKucoinSocketClient socketClient,
             string? userIdentifier,
-            FuturesUserDataTrackerConfig config) : base(logger,
+            FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.FuturesApi.SharedClient,
                 null,
                 restClient.FuturesApi.SharedClient,
@@ -56,7 +56,7 @@ namespace Kucoin.Net
                 null,
                 socketClient.FuturesApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new FuturesUserDataTrackerConfig())
         {
         }
     }
