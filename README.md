@@ -163,6 +163,16 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.4.0 - 06 Feb 2026
+    * Updated CryptoExchange.Net to version 10.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Added KucoinUserSpotDataTracker and KucoinUserFuturesDataTracker
+    * Added additional methods for requesting supported symbols to Shared ISpotSymbolRestClient/IFuturesSymbolRestClient interfaces
+    * Added PositionMode mapping on SharedPosition models
+    * Added Status mapping for SharedDeposit models
+    * Added Australia and Europe to KucoinEnvironment
+    * Removed response model from restClient.FuturesApi.Account.SetCrossMarginLeverageAsync as it's not returned
+    * Fixed disposed clients getting returned from UserClientProvider
+
 * Version 8.3.0 - 22 Jan 2026
     * Updated CryptoExchange.Net to version 10.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Removed legacy websocket message handling and the corresponding UseUpdatedDeserialization client option
