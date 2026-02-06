@@ -272,13 +272,13 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Set Cross Margin Leverage
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinLeverage>> SetCrossMarginLeverageAsync(string symbol, decimal leverage, CancellationToken ct = default)
+        public async Task<WebCallResult> SetCrossMarginLeverageAsync(string symbol, decimal leverage, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.Add("leverage", leverage);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v2/changeCrossUserLeverage", KucoinExchange.RateLimiter.FuturesRest, 2, true);
-            var result = await _baseClient.SendAsync<KucoinLeverage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

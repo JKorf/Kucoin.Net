@@ -184,6 +184,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 update => handler(update.ToType<SharedPosition[]>(new[] { new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.CurrentQuantity, update.Data.CurrentTime)
                 {
                     AverageOpenPrice = update.Data.AverageEntryPrice,
+                    PositionMode = update.Data.PositionSide == PositionSide.Both ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = update.Data.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = update.Data.LiquidationPrice,
                     Leverage = update.Data.RealLeverage,

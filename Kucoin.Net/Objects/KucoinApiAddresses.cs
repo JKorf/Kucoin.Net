@@ -29,5 +29,25 @@
             FuturesAddress = "https://api-futures.kucoin.com/",
             UnifiedAddress = "https://api.kucoin.com/",
         };
+
+        /// <summary>
+        /// Live environment for Australian users
+        /// </summary>
+        public static KucoinApiAddresses Australia = new KucoinApiAddresses
+        {
+            SpotAddress = "https://api.kucoin.com/",
+            FuturesAddress = "https://api-futures.kucoin.com/",
+            UnifiedAddress = "https://api.kucoin.com/",
+        };
+
+        /// <summary>
+        /// Live environment for European users
+        /// </summary>
+        public static KucoinApiAddresses Europe = new KucoinApiAddresses
+        {
+            SpotAddress = "https://api.kucoin.eu/",
+            FuturesAddress = "https://api-futures.kucoin.eu/",
+            UnifiedAddress = "https://api.kucoin.eu/",
+        };
     }
 }

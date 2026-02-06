@@ -46,6 +46,8 @@ namespace Kucoin.Net
          => name switch
          {
              TradeEnvironmentNames.Live => Live,
+             "Europe" => Europe,
+             "Australia" => Australia,
              "" => Live,
              null => Live,
              _ => default
@@ -55,7 +57,7 @@ namespace Kucoin.Net
         /// Available environment names
         /// </summary>
         /// <returns></returns>
-        public static string[] All => [Live.Name];
+        public static string[] All => [Live.Name, Australia.Name, Europe.Name];
 
         /// <summary>
         /// Live environment
@@ -65,6 +67,24 @@ namespace Kucoin.Net
             KucoinApiAddresses.Default.SpotAddress, 
             KucoinApiAddresses.Default.FuturesAddress,
             KucoinApiAddresses.Default.UnifiedAddress);
+
+        /// <summary>
+        /// Australian live environment
+        /// </summary>
+        public static KucoinEnvironment Australia { get; } = new KucoinEnvironment(
+            "Australia",
+            KucoinApiAddresses.Australia.SpotAddress,
+            KucoinApiAddresses.Australia.FuturesAddress,
+            KucoinApiAddresses.Australia.UnifiedAddress);
+
+        /// <summary>
+        /// European live environment
+        /// </summary>
+        public static KucoinEnvironment Europe { get; } = new KucoinEnvironment(
+            "Europe",
+            KucoinApiAddresses.Europe.SpotAddress,
+            KucoinApiAddresses.Europe.FuturesAddress,
+            KucoinApiAddresses.Europe.UnifiedAddress);
 
         /// <summary>
         /// Create a custom environment

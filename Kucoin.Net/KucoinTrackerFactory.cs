@@ -1,11 +1,15 @@
-﻿using CryptoExchange.Net.SharedApis;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
 using Kucoin.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 
 namespace Kucoin.Net
@@ -98,6 +102,64 @@ namespace Kucoin.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IKucoinRestClient>() ?? new KucoinRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IKucoinSocketClient>() ?? new KucoinSocketClient();
+            return new KucoinUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<KucoinUserSpotDataTracker>>() ?? new NullLogger<KucoinUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IKucoinUserClientProvider>() ?? new KucoinUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new KucoinUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<KucoinUserSpotDataTracker>>() ?? new NullLogger<KucoinUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IKucoinRestClient>() ?? new KucoinRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IKucoinSocketClient>() ?? new KucoinSocketClient();
+            return new KucoinUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<KucoinUserFuturesDataTracker>>() ?? new NullLogger<KucoinUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IKucoinUserClientProvider>() ?? new KucoinUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new KucoinUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<KucoinUserFuturesDataTracker>>() ?? new NullLogger<KucoinUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }
