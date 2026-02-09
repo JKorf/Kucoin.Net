@@ -35,6 +35,8 @@ namespace Kucoin.Net.Clients.MessageHandlers
 
             AddTopicMapping<KucoinSocketUpdate<KucoinMarginOrderUpdate>>(x => x.Data.Asset);
             AddTopicMapping<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>(x => x.Data.Asset);
+
+            AddTopicMapping<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>(x => x.Symbol);
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
