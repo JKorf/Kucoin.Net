@@ -12,8 +12,8 @@ namespace Kucoin.Net.Clients
     /// <inheritdoc />
     public class KucoinUserClientProvider : IKucoinUserClientProvider
     {
-        private static ConcurrentDictionary<string, IKucoinRestClient> _restClients = new ConcurrentDictionary<string, IKucoinRestClient>();
-        private static ConcurrentDictionary<string, IKucoinSocketClient> _socketClients = new ConcurrentDictionary<string, IKucoinSocketClient>();
+        private ConcurrentDictionary<string, IKucoinRestClient> _restClients = new ConcurrentDictionary<string, IKucoinRestClient>();
+        private ConcurrentDictionary<string, IKucoinSocketClient> _socketClients = new ConcurrentDictionary<string, IKucoinSocketClient>();
 
         private readonly IOptions<KucoinRestOptions> _restOptions;
         private readonly IOptions<KucoinSocketOptions> _socketOptions;
