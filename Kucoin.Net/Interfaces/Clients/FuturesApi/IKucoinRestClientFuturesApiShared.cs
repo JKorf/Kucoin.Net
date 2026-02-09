@@ -19,7 +19,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         IFeeRestClient,
         IFuturesOrderClientIdRestClient,
         IFuturesTpSlRestClient,
-        IBookTickerRestClient
+        IBookTickerRestClient,
+        ILeverageRestClient
     {
     }
 }
