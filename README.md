@@ -163,6 +163,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.5.0 - 10 Feb 2026
+    * Updated CryptoExchange.Net to version 10.5.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Added ILeverageRestClient implementation to Shared Futures API client
+    * Updated UserClientProvider internal client cache to non-static to prevent cleanup issues
+    * Fixed Spot websocket isolated margin update topic mapping
+
 * Version 8.4.0 - 06 Feb 2026
     * Updated CryptoExchange.Net to version 10.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Added KucoinUserSpotDataTracker and KucoinUserFuturesDataTracker
