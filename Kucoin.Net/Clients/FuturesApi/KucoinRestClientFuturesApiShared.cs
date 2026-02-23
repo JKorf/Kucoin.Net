@@ -165,25 +165,25 @@ namespace Kucoin.Net.Clients.FuturesApi
                        (x.IsInverse && x.SettleDate.HasValue));
             }
 
-            var response = result.AsExchangeResult<SharedFuturesSymbol[]>(Exchange, 
+            var response = result.AsExchangeResult<SharedFuturesSymbol[]>(Exchange,
                 request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value },
                 data.Select(s => new SharedFuturesSymbol(
                 s.IsInverse && s.SettleDate.HasValue ? TradingMode.DeliveryInverse :
-                s.IsInverse && !s.SettleDate.HasValue ? TradingMode.PerpetualInverse:
-                s.SettleDate.HasValue ? TradingMode.DeliveryLinear:
+                s.IsInverse && !s.SettleDate.HasValue ? TradingMode.PerpetualInverse :
+                s.SettleDate.HasValue ? TradingMode.DeliveryLinear :
                 TradingMode.PerpetualLinear,
                 s.BaseAsset,
                 s.QuoteAsset,
                 s.Symbol,
                 s.Status == "Open")
-            {
-                MinTradeQuantity = s.LotSize,
-                MaxTradeQuantity = s.MaxOrderQuantity,
-                PriceStep = s.TickSize,
-                QuantityStep = s.LotSize,
-                ContractSize = s.Multiplier == -1 ? 1 : s.Multiplier,
-                DeliveryTime = s.SettleDate
-            }).ToArray());
+                {
+                    MinTradeQuantity = s.LotSize,
+                    MaxTradeQuantity = s.MaxOrderQuantity,
+                    PriceStep = s.TickSize,
+                    QuantityStep = s.LotSize,
+                    ContractSize = s.Multiplier == -1 ? 1 : s.Multiplier,
+                    DeliveryTime = s.SettleDate
+                }).ToArray());
 
             ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data);
             return response;
@@ -272,11 +272,11 @@ namespace Kucoin.Net.Clients.FuturesApi
                 quantity: (int?)request.Quantity?.QuantityInContracts,
                 quantityInBaseAsset: request.Quantity?.QuantityInContracts == null ? request.Quantity?.QuantityInBaseAsset : null,
                 price: request.Price,
-                postOnly: request.OrderType == SharedOrderType.LimitMaker ? true: null,
+                postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
                 reduceOnly: request.ReduceOnly,
                 timeInForce: GetTimeInForce(request.TimeInForce),
                 clientOrderId: request.ClientOrderId,
-                marginMode: request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? FuturesMarginMode.Isolated: FuturesMarginMode.Cross,
+                marginMode: request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? FuturesMarginMode.Isolated : FuturesMarginMode.Cross,
                 ct: ct).ConfigureAwait(false);
 
             if (!result)
@@ -316,7 +316,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
                 TriggerPrice = order.Data.StopPrice,
                 IsTriggerOrder = order.Data.StopPrice > 0,
-                IsCloseOrder = order.Data.CloseOrder
+                IsCloseOrder = order.Data.CloseOrder,
+                PositionSide = ParsePositionSide(order.Data.PositionSide)
             });
         }
 
@@ -341,7 +342,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var result = orders.Data.Items.Concat(stopOrders.Data.Items).OrderByDescending(x => x.CreateTime);
             return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, result.Select(x => new SharedFuturesOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -360,7 +361,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                 TriggerPrice = x.StopPrice,
                 IsTriggerOrder = x.StopPrice > 0,
-                IsCloseOrder = x.CloseOrder
+                IsCloseOrder = x.CloseOrder,
+                PositionSide = ParsePositionSide(x.PositionSide)
             }).ToArray());
         }
 
@@ -386,7 +388,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 currentPage: page,
-                pageSize: pageSize, 
+                pageSize: pageSize,
                 ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, null, default);
@@ -396,8 +398,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, SupportedTradingModes ,orders.Data.Items.Select(x => new SharedFuturesOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, SupportedTradingModes, orders.Data.Items.Select(x => new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
                 x.Symbol,
                 x.Id.ToString(),
                 x.PostOnly == true ? SharedOrderType.LimitMaker : ParseOrderType(x.Type),
@@ -416,7 +418,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                 TriggerPrice = x.StopPrice,
                 IsTriggerOrder = x.StopPrice > 0,
-                IsCloseOrder = x.CloseOrder
+                IsCloseOrder = x.CloseOrder,
+                PositionSide = ParsePositionSide(x.PositionSide)
             }).ToArray(), nextToken);
         }
 
@@ -431,8 +434,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!orders)
                 return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
-            return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol!.TradingMode,orders.Data.Items.Select(x => new SharedUserTrade(
-                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+            return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol!.TradingMode, orders.Data.Items.Select(x => new SharedUserTrade(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -468,7 +471,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 currentPage: page,
-                pageSize: pageSize, 
+                pageSize: pageSize,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!orders)
@@ -479,8 +482,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (orders.Data.TotalPages > page)
                 nextToken = new PageToken(page + 1, pageSize);
 
-            return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode,orders.Data.Items.Select(x => new SharedUserTrade(
-                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+            return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode, orders.Data.Items.Select(x => new SharedUserTrade(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id,
@@ -566,7 +569,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         private OrderSide GetOrderSide(SharedOrderSide side, SharedPositionSide? posSide)
         {
-            if (posSide == null) return side == SharedOrderSide.Buy ? OrderSide.Buy: OrderSide.Sell;
+            if (posSide == null) return side == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell;
 
             if (posSide == SharedPositionSide.Long)
             {
@@ -619,6 +622,14 @@ namespace Kucoin.Net.Clients.FuturesApi
             return null;
         }
 
+        private SharedPositionSide? ParsePositionSide(PositionSide? positionSide)
+            => positionSide switch
+            {
+                PositionSide.Long => SharedPositionSide.Long,
+                PositionSide.Short => SharedPositionSide.Short,
+                _ => null
+            };
+
         #endregion
 
         #region Futures Client Id Order Client
@@ -654,7 +665,8 @@ namespace Kucoin.Net.Clients.FuturesApi
                 AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
                 TriggerPrice = order.Data.StopPrice,
                 IsTriggerOrder = order.Data.StopPrice > 0,
-                IsCloseOrder = order.Data.CloseOrder
+                IsCloseOrder = order.Data.CloseOrder,
+                PositionSide = ParsePositionSide(order.Data.PositionSide),
             });
         }
 
@@ -849,7 +861,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             }
 
             // Return
-            return result.AsExchangeResult<SharedFundingRate[]>(Exchange, request.Symbol.TradingMode,result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedFundingRate[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => new SharedFundingRate(x.FundingRate, x.Timestamp)).ToArray(), nextToken);
         }
         #endregion
 
@@ -888,7 +900,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 nextToken = new PageToken(page + 1, pageSize);
 
             return orders.AsExchangeResult<SharedPositionHistory[]>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Items.Select(x => new SharedPositionHistory(
-                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
                 x.Symbol,
                 x.Side == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 x.OpenPrice ?? 0,
