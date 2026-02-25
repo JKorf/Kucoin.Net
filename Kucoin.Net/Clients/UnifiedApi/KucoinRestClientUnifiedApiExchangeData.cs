@@ -4,6 +4,7 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -107,6 +108,17 @@ namespace Kucoin.Net.Clients.SpotApi
             return result;
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaAsset[]>> GetAssetsAsync(IEnumerable<string>? assets = null, string? network = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalCommaSeparated("currencyList", assets);
+            parameters.AddOptional("chain", network);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/asset/currencies", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var result = await _baseClient.SendAsync<KucoinUaAsset[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
         #endregion
 
         #region Get Tickers
@@ -127,7 +139,7 @@ namespace Kucoin.Net.Clients.SpotApi
         #region Get Order Book
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType productType, string symbol, int? limit, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType productType, string symbol, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddEnum("tradeType", productType);
@@ -211,6 +223,57 @@ namespace Kucoin.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/market/cross-config", KucoinExchange.RateLimiter.PublicRest, 25, false);
             var result = await _baseClient.SendAsync<KucoinUaCrossMarginConfig>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Collateral Ratio
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaCollateralRatio[]>> GetCollateralRatioAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/market/collateral-discount-ratio", KucoinExchange.RateLimiter.PublicRest, 10, false);
+            var result = await _baseClient.SendAsync<KucoinUaCollateralRatio[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Futures Open Interest
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaOpenInterest[]>> GetFuturesOpenInterestAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalCommaSeparated("symbol", symbols);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/market/open-interest", KucoinExchange.RateLimiter.PublicRest, 10, false);
+            var result = await _baseClient.SendAsync<KucoinUaOpenInterest[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Futures Open Interest
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaOpenInterest[]>> GetFuturesOpenInterestHistoryAsync(
+            string symbol, 
+            DataPeriod interval,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? pageSize = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddEnum("interval", interval);
+            parameters.AddOptionalMilliseconds("startAt", startTime);
+            parameters.AddOptionalMilliseconds("endAt", endTime);
+            parameters.AddOptional("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/market/open-interest", KucoinExchange.RateLimiter.PublicRest, 10, false);
+            var result = await _baseClient.SendAsync<KucoinUaOpenInterest[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

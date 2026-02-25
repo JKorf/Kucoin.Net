@@ -1,0 +1,16 @@
+GET
+/api/ua/v1/market/open-interest
+false
+{
+    "code": "200000",
+    "data": [
+        {
+            "openInterest": "4615535",
+            "ts": 1767004200000
+        },
+        {
+            "openInterest": "4568791",
+            "ts": 1767002400000
+        }
+    ]
+}

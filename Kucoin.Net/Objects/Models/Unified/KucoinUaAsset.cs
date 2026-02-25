@@ -26,20 +26,25 @@
         [JsonPropertyName("precision")]
         public int Precision { get; set; }
         /// <summary>
-        /// Confirms
+        /// Is margin enabled
         /// </summary>
-        [JsonPropertyName("confirms")]
-        public int? Confirms { get; set; }
+        [JsonPropertyName("isMarginEnabled")]
+        public bool? IsMarginEnabled { get; set; }
         /// <summary>
-        /// Contract address
+        /// Is debit enabled
         /// </summary>
-        [JsonPropertyName("contractAddress")]
-        public string? ContractAddress { get; set; }
+        [JsonPropertyName("isDebitEnabled")]
+        public bool? IsDebitEnabled { get; set; }
         /// <summary>
         /// Networks
         /// </summary>
-        [JsonPropertyName("list")]
+        [JsonPropertyName("items")]
         public KucoinUaAssetNetwork[] Networks { get; set; } = [];
+        [JsonInclude(), JsonPropertyName("list")]
+        internal KucoinUaAssetNetwork[] NetworksInt
+        {
+            set => Networks = value;
+        }
     }
 
     /// <summary>
@@ -113,10 +118,15 @@
         [JsonPropertyName("maxDepositSize")]
         public decimal? MaxDepositQuantity { get; set; }
         /// <summary>
-        /// Need tag
+        /// Is memo required
         /// </summary>
-        [JsonPropertyName("needTag")]
-        public bool NeedTag { get; set; }
+        [JsonPropertyName("isMemoRequired")]
+        public bool IsMemoRequired { get; set; }
+        [JsonInclude, JsonPropertyName("needTag")]
+        internal bool IsMemoRequiredInt
+        {
+            set => IsMemoRequired = value;
+        }
         /// <summary>
         /// Network id
         /// </summary>

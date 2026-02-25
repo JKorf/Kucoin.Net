@@ -14,10 +14,20 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
+        /// Name
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; } = string.Empty;
+        /// <summary>
         /// Base asset
         /// </summary>
         [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// Display base asset
+        /// </summary>
+        [JsonPropertyName("displayBaseCurrency")]
+        public string DisplayBaseAsset { get; set; } = string.Empty;
         /// <summary>
         /// Quote asset
         /// </summary>

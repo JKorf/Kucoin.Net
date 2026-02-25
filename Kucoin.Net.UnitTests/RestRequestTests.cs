@@ -313,15 +313,18 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFuturesSymbolsAsync(), "GetFuturesSymbols", "data.list", ignoreProperties: ["k", "m", "f"]);
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCrossMarginSymbolsAsync(), "GetCrossMarginSymbols", "data.list");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetIsolatedMarginSymbolsAsync(), "GetIsolatedMarginSymbols", "data.list");
-            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetAssetAsync("123", "123"), "GetAsset", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetAssetAsync("123", "123"), "GetAsset", nestedJsonProperty: "data", ignoreProperties: [ "confirms", "contractAddress" ]);
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetAssetsAsync(), "GetAssets", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetAnnouncementsAsync(), "GetAnnouncements", nestedJsonProperty: "data.list");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetTickersAsync(ProductType.Futures), "GetTickers", nestedJsonProperty: "data.list");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetOrderBookAsync(ProductType.Spot, "123", null), "GetOrderBook", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetKlinesAsync(ProductType.Spot, "123", KlineInterval.OneDay), "GetKlines", nestedJsonProperty: "data.list");
-            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingRateAsync("123"), "GetFundingRate", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingHistoryAsync("123", DateTime.UtcNow, DateTime.UtcNow), "GetFundingHistory", nestedJsonProperty: "data.list");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCrossMarginConfigAsync(), "GetCrossMarginConfig", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetServiceStatusAsync(ProductType.Spot), "GetServiceStatus", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCollateralRatioAsync(), "GetCollateralRatio", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingRateAsync("ETHUSDTM"), "GetFundingRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFuturesOpenInterestAsync(), "GetFuturesOpenInterest", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)

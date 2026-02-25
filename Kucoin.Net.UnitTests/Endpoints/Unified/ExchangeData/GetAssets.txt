@@ -1,0 +1,35 @@
+GET
+/api/ua/v1/asset/currencies
+false
+{
+	"code":"200000",
+	"data":[
+		{
+			"currency":"CSP",
+			"name":"CSP",
+			"fullName":"Caspian",
+			"precision":8,
+			"isMarginEnabled":false,
+			"isDebitEnabled":false,
+			"items":[
+				{
+				"chainName":"ERC20",
+				"minWithdrawSize":"2999",
+				"minDepositSize":null,
+				"withdrawFeeRate":"0",
+				"minWithdrawFee":"2999",
+				"isWithdrawEnabled":false,
+				"isDepositEnabled":false,
+				"confirms":96,
+				"preConfirms":32,
+				"contractAddress":"0xa6446d655a0c34bc4f05042ee88170d056cbaf45",
+				"withdrawPrecision":8,
+				"maxWithdrawSize":null,
+				"maxDepositSize":null,
+				"isMemoRequired":false,
+				"chainId":"eth"
+				}
+			]
+		}
+	]
+}

@@ -2,6 +2,7 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -71,11 +72,19 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinUaAsset>> GetAssetAsync(string asset, string? network = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get assets
+        /// </summary>
+        /// <param name="assets">Assets filter, null for all assets</param>
+        /// <param name="network">Filter network, for example `eth`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaAsset[]>> GetAssetsAsync(IEnumerable<string>? assets = null, string? network = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get 24h price ticker info
         /// <para><a href="https://www.kucoin.com/docs-new/3473241e0" /></para>
         /// </summary>
         /// <param name="productType">Product type</param>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaTicker[]>> GetTickersAsync(ProductType productType, string? symbol = null, CancellationToken ct = default);
 
@@ -85,9 +94,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="productType">Product type</param>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="limit">Number of rows, null for full book. Spot: 20 or 50, Futures: 20 or 100</param>
+        /// <param name="limit">Number of rows, 20, 100 or null for full book</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType productType, string symbol, int? limit, CancellationToken ct = default);
+        Task<WebCallResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType productType, string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of the most recent trades
@@ -114,7 +123,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get funding rate
         /// <para><a href="https://www.kucoin.com/docs-new/3473245e0" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDTM`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
 
@@ -134,6 +143,39 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaCrossMarginConfig>> GetCrossMarginConfigAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get collateral discount ratio
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-collateral-ratio" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaCollateralRatio[]>> GetCollateralRatioAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get open interest for futures symbols
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /></para>
+        /// </summary>
+        /// <param name="symbols">Filter by symbols</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaOpenInterest[]>> GetFuturesOpenInterestAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get open interest history for a symbol
+        /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETHUSDTM`</param>
+        /// <param name="interval">Interval</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="pageSize">Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaOpenInterest[]>> GetFuturesOpenInterestHistoryAsync(
+            string symbol,
+            DataPeriod interval,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? pageSize = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Get service status

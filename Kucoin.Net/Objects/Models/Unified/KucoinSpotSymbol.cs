@@ -81,7 +81,7 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
-        public MarginMode MarginMode { get; set; }
+        public MarginEnabledMode IsMarginEnabled { get; set; }
         /// <summary>
         /// Price limit ratio
         /// </summary>

@@ -1,0 +1,58 @@
+GET
+/api/ua/v1/market/collateral-discount-ratio
+false
+{
+    "code": "200000",
+    "data": [
+        {
+            "currency": "USDT",
+            "cdrConfigs": [
+                {
+                    "tier": 1,
+                    "min": "0",
+                    "max": "99999999999999999",
+                    "cdr": "1",
+                    "cdrEquity": "99999999999999999"
+                }
+            ]
+        },
+        {
+            "currency": "USDC",
+            "cdrConfigs": [
+                {
+                    "tier": 1,
+                    "min": "0",
+                    "max": "99999999999999999",
+                    "cdr": "1",
+                    "cdrEquity": "99999999999999999"
+                }
+            ]
+        },
+        {
+            "currency": "BTC",
+            "cdrConfigs": [
+                {
+                    "tier": 1,
+                    "min": "0",
+                    "max": "500",
+                    "cdr": "0.98",
+                    "cdrEquity": "490"
+                },
+                {
+                    "tier": 2,
+                    "min": "500",
+                    "max": "1000",
+                    "cdr": "0.965",
+                    "cdrEquity": "972.5"
+                },
+                {
+                    "tier": 3,
+                    "min": "1000",
+                    "max": "99999999999999999",
+                    "cdr": "0.95",
+                    "cdrEquity": "95000000000000021.55"
+                }
+            ]
+        }
+    ]
+}

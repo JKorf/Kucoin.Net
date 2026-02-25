@@ -1011,6 +1011,9 @@
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetAssetAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetAssetsAsync(System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetTickersAsync(Kucoin.Net.Enums.ProductType,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1030,6 +1033,15 @@
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetCrossMarginConfigAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetCollateralRatioAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetFuturesOpenInterestAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetFuturesOpenInterestHistoryAsync(System.String,Kucoin.Net.Enums.DataPeriod,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Kucoin.Net.Clients.SpotApi.KucoinRestClientUnifiedApiExchangeData.GetServiceStatusAsync(Kucoin.Net.Enums.ProductType,System.Threading.CancellationToken)">
@@ -1171,6 +1183,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.NullableLiquidityType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.MarginEnabledMode">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -2045,7 +2062,17 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinUaAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinUaAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinUaCollateralRatioArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -2061,6 +2088,11 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinUaListKucoinUaAnnouncementArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinResultKucoinUaOpenInterestArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4235,12 +4267,37 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaAssetNetwork">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaAssetNetworkArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaCollateralConfig">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaCollateralConfigArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaCollateralRatio">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaCollateralRatioArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4276,6 +4333,16 @@
             </summary>
         </member>
         <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaListKucoinUaAnnouncementArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaOpenInterest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Converters.KucoinSourceGenerationContext.KucoinUaOpenInterestArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -5236,6 +5303,41 @@
             Borrowing
             </summary>
         </member>
+        <member name="T:Kucoin.Net.Enums.DataPeriod">
+            <summary>
+            Data period
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.DataPeriod.FiveMinutes">
+            <summary>
+            Five minutes
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.DataPeriod.FifteenMinutes">
+            <summary>
+            Fifteen minutes
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.DataPeriod.ThirtyMinutes">
+            <summary>
+            Thirty minutes
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.DataPeriod.OneHour">
+            <summary>
+            One hour
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.DataPeriod.FourHours">
+            <summary>
+            Four hours
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.DataPeriod.OneDay">
+            <summary>
+            One day
+            </summary>
+        </member>
         <member name="T:Kucoin.Net.Enums.DepositStatus">
             <summary>
             Status of a deposit
@@ -5634,6 +5736,21 @@
         <member name="F:Kucoin.Net.Enums.LiquidityType.Taker">
             <summary>
             Taker, trade filled an existing order on the order book
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Enums.MarginEnabledMode">
+            <summary>
+            Margin enabled mode
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEnabledMode.Enabled">
+            <summary>
+            Is enabled
+            </summary>
+        </member>
+        <member name="F:Kucoin.Net.Enums.MarginEnabledMode.Disabled">
+            <summary>
+            Is not enabled
             </summary>
         </member>
         <member name="T:Kucoin.Net.Enums.MarginEventType">
@@ -9485,13 +9602,21 @@
             <param name="network">Filter network, for example `eth`</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetAssetsAsync(System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get assets
+            </summary>
+            <param name="assets">Assets filter, null for all assets</param>
+            <param name="network">Filter network, for example `eth`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetTickersAsync(Kucoin.Net.Enums.ProductType,System.String,System.Threading.CancellationToken)">
             <summary>
             Get 24h price ticker info
             <para><a href="https://www.kucoin.com/docs-new/3473241e0" /></para>
             </summary>
             <param name="productType">Product type</param>
-            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetOrderBookAsync(Kucoin.Net.Enums.ProductType,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -9501,7 +9626,7 @@
             </summary>
             <param name="productType">Product type</param>
             <param name="symbol">The symbol, for example `ETH-USDT`</param>
-            <param name="limit">Number of rows, null for full book. Spot: 20 or 50, Futures: 20 or 100</param>
+            <param name="limit">Number of rows, 20, 100 or null for full book</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetRecentTradesAsync(Kucoin.Net.Enums.ProductType,System.String,System.Threading.CancellationToken)">
@@ -9530,7 +9655,7 @@
             Get funding rate
             <para><a href="https://www.kucoin.com/docs-new/3473245e0" /></para>
             </summary>
-            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="symbol">The symbol, for example `ETHUSDTM`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetFundingHistoryAsync(System.String,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
@@ -9548,6 +9673,33 @@
             Get cross margin configuration
             <para><a href="https://www.kucoin.com/docs-new/3473248e0" /></para>
             </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetCollateralRatioAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get collateral discount ratio
+            <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-collateral-ratio" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetFuturesOpenInterestAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get open interest for futures symbols
+            <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /></para>
+            </summary>
+            <param name="symbols">Filter by symbols</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetFuturesOpenInterestHistoryAsync(System.String,Kucoin.Net.Enums.DataPeriod,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open interest history for a symbol
+            <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETHUSDTM`</param>
+            <param name="interval">Interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="pageSize">Max number of results</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiExchangeData.GetServiceStatusAsync(Kucoin.Net.Enums.ProductType,System.Threading.CancellationToken)">
@@ -9849,6 +10001,11 @@
         <member name="P:Kucoin.Net.Objects.KucoinApiAddresses.UnifiedAddress">
             <summary>
             The address used by the KucoinClient for the Unified trading API
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.KucoinApiAddresses.ProAddress">
+            <summary>
+            The address use byt he KucoinClient for the Pro/UTA API
             </summary>
         </member>
         <member name="F:Kucoin.Net.Objects.KucoinApiAddresses.Default">
@@ -17433,9 +17590,19 @@
             Symbol
             </summary>
         </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinFuturesSymbol.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
         <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinFuturesSymbol.BaseAsset">
             <summary>
             Base asset
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinFuturesSymbol.DisplayBaseAsset">
+            <summary>
+            Display base asset
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinFuturesSymbol.QuoteAsset">
@@ -17748,7 +17915,7 @@
             Trading status
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinSpotSymbol.MarginMode">
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinSpotSymbol.IsMarginEnabled">
             <summary>
             Margin mode
             </summary>
@@ -17843,14 +18010,14 @@
             Precision
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAsset.Confirms">
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAsset.IsMarginEnabled">
             <summary>
-            Confirms
+            Is margin enabled
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAsset.ContractAddress">
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAsset.IsDebitEnabled">
             <summary>
-            Contract address
+            Is debit enabled
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAsset.Networks">
@@ -17928,14 +18095,59 @@
             Max deposit quantity
             </summary>
         </member>
-        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAssetNetwork.NeedTag">
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAssetNetwork.IsMemoRequired">
             <summary>
-            Need tag
+            Is memo required
             </summary>
         </member>
         <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaAssetNetwork.NetworkId">
             <summary>
             Network id
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralRatio">
+            <summary>
+            Collateral ratio
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralRatio.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralRatio.Configs">
+            <summary>
+            CDR configs
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralConfig">
+            <summary>
+            Config
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralConfig.Tier">
+            <summary>
+            Tier
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralConfig.Min">
+            <summary>
+            Min
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralConfig.Max">
+            <summary>
+            Max
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralConfig.Cdr">
+            <summary>
+            CDR
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaCollateralConfig.CdrEquity">
+            <summary>
+            CDR equity
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Unified.KucoinUaCrossMarginConfig">
@@ -18076,6 +18288,26 @@
         <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaList`1.Data">
             <summary>
             Data
+            </summary>
+        </member>
+        <member name="T:Kucoin.Net.Objects.Models.Unified.KucoinUaOpenInterest">
+            <summary>
+            Open interest
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaOpenInterest.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaOpenInterest.OpenInterest">
+            <summary>
+            Open interest in number of contracts
+            </summary>
+        </member>
+        <member name="P:Kucoin.Net.Objects.Models.Unified.KucoinUaOpenInterest.Timestamp">
+            <summary>
+            Timestamp
             </summary>
         </member>
         <member name="T:Kucoin.Net.Objects.Models.Unified.KucoinUaOrderBook">

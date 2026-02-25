@@ -12,6 +12,8 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinResult<KucoinUaCollateralRatio[]>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaOpenInterest[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinCollateralRatios[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaServiceStatus>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaCrossMarginConfig>))]
@@ -23,6 +25,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaTicker[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaList<KucoinUaAnnouncement[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaAsset>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaAsset[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinSpotSymbol[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinFuturesSymbol[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<Kucoin.Net.Objects.Models.Unified.KucoinMarginSymbol[]>>))]
