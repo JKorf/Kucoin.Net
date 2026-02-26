@@ -1,0 +1,16 @@
+GET
+/api/ua/v1/unified/account/overview
+true
+{
+    "code": "200000",
+    "data": {
+        "accountType": "UNIFIED",
+        "riskRatio": "0.0085517383",
+        "equity": "49.9358942670",
+        "liability": "0.0000000000",
+        "availableMargin": "46.0677901003",
+        "adjustedEquity": "49.9358942670",
+        "im": "3.8681041666",
+        "mm": "0.3713380000"
+    }
+}

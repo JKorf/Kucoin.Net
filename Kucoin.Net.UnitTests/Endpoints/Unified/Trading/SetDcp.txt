@@ -1,0 +1,15 @@
+POST
+/api/ua/v1/dcp/set
+true
+{
+    "code": "200000",
+    "data": {
+        "tradeType": "SPOT",
+        "symbol": [
+            "BTC-USDT",
+            "ETH-USDT"
+        ],
+        "systemTime": 1748415581,
+        "triggerTime": 1748415591
+    }
+}

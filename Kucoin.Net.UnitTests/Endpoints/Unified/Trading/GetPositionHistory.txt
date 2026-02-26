@@ -1,0 +1,28 @@
+GET
+/api/ua/v1/position/history
+true
+{
+    "code": "200000",
+    "data": {
+        "items": [
+            {
+                "symbol": "XBTUSDTM",
+                "closeId": "10000000000000155",
+                "marginMode": "CROSS",
+                "side": "SHORT",
+                "entryPrice": "87544.8",
+                "closePrice": "87559.9",
+                "maxSize": "-1",
+                "avgClosePrice": "87559.9",
+                "leverage": "48",
+                "realizedPnL": "-0.12016282",
+                "fee": "0.10506282",
+                "tax": "0",
+                "fundingFee": "0",
+                "closingTime": 1766476104013000000,
+                "creationTime": 1766476047678000000
+            }
+        ],
+        "lastId": 10000000000000069
+    }
+}

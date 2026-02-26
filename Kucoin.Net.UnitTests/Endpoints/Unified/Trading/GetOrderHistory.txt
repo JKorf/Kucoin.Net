@@ -1,0 +1,45 @@
+GET
+/api/ua/v1/unified/order/history
+true
+{
+    "code": "200000",
+    "data": {
+        "tradeType": "FUTURES",
+        "lastId": 130610708,
+        "items": [
+            {
+                "orderId": "402666817186754560",
+                "symbol": "XBTUSDTM",
+                "orderType": "LIMIT",
+                "side": "BUY",
+                "size": "10",
+                "price": "30",
+                "timeInForce": "GTC",
+                "orderTime": 1768816452405840836,
+                "stp": "",
+                "cancelAfter": null,
+                "postOnly": false,
+                "reduceOnly": false,
+                "triggerDirection": "",
+                "triggerPrice": "",
+                "triggerPriceType": "",
+                "tpTriggerPrice": "",
+                "tpTriggerPriceType": "",
+                "slTriggerPrice": "",
+                "slTriggerPriceType": "",
+                "filledSize": "0",
+                "avgPrice": "0",
+                "fee": "0",
+                "feeCurrency": "USDT",
+                "tax": "0",
+                "updatedTime": 1768816452408000000,
+                "triggerOrderId": "",
+                "cancelReason": 0,
+                "cancelSize": "10",
+                "clientOid": "",
+                "sizeUnit": "UNIT",
+                "status": 5
+            }
+        ]
+    }
+}

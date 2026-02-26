@@ -1,0 +1,32 @@
+GET
+/api/ua/v1/unified/account/balance
+true
+{
+    "code": "200000",
+    "data": {
+        "accountType": "UNIFIED",
+        "ts": 1764731696945,
+        "accounts": [
+            {
+                "currencies": [
+                    {
+                        "currency": "USDT",
+                        "equity": "97.9936711985",
+                        "hold": "0.0000000000",
+                        "balance": "97.9936711985",
+                        "available": "97.9936711985",
+                        "liability": "0.0000000000"
+                    },
+                    {
+                        "currency": "BTC",
+                        "equity": "0.0000216000",
+                        "hold": "0.0000000000",
+                        "balance": "0.0000216000",
+                        "available": "0.0000216000",
+                        "liability": "0.0000000000"
+                    }
+                ]
+            }
+        ]
+    }
+}

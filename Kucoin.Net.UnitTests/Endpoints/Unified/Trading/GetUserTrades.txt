@@ -1,0 +1,28 @@
+GET
+/api/ua/v1/unified/order/execution
+true
+{
+    "code": "200000",
+    "data": {
+        "lastId": 137487153727492,
+        "tradeType": "SPOT",
+        "items": [
+            {
+                "symbol": "BTC-USDT",
+                "orderId": "6964d6461aa08b0007067e24",
+                "orderType": "MARKET",
+                "side": "BUY",
+                "fillType": "NORMAL",
+                "tradeId": "20408356621008896",
+                "size": "0.001",
+                "value": "90.4881",
+                "price": "90488.1",
+                "executionTime": 1768216134336000000,
+                "fee": "0.0904881",
+                "feeCurrency": "USDT",
+                "liquidityRole": "TAKER",
+                "tax": "0"
+            }
+        ]
+    }
+}

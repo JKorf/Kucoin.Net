@@ -1,0 +1,11 @@
+GET
+/api/ua/v1/account/transfer-quota
+true
+{
+    "code": "200000",
+    "data": {
+        "accountType": "SPOT",
+        "currency": "USDT",
+        "transferable": "6.11798004"
+    }
+}

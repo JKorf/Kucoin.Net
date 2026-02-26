@@ -18,7 +18,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.SpotApi
+namespace Kucoin.Net.Clients.UnifiedApi
 {
     /// <inheritdoc cref="IKucoinRestClientUnifiedApi" />
     internal partial class KucoinRestClientUnifiedApi : RestApiClient, IKucoinRestClientUnifiedApi
@@ -31,14 +31,20 @@ namespace Kucoin.Net.Clients.SpotApi
         public string ExchangeName => "Kucoin";
 
         /// <inheritdoc />
+        public IKucoinRestClientUnifiedApiAccount Account { get; }
+        /// <inheritdoc />
         public IKucoinRestClientUnifiedApiExchangeData ExchangeData { get; }
+        /// <inheritdoc />
+        public IKucoinRestClientUnifiedApiTrading Trading { get; }
 
         internal KucoinRestClientUnifiedApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
             : base(logger, httpClient, options.Environment.UnifiedAddress, options, options.UnifiedOptions)
         {
             _baseClient = baseClient;
 
+            Account = new KucoinRestClientUnifiedApiAccount(this);
             ExchangeData = new KucoinRestClientUnifiedApiExchangeData(this);
+            Trading = new KucoinRestClientUnifiedApiTrading(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 

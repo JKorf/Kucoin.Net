@@ -58,5 +58,11 @@ namespace Kucoin.Net.Enums
         /// </summary>
         [Map("OPTION")]
         Option,
+
+        /// <summary>
+        /// Unified account
+        /// </summary>
+        [Map("UNIFIED")]
+        Unified
     }
 }

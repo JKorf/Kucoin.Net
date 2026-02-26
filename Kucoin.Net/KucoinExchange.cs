@@ -112,6 +112,23 @@ namespace Kucoin.Net
     /// </summary>
     public class KucoinRateLimiters
     {
+        private static readonly Dictionary<VipLevel, int> _unifiedLimits = new()
+        {
+            { VipLevel.Vip0, 200 },
+            { VipLevel.Vip1, 200 },
+            { VipLevel.Vip2, 400 },
+            { VipLevel.Vip3, 500 },
+            { VipLevel.Vip4, 600 },
+            { VipLevel.Vip5, 700 },
+            { VipLevel.Vip6, 800 },
+            { VipLevel.Vip7, 1000 },
+            { VipLevel.Vip8, 1200 },
+            { VipLevel.Vip9, 1400 },
+            { VipLevel.Vip10, 1600 },
+            { VipLevel.Vip11, 1800 },
+            { VipLevel.Vip12, 2000 },
+        };
+
         private static readonly Dictionary<VipLevel, int> _spotLimits = new()
         {
             { VipLevel.Vip0, 4000 },
@@ -163,6 +180,7 @@ namespace Kucoin.Net
             { VipLevel.Vip12, 20000 },
         };
 
+        internal IRateLimitGate UnifiedRest { get; private set; }
         internal IRateLimitGate SpotRest { get; private set; }
         internal IRateLimitGate FuturesRest { get; private set; }
         internal IRateLimitGate ManagementRest { get; private set; }
@@ -204,6 +222,7 @@ namespace Kucoin.Net
 
         private void Initialize()
         {
+            UnifiedRest = new RateLimitGate("Unified Rest").AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, Array.Empty<IGuardFilter>(), _spotLimits[VipLevel], TimeSpan.FromSeconds(3), RateLimitWindowType.FixedAfterFirst)); // Might be fixed but from the first request timestamp instead of the the whole interval
             SpotRest = new RateLimitGate("Spot Rest").AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, Array.Empty<IGuardFilter>(), _spotLimits[VipLevel], TimeSpan.FromSeconds(30), RateLimitWindowType.FixedAfterFirst)); // Might be fixed but from the first request timestamp instead of the the whole interval
             FuturesRest = new RateLimitGate("Futures Rest").AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, Array.Empty<IGuardFilter>(), _futuresLimits[VipLevel], TimeSpan.FromSeconds(30), RateLimitWindowType.FixedAfterFirst)); // Might be fixed but from the first request timestamp instead of the the whole interval
             ManagementRest = new RateLimitGate("Management Rest").AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, Array.Empty<IGuardFilter>(), _managementLimits[VipLevel], TimeSpan.FromSeconds(30), RateLimitWindowType.FixedAfterFirst)); // Might be fixed but from the first request timestamp instead of the the whole interval

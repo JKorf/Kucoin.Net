@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.SpotApi
+namespace Kucoin.Net.Clients.UnifiedApi
 {
     /// <inheritdoc />
     internal class KucoinRestClientUnifiedApiExchangeData : IKucoinRestClientUnifiedApiExchangeData

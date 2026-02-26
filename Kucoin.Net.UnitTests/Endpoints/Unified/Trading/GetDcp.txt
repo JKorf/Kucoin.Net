@@ -1,0 +1,15 @@
+GET
+/api/ua/v1/dcp/query
+true
+{
+    "code": "200000",
+    "data": {
+        "tradeType": "SPOT",
+        "symbol": [
+            "BTC-USDT",
+            "ETH-USDT"
+        ],
+        "systemTime": 1748415741,
+        "triggerTime": 1748415751
+    }
+}

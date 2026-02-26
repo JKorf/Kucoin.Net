@@ -1,0 +1,12 @@
+POST
+/api/ua/v1/unified/order/place
+true
+{
+    "code": "200000",
+    "data": {
+        "orderId": "385543068587233280",
+        "tradeType": "SPOT",
+        "ts": 1764733832617000000,
+        "clientOid": null
+    }
+}

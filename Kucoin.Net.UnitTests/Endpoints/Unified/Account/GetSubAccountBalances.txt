@@ -1,0 +1,162 @@
+GET
+/api/ua/v1/sub-account/balance
+true
+{
+    "code": "200000",
+    "data": {
+        "ts": 1768817063357,
+        "userList": [
+            {
+                "uid": 169579801,
+                "accountList": [
+                    {
+                        "accountType": "SPOT",
+                        "accountSubType": null,
+                        "currencyList": [
+                            {
+                                "currency": "USDT",
+                                "equity": null,
+                                "balance": "1.66",
+                                "available": "1.66",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            }
+                        ]
+                    },
+                    {
+                        "accountType": "FUNDING",
+                        "accountSubType": null,
+                        "currencyList": [
+                            {
+                                "currency": "USDC",
+                                "equity": null,
+                                "balance": "5",
+                                "available": "5",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            },
+                            {
+                                "currency": "USDT",
+                                "equity": null,
+                                "balance": "46.01",
+                                "available": "46.01",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            }
+                        ]
+                    },
+                    {
+                        "accountType": "CROSS",
+                        "accountSubType": null,
+                        "currencyList": [
+                            {
+                                "currency": "USDT",
+                                "equity": null,
+                                "balance": "0.03",
+                                "available": "0.03",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            }
+                        ]
+                    },
+                    {
+                        "accountType": "ISOLATED",
+                        "accountSubType": "BTC-USDT",
+                        "currencyList": [
+                            {
+                                "currency": "USDT",
+                                "equity": null,
+                                "balance": "0.11",
+                                "available": "0.11",
+                                "liabilityPrinciple": "0",
+                                "liabilityInterest": "0",
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            }
+                        ]
+                    },
+                    {
+                        "accountType": "FUTURES",
+                        "accountSubType": null,
+                        "currencyList": [
+                            {
+                                "currency": "BTC",
+                                "equity": "0.00000008",
+                                "balance": "0.00000008",
+                                "available": "0.00000008",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            },
+                            {
+                                "currency": "USDT",
+                                "equity": "1",
+                                "balance": "1",
+                                "available": "1",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0",
+                                "liability": null,
+                                "unrealisedPnl": null
+                            }
+                        ]
+                    },
+                    {
+                        "accountType": "UNIFIED",
+                        "accountSubType": null,
+                        "currencyList": [
+                            {
+                                "currency": "USDT",
+                                "equity": "9.7353996500",
+                                "balance": "9.7353996500",
+                                "available": "9.7353996500",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0.0000000000",
+                                "liability": "0.0000000000",
+                                "unrealisedPnl": "0.0000000000"
+                            },
+                            {
+                                "currency": "BTC",
+                                "equity": "0.0001000000",
+                                "balance": "0.0001000000",
+                                "available": "0.0001000000",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0.0000000000",
+                                "liability": "0.0000000000",
+                                "unrealisedPnl": "0.0000000000"
+                            },
+                            {
+                                "currency": "USDC",
+                                "equity": "0.0000000000",
+                                "balance": "0.0000000000",
+                                "available": "0.0000000000",
+                                "liabilityPrinciple": null,
+                                "liabilityInterest": null,
+                                "hold": "0.0000000000",
+                                "liability": "0.0000000000",
+                                "unrealisedPnl": "0.0000000000"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

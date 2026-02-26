@@ -6,10 +6,12 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Objects.Models.Unified;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -300,6 +302,32 @@ namespace Kucoin.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateUnifiedAccountCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Unified/Account", "https://api.kucoin.com", IsAuthenticated, "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetAccountOverviewAsync(), "GetAccountOverview", "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetBalancesAsync(), "GetBalances", "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetClassicBalancesAsync(UnifiedAccountType.Spot), "GetClassicBalances", "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetSubAccountBalancesAsync(), "GetSubAccountBalances", "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetTransferQuotasAsync("ETH", UnifiedAccountType.Spot), "GetTransferQuotas", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.TransferAsync("ETH", 0.1m, UnifiedTransferType.Internal, UnifiedAccountType.Funding, UnifiedAccountType.Spot), "Transfer", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.SetSubAccountTransferPermissionAsync(["123"], true), "SetSubAccountTransferPermission", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetAccountModeAsync(), "GetAccountMode", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.SetAccountModeAsync(UnifiedAccountMode.Unified), "SetAccountMode");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetFeeRateAsync(UnifiedAccountType.Spot, ["ETH-USDT"]), "GetFeeRate", nestedJsonProperty: "data.list");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetAccountLedgerAsync(UnifiedAccountType.Unified), "GetAccountLedger", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetInterestHistoryAsync(UnifiedAccountType.Unified), "GetInterestHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.SetLeverageAsync("ETHUSDTM", 0.1m), "SetLeverage");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetDepositAddressAsync("123", "123"), "GetDepositAddress", nestedJsonProperty: "data");
+        }
+
+        [Test]
         public async Task ValidateUnifiedExchangeDataCalls()
         {
             var client = new KucoinRestClient(opts =>
@@ -325,6 +353,31 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCollateralRatioAsync(), "GetCollateralRatio", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingRateAsync("ETHUSDTM"), "GetFundingRate", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFuturesOpenInterestAsync(), "GetFuturesOpenInterest", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateUnifiedTradingCalls()
+        {
+            var client = new KucoinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Unified/Trading", "https://api.kucoin.com", IsAuthenticated, "data"); 
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.PlaceOrderAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT", OrderSide.Buy, OrderType.Limit, 0.1m), "PlaceOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelOrderAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT", "123"), "CancelOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelOrdersAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, [new KucoinUaCancelOrderRequest { Symbol = "ETH-USDT", OrderId = "123" }]), "CancelOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelSymbolOrdersAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT"), "CancelSymbolOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetOrderAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT", "123"), "GetOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetOpenOrdersAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetOrderHistoryAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot), "GetOrderHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetUserTradesAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot), "GetUserTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.SetDcpAsync(UnifiedSimpleAccountType.Spot, 123), "SetDcp", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetDcpAsync(UnifiedSimpleAccountType.Spot), "GetDcp", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetPositionsAsync(UnifiedAccountMode.Unified), "GetPositions", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetPositionHistoryAsync(), "GetPositionHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetPositionTiersAsync(UnifiedAccountMode.Unified, ["ETHUSDTM"]), "GetPositionTiers", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)

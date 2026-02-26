@@ -1,0 +1,13 @@
+GET
+/api/ua/v1/account/mode
+true
+{
+    "code": "200000",
+    "data": {
+        "selfAccountMode": "CLASSIC",
+        "unifiedSubAccount": [],
+        "classicSubAccount": [
+            252118980
+        ]
+    }
+}
