@@ -1,0 +1,26 @@
+GET
+/api/ua/v1/unified/position/tiers
+true
+{
+    "code": "200000",
+    "data": [
+        {
+            "symbol": "XBTUSDTM",
+            "tier": 2,
+            "maxSize": "600000",
+            "minSize": "250000",
+            "maxLeverage": "100",
+            "initialMarginRate": "0.01",
+            "maintainMarginRate": "0.005"
+        },
+        {
+            "symbol": "ETHUSDTM",
+            "tier": 1,
+            "maxSize": "500000",
+            "minSize": "0",
+            "maxLeverage": "100",
+            "initialMarginRate": "0.01",
+            "maintainMarginRate": "0.005"
+        }
+    ]
+}

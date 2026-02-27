@@ -1,0 +1,12 @@
+POST
+/api/ua/v1/unified/order/cancel
+true
+{
+    "code": "200000",
+    "data": {
+        "orderId": "385577101236916224",
+        "tradeType": "SPOT",
+        "ts": 1764741957435000000,
+        "clientOid": "451345g234rwegrwe24"
+    }
+}

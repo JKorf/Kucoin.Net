@@ -46,6 +46,8 @@ namespace Kucoin.Net.Clients.SpotApi
         {
             _baseClient = baseClient;
 
+            RateLimiter = KucoinExchange.RateLimiter.Socket;
+
             AddSystemSubscription(new KucoinWelcomeSubscription(_logger));
             RegisterPeriodicQuery(
                 "Ping",

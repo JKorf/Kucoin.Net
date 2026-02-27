@@ -1,0 +1,27 @@
+> { "id": "|1|", "action": "subscribe", "channel":"obu", "tradeType": "SPOT", "symbol": "ETH-USDT", "depth":"increment" }
+< { "id": "|1|", "result": true }
+= 
+{
+    "T": "obu.SPOT",
+    "dp": "increment",
+    "t": "snapshot",
+    "P": 1768217874990007701,
+    "d": {
+        "C": 25984468414,
+        "M": 1768217874986000000,
+        "O": 25984468414,
+        "a": [
+            [
+                "90701.2",
+                "0.5771583"
+            ]
+        ],
+        "b": [
+            [
+                "90701.1",
+                "0.13918404"
+            ]
+        ],
+        "s": "ETH-USDT"
+    }
+}

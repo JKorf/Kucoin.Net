@@ -1,0 +1,41 @@
+GET
+/api/ua/v1/unified/order/detail
+true
+{
+    "code": "200000",
+    "data": {
+        "orderId": "402665260420558848",
+        "symbol": "XBTUSDTM",
+        "orderType": "MARKET",
+        "side": "BUY",
+        "size": "1",
+        "price": "",
+        "timeInForce": "GTC",
+        "orderTime": 1768816081243361310,
+        "stp": "",
+        "cancelAfter": null,
+        "postOnly": false,
+        "reduceOnly": false,
+        "triggerDirection": "",
+        "triggerPrice": "",
+        "triggerPriceType": "",
+        "tpTriggerPrice": "",
+        "tpTriggerPriceType": "",
+        "slTriggerPrice": "",
+        "slTriggerPriceType": "",
+        "filledSize": "1",
+        "avgPrice": "93026.2",
+        "fee": "0.05581572",
+        "feeCurrency": "USDT",
+        "tax": "0",
+        "updatedTime": 1768816081248000000,
+        "triggerOrderId": "",
+        "cancelReason": "",
+        "cancelSize": "0",
+        "clientOid": "test20938451234982234374024",
+        "sizeUnit": "UNIT",
+        "tradeType": "FUTURES",
+        "tradeId": "1907914684480",
+        "status": 3
+    }
+}

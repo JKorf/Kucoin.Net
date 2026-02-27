@@ -1,0 +1,31 @@
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"orderAll", "tradeType": "SPOT" }
+< { "id": "|1|", "result": true }
+= 
+{
+    "P": 1770107561274139265,
+    "T": "orderAll.SPOT",
+    "d": {
+        "O": 1770107561253000000,
+        "S": "BUY",
+        "U": 1770107561263000000,
+        "f": "0.000788236",
+        "p": "0",
+        "q": "0.00001",
+        "s": "BTC-USDT",
+        "t": "0",
+        "aP": "78823.6",
+        "cS": "0",
+        "ci": "9a1840ed0b5746459ede8e6f222daf2d",
+        "eT": "FILL",
+        "fC": "USDT",
+        "fS": "0.00001",
+        "oT": "MARKET",
+        "oi": "6981b2a91c6fcb0007422784",
+        "os": 3,
+        "pO": false,
+        "qU": "BASECCY",
+        "rS": "0",
+        "ti": "21002796345212928",
+        "tIF": "GTC"
+    }
+}

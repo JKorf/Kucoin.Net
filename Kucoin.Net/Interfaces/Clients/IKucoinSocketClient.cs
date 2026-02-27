@@ -21,6 +21,11 @@ namespace Kucoin.Net.Interfaces.Clients
         /// </summary>
         /// <see cref="IKucoinSocketClientFuturesApi"/>
         IKucoinSocketClientFuturesApi FuturesApi { get; }
+        /// <summary>
+        /// Unified socket api
+        /// </summary>
+        /// <see cref="IKucoinSocketClientUnifiedApi"/>
+        IKucoinSocketClientUnifiedApi UnifiedApi { get; }
 
         /// <summary>
         /// Update specific options

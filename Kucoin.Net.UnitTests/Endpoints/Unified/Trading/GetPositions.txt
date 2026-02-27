@@ -1,0 +1,24 @@
+GET
+/api/ua/v1/unified/position/open-list
+true
+{
+    "code": "200000",
+    "data": [
+        {
+            "symbol": "XBTUSDTM",
+            "id": "10000000000000336",
+            "marginMode": "CROSS",
+            "size": "1",
+            "entryPrice": "90476.2",
+            "positionValue": "90.47466",
+            "markPrice": "90474.66",
+            "leverage": "48",
+            "unrealizedPnL": "-0.00154",
+            "realizedPnL": "-0.05428572",
+            "initialMargin": "1.88488874999999999969",
+            "mmr": "0.004",
+            "maintenanceMargin": "0.36189864",
+            "creationTime": 1768215804921000000
+        }
+    ]
+}

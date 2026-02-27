@@ -1,0 +1,16 @@
+POST
+/api/ua/v1/sub-account/canTransferOut
+true
+{
+    "code": "200000",
+    "data": [
+        {
+            "subUid": "254069104",
+            "subToSub": true
+        },
+        {
+            "subUid": "254069125",
+            "subToSub": true
+        }
+    ]
+}

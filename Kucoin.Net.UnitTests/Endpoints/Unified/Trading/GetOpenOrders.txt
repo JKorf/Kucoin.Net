@@ -1,0 +1,48 @@
+GET
+/api/ua/v1/unified/order/open-list
+true
+{
+    "code": "200000",
+    "data": {
+        "pageNumber": 1,
+        "pageSize": 50,
+        "totalNum": 5,
+        "totalPage": 1,
+        "items": [
+            {
+                "orderId": "402650101375365121",
+                "symbol": "XBTUSDTM",
+                "orderType": "LIMIT",
+                "side": "BUY",
+                "size": "10",
+                "price": "30",
+                "timeInForce": "GTC",
+                "orderTime": 1768812467045990006,
+                "stp": "",
+                "cancelAfter": null,
+                "postOnly": false,
+                "reduceOnly": false,
+                "triggerDirection": "",
+                "triggerPrice": "",
+                "triggerPriceType": "",
+                "tpTriggerPrice": "",
+                "tpTriggerPriceType": "",
+                "slTriggerPrice": "",
+                "slTriggerPriceType": "",
+                "filledSize": "0",
+                "avgPrice": "0",
+                "fee": "0",
+                "feeCurrency": "USDT",
+                "tax": "0",
+                "updatedTime": 1768812467046107059,
+                "triggerOrderId": "",
+                "cancelReason": "",
+                "cancelSize": "0",
+                "clientOid": "",
+                "sizeUnit": "UNIT",
+                "status": 2
+            }
+        ],
+        "tradeType": "FUTURES"
+    }
+}

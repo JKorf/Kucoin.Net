@@ -1,0 +1,37 @@
+GET
+/api/ua/v1/account/ledger
+true
+{
+    "code": "200000",
+    "data": {
+        "lastId": 10000000001485678,
+        "items": [
+            {
+                "accountType": "UNIFIED",
+                "id": "10000000002286107",
+                "currency": "USDT",
+                "direction": "IN",
+                "businessType": "FUNDING_FEE",
+                "amount": "0.00262242",
+                "balance": "378.12022481286",
+                "fee": "0",
+                "tax": "0",
+                "remark": "",
+                "ts": 1768780806739000000
+            },
+            {
+                "accountType": "UNIFIED",
+                "id": "10000000002203239",
+                "currency": "USDT",
+                "direction": "IN",
+                "businessType": "FUNDING_FEE",
+                "amount": "0.00504281",
+                "balance": "378.12577652286",
+                "fee": "0",
+                "tax": "0",
+                "remark": "",
+                "ts": 1768694412367000000
+            }
+        ]
+    }
+}

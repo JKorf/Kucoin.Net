@@ -1,0 +1,19 @@
+GET
+/api/ua/v1/asset/deposit/address
+true
+{
+    "code": "200000",
+    "data": [
+        {
+            "address": "***",
+            "memo": "",
+            "remark": "",
+            "chainId": "ton2",
+            "to": "FUNDING",
+            "expirationDate": 0,
+            "currency": "USDT",
+            "contractAddress": "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",
+            "chainName": "TON"
+        }
+    ]
+}

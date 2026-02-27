@@ -1,0 +1,19 @@
+GET
+/api/ua/v1/account/interest-history
+true
+{
+    "code": "200000",
+    "data": {
+        "items": [
+            {
+                "liability": "0.00665034000000000000",
+                "interest": "0.00000000000000000000",
+                "hourlyInterestRate": "0.00000445000000000000",
+                "currency": "USDC",
+                "ts": 1764853260122,
+                "interestFreeLiability": "0.00665034000000000000"
+            }
+        ],
+        "lastId": 2002
+    }
+}

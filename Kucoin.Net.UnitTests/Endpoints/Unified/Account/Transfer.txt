@@ -1,0 +1,10 @@
+POST
+/api/ua/v1/account/transfer
+true
+{
+    "code": "200000",
+    "data": {
+        "clientOid": "1234567",
+        "orderId": "6997ffb0f323620007166c0d"
+    }
+}

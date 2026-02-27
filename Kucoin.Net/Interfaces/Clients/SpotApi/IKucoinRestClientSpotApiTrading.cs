@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
-    /// Kucoin Spot trading endpoints, placing and mananging orders.
+    /// Kucoin Spot trading endpoints, placing and managing orders.
     /// </summary>
     public interface IKucoinRestClientSpotApiTrading
     {

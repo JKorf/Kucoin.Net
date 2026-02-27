@@ -21,14 +21,39 @@ namespace Kucoin.Net
         /// <summary>
         /// Unified API address
         /// </summary>
-        public string UnifiedAddress { get; }
+        public string UnifiedRestAddress { get; }
 
-        internal KucoinEnvironment(string name, string spotAddress, string futuresAddress, string unifiedAddress) : 
+        /// <summary>
+        /// Unified websocket API private address
+        /// </summary>
+        public string UnifiedSocketPrivateAddress { get; }
+
+        /// <summary>
+        /// Unified websocket API spot address
+        /// </summary>
+        public string UnifiedSocketSpotAddress { get; }
+
+        /// <summary>
+        /// Unified websocket API futures address
+        /// </summary>
+        public string UnifiedSocketFuturesAddress { get; }
+
+        internal KucoinEnvironment(
+            string name,
+            string spotAddress,
+            string futuresAddress,
+            string unifiedRestAddress,
+            string unifiedSocketPrivateAddress,
+            string unifiedSocketSpotAddress,
+            string unifiedSocketFuturesAddress) : 
             base(name)
         {
             SpotAddress = spotAddress;
             FuturesAddress = futuresAddress;
-            UnifiedAddress = unifiedAddress;
+            UnifiedRestAddress = unifiedRestAddress;
+            UnifiedSocketPrivateAddress = unifiedSocketPrivateAddress;
+            UnifiedSocketSpotAddress = unifiedSocketSpotAddress;
+            UnifiedSocketFuturesAddress = unifiedSocketFuturesAddress;
         }
 
         /// <summary>
@@ -66,7 +91,10 @@ namespace Kucoin.Net
             TradeEnvironmentNames.Live,
             KucoinApiAddresses.Default.SpotAddress, 
             KucoinApiAddresses.Default.FuturesAddress,
-            KucoinApiAddresses.Default.UnifiedAddress);
+            KucoinApiAddresses.Default.UnifiedRestAddress,
+            KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
+            KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
+            KucoinApiAddresses.Default.UnifiedSocketFuturesAddress);
 
         /// <summary>
         /// Australian live environment
@@ -75,7 +103,10 @@ namespace Kucoin.Net
             "Australia",
             KucoinApiAddresses.Australia.SpotAddress,
             KucoinApiAddresses.Australia.FuturesAddress,
-            KucoinApiAddresses.Australia.UnifiedAddress);
+            KucoinApiAddresses.Australia.UnifiedRestAddress,
+            KucoinApiAddresses.Australia.UnifiedSocketPrivateAddress,
+            KucoinApiAddresses.Australia.UnifiedSocketSpotAddress,
+            KucoinApiAddresses.Australia.UnifiedSocketFuturesAddress);
 
         /// <summary>
         /// European live environment
@@ -84,12 +115,22 @@ namespace Kucoin.Net
             "Europe",
             KucoinApiAddresses.Europe.SpotAddress,
             KucoinApiAddresses.Europe.FuturesAddress,
-            KucoinApiAddresses.Europe.UnifiedAddress);
+            KucoinApiAddresses.Europe.UnifiedRestAddress,
+            KucoinApiAddresses.Europe.UnifiedSocketPrivateAddress,
+            KucoinApiAddresses.Europe.UnifiedSocketSpotAddress,
+            KucoinApiAddresses.Europe.UnifiedSocketFuturesAddress);
 
         /// <summary>
         /// Create a custom environment
         /// </summary>
-        public static KucoinEnvironment CreateCustom(string name, string spotAddress, string futuresAddress, string unifiedAddress)
-            => new KucoinEnvironment(name, spotAddress, futuresAddress, unifiedAddress);
+        public static KucoinEnvironment CreateCustom(
+            string name,
+            string spotAddress,
+            string futuresAddress, 
+            string unifiedRestAddress, 
+            string unifiedSocketPrivateAddress,
+            string unifiedSocketSpotAddress,
+            string unifiedSocketFuturesAddress)
+            => new KucoinEnvironment(name, spotAddress, futuresAddress, unifiedRestAddress, unifiedSocketPrivateAddress, unifiedSocketSpotAddress, unifiedSocketFuturesAddress);
     }
 }
