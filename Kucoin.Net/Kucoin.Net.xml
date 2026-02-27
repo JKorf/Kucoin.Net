@@ -1074,9 +1074,6 @@
         <member name="M:Kucoin.Net.Clients.UnifiedApi.KucoinRestClientUnifiedApiAccount.GetAccountModeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Kucoin.Net.Clients.UnifiedApi.KucoinRestClientUnifiedApiAccount.SetAccountModeAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Kucoin.Net.Clients.UnifiedApi.KucoinRestClientUnifiedApiAccount.SetAccountModeAsync(Kucoin.Net.Enums.UnifiedAccountMode,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -10659,7 +10656,7 @@
             </summary>
             <param name="asset">The asset, for example `ETH`</param>
             <param name="accountType">Account type</param>
-            <param name="isolatedMarginSymbol">Isolated margin symbol, for example `ETHUSDT`</param>
+            <param name="isolatedMarginSymbol">Isolated margin symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiAccount.TransferAsync(System.String,System.Decimal,Kucoin.Net.Enums.UnifiedTransferType,Kucoin.Net.Enums.UnifiedAccountType,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
@@ -10936,12 +10933,13 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.PlaceOrderAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,Kucoin.Net.Enums.OrderSide,Kucoin.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.TimeInForce},System.Nullable{Kucoin.Net.Enums.QuantityUnit},System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{Kucoin.Net.Enums.SelfTradePrevention},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopType},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{Kucoin.Net.Enums.PositionSide},System.Nullable{Kucoin.Net.Enums.MarginMode},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Nullable{Kucoin.Net.Enums.StopPriceType},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Place a new order
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/place-order" /></para>
             </summary>
             <param name="accountMode">Mode of the account</param>
             <param name="accountType">Type of trade</param>
-            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="side">Order side</param>
             <param name="orderType">Type of order</param>
             <param name="quantity">Quantity</param>
@@ -10969,18 +10967,20 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.CancelOrderAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Cancel an open order
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/cancel-order" /></para>
             </summary>
             <param name="accountMode">Mode of the account</param>
             <param name="accountType">Type of trade</param>
-            <param name="symbol">The symbol, for example `ETHUSDT`, not required from Unified account Futures order</param>
+            <param name="symbol">The symbol, for example `ETH-USDT`, not required from Unified account Futures order</param>
             <param name="orderId">Order id, either this or clientOrderId should be provided</param>
             <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.CancelOrdersAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.Collections.Generic.IEnumerable{Kucoin.Net.Objects.Models.Unified.KucoinUaCancelOrderRequest},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Cancel multiple orders
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /></para>
             </summary>
@@ -10991,6 +10991,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.CancelSymbolOrdersAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.Nullable{Kucoin.Net.Enums.MarginMode},System.Nullable{Kucoin.Net.Enums.OrderFilter},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Cancel orders on a specific symbol
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /></para>
             </summary>
@@ -11003,18 +11004,20 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetOrderAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get order info by id
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-order-details" /></para>
             </summary>
             <param name="accountMode">Account mode</param>
             <param name="accountType">Account type</param>
-            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
             <param name="clientOrderId">Client order id. Either this or orderId should be provided</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetOpenOrdersAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.Nullable{Kucoin.Net.Enums.OrderFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get open orders
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list" /></para>
             </summary>
@@ -11030,12 +11033,13 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetOrderHistoryAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{Kucoin.Net.Enums.OrderFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get order history
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-order-history" /></para>
             </summary>
             <param name="accountMode">Account mode</param>
             <param name="accountType">Account type</param>
-            <param name="symbol">Filter by symbol, for example `ETHUSDT`, required for spot/margin</param>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
             <param name="side">Filter by side</param>
             <param name="orderFilter">Filter by order type</param>
             <param name="startTime">Filter by start time</param>
@@ -11046,6 +11050,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetUserTradesAsync(Kucoin.Net.Enums.UnifiedAccountMode,Kucoin.Net.Enums.UnifiedAccountType,System.String,System.Nullable{System.Int64},System.Nullable{Kucoin.Net.Enums.OrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get user trade history
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history" /></para>
             </summary>
@@ -11062,6 +11067,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.SetDcpAsync(Kucoin.Net.Enums.UnifiedSimpleAccountType,System.Int64,System.String,System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Set disconnect protection
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/set-dcp-classic" /></para>
             </summary>
@@ -11072,6 +11078,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetDcpAsync(Kucoin.Net.Enums.UnifiedSimpleAccountType,System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get disconnection protection status
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-dcp-classic" /></para>
             </summary>
@@ -11080,6 +11087,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetPositionsAsync(Kucoin.Net.Enums.UnifiedAccountMode,System.String,System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get open positions
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta" /></para>
             </summary>
@@ -11089,10 +11097,11 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetPositionHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get position history
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta" /></para>
             </summary>
-            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDTM`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="lastId">Filter by last id</param>
@@ -11101,6 +11110,7 @@
         </member>
         <member name="M:Kucoin.Net.Interfaces.Clients.SpotApi.IKucoinRestClientUnifiedApiTrading.GetPositionTiersAsync(Kucoin.Net.Enums.UnifiedAccountMode,System.Collections.Generic.IEnumerable{System.String},System.Nullable{Kucoin.Net.Enums.UnifiedSimpleAccountType},System.Nullable{Kucoin.Net.Enums.MarginMode},System.Threading.CancellationToken)">
             <summary>
+            [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
             Get position tiers
             <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-account-position-tiers" /></para>
             </summary>

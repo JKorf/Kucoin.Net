@@ -178,19 +178,6 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Set Account Mode
 
         /// <inheritdoc />
-        public async Task<WebCallResult> SetAccountModeAsync(CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/ua/v1/account/mode", KucoinExchange.RateLimiter.ManagementRest, 30, true);
-            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
-            return result;
-        }
-
-        #endregion
-
-        #region Set Account Mode
-
-        /// <inheritdoc />
         public async Task<WebCallResult> SetAccountModeAsync(UnifiedAccountMode accountMode, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
