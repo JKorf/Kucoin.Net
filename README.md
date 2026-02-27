@@ -163,6 +163,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.8.0 - 27 Feb 2026
+    * Added Account and Trading endpoints to REST client.UnifiedApi
+    * Added UnifiedApi websocket streams to WebSocket client
+    * Added DisableUnifiedProductionWarning REST client option to disable default warning logging when using UnifiedApi trading endpoints
+    * Fixed WebSocket client ratelimiter not set
+
 * Version 8.7.0 - 24 Feb 2026
     * Updated CryptoExchange.Net to version 10.7.0
     * Added PositionSide parsing to relevant models of FuturesApiShared client
