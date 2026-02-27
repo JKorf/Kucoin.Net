@@ -150,8 +150,8 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// <summary>
         /// Cancel reason
         /// </summary>
-        [JsonPropertyName("cancelReason")]
-        public int? CancelReason { get; set; }
+        [JsonPropertyName("cancelReason"), JsonConverter(typeof(NumberStringConverter))]
+        public string? CancelReason { get; set; }
         /// <summary>
         /// Cancel quantity
         /// </summary>

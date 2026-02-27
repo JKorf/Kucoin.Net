@@ -27,6 +27,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
         protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.SpotErrors);
 
+        internal new KucoinRestOptions ClientOptions => (KucoinRestOptions)base.ClientOptions;
+
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";
 
@@ -38,13 +40,13 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public IKucoinRestClientUnifiedApiTrading Trading { get; }
 
         internal KucoinRestClientUnifiedApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
-            : base(logger, httpClient, options.Environment.UnifiedAddress, options, options.UnifiedOptions)
+            : base(logger, httpClient, options.Environment.UnifiedRestAddress, options, options.UnifiedOptions)
         {
             _baseClient = baseClient;
 
             Account = new KucoinRestClientUnifiedApiAccount(this);
             ExchangeData = new KucoinRestClientUnifiedApiExchangeData(this);
-            Trading = new KucoinRestClientUnifiedApiTrading(this);
+            Trading = new KucoinRestClientUnifiedApiTrading(_logger, this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 

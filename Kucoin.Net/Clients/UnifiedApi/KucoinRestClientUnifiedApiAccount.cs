@@ -305,5 +305,11 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/bullet-private", KucoinExchange.RateLimiter.ManagementRest, 10, true);
+            return await _baseClient.SendAsync<KucoinToken>(request, null, ct).ConfigureAwait(false);
+        }
+
     }
 }

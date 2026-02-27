@@ -1,0 +1,20 @@
+> { "id": "|1|", "action": "subscribe", "channel":"kline", "tradeType": "SPOT", "symbol": "ETH-USDT", "interval": "15min" }
+< { "id": "|1|", "result": true }
+= 
+{
+    "T": "kline.SPOT",
+    "P": 1768210985379046302,
+    "d": {
+        "a": "170509.259492364",
+        "s": "ETH-USDT",
+        "C": 1768211040,
+        "c": "90861.2",
+        "S": "false",
+        "v": "1.87659044",
+        "h": "90861.3",
+        "i": "15min",
+        "l": "90861.2",
+        "O": 1768210980,
+        "o": "90861.3"
+    }
+}

@@ -61,7 +61,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="accountType">Account type</param>
-        /// <param name="isolatedMarginSymbol">Isolated margin symbol, for example `ETHUSDT`</param>
+        /// <param name="isolatedMarginSymbol">Isolated margin symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaTransferQuotas>> GetTransferQuotasAsync(
             string asset,

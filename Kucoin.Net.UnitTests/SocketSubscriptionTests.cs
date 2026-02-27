@@ -8,6 +8,7 @@ using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using Kucoin.Net.Objects.Models.Unified;
 using Kucoin.Net.Objects.Options;
 using Kucoin.Net.Objects.Sockets.Subscriptions;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,14 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinSocketClient(Options.Create(new KucoinSocketOptions
             {
                 OutputOriginalData = true,
-                Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
+                Environment = KucoinEnvironment.CreateCustom(
+                    "UnitTesting", 
+                    KucoinApiAddresses.Default.SpotAddress,
+                    KucoinApiAddresses.Default.FuturesAddress,
+                    KucoinApiAddresses.Default.UnifiedRestAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
             }), logger);
 
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data");
@@ -50,7 +58,14 @@ namespace Kucoin.Net.UnitTests
             {
                 ApiCredentials = new ApiCredentials("123", "456", "789"),
                 OutputOriginalData = true,
-                Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
+                Environment = KucoinEnvironment.CreateCustom(
+                    "UnitTesting",
+                    KucoinApiAddresses.Default.SpotAddress,
+                    KucoinApiAddresses.Default.FuturesAddress,
+                    KucoinApiAddresses.Default.UnifiedRestAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
             }), logFactory);
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data");
             await tester.ValidateAsync<KucoinStreamTick>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "Ticker");
@@ -85,7 +100,14 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinSocketClient(Options.Create(new KucoinSocketOptions
             {
                 OutputOriginalData = true,
-                Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
+                Environment = KucoinEnvironment.CreateCustom(
+                    "UnitTesting",
+                    KucoinApiAddresses.Default.SpotAddress,
+                    KucoinApiAddresses.Default.FuturesAddress,
+                    KucoinApiAddresses.Default.UnifiedRestAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
             }), logger);
 
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-spot.kucoin.com", "data");
@@ -105,7 +127,14 @@ namespace Kucoin.Net.UnitTests
             {
                 ApiCredentials = new ApiCredentials("123", "456", "789"),
                 OutputOriginalData = true,
-                Environment = KucoinEnvironment.CreateCustom("UnitTesting", KucoinApiAddresses.Default.SpotAddress, KucoinApiAddresses.Default.FuturesAddress, KucoinApiAddresses.Default.UnifiedAddress)
+                Environment = KucoinEnvironment.CreateCustom(
+                    "UnitTesting",
+                    KucoinApiAddresses.Default.SpotAddress,
+                    KucoinApiAddresses.Default.FuturesAddress,
+                    KucoinApiAddresses.Default.UnifiedRestAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
             }), logFactory);
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-spot.kucoin.com", "data");
             await tester.ValidateAsync<KucoinStreamFuturesMatch>((client, handler) => client.FuturesApi.SubscribeToTradeUpdatesAsync("XBTUSDTM", handler), "Trades");
@@ -128,6 +157,39 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinPositionRiskAdjustResultUpdate>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(null, null, null, handler), "RiskAdjust");
             await tester.ValidateAsync<Dictionary<string, FuturesMarginMode>>((client, handler) => client.FuturesApi.SubscribeToMarginModeUpdatesAsync(handler), "MarginMode");
             await tester.ValidateAsync<Dictionary<string, KucoinLeverageUpdate>>((client, handler) => client.FuturesApi.SubscribeToCrossMarginLeverageUpdatesAsync(handler), "CrossMarginLeverage");
+        }
+
+        [Test]
+        public async Task ValidateUnifiedSubscriptions()
+        {
+            var logFactory = new LoggerFactory();
+            logFactory.AddProvider(new TraceLoggerProvider());
+
+            var client = new KucoinSocketClient(Options.Create(new Objects.Options.KucoinSocketOptions
+            {
+                ApiCredentials = new ApiCredentials("123", "456", "789"),
+                OutputOriginalData = true,
+                Environment = KucoinEnvironment.CreateCustom(
+                    "UnitTesting",
+                    KucoinApiAddresses.Default.SpotAddress,
+                    KucoinApiAddresses.Default.FuturesAddress,
+                    KucoinApiAddresses.Default.UnifiedRestAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
+                    KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
+            }), logFactory);
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Unified", "wss://x-push-spot.kucoin.com", "d");
+            await tester.ValidateAsync<KucoinUaTickerUpdate>((client, handler) => client.UnifiedApi.SubscribeToTickerUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", handler), "Ticker");
+            await tester.ValidateAsync<KucoinUaKlineUpdate>((client, handler) => client.UnifiedApi.SubscribeToKlineUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", KlineInterval.FifteenMinutes, handler), "Kline");
+            await tester.ValidateAsync<KucoinUaOrderBookUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderBookUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", OrderBookDepth.Incremental, handler), "OrderBook");
+            await tester.ValidateAsync<KucoinUaTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToTradeUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", handler), "Trade");
+
+            await tester.ValidateAsync<KucoinUaBalanceUpdate>((client, handler) => client.UnifiedApi.SubscribeToBalanceUpdatesAsync(UnifiedAccountType.Futures, handler), "Balance");
+            await tester.ValidateAsync<KucoinUaOrderUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderUpdatesAsync(UnifiedAccountType.Spot, handler), "Order");
+            await tester.ValidateAsync<KucoinUaUserTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToUserTradeUpdatesAsync(UnifiedAccountType.Spot, handler), "UserTrade");
+            await tester.ValidateAsync<KucoinUaPositionUpdate>((client, handler) => client.UnifiedApi.SubscribeToPositionUpdatesAsync(UnifiedAccountType.Futures, handler), "Position");
+            await tester.ValidateAsync<KucoinUaLeverageUpdate>((client, handler) => client.UnifiedApi.SubscribeToLeverageUpdatesAsync(UnifiedAccountType.Futures, handler), "Leverage");
+            await tester.ValidateAsync<KucoinUaLiquidationWarningUpdate>((client, handler) => client.UnifiedApi.SubscribeToLiquidationWarningUpdatesAsync(UnifiedAccountType.Futures, handler), "LiquidationWarning");
         }
     }
 }

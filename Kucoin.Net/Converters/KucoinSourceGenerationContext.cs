@@ -12,6 +12,21 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converters
 {
+    
+    [JsonSerializable(typeof(KucoinUnifiedRequest))]
+    [JsonSerializable(typeof(KucoinUnifiedAccountRequest))]
+    [JsonSerializable(typeof(KucoinUnifiedWelcome))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaTickerUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaKlineUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaOrderBookUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaTradeUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaBalanceUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaOrderUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaUserTradeUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaPositionUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaLeverageUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaLiquidationWarningUpdate>))]
+
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionTier[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPosition[]>))]

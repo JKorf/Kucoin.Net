@@ -1,0 +1,16 @@
+> { "id": "|1|", "action": "subscribe", "channel":"trade", "tradeType": "SPOT", "symbol": "ETH-USDT"}
+< { "id": "|1|", "result": true }
+= 
+{
+    "T": "trade.SPOT",
+    "P": 1768802538491160904,
+    "d": {
+        "E": 20631804219899904,
+        "M": 1768802538480000000,
+        "S": "sell",
+        "p": "92525.6",
+        "q": "0.00008036",
+        "s": "ETH-USDT",
+        "ti": "20631804219899904"
+    }
+}

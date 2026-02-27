@@ -16,12 +16,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     public interface IKucoinRestClientUnifiedApiTrading
     {
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Place a new order
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/place-order" /></para>
         /// </summary>
         /// <param name="accountMode">Mode of the account</param>
         /// <param name="accountType">Type of trade</param>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="side">Order side</param>
         /// <param name="orderType">Type of order</param>
         /// <param name="quantity">Quantity</param>
@@ -76,12 +77,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel an open order
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/cancel-order" /></para>
         /// </summary>
         /// <param name="accountMode">Mode of the account</param>
         /// <param name="accountType">Type of trade</param>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`, not required from Unified account Futures order</param>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`, not required from Unified account Futures order</param>
         /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
@@ -94,6 +96,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel multiple orders
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /></para>
         /// </summary>
@@ -108,6 +111,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel orders on a specific symbol
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /></para>
         /// </summary>
@@ -126,12 +130,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get order info by id
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-order-details" /></para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
         /// <param name="accountType">Account type</param>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">Client order id. Either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
@@ -144,6 +149,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get open orders
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list" /></para>
         /// </summary>
@@ -168,12 +174,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get order history
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-order-history" /></para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
         /// <param name="accountType">Account type</param>
-        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`, required for spot/margin</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
         /// <param name="side">Filter by side</param>
         /// <param name="orderFilter">Filter by order type</param>
         /// <param name="startTime">Filter by start time</param>
@@ -194,6 +201,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get user trade history
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history" /></para>
         /// </summary>
@@ -220,6 +228,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Set disconnect protection
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/set-dcp-classic" /></para>
         /// </summary>
@@ -230,6 +239,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinUaDcp>> SetDcpAsync(UnifiedSimpleAccountType tradeType, long timeout, string? symbols = null, CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get disconnection protection status
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-dcp-classic" /></para>
         /// </summary>
@@ -238,6 +248,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinUaDcp>> GetDcpAsync(UnifiedSimpleAccountType tradeType, CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get open positions
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta" /></para>
         /// </summary>
@@ -247,10 +258,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get position history
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDTM`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="lastId">Filter by last id</param>
@@ -265,6 +277,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get position tiers
         /// <para><a href="https://www.kucoin.com/docs-new/rest/ua/get-account-position-tiers" /></para>
         /// </summary>

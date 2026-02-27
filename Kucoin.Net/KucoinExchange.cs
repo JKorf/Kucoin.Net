@@ -187,6 +187,7 @@ namespace Kucoin.Net
         internal IRateLimitGate EarnRest { get; private set; }
         internal IRateLimitGate PublicRest { get; private set; }
         internal IRateLimitGate Socket { get; private set; }
+        internal IRateLimitGate UnifiedSocket { get; private set; }
 
         /// <summary>
         /// The VIP level to use when calculating rate limits
@@ -231,7 +232,12 @@ namespace Kucoin.Net
             Socket = new RateLimitGate("Socket")
                     .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new LimitItemTypeFilter(RateLimitItemType.Connection), 30, TimeSpan.FromMinutes(1), RateLimitWindowType.Fixed))
                     .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new LimitItemTypeFilter(RateLimitItemType.Request), 100, TimeSpan.FromSeconds(10), RateLimitWindowType.Fixed));
+            UnifiedSocket = new RateLimitGate("Unified Socket")
+                    .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new LimitItemTypeFilter(RateLimitItemType.Connection), 150, TimeSpan.FromMinutes(1), RateLimitWindowType.Fixed))
+                    .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new LimitItemTypeFilter(RateLimitItemType.Request), 100, TimeSpan.FromSeconds(10), RateLimitWindowType.Fixed));
 
+            UnifiedRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            UnifiedRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             SpotRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SpotRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             FuturesRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
@@ -244,6 +250,8 @@ namespace Kucoin.Net
             PublicRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             Socket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             Socket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            UnifiedSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            UnifiedSocket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
     }
 }

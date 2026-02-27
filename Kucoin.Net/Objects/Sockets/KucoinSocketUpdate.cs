@@ -1,28 +1,21 @@
 ﻿
 
+using Kucoin.Net.Enums;
+using System;
+
 namespace Kucoin.Net.Objects.Sockets
 {
-    internal class KucoinSocketUpdate<T>
+    internal class KucoinUnifiedSocketUpdate<T>
     {
-        [JsonPropertyName("type")]
+        [JsonPropertyName("T")]
         public string Type { get; set; } = string.Empty;
-        [JsonPropertyName("topic")]
-        public string Topic { get; set; } = string.Empty;
-        [JsonIgnore]
-        public string? Symbol
-        {
-            get
-            {
-                var topicSplit = Topic.Split(':');
-                if (topicSplit.Length == 2)
-                    return topicSplit[1];
-
-                return null;
-            }
-        }
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; } = string.Empty;
-        [JsonPropertyName("data")]
+        [JsonPropertyName("P")]
+        public DateTime PushTime { get; set; }
+        [JsonPropertyName("dp")]
+        public string? Depth { get; set; }
+        [JsonPropertyName("t")]
+        public string? PushType { get; set; }
+        [JsonPropertyName("d")]
         public T Data { get; set; } = default!;
     }
 }

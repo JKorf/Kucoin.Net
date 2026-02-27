@@ -24,6 +24,11 @@ namespace Kucoin.Net.Objects.Options
         }
 
         /// <summary>
+        /// When set to true will no longer log a warning message to not use the unified API in production as it's in beta phase
+        /// </summary>
+        public bool DisableUnifiedProductionWarning { get; set; } = false;
+
+        /// <summary>
         /// Spot API options
         /// </summary>
         public KucoinRestApiOptions SpotOptions { get; private set; } = new KucoinRestApiOptions();
@@ -41,6 +46,7 @@ namespace Kucoin.Net.Objects.Options
         internal KucoinRestOptions Set(KucoinRestOptions targetOptions)
         {
             targetOptions = base.Set<KucoinRestOptions>(targetOptions);
+            targetOptions.DisableUnifiedProductionWarning = DisableUnifiedProductionWarning;
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
             targetOptions.UnifiedOptions = FuturesOptions.Set(targetOptions.UnifiedOptions);

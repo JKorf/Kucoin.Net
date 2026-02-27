@@ -4,6 +4,7 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models.Unified;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,11 +19,23 @@ namespace Kucoin.Net.Clients.UnifiedApi
     internal class KucoinRestClientUnifiedApiTrading : IKucoinRestClientUnifiedApiTrading
     {
         private readonly KucoinRestClientUnifiedApi _baseClient;
+        private readonly ILogger _logger;
         private static readonly RequestDefinitionCache _definitions = new();
 
-        internal KucoinRestClientUnifiedApiTrading(KucoinRestClientUnifiedApi baseClient)
+        internal KucoinRestClientUnifiedApiTrading(ILogger logger, KucoinRestClientUnifiedApi baseClient)
         {
             _baseClient = baseClient;
+            _logger = logger;
+        }
+
+        private void LogBetaWarning()
+        {
+            if (_baseClient.ClientOptions.DisableUnifiedProductionWarning)
+                return;
+
+            _logger.LogWarning("The Kucoin UTA/Unified API is currently in BETA phase and should not be used in the production" +
+                " as things might be changed and/or break without prior notice." +
+                " To disable this warning set `DisableUnifiedProductionWarning` to true in the REST client options.");
         }
 
         #region Place Order
@@ -57,6 +70,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
             decimal? slTriggerPrice = null,
             CancellationToken ct = default)
         {
+            LogBetaWarning();
+
             var parameters = new ParameterCollection();
             parameters.AddEnum("tradeType", accountType);
             parameters.Add("symbol", symbol);
@@ -106,6 +121,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
             string? clientOrderId = null, 
             CancellationToken ct = default)
         {
+            LogBetaWarning();
+
             var parameters = new ParameterCollection();
             parameters.AddEnum("tradeType", accountType);
             parameters.AddOptional("symbol", symbol);
@@ -132,6 +149,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
             IEnumerable<KucoinUaCancelOrderRequest> orders, 
             CancellationToken ct = default)
         {
+            LogBetaWarning();
+
             var parameters = new ParameterCollection();
             parameters.AddEnum("tradeType", accountType);
             parameters.AddOptional("cancelOrderList", orders.ToArray());
@@ -158,6 +177,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
             OrderFilter? orderFilter = null, 
             CancellationToken ct = default)
         {
+            LogBetaWarning();
+
             var parameters = new ParameterCollection();
             parameters.AddEnum("tradeType", accountType);
             parameters.Add("symbol", symbol);

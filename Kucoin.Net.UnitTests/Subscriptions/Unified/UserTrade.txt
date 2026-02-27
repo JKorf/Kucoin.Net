@@ -1,0 +1,20 @@
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"execution", "tradeType": "SPOT" }
+< { "id": "|1|", "result": true }
+= 
+{
+    "P": 1770107561276396856,
+    "T": "execution.SPOT",
+    "d": {
+        "E": 1770107561258000000,
+        "S": "BUY",
+        "f": "0.00078823600000000000",
+        "p": "78823.6",
+        "q": "0.00001",
+        "s": "BTC-USDT",
+        "fC": "USDT",
+        "lR": "TAKER",
+        "oT": "MARKET",
+        "oi": "6981b2a91c6fcb0007422784",
+        "ti": "21002796345212928"
+    }
+}

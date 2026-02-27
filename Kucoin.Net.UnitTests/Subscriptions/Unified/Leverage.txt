@@ -1,0 +1,12 @@
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"leverage", "tradeType": "FUTURES" }
+< { "id": "|1|", "result": true }
+= 
+{
+  "T": "leverage.FUTURES",
+  "P": 1764570290237940700,
+  "d": {
+    "s": "XBTUSDTM",
+    "l": "5.00"
+  }
+}
+      
