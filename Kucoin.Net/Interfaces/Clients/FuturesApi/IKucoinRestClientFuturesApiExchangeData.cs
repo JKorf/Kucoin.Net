@@ -15,7 +15,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get open contract list
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-symbols" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-symbols" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contracts/active
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -23,7 +28,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get a contract
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-symbol" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-symbol" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contracts/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -32,7 +42,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the ticker for a contract
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-ticker" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-ticker" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -41,7 +56,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the tickers for all contracts
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-tickers" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-tickers" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/allTickers
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -49,7 +69,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the full order book, aggregated by price
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-full-orderbook" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-full-orderbook" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/level2/snapshot
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -58,7 +83,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the partial order book, aggregated by price
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-part-orderbook" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-part-orderbook" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/level2/depth{depth}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="depth">Amount of rows in the book, either 20 or 100</param>
@@ -68,7 +98,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get interest rate list
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-interest-rate-index" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-interest-rate-index" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/interest/query
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -82,7 +117,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get index list
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-spot-index-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-spot-index-price" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/index/query
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -96,7 +136,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current mark price
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-mark-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-mark-price" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/mark-price/{symbol}/current
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -105,7 +150,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get premium index
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-premium-index" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-premium-index" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/premium/query
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -119,7 +169,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current funding rate
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/funding-rate/{symbol}/current
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -128,7 +183,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the most recent trades
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-trade-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-trade-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -137,7 +197,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the server time
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-server-time" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-server-time" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/timestamp
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -145,7 +210,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the service status
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-service-status" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-service-status" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/status
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -153,7 +223,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get kline data
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/kline/query
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="interval">Interval of the klines</param>
@@ -165,7 +240,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get 24h transaction volume
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-24hr-stats" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-24hr-stats" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade-statistics
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -173,7 +253,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding rate history for a symbol
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-public-funding-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-public-funding-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/funding-rates
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol name, for example `XBTUSDM`</param>
         /// <param name="startTime">Start time</param>

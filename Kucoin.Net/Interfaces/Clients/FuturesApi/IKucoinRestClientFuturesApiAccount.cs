@@ -17,7 +17,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Gets account overview
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/account-overview
+        /// </para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -26,7 +31,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get transaction history
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-futures" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-futures" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/transaction-history
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="type">Filter by type</param>
@@ -41,7 +51,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the total value of active orders
-        /// <para><a href="https://www.kucoin.com/docs-new/est/futures-trading/orders/get-open-order-value" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/est/futures-trading/orders/get-open-order-value" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/openOrderStatistics
+        /// </para>
         /// </summary>        
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -50,7 +65,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get details on a position
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-details" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-details" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/position
+        /// </para>
         /// </summary>
         /// <param name="symbol">Contract symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -59,7 +79,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get list of positions
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/positions
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -68,7 +93,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get position closure history
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-positions-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-positions-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/history-positions
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -81,7 +111,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Enable/disable auto deposit margin
-        /// <para><a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-auto-deposit-margin-status" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-auto-deposit-margin-status" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/margin/auto-deposit-status
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to change for, for example `XBTUSDM`</param>
         /// <param name="enabled">Enable or disable</param>
@@ -91,7 +126,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Manually add margin to a position
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/add-isolated-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/add-isolated-margin" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/margin/deposit-margin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="quantity">Quantity to add</param>
@@ -102,7 +142,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Manually remove margin from a position
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/remove-isolated-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/remove-isolated-margin" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/margin/withdrawMargin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="quantity">Quantity to remove</param>
@@ -112,7 +157,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding history
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-private-funding-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-private-funding-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/funding-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -126,7 +176,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get risk limit level
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-isolated-margin-risk-limit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-isolated-margin-risk-limit" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contracts/risk-limit/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -135,7 +190,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set risk limit level
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-isolated-margin-risk-limit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-isolated-margin-risk-limit" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/risk-limit-level/change
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
         /// <param name="level">Risk limit level</param>
@@ -145,7 +205,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the maximum amount of margin that the current position supports withdrawal.
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-max-withdraw-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-max-withdraw-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/margin/maxWithdrawMargin
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -154,7 +219,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get trading fee for a symbol
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-futures" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-futures" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade-fees
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -163,7 +233,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current margin mode for a symbol
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-margin-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-margin-mode" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/position/getMarginMode
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -171,7 +246,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set the margin mode for a symbol
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/position/changeMarginMode
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
         /// <param name="marginMode">The new margin mode</param>
@@ -180,7 +260,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set the margin mode for multiple symbols
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/batch-switch-margin-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/batch-switch-margin-mode" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/position/batchChangeMarginMode
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `XBTUSDTM`</param>
         /// <param name="marginMode">The new margin mode</param>
@@ -189,7 +274,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current cross margin leverage setting
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/getCrossUserLeverage
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
         /// <param name="ct">Cancellation token</param>
@@ -197,7 +287,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set a new cross margin leverage value
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v2/changeCrossUserLeverage
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
         /// <param name="leverage">The leverage</param>
@@ -206,7 +301,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get cross margin risk limits
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-risk-limit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-risk-limit" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/batchGetCrossOrderLimit
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `XBTUSDTM`</param>
         /// <param name="totalMargin">The position opening amount, in the contract's settlement asset. Defaults to 10,000 </param>

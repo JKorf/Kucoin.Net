@@ -16,7 +16,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker
-        /// <para><a href="https://www.kucoin.com/docs-new/3470222w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470222w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: ticker
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
@@ -27,7 +32,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
-        /// <para><a href="https://www.kucoin.com/docs-new/3470222w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470222w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: kline
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="interval">Kline interval</param>
@@ -43,7 +53,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
-        /// <para><a href="https://www.kucoin.com/docs-new/3470221w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470221w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: obu
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
@@ -60,7 +75,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
-        /// <para><a href="https://www.kucoin.com/docs-new/3470224w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470224w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: trade
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
@@ -75,7 +95,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to user balance updates
-        /// <para><a href="https://www.kucoin.com/docs-new/3470231w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470231w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: balance
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="onData">The data handler</param>
@@ -88,7 +113,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://www.kucoin.com/docs-new/3470228w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470228w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: orderAll
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="onData">The data handler</param>
@@ -101,7 +131,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to user trade updates
-        /// <para><a href="https://www.kucoin.com/docs-new/3470232w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470232w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: execution
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="onData">The data handler</param>
@@ -114,7 +149,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to position updates
-        /// <para><a href="https://www.kucoin.com/docs-new/3470233w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470233w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: positionAll
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="onData">The data handler</param>
@@ -127,7 +167,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to leverage change updates
-        /// <para><a href="https://www.kucoin.com/docs-new/3470237w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470237w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: leverage
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="onData">The data handler</param>
@@ -140,7 +185,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to liquidation warnings
-        /// <para><a href="https://www.kucoin.com/docs-new/3470236w0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470236w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: lw
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="onData">The data handler</param>

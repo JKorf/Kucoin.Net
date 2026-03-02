@@ -14,7 +14,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get information on currently held assets. If no assets are currently held, an empty list is returned.
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/earn/get-account-holding" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/earn/get-account-holding" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/earn/hold-assets
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="productId">Filter by product id</param>

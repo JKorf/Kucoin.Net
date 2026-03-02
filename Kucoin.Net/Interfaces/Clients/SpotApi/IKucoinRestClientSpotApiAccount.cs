@@ -16,7 +16,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get account summary info
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-summary-info" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-summary-info" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/user-info
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -24,7 +29,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of accounts
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-list-spot" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-list-spot" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/accounts
+        /// </para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
         /// <param name="accountType">Filter on type of account</param>
@@ -34,7 +44,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a specific account
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-detail-spot" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-detail-spot" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/accounts/{accountId}
+        /// </para>
         /// </summary>
         /// <param name="accountId">The id of the account to get</param>
         /// <param name="ct">Cancellation token</param>
@@ -43,7 +58,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the basic user fees
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-basic-fee-spot-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-basic-fee-spot-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/base-fee
+        /// </para>
         /// </summary>
         /// <param name="assetType">The type of asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -52,7 +72,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the trading fees for symbols
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade-fees
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve fees for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -61,7 +86,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the trading fees for symbols
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade-fees
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to retrieve fees for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -70,7 +100,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of account activity
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/accounts/ledgers
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -85,7 +120,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of hf account activity
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/hf/accounts/ledgers
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
         /// <param name="direction">Side</param>
@@ -100,7 +140,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a transferable balance of a specified account.
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/transfer/get-transfer-quotas" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/transfer/get-transfer-quotas" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/accounts/transferable
+        /// </para>
         /// </summary>
         /// <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
         /// <param name="accountType">Filter on type of account</param>
@@ -111,7 +156,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Universal transfer between accounts
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/accounts/universal-transfer
+        /// </para>
         /// </summary>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="fromAccountType">From account type</param>
@@ -140,7 +190,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of deposits
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/deposits
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter list by asset, for example `ETH`</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -154,7 +209,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the deposit addresses for an asset
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/deposit-addresses
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset to get the address for, for example `ETH`</param>
         /// <param name="networkId">The id of the network to get the address for</param>
@@ -165,7 +225,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Creates a new deposit address for an asset
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/deposit/add-deposit-address-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/deposit/add-deposit-address-v3" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/deposit-address/create
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset create the address for, for example `ETH`</param>
         /// <param name="networkId">The id of the network to create the address for</param>
@@ -177,7 +242,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of withdrawals
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/withdrawals
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter list by asset, for example `ETH`</param>
         /// <param name="startTime">Filter list by start time</param>
@@ -191,7 +261,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get info on a withdrawal
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-by-id" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-by-id" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/withdrawals/{id}
+        /// </para>
         /// </summary>
         /// <param name="id">Id of the withdrawal</param>
         /// <param name="ct">Cancellation token</param>
@@ -199,7 +274,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the withdrawal quota for a asset
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/withdrawals/quotas
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset to get the quota for, for example `ETH`</param>
         /// <param name="network">The network name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
@@ -209,7 +289,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Withdraw an asset to an address
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/withdraw-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/withdraw-v3" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/withdrawals
+        /// </para>
         /// </summary>
         /// <param name="withdrawalType">Type of withdrawal</param>
         /// <param name="asset">The asset to withdraw, for example `ETH`</param>
@@ -226,7 +311,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel a withdrawal
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/cancel-withdrawal" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/cancel-withdrawal" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v1/withdrawals/{withdrawalId}
+        /// </para>
         /// </summary>
         /// <param name="withdrawalId">The id of the withdrawal to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -235,7 +325,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get margin account info
-        /// <para><a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/margin/account
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -243,7 +338,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin account info
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/margin/accounts
+        /// </para>
         /// </summary>
         /// <param name="quoteAsset">Filter by quote asset, for example `BTC`</param>
         /// <param name="ct"></param>
@@ -252,7 +352,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin account info
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/isolated/accounts
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -260,7 +365,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin account info
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/isolated/account/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -291,7 +401,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get API key info
-        /// <para><a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-apikey-info" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-apikey-info" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/api-key
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
