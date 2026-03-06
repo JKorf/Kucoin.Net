@@ -163,6 +163,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.9.0 - 06 Mar 2026
+    * Updated CryptoExchange.Net to version 10.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Improved method XML comments
+
 * Version 8.8.0 - 27 Feb 2026
     * Added Account and Trading endpoints to REST client.UnifiedApi
     * Added UnifiedApi websocket streams to WebSocket client
