@@ -18,21 +18,21 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places an order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
-        /// <param name="side">The side of the order</param>
-        /// <param name="type">The type of the order</param>
-        /// <param name="price">The price of the order. Only valid for limit orders.</param>
-        /// <param name="quantity">The quantity of the order</param>
-        /// <param name="quoteQuantity">The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
-        /// <param name="timeInForce">The time the order is in force</param>
-        /// <param name="cancelAfter">Cancel after a time</param>
-        /// <param name="postOnly">Order is post only</param>
-        /// <param name="hidden">Order is hidden</param>
-        /// <param name="iceBerg">Order is an iceberg order</param>
-        /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
-        /// <param name="remark">Remark on the order</param>
-        /// <param name="selfTradePrevention">Self trade prevention setting</param>
-        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol the order is for, for example `ETH-USDT`</param>
+        /// <param name="side">["<c>side</c>"] The side of the order</param>
+        /// <param name="type">["<c>type</c>"] The type of the order</param>
+        /// <param name="price">["<c>price</c>"] The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">["<c>size</c>"] The quantity of the order</param>
+        /// <param name="quoteQuantity">["<c>funds</c>"] The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] The time the order is in force</param>
+        /// <param name="cancelAfter">["<c>cancelAfter</c>"] Cancel after a time</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Order is post only</param>
+        /// <param name="hidden">["<c>hidden</c>"] Order is hidden</param>
+        /// <param name="iceBerg">["<c>iceBerg</c>"] Order is an iceberg order</param>
+        /// <param name="visibleIceBergSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="remark">["<c>remark</c>"] Remark on the order</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self trade prevention setting</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
@@ -57,21 +57,21 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places a test order. Order gets validated but won't be processed
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-order-test" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
-        /// <param name="side">The side of the order</param>
-        /// <param name="type">The type of the order</param>
-        /// <param name="price">The price of the order. Only valid for limit orders.</param>
-        /// <param name="quantity">The quantity of the order</param>
-        /// <param name="quoteQuantity">The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
-        /// <param name="timeInForce">The time the order is in force</param>
-        /// <param name="cancelAfter">Cancel after a time</param>
-        /// <param name="postOnly">Order is post only</param>
-        /// <param name="hidden">Order is hidden</param>
-        /// <param name="iceBerg">Order is an iceberg order</param>
-        /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
-        /// <param name="remark">Remark on the order</param>
-        /// <param name="selfTradePrevention">Self trade prevention setting</param>
-        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol the order is for, for example `ETH-USDT`</param>
+        /// <param name="side">["<c>side</c>"] The side of the order</param>
+        /// <param name="type">["<c>type</c>"] The type of the order</param>
+        /// <param name="price">["<c>price</c>"] The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">["<c>size</c>"] The quantity of the order</param>
+        /// <param name="quoteQuantity">["<c>funds</c>"] The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] The time the order is in force</param>
+        /// <param name="cancelAfter">["<c>cancelAfter</c>"] Cancel after a time</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Order is post only</param>
+        /// <param name="hidden">["<c>hidden</c>"] Order is hidden</param>
+        /// <param name="iceBerg">["<c>iceBerg</c>"] Order is an iceberg order</param>
+        /// <param name="visibleIceBergSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="remark">["<c>remark</c>"] Remark on the order</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self trade prevention setting</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
@@ -96,24 +96,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places a margin order. Order gets validated but won't be processed
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/orders/place-margin-order-test" /></para>
         /// </summary>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="side">The side((buy or sell) of the order</param>
-        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
-        /// <param name="type">The type of the order</param>
-        /// <param name="remark">Remark on the order</param>
-        /// <param name="selfTradePrevention">Self trade prevention setting</param>
-        /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
-        /// <param name="autoBorrow">Auto-borrow to place order.</param>
-        /// <param name="autoRepay">Auto-repay to place order.</param>
-        /// <param name="price">The price of the order. Only valid for limit orders.</param>
-        /// <param name="quantity">Quantity of base asset to buy or sell of the order</param>
-        /// <param name="timeInForce">The time the order is in force</param>
-        /// <param name="cancelAfter">Cancel after a time</param>
-        /// <param name="postOnly">Order is post only</param>
-        /// <param name="hidden">Order is hidden</param>
-        /// <param name="iceBerg">Order is an iceberg order</param>
-        /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quoteQuantity">The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="side">["<c>side</c>"] The side((buy or sell) of the order</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol the order is for, for example `ETH-USDT`</param>
+        /// <param name="type">["<c>type</c>"] The type of the order</param>
+        /// <param name="remark">["<c>remark</c>"] Remark on the order</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self trade prevention setting</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] The type of trading, including 'cross' and 'isolated'</param>
+        /// <param name="autoBorrow">["<c>autoBorrow</c>"] Auto-borrow to place order.</param>
+        /// <param name="autoRepay">["<c>autoRepay</c>"] Auto-repay to place order.</param>
+        /// <param name="price">["<c>price</c>"] The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity of base asset to buy or sell of the order</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] The time the order is in force</param>
+        /// <param name="cancelAfter">["<c>cancelAfter</c>"] Cancel after a time</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Order is post only</param>
+        /// <param name="hidden">["<c>hidden</c>"] Order is hidden</param>
+        /// <param name="iceBerg">["<c>iceBerg</c>"] Order is an iceberg order</param>
+        /// <param name="visibleIceBergSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="quoteQuantity">["<c>funds</c>"] The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewMarginOrder>> PlaceMarginOrderAsync(
@@ -141,24 +141,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places a test margin order
         /// <para><a href="https://www.kucoin.com/docs/rest/margin-trading/orders/place-margin-order-test" /></para>
         /// </summary>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="side">The side((buy or sell) of the order</param>
-        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
-        /// <param name="type">The type of the order</param>
-        /// <param name="remark">Remark on the order</param>
-        /// <param name="selfTradePrevention">Self trade prevention setting</param>
-        /// <param name="marginMode">The type of trading, including 'cross' and 'isolated'</param>
-        /// <param name="autoBorrow">Auto-borrow to place order.</param>
-        /// <param name="autoRepay">Auto-repay to place order.</param>
-        /// <param name="price">The price of the order. Only valid for limit orders.</param>
-        /// <param name="quantity">Quantity of base asset to buy or sell of the order</param>
-        /// <param name="timeInForce">The time the order is in force</param>
-        /// <param name="cancelAfter">Cancel after a time</param>
-        /// <param name="postOnly">Order is post only</param>
-        /// <param name="hidden">Order is hidden</param>
-        /// <param name="iceBerg">Order is an iceberg order</param>
-        /// <param name="visibleIceBergSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quoteQuantity">The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="side">["<c>side</c>"] The side((buy or sell) of the order</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol the order is for, for example `ETH-USDT`</param>
+        /// <param name="type">["<c>type</c>"] The type of the order</param>
+        /// <param name="remark">["<c>remark</c>"] Remark on the order</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self trade prevention setting</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] The type of trading, including 'cross' and 'isolated'</param>
+        /// <param name="autoBorrow">["<c>autoBorrow</c>"] Auto-borrow to place order.</param>
+        /// <param name="autoRepay">["<c>autoRepay</c>"] Auto-repay to place order.</param>
+        /// <param name="price">["<c>price</c>"] The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity of base asset to buy or sell of the order</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] The time the order is in force</param>
+        /// <param name="cancelAfter">["<c>cancelAfter</c>"] Cancel after a time</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Order is post only</param>
+        /// <param name="hidden">["<c>hidden</c>"] Order is hidden</param>
+        /// <param name="iceBerg">["<c>iceBerg</c>"] Order is an iceberg order</param>
+        /// <param name="visibleIceBergSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="quoteQuantity">["<c>funds</c>"] The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
         Task<WebCallResult<KucoinNewMarginOrder>> PlaceTestMarginOrderAsync(
@@ -186,15 +186,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Placec a new OCO order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/place-order" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `ETH-USDT`</param>
-        /// <param name="side">Order side</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="price">Price</param>
-        /// <param name="stopPrice">Trigger price</param>
-        /// <param name="limitPrice">Limit order price after trigger</param>
-        /// <param name="tradeType">Transaction Type, currently only supports TRADE (spot transactions)</param>
-        /// <param name="remark">User remark</param>
-        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH-USDT`</param>
+        /// <param name="side">["<c>side</c>"] Order side</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity</param>
+        /// <param name="price">["<c>price</c>"] Price</param>
+        /// <param name="stopPrice">["<c>stopPrice</c>"] Trigger price</param>
+        /// <param name="limitPrice">["<c>limitPrice</c>"] Limit order price after trigger</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Transaction Type, currently only supports TRADE (spot transactions)</param>
+        /// <param name="remark">["<c>remark</c>"] User remark</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinOrderId>> PlaceOcoOrderAsync(
@@ -213,8 +213,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Places bulk orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/place-multiple-orders" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
-        /// <param name="orders">Up to 5 orders to be placed at the same time</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol the order is for, for example `ETH-USDT`</param>
+        /// <param name="orders">["<c>orderList</c>"] Up to 5 orders to be placed at the same time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of new orders</returns>
         Task<WebCallResult<CallResult<KucoinBulkOrderResponseEntry>[]>> PlaceBulkOrderAsync(string symbol, IEnumerable<KucoinBulkOrderRequestEntry> orders, CancellationToken ct = default);
@@ -241,7 +241,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel multiple OCO orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/cancel-multiple-orders" /></para>
         /// </summary>
-        /// <param name="orderIds">Order ids</param>
+        /// <param name="orderIds">["<c>orderIds</c>"] Order ids</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCanceledOrders>> CancelOcoOrdersAsync(IEnumerable<string> orderIds, CancellationToken ct = default);
@@ -268,8 +268,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel all open orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/cancel-all-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Only cancel orders for this symbol, for example `ETH-USDT`</param>
-        /// <param name="tradeType">Only cancel orders for this type</param>
+        /// <param name="symbol">["<c>symbol</c>"] Only cancel orders for this symbol, for example `ETH-USDT`</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Only cancel orders for this type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of canceled orders</returns>
         Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, TradeType? tradeType = null, CancellationToken ct = default);
@@ -278,15 +278,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets a list of orders
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/orders/get-order-list" /></para>
         /// </summary>
-        /// <param name="symbol">Filter list by symbol</param>
-        /// <param name="type">Filter list by order type</param>
-        /// <param name="side">Filter list by order side</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="status">Filter list by order status. Defaults to done</param>
-        /// <param name="tradeType">The type of orders to retrieve</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter list by symbol</param>
+        /// <param name="type">["<c>type</c>"] Filter list by order type</param>
+        /// <param name="side">["<c>side</c>"] Filter list by order side</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter list by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter list by end time</param>
+        /// <param name="status">["<c>status</c>"] Filter list by order status. Defaults to done</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] The type of orders to retrieve</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
         Task<WebCallResult<KucoinPaginated<KucoinOrder>>> GetOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, OrderStatus? status = null, TradeType? tradeType = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -303,12 +303,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get OCO orders list
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/oco-order/get-order-list" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
-        /// <param name="orderIds">Filter by order ids</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`</param>
+        /// <param name="orderIds">["<c>orderIds</c>"] Filter by order ids</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter list by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter list by end time</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinOcoOrder>>> GetOcoOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -362,15 +362,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets a list of fills
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/fills/get-filled-list" /></para>
         /// </summary>
-        /// <param name="symbol">Filter list by symbol, for example `ETH-USDT`</param>
-        /// <param name="type">Filter list by order type</param>
-        /// <param name="side">Filter list by order side</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="orderId">Filter list by order id</param>
-        /// <param name="tradeType">The type of orders to retrieve</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter list by symbol, for example `ETH-USDT`</param>
+        /// <param name="type">["<c>type</c>"] Filter list by order type</param>
+        /// <param name="side">["<c>side</c>"] Filter list by order side</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter list by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter list by end time</param>
+        /// <param name="orderId">["<c>orderId</c>"] Filter list by order id</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] The type of orders to retrieve</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of fills</returns>
         Task<WebCallResult<KucoinPaginated<KucoinUserTrade>>> GetUserTradesAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, TradeType? tradeType = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -387,24 +387,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Place a new stop order
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/place-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol the order is for, for example `ETH-USDT`</param>
-        /// <param name="orderSide">The side of the order</param>
-        /// <param name="orderType">The type of the order</param>
-        /// <param name="price">The price of the order. Only valid for limit orders.</param>
-        /// <param name="quantity">The quantity of the order</param>
-        /// <param name="quoteQuantity">The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
-        /// <param name="timeInForce">The time the order is in force</param>
-        /// <param name="cancelAfter">Cancel after a time</param>
-        /// <param name="postOnly">Order is post only</param>
-        /// <param name="hidden">Order is hidden</param>
-        /// <param name="iceberg">Order is an iceberg order</param>
-        /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="remark">Remark on the order</param>
-        /// <param name="selfTradePrevention">Self trade prevention setting</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="stopCondition">Stop price condition</param>
-        /// <param name="stopPrice">Price to trigger the order placement</param>
-        /// <param name="tradeType">Trade type</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol the order is for, for example `ETH-USDT`</param>
+        /// <param name="orderSide">["<c>side</c>"] The side of the order</param>
+        /// <param name="orderType">["<c>type</c>"] The type of the order</param>
+        /// <param name="price">["<c>price</c>"] The price of the order. Only valid for limit orders.</param>
+        /// <param name="quantity">["<c>size</c>"] The quantity of the order</param>
+        /// <param name="quoteQuantity">["<c>funds</c>"] The funds to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] The time the order is in force</param>
+        /// <param name="cancelAfter">["<c>cancelAfter</c>"] Cancel after a time</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Order is post only</param>
+        /// <param name="hidden">["<c>hidden</c>"] Order is hidden</param>
+        /// <param name="iceberg">["<c>iceberg</c>"] Order is an iceberg order</param>
+        /// <param name="visibleSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="remark">["<c>remark</c>"] Remark on the order</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self trade prevention setting</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="stopCondition">["<c>stop</c>"] Stop price condition</param>
+        /// <param name="stopPrice">["<c>stopPrice</c>"] Price to trigger the order placement</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinOrderId>> PlaceStopOrderAsync(
@@ -441,7 +441,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel a stop order by client order id
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/cancel-order-by-clientoid" /></para>
         /// </summary>
-        /// <param name="clientOrderId">The client order id</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] The client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCanceledOrder>> CancelStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
@@ -450,9 +450,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Cancel all stop orders fitting the provided parameters
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/cancel-stop-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol to cancel orders on, for example `ETH-USDT`</param>
-        /// <param name="orderIds">Order ids of the orders to cancel</param>
-        /// <param name="tradeType">Trade type</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol to cancel orders on, for example `ETH-USDT`</param>
+        /// <param name="orderIds">["<c>orderIds</c>"] Order ids of the orders to cancel</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCanceledOrders>> CancelStopOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, TradeType? tradeType = null, CancellationToken ct = default);
@@ -461,16 +461,16 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get a list of stop orders fitting the provided parameters
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/get-stop-orders-list" /></para>
         /// </summary>
-        /// <param name="activeOrders">True to return active orders, false for completed orders</param>
-        /// <param name="symbol">Symbol of the orders, for example `ETH-USDT`</param>
-        /// <param name="side">Side of the orders</param>
-        /// <param name="type">Type of the orders</param>
-        /// <param name="tradeType">Trade type</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="orderIds">Filter list by order ids</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="activeOrders">["<c>status</c>"] True to return active orders, false for completed orders</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol of the orders, for example `ETH-USDT`</param>
+        /// <param name="side">["<c>side</c>"] Side of the orders</param>
+        /// <param name="type">["<c>type</c>"] Type of the orders</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter list by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter list by end time</param>
+        /// <param name="orderIds">["<c>orderIds</c>"] Filter list by order ids</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinStopOrder>>> GetStopOrdersAsync(bool? activeOrders = null, string? symbol = null, OrderSide? side = null,
@@ -489,7 +489,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get a stop order by client order id
         /// <para><a href="https://www.kucoin.com/docs/rest/spot-trading/stop-order/get-order-details-by-clientoid" /></para>
         /// </summary>
-        /// <param name="clientOrderId">The client order id</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] The client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinStopOrder[]>> GetStopOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);

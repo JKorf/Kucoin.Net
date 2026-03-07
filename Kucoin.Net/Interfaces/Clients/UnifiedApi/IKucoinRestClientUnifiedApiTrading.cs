@@ -26,31 +26,31 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Mode of the account</param>
-        /// <param name="accountType">Type of trade</param>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="side">Order side</param>
-        /// <param name="orderType">Type of order</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="quantityUnit">Unit used for the quantity</param>
-        /// <param name="price">Order limit price</param>
-        /// <param name="timeInForce">Time in force</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="postOnly">Post only order</param>
-        /// <param name="reduceOnly">Reduce only order</param>
-        /// <param name="stpMode">Self trade prevention mode</param>
-        /// <param name="triggerPrice">Trigger price</param>
-        /// <param name="triggerDirection">Trigger direction</param>
-        /// <param name="triggerPriceType">Trigger price type</param>
-        /// <param name="cancelAfter">Cancel after in seconds</param>
-        /// <param name="autoBorrow">Enable auto borrow (Classic account)</param>
-        /// <param name="autoRepay">Enable auto repay (Classic account)</param>
-        /// <param name="positionSide">Position side (Classic account)</param>
-        /// <param name="marginMode">Margin mode (Classic account)</param>
-        /// <param name="leverage">Leverage (Classic account)</param>
-        /// <param name="tpTriggerPriceType">Take profit trigger price type</param>
-        /// <param name="tpTriggerPrice">Take profit trigger price</param>
-        /// <param name="slTriggerPriceType">Stop loss trigger price type</param>
-        /// <param name="slTriggerPrice">Stop loss trigger price</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Type of trade</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="side">["<c>side</c>"] Order side</param>
+        /// <param name="orderType">["<c>orderType</c>"] Type of order</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity</param>
+        /// <param name="quantityUnit">["<c>sizeUnit</c>"] Unit used for the quantity</param>
+        /// <param name="price">["<c>price</c>"] Order limit price</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] Time in force</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Post only order</param>
+        /// <param name="reduceOnly">["<c>reduceOnly</c>"] Reduce only order</param>
+        /// <param name="stpMode">["<c>stp</c>"] Self trade prevention mode</param>
+        /// <param name="triggerPrice">["<c>triggerPrice</c>"] Trigger price</param>
+        /// <param name="triggerDirection">["<c>triggerDirection</c>"] Trigger direction</param>
+        /// <param name="triggerPriceType">["<c>triggerPriceType</c>"] Trigger price type</param>
+        /// <param name="cancelAfter">["<c>cancelAfter</c>"] Cancel after in seconds</param>
+        /// <param name="autoBorrow">["<c>autoBorrow</c>"] Enable auto borrow (Classic account)</param>
+        /// <param name="autoRepay">["<c>autoRepay</c>"] Enable auto repay (Classic account)</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Position side (Classic account)</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode (Classic account)</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage (Classic account)</param>
+        /// <param name="tpTriggerPriceType">["<c>tpTriggerPriceType</c>"] Take profit trigger price type</param>
+        /// <param name="tpTriggerPrice">["<c>tpTriggerPrice</c>"] Take profit trigger price</param>
+        /// <param name="slTriggerPriceType">["<c>slTriggerPriceType</c>"] Stop loss trigger price type</param>
+        /// <param name="slTriggerPrice">["<c>slTriggerPrice</c>"] Stop loss trigger price</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaOrderResult>> PlaceOrderAsync(
             UnifiedAccountMode accountMode,
@@ -92,10 +92,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Mode of the account</param>
-        /// <param name="accountType">Type of trade</param>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`, not required from Unified account Futures order</param>
-        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
-        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Type of trade</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`, not required from Unified account Futures order</param>
+        /// <param name="orderId">["<c>orderId</c>"] Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaOrderResult>> CancelOrderAsync(
             UnifiedAccountMode accountMode,
@@ -116,8 +116,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="orders">Orders to cancel</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="orders">["<c>cancelOrderList</c>"] Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaBatchCancelResult>> CancelOrdersAsync(
             UnifiedAccountMode accountMode,
@@ -136,10 +136,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="marginMode">Margin mode</param>
-        /// <param name="orderFilter">Order filter, defaults to Normal</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
+        /// <param name="orderFilter">["<c>orderFilter</c>"] Order filter, defaults to Normal</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
             UnifiedAccountMode accountMode,
@@ -160,10 +160,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
-        /// <param name="clientOrderId">Client order id. Either this or orderId should be provided</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="orderId">["<c>orderId</c>"] Order id. Either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id. Either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaOrder>> GetOrderAsync(
             UnifiedAccountMode accountMode,
@@ -184,13 +184,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`, required for Classic account spot/margin</param>
-        /// <param name="orderFilter">Filter by order type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for Classic account spot/margin</param>
+        /// <param name="orderFilter">["<c>orderFilter</c>"] Filter by order type</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="page">["<c>pageNumber</c>"] Page number</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaOrders>> GetOpenOrdersAsync(
             UnifiedAccountMode accountMode,
@@ -214,14 +214,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
-        /// <param name="side">Filter by side</param>
-        /// <param name="orderFilter">Filter by order type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="lastId">Filter by last id</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
+        /// <param name="side">["<c>side</c>"] Filter by side</param>
+        /// <param name="orderFilter">["<c>orderFilter</c>"] Filter by order type</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="lastId">["<c>lastId</c>"] Filter by last id</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaOrderHistory>> GetOrderHistoryAsync(
             UnifiedAccountMode accountMode,
@@ -246,14 +246,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
-        /// <param name="orderId">Filter by order id</param>
-        /// <param name="orderSide">Filter by order side</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="lastId">Filter by last id</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
+        /// <param name="orderId">["<c>orderId</c>"] Filter by order id</param>
+        /// <param name="orderSide">["<c>side</c>"] Filter by order side</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="lastId">["<c>lastId</c>"] Filter by last id</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaUserTrades>> GetUserTradesAsync(
             UnifiedAccountMode accountMode,
@@ -277,9 +277,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/ua/v1/dcp/set
         /// </para>
         /// </summary>
-        /// <param name="tradeType">Trade type</param>
-        /// <param name="timeout">Timeout in seconds</param>
-        /// <param name="symbols">Set for specific symbols</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
+        /// <param name="timeout">["<c>timeout</c>"] Timeout in seconds</param>
+        /// <param name="symbols">["<c>symbols</c>"] Set for specific symbols</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaDcp>> SetDcpAsync(UnifiedSimpleAccountType tradeType, long timeout, string? symbols = null, CancellationToken ct = default);
 
@@ -293,7 +293,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/dcp/query
         /// </para>
         /// </summary>
-        /// <param name="tradeType">Trade type</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaDcp>> GetDcpAsync(UnifiedSimpleAccountType tradeType, CancellationToken ct = default);
 
@@ -308,7 +308,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="symbol">Filter by symbol, for example `ETHUSDTM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDTM`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, CancellationToken ct = default);
 
@@ -322,11 +322,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/position/history
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `ETHUSDTM`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="lastId">Filter by last id</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDTM`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="lastId">["<c>lastId</c>"] Filter by last id</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaPositionHistory>> GetPositionHistoryAsync(
             string? symbol = null,
@@ -347,9 +347,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
-        /// <param name="symbols">Symbols, for example `ETHUSDTM`</param>
-        /// <param name="tradeType">Trade type</param>
-        /// <param name="marginMode">Margin mode</param>
+        /// <param name="symbols">["<c>symbol</c>"] Symbols, for example `ETHUSDTM`</param>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
             UnifiedAccountMode accountMode,

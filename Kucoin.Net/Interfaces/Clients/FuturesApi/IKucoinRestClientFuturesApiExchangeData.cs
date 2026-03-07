@@ -35,7 +35,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/contracts/{symbol}
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinContract>> GetContractAsync(string symbol, CancellationToken ct = default);
@@ -49,7 +49,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/ticker
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinFuturesTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
@@ -90,7 +90,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/level2/depth{depth}
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="depth">Amount of rows in the book, either 20 or 100</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -105,12 +105,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/interest/query
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="pageSize">Size of a page</param>
-        /// <param name="forward">Forward or backwards direction</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `XBTUSDM`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>offset</c>"] Result offset</param>
+        /// <param name="pageSize">["<c>maxCount</c>"] Size of a page</param>
+        /// <param name="forward">["<c>forward</c>"] Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginatedSlider<KucoinFuturesInterest>>> GetInterestRatesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
@@ -124,12 +124,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/index/query
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="pageSize">Size of a page</param>
-        /// <param name="forward">Forward or backwards direction</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `XBTUSDM`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>offset</c>"] Result offset</param>
+        /// <param name="pageSize">["<c>maxCount</c>"] Size of a page</param>
+        /// <param name="forward">["<c>forward</c>"] Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginatedSlider<KucoinIndex>>> GetIndexListAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
@@ -157,12 +157,12 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/premium/query
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="pageSize">Size of a page</param>
-        /// <param name="forward">Forward or backwards direction</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `XBTUSDM`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>offset</c>"] Result offset</param>
+        /// <param name="pageSize">["<c>maxCount</c>"] Size of a page</param>
+        /// <param name="forward">["<c>forward</c>"] Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginatedSlider<KucoinPremiumIndex>>> GetPremiumIndexAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
@@ -176,7 +176,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/funding-rate/{symbol}/current
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default);
@@ -230,10 +230,10 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/kline/query
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
-        /// <param name="interval">Interval of the klines</param>
-        /// <param name="startTime">Start time to retrieve klines from</param>
-        /// <param name="endTime">End time to retrieve klines for</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `XBTUSDM`</param>
+        /// <param name="interval">["<c>granularity</c>"] Interval of the klines</param>
+        /// <param name="startTime">["<c>from</c>"] Start time to retrieve klines from</param>
+        /// <param name="endTime">["<c>to</c>"] End time to retrieve klines for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
@@ -260,9 +260,9 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/contract/funding-rates
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol name, for example `XBTUSDM`</param>
-        /// <param name="startTime">Start time</param>
-        /// <param name="endTime">End time</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol name, for example `XBTUSDM`</param>
+        /// <param name="startTime">["<c>from</c>"] Start time</param>
+        /// <param name="endTime">["<c>to</c>"] End time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default);

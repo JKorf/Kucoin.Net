@@ -24,30 +24,30 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
-        /// <param name="side">Side of the order</param>
-        /// <param name="type">Type of order</param>
-        /// <param name="leverage">Leverage of the order</param>
-        /// <param name="price">Limit price, only for limit orders</param>
-        /// <param name="timeInForce">Time in force, only for limit orders</param>
-        /// <param name="postOnly">Post only flag, invalid when timeInForce is IOC</param>
-        /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
-        /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
-        /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quantity">Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="remark">Remark for the order</param>
-        /// <param name="stopType"></param>
-        /// <param name="stopPriceType"></param>
-        /// <param name="stopPrice">Stop price</param>
-        /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
-        /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
-        /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="marginMode">Margin mode, defaults to Isolated</param>
-        /// <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="positionSide">Position side (required in HedgeMode)</param>
+        /// <param name="symbol">["<c>symbol</c>"] The contract for the order, for example `XBTUSDM`</param>
+        /// <param name="side">["<c>side</c>"] Side of the order</param>
+        /// <param name="type">["<c>type</c>"] Type of order</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage of the order</param>
+        /// <param name="price">["<c>price</c>"] Limit price, only for limit orders</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] Time in force, only for limit orders</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Post only flag, invalid when timeInForce is IOC</param>
+        /// <param name="hidden">["<c>hidden</c>"] Orders not displaying in order book. When hidden chose</param>
+        /// <param name="iceberg">["<c>iceberg</c>"] Only visible portion of the order is displayed in the order book</param>
+        /// <param name="visibleSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="remark">["<c>remark</c>"] Remark for the order</param>
+        /// <param name="stopType">["<c>stop</c>"]</param>
+        /// <param name="stopPriceType">["<c>stopPriceType</c>"]</param>
+        /// <param name="stopPrice">["<c>stopPrice</c>"] Stop price</param>
+        /// <param name="reduceOnly">["<c>reduceOnly</c>"] A mark to reduce the position size only. Set to false by default</param>
+        /// <param name="closeOrder">["<c>closeOrder</c>"] A mark to close the position. Set to false by default. All the positions will be closed if true</param>
+        /// <param name="forceHold">["<c>forceHold</c>"] A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self Trade Prevention mode</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode, defaults to Isolated</param>
+        /// <param name="quantityInBaseAsset">["<c>qty</c>"] Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="quantityInQuoteAsset">["<c>valueQty</c>"] Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Position side (required in HedgeMode)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
@@ -86,30 +86,30 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/orders/test
         /// </para>
         /// </summary>
-        /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
-        /// <param name="side">Side of the order</param>
-        /// <param name="type">Type of order</param>
-        /// <param name="leverage">Leverage of the order</param>
-        /// <param name="price">Limit price, only for limit orders</param>
-        /// <param name="timeInForce">Time in force, only for limit orders</param>
-        /// <param name="postOnly">Post only flag, invalid when timeInForce is IOC</param>
-        /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
-        /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
-        /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quantity">Quantity of contract to buy or sell</param>
-        /// <param name="remark">Remark for the order</param>
-        /// <param name="stopType"></param>
-        /// <param name="stopPriceType"></param>
-        /// <param name="stopPrice">Stop price</param>
-        /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
-        /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
-        /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="marginMode">Margin mode, defaults to Isolated</param>
-        /// <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="positionSide">Position side (required in HedgeMode)</param>
+        /// <param name="symbol">["<c>symbol</c>"] The contract for the order, for example `XBTUSDM`</param>
+        /// <param name="side">["<c>side</c>"] Side of the order</param>
+        /// <param name="type">["<c>type</c>"] Type of order</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage of the order</param>
+        /// <param name="price">["<c>price</c>"] Limit price, only for limit orders</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] Time in force, only for limit orders</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Post only flag, invalid when timeInForce is IOC</param>
+        /// <param name="hidden">["<c>hidden</c>"] Orders not displaying in order book. When hidden chose</param>
+        /// <param name="iceberg">["<c>iceberg</c>"] Only visible portion of the order is displayed in the order book</param>
+        /// <param name="visibleSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity of contract to buy or sell</param>
+        /// <param name="remark">["<c>remark</c>"] Remark for the order</param>
+        /// <param name="stopType">["<c>stop</c>"]</param>
+        /// <param name="stopPriceType">["<c>stopPriceType</c>"]</param>
+        /// <param name="stopPrice">["<c>stopPrice</c>"] Stop price</param>
+        /// <param name="reduceOnly">["<c>reduceOnly</c>"] A mark to reduce the position size only. Set to false by default</param>
+        /// <param name="closeOrder">["<c>closeOrder</c>"] A mark to close the position. Set to false by default. All the positions will be closed if true</param>
+        /// <param name="forceHold">["<c>forceHold</c>"] A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self Trade Prevention mode</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode, defaults to Isolated</param>
+        /// <param name="quantityInBaseAsset">["<c>qty</c>"] Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="quantityInQuoteAsset">["<c>valueQty</c>"] Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Position side (required in HedgeMode)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
@@ -151,29 +151,29 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/st-orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The contract for the order, for example `XBTUSDM`</param>
-        /// <param name="side">Side of the order, not required when setting closeOrder to true</param>
-        /// <param name="type">Type of order</param>
-        /// <param name="leverage">Leverage of the order</param>
-        /// <param name="price">Limit price, only for limit orders</param>
-        /// <param name="timeInForce">Time in force, only for limit orders</param>
-        /// <param name="postOnly">Post only flag, invalid when timeInForce is IOC</param>
-        /// <param name="hidden">Orders not displaying in order book. When hidden chose</param>
-        /// <param name="iceberg">Only visible portion of the order is displayed in the order book</param>
-        /// <param name="visibleSize">The maximum visible size of an iceberg order</param>
-        /// <param name="quantity">Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="remark">Remark for the order</param>
-        /// <param name="stopPriceType">Price type</param>
-        /// <param name="triggerStopUpPrice">Up trigger price, take profit price for long positions, stop loss price for short positions</param>
-        /// <param name="triggerStopDownPrice">Down trigger price, take profit price for short positions, stop loss price for long positions</param>
-        /// <param name="reduceOnly">A mark to reduce the position size only. Set to false by default</param>
-        /// <param name="closeOrder">A mark to close the position. Set to false by default. All the positions will be closed if true</param>
-        /// <param name="forceHold">A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
-        /// <param name="selfTradePrevention">Self Trade Prevention mode</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="quantityInBaseAsset">Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="quantityInQuoteAsset">Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
-        /// <param name="positionSide">Position side (required in HedgeMode)</param>
+        /// <param name="symbol">["<c>symbol</c>"] The contract for the order, for example `XBTUSDM`</param>
+        /// <param name="side">["<c>side</c>"] Side of the order, not required when setting closeOrder to true</param>
+        /// <param name="type">["<c>type</c>"] Type of order</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage of the order</param>
+        /// <param name="price">["<c>price</c>"] Limit price, only for limit orders</param>
+        /// <param name="timeInForce">["<c>timeInForce</c>"] Time in force, only for limit orders</param>
+        /// <param name="postOnly">["<c>postOnly</c>"] Post only flag, invalid when timeInForce is IOC</param>
+        /// <param name="hidden">["<c>hidden</c>"] Orders not displaying in order book. When hidden chose</param>
+        /// <param name="iceberg">["<c>iceberg</c>"] Only visible portion of the order is displayed in the order book</param>
+        /// <param name="visibleSize">["<c>visibleSize</c>"] The maximum visible size of an iceberg order</param>
+        /// <param name="quantity">["<c>size</c>"] Quantity of contract to buy or sell, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="remark">["<c>remark</c>"] Remark for the order</param>
+        /// <param name="stopPriceType">["<c>stopPriceType</c>"] Price type</param>
+        /// <param name="triggerStopUpPrice">["<c>triggerStopUpPrice</c>"] Up trigger price, take profit price for long positions, stop loss price for short positions</param>
+        /// <param name="triggerStopDownPrice">["<c>triggerStopDownPrice</c>"] Down trigger price, take profit price for short positions, stop loss price for long positions</param>
+        /// <param name="reduceOnly">["<c>reduceOnly</c>"] A mark to reduce the position size only. Set to false by default</param>
+        /// <param name="closeOrder">["<c>closeOrder</c>"] A mark to close the position. Set to false by default. All the positions will be closed if true</param>
+        /// <param name="forceHold">["<c>forceHold</c>"] A mark to forcefully hold the funds for an order, even though it's an order to reduce the position size. This helps the order stay on the order book and not get canceled when the position size changes. Set to false by default</param>
+        /// <param name="selfTradePrevention">["<c>stp</c>"] Self Trade Prevention mode</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
+        /// <param name="quantityInBaseAsset">["<c>qty</c>"] Quantity specified in base asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="quantityInQuoteAsset">["<c>valueQty</c>"] Quantity specified in quote asset, one of `quantity`, `quantityInBaseAsset` or `quantityInQuoteAsset` should be provided</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Position side (required in HedgeMode)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
         Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
@@ -241,9 +241,9 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// DELETE /api/v1/orders/multi-cancel
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, required when specifying clientOrderIds</param>
-        /// <param name="orderIds">Order ids to cancel</param>
-        /// <param name="clientOrderIds">Client order ids to cancel</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, required when specifying clientOrderIds</param>
+        /// <param name="orderIds">["<c>orderIdsList</c>"] Order ids to cancel</param>
+        /// <param name="clientOrderIds">["<c>clientOidsList</c>"] Client order ids to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
@@ -257,7 +257,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// DELETE /api/v1/orders/client-order/{clientOrderId}
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `XBTUSDM`</param>
         /// <param name="clientOrderId">Client order id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -272,7 +272,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// DELETE /api/v3/orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">Cancel only orders for this symbol, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Cancel only orders for this symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled ids</returns>
         Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
@@ -286,7 +286,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// DELETE /api/v1/stopOrders
         /// </para>
         /// </summary>
-        /// <param name="symbol">Cancel only orders for this symbol</param>
+        /// <param name="symbol">["<c>symbol</c>"] Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled ids</returns>
         Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
@@ -300,14 +300,14 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="side">Filter by side</param>
-        /// <param name="type">Filter by type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">Current page</param>
-        /// <param name="pageSize">Size of a page</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `XBTUSDM`</param>
+        /// <param name="status">["<c>status</c>"] Filter by status</param>
+        /// <param name="side">["<c>side</c>"] Filter by side</param>
+        /// <param name="type">["<c>type</c>"] Filter by type</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] Current page</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
         Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -321,13 +321,13 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/stopOrders
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
-        /// <param name="side">Filter by side</param>
-        /// <param name="type">Filter by type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">Current page</param>
-        /// <param name="pageSize">Size of a page</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `XBTUSDM`</param>
+        /// <param name="side">["<c>side</c>"] Filter by side</param>
+        /// <param name="type">["<c>type</c>"] Filter by type</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] Current page</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
         Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -341,7 +341,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/recentDoneOrders
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
         Task<WebCallResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
@@ -369,7 +369,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/orders/byClientOid
         /// </para>
         /// </summary>
-        /// <param name="clientOrderId">Client order id of order to retrieve</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
         Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
@@ -383,15 +383,15 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/fills
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `XBTUSDM`</param>
-        /// <param name="orderId">Filter by order id</param>
-        /// <param name="side">Filter by side</param>
-        /// <param name="type">Filter by type</param>
-        /// <param name="tradeTypes">Filter by trade types</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">Current page</param>
-        /// <param name="pageSize">Size of a page</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `XBTUSDM`</param>
+        /// <param name="orderId">["<c>orderId</c>"] Filter by order id</param>
+        /// <param name="side">["<c>side</c>"] Filter by side</param>
+        /// <param name="type">["<c>type</c>"] Filter by type</param>
+        /// <param name="tradeTypes">["<c>tradeTypes</c>"] Filter by trade types</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] Current page</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
         Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -418,9 +418,9 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v2/getMaxOpenSize
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="price">Price</param>
-        /// <param name="leverage">Leverage</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol</param>
+        /// <param name="price">["<c>price</c>"] Price</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default);

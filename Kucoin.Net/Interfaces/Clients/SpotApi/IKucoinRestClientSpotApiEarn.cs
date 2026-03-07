@@ -21,11 +21,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/earn/hold-assets
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="productId">Filter by product id</param>
-        /// <param name="productCategory">Filter by product category</param>
-        /// <param name="page">Current request page.</param>
-        /// <param name="pageSize">Number of results per request. Minimum is 10, maximum is 500.</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="productId">["<c>productId</c>"] Filter by product id</param>
+        /// <param name="productCategory">["<c>productCategory</c>"] Filter by product category</param>
+        /// <param name="page">["<c>currentPage</c>"] Current request page.</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Number of results per request. Minimum is 10, maximum is 500.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinEarnHolding>>> GetEarnHoldingAsync(string? asset = null, string? productId = null, EarnProductCategory? productCategory = default, int? page = null, int? pageSize = null, CancellationToken ct = default);

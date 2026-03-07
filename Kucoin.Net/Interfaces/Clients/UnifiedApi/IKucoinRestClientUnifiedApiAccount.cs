@@ -47,9 +47,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/account/balance
         /// </para>
         /// </summary>
-        /// <param name="accountType">Account type</param>
-        /// <param name="accountSubType">For ISOLATED accounts, specify the trading pair name, e.g., BTC-USDT. For contract accounts, specify the contract settlement currency, e.g., USDT.</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
+        /// <param name="accountSubType">["<c>accountSubtype</c>"] For ISOLATED accounts, specify the trading pair name, e.g., BTC-USDT. For contract accounts, specify the contract settlement currency, e.g., USDT.</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaBalances>> GetClassicBalancesAsync(
             UnifiedAccountType accountType,
@@ -60,9 +60,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <summary>
         /// Get sub account balances
         /// </summary>
-        /// <param name="subAccountId">Filter by sub account id</param>
-        /// <param name="pageSize">Page size</param>
-        /// <param name="lastId">Filter by last id</param>
+        /// <param name="subAccountId">["<c>UID</c>"] Filter by sub account id</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
+        /// <param name="lastId">["<c>lastId</c>"] Filter by last id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaSubAccountBalances>> GetSubAccountBalancesAsync(
             long? subAccountId = null,
@@ -79,9 +79,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/account/transfer-quota
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
-        /// <param name="accountType">Account type</param>
-        /// <param name="isolatedMarginSymbol">Isolated margin symbol, for example `ETH-USDT`</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
+        /// <param name="isolatedMarginSymbol">["<c>symbol</c>"] Isolated margin symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaTransferQuotas>> GetTransferQuotasAsync(
             string asset,
@@ -98,16 +98,16 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/ua/v1/account/transfer
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="transferType">Type of transfer</param>
-        /// <param name="fromAccountType">From account type</param>
-        /// <param name="toAccountType">To account type</param>
-        /// <param name="clientOrderId">Client generated id</param>
-        /// <param name="fromSubAccountId">Source sub account id</param>
-        /// <param name="toSubAccountId">Target sub account id</param>
-        /// <param name="fromIsolatedMarginSymbol">Source isolated margin symbol</param>
-        /// <param name="toIsolatedMarginSymbol">Target isolated margin symbol</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity</param>
+        /// <param name="transferType">["<c>type</c>"] Type of transfer</param>
+        /// <param name="fromAccountType">["<c>fromAccountType</c>"] From account type</param>
+        /// <param name="toAccountType">["<c>toAccountType</c>"] To account type</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client generated id</param>
+        /// <param name="fromSubAccountId">["<c>fromUid</c>"] Source sub account id</param>
+        /// <param name="toSubAccountId">["<c>toUid</c>"] Target sub account id</param>
+        /// <param name="fromIsolatedMarginSymbol">["<c>fromAccountSymbol</c>"] Source isolated margin symbol</param>
+        /// <param name="toIsolatedMarginSymbol">["<c>toAccountSymbol</c>"] Target isolated margin symbol</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaResult>> TransferAsync(
             string asset,
@@ -131,8 +131,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/ua/v1/sub-account/canTransferOut
         /// </para>
         /// </summary>
-        /// <param name="subAccountIds">Ids of sub accounts to update</param>
-        /// <param name="allowSubToSub">Whether sub account to sub account transfers are allowed</param>
+        /// <param name="subAccountIds">["<c>subUids</c>"] Ids of sub accounts to update</param>
+        /// <param name="allowSubToSub">["<c>subToSub</c>"] Whether sub account to sub account transfers are allowed</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaTransferPermission[]>> SetSubAccountTransferPermissionAsync(
             IEnumerable<string> subAccountIds, 
@@ -160,7 +160,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/ua/v1/account/mode
         /// </para>
         /// </summary>
-        /// <param name="accountMode">New mode</param>
+        /// <param name="accountMode">["<c>accountType</c>"] New mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetAccountModeAsync(UnifiedAccountMode accountMode, CancellationToken ct = default);
 
@@ -173,8 +173,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/user/fee-rate
         /// </para>
         /// </summary>
-        /// <param name="accountType">Account type, Spot or Futures</param>
-        /// <param name="symbols">Symbols, spot max: 10, futures max: 1</param>
+        /// <param name="accountType">["<c>tradeType</c>"] Account type, Spot or Futures</param>
+        /// <param name="symbols">["<c>symbol</c>"] Symbols, spot max: 10, futures max: 1</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaFeeRate[]>> GetFeeRateAsync(
             UnifiedAccountType accountType,
@@ -190,14 +190,14 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/account/ledger
         /// </para>
         /// </summary>
-        /// <param name="accountType">Account type</param>
-        /// <param name="asset">Filter by assets, for example `ETH`</param>
-        /// <param name="direction">Filter by transfer direction</param>
-        /// <param name="businessType">Filter by business type</param>
-        /// <param name="lastId">Filter by last id, return ids before this</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by assets, for example `ETH`</param>
+        /// <param name="direction">["<c>direction</c>"] Filter by transfer direction</param>
+        /// <param name="businessType">["<c>businessType</c>"] Filter by business type</param>
+        /// <param name="lastId">["<c>lastId</c>"] Filter by last id, return ids before this</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>pageSize</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaAccountLedger>> GetAccountLedgerAsync(
             UnifiedAccountType accountType,
@@ -219,12 +219,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/account/interest-history
         /// </para>
         /// </summary>
-        /// <param name="accountType">Account type</param>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Max number of results</param>
+        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="pageSize">["<c>size</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaInterestHistory>> GetInterestHistoryAsync(
             UnifiedAccountType accountType,
@@ -244,8 +244,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/ua/v1/unified/account/modify-leverage
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETHUSDTM`</param>
-        /// <param name="leverage">Leverage for the symbol</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDTM`</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage for the symbol</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetLeverageAsync(string symbol, decimal leverage, CancellationToken ct = default);
 
@@ -258,8 +258,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/asset/deposit/address
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
-        /// <param name="network">The network, for example `eth`</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="network">["<c>chain</c>"] The network, for example `eth`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaDepositAddress[]>> GetDepositAddressAsync(string asset, string? network = null, CancellationToken ct = default);
 

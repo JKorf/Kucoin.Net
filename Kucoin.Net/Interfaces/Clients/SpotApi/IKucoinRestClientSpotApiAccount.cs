@@ -36,8 +36,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/accounts
         /// </para>
         /// </summary>
-        /// <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
-        /// <param name="accountType">Filter on type of account</param>
+        /// <param name="asset">["<c>currency</c>"] Get the accounts for a specific asset, for example `ETH`</param>
+        /// <param name="accountType">["<c>type</c>"] Filter on type of account</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of accounts</returns>
         Task<WebCallResult<KucoinAccount[]>> GetAccountsAsync(string? asset = null, AccountType? accountType = null, CancellationToken ct = default);
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/base-fee
         /// </para>
         /// </summary>
-        /// <param name="assetType">The type of asset</param>
+        /// <param name="assetType">["<c>currencyType</c>"] The type of asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinUserFee>> GetBasicUserFeeAsync(AssetType? assetType = null, CancellationToken ct = default);
@@ -79,7 +79,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/trade-fees
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to retrieve fees for, for example `ETH-USDT`</param>
+        /// <param name="symbol">["<c>symbols</c>"] The symbol to retrieve fees for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(string symbol, CancellationToken ct = default);
@@ -93,7 +93,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/trade-fees
         /// </para>
         /// </summary>
-        /// <param name="symbols">The symbols to retrieve fees for, for example `ETH-USDT`</param>
+        /// <param name="symbols">["<c>symbols</c>"] The symbols to retrieve fees for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinTradeFee[]>> GetSymbolTradingFeesAsync(IEnumerable<string> symbols, CancellationToken ct = default);
@@ -107,13 +107,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/accounts/ledgers
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="direction">Side</param>
-        /// <param name="bizType">Business type</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to retrieve activity or null, for example `ETH`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="direction">["<c>direction</c>"] Side</param>
+        /// <param name="bizType">["<c>bizType</c>"] Business type</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
         Task<WebCallResult<KucoinPaginated<KucoinAccountActivity>>> GetAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -127,13 +127,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/hf/accounts/ledgers
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to retrieve activity or null, for example `ETH`</param>
-        /// <param name="direction">Side</param>
-        /// <param name="bizType">Business type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Displayed size per page. Default 100, max 200</param>
-        /// <param name="lastId">The ID of the last set of data from the previous data batch. By default, the latest information is given.</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to retrieve activity or null, for example `ETH`</param>
+        /// <param name="direction">["<c>direction</c>"] Side</param>
+        /// <param name="bizType">["<c>bizType</c>"] Business type</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Displayed size per page. Default 100, max 200</param>
+        /// <param name="lastId">["<c>lastId</c>"] The ID of the last set of data from the previous data batch. By default, the latest information is given.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on account activity</returns>
         Task<WebCallResult<KucoinAccountActivity[]>> GetHfAccountLedgersAsync(string? asset = null, AccountDirection? direction = null, BizTypeFilter? bizType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, long? lastId = null, CancellationToken ct = default);
@@ -147,9 +147,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/accounts/transferable
         /// </para>
         /// </summary>
-        /// <param name="asset">Get the accounts for a specific asset, for example `ETH`</param>
-        /// <param name="accountType">Filter on type of account</param>
-        /// <param name="isolatedMarginSymbol">Filter by isolated margin symbol, for example `ETH-USDT`</param>
+        /// <param name="asset">["<c>currency</c>"] Get the accounts for a specific asset, for example `ETH`</param>
+        /// <param name="accountType">["<c>type</c>"] Filter on type of account</param>
+        /// <param name="isolatedMarginSymbol">["<c>tag</c>"] Filter by isolated margin symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Info on transferable account balance</returns>
         Task<WebCallResult<KucoinTransferableAccount>> GetTransferableAsync(string asset, AccountType accountType, string? isolatedMarginSymbol = null, CancellationToken ct = default);
@@ -163,16 +163,16 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/accounts/universal-transfer
         /// </para>
         /// </summary>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="fromAccountType">From account type</param>
-        /// <param name="toAccountType">To account type</param>
-        /// <param name="transferType">Transfer type</param>
-        /// <param name="asset">Asset to transfer, for example `ETH`</param>
-        /// <param name="fromUserId">Transfer out UserId， This is required when transferring sub-account to master-account. It is optional for internal transfers.</param>
-        /// <param name="fromAccountTag">Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
-        /// <param name="toUserId">Transfer in UserId， This is required when transferring master-account to sub-account. It is optional for internal transfers.</param>
-        /// <param name="toAccountTag">Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
-        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
+        /// <param name="fromAccountType">["<c>fromAccountType</c>"] From account type</param>
+        /// <param name="toAccountType">["<c>toAccountType</c>"] To account type</param>
+        /// <param name="transferType">["<c>type</c>"] Transfer type</param>
+        /// <param name="asset">["<c>currency</c>"] Asset to transfer, for example `ETH`</param>
+        /// <param name="fromUserId">["<c>fromUserId</c>"] Transfer out UserId， This is required when transferring sub-account to master-account. It is optional for internal transfers.</param>
+        /// <param name="fromAccountTag">["<c>fromAccountTag</c>"] Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
+        /// <param name="toUserId">["<c>toUserId</c>"] Transfer in UserId， This is required when transferring master-account to sub-account. It is optional for internal transfers.</param>
+        /// <param name="toAccountTag">["<c>toAccountTag</c>"] Symbol, required when the account type is ISOLATED or ISOLATED_V2, for example: BTC-USDT</param>
+        /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinUniversalTransfer>> UniversalTransferAsync(
@@ -197,12 +197,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/deposits
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter list by asset, for example `ETH`</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="status">Filter list by deposit status</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="asset">["<c>currency</c>"] Filter list by asset, for example `ETH`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter list by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter list by end time</param>
+        /// <param name="status">["<c>status</c>"] Filter list by deposit status</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of deposits</returns>
         Task<WebCallResult<KucoinPaginated<KucoinDeposit>>> GetDepositsAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, DepositStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -216,9 +216,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/deposit-addresses
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to get the address for, for example `ETH`</param>
-        /// <param name="networkId">The id of the network to get the address for</param>
-        /// <param name="quantity">Deposit amount. This parameter is only used when applying for invoices on the Lightning Network</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to get the address for, for example `ETH`</param>
+        /// <param name="networkId">["<c>chain</c>"] The id of the network to get the address for</param>
+        /// <param name="quantity">["<c>amount</c>"] Deposit amount. This parameter is only used when applying for invoices on the Lightning Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The deposit address for the asset</returns>
         Task<WebCallResult<KucoinDepositAddress[]>> GetDepositAddressesV3Async(string asset, string? networkId = null, decimal? quantity = null, CancellationToken ct = default);
@@ -232,10 +232,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/deposit-address/create
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset create the address for, for example `ETH`</param>
-        /// <param name="networkId">The id of the network to create the address for</param>
-        /// <param name="toAccount">The account deposits should be credited to. Either Main or Trade</param>
-        /// <param name="quantity">Deposit amount. This parameter is only used when applying for invoices on the Lightning Network</param>
+        /// <param name="asset">["<c>currency</c>"] The asset create the address for, for example `ETH`</param>
+        /// <param name="networkId">["<c>chain</c>"] The id of the network to create the address for</param>
+        /// <param name="toAccount">["<c>to</c>"] The account deposits should be credited to. Either Main or Trade</param>
+        /// <param name="quantity">["<c>amount</c>"] Deposit amount. This parameter is only used when applying for invoices on the Lightning Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The address that was created</returns>
         Task<WebCallResult<KucoinDepositAddress>> CreateDepositAddressV3Async(string asset, string? networkId = null, AccountType? toAccount = null, decimal? quantity = null, CancellationToken ct = default);
@@ -249,12 +249,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/withdrawals
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter list by asset, for example `ETH`</param>
-        /// <param name="startTime">Filter list by start time</param>
-        /// <param name="endTime">Filter list by end time</param>
-        /// <param name="status">Filter list by deposit status</param>
-        /// <param name="currentPage">The page to retrieve</param>
-        /// <param name="pageSize">The amount of results per page</param>
+        /// <param name="asset">["<c>currency</c>"] Filter list by asset, for example `ETH`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter list by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter list by end time</param>
+        /// <param name="status">["<c>status</c>"] Filter list by deposit status</param>
+        /// <param name="currentPage">["<c>currentPage</c>"] The page to retrieve</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] The amount of results per page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of withdrawals</returns>
         Task<WebCallResult<KucoinPaginated<KucoinWithdrawal>>> GetWithdrawalsAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, WithdrawalStatus? status = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
@@ -281,8 +281,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/withdrawals/quotas
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to get the quota for, for example `ETH`</param>
-        /// <param name="network">The network name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to get the quota for, for example `ETH`</param>
+        /// <param name="network">["<c>chain</c>"] The network name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Quota info</returns>
         Task<WebCallResult<KucoinWithdrawalQuota>> GetWithdrawalQuotasAsync(string asset, string? network = null, CancellationToken ct = default);
@@ -296,15 +296,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/withdrawals
         /// </para>
         /// </summary>
-        /// <param name="withdrawalType">Type of withdrawal</param>
-        /// <param name="asset">The asset to withdraw, for example `ETH`</param>
-        /// <param name="toAddress">The address to withdraw to</param>
-        /// <param name="quantity">The quantity to withdraw</param>
-        /// <param name="memo">The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
-        /// <param name="isInner">Internal withdrawal or not. Default false.</param>
-        /// <param name="remark">Remark for the withdrawal</param>
-        /// <param name="chain">The chain name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
-        /// <param name="feeDeductType">Fee deduction type</param>
+        /// <param name="withdrawalType">["<c>withdrawType</c>"] Type of withdrawal</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to withdraw, for example `ETH`</param>
+        /// <param name="toAddress">["<c>toAddress</c>"] The address to withdraw to</param>
+        /// <param name="quantity">["<c>amount</c>"] The quantity to withdraw</param>
+        /// <param name="memo">["<c>memo</c>"] The note that is left on the withdrawal address. When you withdraw from KuCoin to other platforms, you need to fill in memo(tag). If you don't fill in memo(tag), your withdrawal may not be available.</param>
+        /// <param name="isInner">["<c>isInner</c>"] Internal withdrawal or not. Default false.</param>
+        /// <param name="remark">["<c>remark</c>"] Remark for the withdrawal</param>
+        /// <param name="chain">["<c>chain</c>"] The chain name of asset, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is OMNI. This only apply for multi-chain currency, and there is no need for single chain currency.</param>
+        /// <param name="feeDeductType">["<c>feeDeductType</c>"] Fee deduction type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Id of the withdrawal</returns>
         Task<WebCallResult<KucoinNewWithdrawal>> WithdrawAsync(WithdrawType withdrawalType, string asset, string toAddress, decimal quantity, string? memo = null, bool isInner = false, string? remark = null, string? chain = null, FeeDeductType? feeDeductType = null, CancellationToken ct = default);
@@ -345,7 +345,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/margin/accounts
         /// </para>
         /// </summary>
-        /// <param name="quoteAsset">Filter by quote asset, for example `BTC`</param>
+        /// <param name="quoteAsset">["<c>quoteCurrency</c>"] Filter by quote asset, for example `BTC`</param>
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<WebCallResult<KucoinCrossMarginAccount>> GetCrossMarginAccountsAsync(string? quoteAsset = null, CancellationToken ct = default);
@@ -387,7 +387,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <summary>
         /// Migrate the spot high and normal frequency accounts into a single high frequency account. Only needed when the High Frequency API endpoints have been used previously.
         /// </summary>
-        /// <param name="withAllSubAccounts">Whether to operate all sub-accounts together. If left blank, the sub-account will not be operated by default</param>
+        /// <param name="withAllSubAccounts">["<c>withAllSubs</c>"] Whether to operate all sub-accounts together. If left blank, the sub-account will not be operated by default</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinMigrateResult>> MigrateHfAccountAsync(bool? withAllSubAccounts = null, CancellationToken ct = default);

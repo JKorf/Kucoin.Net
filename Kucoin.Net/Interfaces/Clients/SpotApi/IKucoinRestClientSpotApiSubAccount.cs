@@ -49,7 +49,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="subAccountId">Sub account id</param>
-        /// <param name="includeZeroBalances">Include zero balance assets or not</param>
+        /// <param name="includeZeroBalances">["<c>includeBaseAmount</c>"] Include zero balance assets or not</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinSubUserBalances>> GetSubAccountBalancesAsync(string subAccountId, bool? includeZeroBalances = null, CancellationToken ct = default);
@@ -63,8 +63,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v2/sub-accounts
         /// </para>
         /// </summary>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">page size, max 100</param>
+        /// <param name="page">["<c>currentPage</c>"] Page number</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] page size, max 100</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinPaginated<KucoinSubUserBalances>>> GetSubAccountsBalancesAsync(int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -78,8 +78,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/sub/api-key
         /// </para>
         /// </summary>
-        /// <param name="subAccountName">The sub account name</param>
-        /// <param name="apiKey">Filter by API key</param>
+        /// <param name="subAccountName">["<c>subName</c>"] The sub account name</param>
+        /// <param name="apiKey">["<c>apiKey</c>"] Filter by API key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinSubUserKey[]>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default);
@@ -93,12 +93,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v1/sub/api-key
         /// </para>
         /// </summary>
-        /// <param name="subAccountName">Sub account name</param>
-        /// <param name="passphrase">Password/passphrase for the key</param>
-        /// <param name="remark">Remark</param>
-        /// <param name="permissions">Permissions(Only General、Spot、Futures、Margin、InnerTransfer(Flex Transfer) permissions can be set, such as "General, Trade". The default is "General")</param>
-        /// <param name="ipWhitelist">IP whitelist(You may add up to 20 IPs. Use a halfwidth comma to each IP)</param>
-        /// <param name="expire">Expiration time in days; Never expire(default) -1，30: 30, 90, 180 or 360 days</param>
+        /// <param name="subAccountName">["<c>subName</c>"] Sub account name</param>
+        /// <param name="passphrase">["<c>passphrase</c>"] Password/passphrase for the key</param>
+        /// <param name="remark">["<c>remark</c>"] Remark</param>
+        /// <param name="permissions">["<c>permissions</c>"] Permissions(Only General、Spot、Futures、Margin、InnerTransfer(Flex Transfer) permissions can be set, such as "General, Trade". The default is "General")</param>
+        /// <param name="ipWhitelist">["<c>ipWhitelist</c>"] IP whitelist(You may add up to 20 IPs. Use a halfwidth comma to each IP)</param>
+        /// <param name="expire">["<c>expire</c>"] Expiration time in days; Never expire(default) -1，30: 30, 90, 180 or 360 days</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinSubUserKeyDetails>> CreateSubAccountApiKeyAsync(
@@ -119,12 +119,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v1/sub/api-key/update
         /// </para>
         /// </summary>
-        /// <param name="subAccountName">Sub account name</param>
-        /// <param name="passphrase">Password/passphrase for the key</param>
-        /// <param name="apiKey">The api key</param>
-        /// <param name="permissions">New permissions</param>
-        /// <param name="ipWhitelist">New IP whitelist</param>
-        /// <param name="expire">New expire time in days</param>
+        /// <param name="subAccountName">["<c>subName</c>"] Sub account name</param>
+        /// <param name="passphrase">["<c>passphrase</c>"] Password/passphrase for the key</param>
+        /// <param name="apiKey">["<c>apiKey</c>"] The api key</param>
+        /// <param name="permissions">["<c>permissions</c>"] New permissions</param>
+        /// <param name="ipWhitelist">["<c>ipWhitelist</c>"] New IP whitelist</param>
+        /// <param name="expire">["<c>expire</c>"] New expire time in days</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinSubUserKeyEdited>> EditSubAccountApiKeyAsync(
@@ -145,9 +145,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// DELETE /api/v1/sub/api-key
         /// </para>
         /// </summary>
-        /// <param name="subAccountName">Sub account name</param>
-        /// <param name="passphrase">Password/passphrase for the key</param>
-        /// <param name="apiKey">The api key</param>
+        /// <param name="subAccountName">["<c>subName</c>"] Sub account name</param>
+        /// <param name="passphrase">["<c>passphrase</c>"] Password/passphrase for the key</param>
+        /// <param name="apiKey">["<c>apiKey</c>"] The api key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<KucoinSubUserKeyEdited>> DeleteSubAccountApiKeyAsync(
@@ -165,7 +165,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/sub/user/margin/enable
         /// </para>
         /// </summary>
-        /// <param name="subAccountId">Sub account id</param>
+        /// <param name="subAccountId">["<c>subName</c>"] Sub account id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> EnableMarginPermissionsAsync(string subAccountId, CancellationToken ct = default);
 
@@ -178,7 +178,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/sub/user/futures/enable
         /// </para>
         /// </summary>
-        /// <param name="subAccountId">Sub account id</param>
+        /// <param name="subAccountId">["<c>subName</c>"] Sub account id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> EnableFuturesPermissionsAsync(string subAccountId, CancellationToken ct = default);
     }
