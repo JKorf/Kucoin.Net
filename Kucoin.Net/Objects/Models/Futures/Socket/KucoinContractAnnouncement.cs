@@ -14,23 +14,23 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// </summary>
         public string Event { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Funding time
+        /// ["<c>fundingTime</c>"] Funding time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("fundingTime")]
         public DateTime FundingTime { get; set; }
         /// <summary>
-        /// Event time
+        /// ["<c>timestamp</c>"] Event time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

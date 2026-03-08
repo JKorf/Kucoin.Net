@@ -10,82 +10,82 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamFuturesWalletUpdate
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Wallet balance
+        /// ["<c>walletBalance</c>"] Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
         public decimal WalletBalance { get; set; }
         /// <summary>
-        /// Available balance
+        /// ["<c>availableBalance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Hold balance
+        /// ["<c>holdBalance</c>"] Hold balance
         /// </summary>
         [JsonPropertyName("holdBalance")]
         public decimal HoldBalance { get; set; }
         /// <summary>
-        /// Isolated order margin
+        /// ["<c>isolatedOrderMargin</c>"] Isolated order margin
         /// </summary>
         [JsonPropertyName("isolatedOrderMargin")]
         public decimal IsolatedOrderMargin { get; set; }
         /// <summary>
-        /// Isolated pos margin
+        /// ["<c>isolatedPosMargin</c>"] Isolated pos margin
         /// </summary>
         [JsonPropertyName("isolatedPosMargin")]
         public decimal IsolatedPosMargin { get; set; }
         /// <summary>
-        /// Isolated unrealized profit and loss
+        /// ["<c>isolatedUnPnl</c>"] Isolated unrealized profit and loss
         /// </summary>
         [JsonPropertyName("isolatedUnPnl")]
         public decimal IsolatedUnrealizedPnl { get; set; }
         /// <summary>
-        /// Isolated funding fee margin
+        /// ["<c>isolatedFundingFeeMargin</c>"] Isolated funding fee margin
         /// </summary>
         [JsonPropertyName("isolatedFundingFeeMargin")]
         public decimal IsolatedFundingFeeMargin { get; set; }
         /// <summary>
-        /// Cross order margin
+        /// ["<c>crossOrderMargin</c>"] Cross order margin
         /// </summary>
         [JsonPropertyName("crossOrderMargin")]
         public decimal CrossOrderMargin { get; set; }
         /// <summary>
-        /// Cross position margin
+        /// ["<c>crossPosMargin</c>"] Cross position margin
         /// </summary>
         [JsonPropertyName("crossPosMargin")]
         public decimal CrossPositionMargin { get; set; }
         /// <summary>
-        /// Cross unrealized profit and loss
+        /// ["<c>crossUnPnl</c>"] Cross unrealized profit and loss
         /// </summary>
         [JsonPropertyName("crossUnPnl")]
         public decimal CrossUnrealizedPnl { get; set; }
         /// <summary>
-        /// Equity
+        /// ["<c>equity</c>"] Equity
         /// </summary>
         [JsonPropertyName("equity")]
         public decimal Equity { get; set; }
         /// <summary>
-        /// Total cross margin
+        /// ["<c>totalCrossMargin</c>"] Total cross margin
         /// </summary>
         [JsonPropertyName("totalCrossMargin")]
         public decimal TotalCrossMargin { get; set; }
         /// <summary>
-        /// Version
+        /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
         public long Version { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Max withdrawable quantity
+        /// ["<c>maxWithdrawAmount</c>"] Max withdrawable quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawAmount")]
         public decimal? MaxWithdrawQuantity { get; set; }

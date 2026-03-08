@@ -9,12 +9,12 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinMarginMode
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
         public FuturesMarginMode MarginMode { get; set; }

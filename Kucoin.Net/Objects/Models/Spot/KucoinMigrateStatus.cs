@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMigrateStatus
     {
         /// <summary>
-        /// Status of migration
+        /// ["<c>status</c>"] Status of migration
         /// </summary>
         [JsonPropertyName("status")]
         public MigrateStatus Status { get; set; }

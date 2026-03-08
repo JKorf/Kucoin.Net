@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinMarkPrice: KucoinIndexBase
     {        
         /// <summary>
-        /// Index price
+        /// ["<c>indexPrice</c>"] Index price
         /// </summary>
         [JsonPropertyName("indexPrice")]
         public decimal IndexPrice { get; set; }

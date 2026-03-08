@@ -16,82 +16,82 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCrossMarginSymbol
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Trading enabled
+        /// ["<c>enableTrading</c>"] Trading enabled
         /// </summary>
         [JsonPropertyName("enableTrading")]
         public bool TradingEnabled { get; set; }
         /// <summary>
-        /// Market
+        /// ["<c>market</c>"] Market
         /// </summary>
         [JsonPropertyName("market")]
         public string Market { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset
+        /// ["<c>baseCurrency</c>"] Base asset
         /// </summary>
         [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset
+        /// ["<c>quoteCurrency</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset step
+        /// ["<c>baseIncrement</c>"] Base asset step
         /// </summary>
         [JsonPropertyName("baseIncrement")]
         public decimal BaseAssetStep { get; set; }
         /// <summary>
-        /// Minimal order quantity (base asset)
+        /// ["<c>baseMinSize</c>"] Minimal order quantity (base asset)
         /// </summary>
         [JsonPropertyName("baseMinSize")]
         public decimal MinOrderQuantity { get; set; }
         /// <summary>
-        /// Quote asset step
+        /// ["<c>quoteIncrement</c>"] Quote asset step
         /// </summary>
         [JsonPropertyName("quoteIncrement")]
         public decimal QuoteAssetStep { get; set; }
         /// <summary>
-        /// Minimal order value (quote asset)
+        /// ["<c>quoteMinSize</c>"] Minimal order value (quote asset)
         /// </summary>
         [JsonPropertyName("quoteMinSize")]
         public decimal MinQuoteOrderQuantity { get; set; }
         /// <summary>
-        /// Max order quantity
+        /// ["<c>baseMaxSize</c>"] Max order quantity
         /// </summary>
         [JsonPropertyName("baseMaxSize")]
         public decimal MaxOrderQuantity { get; set; }
         /// <summary>
-        /// Max order value (quote asset)
+        /// ["<c>quoteMaxSize</c>"] Max order value (quote asset)
         /// </summary>
         [JsonPropertyName("quoteMaxSize")]
         public decimal MaxOrderValue { get; set; }
         /// <summary>
-        /// Price step
+        /// ["<c>priceIncrement</c>"] Price step
         /// </summary>
         [JsonPropertyName("priceIncrement")]
         public decimal PriceStep { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>feeCurrency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Price protection threshold
+        /// ["<c>priceLimitRate</c>"] Price protection threshold
         /// </summary>
         [JsonPropertyName("priceLimitRate")]
         public decimal PriceLimitRate { get; set; }
         /// <summary>
-        /// Minimum trading amount
+        /// ["<c>minFunds</c>"] Minimum trading amount
         /// </summary>
         [JsonPropertyName("minFunds")]
         public decimal MinOrderValue { get; set; }

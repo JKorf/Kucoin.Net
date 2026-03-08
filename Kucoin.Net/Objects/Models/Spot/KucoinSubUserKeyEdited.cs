@@ -7,22 +7,22 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinSubUserKeyEdited
     {
         /// <summary>
-        /// The sub user name
+        /// ["<c>subName</c>"] The sub user name
         /// </summary>
         [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
-        /// The API key
+        /// ["<c>apiKey</c>"] The API key
         /// </summary>
         [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
-        /// Permissions
+        /// ["<c>permission</c>"] Permissions
         /// </summary>
         [JsonPropertyName("permission")]
         public string? Permissions { get; set; }
         /// <summary>
-        /// IP whitelist
+        /// ["<c>ipWhitelist</c>"] IP whitelist
         /// </summary>
         [JsonPropertyName("ipWhitelist")]
         public string? IpWhitelist { get; set; }       

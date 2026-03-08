@@ -11,53 +11,53 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinTransfer
     {
         /// <summary>
-        /// Apply id
+        /// ["<c>applyId</c>"] Apply id
         /// </summary>
         [JsonPropertyName("applyId")]
         public string ApplyId { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Status of the transfer
+        /// ["<c>status</c>"] Status of the transfer
         /// </summary>
         [JsonPropertyName("status")]
         public DepositStatus Status { get; set; }
         /// <summary>
-        /// Quantity of the transfer
+        /// ["<c>amount</c>"] Quantity of the transfer
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Reason if failed
+        /// ["<c>reason</c>"] Reason if failed
         /// </summary>
         [JsonPropertyName("reason")]
         public string Reason { get; set; } = string.Empty;
         /// <summary>
-        /// Offset
+        /// ["<c>offset</c>"] Offset
         /// </summary>
         [JsonPropertyName("offset")]
         public long Offset { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>createdAt</c>"] Creation time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// User remark
+        /// ["<c>remark</c>"] User remark
         /// </summary>
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
-        /// Receive account tx remark
+        /// ["<c>recRemark</c>"] Receive account tx remark
         /// </summary>
         [JsonPropertyName("recRemark")]
         public string? ReceiveRemark { get; set; }
         /// <summary>
-        /// Receive system
+        /// ["<c>recSystem</c>"] Receive system
         /// </summary>
         [JsonPropertyName("recSystem")]
         public string? ReceiveSystem { get; set; }

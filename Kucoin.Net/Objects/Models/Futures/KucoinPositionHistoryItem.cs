@@ -11,117 +11,117 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinPositionHistoryItem
     {
         /// <summary>
-        /// Close id
+        /// ["<c>closeId</c>"] Close id
         /// </summary>
         [JsonPropertyName("closeId")]
         public string CloseId { get; set; } = string.Empty;
         /// <summary>
-        /// Position id
+        /// ["<c>positionId</c>"] Position id
         /// </summary>
         [JsonPropertyName("positionId")]
         public string? PositionId { get; set; }
         /// <summary>
-        /// Uid
+        /// ["<c>uid</c>"] Uid
         /// </summary>
         [JsonPropertyName("uid")]
         public long? Uid { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Settlement asset
+        /// ["<c>settleCurrency</c>"] Settlement asset
         /// </summary>
         [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal? Leverage { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public PositionSide? Side { get; set; }
         /// <summary>
-        /// Close quantity
+        /// ["<c>closeSize</c>"] Close quantity
         /// </summary>
         [JsonPropertyName("closeSize")]
         public decimal? CloseQuantity { get; set; }
         /// <summary>
-        /// Profit and loss
+        /// ["<c>pnl</c>"] Profit and loss
         /// </summary>
         [JsonPropertyName("pnl")]
         public decimal? ProfitAndLoss { get; set; }
         /// <summary>
-        /// Realised gross cost
+        /// ["<c>realisedGrossCost</c>"] Realised gross cost
         /// </summary>
         [JsonPropertyName("realisedGrossCost")]
         public decimal? RealisedGrossCost { get; set; }
         /// <summary>
-        /// Realised gross cost (new?)
+        /// ["<c>realisedGrossCostNew</c>"] Realised gross cost (new?)
         /// </summary>
         [JsonPropertyName("realisedGrossCostNew")]
         public decimal? RealisedGrossCostNew { get; set; }
         /// <summary>
-        /// Withdraw profit and loss
+        /// ["<c>withdrawPnl</c>"] Withdraw profit and loss
         /// </summary>
         [JsonPropertyName("withdrawPnl")]
         public decimal? WithdrawPnl { get; set; }
         /// <summary>
-        /// Trading fee
+        /// ["<c>tradeFee</c>"] Trading fee
         /// </summary>
         [JsonPropertyName("tradeFee")]
         public decimal? TradeFee { get; set; }
         /// <summary>
-        /// Funding fee
+        /// ["<c>fundingFee</c>"] Funding fee
         /// </summary>
         [JsonPropertyName("fundingFee")]
         public decimal? FundingFee { get; set; }
         /// <summary>
-        /// Open time
+        /// ["<c>openTime</c>"] Open time
         /// </summary>
         [JsonPropertyName("openTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime OpenTime { get; set; }
         /// <summary>
-        /// Close time
+        /// ["<c>closeTime</c>"] Close time
         /// </summary>
         [JsonPropertyName("closeTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? CloseTime { get; set; }
         /// <summary>
-        /// Open price
+        /// ["<c>openPrice</c>"] Open price
         /// </summary>
         [JsonPropertyName("openPrice")]
         public decimal? OpenPrice { get; set; }
         /// <summary>
-        /// Close price
+        /// ["<c>closePrice</c>"] Close price
         /// </summary>
         [JsonPropertyName("closePrice")]
         public decimal? ClosePrice { get; set; }
         /// <summary>
-        /// Closing type
+        /// ["<c>type</c>"] Closing type
         /// </summary>
         [JsonPropertyName("type")]
         public string CloseType { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
         public MarginMode? MarginMode { get; set; }
         /// <summary>
-        /// Tax
+        /// ["<c>tax</c>"] Tax
         /// </summary>
         [JsonPropertyName("tax")]
         public decimal? Tax { get; set; }
         /// <summary>
-        /// Return on equity
+        /// ["<c>roe</c>"] Return on equity
         /// </summary>
         [JsonPropertyName("roe")]
         public decimal? ReturnOnEquity { get; set; }

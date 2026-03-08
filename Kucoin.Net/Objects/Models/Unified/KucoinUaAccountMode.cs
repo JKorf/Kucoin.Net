@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +13,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaAccountMode
     {
         /// <summary>
-        /// Self account mode
+        /// ["<c>selfAccountMode</c>"] Self account mode
         /// </summary>
         [JsonPropertyName("selfAccountMode")]
         public UnifiedAccountMode SelfAccountMode { get; set; }
         /// <summary>
-        /// Unified sub accounts
+        /// ["<c>unifiedSubAccount</c>"] Unified sub accounts
         /// </summary>
         [JsonPropertyName("unifiedSubAccount")]
         public long[] UnifiedSubAccounts { get; set; } = [];
         /// <summary>
-        /// Classic sub accounts
+        /// ["<c>classicSubAccount</c>"] Classic sub accounts
         /// </summary>
         [JsonPropertyName("classicSubAccount")]
         public long[] ClassicSubAccounts { get; set; } = [];

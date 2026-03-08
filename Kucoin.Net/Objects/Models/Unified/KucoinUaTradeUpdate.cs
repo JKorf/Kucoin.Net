@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Spot;
 using System;
 
@@ -10,42 +10,42 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaTradeUpdate
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>s</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Sequence number
+        /// ["<c>E</c>"] Sequence number
         /// </summary>
         [JsonPropertyName("E")]
         public long Sequence { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>ti</c>"] Trade id
         /// </summary>
         [JsonPropertyName("ti")]
         public long TradeId { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>p</c>"] Trade price
         /// </summary>
         [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trade quantity
+        /// ["<c>q</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("q")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Trade taker side
+        /// ["<c>S</c>"] Trade taker side
         /// </summary>
         [JsonPropertyName("S")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Is RPI order
+        /// ["<c>rpi</c>"] Is RPI order
         /// </summary>
         [JsonPropertyName("rpi")]
         public bool Rpi { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>M</c>"] Update time
         /// </summary>
         [JsonPropertyName("M")]
         public DateTime UpdateTime { get; set; }

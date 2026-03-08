@@ -7,18 +7,18 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinMaxOpenSize
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Max buy size
+        /// ["<c>maxBuyOpenSize</c>"] Max buy size
         /// </summary>
         [JsonPropertyName("maxBuyOpenSize")]
         public long MaxBuyOpenSize { get; set; }
 
         /// <summary>
-        /// Max sell size
+        /// ["<c>maxSellOpenSize</c>"] Max sell size
         /// </summary>
         [JsonPropertyName("maxSellOpenSize")]
         public long MaxSellOpenSize { get; set; }

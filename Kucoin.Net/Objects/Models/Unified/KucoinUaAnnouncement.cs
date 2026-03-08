@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,37 +9,37 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaAnnouncement
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Title
+        /// ["<c>title</c>"] Title
         /// </summary>
         [JsonPropertyName("title")]
         public string Title { get; set; } = string.Empty;
         /// <summary>
-        /// Types
+        /// ["<c>type</c>"] Types
         /// </summary>
         [JsonPropertyName("type")]
         public AnnouncementType[] Types { get; set; } = [];
         /// <summary>
-        /// Description
+        /// ["<c>description</c>"] Description
         /// </summary>
         [JsonPropertyName("description")]
         public string Description { get; set; } = string.Empty;
         /// <summary>
-        /// Release time
+        /// ["<c>releaseTime</c>"] Release time
         /// </summary>
         [JsonPropertyName("releaseTime")]
         public DateTime ReleaseTime { get; set; }
         /// <summary>
-        /// Language
+        /// ["<c>language</c>"] Language
         /// </summary>
         [JsonPropertyName("language")]
         public string Language { get; set; } = string.Empty;
         /// <summary>
-        /// Url
+        /// ["<c>url</c>"] Url
         /// </summary>
         [JsonPropertyName("url")]
         public string Url { get; set; } = string.Empty;

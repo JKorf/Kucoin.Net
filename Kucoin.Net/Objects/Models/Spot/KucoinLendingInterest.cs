@@ -9,13 +9,13 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinLendingInterest
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Market interest rate
+        /// ["<c>marketInterestRate</c>"] Market interest rate
         /// </summary>
         [JsonPropertyName("marketInterestRate")]
         public decimal InterestRate { get; set; }

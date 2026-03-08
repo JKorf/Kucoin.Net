@@ -10,22 +10,22 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamFuturesBalanceUpdate
     {
         /// <summary>
-        /// Available balance
+        /// ["<c>availableBalance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Frozen balance
+        /// ["<c>holdBalance</c>"] Frozen balance
         /// </summary>
         [JsonPropertyName("holdBalance")]
         public decimal HoldBalance { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

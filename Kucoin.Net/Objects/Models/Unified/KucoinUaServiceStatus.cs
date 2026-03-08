@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Unified
 {
@@ -8,17 +8,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaServiceStatus
     {
         /// <summary>
-        /// Product type
+        /// ["<c>tradeType</c>"] Product type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public ProductType ProductType { get; set; }
         /// <summary>
-        /// Server status
+        /// ["<c>serverStatus</c>"] Server status
         /// </summary>
         [JsonPropertyName("serverStatus")]
         public ServiceStatus Status { get; set; }
         /// <summary>
-        /// Msg
+        /// ["<c>msg</c>"] Msg
         /// </summary>
         [JsonPropertyName("msg")]
         public string? Message { get; set; }

@@ -12,31 +12,31 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamOrderBook
     {
         /// <summary>
-        /// The sequence id of the first event this order book update covers
+        /// ["<c>sequenceStart</c>"] The sequence id of the first event this order book update covers
         /// </summary>
         [JsonPropertyName("sequenceStart")]
         public long SequenceStart { get; set; }
         /// <summary>
-        /// The sequence id of the last event this order book update covers
+        /// ["<c>sequenceEnd</c>"] The sequence id of the last event this order book update covers
         /// </summary>
         [JsonPropertyName("sequenceEnd")]
         public long SequenceEnd { get; set; }
 
         /// <summary>
-        /// Data timestamp
+        /// ["<c>time</c>"] Data timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// The symbol of the order book
+        /// ["<c>symbol</c>"] The symbol of the order book
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// The changes
+        /// ["<c>changes</c>"] The changes
         /// </summary>
         [JsonPropertyName("changes")]
         public KucoinStreamOrderBookChanged Changes { get; set; } = default!;
@@ -49,17 +49,17 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamOrderBookChanged
     {
         /// <summary>
-        /// The changes in bids
+        /// ["<c>bids</c>"] The changes in bids
         /// </summary>
         [JsonPropertyName("bids")]
         public KucoinStreamOrderBookEntry[] Bids { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
-        /// The changes in asks
+        /// ["<c>asks</c>"] The changes in asks
         /// </summary>
         [JsonPropertyName("asks")]
         public KucoinStreamOrderBookEntry[] Asks { get; set; } = Array.Empty<KucoinStreamOrderBookEntry>();
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? Timestamp { get; set; }

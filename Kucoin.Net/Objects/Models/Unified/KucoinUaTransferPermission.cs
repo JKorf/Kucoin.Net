@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Unified
+namespace Kucoin.Net.Objects.Models.Unified
 {
     /// <summary>
     /// Permission info
@@ -6,12 +6,12 @@
     public record KucoinUaTransferPermission
     {
         /// <summary>
-        /// Sub uid
+        /// ["<c>subUid</c>"] Sub uid
         /// </summary>
         [JsonPropertyName("subUid")]
         public decimal SubUid { get; set; }
         /// <summary>
-        /// Sub to sub
+        /// ["<c>subToSub</c>"] Sub to sub
         /// </summary>
         [JsonPropertyName("subToSub")]
         public bool SubToSub { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Margin requirements
@@ -6,32 +6,32 @@
     public record KucoinCrossMarginRequirement
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Initial margin requirements
+        /// ["<c>imr</c>"] Initial margin requirements
         /// </summary>
         [JsonPropertyName("imr")]
         public decimal InitialMarginRequirement { get; set; }
         /// <summary>
-        /// Maintenance margin requirement
+        /// ["<c>mmr</c>"] Maintenance margin requirement
         /// </summary>
         [JsonPropertyName("mmr")]
         public decimal MaintenanceMarginRequirement { get; set; }
         /// <summary>
-        /// Position size in contracts
+        /// ["<c>size</c>"] Position size in contracts
         /// </summary>
         [JsonPropertyName("size")]
         public int PositionSize { get; set; }
         /// <summary>
-        /// Position value
+        /// ["<c>positionValue</c>"] Position value
         /// </summary>
         [JsonPropertyName("positionValue")]
         public decimal PositionValue { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }

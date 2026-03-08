@@ -9,58 +9,58 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCrossRiskLimitConfig
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Max borrow quantity
+        /// ["<c>borrowMaxAmount</c>"] Max borrow quantity
         /// </summary>
         [JsonPropertyName("borrowMaxAmount")]
         public decimal BorrowMaxQuantity { get; set; }
         /// <summary>
-        /// Max buy quantity
+        /// ["<c>buyMaxAmount</c>"] Max buy quantity
         /// </summary>
         [JsonPropertyName("buyMaxAmount")]
         public decimal BuyMaxQuantity { get; set; }
         /// <summary>
-        /// Max hold quantity
+        /// ["<c>holdMaxAmount</c>"] Max hold quantity
         /// </summary>
         [JsonPropertyName("holdMaxAmount")]
         public decimal HoldMaxQuantity { get; set; }
         /// <summary>
-        /// Borrow coefficient
+        /// ["<c>borrowCoefficient</c>"] Borrow coefficient
         /// </summary>
         [JsonPropertyName("borrowCoefficient")]
         public decimal BorrowCoefficient { get; set; }
         /// <summary>
-        /// Margin coefficient
+        /// ["<c>marginCoefficient</c>"] Margin coefficient
         /// </summary>
         [JsonPropertyName("marginCoefficient")]
         public decimal MarginCoefficient { get; set; }
         /// <summary>
-        /// Asset precision
+        /// ["<c>precision</c>"] Asset precision
         /// </summary>
         [JsonPropertyName("precision")]
         public int Precision { get; set; }
         /// <summary>
-        /// Min borrow quantity
+        /// ["<c>borrowMinAmount</c>"] Min borrow quantity
         /// </summary>
         [JsonPropertyName("borrowMinAmount")]
         public decimal? BorrowMinQuantity { get; set; }
         /// <summary>
-        /// Minimum unit for borrowing
+        /// ["<c>borrowMinUnit</c>"] Minimum unit for borrowing
         /// </summary>
         [JsonPropertyName("borrowMinUnit")]
         public decimal? BorrowMinUnit { get; set; }
         /// <summary>
-        /// Borrow is enabled
+        /// ["<c>borrowEnabled</c>"] Borrow is enabled
         /// </summary>
         [JsonPropertyName("borrowEnabled")]
         public bool BorrowEnabled { get; set; }

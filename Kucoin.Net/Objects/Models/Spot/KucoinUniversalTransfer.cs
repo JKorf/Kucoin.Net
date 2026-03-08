@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinUniversalTransfer
     {
         /// <summary>
-        /// Orrder id
+        /// ["<c>orderId</c>"] Orrder id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;

@@ -9,42 +9,42 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinMarginOrderUpdate
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Daily interest rate
+        /// ["<c>dailyIntRate</c>"] Daily interest rate
         /// </summary>
         [JsonPropertyName("dailyIntRate")]
         public decimal DailyInterestRate { get; set; }
         /// <summary>
-        /// Term in days
+        /// ["<c>term</c>"] Term in days
         /// </summary>
         [JsonPropertyName("term")]
         public int Term { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public int Quantity { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>lentSize</c>"] Quantity
         /// </summary>
         [JsonPropertyName("lentSize")]
         public decimal? LentQuantity { get; set; }
         /// <summary>
-        /// Lend
+        /// ["<c>side</c>"] Lend
         /// </summary>
         [JsonPropertyName("side")]
         public string Side { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]

@@ -10,13 +10,13 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinTicks
     {
         /// <summary>
-        /// The timestamp of the data
+        /// ["<c>time</c>"] The timestamp of the data
         /// </summary>
         [JsonPropertyName("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// The ticker data
+        /// ["<c>ticker</c>"] The ticker data
         /// </summary>
         [JsonPropertyName("ticker")]
         public KucoinAllTick[] Data { get; set; } = Array.Empty<KucoinAllTick>();

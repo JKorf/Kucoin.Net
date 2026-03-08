@@ -10,13 +10,13 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamSnapshotWrapper
     {
         /// <summary>
-        /// The sequence number of the update
+        /// ["<c>sequence</c>"] The sequence number of the update
         /// </summary>
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
 
         /// <summary>
-        /// The data
+        /// ["<c>data</c>"] The data
         /// </summary>
         [JsonPropertyName("data")]
         public KucoinStreamSnapshot Data { get; set; } = default!;
@@ -29,168 +29,168 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamSnapshot
     {
         /// <summary>
-        /// Whether the symbol is trading
+        /// ["<c>trading</c>"] Whether the symbol is trading
         /// </summary>
         [JsonPropertyName("trading")]
         public bool Trading { get; set; }
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// The current best bid
+        /// ["<c>buy</c>"] The current best bid
         /// </summary>
         [JsonPropertyName("buy")]
         public decimal? BestBidPrice { get; set; }
         /// <summary>
-        /// The current best ask
+        /// ["<c>sell</c>"] The current best ask
         /// </summary>
         [JsonPropertyName("sell")]
         public decimal? BestAskPrice { get; set; }
 
         /// <summary>
-        /// The current best ask quantity
+        /// ["<c>askSize</c>"] The current best ask quantity
         /// </summary>
         [JsonPropertyName("askSize")]
         public decimal? BestAskQuantity { get; set; }
         /// <summary>
-        /// The current best bid quantity
+        /// ["<c>bidSize</c>"] The current best bid quantity
         /// </summary>
         [JsonPropertyName("bidSize")]
         public decimal? BestBidQuantity { get; set; }
         /// <summary>
-        /// Unknown
+        /// ["<c>sort</c>"] Unknown
         /// </summary>
         [JsonPropertyName("sort")]
         public int Sort { get; set; }
         /// <summary>
-        /// The value of the volume
+        /// ["<c>volValue</c>"] The value of the volume
         /// </summary>
         [JsonPropertyName("volValue")]
         public decimal VolumeValue { get; set; }
         /// <summary>
-        /// The volume
+        /// ["<c>vol</c>"] The volume
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// The base asset
+        /// ["<c>baseCurrency</c>"] The base asset
         /// </summary>
         [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// The market name
+        /// ["<c>market</c>"] The market name
         /// </summary>
         [JsonPropertyName("market")]
         public string Market { get; set; } = string.Empty;
         /// <summary>
-        /// The quote asset
+        /// ["<c>quoteCurrency</c>"] The quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// The symbol code
+        /// ["<c>symbolCode</c>"] The symbol code
         /// </summary>
         [JsonPropertyName("symbolCode")]
         public string SymbolCode { get; set; } = string.Empty;
         /// <summary>
-        /// The timestamp of the data
+        /// ["<c>datetime</c>"] The timestamp of the data
         /// </summary>
         [JsonPropertyName("datetime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The highest price
+        /// ["<c>high</c>"] The highest price
         /// </summary>
         [JsonPropertyName("high")]
         public decimal? HighPrice { get; set; }
         /// <summary>
-        /// The lowest price
+        /// ["<c>low</c>"] The lowest price
         /// </summary>
         [JsonPropertyName("low")]
         public decimal? LowPrice { get; set; }
         /// <summary>
-        /// The close price
+        /// ["<c>close</c>"] The close price
         /// </summary>
         [JsonPropertyName("close")]
         public decimal? ClosePrice { get; set; }
         /// <summary>
-        /// The open price
+        /// ["<c>open</c>"] The open price
         /// </summary>
         [JsonPropertyName("open")]
         public decimal? OpenPrice { get; set; }
         /// <summary>
-        /// The last price
+        /// ["<c>lastTradedPrice</c>"] The last price
         /// </summary>
         [JsonPropertyName("lastTradedPrice")]
         public decimal? LastPrice { get; set; }
         /// <summary>
-        /// The change price
+        /// ["<c>changePrice</c>"] The change price
         /// </summary>
         [JsonPropertyName("changePrice")]
         public decimal? ChangePrice { get; set; }
         /// <summary>
-        /// The change percentage
+        /// ["<c>changeRate</c>"] The change percentage
         /// </summary>
         [JsonPropertyName("changeRate")]
         public decimal? ChangePercentage { get; set; }
         /// <summary>
-        /// Average price
+        /// ["<c>averagePrice</c>"] Average price
         /// </summary>
         [JsonPropertyName("averagePrice")]
         public decimal? AveragePrice { get; set; }
         /// <summary>
-        /// Unknown
+        /// ["<c>board</c>"] Unknown
         /// </summary>
         [JsonPropertyName("board")]
         public int Board { get; set; }
         /// <summary>
-        /// Unknown
+        /// ["<c>mark</c>"] Unknown
         /// </summary>
         [JsonPropertyName("mark")]
         public int Mark { get; set; }
         /// <summary>
-        /// Maker coefficent
+        /// ["<c>makerCoefficient</c>"] Maker coefficent
         /// </summary>
         [JsonPropertyName("makerCoefficient")]
         public decimal? MakerCoefficient { get; set; }
         /// <summary>
-        /// Taker coefficent
+        /// ["<c>takerCoefficient</c>"] Taker coefficent
         /// </summary>
         [JsonPropertyName("takerCoefficient")]
         public decimal? TakerCoefficient { get; set; }
         /// <summary>
-        /// Maker fee rate
+        /// ["<c>makerFeeRate</c>"] Maker fee rate
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal? MakerFeeRate { get; set; }
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>takerFeeRate</c>"] Taker fee rate
         /// </summary>
         [JsonPropertyName("takerFeeRate")]
         public decimal? TakerFeeRate { get; set; }
         /// <summary>
-        /// Margin trade
+        /// ["<c>marginTrade</c>"] Margin trade
         /// </summary>
         [JsonPropertyName("marginTrade")]
         public bool? MarginTrade { get; set; }
         /// <summary>
-        /// Markets
+        /// ["<c>markets</c>"] Markets
         /// </summary>
         [JsonPropertyName("markets")]
         public string[] Markets { get; set; } = new string[0];
         /// <summary>
-        /// Change info last hour
+        /// ["<c>marketChange1h</c>"] Change info last hour
         /// </summary>
         [JsonPropertyName("marketChange1h")]
         public KucoinMarketChange MarketChange1h { get; set; } = null!;
         /// <summary>
-        /// Change info last 4 hours
+        /// ["<c>marketChange4h</c>"] Change info last 4 hours
         /// </summary>
         [JsonPropertyName("marketChange4h")]
         public KucoinMarketChange MarketChange4h { get; set; } = null!;
         /// <summary>
-        /// Change info last 24 hours
+        /// ["<c>marketChange24h</c>"] Change info last 24 hours
         /// </summary>
         [JsonPropertyName("marketChange24h")]
         public KucoinMarketChange MarketChange24h { get; set; } = null!;
@@ -203,37 +203,37 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinMarketChange
     {
         /// <summary>
-        /// Change price
+        /// ["<c>changePrice</c>"] Change price
         /// </summary>
         [JsonPropertyName("changePrice")]
         public decimal ChangePrice { get; set; }
         /// <summary>
-        /// Change percentage
+        /// ["<c>changeRate</c>"] Change percentage
         /// </summary>
         [JsonPropertyName("changeRate")]
         public decimal ChangeRate { get; set; }
         /// <summary>
-        /// High
+        /// ["<c>high</c>"] High
         /// </summary>
         [JsonPropertyName("high")]
         public decimal High { get; set; }
         /// <summary>
-        /// Low
+        /// ["<c>low</c>"] Low
         /// </summary>
         [JsonPropertyName("low")]
         public decimal Low { get; set; }
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [JsonPropertyName("open")]
         public decimal Open { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>vol</c>"] Volume
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Volume value
+        /// ["<c>volValue</c>"] Volume value
         /// </summary>
         [JsonPropertyName("volValue")]
         public decimal VolumeValue { get; set; }

@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,172 +13,172 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order type
+        /// ["<c>orderType</c>"] Order type
         /// </summary>
         [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>positionSide</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionSide")]
         public PositionSide? PositionSide { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>timeInForce</c>"] Time in force
         /// </summary>
         [JsonPropertyName("timeInForce")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
-        /// Order time
+        /// ["<c>orderTime</c>"] Order time
         /// </summary>
         [JsonPropertyName("orderTime")]
         public DateTime OrderTime { get; set; }
         /// <summary>
-        /// Self trade prevention mode
+        /// ["<c>stp</c>"] Self trade prevention mode
         /// </summary>
         [JsonPropertyName("stp")]
         public SelfTradePrevention? Stp { get; set; }
         /// <summary>
-        /// Cancel after
+        /// ["<c>cancelAfter</c>"] Cancel after
         /// </summary>
         [JsonPropertyName("cancelAfter")]
         public long? CancelAfter { get; set; }
         /// <summary>
-        /// Post only
+        /// ["<c>postOnly</c>"] Post only
         /// </summary>
         [JsonPropertyName("postOnly")]
         public bool PostOnly { get; set; }
         /// <summary>
-        /// Reduce only
+        /// ["<c>reduceOnly</c>"] Reduce only
         /// </summary>
         [JsonPropertyName("reduceOnly")]
         public bool ReduceOnly { get; set; }
         /// <summary>
-        /// Trigger direction
+        /// ["<c>triggerDirection</c>"] Trigger direction
         /// </summary>
         [JsonPropertyName("triggerDirection")]
         public StopType? TriggerDirection { get; set; }
         /// <summary>
-        /// Trigger price
+        /// ["<c>triggerPrice</c>"] Trigger price
         /// </summary>
         [JsonPropertyName("triggerPrice")]
         public decimal? TriggerPrice { get; set; }
         /// <summary>
-        /// Trigger price type
+        /// ["<c>triggerPriceType</c>"] Trigger price type
         /// </summary>
         [JsonPropertyName("triggerPriceType")]
         public StopPriceType? TriggerPriceType { get; set; }
         /// <summary>
-        /// Tp trigger price
+        /// ["<c>tpTriggerPrice</c>"] Tp trigger price
         /// </summary>
         [JsonPropertyName("tpTriggerPrice")]
         public decimal? TpTriggerPrice { get; set; }
         /// <summary>
-        /// Tp trigger price type
+        /// ["<c>tpTriggerPriceType</c>"] Tp trigger price type
         /// </summary>
         [JsonPropertyName("tpTriggerPriceType")]
         public StopPriceType? TpTriggerPriceType { get; set; }
         /// <summary>
-        /// Sl trigger price
+        /// ["<c>slTriggerPrice</c>"] Sl trigger price
         /// </summary>
         [JsonPropertyName("slTriggerPrice")]
         public decimal? SlTriggerPrice { get; set; }
         /// <summary>
-        /// Sl trigger price type
+        /// ["<c>slTriggerPriceType</c>"] Sl trigger price type
         /// </summary>
         [JsonPropertyName("slTriggerPriceType")]
         public StopPriceType? SlTriggerPriceType { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>filledSize</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("filledSize")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// Average price
+        /// ["<c>avgPrice</c>"] Average price
         /// </summary>
         [JsonPropertyName("avgPrice")]
         public decimal AveragePrice { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>feeCurrency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Tax
+        /// ["<c>tax</c>"] Tax
         /// </summary>
         [JsonPropertyName("tax")]
         public decimal Tax { get; set; }
         /// <summary>
-        /// Updated time
+        /// ["<c>updatedTime</c>"] Updated time
         /// </summary>
         [JsonPropertyName("updatedTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Trigger order id
+        /// ["<c>triggerOrderId</c>"] Trigger order id
         /// </summary>
         [JsonPropertyName("triggerOrderId")]
         public string? TriggerOrderId { get; set; }
         /// <summary>
-        /// Cancel reason
+        /// ["<c>cancelReason</c>"] Cancel reason
         /// </summary>
         [JsonPropertyName("cancelReason"), JsonConverter(typeof(NumberStringConverter))]
         public string? CancelReason { get; set; }
         /// <summary>
-        /// Cancel quantity
+        /// ["<c>cancelSize</c>"] Cancel quantity
         /// </summary>
         [JsonPropertyName("cancelSize")]
         public decimal CancelQuantity { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOid</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOid")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Quantity unit
+        /// ["<c>sizeUnit</c>"] Quantity unit
         /// </summary>
         [JsonPropertyName("sizeUnit")]
         public QuantityUnit QuantityUnit { get; set; }
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public UnifiedAccountType? AccountType { get; set; }
         /// <summary>
-        /// Last order trade id
+        /// ["<c>tradeId</c>"] Last order trade id
         /// </summary>
         [JsonPropertyName("tradeId")]
         public string? TradeId { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
         [JsonPropertyName("status")]
         public UnifiedOrderStatus Status { get; set; }

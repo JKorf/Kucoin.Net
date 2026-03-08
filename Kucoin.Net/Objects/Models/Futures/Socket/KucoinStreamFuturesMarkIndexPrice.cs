@@ -10,22 +10,22 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamFuturesMarkIndexPrice
     {
         /// <summary>
-        /// Mark price
+        /// ["<c>markPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Index price
+        /// ["<c>indexPrice</c>"] Index price
         /// </summary>
         [JsonPropertyName("indexPrice")]
         public decimal IndexPrice { get; set; }
         /// <summary>
-        /// Granularity
+        /// ["<c>granularity</c>"] Granularity
         /// </summary>
         [JsonPropertyName("granularity")]
         public int Granularity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

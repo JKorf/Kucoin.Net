@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +12,12 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaCollateralRatio
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// CDR configs
+        /// ["<c>cdrConfigs</c>"] CDR configs
         /// </summary>
         [JsonPropertyName("cdrConfigs")]
         public KucoinUaCollateralConfig[] Configs { get; set; } = [];
@@ -29,27 +29,27 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaCollateralConfig
     {
         /// <summary>
-        /// Tier
+        /// ["<c>tier</c>"] Tier
         /// </summary>
         [JsonPropertyName("tier")]
         public int Tier { get; set; }
         /// <summary>
-        /// Min
+        /// ["<c>min</c>"] Min
         /// </summary>
         [JsonPropertyName("min")]
         public decimal Min { get; set; }
         /// <summary>
-        /// Max
+        /// ["<c>max</c>"] Max
         /// </summary>
         [JsonPropertyName("max")]
         public decimal Max { get; set; }
         /// <summary>
-        /// CDR
+        /// ["<c>cdr</c>"] CDR
         /// </summary>
         [JsonPropertyName("cdr")]
         public decimal Cdr { get; set; }
         /// <summary>
-        /// CDR equity
+        /// ["<c>cdrEquity</c>"] CDR equity
         /// </summary>
         [JsonPropertyName("cdrEquity")]
         public decimal CdrEquity { get; set; }

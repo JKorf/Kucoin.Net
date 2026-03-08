@@ -11,27 +11,27 @@ namespace Kucoin.Net.Objects.Models
     public record KucoinPaginated<T>
     {
         /// <summary>
-        /// The total number of results
+        /// ["<c>totalNum</c>"] The total number of results
         /// </summary>
         [JsonPropertyName("totalNum")]
         public int TotalItems { get; set; }
         /// <summary>
-        /// The total number of pages
+        /// ["<c>totalPage</c>"] The total number of pages
         /// </summary>
         [JsonPropertyName("totalPage")]
         public int TotalPages { get; set; }
         /// <summary>
-        /// The amount of items per page
+        /// ["<c>pageSize</c>"] The amount of items per page
         /// </summary>
         [JsonPropertyName("pageSize")]
         public int PageSize { get; set; }
         /// <summary>
-        /// The current page
+        /// ["<c>currentPage</c>"] The current page
         /// </summary>
         [JsonPropertyName("currentPage")]
         public int CurrentPage { get; set; }
         /// <summary>
-        /// The items on this page
+        /// ["<c>items</c>"] The items on this page
         /// </summary>
         [JsonPropertyName("items")]
         public T[] Items { get; set; } = Array.Empty<T>();

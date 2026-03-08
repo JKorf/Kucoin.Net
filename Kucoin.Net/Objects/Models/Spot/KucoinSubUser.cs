@@ -9,42 +9,42 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinSubUser
     {
         /// <summary>
-        /// The sub user id
+        /// ["<c>userId</c>"] The sub user id
         /// </summary>
         [JsonPropertyName("userId")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
-        /// The uid
+        /// ["<c>uid</c>"] The uid
         /// </summary>
         [JsonPropertyName("uid"), JsonConverter(typeof(NumberStringConverter))]
         public string Uid { get; set; } = string.Empty;
         /// <summary>
-        /// The sub user name
+        /// ["<c>subName</c>"] The sub user name
         /// </summary>
         [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
-        /// Status, 2: enabled, 3: frozen
+        /// ["<c>status</c>"] Status, 2: enabled, 3: frozen
         /// </summary>
         [JsonPropertyName("status")]
         public int Status { get; set; }
         /// <summary>
-        /// Account type
+        /// ["<c>type</c>"] Account type
         /// </summary>
         [JsonPropertyName("type")]
         public int Type { get; set; }
         /// <summary>
-        /// Remarks for this sub user
+        /// ["<c>remarks</c>"] Remarks for this sub user
         /// </summary>
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
         /// <summary>
-        /// Permissions
+        /// ["<c>access</c>"] Permissions
         /// </summary>
         [JsonPropertyName("access")]
         public string Access { get; set; } = string.Empty;
         /// <summary>
-        /// Key creation time
+        /// ["<c>createdAt</c>"] Key creation time
         /// </summary>
         [JsonPropertyName("createdAt"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }

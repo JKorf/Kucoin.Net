@@ -10,37 +10,37 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinPositionFundingSettlementUpdate
     {
         /// <summary>
-        /// Funding time
+        /// ["<c>fundingTime</c>"] Funding time
         /// </summary>
         [JsonPropertyName("fundingTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime FundTime { get; set; }
         /// <summary>
-        /// Position size
+        /// ["<c>qty</c>"] Position size
         /// </summary>
         [JsonPropertyName("qty")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Settlement price
+        /// ["<c>markPrice</c>"] Settlement price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Funding fee
+        /// ["<c>fundingFee</c>"] Funding fee
         /// </summary>
         [JsonPropertyName("fundingFee")]
         public decimal FundingFee { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Asset used to clear and settle the trades
+        /// ["<c>settleCurrency</c>"] Asset used to clear and settle the trades
         /// </summary>
         [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;

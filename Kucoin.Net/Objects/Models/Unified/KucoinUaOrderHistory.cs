@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Unified
 {
@@ -8,17 +8,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaOrderHistory
     {
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public UnifiedAccountType TradeType { get; set; }
         /// <summary>
-        /// Last id
+        /// ["<c>lastId</c>"] Last id
         /// </summary>
         [JsonPropertyName("lastId")]
         public long? LastId { get; set; }
         /// <summary>
-        /// Items
+        /// ["<c>items</c>"] Items
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinUaOrder[] Items { get; set; } = [];

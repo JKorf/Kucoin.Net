@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Unified
 {
@@ -8,32 +8,32 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaOrders
     {
         /// <summary>
-        /// Page number
+        /// ["<c>pageNumber</c>"] Page number
         /// </summary>
         [JsonPropertyName("pageNumber")]
         public int PageNumber { get; set; }
         /// <summary>
-        /// Page quantity
+        /// ["<c>pageSize</c>"] Page quantity
         /// </summary>
         [JsonPropertyName("pageSize")]
         public int? PageQuantity { get; set; }
         /// <summary>
-        /// Total num
+        /// ["<c>totalNum</c>"] Total num
         /// </summary>
         [JsonPropertyName("totalNum")]
         public int? TotalNum { get; set; }
         /// <summary>
-        /// Total page
+        /// ["<c>totalPage</c>"] Total page
         /// </summary>
         [JsonPropertyName("totalPage")]
         public int? TotalPage { get; set; }
         /// <summary>
-        /// Items
+        /// ["<c>items</c>"] Items
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinUaOrder[] Items { get; set; } = [];
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public UnifiedAccountType AccountType { get; set; }

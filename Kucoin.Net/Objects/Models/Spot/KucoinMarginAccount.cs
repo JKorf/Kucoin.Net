@@ -10,12 +10,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMarginAccount
     {
         /// <summary>
-        /// Accounts
+        /// ["<c>accounts</c>"] Accounts
         /// </summary>
         [JsonPropertyName("accounts")]
         public KucoinMarginAccountDetails[] Accounts { get; set; } = Array.Empty<KucoinMarginAccountDetails>();
         /// <summary>
-        /// Debt ratio
+        /// ["<c>debtRatio</c>"] Debt ratio
         /// </summary>
         [JsonPropertyName("debtRatio")]
         public decimal DebtRatio { get; set; }
@@ -28,32 +28,32 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMarginAccountDetails
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available balance
+        /// ["<c>availableBalance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Hold balance
+        /// ["<c>holdBalance</c>"] Hold balance
         /// </summary>
         [JsonPropertyName("holdBalance")]
         public decimal HoldBalance { get; set; }
         /// <summary>
-        /// Liability
+        /// ["<c>liability</c>"] Liability
         /// </summary>
         [JsonPropertyName("liability")]
         public decimal Liability { get; set; }
         /// <summary>
-        /// Max borrow quantity
+        /// ["<c>maxBorrowSize</c>"] Max borrow quantity
         /// </summary>
         [JsonPropertyName("maxBorrowSize")]
         public decimal MaxBorrowQuantity { get; set; }
         /// <summary>
-        /// Total balance
+        /// ["<c>totalBalance</c>"] Total balance
         /// </summary>
         [JsonPropertyName("totalBalance")]
         public decimal TotalBalance { get; set; }

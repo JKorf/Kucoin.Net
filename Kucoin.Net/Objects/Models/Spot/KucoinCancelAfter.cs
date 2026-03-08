@@ -9,12 +9,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCancelAfter
     {
         /// <summary>
-        /// Current time
+        /// ["<c>currentTime</c>"] Current time
         /// </summary>
         [JsonPropertyName("currentTime")]
         public DateTime CurrentTime { get; set; }
         /// <summary>
-        /// Trigger time
+        /// ["<c>triggerTime</c>"] Trigger time
         /// </summary>
         [JsonPropertyName("triggerTime")]
         public DateTime TriggerTime { get; set; }
@@ -27,12 +27,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCancelAfterStatus : KucoinCancelAfter
     {
         /// <summary>
-        /// Timeout in seconds
+        /// ["<c>timeout</c>"] Timeout in seconds
         /// </summary>
         [JsonPropertyName("timeout")]
         public int Timeout { get; set; }
         /// <summary>
-        /// Symbols, comma separated
+        /// ["<c>symbols</c>"] Symbols, comma separated
         /// </summary>
         [JsonPropertyName("symbols")]
         public string Symbols { get; set; } = string.Empty;

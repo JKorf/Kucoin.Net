@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Interest rates
@@ -6,12 +6,12 @@
     public record KucoinBorrowInterestRates
     {
         /// <summary>
-        /// VIP level
+        /// ["<c>vipLevel</c>"] VIP level
         /// </summary>
         [JsonPropertyName("vipLevel")]
         public int VipLevel { get; set; }
         /// <summary>
-        /// Asset rates
+        /// ["<c>items</c>"] Asset rates
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinBorrowInterestRate[] Rates { get; set; } = [];
@@ -23,17 +23,17 @@
     public record KucoinBorrowInterestRate
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Hourly borrow rate
+        /// ["<c>hourlyBorrowRate</c>"] Hourly borrow rate
         /// </summary>
         [JsonPropertyName("hourlyBorrowRate")]
         public decimal HourlyBorrowRate { get; set; }
         /// <summary>
-        /// Annualized borrow rate
+        /// ["<c>annualizedBorrowRate</c>"] Annualized borrow rate
         /// </summary>
         [JsonPropertyName("annualizedBorrowRate")]
         public decimal AnnualizedBorrowRate { get; set; }

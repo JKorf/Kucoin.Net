@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Spot
+namespace Kucoin.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Collateral ratio
@@ -6,13 +6,13 @@
     public record KucoinCollateralRatios
     {
         /// <summary>
-        /// Asset list
+        /// ["<c>currencyList</c>"] Asset list
         /// </summary>
         [JsonPropertyName("currencyList")]
         public string[] Assets { get; set; } = [];
 
         /// <summary>
-        /// Items
+        /// ["<c>items</c>"] Items
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinCollateralRatio[] Items { get; set; } = [];
@@ -24,17 +24,17 @@
     public record KucoinCollateralRatio
     {
         /// <summary>
-        /// Lower limit
+        /// ["<c>lowerLimit</c>"] Lower limit
         /// </summary>
         [JsonPropertyName("lowerLimit")]
         public decimal LowerLimit { get; set; }
         /// <summary>
-        /// Upper limit
+        /// ["<c>upperLimit</c>"] Upper limit
         /// </summary>
         [JsonPropertyName("upperLimit")]
         public decimal UpperLimit { get; set; }
         /// <summary>
-        /// Collateral ratio
+        /// ["<c>collateralRatio</c>"] Collateral ratio
         /// </summary>
         [JsonPropertyName("collateralRatio")]
         public decimal CollateralRatio { get; set; }

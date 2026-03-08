@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,72 +9,72 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaPosition
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Entry price
+        /// ["<c>entryPrice</c>"] Entry price
         /// </summary>
         [JsonPropertyName("entryPrice")]
         public decimal EntryPrice { get; set; }
         /// <summary>
-        /// Position value
+        /// ["<c>positionValue</c>"] Position value
         /// </summary>
         [JsonPropertyName("positionValue")]
         public decimal PositionValue { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>markPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealizedPnL</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealizedPnL")]
         public decimal UnrealizedPnL { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>realizedPnL</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("realizedPnL")]
         public decimal RealizedPnL { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initialMargin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initialMargin")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin ratio
+        /// ["<c>mmr</c>"] Maintenance margin ratio
         /// </summary>
         [JsonPropertyName("mmr")]
         public decimal MaintenanceMarginRatio { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintenanceMargin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintenanceMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>creationTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("creationTime")]
         public DateTime CreateTime { get; set; }

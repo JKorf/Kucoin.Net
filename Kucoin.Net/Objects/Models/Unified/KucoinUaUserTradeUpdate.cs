@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Spot;
 using System;
 
@@ -10,62 +10,62 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaUserTradeUpdate
     {
         /// <summary>
-        /// Order id
+        /// ["<c>oi</c>"] Order id
         /// </summary>
         [JsonPropertyName("oi")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order type
+        /// ["<c>oT</c>"] Order type
         /// </summary>
         [JsonPropertyName("oT")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>S</c>"] Side
         /// </summary>
         [JsonPropertyName("S")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Liquidity role of the trade
+        /// ["<c>lR</c>"] Liquidity role of the trade
         /// </summary>
         [JsonPropertyName("lR")]
         public LiquidityType? TradeRole { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>p</c>"] Order price
         /// </summary>
         [JsonPropertyName("p")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>ti</c>"] Trade id
         /// </summary>
         [JsonPropertyName("ti")]
         public long? TradeId { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>q</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("q")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Total settle fee
+        /// ["<c>f</c>"] Total settle fee
         /// </summary>
         [JsonPropertyName("f")]
         public decimal? TotalSettleFee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fC</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fC")]
         public string? FeeAsset { get; set; }
         /// <summary>
-        /// Total tax
+        /// ["<c>t</c>"] Total tax
         /// </summary>
         [JsonPropertyName("t")]
         public decimal? TotalTax { get; set; }
         /// <summary>
-        /// Trade time
+        /// ["<c>E</c>"] Trade time
         /// </summary>
         [JsonPropertyName("E")]
         public DateTime TradeTime { get; set; }

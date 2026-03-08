@@ -9,37 +9,37 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinBorrowOrderV3
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderNo</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderNo")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Isolated margin symbol
+        /// ["<c>symbol</c>"] Isolated margin symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string? Symbol { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Iniated quantity
+        /// ["<c>size</c>"] Iniated quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Actual quantity
+        /// ["<c>actualSize</c>"] Actual quantity
         /// </summary>
         [JsonPropertyName("actualSize")]
         public decimal ActualQuantity { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
-        /// Time of borrowing
+        /// ["<c>createdTime</c>"] Time of borrowing
         /// </summary>
         [JsonPropertyName("createdTime")]
         [JsonConverter(typeof(DateTimeConverter))]

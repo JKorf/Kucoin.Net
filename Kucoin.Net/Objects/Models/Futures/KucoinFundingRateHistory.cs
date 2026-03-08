@@ -9,17 +9,17 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFundingRateHistory
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timepoint</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timepoint")]
         [JsonConverter(typeof(DateTimeConverter))]

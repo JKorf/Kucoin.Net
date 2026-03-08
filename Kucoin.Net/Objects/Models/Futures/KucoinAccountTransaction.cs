@@ -11,48 +11,48 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinAccountTransaction
     {
         /// <summary>
-        /// Event time
+        /// ["<c>time</c>"] Event time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Type of the transaction
+        /// ["<c>type</c>"] Type of the transaction
         /// </summary>
         [JsonPropertyName("type")]
         public TransactionType TransactionType { get; set; }
         /// <summary>
-        /// Quantity of the transaction
+        /// ["<c>amount</c>"] Quantity of the transaction
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Fee of the transaction
+        /// ["<c>fee</c>"] Fee of the transaction
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal? Fee { get; set; }
         /// <summary>
-        /// Account equity
+        /// ["<c>accountEquity</c>"] Account equity
         /// </summary>
         [JsonPropertyName("accountEquity")]
         public decimal AccountEquity { get; set; }
         /// <summary>
-        /// Status 
+        /// ["<c>status</c>"] Status 
         /// </summary>
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
-        /// Ticker of the contract
+        /// ["<c>remark</c>"] Ticker of the contract
         /// </summary>
         [JsonPropertyName("remark")]
         public string Remark { get; set; } = string.Empty;
         /// <summary>
-        /// Offset
+        /// ["<c>offset</c>"] Offset
         /// </summary>
         [JsonPropertyName("offset")]
         public int Offset { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;

@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,52 +9,52 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaTickerUpdate
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>s</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Sequence number
+        /// ["<c>E</c>"] Sequence number
         /// </summary>
         [JsonPropertyName("E")]
         public long Sequence { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>b</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("b")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best bid quantity
+        /// ["<c>B</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("B")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>a</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("a")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Best ask quantity
+        /// ["<c>A</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("A")]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
-        /// Last trade price
+        /// ["<c>l</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("l")]
         public decimal LastTradePrice { get; set; }
         /// <summary>
-        /// Last trade quantity
+        /// ["<c>q</c>"] Last trade quantity
         /// </summary>
         [JsonPropertyName("q")]
         public decimal LastTradeQuantity { get; set; }
         /// <summary>
-        /// Last trade taker side
+        /// ["<c>S</c>"] Last trade taker side
         /// </summary>
         [JsonPropertyName("S")]
         public OrderSide LastTradeSide { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>M</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("M")]
         public DateTime UpdateTime { get; set; }

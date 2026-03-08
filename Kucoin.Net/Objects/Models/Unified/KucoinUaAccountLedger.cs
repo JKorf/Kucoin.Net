@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +13,12 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaAccountLedger
     {
         /// <summary>
-        /// Last id
+        /// ["<c>lastId</c>"] Last id
         /// </summary>
         [JsonPropertyName("lastId")]
         public long? LastId { get; set; }
         /// <summary>
-        /// Items
+        /// ["<c>items</c>"] Items
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinUaAccountLedgerEntry[] Items { get; set; } = [];
@@ -30,57 +30,57 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaAccountLedgerEntry
     {
         /// <summary>
-        /// Account type
+        /// ["<c>accountType</c>"] Account type
         /// </summary>
         [JsonPropertyName("accountType")]
         public UnifiedAccountType AccountType { get; set; }
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Direction
+        /// ["<c>direction</c>"] Direction
         /// </summary>
         [JsonPropertyName("direction")]
         public AccountDirection Direction { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>businessType</c>"] Business type
         /// </summary>
         [JsonPropertyName("businessType")]
         public UnifiedBusinessType BusinessType { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Balance
+        /// ["<c>balance</c>"] Balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Tax
+        /// ["<c>tax</c>"] Tax
         /// </summary>
         [JsonPropertyName("tax")]
         public decimal Tax { get; set; }
         /// <summary>
-        /// Remark
+        /// ["<c>remark</c>"] Remark
         /// </summary>
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }

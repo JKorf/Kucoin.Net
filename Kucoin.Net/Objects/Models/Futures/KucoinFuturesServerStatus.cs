@@ -10,12 +10,12 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFuturesServiceStatus
     {
         /// <summary>
-        /// Service status
+        /// ["<c>status</c>"] Service status
         /// </summary>
         [JsonPropertyName("status")]
         public ServiceStatus Status { get; set; }
         /// <summary>
-        /// Info
+        /// ["<c>msg</c>"] Info
         /// </summary>
         [JsonPropertyName("msg")]
         public string Message { get; set; } = string.Empty;

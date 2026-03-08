@@ -11,28 +11,28 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinMarginOrderDoneUpdate
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Order done reason
+        /// ["<c>reason</c>"] Order done reason
         /// </summary>
         [JsonPropertyName("reason")]
 
         public MarginOrderDoneReason Reason { get; set; }
         /// <summary>
-        /// Lend
+        /// ["<c>side</c>"] Lend
         /// </summary>
         [JsonPropertyName("side")]
         public string Side { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]

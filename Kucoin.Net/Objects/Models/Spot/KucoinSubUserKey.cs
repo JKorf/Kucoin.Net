@@ -9,37 +9,37 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinSubUserKey
     {
         /// <summary>
-        /// The sub user name
+        /// ["<c>subName</c>"] The sub user name
         /// </summary>
         [JsonPropertyName("subName")]
         public string SubName { get; set; } = string.Empty;
         /// <summary>
-        /// The API key
+        /// ["<c>apiKey</c>"] The API key
         /// </summary>
         [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
-        /// Remark
+        /// ["<c>remark</c>"] Remark
         /// </summary>
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
-        /// Permissions
+        /// ["<c>permission</c>"] Permissions
         /// </summary>
         [JsonPropertyName("permission")]
         public string Permissions { get; set; } = string.Empty;
         /// <summary>
-        /// IP whitelist
+        /// ["<c>ipWhitelist</c>"] IP whitelist
         /// </summary>
         [JsonPropertyName("ipWhitelist")]
         public string IpWhitelist { get; set; } = string.Empty;
         /// <summary>
-        /// Key creation time
+        /// ["<c>createdAt</c>"] Key creation time
         /// </summary>
         [JsonPropertyName("createdAt"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Version of the API key
+        /// ["<c>apiVersion</c>"] Version of the API key
         /// </summary>
         [JsonPropertyName("apiVersion")]
         public int ApiKeyVersion { get; set; }

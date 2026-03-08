@@ -11,12 +11,12 @@ namespace Kucoin.Net.Objects.Models
     public record KucoinHfPaginated<T>
     {
         /// <summary>
-        /// The last result id
+        /// ["<c>lastId</c>"] The last result id
         /// </summary>
         [JsonPropertyName("lastId")]
         public long LastId { get; set; }
         /// <summary>
-        /// The items on this page
+        /// ["<c>items</c>"] The items on this page
         /// </summary>
         [JsonPropertyName("items")]
         public T[] Items { get; set; } = Array.Empty<T>();

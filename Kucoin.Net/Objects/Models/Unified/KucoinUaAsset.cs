@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Unified
+namespace Kucoin.Net.Objects.Models.Unified
 {
     /// <summary>
     /// Asset info
@@ -6,37 +6,37 @@
     public record KucoinUaAsset
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Full name
+        /// ["<c>fullName</c>"] Full name
         /// </summary>
         [JsonPropertyName("fullName")]
         public string FullName { get; set; } = string.Empty;
         /// <summary>
-        /// Precision
+        /// ["<c>precision</c>"] Precision
         /// </summary>
         [JsonPropertyName("precision")]
         public int Precision { get; set; }
         /// <summary>
-        /// Is margin enabled
+        /// ["<c>isMarginEnabled</c>"] Is margin enabled
         /// </summary>
         [JsonPropertyName("isMarginEnabled")]
         public bool? IsMarginEnabled { get; set; }
         /// <summary>
-        /// Is debit enabled
+        /// ["<c>isDebitEnabled</c>"] Is debit enabled
         /// </summary>
         [JsonPropertyName("isDebitEnabled")]
         public bool? IsDebitEnabled { get; set; }
         /// <summary>
-        /// Networks
+        /// ["<c>items</c>"] Networks
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinUaAssetNetwork[] Networks { get; set; } = [];
@@ -53,72 +53,72 @@
     public record KucoinUaAssetNetwork
     {
         /// <summary>
-        /// Network name
+        /// ["<c>chainName</c>"] Network name
         /// </summary>
         [JsonPropertyName("chainName")]
         public string NetworkName { get; set; } = string.Empty;
         /// <summary>
-        /// Min withdraw quantity
+        /// ["<c>minWithdrawSize</c>"] Min withdraw quantity
         /// </summary>
         [JsonPropertyName("minWithdrawSize")]
         public decimal? MinWithdrawQuantity { get; set; }
         /// <summary>
-        /// Min deposit quantity
+        /// ["<c>minDepositSize</c>"] Min deposit quantity
         /// </summary>
         [JsonPropertyName("minDepositSize")]
         public decimal? MinDepositQuantity { get; set; }
         /// <summary>
-        /// Withdraw fee rate
+        /// ["<c>withdrawFeeRate</c>"] Withdraw fee rate
         /// </summary>
         [JsonPropertyName("withdrawFeeRate")]
         public decimal? WithdrawFeeRate { get; set; }
         /// <summary>
-        /// Min withdraw fee
+        /// ["<c>minWithdrawFee</c>"] Min withdraw fee
         /// </summary>
         [JsonPropertyName("minWithdrawFee")]
         public decimal? MinWithdrawFee { get; set; }
         /// <summary>
-        /// Is withdraw enabled
+        /// ["<c>isWithdrawEnabled</c>"] Is withdraw enabled
         /// </summary>
         [JsonPropertyName("isWithdrawEnabled")]
         public bool IsWithdrawEnabled { get; set; }
         /// <summary>
-        /// Is deposit enabled
+        /// ["<c>isDepositEnabled</c>"] Is deposit enabled
         /// </summary>
         [JsonPropertyName("isDepositEnabled")]
         public bool IsDepositEnabled { get; set; }
         /// <summary>
-        /// Confirms
+        /// ["<c>confirms</c>"] Confirms
         /// </summary>
         [JsonPropertyName("confirms")]
         public int Confirms { get; set; }
         /// <summary>
-        /// Pre confirms
+        /// ["<c>preConfirms</c>"] Pre confirms
         /// </summary>
         [JsonPropertyName("preConfirms")]
         public int? PreConfirms { get; set; }
         /// <summary>
-        /// Contract address
+        /// ["<c>contractAddress</c>"] Contract address
         /// </summary>
         [JsonPropertyName("contractAddress")]
         public string? ContractAddress { get; set; }
         /// <summary>
-        /// Withdraw precision
+        /// ["<c>withdrawPrecision</c>"] Withdraw precision
         /// </summary>
         [JsonPropertyName("withdrawPrecision")]
         public int WithdrawPrecision { get; set; }
         /// <summary>
-        /// Max withdraw quantity
+        /// ["<c>maxWithdrawSize</c>"] Max withdraw quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawSize")]
         public decimal? MaxWithdrawQuantity { get; set; }
         /// <summary>
-        /// Max deposit quantity
+        /// ["<c>maxDepositSize</c>"] Max deposit quantity
         /// </summary>
         [JsonPropertyName("maxDepositSize")]
         public decimal? MaxDepositQuantity { get; set; }
         /// <summary>
-        /// Is memo required
+        /// ["<c>isMemoRequired</c>"] Is memo required
         /// </summary>
         [JsonPropertyName("isMemoRequired")]
         public bool IsMemoRequired { get; set; }
@@ -128,7 +128,7 @@
             set => IsMemoRequired = value;
         }
         /// <summary>
-        /// Network id
+        /// ["<c>chainId</c>"] Network id
         /// </summary>
         [JsonPropertyName("chainId")]
         public string NetworkId { get; set; } = string.Empty;

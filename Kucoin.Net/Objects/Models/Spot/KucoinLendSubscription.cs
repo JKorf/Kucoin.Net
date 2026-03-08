@@ -9,47 +9,47 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinLendSubscription
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Purchase order id
+        /// ["<c>purchaseOrderNo</c>"] Purchase order id
         /// </summary>
         [JsonPropertyName("purchaseOrderNo")]
         public string PurchaseOrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Purchase quantity
+        /// ["<c>purchaseSize</c>"] Purchase quantity
         /// </summary>
         [JsonPropertyName("purchaseSize")]
         public decimal PurchaseQuantity { get; set; }
         /// <summary>
-        /// Executed amount
+        /// ["<c>matchSize</c>"] Executed amount
         /// </summary>
         [JsonPropertyName("matchSize")]
         public decimal QuantityExecuted { get; set; }
         /// <summary>
-        /// Redeemed amount
+        /// ["<c>redeemSize</c>"] Redeemed amount
         /// </summary>
         [JsonPropertyName("redeemSize")]
         public decimal QuantityRedeemed { get; set; }
         /// <summary>
-        /// Target annualized interest rate
+        /// ["<c>interestRate</c>"] Target annualized interest rate
         /// </summary>
         [JsonPropertyName("interestRate")]
         public decimal InterestRate { get; set; }
         /// <summary>
-        /// Total earnings
+        /// ["<c>incomeSize</c>"] Total earnings
         /// </summary>
         [JsonPropertyName("incomeSize")]
         public decimal TotalEarnings { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
-        /// Apply time
+        /// ["<c>applyTime</c>"] Apply time
         /// </summary>
         [JsonPropertyName("applyTime")]
         [JsonConverter(typeof(DateTimeConverter))]

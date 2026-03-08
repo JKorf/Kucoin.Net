@@ -9,12 +9,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCanceledSymbols
     {
         /// <summary>
-        /// The succeeded symbols
+        /// ["<c>succeedSymbols</c>"] The succeeded symbols
         /// </summary>
         [JsonPropertyName("succeedSymbols")]
         public string[] SucceededSymbols { get; set; } = Array.Empty<string>();
         /// <summary>
-        /// The failed symbols
+        /// ["<c>failedSymbols</c>"] The failed symbols
         /// </summary>
         [JsonPropertyName("failedSymbols")]
         public KucoinCancelError[] FailedSymbols { get; set; } = Array.Empty<KucoinCancelError>();
@@ -27,12 +27,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCancelError
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// The error
+        /// ["<c>error</c>"] The error
         /// </summary>
         [JsonPropertyName("error")]
         public string Error { get; set; } = string.Empty;

@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinNewAccount
     {
         /// <summary>
-        /// The id of the new account
+        /// ["<c>id</c>"] The id of the new account
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;

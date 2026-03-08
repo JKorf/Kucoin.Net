@@ -11,28 +11,28 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinOcoOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOid</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOid")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Order time
+        /// ["<c>orderTime</c>"] Order time
         /// </summary>
         [JsonPropertyName("orderTime")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderTime { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
         [JsonPropertyName("status")]
 
@@ -46,7 +46,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinOcoOrderDetails : KucoinOcoOrder
     {
         /// <summary>
-        /// Orders
+        /// ["<c>orders</c>"] Orders
         /// </summary>
         [JsonPropertyName("orders")]
         public KucoinOcoOrderInfo[] Orders { get; set; } = Array.Empty<KucoinOcoOrderInfo>();
@@ -59,37 +59,37 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinOcoOrderInfo
     {
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stopPrice</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stopPrice")]
         public decimal StopPrice { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>size</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;

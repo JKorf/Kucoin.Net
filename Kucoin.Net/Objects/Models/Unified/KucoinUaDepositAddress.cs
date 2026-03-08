@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,47 +9,47 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaDepositAddress
     {
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Memo
+        /// ["<c>memo</c>"] Memo
         /// </summary>
         [JsonPropertyName("memo")]
         public string? Memo { get; set; }
         /// <summary>
-        /// Remark
+        /// ["<c>remark</c>"] Remark
         /// </summary>
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
-        /// Network id
+        /// ["<c>chainId</c>"] Network id
         /// </summary>
         [JsonPropertyName("chainId")]
         public string NetworkId { get; set; } = string.Empty;
         /// <summary>
-        /// To
+        /// ["<c>to</c>"] To
         /// </summary>
         [JsonPropertyName("to")]
         public UnifiedAccountType To { get; set; }
         /// <summary>
-        /// Expiration date
+        /// ["<c>expirationDate</c>"] Expiration date
         /// </summary>
         [JsonPropertyName("expirationDate")]
         public DateTime? ExpirationDate { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract address
+        /// ["<c>contractAddress</c>"] Contract address
         /// </summary>
         [JsonPropertyName("contractAddress")]
         public string ContractAddress { get; set; } = string.Empty;
         /// <summary>
-        /// Network name
+        /// ["<c>chainName</c>"] Network name
         /// </summary>
         [JsonPropertyName("chainName")]
         public string NetworkName { get; set; } = string.Empty;

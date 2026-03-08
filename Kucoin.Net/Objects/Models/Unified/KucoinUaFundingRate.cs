@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
 {
@@ -8,27 +8,27 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaFundingRate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Next funding rate
+        /// ["<c>nextFundingRate</c>"] Next funding rate
         /// </summary>
         [JsonPropertyName("nextFundingRate")]
         public decimal NextFundingRate { get; set; }
         /// <summary>
-        /// Funding time
+        /// ["<c>fundingTime</c>"] Funding time
         /// </summary>
         [JsonPropertyName("fundingTime")]
         public DateTime? FundingTime { get; set; }
         /// <summary>
-        /// Funding rate cap
+        /// ["<c>fundingRateCap</c>"] Funding rate cap
         /// </summary>
         [JsonPropertyName("fundingRateCap")]
         public decimal FundingRateCap { get; set; }
         /// <summary>
-        /// Funding rate floor
+        /// ["<c>fundingRateFloor</c>"] Funding rate floor
         /// </summary>
         [JsonPropertyName("fundingRateFloor")]
         public decimal FundingRateFloor { get; set; }

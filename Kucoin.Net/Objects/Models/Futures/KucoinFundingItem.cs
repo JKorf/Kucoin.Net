@@ -10,48 +10,48 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFundingItem
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Time point
+        /// ["<c>timePoint</c>"] Time point
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timePoint")]
         public DateTime TimePoint { get; set; }
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>markPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Position quantity
+        /// ["<c>positionQty</c>"] Position quantity
         /// </summary>
         [JsonPropertyName("positionQty")]
         public decimal PositionQuantity { get; set; }
         /// <summary>
-        /// Position value at settlement period
+        /// ["<c>positionCost</c>"] Position value at settlement period
         /// </summary>
         [JsonPropertyName("positionCost")]
         public decimal PositionCost { get; set; }
         /// <summary>
-        /// Settled funding fees. A positive number means that the user received the funding fee, and vice versa.
+        /// ["<c>funding</c>"] Settled funding fees. A positive number means that the user received the funding fee, and vice versa.
         /// </summary>
         [JsonPropertyName("funding")]
         public decimal Funding { get; set; }
         /// <summary>
-        /// Settlement asset
+        /// ["<c>settleCurrency</c>"] Settlement asset
         /// </summary>
         [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;

@@ -10,12 +10,12 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinMarginModes
     {
         /// <summary>
-        /// Errors
+        /// ["<c>errors</c>"] Errors
         /// </summary>
         [JsonPropertyName("errors")]
         public KucoinMarginModeError[] Errors { get; set; } = [];
         /// <summary>
-        /// Margin modes for each symbol
+        /// ["<c>marginMode</c>"] Margin modes for each symbol
         /// </summary>
         [JsonPropertyName("marginMode")]
         public Dictionary<string, FuturesMarginMode> MarginModes { get; set; } = new();
@@ -27,17 +27,17 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinMarginModeError
     {
         /// <summary>
-        /// Error code
+        /// ["<c>code</c>"] Error code
         /// </summary>
         [JsonPropertyName("code")]
         public int Code { get; set; }
         /// <summary>
-        /// Error message
+        /// ["<c>msg</c>"] Error message
         /// </summary>
         [JsonPropertyName("msg")]
         public string Message { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;

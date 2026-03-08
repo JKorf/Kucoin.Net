@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Unified
 {
@@ -8,102 +8,102 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinSpotSymbol
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset
+        /// ["<c>baseCurrency</c>"] Base asset
         /// </summary>
         [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset
+        /// ["<c>quoteCurrency</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Market
+        /// ["<c>market</c>"] Market
         /// </summary>
         [JsonPropertyName("market")]
         public string Market { get; set; } = string.Empty;
         /// <summary>
-        /// Min order quantity in base asset
+        /// ["<c>minBaseOrderSize</c>"] Min order quantity in base asset
         /// </summary>
         [JsonPropertyName("minBaseOrderSize")]
         public decimal MinBaseOrderQuantity { get; set; }
         /// <summary>
-        /// Min order quantity in quote asset
+        /// ["<c>minQuoteOrderSize</c>"] Min order quantity in quote asset
         /// </summary>
         [JsonPropertyName("minQuoteOrderSize")]
         public decimal MinQuoteOrderQuantity { get; set; }
         /// <summary>
-        /// Max order quantity in base asset
+        /// ["<c>maxBaseOrderSize</c>"] Max order quantity in base asset
         /// </summary>
         [JsonPropertyName("maxBaseOrderSize")]
         public decimal MaxBaseOrderQuantity { get; set; }
         /// <summary>
-        /// Max order quantity in quote asset
+        /// ["<c>maxQuoteOrderSize</c>"] Max order quantity in quote asset
         /// </summary>
         [JsonPropertyName("maxQuoteOrderSize")]
         public decimal MaxQuoteOrderQuantity { get; set; }
         /// <summary>
-        /// Base asset quantity step
+        /// ["<c>baseOrderStep</c>"] Base asset quantity step
         /// </summary>
         [JsonPropertyName("baseOrderStep")]
         public decimal BaseOrderStep { get; set; }
         /// <summary>
-        /// Quote asset quantity step
+        /// ["<c>quoteOrderStep</c>"] Quote asset quantity step
         /// </summary>
         [JsonPropertyName("quoteOrderStep")]
         public decimal QuoteOrderStep { get; set; }
         /// <summary>
-        /// Price tick quantity
+        /// ["<c>tickSize</c>"] Price tick quantity
         /// </summary>
         [JsonPropertyName("tickSize")]
         public decimal TickQuantity { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>feeCurrency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Trading status
+        /// ["<c>tradingStatus</c>"] Trading status
         /// </summary>
         [JsonPropertyName("tradingStatus")]
         public TradingStatus TradingStatus { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
         public MarginEnabledMode IsMarginEnabled { get; set; }
         /// <summary>
-        /// Price limit ratio
+        /// ["<c>priceLimitRatio</c>"] Price limit ratio
         /// </summary>
         [JsonPropertyName("priceLimitRatio")]
         public decimal PriceLimitRatio { get; set; }
         /// <summary>
-        /// Fee category
+        /// ["<c>feeCategory</c>"] Fee category
         /// </summary>
         [JsonPropertyName("feeCategory")]
         public int FeeCategory { get; set; }
         /// <summary>
-        /// Maker fee coefficient
+        /// ["<c>makerFeeCoefficient</c>"] Maker fee coefficient
         /// </summary>
         [JsonPropertyName("makerFeeCoefficient")]
         public decimal MakerFeeCoefficient { get; set; }
         /// <summary>
-        /// Taker fee coefficient
+        /// ["<c>takerFeeCoefficient</c>"] Taker fee coefficient
         /// </summary>
         [JsonPropertyName("takerFeeCoefficient")]
         public decimal TakerFeeCoefficient { get; set; }
         /// <summary>
-        /// Under special treatment
+        /// ["<c>st</c>"] Under special treatment
         /// </summary>
         [JsonPropertyName("st")]
         public bool SpecialTreatment { get; set; }

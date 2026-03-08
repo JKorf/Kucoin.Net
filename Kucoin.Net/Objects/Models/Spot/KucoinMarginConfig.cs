@@ -10,22 +10,22 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMarginConfig
     {
         /// <summary>
-        /// Available assets for margin trade
+        /// ["<c>currencyList</c>"] Available assets for margin trade
         /// </summary>
         [JsonPropertyName("currencyList")]
         public string[] Assets { get; set; } = Array.Empty<string>();
         /// <summary>
-        /// Warning debt ratio
+        /// ["<c>warningDebtRatio</c>"] Warning debt ratio
         /// </summary>
         [JsonPropertyName("warningDebtRatio")]
         public decimal WarningDebtRatio { get; set; }
         /// <summary>
-        /// Forced liquidation ratio
+        /// ["<c>liqDebtRatio</c>"] Forced liquidation ratio
         /// </summary>
         [JsonPropertyName("liqDebtRatio")]
         public decimal LiquidationDebtRatio { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }

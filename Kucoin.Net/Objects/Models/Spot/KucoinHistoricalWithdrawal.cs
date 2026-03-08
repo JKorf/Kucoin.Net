@@ -11,38 +11,38 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinHistoricalWithdrawal
     {
         /// <summary>
-        /// The asset of the withdrawal
+        /// ["<c>currency</c>"] The asset of the withdrawal
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The address the withdrawal was to
+        /// ["<c>address</c>"] The address the withdrawal was to
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// The status of the withdrawal
+        /// ["<c>status</c>"] The status of the withdrawal
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }
         /// <summary>
-        /// The wallet transaction id
+        /// ["<c>walletTxId</c>"] The wallet transaction id
         /// </summary>
         [JsonPropertyName("walletTxId")]
         public string WalletTransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// The time the withdrawal was created
+        /// ["<c>createAt</c>"] The time the withdrawal was created
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("createAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Whether it was an internal withdrawal
+        /// ["<c>isInner</c>"] Whether it was an internal withdrawal
         /// </summary>
         [JsonPropertyName("isInner")]
         public bool IsInner { get; set; }
         /// <summary>
-        /// The quantity of the withdrawal
+        /// ["<c>amount</c>"] The quantity of the withdrawal
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }

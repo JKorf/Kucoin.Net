@@ -7,57 +7,57 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinAccountOverview
     {
         /// <summary>
-        /// Account equity = marginBalance + Unrealized PNL 
+        /// ["<c>accountEquity</c>"] Account equity = marginBalance + Unrealized PNL 
         /// </summary>
         [JsonPropertyName("accountEquity")]
         public decimal AccountEquity { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealisedPNL</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPNL")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Margin balance = positionMargin + orderMargin + frozenFunds + availableBalance
+        /// ["<c>marginBalance</c>"] Margin balance = positionMargin + orderMargin + frozenFunds + availableBalance
         /// </summary>
         [JsonPropertyName("marginBalance")]
         public decimal MarginBalance { get; set; }
         /// <summary>
-        /// Position margin
+        /// ["<c>positionMargin</c>"] Position margin
         /// </summary>
         [JsonPropertyName("positionMargin")]
         public decimal PositionMargin { get; set; }
         /// <summary>
-        /// Order margin
+        /// ["<c>orderMargin</c>"] Order margin
         /// </summary>
         [JsonPropertyName("orderMargin")]
         public decimal OrderMargin { get; set; }
         /// <summary>
-        /// Frozen funds for withdrawal and out-transfer
+        /// ["<c>frozenFunds</c>"] Frozen funds for withdrawal and out-transfer
         /// </summary>
         [JsonPropertyName("frozenFunds")]
         public decimal FrozenFunds { get; set; }
         /// <summary>
-        /// Available balance
+        /// ["<c>availableBalance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Cross margin risk ratio
+        /// ["<c>riskRatio</c>"] Cross margin risk ratio
         /// </summary>
         [JsonPropertyName("riskRatio")]
         public decimal? RiskRatio { get; set; }
         /// <summary>
-        /// Max withdrawable quantity
+        /// ["<c>maxWithdrawAmount</c>"] Max withdrawable quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawAmount")]
         public decimal? MaxWithdrawQuantity { get; set; }
         /// <summary>
-        /// Available margin
+        /// ["<c>availableMargin</c>"] Available margin
         /// </summary>
         [JsonPropertyName("availableMargin")]
         public decimal? AvailableMargin { get; set; }

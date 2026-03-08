@@ -10,19 +10,19 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamCandle
     {
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Candles
+        /// ["<c>candles</c>"] Candles
         /// </summary>
         [JsonPropertyName("candles")]
         public KucoinKline Candles { get; set; } = default!;
 
         /// <summary>
-        /// The timestamp of the data
+        /// ["<c>time</c>"] The timestamp of the data
         /// </summary>
         [JsonPropertyName("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }

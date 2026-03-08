@@ -11,62 +11,62 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFuturesUserTrade: KucoinTradeBase
     {
         /// <summary>
-        /// The type of the order
+        /// ["<c>orderType</c>"] The type of the order
         /// </summary>
         [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
 
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public FuturesTradeType TradeType { get; set; }
 
         /// <summary>
-        /// Order value
+        /// ["<c>value</c>"] Order value
         /// </summary>
         [JsonPropertyName("value")]
         public decimal QuoteQuantity { get; set; }
         /// <summary>
-        /// Fixed fee
+        /// ["<c>fixFee</c>"] Fixed fee
         /// </summary>
         [JsonPropertyName("fixFee")]
         public decimal FixFee { get; set; }
 
         /// <summary>
-        /// Trade time
+        /// ["<c>tradeTime</c>"] Trade time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("tradeTime")]
         public DateTime TradeTime { get; set; }
         /// <summary>
-        /// Settlement asset
+        /// ["<c>settleCurrency</c>"] Settlement asset
         /// </summary>
         [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Opening transaction fee
+        /// ["<c>openFeePay</c>"] Opening transaction fee
         /// </summary>
         [JsonPropertyName("openFeePay")]
         public decimal? OpenFeePay { get; set; }
         /// <summary>
-        /// Closing transaction fee
+        /// ["<c>closeFeePay</c>"] Closing transaction fee
         /// </summary>
         [JsonPropertyName("closeFeePay")]
         public decimal? CloseFeePay { get; set; }
         /// <summary>
-        /// Whether to force processing as a taker
+        /// ["<c>forceTaker</c>"] Whether to force processing as a taker
         /// </summary>
         [JsonPropertyName("forceTaker")]
         public bool ForceTaker { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
 
         [JsonPropertyName("marginMode")]
         public FuturesMarginMode? MarginMode { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>positionSide</c>"] Position side
         /// </summary>
 
         [JsonPropertyName("positionSide")]

@@ -7,31 +7,31 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinRiskLimitIsolatedMargin
     {
         /// <summary>
-        /// The Symbol
+        /// ["<c>symbol</c>"] The Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Max borrow quantity
+        /// ["<c>baseMaxBorrowAmount</c>"] Max borrow quantity
         /// </summary>
         [JsonPropertyName("baseMaxBorrowAmount")]
         public decimal BaseMaxBorrowQuantity { get; set; }
 
         /// <summary>
-        /// Max borrow quantity
+        /// ["<c>quoteMaxBorrowAmount</c>"] Max borrow quantity
         /// </summary>
         [JsonPropertyName("quoteMaxBorrowAmount")]
         public decimal QuoteMaxBorrowQuantity { get; set; }
 
         /// <summary>
-        /// BaseMax buy quantity
+        /// ["<c>baseMaxBuyAmount</c>"] BaseMax buy quantity
         /// </summary>
         [JsonPropertyName("baseMaxBuyAmount")]
         public decimal BaseMaxBuyQuantity { get; set; }
 
         /// <summary>
-        /// Quote Max buy quantity
+        /// ["<c>quoteMaxBuyAmount</c>"] Quote Max buy quantity
         /// </summary>
         [JsonPropertyName("quoteMaxBuyAmount")]
         public decimal QuoteMaxBuyQuantity { get; set; }

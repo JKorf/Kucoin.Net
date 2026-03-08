@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Futures
+namespace Kucoin.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Cross margin risk limit
@@ -6,47 +6,47 @@
     public record KucoinCrossMarginRiskLimit
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Max open quantity
+        /// ["<c>maxOpenSize</c>"] Max open quantity
         /// </summary>
         [JsonPropertyName("maxOpenSize")]
         public decimal MaxOpenQuantity { get; set; }
         /// <summary>
-        /// Max open value
+        /// ["<c>maxOpenValue</c>"] Max open value
         /// </summary>
         [JsonPropertyName("maxOpenValue")]
         public decimal MaxOpenValue { get; set; }
         /// <summary>
-        /// Total margin
+        /// ["<c>totalMargin</c>"] Total margin
         /// </summary>
         [JsonPropertyName("totalMargin")]
         public decimal TotalMargin { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Maintenance margin rate
+        /// ["<c>mmr</c>"] Maintenance margin rate
         /// </summary>
         [JsonPropertyName("mmr")]
         public decimal MaintenanceMarginRate { get; set; }
         /// <summary>
-        /// Initial margin rate
+        /// ["<c>imr</c>"] Initial margin rate
         /// </summary>
         [JsonPropertyName("imr")]
         public decimal InitialMarginRate { get; set; }
         /// <summary>
-        /// Margin asset
+        /// ["<c>currency</c>"] Margin asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;

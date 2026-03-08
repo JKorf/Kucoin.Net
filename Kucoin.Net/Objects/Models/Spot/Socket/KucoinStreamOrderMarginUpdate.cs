@@ -10,17 +10,17 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamOrderMarginUpdate
     {
         /// <summary>
-        /// Order margin
+        /// ["<c>orderMargin</c>"] Order margin
         /// </summary>
         [JsonPropertyName("orderMargin")]
         public decimal OrderMargin { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

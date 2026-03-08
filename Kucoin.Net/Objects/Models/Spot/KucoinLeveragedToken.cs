@@ -7,32 +7,32 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinLeveragedToken
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Net worth
+        /// ["<c>netAsset</c>"] Net worth
         /// </summary>
         [JsonPropertyName("netAsset")]
         public decimal NetWorth { get; set; }
         /// <summary>
-        /// Target leverage
+        /// ["<c>targetLeverage</c>"] Target leverage
         /// </summary>
         [JsonPropertyName("targetLeverage")]
         public string TargetLeverage { get; set; } = string.Empty;
         /// <summary>
-        /// Actual leverage
+        /// ["<c>actualLeverage</c>"] Actual leverage
         /// </summary>
         [JsonPropertyName("actualLeverage")]
         public decimal ActualLeverage { get; set; }
         /// <summary>
-        /// Assets under management
+        /// ["<c>assetsUnderManagement</c>"] Assets under management
         /// </summary>
         [JsonPropertyName("assetsUnderManagement")]
         public string AssetsUnderManagement { get; set; } = string.Empty;
         /// <summary>
-        /// Basket info
+        /// ["<c>basket</c>"] Basket info
         /// </summary>
         [JsonPropertyName("basket")]
         public string Basket { get; set; } = string.Empty;

@@ -9,38 +9,38 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinHfOrderDetails : KucoinOrder
     {
         /// <summary>
-        /// Whether the order is active
+        /// ["<c>active</c>"] Whether the order is active
         /// </summary>
         [JsonPropertyName("active")]
         public override bool? IsActive { get; set; }
 
         /// <summary>
-        /// Is the order in the order book
+        /// ["<c>inOrderBook</c>"] Is the order in the order book
         /// </summary>
         [JsonPropertyName("inOrderBook")]
         public bool InOrderBook { get; set; }
         /// <summary>
-        /// Last update time
+        /// ["<c>lastUpdatedAt</c>"] Last update time
         /// </summary>
         [JsonPropertyName("lastUpdatedAt")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Quantity canceled
+        /// ["<c>cancelledSize</c>"] Quantity canceled
         /// </summary>
         [JsonPropertyName("cancelledSize")]
         public decimal? QuantityCanceled { get; set; }
         /// <summary>
-        /// Quote quantity canceled
+        /// ["<c>cancelledFunds</c>"] Quote quantity canceled
         /// </summary>
         [JsonPropertyName("cancelledFunds")]
         public decimal? QuoteQuantityCanceled { get; set; }
         /// <summary>
-        /// Remaining quantity
+        /// ["<c>remainSize</c>"] Remaining quantity
         /// </summary>
         [JsonPropertyName("remainSize")]
         public decimal? QuantityRemaining { get; set; }
         /// <summary>
-        /// Remaining quote quantity
+        /// ["<c>remainFunds</c>"] Remaining quote quantity
         /// </summary>
         [JsonPropertyName("remainFunds")]
         public decimal? QuoteQuantityRemaining { get; set; }

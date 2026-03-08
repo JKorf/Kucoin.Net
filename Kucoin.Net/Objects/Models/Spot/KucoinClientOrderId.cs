@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinClientOrderId
     {
         /// <summary>
-        /// The client id of the order
+        /// ["<c>clientOid</c>"] The client id of the order
         /// </summary>
         [JsonPropertyName("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;

@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,17 +9,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaBatchCancelResult
     {
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public UnifiedAccountType TradeType { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime? Timestamp { get; set; }
         /// <summary>
-        /// Items
+        /// ["<c>items</c>"] Items
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinUaCancelResult[] Items { get; set; } = [];
@@ -31,12 +31,12 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaCancelResult
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string? OrderId { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOid</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOid")]
         public string? ClientOrderId { get; set; }

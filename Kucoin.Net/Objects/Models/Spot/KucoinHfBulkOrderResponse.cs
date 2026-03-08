@@ -10,62 +10,62 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinHfOrder
     {
         /// <summary>
-        /// The id of the order
+        /// ["<c>orderId</c>"] The id of the order
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Order timestamp
+        /// ["<c>orderTime</c>"] Order timestamp
         /// </summary>
         [JsonPropertyName("orderTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderTime { get; set; }
         /// <summary>
-        /// Trade timestamp
+        /// ["<c>matchTime</c>"] Trade timestamp
         /// </summary>
         [JsonPropertyName("matchTime"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime? TradeTime { get; set; }
         /// <summary>
-        /// The quantity of the order
+        /// ["<c>originSize</c>"] The quantity of the order
         /// </summary>
         [JsonPropertyName("originSize")]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// The quote quantity of the order
+        /// ["<c>originFunds</c>"] The quote quantity of the order
         /// </summary>
         [JsonPropertyName("originFunds")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
-        /// The quantity of the order which was filled
+        /// ["<c>dealSize</c>"] The quantity of the order which was filled
         /// </summary>
         [JsonPropertyName("dealSize")]
         public decimal? QuantityFilled { get; set; }
         /// <summary>
-        /// The quote quantity of the order which was filled
+        /// ["<c>dealFunds</c>"] The quote quantity of the order which was filled
         /// </summary>
         [JsonPropertyName("dealFunds")]
         public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
-        /// The quantity of the order which is still open
+        /// ["<c>remainSize</c>"] The quantity of the order which is still open
         /// </summary>
         [JsonPropertyName("remainSize")]
         public decimal? QuantityRemaining { get; set; }
         /// <summary>
-        /// The quote quantity of the order which is still open
+        /// ["<c>remainFunds</c>"] The quote quantity of the order which is still open
         /// </summary>
         [JsonPropertyName("remainFunds")]
         public decimal? QuoteQuantityRemaining { get; set; }
         /// <summary>
-        /// The quantity of the order which was canceled
+        /// ["<c>canceledSize</c>"] The quantity of the order which was canceled
         /// </summary>
         [JsonPropertyName("canceledSize")]
         public decimal? QuantityCanceled { get; set; }
         /// <summary>
-        /// The quote quantity of the order which was canceled
+        /// ["<c>canceledFunds</c>"] The quote quantity of the order which was canceled
         /// </summary>
         [JsonPropertyName("canceledFunds")]
         public decimal? QuoteQuantityCanceled { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
 
         [JsonPropertyName("status")]
@@ -79,13 +79,13 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinHfBulkOrderResponse : KucoinHfOrder
     {
         /// <summary>
-        /// Successful or not
+        /// ["<c>success</c>"] Successful or not
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
 
         /// <summary>
-        /// Error message
+        /// ["<c>failMsg</c>"] Error message
         /// </summary>
         [JsonPropertyName("failMsg")]
         public string? ErrorMessage { get; set; }

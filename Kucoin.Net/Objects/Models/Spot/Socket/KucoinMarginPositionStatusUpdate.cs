@@ -11,13 +11,13 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinMarginPositionStatusUpdate
     {
         /// <summary>
-        /// Event type
+        /// ["<c>type</c>"] Event type
         /// </summary>
         [JsonPropertyName("type")]
 
         public MarginEventType TotalDebt { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

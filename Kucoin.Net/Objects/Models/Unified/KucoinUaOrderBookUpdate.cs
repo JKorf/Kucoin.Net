@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Objects.Models.Spot;
+using Kucoin.Net.Objects.Models.Spot;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,32 +9,32 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaOrderBookUpdate
     {
         /// <summary>
-        /// Start sequence number
+        /// ["<c>O</c>"] Start sequence number
         /// </summary>
         [JsonPropertyName("O")]
         public long StartSequence { get; set; }
         /// <summary>
-        /// End sequence number
+        /// ["<c>C</c>"] End sequence number
         /// </summary>
         [JsonPropertyName("C")]
         public long EndSequence { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>M</c>"] Update time
         /// </summary>
         [JsonPropertyName("M")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
-        /// Symbol name
+        /// ["<c>s</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Bids
+        /// ["<c>b</c>"] Bids
         /// </summary>
         [JsonPropertyName("b")]
         public KucoinOrderBookEntry[] Bids { get; set; } = [];
         /// <summary>
-        /// Asks
+        /// ["<c>a</c>"] Asks
         /// </summary>
         [JsonPropertyName("a")]
         public KucoinOrderBookEntry[] Asks { get; set; } = [];

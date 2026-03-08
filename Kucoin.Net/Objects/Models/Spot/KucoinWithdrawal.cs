@@ -11,7 +11,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinWithdrawal
     {
         /// <summary>
-        /// The id of the withdrawal
+        /// ["<c>id</c>"] The id of the withdrawal
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
@@ -19,70 +19,70 @@ namespace Kucoin.Net.Objects.Models.Spot
         internal string WithdrawalId { set => Id = value; get => Id; }
 
         /// <summary>
-        /// The address the withdrawal is to
+        /// ["<c>address</c>"] The address the withdrawal is to
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// The memo for the withdrawal
+        /// ["<c>memo</c>"] The memo for the withdrawal
         /// </summary>
         [JsonPropertyName("memo")]
         public string Memo { get; set; } = string.Empty;
         /// <summary>
-        /// The remark for the withdrawal
+        /// ["<c>remark</c>"] The remark for the withdrawal
         /// </summary>
         [JsonPropertyName("remark")]
         public string Remark { get; set; } = string.Empty;
         /// <summary>
-        /// The asset of the withdrawal
+        /// ["<c>currency</c>"] The asset of the withdrawal
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The quantity of the withdrawal
+        /// ["<c>amount</c>"] The quantity of the withdrawal
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// The fee of the withdrawal
+        /// ["<c>fee</c>"] The fee of the withdrawal
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// The wallet transaction id
+        /// ["<c>walletTxId</c>"] The wallet transaction id
         /// </summary>
         [JsonPropertyName("walletTxId")]
         public string WalletTransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// Whether it is an internal withdrawal
+        /// ["<c>isInner</c>"] Whether it is an internal withdrawal
         /// </summary>
         [JsonPropertyName("isInner")]
         public bool IsInner { get; set; }
         /// <summary>
-        /// Status of the converter
+        /// ["<c>status</c>"] Status of the converter
         /// </summary>
         [JsonPropertyName("status")]
         public WithdrawalStatus Status { get; set; }
         /// <summary>
-        /// The time the withdrawal was created
+        /// ["<c>createdAt</c>"] The time the withdrawal was created
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// The time the withdrawal was last updated
+        /// ["<c>updatedAt</c>"] The time the withdrawal was last updated
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("updatedAt")]
         public DateTime UpdateTime { get; set; }
 
         /// <summary>
-        /// Reason
+        /// ["<c>reason</c>"] Reason
         /// </summary>
         [JsonPropertyName("reason")]
         public string? Reason { get; set; }
         /// <summary>
-        /// The chain
+        /// ["<c>chain</c>"] The chain
         /// </summary>
         [JsonPropertyName("chain")]
         public string? Network { get; set; }

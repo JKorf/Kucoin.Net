@@ -10,32 +10,32 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinAccount
     {
         /// <summary>
-        /// The id of the account
+        /// ["<c>id</c>"] The id of the account
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// The asset of the account
+        /// ["<c>currency</c>"] The asset of the account
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The type of the account
+        /// ["<c>type</c>"] The type of the account
         /// </summary>
         [JsonPropertyName("type")]
         public AccountType Type { get; set; }
         /// <summary>
-        /// The total balance of the account
+        /// ["<c>balance</c>"] The total balance of the account
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Total { get; set; }
         /// <summary>
-        /// The available balance of the account
+        /// ["<c>available</c>"] The available balance of the account
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// The quantity of balance that's in hold
+        /// ["<c>holds</c>"] The quantity of balance that's in hold
         /// </summary>
         [JsonPropertyName("holds")]
         public decimal Holds { get; set; }

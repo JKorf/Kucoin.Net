@@ -11,27 +11,27 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamMatchEngineUpdate
     {
         /// <summary>
-        /// The symbol of the update
+        /// ["<c>symbol</c>"] The symbol of the update
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Update sequence
+        /// ["<c>sequence</c>"] Update sequence
         /// </summary>
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
-        /// The timestamp of the event
+        /// ["<c>ts</c>"] The timestamp of the event
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Id of the order
+        /// ["<c>orderId</c>"] Id of the order
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Id of the order
+        /// ["<c>clientOId</c>"] Id of the order
         /// </summary>
         [JsonPropertyName("clientOId")]
         public string ClientOrderId { get; set; } = string.Empty;
@@ -44,22 +44,22 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamMatchEngineOpenUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Order time
+        /// ["<c>orderTime</c>"] Order time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("orderTime")]
@@ -73,7 +73,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamMatchEngineDoneUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
-        /// Reason of the done update
+        /// ["<c>reason</c>"] Reason of the done update
         /// </summary>
         [JsonPropertyName("reason")]
         public MatchUpdateReason Reason { get; set; }
@@ -86,7 +86,7 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamMatchEngineChangeUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
-        /// New quantity of the order
+        /// ["<c>size</c>"] New quantity of the order
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
@@ -99,37 +99,37 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamMatchEngineMatchUpdate : KucoinStreamMatchEngineUpdate
     {
         /// <summary>
-        /// Price of the match
+        /// ["<c>price</c>"] Price of the match
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Match side
+        /// ["<c>side</c>"] Match side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Match quantity
+        /// ["<c>size</c>"] Match quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Remaing quantity on the order
+        /// ["<c>remainingSize</c>"] Remaing quantity on the order
         /// </summary>
         [JsonPropertyName("remainingSize")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Order id of taker
+        /// ["<c>takerOrderId</c>"] Order id of taker
         /// </summary>
         [JsonPropertyName("takerOrderId")]
         public string TakerOrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Order id of maker
+        /// ["<c>makerOrderId</c>"] Order id of maker
         /// </summary>
         [JsonPropertyName("makerOrderId")]
         public string MakerOrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Id of the trade
+        /// ["<c>tradeId</c>"] Id of the trade
         /// </summary>
         [JsonPropertyName("tradeId")]
         public string TradeId { get; set; } = string.Empty;

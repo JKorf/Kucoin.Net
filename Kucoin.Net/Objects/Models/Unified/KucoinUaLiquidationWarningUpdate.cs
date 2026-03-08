@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Spot;
 using System;
 
@@ -10,55 +10,55 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaLiquidationWarningUpdate
     {
         /// <summary>
-        /// Event type
+        /// ["<c>eT</c>"] Event type
         /// </summary>
         [JsonPropertyName("eT")]
         public LiquidationWarningType EventType { get; set; }
 
         /// <summary>
-        /// Risk ratio
+        /// ["<c>r</c>"] Risk ratio
         /// </summary>
         [JsonPropertyName("r")]
         public decimal RiskRatio { get; set; }
 
         /// <summary>
-        /// Adjusted equity
+        /// ["<c>a</c>"] Adjusted equity
         /// </summary>
         [JsonPropertyName("a")]
         public decimal AdjustedEquity { get; set; }
 
         /// <summary>
-        /// Initial margin
+        /// ["<c>iM</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("iM")]
         public decimal InitialMargin { get; set; }
 
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>mM</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("mM")]
         public decimal MaintenanceMargin { get; set; }
 
         /// <summary>
-        /// Available margin
+        /// ["<c>aM</c>"] Available margin
         /// </summary>
         [JsonPropertyName("aM")]
         public decimal AvailableMargin { get; set; }
 
         /// <summary>
-        /// Equity
+        /// ["<c>e</c>"] Equity
         /// </summary>
         [JsonPropertyName("e")]
         public decimal Equity { get; set; }
 
         /// <summary>
-        /// Liability
+        /// ["<c>l</c>"] Liability
         /// </summary>
         [JsonPropertyName("l")]
         public decimal Liability { get; set; }
 
         /// <summary>
-        /// Update time
+        /// ["<c>U</c>"] Update time
         /// </summary>
         [JsonPropertyName("U")]
         public DateTime UpdateTime { get; set; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +12,12 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaResult
     {
         /// <summary>
-        /// Client oid
+        /// ["<c>clientOid</c>"] Client oid
         /// </summary>
         [JsonPropertyName("clientOid")]
         public string? ClientOid { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;

@@ -12,22 +12,22 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinFullOrderBook
     {
         /// <summary>
-        /// The last sequence number of this order book state
+        /// ["<c>sequence</c>"] The last sequence number of this order book state
         /// </summary>
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
-        /// The timestamp of the data
+        /// ["<c>time</c>"] The timestamp of the data
         /// </summary>
         [JsonPropertyName("time"), JsonConverter(typeof(DateTimeConverter))]        
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The list of asks
+        /// ["<c>asks</c>"] The list of asks
         /// </summary>
         [JsonPropertyName("asks")]
         public KucoinFullOrderBookEntry[] Asks { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
         /// <summary>
-        /// The list of bids
+        /// ["<c>bids</c>"] The list of bids
         /// </summary>
         [JsonPropertyName("bids")]
         public KucoinFullOrderBookEntry[] Bids { get; set; } = Array.Empty<KucoinFullOrderBookEntry>();
@@ -40,12 +40,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinOrderBook
     {
         /// <summary>
-        /// The last sequence number of this order book state
+        /// ["<c>sequence</c>"] The last sequence number of this order book state
         /// </summary>
         [JsonPropertyName("sequence")]
         public long? Sequence { get; set; }
         /// <summary>
-        /// The timestamp of the data
+        /// ["<c>time</c>"] The timestamp of the data
         /// </summary>
         [JsonPropertyName("time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
@@ -57,18 +57,18 @@ namespace Kucoin.Net.Objects.Models.Spot
         }
 
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string? Symbol { get; set; }
 
         /// <summary>
-        /// The list of asks
+        /// ["<c>asks</c>"] The list of asks
         /// </summary>
         [JsonPropertyName("asks")]
         public KucoinOrderBookEntry[] Asks { get; set; } = Array.Empty<KucoinOrderBookEntry>();
         /// <summary>
-        /// The list of bids
+        /// ["<c>bids</c>"] The list of bids
         /// </summary>
         [JsonPropertyName("bids")]
         public KucoinOrderBookEntry[] Bids { get; set; } = Array.Empty<KucoinOrderBookEntry>();

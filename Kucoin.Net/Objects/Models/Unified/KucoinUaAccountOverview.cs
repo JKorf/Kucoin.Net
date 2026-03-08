@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,42 +13,42 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaAccountOverview
     {
         /// <summary>
-        /// Account type
+        /// ["<c>accountType</c>"] Account type
         /// </summary>
         [JsonPropertyName("accountType")]
         public AccountType AccountType { get; set; }
         /// <summary>
-        /// Risk ratio
+        /// ["<c>riskRatio</c>"] Risk ratio
         /// </summary>
         [JsonPropertyName("riskRatio")]
         public decimal RiskRatio { get; set; }
         /// <summary>
-        /// Equity
+        /// ["<c>equity</c>"] Equity
         /// </summary>
         [JsonPropertyName("equity")]
         public decimal Equity { get; set; }
         /// <summary>
-        /// Liability
+        /// ["<c>liability</c>"] Liability
         /// </summary>
         [JsonPropertyName("liability")]
         public decimal Liability { get; set; }
         /// <summary>
-        /// Available margin
+        /// ["<c>availableMargin</c>"] Available margin
         /// </summary>
         [JsonPropertyName("availableMargin")]
         public decimal AvailableMargin { get; set; }
         /// <summary>
-        /// Adjusted equity
+        /// ["<c>adjustedEquity</c>"] Adjusted equity
         /// </summary>
         [JsonPropertyName("adjustedEquity")]
         public decimal AdjustedEquity { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>im</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("im")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>mm</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("mm")]
         public decimal MaintenanceMargin { get; set; }

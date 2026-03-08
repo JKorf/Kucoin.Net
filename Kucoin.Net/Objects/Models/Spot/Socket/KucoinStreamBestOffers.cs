@@ -10,19 +10,19 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinStreamBestOffers
     {
         /// <summary>
-        /// Data timestamp
+        /// ["<c>timestamp</c>"] Data timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// The current best ask
+        /// ["<c>asks</c>"] The current best ask
         /// </summary>
         [JsonPropertyName("asks")]
         public KucoinStreamOrderBookEntry BestAsk { get; set; } = null!;
         /// <summary>
-        /// The current best bid
+        /// ["<c>bids</c>"] The current best bid
         /// </summary>
         [JsonPropertyName("bids")]
         public KucoinStreamOrderBookEntry BestBid { get; set; } = null!;

@@ -11,33 +11,33 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinHistoricalDeposit
     {
         /// <summary>
-        /// The asset of the deposit
+        /// ["<c>currency</c>"] The asset of the deposit
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The status of the deposit
+        /// ["<c>status</c>"] The status of the deposit
         /// </summary>
         [JsonPropertyName("status")]
         public DepositStatus Status { get; set; }
         /// <summary>
-        /// The wallet transaction id
+        /// ["<c>walletTxId</c>"] The wallet transaction id
         /// </summary>
         [JsonPropertyName("walletTxId")]
         public string WalletTransactionId { get; set; } = string.Empty;
         /// <summary>
-        /// The time the deposit was created
+        /// ["<c>createAt</c>"] The time the deposit was created
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("createAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Whether is is an internal deposit
+        /// ["<c>isInner</c>"] Whether is is an internal deposit
         /// </summary>
         [JsonPropertyName("isInner")]
         public bool IsInner { get; set; }
         /// <summary>
-        /// The quantity of the deposit
+        /// ["<c>amount</c>"] The quantity of the deposit
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }

@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,22 +9,22 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaDcp
     {
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public UnifiedSimpleAccountType TradeType { get; set; }
         /// <summary>
-        /// Symbols
+        /// ["<c>symbol</c>"] Symbols
         /// </summary>
         [JsonPropertyName("symbol")]
         public string[]? Symbols { get; set; }
         /// <summary>
-        /// System time
+        /// ["<c>systemTime</c>"] System time
         /// </summary>
         [JsonPropertyName("systemTime")]
         public DateTime SystemTime { get; set; }
         /// <summary>
-        /// Trigger time
+        /// ["<c>triggerTime</c>"] Trigger time
         /// </summary>
         [JsonPropertyName("triggerTime")]
         public DateTime TriggerTime { get; set; }

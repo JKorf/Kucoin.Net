@@ -7,17 +7,17 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinPositionRiskAdjustResultUpdate
     {
         /// <summary>
-        /// Successfull or not
+        /// ["<c>success</c>"] Successfull or not
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
         /// <summary>
-        /// Current risk limit level
+        /// ["<c>riskLimitLevel</c>"] Current risk limit level
         /// </summary>
         [JsonPropertyName("riskLimitLevel")]
         public bool RiskLimitLevel { get; set; }
         /// <summary>
-        /// Failure reason
+        /// ["<c>msg</c>"] Failure reason
         /// </summary>
         [JsonPropertyName("msg")]
         public string Message { get; set; } = string.Empty;

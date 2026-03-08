@@ -10,17 +10,17 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamFuturesWithdrawableUpdate
     {
         /// <summary>
-        /// Current frozen quantity for withdrawal
+        /// ["<c>withdrawHold</c>"] Current frozen quantity for withdrawal
         /// </summary>
         [JsonPropertyName("withdrawHold")]
         public decimal WithdrawHold { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

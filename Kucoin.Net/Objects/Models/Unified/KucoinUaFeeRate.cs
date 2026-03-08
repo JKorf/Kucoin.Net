@@ -1,4 +1,4 @@
-﻿namespace Kucoin.Net.Objects.Models.Unified
+namespace Kucoin.Net.Objects.Models.Unified
 {
     internal record KucoinUaFeeRates
     {
@@ -12,17 +12,17 @@
     public record KucoinUaFeeRate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>takerFeeRate</c>"] Taker fee rate
         /// </summary>
         [JsonPropertyName("takerFeeRate")]
         public decimal TakerFeeRate { get; set; }
         /// <summary>
-        /// Maker fee rate
+        /// ["<c>makerFeeRate</c>"] Maker fee rate
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal MakerFeeRate { get; set; }

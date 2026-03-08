@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinLeverageUpdate
     {
         /// <summary>
-        /// Leverage value
+        /// ["<c>leverage</c>"] Leverage value
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }

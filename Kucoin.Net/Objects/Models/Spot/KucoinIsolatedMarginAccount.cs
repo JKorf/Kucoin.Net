@@ -11,17 +11,17 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinIsolatedMarginAccountsInfo
     {
         /// <summary>
-        /// The total balance of the isolated margin account (in the specified coin)
+        /// ["<c>totalConversionBalance</c>"] The total balance of the isolated margin account (in the specified coin)
         /// </summary>
         [JsonPropertyName("totalConversionBalance")]
         public decimal TotalConversionBalance { get; set; }
         /// <summary>
-        /// Total liabilities of the isolated margin account (in the specified coin)
+        /// ["<c>liabilityConversionBalance</c>"] Total liabilities of the isolated margin account (in the specified coin)
         /// </summary>
         [JsonPropertyName("liabilityConversionBalance")]
         public decimal LiabilityConversionBalance { get; set; }
         /// <summary>
-        /// Account list
+        /// ["<c>assets</c>"] Account list
         /// </summary>
         [JsonPropertyName("assets")]
         public KucoinIsolatedMarginAccount[] Assets { get; set; } = Array.Empty<KucoinIsolatedMarginAccount>();
@@ -34,28 +34,28 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinIsolatedMarginAccount
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position status
+        /// ["<c>status</c>"] Position status
         /// </summary>
 
         [JsonPropertyName("status")]
         public IsolatedMargingAccountStatus Status { get; set; }
         /// <summary>
-        /// Debt ratio
+        /// ["<c>debtRatio</c>"] Debt ratio
         /// </summary>
         [JsonPropertyName("debtRatio")]
         public decimal DebtRatio { get; set; }
         /// <summary>
-        /// Base asset info
+        /// ["<c>baseAsset</c>"] Base asset info
         /// </summary>
         [JsonPropertyName("baseAsset")]
         public KucoinIsolatedMarginAccountAsset BaseAsset { get; set; } = null!;
         /// <summary>
-        /// Quote asset info
+        /// ["<c>quoteAsset</c>"] Quote asset info
         /// </summary>
         [JsonPropertyName("quoteAsset")]
         public KucoinIsolatedMarginAccountAsset QuoteAsset { get; set; } = null!;
@@ -68,37 +68,37 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinIsolatedMarginAccountAsset
     {
         /// <summary>
-        /// Currency
+        /// ["<c>currency</c>"] Currency
         /// </summary>
         [JsonPropertyName("currency")]
         public string Currency { get; set; } = string.Empty;
         /// <summary>
-        /// Total balance
+        /// ["<c>totalBalance</c>"] Total balance
         /// </summary>
         [JsonPropertyName("totalBalance")]
         public decimal TotalBalance { get; set; }
         /// <summary>
-        /// Frozen balance
+        /// ["<c>holdBalance</c>"] Frozen balance
         /// </summary>
         [JsonPropertyName("holdBalance")]
         public decimal HoldBalance { get; set; }
         /// <summary>
-        /// Available balance
+        /// ["<c>availableBalance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Liability
+        /// ["<c>liability</c>"] Liability
         /// </summary>
         [JsonPropertyName("liability")]
         public decimal Liability { get; set; }
         /// <summary>
-        /// Interset
+        /// ["<c>interest</c>"] Interset
         /// </summary>
         [JsonPropertyName("interest")]
         public decimal Interest { get; set; }
         /// <summary>
-        /// Borrowable quantity
+        /// ["<c>borrowableAmount</c>"] Borrowable quantity
         /// </summary>
         [JsonPropertyName("borrowableAmount")]
         public decimal BorrowableQuantity { get; set; }

@@ -9,83 +9,83 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinIsolatedRiskLimitConfig
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Base asset max borrow quantity
+        /// ["<c>baseMaxBorrowAmount</c>"] Base asset max borrow quantity
         /// </summary>
         [JsonPropertyName("baseMaxBorrowAmount")]
         public decimal BaseBorrowMaxQuantity { get; set; }
         /// <summary>
-        /// Base asset max buy quantity
+        /// ["<c>baseMaxBuyAmount</c>"] Base asset max buy quantity
         /// </summary>
         [JsonPropertyName("baseMaxBuyAmount")]
         public decimal BaseBuyMaxQuantity { get; set; }
         /// <summary>
-        /// Base asset max hold quantity
+        /// ["<c>baseMaxHoldAmount</c>"] Base asset max hold quantity
         /// </summary>
         [JsonPropertyName("baseMaxHoldAmount")]
         public decimal BaseHoldMaxQuantity { get; set; }
         /// <summary>
-        /// Base asset precision
+        /// ["<c>basePrecision</c>"] Base asset precision
         /// </summary>
         [JsonPropertyName("basePrecision")]
         public int BasePrecision { get; set; }
         /// <summary>
-        /// Base asset min borrow quantity
+        /// ["<c>baseBorrowMinAmount</c>"] Base asset min borrow quantity
         /// </summary>
         [JsonPropertyName("baseBorrowMinAmount")]
         public decimal? BaseBorrowMinQuantity { get; set; }
         /// <summary>
-        /// Base asset minimum unit for borrowing
+        /// ["<c>baseBorrowMinUnit</c>"] Base asset minimum unit for borrowing
         /// </summary>
         [JsonPropertyName("baseBorrowMinUnit")]
         public decimal? BaseBorrowMinUnit { get; set; }
         /// <summary>
-        /// Base asset borrow is enabled
+        /// ["<c>baseBorrowEnabled</c>"] Base asset borrow is enabled
         /// </summary>
         [JsonPropertyName("baseBorrowEnabled")]
         public bool BaseBorrowEnabled { get; set; }
         /// <summary>
-        /// Quote asset max borrow quantity
+        /// ["<c>quoteMaxBorrowAmount</c>"] Quote asset max borrow quantity
         /// </summary>
         [JsonPropertyName("quoteMaxBorrowAmount")]
         public decimal QuoteBorrowMaxQuantity { get; set; }
         /// <summary>
-        /// Quote asset max buy quantity
+        /// ["<c>quoteMaxBuyAmount</c>"] Quote asset max buy quantity
         /// </summary>
         [JsonPropertyName("quoteMaxBuyAmount")]
         public decimal QuoteBuyMaxQuantity { get; set; }
         /// <summary>
-        /// Quote asset max hold quantity
+        /// ["<c>quoteMaxHoldAmount</c>"] Quote asset max hold quantity
         /// </summary>
         [JsonPropertyName("quoteMaxHoldAmount")]
         public decimal QuoteHoldMaxQuantity { get; set; }
         /// <summary>
-        /// Quote asset precision
+        /// ["<c>quotePrecision</c>"] Quote asset precision
         /// </summary>
         [JsonPropertyName("quotePrecision")]
         public int QuotePrecision { get; set; }
         /// <summary>
-        /// Quote asset min borrow quantity
+        /// ["<c>quoteBorrowMinAmount</c>"] Quote asset min borrow quantity
         /// </summary>
         [JsonPropertyName("quoteBorrowMinAmount")]
         public decimal? QuoteBorrowMinQuantity { get; set; }
         /// <summary>
-        /// Quote asset minimum unit for borrowing
+        /// ["<c>quoteBorrowMinUnit</c>"] Quote asset minimum unit for borrowing
         /// </summary>
         [JsonPropertyName("quoteBorrowMinUnit")]
         public decimal? QuoteBorrowMinUnit { get; set; }
         /// <summary>
-        /// Quote asset borrow is enabled
+        /// ["<c>quoteBorrowEnabled</c>"] Quote asset borrow is enabled
         /// </summary>
         [JsonPropertyName("quoteBorrowEnabled")]
         public bool QuoteBorrowEnabled { get; set; }

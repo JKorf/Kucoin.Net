@@ -11,12 +11,12 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinPaginatedSlider<T>
     {
         /// <summary>
-        /// If there are more pages
+        /// ["<c>hasMore</c>"] If there are more pages
         /// </summary>
         [JsonPropertyName("hasMore")]
         public bool HasMore { get; set; }
         /// <summary>
-        /// Data list
+        /// ["<c>dataList</c>"] Data list
         /// </summary>
         [JsonPropertyName("dataList")]
         public T[] Data { get; set; } = Array.Empty<T>();

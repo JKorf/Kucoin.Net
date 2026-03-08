@@ -10,83 +10,83 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record Kucoin24HourStat
     {
         /// <summary>
-        /// The symbol the stat is for
+        /// ["<c>symbol</c>"] The symbol the stat is for
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// The highest price in the last 24 hours
+        /// ["<c>high</c>"] The highest price in the last 24 hours
         /// </summary>
         [JsonPropertyName("high")]
         public decimal? HighPrice { get; set; }
         /// <summary>
-        /// The lowest price in the last 24 hours
+        /// ["<c>low</c>"] The lowest price in the last 24 hours
         /// </summary>
         [JsonPropertyName("low")]
         public decimal? LowPrice { get; set; }
         /// <summary>
-        /// The volume of the past 24 hours
+        /// ["<c>vol</c>"] The volume of the past 24 hours
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal? Volume { get; set; }
         /// <summary>
-        /// The value of the volume in the past 24 hours
+        /// ["<c>volValue</c>"] The value of the volume in the past 24 hours
         /// </summary>
         [JsonPropertyName("volValue")]
         public decimal? QuoteVolume { get; set; }
         /// <summary>
-        /// The last trade price
+        /// ["<c>last</c>"] The last trade price
         /// </summary>
         [JsonPropertyName("last")]
         public decimal? LastPrice { get; set; }
         /// <summary>
-        /// The best ask price
+        /// ["<c>buy</c>"] The best ask price
         /// </summary>
         [JsonPropertyName("buy")]
         public decimal? BestAskPrice { get; set; }
         /// <summary>
-        /// The best bid price
+        /// ["<c>sell</c>"] The best bid price
         /// </summary>
         [JsonPropertyName("sell")]
         public decimal? BestBidPrice { get; set; }
         /// <summary>
-        /// The price change since 24 hours ago
+        /// ["<c>changePrice</c>"] The price change since 24 hours ago
         /// </summary>
         [JsonPropertyName("changePrice")]
         public decimal? ChangePrice { get; set; }
         /// <summary>
-        /// The percentage change since 24 hours ago
+        /// ["<c>changeRate</c>"] The percentage change since 24 hours ago
         /// </summary>
         [JsonPropertyName("changeRate")]
         public decimal? ChangePercentage { get; set; }
         /// <summary>
-        /// The timestamp of the data
+        /// ["<c>time</c>"] The timestamp of the data
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter)), JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The average trade price in the last 24 hours
+        /// ["<c>averagePrice</c>"] The average trade price in the last 24 hours
         /// </summary>
         [JsonPropertyName("averagePrice")]
         public decimal? AveragePrice { get; set; }
 
         /// <summary>
-        /// Basic Taker Fee
+        /// ["<c>takerFeeRate</c>"] Basic Taker Fee
         /// </summary>
         [JsonPropertyName("takerFeeRate")]
         public decimal? TakerFeeRate { get; set; }
         /// <summary>
-        /// Basic Maker Fee
+        /// ["<c>makerFeeRate</c>"] Basic Maker Fee
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal? MakerFeeRate { get; set; }
         /// <summary>
-        /// Taker Fee Coefficient
+        /// ["<c>takerCoefficient</c>"] Taker Fee Coefficient
         /// </summary>
         [JsonPropertyName("takerCoefficient")]
         public decimal? TakerCoefficient { get; set; }
         /// <summary>
-        /// Maker Fee Coefficient
+        /// ["<c>makerCoefficient</c>"] Maker Fee Coefficient
         /// </summary>
         [JsonPropertyName("makerCoefficient")]
         public decimal? MakerCoefficient { get; set; }

@@ -9,22 +9,22 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMarginInterest
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Daily interest rate
+        /// ["<c>dayRatio</c>"] Daily interest rate
         /// </summary>
         [JsonPropertyName("dayRatio")]
         public decimal DailyInterestRate { get; set; }
         /// <summary>
-        /// Interest quantity
+        /// ["<c>interestAmount</c>"] Interest quantity
         /// </summary>
         [JsonPropertyName("interestAmount")]
         public decimal InterestQuantity { get; set; }
         /// <summary>
-        /// Timesatmp
+        /// ["<c>createdTime</c>"] Timesatmp
         /// </summary>
         [JsonPropertyName("createdTime")]
         [JsonConverter(typeof(DateTimeConverter))]

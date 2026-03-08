@@ -7,37 +7,37 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFuturesRiskLimit
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Level
+        /// ["<c>level</c>"] Level
         /// </summary>
         [JsonPropertyName("level")]
         public int Level { get; set; }
         /// <summary>
-        /// Max risk limit
+        /// ["<c>maxRiskLimit</c>"] Max risk limit
         /// </summary>
         [JsonPropertyName("maxRiskLimit")]
         public int MaxRiskLimit { get; set; }
         /// <summary>
-        /// Min risk limit
+        /// ["<c>minRiskLimit</c>"] Min risk limit
         /// </summary>
         [JsonPropertyName("minRiskLimit")]
         public int MinRiskLimit { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initialMargin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initialMargin")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintainMargin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintainMargin")]
         public decimal MaintainMargin { get; set; }

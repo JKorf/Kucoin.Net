@@ -7,22 +7,22 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinAccountSingle
     {
         /// <summary>
-        /// The asset of the account
+        /// ["<c>currency</c>"] The asset of the account
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The total balance of the account
+        /// ["<c>balance</c>"] The total balance of the account
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Total { get; set; }
         /// <summary>
-        /// the available quantity in the account
+        /// ["<c>available</c>"] the available quantity in the account
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// The quantity in hold of the account
+        /// ["<c>holds</c>"] The quantity in hold of the account
         /// </summary>
         [JsonPropertyName("holds")]
         public decimal Holds { get; set; }

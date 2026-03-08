@@ -10,17 +10,17 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamFuturesFundingRate
     {
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Granularity
+        /// ["<c>granularity</c>"] Granularity
         /// </summary>
         [JsonPropertyName("granularity")]
         public int Granularity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

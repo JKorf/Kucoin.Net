@@ -10,22 +10,22 @@ namespace Kucoin.Net.Objects.Models.Spot.Socket
     public record KucoinMarginDebtRatioUpdate
     {
         /// <summary>
-        /// Debt ratio
+        /// ["<c>debtRatio</c>"] Debt ratio
         /// </summary>
         [JsonPropertyName("debtRatio")]
         public decimal DebtRatio { get; set; }
         /// <summary>
-        /// Total debt in BTC
+        /// ["<c>totalDebt</c>"] Total debt in BTC
         /// </summary>
         [JsonPropertyName("totalDebt")]
         public decimal TotalDebt { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Debt list
+        /// ["<c>debtList</c>"] Debt list
         /// </summary>
         [JsonPropertyName("debtList")]
         public Dictionary<string, decimal> Debts { get; set; } = new Dictionary<string, decimal>();

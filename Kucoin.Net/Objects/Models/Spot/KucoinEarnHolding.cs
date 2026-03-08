@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Spot
@@ -9,97 +9,97 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinEarnHolding
     {
         /// <summary>
-        /// Holding ID
+        /// ["<c>orderId</c>"] Holding ID
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
 
         /// <summary>
-        /// Product ID
+        /// ["<c>productId</c>"] Product ID
         /// </summary>
         [JsonPropertyName("productId")]
         public string ProductId { get; set; } = string.Empty;
 
         /// <summary>
-        /// Product category
+        /// ["<c>productCategory</c>"] Product category
         /// </summary>
         [JsonPropertyName("productCategory")]
         public EarnProductCategory ProductCategory { get; set; }
 
         /// <summary>
-        /// Product sub-type
+        /// ["<c>productType</c>"] Product sub-type
         /// </summary>
         [JsonPropertyName("productType")]
         public string ProductType { get; set; } = string.Empty;
 
         /// <summary>
-        /// Hold asset
+        /// ["<c>currency</c>"] Hold asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
 
         /// <summary>
-        /// Income asset
+        /// ["<c>incomeCurrency</c>"] Income asset
         /// </summary>
         [JsonPropertyName("incomeCurrency")]
         public string IncomeAsset { get; set; } = string.Empty;
 
         /// <summary>
-        /// Annualized Rate of Return, for example, 0.035 is equal to 3.5% annualized rate of return
+        /// ["<c>returnRate</c>"] Annualized Rate of Return, for example, 0.035 is equal to 3.5% annualized rate of return
         /// </summary>
         [JsonPropertyName("returnRate")]
         public decimal ReturnRate { get; set; }
 
         /// <summary>
-        /// Holding amount
+        /// ["<c>holdAmount</c>"] Holding amount
         /// </summary>
         [JsonPropertyName("holdAmount")]
         public decimal HoldAmount { get; set; }
 
         /// <summary>
-        /// Redeemed amount
+        /// ["<c>redeemedAmount</c>"] Redeemed amount
         /// </summary>
         [JsonPropertyName("redeemedAmount")]
         public decimal RedeemedAmount { get; set; }
 
         /// <summary>
-        /// Redeeming amount
+        /// ["<c>redeemingAmount</c>"] Redeeming amount
         /// </summary>
         [JsonPropertyName("redeemingAmount")]
         public decimal RedeemingAmount { get; set; }
 
         /// <summary>
-        /// Product earliest interest start time
+        /// ["<c>lockStartTime</c>"] Product earliest interest start time
         /// </summary>
         [JsonPropertyName("lockStartTime")]
         public DateTime LockStartTime { get; set; }
 
         /// <summary>
-        /// Product maturity time
+        /// ["<c>lockEndTime</c>"] Product maturity time
         /// </summary>
         [JsonPropertyName("lockEndTime")]
         public DateTime? LockEndTime { get; set; }
 
         /// <summary>
-        /// Most recent subscription time
+        /// ["<c>purchaseTime</c>"] Most recent subscription time
         /// </summary>
         [JsonPropertyName("purchaseTime")]
         public DateTime PurchaseTime { get; set; }
 
         /// <summary>
-        /// Redemption waiting period (days)
+        /// ["<c>redeemPeriod</c>"] Redemption waiting period (days)
         /// </summary>
         [JsonPropertyName("redeemPeriod")]
         public int RedeemPeriod { get; set; }
 
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public EarnHoldingStatus Status { get; set; }
 
         /// <summary>
-        /// Whether the fixed product supports early redemption
+        /// ["<c>earlyRedeemSupported</c>"] Whether the fixed product supports early redemption
         /// </summary>
         [JsonPropertyName("earlyRedeemSupported")]
         public bool EarlyRedeemable { get; set; }

@@ -10,13 +10,13 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamFuturesStopOrderUpdate: KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
-        /// Stop price type
+        /// ["<c>stopPriceType</c>"] Stop price type
         /// </summary>
         [JsonPropertyName("stopPriceType")]
         public StopPriceType StopPriceType { get; set; }
 
         /// <summary>
-        /// Error info if there was an error with the order
+        /// ["<c>error</c>"] Error info if there was an error with the order
         /// </summary>
         [JsonPropertyName("error")]
         public string? Error { get; set; }

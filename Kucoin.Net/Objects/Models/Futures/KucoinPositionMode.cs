@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 
 namespace Kucoin.Net.Objects.Models.Futures
 {
@@ -8,7 +8,7 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinPositionMode
     {
         /// <summary>
-        /// Position mode
+        /// ["<c>positionMode</c>"] Position mode
         /// </summary>
         [JsonPropertyName("positionMode")]
         public PositionMode PositionMode { get; set; }

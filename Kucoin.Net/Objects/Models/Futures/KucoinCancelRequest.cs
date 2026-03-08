@@ -7,12 +7,12 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinCancelRequest
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOid</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOid")]
         public string ClientOrderId { get; set; } = string.Empty;

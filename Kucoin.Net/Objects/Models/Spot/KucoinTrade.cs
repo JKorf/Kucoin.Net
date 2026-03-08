@@ -11,27 +11,27 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinTrade
     {
         /// <summary>
-        /// The sequence number of the trade
+        /// ["<c>sequence</c>"] The sequence number of the trade
         /// </summary>
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
-        /// The price of the trade
+        /// ["<c>price</c>"] The price of the trade
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// The quantity of the trade
+        /// ["<c>size</c>"] The quantity of the trade
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// The side of the trade
+        /// ["<c>side</c>"] The side of the trade
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// The timestamp of the trade
+        /// ["<c>time</c>"] The timestamp of the trade
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter)), JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }

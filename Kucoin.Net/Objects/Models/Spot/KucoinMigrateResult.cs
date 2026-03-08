@@ -10,12 +10,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMigrateResult
     {
         /// <summary>
-        /// Ids of user accounts successfully migrated
+        /// ["<c>successUsers</c>"] Ids of user accounts successfully migrated
         /// </summary>
         [JsonPropertyName("successUsers")]
         public string[] SuccessUsers { get; set; } = Array.Empty<string>();
         /// <summary>
-        /// Ids of user accounts failed to migrate
+        /// ["<c>failUsers</c>"] Ids of user accounts failed to migrate
         /// </summary>
         [JsonPropertyName("failUsers")]
         public Dictionary<string, string> FailedUsers { get; set; } = new Dictionary<string, string>();

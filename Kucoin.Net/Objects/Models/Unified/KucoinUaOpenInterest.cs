@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
 {
@@ -8,17 +8,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaOpenInterest
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Open interest in number of contracts
+        /// ["<c>openInterest</c>"] Open interest in number of contracts
         /// </summary>
         [JsonPropertyName("openInterest")]
         public decimal OpenInterest { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }

@@ -11,57 +11,57 @@ namespace Kucoin.Net.Objects.Models.Futures
     public record KucoinFuturesTick
     {
         /// <summary>
-        /// Sequence number
+        /// ["<c>sequence</c>"] Sequence number
         /// </summary>
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Side of liquidity taker
+        /// ["<c>side</c>"] Side of liquidity taker
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Filled quantity
+        /// ["<c>size</c>"] Filled quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Filled price
+        /// ["<c>price</c>"] Filled price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Best bid quantity
+        /// ["<c>bestBidSize</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("bestBidSize")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>bestBidPrice</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("bestBidPrice")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best ask quantity
+        /// ["<c>bestAskSize</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("bestAskSize")]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>bestAskPrice</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("bestAskPrice")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Transaction id
+        /// ["<c>tradeId</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("tradeId")]
         public string TradeId { get; set; } = string.Empty;
         /// <summary>
-        /// Filled time
+        /// ["<c>ts</c>"] Filled time
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }

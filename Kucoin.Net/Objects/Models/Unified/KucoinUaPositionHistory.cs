@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,12 +9,12 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaPositionHistory
     {
         /// <summary>
-        /// Items
+        /// ["<c>items</c>"] Items
         /// </summary>
         [JsonPropertyName("items")]
         public KucoinUaPositionHistoryEntry[] Items { get; set; } = [];
         /// <summary>
-        /// Last id
+        /// ["<c>lastId</c>"] Last id
         /// </summary>
         [JsonPropertyName("lastId")]
         public long? LastId { get; set; }
@@ -26,77 +26,77 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaPositionHistoryEntry
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Close id
+        /// ["<c>closeId</c>"] Close id
         /// </summary>
         [JsonPropertyName("closeId")]
         public long CloseId { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>side</c>"] Position side
         /// </summary>
         [JsonPropertyName("side")]
         public PositionSide? PositionSide { get; set; }
         /// <summary>
-        /// Entry price
+        /// ["<c>entryPrice</c>"] Entry price
         /// </summary>
         [JsonPropertyName("entryPrice")]
         public decimal EntryPrice { get; set; }
         /// <summary>
-        /// Close price
+        /// ["<c>closePrice</c>"] Close price
         /// </summary>
         [JsonPropertyName("closePrice")]
         public decimal ClosePrice { get; set; }
         /// <summary>
-        /// Max quantity
+        /// ["<c>maxSize</c>"] Max quantity
         /// </summary>
         [JsonPropertyName("maxSize")]
         public decimal MaxQuantity { get; set; }
         /// <summary>
-        /// Average close price
+        /// ["<c>avgClosePrice</c>"] Average close price
         /// </summary>
         [JsonPropertyName("avgClosePrice")]
         public decimal AverageClosePrice { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>realizedPnL</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("realizedPnL")]
         public decimal RealizedPnL { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Tax
+        /// ["<c>tax</c>"] Tax
         /// </summary>
         [JsonPropertyName("tax")]
         public decimal Tax { get; set; }
         /// <summary>
-        /// Funding fee
+        /// ["<c>fundingFee</c>"] Funding fee
         /// </summary>
         [JsonPropertyName("fundingFee")]
         public decimal FundingFee { get; set; }
         /// <summary>
-        /// Close time
+        /// ["<c>closingTime</c>"] Close time
         /// </summary>
         [JsonPropertyName("closingTime")]
         public DateTime CloseTime { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>creationTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("creationTime")]
         public DateTime CreateTime { get; set; }

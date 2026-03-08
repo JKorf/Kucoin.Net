@@ -10,27 +10,27 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinStreamTransactionStatisticsUpdate
     {
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Turnover
+        /// ["<c>turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
         public decimal Turnover { get; set; }
         /// <summary>
-        /// Last price
+        /// ["<c>lastPrice</c>"] Last price
         /// </summary>
         [JsonPropertyName("lastPrice")]
         public decimal LastPrice { get; set; }
         /// <summary>
-        /// Price change percentage
+        /// ["<c>priceChgPct</c>"] Price change percentage
         /// </summary>
         [JsonPropertyName("priceChgPct")]
         public decimal PriceChangePercentage { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }

@@ -11,75 +11,75 @@ namespace Kucoin.Net.Objects.Models
     public record KucoinStreamStopOrderUpdateBase
     {
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide OrderSide { get; set; }
 
         /// <summary>
-        /// Creation time
+        /// ["<c>createdAt</c>"] Creation time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("createdAt")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Order price
+        /// ["<c>orderPrice</c>"] Order price
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal? OrderPrice { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>orderType</c>"] Order type
         /// </summary>
         [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Stop
+        /// ["<c>stop</c>"] Stop
         /// </summary>
         [JsonPropertyName("stop")]
         public StopCondition Stop { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stopPrice</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stopPrice")]
         public decimal StopPrice { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public TradeType TradeType { get; set; }
         /// <summary>
-        /// Trigger was success
+        /// ["<c>triggerSuccess</c>"] Trigger was success
         /// </summary>
         [JsonPropertyName("triggerSuccess")]
         public bool TriggerSuccess { get; set; }
         /// <summary>
-        /// Update timestamp
+        /// ["<c>ts</c>"] Update timestamp
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Update type
+        /// ["<c>type</c>"] Update type
         /// </summary>
         [JsonPropertyName("type")]
         public StopOrderEvent Type { get; set; }
 
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
 
         [JsonPropertyName("marginMode")]

@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +13,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaBalances
     {
         /// <summary>
-        /// Account type
+        /// ["<c>accountType</c>"] Account type
         /// </summary>
         [JsonPropertyName("accountType")]
         public UnifiedAccountType AccountType { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Accounts
+        /// ["<c>accounts</c>"] Accounts
         /// </summary>
         [JsonPropertyName("accounts")]
         public KucoinUaBalanceAccount[] Accounts { get; set; } = [];
@@ -35,7 +35,7 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaBalanceAccount
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currencies</c>"] Asset
         /// </summary>
         [JsonPropertyName("currencies")]
         public KucoinUaBalanceAsset[] Assets { get; set; } = [];
@@ -47,32 +47,32 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaBalanceAsset
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Equity
+        /// ["<c>equity</c>"] Equity
         /// </summary>
         [JsonPropertyName("equity")]
         public decimal Equity { get; set; }
         /// <summary>
-        /// Hold
+        /// ["<c>hold</c>"] Hold
         /// </summary>
         [JsonPropertyName("hold")]
         public decimal Hold { get; set; }
         /// <summary>
-        /// Balance
+        /// ["<c>balance</c>"] Balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Liability
+        /// ["<c>liability</c>"] Liability
         /// </summary>
         [JsonPropertyName("liability")]
         public decimal Liability { get; set; }

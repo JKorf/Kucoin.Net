@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Spot;
 using System;
 
@@ -10,12 +10,12 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaLeverageUpdate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;        
         /// <summary>
-        /// Leverage
+        /// ["<c>l</c>"] Leverage
         /// </summary>
         [JsonPropertyName("l")]
         public decimal Leverage { get; set; }

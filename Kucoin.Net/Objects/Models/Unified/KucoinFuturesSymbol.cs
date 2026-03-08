@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 
 namespace Kucoin.Net.Objects.Models.Unified
@@ -9,122 +9,122 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinFuturesSymbol
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset
+        /// ["<c>baseCurrency</c>"] Base asset
         /// </summary>
         [JsonPropertyName("baseCurrency")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Display base asset
+        /// ["<c>displayBaseCurrency</c>"] Display base asset
         /// </summary>
         [JsonPropertyName("displayBaseCurrency")]
         public string DisplayBaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset
+        /// ["<c>quoteCurrency</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Max order quantity in base asset
+        /// ["<c>maxBaseOrderSize</c>"] Max order quantity in base asset
         /// </summary>
         [JsonPropertyName("maxBaseOrderSize")]
         public decimal MaxBaseOrderQuantity { get; set; }
         /// <summary>
-        /// Price tick quantity
+        /// ["<c>tickSize</c>"] Price tick quantity
         /// </summary>
         [JsonPropertyName("tickSize")]
         public decimal TickQuantity { get; set; }
         /// <summary>
-        /// Trading status
+        /// ["<c>tradingStatus</c>"] Trading status
         /// </summary>
         [JsonPropertyName("tradingStatus")]
         public TradingStatus TradingStatus { get; set; }
         /// <summary>
-        /// Settlement asset
+        /// ["<c>settlementCurrency</c>"] Settlement asset
         /// </summary>
         [JsonPropertyName("settlementCurrency")]
         public string SettlementAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract type
+        /// ["<c>contractType</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contractType")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Is inverse
+        /// ["<c>isInverse</c>"] Is inverse
         /// </summary>
         [JsonPropertyName("isInverse")]
         public bool IsInverse { get; set; }
         /// <summary>
-        /// Launch time
+        /// ["<c>launchTime</c>"] Launch time
         /// </summary>
         [JsonPropertyName("launchTime")]
         public DateTime LaunchTime { get; set; }
         /// <summary>
-        /// Expiry time
+        /// ["<c>expiryTime</c>"] Expiry time
         /// </summary>
         [JsonPropertyName("expiryTime")]
         public DateTime? ExpiryTime { get; set; }
         /// <summary>
-        /// Settlement time
+        /// ["<c>settlementTime</c>"] Settlement time
         /// </summary>
         [JsonPropertyName("settlementTime")]
         public DateTime? SettlementTime { get; set; }
         /// <summary>
-        /// Max price
+        /// ["<c>maxPrice</c>"] Max price
         /// </summary>
         [JsonPropertyName("maxPrice")]
         public decimal MaxPrice { get; set; }
         /// <summary>
-        /// Lot size
+        /// ["<c>lotSize</c>"] Lot size
         /// </summary>
         [JsonPropertyName("lotSize")]
         public decimal LotSize { get; set; }
         /// <summary>
-        /// Contract size
+        /// ["<c>unitSize</c>"] Contract size
         /// </summary>
         [JsonPropertyName("unitSize")]
         public decimal ContractSize { get; set; }
         /// <summary>
-        /// Maker fee rate
+        /// ["<c>makerFeeRate</c>"] Maker fee rate
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal MakerFeeRate { get; set; }
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>takerFeeRate</c>"] Taker fee rate
         /// </summary>
         [JsonPropertyName("takerFeeRate")]
         public decimal TakerFeeRate { get; set; }
         /// <summary>
-        /// Settlement fee rate
+        /// ["<c>settlementFeeRate</c>"] Settlement fee rate
         /// </summary>
         [JsonPropertyName("settlementFeeRate")]
         public decimal? SettlementFeeRate { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Index source exchanges
+        /// ["<c>indexSourceExchanges</c>"] Index source exchanges
         /// </summary>
         [JsonPropertyName("indexSourceExchanges")]
         public string[] IndexSourceExchanges { get; set; } = [];
         /// <summary>
-        /// Maintenance margin ratio limit
+        /// ["<c>mmrLimit</c>"] Maintenance margin ratio limit
         /// </summary>
         [JsonPropertyName("mmrLimit")]
         public decimal MaintenanceMarginRatioLimit { get; set; }
         /// <summary>
-        /// Maintenance margin ratio leverage constant
+        /// ["<c>mmrLevConstant</c>"] Maintenance margin ratio leverage constant
         /// </summary>
         [JsonPropertyName("mmrLevConstant")]
         public decimal MaintenanceMarginRatioLeverageConstant { get; set; }

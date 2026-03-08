@@ -11,57 +11,57 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinOrder: KucoinOrderBase
     {        
         /// <summary>
-        /// The operation type
+        /// ["<c>opType</c>"] The operation type
         /// </summary>
         [JsonPropertyName("opType")]
         public OrderOperationType? OperationType { get; set; }        
         /// <summary>
-        /// The funds of the order
+        /// ["<c>funds</c>"] The funds of the order
         /// </summary>
         [JsonPropertyName("funds")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
-        /// The funds of the deal
+        /// ["<c>dealFunds</c>"] The funds of the deal
         /// </summary>
         [JsonPropertyName("dealFunds")]
         public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
-        /// The quantity of the deal
+        /// ["<c>dealSize</c>"] The quantity of the deal
         /// </summary>
         [JsonPropertyName("dealSize")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// The fee of the order
+        /// ["<c>fee</c>"] The fee of the order
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// The asset of the fee
+        /// ["<c>feeCurrency</c>"] The asset of the fee
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// The stop condition
+        /// ["<c>stop</c>"] The stop condition
         /// </summary>
         [JsonPropertyName("stop")]
         public StopCondition? Stop { get; set; }
         /// <summary>
-        /// Time after which the order is canceled
+        /// ["<c>cancelAfter</c>"] Time after which the order is canceled
         /// </summary>
         [JsonPropertyName("cancelAfter")]
         public int? CancelAfter { get; set; }
         /// <summary>
-        /// The source of the order
+        /// ["<c>channel</c>"] The source of the order
         /// </summary>
         [JsonPropertyName("channel")]
         public string Channel { get; set; } = string.Empty;
         /// <summary>
-        /// Tags for the order
+        /// ["<c>tags</c>"] Tags for the order
         /// </summary>
         [JsonPropertyName("tags")]
         public string Tags { get; set; } = string.Empty;
         /// <summary>
-        /// Trade type
+        /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
         public TradeType TradeType { get; set; }
@@ -74,43 +74,43 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinStopOrder: KucoinOrder
     {
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public string UserId { get; set; } = string.Empty;
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public StopOrderStatus Status { get; set; }
         /// <summary>
-        /// Time after which the order is canceled
+        /// ["<c>orderTime</c>"] Time after which the order is canceled
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("orderTime")]
         public DateTime OrderTime { get; set; }
         /// <summary>
-        /// Domain id
+        /// ["<c>domainId</c>"] Domain id
         /// </summary>
         [JsonPropertyName("domainId")]
         public string DomainId { get; set; } = string.Empty;
         /// <summary>
-        /// Trade source
+        /// ["<c>tradeSource</c>"] Trade source
         /// </summary>
         [JsonPropertyName("tradeSource")]
         public string TradeSource { get; set; } = string.Empty;
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>takerFeeRate</c>"] Taker fee rate
         /// </summary>
         [JsonPropertyName("takerFeeRate")]
         public decimal TakerFeeRate { get; set; }
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>makerFeeRate</c>"] Taker fee rate
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal MakerFeeRate { get; set; }
         /// <summary>
-        /// Time stop order was triggered
+        /// ["<c>stopTriggerTime</c>"] Time stop order was triggered
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("stopTriggerTime")]

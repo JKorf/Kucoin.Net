@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinCanceledOrders
     {
         /// <summary>
-        /// List of canceled order ids
+        /// ["<c>cancelledOrderIds</c>"] List of canceled order ids
         /// </summary>
         [JsonPropertyName("cancelledOrderIds")]
         public string[] CancelledOrderIds { get; set; } = Array.Empty<string>();

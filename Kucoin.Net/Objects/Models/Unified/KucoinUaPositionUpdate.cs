@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Models.Spot;
 using System;
 
@@ -10,87 +10,87 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaPositionUpdate
     {
         /// <summary>
-        /// Position id
+        /// ["<c>pi</c>"] Position id
         /// </summary>
         [JsonPropertyName("pi")]
         public string PositionId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>mM</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("mM")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>q</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("q")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Average entry price
+        /// ["<c>eP</c>"] Average entry price
         /// </summary>
         [JsonPropertyName("eP")]
         public decimal EntryPrice { get; set; }
         /// <summary>
-        /// Position value
+        /// ["<c>pV</c>"] Position value
         /// </summary>
         [JsonPropertyName("pV")]
         public decimal PositionValue { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>mP</c>"] Mark price
         /// </summary>
         [JsonPropertyName("mP")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>lP</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("lP")]
         public decimal LiquidationPrice { get; set; }
         /// <summary>
-        /// Bankrupt price
+        /// ["<c>bP</c>"] Bankrupt price
         /// </summary>
         [JsonPropertyName("bP")]
         public decimal BankruptPrice { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>l</c>"] Leverage
         /// </summary>
         [JsonPropertyName("l")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>uPL</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("uPL")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>rPL</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("rPL")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>iM</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("iM")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin rate
+        /// ["<c>mmr</c>"] Maintenance margin rate
         /// </summary>
         [JsonPropertyName("mmr")]
         public decimal MaintenanceMarginRate { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>mtM</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("mtM")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>U</c>"] Update time
         /// </summary>
         [JsonPropertyName("U")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>O</c>"] Create time
         /// </summary>
         [JsonPropertyName("O")]
         public DateTime CreateTime { get; set; }

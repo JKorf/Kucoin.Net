@@ -1,4 +1,4 @@
-﻿using Kucoin.Net.Enums;
+using Kucoin.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +13,17 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaTransferQuotas
     {
         /// <summary>
-        /// Account type
+        /// ["<c>accountType</c>"] Account type
         /// </summary>
         [JsonPropertyName("accountType")]
         public UnifiedAccountType? AccountType { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Transferable
+        /// ["<c>transferable</c>"] Transferable
         /// </summary>
         [JsonPropertyName("transferable")]
         public decimal Transferable { get; set; }

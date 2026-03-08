@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,37 +12,37 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaPositionTier
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Tier
+        /// ["<c>tier</c>"] Tier
         /// </summary>
         [JsonPropertyName("tier")]
         public int Tier { get; set; }
         /// <summary>
-        /// Max quantity
+        /// ["<c>maxSize</c>"] Max quantity
         /// </summary>
         [JsonPropertyName("maxSize")]
         public decimal MaxQuantity { get; set; }
         /// <summary>
-        /// Min quantity
+        /// ["<c>minSize</c>"] Min quantity
         /// </summary>
         [JsonPropertyName("minSize")]
         public decimal MinQuantity { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Initial margin rate
+        /// ["<c>initialMarginRate</c>"] Initial margin rate
         /// </summary>
         [JsonPropertyName("initialMarginRate")]
         public decimal InitialMarginRate { get; set; }
         /// <summary>
-        /// Maintain margin rate
+        /// ["<c>maintainMarginRate</c>"] Maintain margin rate
         /// </summary>
         [JsonPropertyName("maintainMarginRate")]
         public decimal MaintainMarginRate { get; set; }

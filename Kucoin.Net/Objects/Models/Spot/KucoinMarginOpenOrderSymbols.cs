@@ -9,12 +9,12 @@ namespace Kucoin.Net.Objects.Models.Spot
     public record KucoinMarginOpenOrderSymbols
     {
         /// <summary>
-        /// Number or symbols with active orders
+        /// ["<c>symbolSize</c>"] Number or symbols with active orders
         /// </summary>
         [JsonPropertyName("symbolSize")]
         public int ActiveOrderSymbols { get; set; }
         /// <summary>
-        /// Symbols with open orders
+        /// ["<c>symbols</c>"] Symbols with open orders
         /// </summary>
         [JsonPropertyName("symbols")]
         public string[] Symbols { get; set; } = Array.Empty<string>();

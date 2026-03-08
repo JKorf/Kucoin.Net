@@ -12,12 +12,12 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinFuturesOrderBookChange
     {
         /// <summary>
-        /// Sequence number
+        /// ["<c>sequence</c>"] Sequence number
         /// </summary>
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
-        /// Data timestamp
+        /// ["<c>timestamp</c>"] Data timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
