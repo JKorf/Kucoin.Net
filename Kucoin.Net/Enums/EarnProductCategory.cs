@@ -9,31 +9,31 @@ namespace Kucoin.Net.Enums
     public enum EarnProductCategory
     {
         /// <summary>
-        /// Demand
+        /// ["<c>DEMAND</c>"] Demand
         /// </summary>
         [Map("DEMAND")]
         Demand,
 
         /// <summary>
-        /// Activity
+        /// ["<c>ACTIVITY</c>"] Activity
         /// </summary>
         [Map("ACTIVITY")]
         Activity,
 
         /// <summary>
-        /// Staking
+        /// ["<c>STAKING</c>"] Staking
         /// </summary>
         [Map("STAKING")]
         Staking,
 
         /// <summary>
-        /// KCS Staking
+        /// ["<c>KCS_STAKING</c>"] KCS Staking
         /// </summary>
         [Map("KCS_STAKING")]
         KCSStaking,
 
         /// <summary>
-        /// ETH2 Staking
+        /// ["<c>ETH2</c>"] ETH2 Staking
         /// </summary>
         [Map("ETH2")]
         ETH2

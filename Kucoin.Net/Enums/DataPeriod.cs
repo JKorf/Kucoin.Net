@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,32 +9,32 @@ namespace Kucoin.Net.Enums
     public enum DataPeriod
     {
         /// <summary>
-        /// Five minutes
+        /// ["<c>5min</c>"] Five minutes
         /// </summary>
         [Map("5min")]
         FiveMinutes,
         /// <summary>
-        /// Fifteen minutes
+        /// ["<c>15min</c>"] Fifteen minutes
         /// </summary>
         [Map("15min")]
         FifteenMinutes,
         /// <summary>
-        /// Thirty minutes
+        /// ["<c>30min</c>"] Thirty minutes
         /// </summary>
         [Map("30min")]
         ThirtyMinutes,
         /// <summary>
-        /// One hour
+        /// ["<c>1hour</c>"] One hour
         /// </summary>
         [Map("1hour")]
         OneHour,
         /// <summary>
-        /// Four hours
+        /// ["<c>4hour</c>"] Four hours
         /// </summary>
         [Map("4hour")]
         FourHours,
         /// <summary>
-        /// One day
+        /// ["<c>1day</c>"] One day
         /// </summary>
         [Map("1day")]
         OneDay

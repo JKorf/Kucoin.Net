@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum UnifiedAccountMode
     {
         /// <summary>
-        /// Classic
+        /// ["<c>CLASSIC</c>"] Classic
         /// </summary>
         [Map("CLASSIC")]
         Classic,
         /// <summary>
-        /// Unified
+        /// ["<c>UNIFIED</c>"] Unified
         /// </summary>
         [Map("UNIFIED")]
         Unified

@@ -10,17 +10,17 @@ namespace Kucoin.Net.Enums
     public enum StopOrderEvent
     {
         /// <summary>
-        /// Stop order opened
+        /// ["<c>open</c>"] Stop order opened
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Stop order triggered by price
+        /// ["<c>triggered</c>"] Stop order triggered by price
         /// </summary>
         [Map("triggered")]
         Triggered,
         /// <summary>
-        /// Stop order canceled
+        /// ["<c>cancel</c>"] Stop order canceled
         /// </summary>
         [Map("cancel")]
         Canceled

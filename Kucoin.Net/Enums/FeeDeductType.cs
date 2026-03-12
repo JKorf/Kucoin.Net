@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum FeeDeductType
     {
         /// <summary>
-        /// Deduct the fee from the withdrawal amount
+        /// ["<c>INTERNAL</c>"] Deduct the fee from the withdrawal amount
         /// </summary>
         [Map("INTERNAL")]
         Internal,
         /// <summary>
-        /// Deduct the fee from main account
+        /// ["<c>EXTERNAL</c>"] Deduct the fee from main account
         /// </summary>
         [Map("EXTERNAL")]
         External

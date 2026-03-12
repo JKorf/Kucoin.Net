@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum TimeInForce
     {
         /// <summary>
-        /// Good until canceled by user
+        /// ["<c>GTC</c>"] Good until canceled by user
         /// </summary>
         [Map("GTC")]
         GoodTillCanceled,
         /// <summary>
-        /// Good until a certain time
+        /// ["<c>GTT</c>"] Good until a certain time
         /// </summary>
         [Map("GTT")]
         GoodTillTime,
         /// <summary>
-        /// Immediately has to be (partially) filled or it will be canceled
+        /// ["<c>IOC</c>"] Immediately has to be (partially) filled or it will be canceled
         /// </summary>
         [Map("IOC")]
         ImmediateOrCancel,
         /// <summary>
-        /// Immediately has to be full filled or it will be canceled
+        /// ["<c>FOK</c>"] Immediately has to be full filled or it will be canceled
         /// </summary>
         [Map("FOK")]
         FillOrKill

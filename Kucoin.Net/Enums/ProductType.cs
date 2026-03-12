@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum ProductType
     {
         /// <summary>
-        /// Spot
+        /// ["<c>SPOT</c>"] Spot
         /// </summary>
         [Map("SPOT")]
         Spot,
         /// <summary>
-        /// Futures
+        /// ["<c>FUTURES</c>"] Futures
         /// </summary>
         [Map("FUTURES")]
         Futures,
         /// <summary>
-        /// Cross margin
+        /// ["<c>CROSS</c>"] Cross margin
         /// </summary>
         [Map("CROSS")]
         CrossMargin,
         /// <summary>
-        /// Isolated margin
+        /// ["<c>ISOLATED</c>"] Isolated margin
         /// </summary>
         [Map("ISOLATED")]
         IsolatedMargin

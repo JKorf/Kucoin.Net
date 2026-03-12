@@ -9,17 +9,17 @@ namespace Kucoin.Net.Enums
     public enum UnifiedSimpleAccountType
     {
         /// <summary>
-        /// Spot account
+        /// ["<c>SPOT</c>"] Spot account
         /// </summary>
         [Map("SPOT")]
         Spot,
         /// <summary>
-        /// Futures account
+        /// ["<c>FUTURES</c>"] Futures account
         /// </summary>
         [Map("FUTURES")]
         Futures,
         /// <summary>
-        /// Margin margin account
+        /// ["<c>MARGIN</c>"] Margin margin account
         /// </summary>
         [Map("MARGIN")]
         Margin,

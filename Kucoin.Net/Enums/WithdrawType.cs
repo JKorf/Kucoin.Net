@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum WithdrawType
     {
         /// <summary>
-        /// Withdraw to crypto address
+        /// ["<c>ADDRESS</c>"] Withdraw to crypto address
         /// </summary>
         [Map("ADDRESS")]
         Address,
         /// <summary>
-        /// Withdraw to user by user id
+        /// ["<c>UID</c>"] Withdraw to user by user id
         /// </summary>
         [Map("UID")]
         Uid,
         /// <summary>
-        /// Withdraw to user by email
+        /// ["<c>MAIL</c>"] Withdraw to user by email
         /// </summary>
         [Map("MAIL")]
         Mail,
         /// <summary>
-        /// Withdraw to user by phone
+        /// ["<c>Phone</c>"] Withdraw to user by phone
         /// </summary>
         [Map("Phone")]
         Phone

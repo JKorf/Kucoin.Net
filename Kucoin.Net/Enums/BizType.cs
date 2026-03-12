@@ -9,292 +9,292 @@ namespace Kucoin.Net.Enums
     public enum BizType
     {
         /// <summary>
-        /// Assets Transferred in After V1 to V2 Upgrading
+        /// ["<c>Assets Transferred in After Upgrading</c>"] Assets Transferred in After V1 to V2 Upgrading
         /// </summary>
         [Map("Assets Transferred in After Upgrading")]
         AssetsTransferred,
         /// <summary>
-        /// Deposit
+        /// ["<c>Deposit</c>"] Deposit
         /// </summary>
         [Map("Deposit")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>Withdrawal</c>"] Withdrawal
         /// </summary>
         [Map("Withdrawal", "Withdraw")]
         Withdrawal,
         /// <summary>
-        /// Transfer
+        /// ["<c>Transfer</c>"] Transfer
         /// </summary>
         [Map("Transfer")]
         Transfer,
         /// <summary>
-        /// Trade
+        /// ["<c>Trade_Exchange</c>"] Trade
         /// </summary>
         [Map("Trade_Exchange")]
         Trade,
         /// <summary>
-        /// Vote for Coin
+        /// ["<c>Vote for Coin</c>"] Vote for Coin
         /// </summary>
         [Map("Vote for Coin")]
         VoteForCoin,
         /// <summary>
-        /// KuCoin Bonus
+        /// ["<c>KuCoin Bonus</c>"] KuCoin Bonus
         /// </summary>
         [Map("KuCoin Bonus")]
         KuCoinBonus,
         /// <summary>
-        /// Referral Bonus
+        /// ["<c>Referral Bonus</c>"] Referral Bonus
         /// </summary>
         [Map("Referral Bonus")]
         ReferralBonus,
         /// <summary>
-        /// Activities Rewards
+        /// ["<c>Rewards</c>"] Activities Rewards
         /// </summary>
         [Map("Rewards")]
         Rewards,
         /// <summary>
-        /// Distribution (such as get GAS by holding NEO)
+        /// ["<c>Distribution</c>"] Distribution (such as get GAS by holding NEO)
         /// </summary>
         [Map("Distribution")]
         Distribution,
         /// <summary>
-        /// Airdrop/Fork
+        /// ["<c>Airdrop/Fork</c>"] Airdrop/Fork
         /// </summary>
         [Map("Airdrop/Fork")]
         AirdropFork,
         /// <summary>
-        /// Other rewards, except Vote, Airdrop, Fork
+        /// ["<c>Other rewards</c>"] Other rewards, except Vote, Airdrop, Fork
         /// </summary>
         [Map("Other rewards")]
         OtherRewards,
         /// <summary>
-        /// Fee Rebate
+        /// ["<c>Fee Rebate</c>"] Fee Rebate
         /// </summary>
         [Map("Fee Rebate")]
         FeeRebate,
         /// <summary>
-        /// Use credit card to buy crypto
+        /// ["<c>Buy Crypto</c>"] Use credit card to buy crypto
         /// </summary>
         [Map("Buy Crypto")]
         BuyCrypto,
         /// <summary>
-        /// Use credit card to sell crypto
+        /// ["<c>Sell Crypto</c>"] Use credit card to sell crypto
         /// </summary>
         [Map("Sell Crypto")]
         SellCrypto,
         /// <summary>
-        /// Public Offering Purchase for Spotlight
+        /// ["<c>Public Offering Purchase</c>"] Public Offering Purchase for Spotlight
         /// </summary>
         [Map("Public Offering Purchase")]
         PublicOfferingPurchase,
         /// <summary>
-        /// Send red envelope
+        /// ["<c>Send red envelope</c>"] Send red envelope
         /// </summary>
         [Map("Send red envelope")]
         SendRedEnvelope,
         /// <summary>
-        /// Open red envelope
+        /// ["<c>Open red envelope</c>"] Open red envelope
         /// </summary>
         [Map("Open red envelope")]
         OpenRedEnvelope,
         /// <summary>
-        /// Staking
+        /// ["<c>Staking</c>"] Staking
         /// </summary>
         [Map("Staking")]
         Staking,
         /// <summary>
-        /// LockDrop Vesting
+        /// ["<c>LockDrop Vesting</c>"] LockDrop Vesting
         /// </summary>
         [Map("LockDrop Vesting")]
         LockDropVesting,
         /// <summary>
-        /// Staking Profits
+        /// ["<c>Staking Profits</c>"] Staking Profits
         /// </summary>
         [Map("Staking Profits")]
         StakingProfits,
         /// <summary>
-        /// Redemption
+        /// ["<c>Redemption</c>"] Redemption
         /// </summary>
         [Map("Redemption")]
         Redemption,
         /// <summary>
-        /// Refunded Fees
+        /// ["<c>Refunded Fees</c>"] Refunded Fees
         /// </summary>
         [Map("Refunded Fees")]
         RefundedFees,
         /// <summary>
-        /// KCS Pay Fees
+        /// ["<c>KCS Pay Fees</c>"] KCS Pay Fees
         /// </summary>
         [Map("KCS Pay Fees")]
         KCSPayFees,
         /// <summary>
-        /// Margin Trade
+        /// ["<c>Margin Trade</c>"] Margin Trade
         /// </summary>
         [Map("Margin Trade")]
         MarginTrade,
         /// <summary>
-        /// Loans
+        /// ["<c>Loans</c>"] Loans
         /// </summary>
         [Map("Loans")]
         Loans,
         /// <summary>
-        /// Borrowings
+        /// ["<c>Borrowings</c>"] Borrowings
         /// </summary>
         [Map("Borrowings")]
         Borrowings,
         /// <summary>
-        /// Debt Repayment
+        /// ["<c>Debt Repayment</c>"] Debt Repayment
         /// </summary>
         [Map("Debt Repayment", "DebtRepayment")]
         DebtRepayment,
         /// <summary>
-        /// Loans Repaid
+        /// ["<c>Loans Repaid</c>"] Loans Repaid
         /// </summary>
         [Map("Loans Repaid")]
         LoansRepaid,
         /// <summary>
-        /// Lendings
+        /// ["<c>Lendings</c>"] Lendings
         /// </summary>
         [Map("Lendings")]
         Lendings,
         /// <summary>
-        /// Pool-X transactions
+        /// ["<c>Pool transactions</c>"] Pool-X transactions
         /// </summary>
         [Map("Pool transactions")]
         PoolTransactions,
         /// <summary>
-        /// Instant Exchange
+        /// ["<c>Instant Exchange</c>"] Instant Exchange
         /// </summary>
         [Map("Instant Exchange")]
         InstantExchange,
         /// <summary>
-        /// Sub-account transfer
+        /// ["<c>Sub Account Transfer</c>"] Sub-account transfer
         /// </summary>
         [Map("Sub Account Transfer")]
         SubAccountTransfer,
         /// <summary>
-        /// Liquidation Fees
+        /// ["<c>Liquidation Fees</c>"] Liquidation Fees
         /// </summary>
         [Map("Liquidation Fees")]
         LiquidationFees,
         /// <summary>
-        /// Soft Staking Profits
+        /// ["<c>Soft Staking Profits</c>"] Soft Staking Profits
         /// </summary>
         [Map("Soft Staking Profits")]
         SoftStakingProfits,
         /// <summary>
-        /// Voting Earnings on Pool-X
+        /// ["<c>Voting Earnings</c>"] Voting Earnings on Pool-X
         /// </summary>
         [Map("Voting Earnings")]
         VotingEarnings,
         /// <summary>
-        /// Redemption of Voting on Pool-X
+        /// ["<c>Redemption of Voting</c>"] Redemption of Voting on Pool-X
         /// </summary>
         [Map("Redemption of Voting")]
         RedemptionOfVoting,
         /// <summary>
-        /// Voting on Pool-X
+        /// ["<c>Voting</c>"] Voting on Pool-X
         /// </summary>
         [Map("Voting")]
         Voting,
         /// <summary>
-        /// Convert to KCS
+        /// ["<c>Convert to KCS</c>"] Convert to KCS
         /// </summary>
         [Map("Convert to KCS", "CONVERT_TO_KCS")]
         ConvertToKCS,
         /// <summary>
-        /// Broker transfer
+        /// ["<c>BROKER_TRANSFER</c>"] Broker transfer
         /// </summary>
         [Map("BROKER_TRANSFER")]
         BrokerTransfer,
         /// <summary>
-        /// Cross margin
+        /// ["<c>Cross Margin</c>"] Cross margin
         /// </summary>
         [Map("Cross Margin")]
         CrossMargin,
         /// <summary>
-        /// Mining income
+        /// ["<c>Mining Income</c>"] Mining income
         /// </summary>
         [Map("Mining Income")]
         MiningIncome,
         /// <summary>
-        /// Bank card deal
+        /// ["<c>Bank Card Deal</c>"] Bank card deal
         /// </summary>
         [Map("Bank Card Deal")]
         BankCardDeal,
         /// <summary>
-        /// Margin bonus
+        /// ["<c>Bonus received</c>"] Margin bonus
         /// </summary>
         [Map("Bonus received")]
         MarginBonus,
         /// <summary>
-        /// Liquidation takeover
+        /// ["<c>Liquidation Takeover</c>"] Liquidation takeover
         /// </summary>
         [Map("Liquidation Takeover")]
         LiquidationTakeover,
         /// <summary>
-        /// Return of liquidation takeover
+        /// ["<c>Return of Liquidation Takeover</c>"] Return of liquidation takeover
         /// </summary>
         [Map("Return of Liquidation Takeover")]
         ReturnOfLiquidationTakeover,
         /// <summary>
-        /// KuCoin Event
+        /// ["<c>KuCoin Event</c>"] KuCoin Event
         /// </summary>
         [Map("KuCoin Event")]
         KuCoinEvent,
         /// <summary>
-        /// Fiat Deposit
+        /// ["<c>Fiat Deposit</c>"] Fiat Deposit
         /// </summary>
         [Map("Fiat Deposit")]
         FiatDeposit,
         /// <summary>
-        /// Fiat Withdrawal
+        /// ["<c>Fiat Withdrawal</c>"] Fiat Withdrawal
         /// </summary>
         [Map("Fiat Withdrawal")]
         FiatWithdrawal,
         /// <summary>
-        /// KuCoin Earn Profits
+        /// ["<c>KuCoin Earn Profits</c>"] KuCoin Earn Profits
         /// </summary>
         [Map("KuCoin Earn Profits")]
         KuCoinEarnProfits,
         /// <summary>
-        /// Hold to Earn Earnings
+        /// ["<c>Hold to Earn Earnings</c>"] Hold to Earn Earnings
         /// </summary>
         [Map("Hold to Earn Earnings")]
         HoldToEarnEarnings,
         /// <summary>
-        /// Fee Refunds using KCS
+        /// ["<c>Fee Refunds using KCS</c>"] Fee Refunds using KCS
         /// </summary>
         [Map("Fee Refunds using KCS")]
         FeeRefundsKcs,
         /// <summary>
-        /// KCS Fee Deduction
+        /// ["<c>KCS Fee Deduction</c>"] KCS Fee Deduction
         /// </summary>
         [Map("KCS Fee Deduction")]
         KcsFeeDeduction,
         /// <summary>
-        /// Spot
+        /// ["<c>Spot</c>"] Spot
         /// </summary>
         [Map("Spot")]
         Spot,
         /// <summary>
-        /// Rebate
+        /// ["<c>Rebate</c>"] Rebate
         /// </summary>
         [Map("Rebate")]
         Rebate,
         /// <summary>
-        /// Isolated margin trade
+        /// ["<c>Isolated Margin Trading</c>"] Isolated margin trade
         /// </summary>
         [Map("Isolated Margin Trading")]
         IsolatedMarginTrade,
         /// <summary>
-        /// Cross margin trade
+        /// ["<c>Cross Margin Trading</c>"] Cross margin trade
         /// </summary>
         [Map("Cross Margin Trading")]
         CrossMarginTrade,
         /// <summary>
-        /// Coupon returned fees
+        /// ["<c>COUPON_RETURNED_FEES</c>"] Coupon returned fees
         /// </summary>
         [Map("COUPON_RETURNED_FEES")]
         CouponReturnedFees

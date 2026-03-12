@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum MarginMode
     {
         /// <summary>
-        /// Cross Mode
+        /// ["<c>CROSS</c>"] Cross Mode
         /// </summary>
         [Map("CROSS", "cross")]
         CrossMode,
         /// <summary>
-        /// Isolated Mode, This mode is not supported by platform yet.
+        /// ["<c>ISOLATED</c>"] Isolated Mode, This mode is not supported by platform yet.
         /// </summary>
         [Map("ISOLATED", "isolated")]
         IsolatedMode,

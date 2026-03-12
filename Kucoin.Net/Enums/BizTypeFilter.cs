@@ -9,42 +9,42 @@ namespace Kucoin.Net.Enums
     public enum BizTypeFilter
     {
         /// <summary>
-        /// Deposit
+        /// ["<c>DEPOSIT</c>"] Deposit
         /// </summary>
         [Map("DEPOSIT")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>WITHDRAW</c>"] Withdrawal
         /// </summary>
         [Map("WITHDRAW")]
         Withdrawal,
         /// <summary>
-        /// Transfer
+        /// ["<c>TRANSFER</c>"] Transfer
         /// </summary>
         [Map("TRANSFER")]
         Transfer,
         /// <summary>
-        /// Subaccount transfer
+        /// ["<c>SUB_TRANSFER</c>"] Subaccount transfer
         /// </summary>
         [Map("SUB_TRANSFER")]
         SubTransfer,
         /// <summary>
-        /// Trade
+        /// ["<c>TRADE_EXCHANGE</c>"] Trade
         /// </summary>
         [Map("TRADE_EXCHANGE")]
         TradeExchange,
         /// <summary>
-        /// Margin trade
+        /// ["<c>MARGIN_EXCHANGE</c>"] Margin trade
         /// </summary>
         [Map("MARGIN_EXCHANGE")]
         MarginExchange,
         /// <summary>
-        /// Bonus
+        /// ["<c>KUCOIN_BONUS</c>"] Bonus
         /// </summary>
         [Map("KUCOIN_BONUS")]
         KucoinBonus,
         /// <summary>
-        /// Broker transfer
+        /// ["<c>BROKER_TRANSFER</c>"] Broker transfer
         /// </summary>
         [Map("BROKER_TRANSFER")]
         BrokerTransfer

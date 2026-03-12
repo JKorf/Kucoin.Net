@@ -9,37 +9,37 @@ namespace Kucoin.Net.Enums
     public enum IsolatedMargingAccountStatus
     {
         /// <summary>
-        /// Existing liabilities
+        /// ["<c>DEBT</c>"] Existing liabilities
         /// </summary>
         [Map("DEBT")]
         Debt,
         /// <summary>
-        /// No liabilities
+        /// ["<c>CLEAR</c>"] No liabilities
         /// </summary>
         [Map("CLEAR")]
         Clear,
         /// <summary>
-        /// Bankruptcy (after position enters a negative balance
+        /// ["<c>BANKRUPTCY</c>"] Bankruptcy (after position enters a negative balance
         /// </summary>
         [Map("BANKRUPTCY")]
         Bankruptcy,
         /// <summary>
-        /// Existing borrowings
+        /// ["<c>IN_BORROW</c>"] Existing borrowings
         /// </summary>
         [Map("IN_BORROW")]
         InBorrow,
         /// <summary>
-        /// Existing repayments
+        /// ["<c>IN_REPAY</c>"] Existing repayments
         /// </summary>
         [Map("IN_REPAY")]
         InRepay,
         /// <summary>
-        /// Under liquidation
+        /// ["<c>IN_LIQUIDATION</c>"] Under liquidation
         /// </summary>
         [Map("IN_LIQUIDATION")]
         InLiquidation,
         /// <summary>
-        /// Under auto-renewal assets
+        /// ["<c>IN_AUTO_RENEW </c>"] Under auto-renewal assets
         /// </summary>
         [Map("IN_AUTO_RENEW ")]
         InAutoRenew

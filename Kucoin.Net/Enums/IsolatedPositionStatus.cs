@@ -9,32 +9,32 @@ namespace Kucoin.Net.Enums
     public enum IsolatedPositionStatus
     {
         /// <summary>
-        /// Debt
+        /// ["<c>DEBT</c>"] Debt
         /// </summary>
         [Map("DEBT")]
         Debt,
         /// <summary>
-        /// Debt free
+        /// ["<c>CLEAR</c>"] Debt free
         /// </summary>
         [Map("CLEAR")]
         DebtFree,
         /// <summary>
-        /// Borrowing
+        /// ["<c>IN_BORROW</c>"] Borrowing
         /// </summary>
         [Map("IN_BORROW")]
         Borrowing,
         /// <summary>
-        /// Repaying
+        /// ["<c>IN_REPAY</c>"] Repaying
         /// </summary>
         [Map("IN_REPAY")]
         Repaying,
         /// <summary>
-        /// Liquidating
+        /// ["<c>IN_LIQUIDATION</c>"] Liquidating
         /// </summary>
         [Map("IN_LIQUIDATION")]
         Liquidating,
         /// <summary>
-        /// Auto renewing
+        /// ["<c>IN_AUTO_RENEW</c>"] Auto renewing
         /// </summary>
         [Map("IN_AUTO_RENEW")]
         AutoRenewing

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum LiquidationWarningType
     {
         /// <summary>
-        /// Margin call, risk rate 80% - 85%
+        /// ["<c>MARGIN_CALL</c>"] Margin call, risk rate 80% - 85%
         /// </summary>
         [Map("MARGIN_CALL")]
         MarginCall,
         /// <summary>
-        /// Reduce only, risk rate 85% - 90%
+        /// ["<c>REDUCE_ONLY</c>"] Reduce only, risk rate 85% - 90%
         /// </summary>
         [Map("REDUCE_ONLY")]
         ReduceOnly,
         /// <summary>
-        /// Liquidation warning, risk rate 90% - 100%
+        /// ["<c>LIQUIDATION_WARNING</c>"] Liquidation warning, risk rate 90% - 100%
         /// </summary>
         [Map("LIQUIDATION_WARNING")]
         LiquidationWarning,
         /// <summary>
-        /// Forced liquidation, risk rate 100%
+        /// ["<c>FORCE_LIQUIDATION</c>"] Forced liquidation, risk rate 100%
         /// </summary>
         [Map("FORCE_LIQUIDATION")]
         ForceLiquidation

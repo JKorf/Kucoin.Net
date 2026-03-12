@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -10,27 +10,27 @@ namespace Kucoin.Net.Enums
     public enum UnifiedTradeType
     {
         /// <summary>
-        /// Normal trade
+        /// ["<c>NORMAL</c>"] Normal trade
         /// </summary>
         [Map("NORMAL")]
         Normal,
         /// <summary>
-        /// Liquidation
+        /// ["<c>LIQUID</c>"] Liquidation
         /// </summary>
         [Map("LIQUID")]
         Liquidation,
         /// <summary>
-        /// Auto deleverage
+        /// ["<c>ADL</c>"] Auto deleverage
         /// </summary>
         [Map("ADL")]
         Adl,
         /// <summary>
-        /// Settlement
+        /// ["<c>SETTLEMENT</c>"] Settlement
         /// </summary>
         [Map("SETTLEMENT")]
         Settlement,
         /// <summary>
-        /// Reconciliation trade
+        /// ["<c>RECONCILIATION</c>"] Reconciliation trade
         /// </summary>
         [Map("RECONCILIATION")]
         Reconciliation

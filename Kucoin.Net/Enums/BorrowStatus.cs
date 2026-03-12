@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum BorrowStatus
     {
         /// <summary>
-        /// In progress
+        /// ["<c>Processing</c>"] In progress
         /// </summary>
         [Map("Processing")]
         Processing,
         /// <summary>
-        /// Done 
+        /// ["<c>Done</c>"] Done 
         /// </summary>
         [Map("Done")]
         Done

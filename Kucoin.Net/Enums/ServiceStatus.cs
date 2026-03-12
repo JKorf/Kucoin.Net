@@ -9,17 +9,17 @@ namespace Kucoin.Net.Enums
     public enum ServiceStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Closed
+        /// ["<c>close</c>"] Closed
         /// </summary>
         [Map("close")]
         Close,
         /// <summary>
-        /// Only cancelation available
+        /// ["<c>cancelOnly</c>"] Only cancelation available
         /// </summary>
         [Map("cancelOnly")]
         CancelOnly

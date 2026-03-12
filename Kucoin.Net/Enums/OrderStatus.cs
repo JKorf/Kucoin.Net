@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// Order is active
+        /// ["<c>active</c>"] Order is active
         /// </summary>
         [Map("active", "open")]
         Active,
         /// <summary>
-        /// Order is done
+        /// ["<c>done</c>"] Order is done
         /// </summary>
         [Map("done")]
         Done

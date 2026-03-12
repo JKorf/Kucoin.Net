@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum QuantityUnit
     {
         /// <summary>
-        /// Base asset
+        /// ["<c>BASECCY</c>"] Base asset
         /// </summary>
         [Map("BASECCY")]
         BaseAsset,
         /// <summary>
-        /// Quote asset
+        /// ["<c>QUOTECCY</c>"] Quote asset
         /// </summary>
         [Map("QUOTECCY")]
         QuoteAsset

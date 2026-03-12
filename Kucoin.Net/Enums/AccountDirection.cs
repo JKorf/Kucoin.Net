@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum AccountDirection
     {
         /// <summary>
-        /// In
+        /// ["<c>in</c>"] In
         /// </summary>
         [Map("in")]
         In,
         /// <summary>
-        /// Out
+        /// ["<c>out</c>"] Out
         /// </summary>
         [Map("out")]
         Out

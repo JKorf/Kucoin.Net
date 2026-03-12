@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,27 +9,27 @@ namespace Kucoin.Net.Enums
     public enum TradingStatus
     {
         /// <summary>
-        /// Not enabled
+        /// ["<c>0</c>"] Not enabled
         /// </summary>
         [Map("0")]
         NotEnabled,
         /// <summary>
-        /// Currently trading
+        /// ["<c>1</c>"] Currently trading
         /// </summary>
         [Map("1")]
         Trading,
         /// <summary>
-        /// [Futures] Settling
+        /// ["<c>2</c>"] [Futures] Settling
         /// </summary>
         [Map("2")]
         Settling,
         /// <summary>
-        /// [Futures] Settled
+        /// ["<c>3</c>"] [Futures] Settled
         /// </summary>
         [Map("3")]
         Settled,
         /// <summary>
-        /// [Futures] Paused
+        /// ["<c>4</c>"] [Futures] Paused
         /// </summary>
         [Map("4")]
         Paused

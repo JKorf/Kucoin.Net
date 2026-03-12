@@ -9,17 +9,17 @@ namespace Kucoin.Net.Enums
     public enum TradeType
     {
         /// <summary>
-        /// Spot trade
+        /// ["<c>TRADE</c>"] Spot trade
         /// </summary>
         [Map("TRADE")]
         SpotTrade,
         /// <summary>
-        /// Margin trade
+        /// ["<c>MARGIN_TRADE</c>"] Margin trade
         /// </summary>
         [Map("MARGIN_TRADE")]
         MarginTrade,
         /// <summary>
-        /// Isolated margin trade
+        /// ["<c>MARGIN_ISOLATED_TRADE</c>"] Isolated margin trade
         /// </summary>
         [Map("MARGIN_ISOLATED_TRADE")]
         IsolatedMarginTrade

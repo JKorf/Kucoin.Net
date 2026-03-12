@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum FuturesMarginMode
     {
         /// <summary>
-        /// Cross margin
+        /// ["<c>CROSS</c>"] Cross margin
         /// </summary>
         [Map("CROSS")]
         Cross,
         /// <summary>
-        /// Isolated margin
+        /// ["<c>ISOLATED</c>"] Isolated margin
         /// </summary>
         [Map("ISOLATED")]
         Isolated,

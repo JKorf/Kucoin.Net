@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum PositionMode
     {
         /// <summary>
-        /// One way position mode
+        /// ["<c>0</c>"] One way position mode
         /// </summary>
         [Map("0")]
         OneWay,
         /// <summary>
-        /// Hedge mode
+        /// ["<c>1</c>"] Hedge mode
         /// </summary>
         [Map("1")]
         HedgeMode

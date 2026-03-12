@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,37 +9,37 @@ namespace Kucoin.Net.Enums
     public enum UnifiedOrderStatus
     {
         /// <summary>
-        /// Not triggered
+        /// ["<c>0</c>"] Not triggered
         /// </summary>
         [Map("0")]
         NotTriggered,
         /// <summary>
-        /// Triggered
+        /// ["<c>1</c>"] Triggered
         /// </summary>
         [Map("1")]
         Triggered,
         /// <summary>
-        /// Live
+        /// ["<c>2</c>"] Live
         /// </summary>
         [Map("2")]
         Live,
         /// <summary>
-        /// Filled
+        /// ["<c>3</c>"] Filled
         /// </summary>
         [Map("3")]
         Filled,
         /// <summary>
-        /// Partially filled
+        /// ["<c>4</c>"] Partially filled
         /// </summary>
         [Map("4")]
         PartiallyFilled,
         /// <summary>
-        /// Canceled
+        /// ["<c>5</c>"] Canceled
         /// </summary>
         [Map("5")]
         Canceled,
         /// <summary>
-        /// Partially canceled
+        /// ["<c>6</c>"] Partially canceled
         /// </summary>
         [Map("6")]
         PartiallyCanceled

@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum FuturesTradeType
     {
         /// <summary>
-        /// Trade
+        /// ["<c>trade</c>"] Trade
         /// </summary>
         [Map("trade")]
         Trade,
         /// <summary>
-        /// Liquidation
+        /// ["<c>liquid</c>"] Liquidation
         /// </summary>
         [Map("liquid", "liquidation")]
         Liquidation,
         /// <summary>
-        /// Adl
+        /// ["<c>adl</c>"] Adl
         /// </summary>
         [Map("adl", "ADL")]
         ADL,
         /// <summary>
-        /// Settlement
+        /// ["<c>settlement</c>"] Settlement
         /// </summary>
         [Map("settlement")]
         Settlement

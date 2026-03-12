@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum MarginEnabledMode
     {
         /// <summary>
-        /// Is enabled
+        /// ["<c>1</c>"] Is enabled
         /// </summary>
         [Map("1")]
         Enabled,
         /// <summary>
-        /// Is not enabled
+        /// ["<c>2</c>"] Is not enabled
         /// </summary>
         [Map("2")]
         Disabled

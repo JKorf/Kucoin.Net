@@ -9,32 +9,32 @@ namespace Kucoin.Net.Enums
     public enum MatchUpdateType
     {
         /// <summary>
-        /// Received
+        /// ["<c>received</c>"] Received
         /// </summary>
         [Map("received")]
         Received,
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Match
+        /// ["<c>match</c>"] Match
         /// </summary>
         [Map("match")]
         Match,
         /// <summary>
-        /// Filled
+        /// ["<c>filled</c>"] Filled
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Canceled
+        /// ["<c>canceled</c>"] Canceled
         /// </summary>
         [Map("canceled")]
         Canceled,
         /// <summary>
-        /// Update
+        /// ["<c>update</c>"] Update
         /// </summary>
         [Map("update")]
         Update

@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum LendStatus
     {
         /// <summary>
-        /// Filled
+        /// ["<c>FILLED</c>"] Filled
         /// </summary>
         [Map("FILLED")]
         Filled,
         /// <summary>
-        /// Canceled
+        /// ["<c>CANCELED</c>"] Canceled
         /// </summary>
         [Map("CANCELED")]
         Canceled

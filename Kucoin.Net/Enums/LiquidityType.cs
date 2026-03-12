@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum LiquidityType
     {
         /// <summary>
-        /// Maker, order was on the order book and got filled
+        /// ["<c>maker</c>"] Maker, order was on the order book and got filled
         /// </summary>
         [Map("maker")]
         Maker,
         /// <summary>
-        /// Taker, trade filled an existing order on the order book
+        /// ["<c>taker</c>"] Taker, trade filled an existing order on the order book
         /// </summary>
         [Map("taker")]
         Taker

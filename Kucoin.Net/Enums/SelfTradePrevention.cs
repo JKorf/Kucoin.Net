@@ -9,27 +9,27 @@ namespace Kucoin.Net.Enums
     public enum SelfTradePrevention
     {
         /// <summary>
-        /// No self trade prevention
+        /// ["<c></c>"] No self trade prevention
         /// </summary>
         [Map("")]
         None,
         /// <summary>
-        /// Decrease the quantity of the existing order by the amount of the new order
+        /// ["<c>DC</c>"] Decrease the quantity of the existing order by the amount of the new order
         /// </summary>
         [Map("DC")]
         DecreaseAndCancel,
         /// <summary>
-        /// Cancel the oldest order
+        /// ["<c>CO</c>"] Cancel the oldest order
         /// </summary>
         [Map("CO")]
         CancelOldest,
         /// <summary>
-        /// Cancel the newest order
+        /// ["<c>CN</c>"] Cancel the newest order
         /// </summary>
         [Map("CN")]
         CancelNewest,
         /// <summary>
-        /// Cancel both orders
+        /// ["<c>CB</c>"] Cancel both orders
         /// </summary>
         [Map("CB")]
         CancelBoth

@@ -10,17 +10,17 @@ namespace Kucoin.Net.Enums
     public enum TransferType
     {
         /// <summary>
-        /// Internal
+        /// ["<c>INTERNAL</c>"] Internal
         /// </summary>
         [Map("INTERNAL")]
         Internal,
         /// <summary>
-        /// Parent to sub
+        /// ["<c>PARENT_TO_SUB</c>"] Parent to sub
         /// </summary>
         [Map("PARENT_TO_SUB")]
         ParentToSub,
         /// <summary>
-        /// Sub to parent
+        /// ["<c>SUB_TO_PARENT</c>"] Sub to parent
         /// </summary>
         [Map("SUB_TO_PARENT")]
         SubToParent

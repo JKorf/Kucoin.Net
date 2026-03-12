@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum AssetType
     {
         /// <summary>
-        /// Crypto currency
+        /// ["<c>0</c>"] Crypto currency
         /// </summary>
         [Map("0")]
         CryptoCurrency,
         /// <summary>
-        /// Fiat
+        /// ["<c>1</c>"] Fiat
         /// </summary>
         [Map("1")]
         Fiat

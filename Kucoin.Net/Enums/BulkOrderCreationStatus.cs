@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum BulkOrderCreationStatus
     {
         /// <summary>
-        /// Success
+        /// ["<c>success</c>"] Success
         /// </summary>
         [Map("success")]
         Success,
         /// <summary>
-        /// Fail
+        /// ["<c>fail</c>"] Fail
         /// </summary>
         [Map("fail")]
         Fail

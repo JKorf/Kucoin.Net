@@ -9,27 +9,27 @@ namespace Kucoin.Net.Enums
     public enum OrderType
     {
         /// <summary>
-        /// Limit order
+        /// ["<c>limit</c>"] Limit order
         /// </summary>
         [Map("limit")]
         Limit,
         /// <summary>
-        /// Market order
+        /// ["<c>market</c>"] Market order
         /// </summary>
         [Map("market")]
         Market,
         /// <summary>
-        /// Limit stop order
+        /// ["<c>limit_stop</c>"] Limit stop order
         /// </summary>
         [Map("limit_stop")]
         LimitStop,
         /// <summary>
-        /// Market stop order
+        /// ["<c>market_stop</c>"] Market stop order
         /// </summary>
         [Map("market_stop")]
         MarketStop,
         /// <summary>
-        /// Stop order
+        /// ["<c>stop</c>"] Stop order
         /// </summary>
         [Map("stop")]
         Stop

@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum StopOrderStatus
     {
         /// <summary>
-        /// New
+        /// ["<c>NEW</c>"] New
         /// </summary>
         [Map("NEW")]
         New,
         /// <summary>
-        /// Triggered
+        /// ["<c>TRIGGERED</c>"] Triggered
         /// </summary>
         [Map("TRIGGERED")]
         Triggered

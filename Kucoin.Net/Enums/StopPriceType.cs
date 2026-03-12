@@ -9,17 +9,17 @@ namespace Kucoin.Net.Enums
     public enum StopPriceType
     {
         /// <summary>
-        /// Trigger on the last trade price
+        /// ["<c>TP</c>"] Trigger on the last trade price
         /// </summary>
         [Map("TP")]
         TradePrice,
         /// <summary>
-        /// Trigger on mark price
+        /// ["<c>MP</c>"] Trigger on mark price
         /// </summary>
         [Map("MP")]
         MarkPrice,
         /// <summary>
-        /// Trigger on index price
+        /// ["<c>IP</c>"] Trigger on index price
         /// </summary>
         [Map("IP")]
         IndexPrice

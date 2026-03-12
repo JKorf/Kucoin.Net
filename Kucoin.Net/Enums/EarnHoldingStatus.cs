@@ -9,13 +9,13 @@ namespace Kucoin.Net.Enums
     public enum EarnHoldingStatus
     {
         /// <summary>
-        /// Locked
+        /// ["<c>LOCKED</c>"] Locked
         /// </summary>
         [Map("LOCKED")]
         Locked,
 
         /// <summary>
-        /// Redeeming
+        /// ["<c>REDEEMING</c>"] Redeeming
         /// </summary>
         [Map("REDEEMING")]
         Redeeming,

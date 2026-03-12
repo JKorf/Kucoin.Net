@@ -9,27 +9,27 @@ namespace Kucoin.Net.Enums
     public enum TransactionType
     {
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>RealisedPNL</c>"] Realized profit and loss
         /// </summary>
         [Map("RealisedPNL")]
         RealizedPnl,
         /// <summary>
-        /// Deposit
+        /// ["<c>Deposit</c>"] Deposit
         /// </summary>
         [Map("Deposit")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>Withdrawal</c>"] Withdrawal
         /// </summary>
         [Map("Withdrawal")]
         Withdrawal,
         /// <summary>
-        /// Transfer in
+        /// ["<c>Transferin</c>"] Transfer in
         /// </summary>
         [Map("Transferin")]
         TransferIn,
         /// <summary>
-        /// Transfer out
+        /// ["<c>Transferout</c>"] Transfer out
         /// </summary>
         [Map("Transferout")]
         TransferOut

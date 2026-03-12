@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +14,22 @@ namespace Kucoin.Net.Enums
     public enum OrderBookDepth
     {
         /// <summary>
-        /// Top 1 snapshots
+        /// ["<c>1</c>"] Top 1 snapshots
         /// </summary>
         [Map("1")]
         BestBidOffer,
         /// <summary>
-        /// Top 5 snapshots
+        /// ["<c>5</c>"] Top 5 snapshots
         /// </summary>
         [Map("5")]
         Top5,
         /// <summary>
-        /// Top 50 snapshots
+        /// ["<c>50</c>"] Top 50 snapshots
         /// </summary>
         [Map("50")]
         Top50,
         /// <summary>
-        /// Incremental full order book
+        /// ["<c>increment</c>"] Incremental full order book
         /// </summary>
         [Map("increment")]
         Incremental

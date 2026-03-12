@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum BorrowOrderType
     {
         /// <summary>
-        /// Fill or kill
+        /// ["<c>FOK</c>"] Fill or kill
         /// </summary>
         [Map("FOK")]
         FOK,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>IOC</c>"] Immediate or cancel
         /// </summary>
         [Map("IOC")]
         IOC

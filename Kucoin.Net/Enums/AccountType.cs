@@ -9,58 +9,58 @@ namespace Kucoin.Net.Enums
     public enum AccountType
     {
         /// <summary>
-        /// Main account
+        /// ["<c>MAIN</c>"] Main account
         /// </summary>
         [Map("MAIN")]
         Main,
         /// <summary>
-        /// Trade account
+        /// ["<c>TRADE</c>"] Trade account
         /// </summary>
         [Map("TRADE")]
         Trade,
         /// <summary>
-        /// Margin account
+        /// ["<c>MARGIN</c>"] Margin account
         /// </summary>
         [Map("MARGIN")]
         Margin,
         /// <summary>
-        /// Pool account
+        /// ["<c>POOl</c>"] Pool account
         /// </summary>
         [Map("POOl")]
         Pool,
         /// <summary>
-        /// Contract
+        /// ["<c>CONTRACT</c>"] Contract
         /// </summary>
         [Map("CONTRACT")]
         Contract,
         /// <summary>
-        /// Isolated margin account
+        /// ["<c>ISOLATED</c>"] Isolated margin account
         /// </summary>
         [Map("ISOLATED")]
         Isolated,
         /// <summary>
-        /// High Frequency (PRO Account) spot account
+        /// ["<c>TRADE_HF</c>"] High Frequency (PRO Account) spot account
         /// </summary>
         [Map("TRADE_HF")]
         SpotHf,
         /// <summary>
-        /// High Frequency (PRO Account) margin account
+        /// ["<c>MARGIN_V2</c>"] High Frequency (PRO Account) margin account
         /// </summary>
         [Map("MARGIN_V2")]
         MarginHf,
         /// <summary>
-        /// High Frequency (PRO Account) isolated account
+        /// ["<c>ISOLATED_V2</c>"] High Frequency (PRO Account) isolated account
         /// </summary>
         [Map("ISOLATED_V2")]
         IsolatedMarginHf,
         /// <summary>
-        /// Option Account
+        /// ["<c>OPTION</c>"] Option Account
         /// </summary>
         [Map("OPTION")]
         Option,
 
         /// <summary>
-        /// Unified account
+        /// ["<c>UNIFIED</c>"] Unified account
         /// </summary>
         [Map("UNIFIED")]
         Unified

@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum ExtendedOrderStatus
     {
         /// <summary>
-        /// New
+        /// ["<c>new</c>"] New
         /// </summary>
         [Map("new")]
         New,
         /// <summary>
-        /// Match
+        /// ["<c>match</c>"] Match
         /// </summary>
         [Map("match")]
         Match,
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Done
+        /// ["<c>done</c>"] Done
         /// </summary>
         [Map("done")]
         Done

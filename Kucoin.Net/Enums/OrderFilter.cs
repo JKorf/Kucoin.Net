@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum OrderFilter
     {
         /// <summary>
-        /// Normal
+        /// ["<c>NORMAL</c>"] Normal
         /// </summary>
         [Map("NORMAL")]
         Normal,
         /// <summary>
-        /// Advanced
+        /// ["<c>ADVANCED</c>"] Advanced
         /// </summary>
         [Map("ADVANCED")]
         Advanced

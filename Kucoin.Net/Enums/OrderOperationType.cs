@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum OrderOperationType
     {
         /// <summary>
-        /// Matched
+        /// ["<c>DEAL</c>"] Matched
         /// </summary>
         [Map("DEAL")]
         Deal,
         /// <summary>
-        /// Canceled
+        /// ["<c>CANCEL</c>"] Canceled
         /// </summary>
         [Map("CANCEL")]
         Cancel

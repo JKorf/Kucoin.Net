@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum StopType
     {
         /// <summary>
-        /// Down, triggers when the price reaches or goes below the stopPrice
+        /// ["<c>down</c>"] Down, triggers when the price reaches or goes below the stopPrice
         /// </summary>
         [Map("down")]
         Down,
         /// <summary>
-        /// Up, triggers when the price reaches or goes above the stopPrice
+        /// ["<c>up</c>"] Up, triggers when the price reaches or goes above the stopPrice
         /// </summary>
         [Map("up")]
         Up

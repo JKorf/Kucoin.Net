@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum ContractType
     {
         /// <summary>
-        /// Perpetual contract
+        /// ["<c>0</c>"] Perpetual contract
         /// </summary>
         [Map("0")]
         Perpetual,
         /// <summary>
-        /// Delivery futures contract
+        /// ["<c>1</c>"] Delivery futures contract
         /// </summary>
         [Map("1")]
         Delivery

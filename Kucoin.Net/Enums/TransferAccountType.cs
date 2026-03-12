@@ -10,47 +10,47 @@ namespace Kucoin.Net.Enums
     public enum TransferAccountType
     {
         /// <summary>
-        /// Main account
+        /// ["<c>MAIN</c>"] Main account
         /// </summary>
         [Map("MAIN")]
         Main,
         /// <summary>
-        /// Trade
+        /// ["<c>TRADE</c>"] Trade
         /// </summary>
         [Map("TRADE")]
         Trade,
         /// <summary>
-        /// Contract
+        /// ["<c>CONTRACT</c>"] Contract
         /// </summary>
         [Map("CONTRACT")]
         Contract,
         /// <summary>
-        /// Margin
+        /// ["<c>MARGIN</c>"] Margin
         /// </summary>
         [Map("MARGIN")]
         Margin,
         /// <summary>
-        /// Isolated
+        /// ["<c>ISOLATED</c>"] Isolated
         /// </summary>
         [Map("ISOLATED")]
         Isolated,
         /// <summary>
-        /// HF trade
+        /// ["<c>TRADE_HF</c>"] HF trade
         /// </summary>
         [Map("TRADE_HF")]
         TradeHf,
         /// <summary>
-        /// Margin
+        /// ["<c>MARGIN_V2</c>"] Margin
         /// </summary>
         [Map("MARGIN_V2")]
         MarginV2,
         /// <summary>
-        /// Isolated
+        /// ["<c>ISOLATED_V2</c>"] Isolated
         /// </summary>
         [Map("ISOLATED_V2")]
         IsolatedV2,
         /// <summary>
-        /// Option
+        /// ["<c>OPTION</c>"] Option
         /// </summary>
         [Map("OPTION")]
         Option

@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum RepaymentStrategy
     {
         /// <summary>
-        /// Time priority, repay nearest maturity first
+        /// ["<c>RECENTLY_EXPIRE_FIRST</c>"] Time priority, repay nearest maturity first
         /// </summary>
         [Map("RECENTLY_EXPIRE_FIRST")]
         RecentlyExpireFirst,
         /// <summary>
-        /// Rate priority, repay highest interest rate first
+        /// ["<c>HIGHEST_RATE_FIRST</c>"] Rate priority, repay highest interest rate first
         /// </summary>
         [Map("HIGHEST_RATE_FIRST")]
         HighestRateFirst

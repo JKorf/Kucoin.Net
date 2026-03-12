@@ -9,17 +9,17 @@ namespace Kucoin.Net.Enums
     public enum MigrateStatus
     {
         /// <summary>
-        /// Not migrated
+        /// ["<c>0</c>"] Not migrated
         /// </summary>
         [Map("0")]
         NotMigrated,
         /// <summary>
-        /// Migrating
+        /// ["<c>1</c>"] Migrating
         /// </summary>
         [Map("1")]
         Migrating,
         /// <summary>
-        /// Migrated
+        /// ["<c>2</c>"] Migrated
         /// </summary>
         [Map("2")]
         Migrated

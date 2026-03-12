@@ -9,87 +9,87 @@ namespace Kucoin.Net.Enums
     public enum UnifiedBusinessType
     {
         /// <summary>
-        /// Trade
+        /// ["<c>TRADE_EXCHANGE</c>"] Trade
         /// </summary>
         [Map("TRADE_EXCHANGE")]
         TradeExchange,
         /// <summary>
-        /// Transfer
+        /// ["<c>TRANSFER</c>"] Transfer
         /// </summary>
         [Map("TRANSFER")]
         Transfer,
         /// <summary>
-        /// Subaccount transfer
+        /// ["<c>SUB_TRANSFER</c>"] Subaccount transfer
         /// </summary>
         [Map("SUB_TRANSFER")]
         SubTransfer,
         /// <summary>
-        /// Returned fees
+        /// ["<c>RETURNED_FEES</c>"] Returned fees
         /// </summary>
         [Map("RETURNED_FEES")]
         ReturnedFees,
         /// <summary>
-        /// Deduction fees
+        /// ["<c>DEDUCTION_FEES</c>"] Deduction fees
         /// </summary>
         [Map("DEDUCTION_FEES")]
         DeductionFees,
         /// <summary>
-        /// Other
+        /// ["<c>OTHER</c>"] Other
         /// </summary>
         [Map("OTHER")]
         Other,
         /// <summary>
-        /// Subaccount transfer
+        /// ["<c>SUB_TO_SUB_TRANSFER</c>"] Subaccount transfer
         /// </summary>
         [Map("SUB_TO_SUB_TRANSFER")]
         SubToSubTransfer,
         /// <summary>
-        /// Spot exchange
+        /// ["<c>SPOT_EXCHANGE</c>"] Spot exchange
         /// </summary>
         [Map("SPOT_EXCHANGE")]
         SpotExchange,
         /// <summary>
-        /// Spot exchange rebate
+        /// ["<c>SPOT_EXCHANGE_REBATE</c>"] Spot exchange rebate
         /// </summary>
         [Map("SPOT_EXCHANGE_REBATE")]
         SpotExchangeRebate,
         /// <summary>
-        /// Futures exchange open
+        /// ["<c>FUTURES_EXCHANGE_OPEN</c>"] Futures exchange open
         /// </summary>
         [Map("FUTURES_EXCHANGE_OPEN")]
         FuturesExchangeOpen,
         /// <summary>
-        /// Futures exchange close
+        /// ["<c>FUTURES_EXCHANGE_CLOSE</c>"] Futures exchange close
         /// </summary>
         [Map("FUTURES_EXCHANGE_CLOSE")]
         FuturesExchangeClose,
         /// <summary>
-        /// Futures exchange rebate
+        /// ["<c>FUTURES_EXCHANGE_REBATE</c>"] Futures exchange rebate
         /// </summary>
         [Map("FUTURES_EXCHANGE_REBATE")]
         FuturesExchangeRebate,
         /// <summary>
-        /// Funding fee
+        /// ["<c>FUNDING_FEE</c>"] Funding fee
         /// </summary>
         [Map("FUNDING_FEE")]
         FundingFee,
         /// <summary>
-        /// Liability interest
+        /// ["<c>LIABILITY_INTEREST</c>"] Liability interest
         /// </summary>
         [Map("LIABILITY_INTEREST")]
         LiabilityInterest,
         /// <summary>
-        /// KCS deduction fees
+        /// ["<c>KCS_DEDUCTION_FEES</c>"] KCS deduction fees
         /// </summary>
         [Map("KCS_DEDUCTION_FEES")]
         KcsDeductionFees,
         /// <summary>
-        /// KCS returned fees
+        /// ["<c>KCS_RETURNED_FEES</c>"] KCS returned fees
         /// </summary>
         [Map("KCS_RETURNED_FEES")]
         KcsReturnedFees,
         /// <summary>
-        /// Auto exchange user
+        /// ["<c>AUTO_EXCHANGE_USER</c>"] Auto exchange user
         /// </summary>
         [Map("AUTO_EXCHANGE_USER")]
         AutoExchangeUser

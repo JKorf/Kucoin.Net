@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum FeeType
     {
         /// <summary>
-        /// Maker fee rate
+        /// ["<c>makerFee</c>"] Maker fee rate
         /// </summary>
         [Map("makerFee")]
         MakerFee,
         /// <summary>
-        /// Taker fee rate
+        /// ["<c>takerFee</c>"] Taker fee rate
         /// </summary>
         [Map("takerFee")]
         TakerFee

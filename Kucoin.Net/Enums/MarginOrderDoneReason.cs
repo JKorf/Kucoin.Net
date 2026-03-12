@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum MarginOrderDoneReason
     {
         /// <summary>
-        /// Filled
+        /// ["<c>filled</c>"] Filled
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Cancelled
+        /// ["<c>canceled</c>"] Cancelled
         /// </summary>
         [Map("canceled")]
         Canceled

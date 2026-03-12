@@ -9,33 +9,33 @@ namespace Kucoin.Net.Enums
     public enum UnifiedAccountType
     {
         /// <summary>
-        /// Funding account
+        /// ["<c>FUNDING</c>"] Funding account
         /// </summary>
         [Map("FUNDING")]
         Funding,
         /// <summary>
-        /// Spot account
+        /// ["<c>SPOT</c>"] Spot account
         /// </summary>
         [Map("SPOT")]
         Spot,
         /// <summary>
-        /// Futures account
+        /// ["<c>FUTURES</c>"] Futures account
         /// </summary>
         [Map("FUTURES")]
         Futures,
         /// <summary>
-        /// Cross margin account
+        /// ["<c>CROSS</c>"] Cross margin account
         /// </summary>
         [Map("CROSS")]
         Cross,
         /// <summary>
-        /// Isolated margin account
+        /// ["<c>ISOLATED</c>"] Isolated margin account
         /// </summary>
         [Map("ISOLATED")]
         Isolated,
 
         /// <summary>
-        /// Unified account
+        /// ["<c>UNIFIED</c>"] Unified account
         /// </summary>
         [Map("UNIFIED")]
         Unified

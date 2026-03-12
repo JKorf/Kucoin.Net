@@ -9,17 +9,17 @@ namespace Kucoin.Net.Enums
     public enum PositionSide
     {
         /// <summary>
-        /// Both (One way position mode)
+        /// ["<c>BOTH</c>"] Both (One way position mode)
         /// </summary>
         [Map("BOTH")]
         Both,
         /// <summary>
-        /// Long
+        /// ["<c>LONG</c>"] Long
         /// </summary>
         [Map("LONG")]
         Long,
         /// <summary>
-        /// Short
+        /// ["<c>SHORT</c>"] Short
         /// </summary>
         [Map("SHORT")]
         Short

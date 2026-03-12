@@ -9,12 +9,12 @@ namespace Kucoin.Net.Enums
     public enum OrderSide
     {
         /// <summary>
-        /// Buy order
+        /// ["<c>buy</c>"] Buy order
         /// </summary>
         [Map("buy")]
         Buy,
         /// <summary>
-        /// Sell order
+        /// ["<c>sell</c>"] Sell order
         /// </summary>
         [Map("sell")]
         Sell

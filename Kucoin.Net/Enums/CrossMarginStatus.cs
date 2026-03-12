@@ -10,27 +10,27 @@ namespace Kucoin.Net.Enums
     public enum CrossMarginStatus
     {
         /// <summary>
-        /// Effective
+        /// ["<c>EFFECTIVE</c>"] Effective
         /// </summary>
         [Map("EFFECTIVE")]
         Effective,
         /// <summary>
-        /// Bankruptcy liquidation
+        /// ["<c>BANKRUPTCY</c>"] Bankruptcy liquidation
         /// </summary>
         [Map("BANKRUPTCY")]
         BankruptcyLiquidation,
         /// <summary>
-        /// Closing
+        /// ["<c>LIQUIDATION</c>"] Closing
         /// </summary>
         [Map("LIQUIDATION")]
         Closing,
         /// <summary>
-        /// Repaying
+        /// ["<c>REPAY</c>"] Repaying
         /// </summary>
         [Map("REPAY")]
         Repaying,
         /// <summary>
-        /// Borrowing
+        /// ["<c>BORROW</c>"] Borrowing
         /// </summary>
         [Map("BORROW")]
         Borrowing

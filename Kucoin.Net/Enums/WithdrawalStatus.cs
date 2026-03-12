@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum WithdrawalStatus
     {
         /// <summary>
-        /// In progress
+        /// ["<c>PROCESSING</c>"] In progress
         /// </summary>
         [Map("PROCESSING")]
         Processing,
         /// <summary>
-        /// In progress
+        /// ["<c>WALLET_PROCESSING</c>"] In progress
         /// </summary>
         [Map("WALLET_PROCESSING")]
         WalletProcessing,
         /// <summary>
-        /// Successful
+        /// ["<c>SUCCESS</c>"] Successful
         /// </summary>
         [Map("SUCCESS")]
         Success,
         /// <summary>
-        /// Failed
+        /// ["<c>FAILURE</c>"] Failed
         /// </summary>
         [Map("FAILURE")]
         Failure

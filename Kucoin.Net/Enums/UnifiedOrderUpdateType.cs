@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,32 +14,32 @@ namespace Kucoin.Net.Enums
     public enum UnifiedOrderUpdateType
     {
         /// <summary>
-        /// Order created
+        /// ["<c>OPEN</c>"] Order created
         /// </summary>
         [Map("OPEN")]
         Open,
         /// <summary>
-        /// Order updated
+        /// ["<c>UPDATE</c>"] Order updated
         /// </summary>
         [Map("UPDATE")]
         Update,
         /// <summary>
-        /// Trade executed
+        /// ["<c>FILL</c>"] Trade executed
         /// </summary>
         [Map("FILL")]
         Fill,
         /// <summary>
-        /// Order canceled
+        /// ["<c>CANCEL</c>"] Order canceled
         /// </summary>
         [Map("CANCEL")]
         Cancel,
         /// <summary>
-        /// Conditional order triggered
+        /// ["<c>TRIGGER</c>"] Conditional order triggered
         /// </summary>
         [Map("TRIGGER")]
         Trigger,
         /// <summary>
-        /// Match
+        /// ["<c>MATCH</c>"] Match
         /// </summary>
         [Map("MATCH")]
         Match

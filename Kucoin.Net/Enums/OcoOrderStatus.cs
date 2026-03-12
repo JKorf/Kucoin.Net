@@ -9,22 +9,22 @@ namespace Kucoin.Net.Enums
     public enum OcoOrderStatus
     {
         /// <summary>
-        /// New
+        /// ["<c>NEW</c>"] New
         /// </summary>
         [Map("NEW")]
         New,
         /// <summary>
-        /// Done
+        /// ["<c>DONE</c>"] Done
         /// </summary>
         [Map("DONE")]
         Done,
         /// <summary>
-        /// Triggered
+        /// ["<c>TRIGGERED</c>"] Triggered
         /// </summary>
         [Map("TRIGGERED")]
         Triggered,
         /// <summary>
-        /// Cancelled
+        /// ["<c>CANCELLED</c>"] Cancelled
         /// </summary>
         [Map("CANCELLED")]
         Canceled

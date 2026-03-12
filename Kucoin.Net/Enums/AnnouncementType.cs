@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 
 namespace Kucoin.Net.Enums
 {
@@ -9,52 +9,52 @@ namespace Kucoin.Net.Enums
     public enum AnnouncementType
     {
         /// <summary>
-        /// Latest announcements
+        /// ["<c>latest-announcements</c>"] Latest announcements
         /// </summary>
         [Map("latest-announcements")]
         LatestAnnouncements,
         /// <summary>
-        /// Activities
+        /// ["<c>activities</c>"] Activities
         /// </summary>
         [Map("activities")]
         Activities,
         /// <summary>
-        /// Product updates
+        /// ["<c>product-updates</c>"] Product updates
         /// </summary>
         [Map("product-updates")]
         ProductUpdates,
         /// <summary>
-        /// VIP
+        /// ["<c>vip</c>"] VIP
         /// </summary>
         [Map("vip")]
         Vip,
         /// <summary>
-        /// Maintenance updates
+        /// ["<c>maintenance-updates</c>"] Maintenance updates
         /// </summary>
         [Map("maintenance-updates")]
         MaintenanceUpdates,
         /// <summary>
-        /// Delistings
+        /// ["<c>delistings</c>"] Delistings
         /// </summary>
         [Map("delistings")]
         Delistings,
         /// <summary>
-        /// Others
+        /// ["<c>others</c>"] Others
         /// </summary>
         [Map("others")]
         Others,
         /// <summary>
-        /// Api campaigns
+        /// ["<c>api-campaigns</c>"] Api campaigns
         /// </summary>
         [Map("api-campaigns")]
         ApiCampaigns,
         /// <summary>
-        /// New listings
+        /// ["<c>new-listings</c>"] New listings
         /// </summary>
         [Map("new-listings")]
         NewListings,
         /// <summary>
-        /// Futures announcements
+        /// ["<c>futures-announcements</c>"] Futures announcements
         /// </summary>
         [Map("futures-announcements")]
         FuturesAnnouncements
