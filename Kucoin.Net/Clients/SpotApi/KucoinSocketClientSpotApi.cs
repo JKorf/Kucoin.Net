@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
-    internal partial class KucoinSocketClientSpotApi : SocketApiClient, IKucoinSocketClientSpotApi
+    internal partial class KucoinSocketClientSpotApi : SocketApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientSpotApi
     {
         private readonly KucoinSocketClient _baseClient;
 
@@ -68,7 +68,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketSpotMessageHandler();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
             => new KucoinAuthenticationProvider(credentials);
         
         /// <inheritdoc />

@@ -33,7 +33,7 @@ using CryptoExchange.Net.Sockets.Default;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
-    internal partial class KucoinSocketClientFuturesApi : SocketApiClient, IKucoinSocketClientFuturesApi
+    internal partial class KucoinSocketClientFuturesApi : SocketApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientFuturesApi
     {
         private readonly KucoinSocketClient _baseClient;
 
@@ -67,7 +67,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         public IKucoinSocketClientFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
             => new KucoinAuthenticationProvider(credentials);
 
 

@@ -12,7 +12,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Unified socket api
     /// </summary>
-    public interface IKucoinSocketClientUnifiedApi : ISocketApiClient, IDisposable
+    public interface IKucoinSocketClientUnifiedApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

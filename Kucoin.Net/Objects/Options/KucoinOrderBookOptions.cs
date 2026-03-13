@@ -27,14 +27,14 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// API credentials to use. The Kucoin order book endpoint requires authentication
         /// </summary>
-        public ApiCredentials? ApiCredentials { get; set; }
+        public KucoinCredentials? ApiCredentials { get; set; }
 
         internal KucoinOrderBookOptions Copy()
         {
             var result = Copy<KucoinOrderBookOptions>();
             result.Limit = Limit;
             result.InitialDataTimeout = InitialDataTimeout;
-            result.ApiCredentials = ApiCredentials?.Copy();
+            result.ApiCredentials = (KucoinCredentials?)ApiCredentials?.Copy();
             return result;
         }
     }

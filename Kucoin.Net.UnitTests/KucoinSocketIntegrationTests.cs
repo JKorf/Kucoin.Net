@@ -31,7 +31,7 @@ namespace Kucoin.Net.UnitTests
             return new KucoinSocketClient(Options.Create(new KucoinSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new KucoinCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 

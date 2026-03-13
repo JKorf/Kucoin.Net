@@ -16,7 +16,7 @@ using System.Net.Http;
 namespace Kucoin.Net.Clients
 {
     /// <inheritdoc cref="IKucoinRestClient" />
-    public class KucoinRestClient : BaseRestClient, IKucoinRestClient
+    public class KucoinRestClient : BaseRestClient<KucoinEnvironment, KucoinCredentials>, IKucoinRestClient
     {
         /// <inheritdoc />
         public IKucoinRestClientSpotApi SpotApi { get; }
@@ -49,22 +49,6 @@ namespace Kucoin.Net.Clients
             SpotApi = AddApiClient(new KucoinRestClientSpotApi(_logger, httpClient, this, options.Value));
             FuturesApi = AddApiClient(new KucoinRestClientFuturesApi(_logger, httpClient, this, options.Value));
             UnifiedApi = AddApiClient(new KucoinRestClientUnifiedApi(_logger, httpClient, this, options.Value));
-        }
-
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            FuturesApi.SetOptions(options);
-            UnifiedApi.SetOptions(options);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            SpotApi.SetApiCredentials(credentials);
-            FuturesApi.SetApiCredentials(credentials);
-            UnifiedApi.SetApiCredentials(credentials);
         }
 
         /// <summary>

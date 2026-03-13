@@ -6,7 +6,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Unified API endpoints
     /// </summary>
-    public interface IKucoinRestClientUnifiedApi : IRestApiClient, IDisposable
+    public interface IKucoinRestClientUnifiedApi : IRestApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

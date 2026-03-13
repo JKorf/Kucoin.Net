@@ -16,7 +16,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot socket api
     /// </summary>
-    public interface IKucoinSocketClientSpotApi : ISocketApiClient, IDisposable
+    public interface IKucoinSocketClientSpotApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

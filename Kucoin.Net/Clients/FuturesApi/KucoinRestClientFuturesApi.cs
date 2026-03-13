@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
-    internal partial class KucoinRestClientFuturesApi : RestApiClient, IKucoinRestClientFuturesApi
+    internal partial class KucoinRestClientFuturesApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientFuturesApi
     {
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
@@ -58,7 +58,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
             => new KucoinAuthenticationProvider(credentials);
 
         /// <inheritdoc />

@@ -5,7 +5,7 @@ namespace Kucoin.Net.Objects.Options
     /// <summary>
     /// Kucoin socket client options
     /// </summary>
-    public class KucoinSocketOptions : SocketExchangeOptions<KucoinEnvironment>
+    public class KucoinSocketOptions : SocketExchangeOptions<KucoinEnvironment, KucoinCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -27,7 +27,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions()
+        public SocketApiOptions<KucoinCredentials> SpotOptions { get; private set; } = new SocketApiOptions<KucoinCredentials>()
         {
             MaxSocketConnections = 800
         };
@@ -35,7 +35,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Futures API options
         /// </summary>
-        public SocketApiOptions FuturesOptions { get; private set; } = new SocketApiOptions()
+        public SocketApiOptions<KucoinCredentials> FuturesOptions { get; private set; } = new SocketApiOptions<KucoinCredentials>()
         {
             MaxSocketConnections = 800
         };
