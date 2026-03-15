@@ -37,9 +37,9 @@ namespace Kucoin.Net
             
             var timestamp = GetMillisecondTimestamp(apiClient).ToString();
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers.Add("KC-API-KEY", Credential.PublicKey);
+            request.Headers.Add("KC-API-KEY", Credential.Key);
             request.Headers.Add("KC-API-TIMESTAMP", timestamp);
-            var phraseKey = Credential.PublicKey + "|" + Credential.Pass;
+            var phraseKey = Credential.Key + "|" + Credential.Pass;
             if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
             {
                 phraseSign = SignHMACSHA256(Credential.Pass!, SignOutputType.Base64);
@@ -60,7 +60,7 @@ namespace Kucoin.Net
 
             // Partner info
             request.Headers.Add("KC-API-PARTNER", brokerName!);
-            var partnerSignData = $"{timestamp}{brokerName}{Credential.PublicKey}";
+            var partnerSignData = $"{timestamp}{brokerName}{Credential.Key}";
 
             using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey!));
             byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
