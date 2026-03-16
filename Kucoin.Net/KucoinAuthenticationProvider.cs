@@ -19,7 +19,7 @@ namespace Kucoin.Net
         private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
         private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
 
         public KucoinAuthenticationProvider(KucoinCredentials credentials): base(credentials)
         {
