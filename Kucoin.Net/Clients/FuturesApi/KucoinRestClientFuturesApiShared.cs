@@ -610,7 +610,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         {
             if (status == OrderStatus.Active) return SharedOrderStatus.Open;
             if (cancelExists) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == OrderStatus.Done) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)

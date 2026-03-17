@@ -238,18 +238,12 @@ namespace Kucoin.Net.Clients.SpotApi
             throw new Exception("Unknown order update type");
         }
 
-        private SharedOrderStatus ParseStatus(ExtendedOrderStatus? status, MatchUpdateType? updateType)
+        private SharedOrderStatus ParseOrderStatus(ExtendedOrderStatus status, MatchUpdateType updateType)
         {
-            if (status == ExtendedOrderStatus.New)
-                return SharedOrderStatus.Open;
-
-            if (updateType == MatchUpdateType.Canceled)
-                return SharedOrderStatus.Canceled;
-
-            if (updateType == MatchUpdateType.Filled)
-                return SharedOrderStatus.Filled;
-
-            return SharedOrderStatus.Open;
+            if (status == ExtendedOrderStatus.New || status == ExtendedOrderStatus.Open || updateType == MatchUpdateType.Open || updateType == MatchUpdateType.Received) return SharedOrderStatus.Open;
+            if (updateType == MatchUpdateType.Canceled) return SharedOrderStatus.Canceled;
+            if (updateType == MatchUpdateType.Filled) return SharedOrderStatus.Filled;
+            return SharedOrderStatus.Unknown;
         }
     }
 }

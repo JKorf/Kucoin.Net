@@ -1013,14 +1013,26 @@ namespace Kucoin.Net.Clients.SpotApi
                             x.Quantity,
                             x.Status == DepositStatus.Success,
                             x.CreateTime,
-                            x.Status == DepositStatus.Success ? SharedTransferStatus.Completed
-                            : x.Status == DepositStatus.Failure ? SharedTransferStatus.Failed
-                            : SharedTransferStatus.InProgress)
+                            ParseTransferStatus(x.Status))
                         {
                             Network = x.Network,
                             TransactionId = x.WalletTransactionId,
                             Tag = x.Memo
                         }).ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(DepositStatus status)
+        {
+            if (status == DepositStatus.Success)
+                return SharedTransferStatus.Completed;
+
+            if (status == DepositStatus.Failure)
+                return SharedTransferStatus.Failed;
+
+            if (status == DepositStatus.Processing)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
@@ -1216,7 +1228,10 @@ namespace Kucoin.Net.Clients.SpotApi
             if (data.IsActive == false)
                 return SharedTriggerOrderStatus.Filled;
 
-            return SharedTriggerOrderStatus.Active;
+            if (data.Status == StopOrderStatus.Triggered)
+                return SharedTriggerOrderStatus.Active;
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
