@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Kucoin.Net.Objects.Options
 {
@@ -27,7 +28,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions<KucoinCredentials> SpotOptions { get; private set; } = new SocketApiOptions<KucoinCredentials>()
+        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions()
         {
             MaxSocketConnections = 800
         };
@@ -35,7 +36,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Futures API options
         /// </summary>
-        public SocketApiOptions<KucoinCredentials> FuturesOptions { get; private set; } = new SocketApiOptions<KucoinCredentials>()
+        public SocketApiOptions FuturesOptions { get; private set; } = new SocketApiOptions()
         {
             MaxSocketConnections = 800
         };

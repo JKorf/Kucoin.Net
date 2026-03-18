@@ -9,6 +9,7 @@ using Kucoin.Net.Objects.Models.Spot.Socket;
 using System.Collections.Generic;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {

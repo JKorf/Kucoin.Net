@@ -1,9 +1,10 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Kucoin.Net.Objects.Options
 {
     /// <inheritdoc />
-    public class KucoinRestApiOptions : RestApiOptions<KucoinCredentials>
+    public class KucoinRestApiOptions : RestApiOptions
     {
         /// <summary>
         /// The broker reference name to use

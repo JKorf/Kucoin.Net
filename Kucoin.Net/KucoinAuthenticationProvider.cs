@@ -14,14 +14,12 @@ using System.Text;
 
 namespace Kucoin.Net
 {
-    internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinCredentials, HMACCredential>
+    internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinCredentials, KucoinCredentials>
     {
         private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
         private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
-
-        public KucoinAuthenticationProvider(KucoinCredentials credentials): base(credentials)
+        public KucoinAuthenticationProvider(KucoinCredentials credentials): base(credentials, credentials)
         {
             if (string.IsNullOrEmpty(Credential.Pass))
                 throw new ArgumentNullException(nameof(Credential.Pass), "Passphrase is required for Kucoin authentication");

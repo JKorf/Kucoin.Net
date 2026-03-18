@@ -187,12 +187,12 @@ namespace Kucoin.Net.UnitTests
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    { "ApiCredentials:HMAC:Key", "123" },
-                    { "ApiCredentials:HMAC:Secret", "456" },
-                    { "ApiCredentials:HMAC:Pass", "222" },
-                    { "Socket:ApiCredentials:HMAC:Key", "456" },
-                    { "Socket:ApiCredentials:HMAC:Secret", "789" },
-                    { "Socket:ApiCredentials:HMAC:Pass", "111" },
+                    { "ApiCredentials:Key", "123" },
+                    { "ApiCredentials:Secret", "456" },
+                    { "ApiCredentials:Pass", "222" },
+                    { "Socket:ApiCredentials:Key", "456" },
+                    { "Socket:ApiCredentials:Secret", "789" },
+                    { "Socket:ApiCredentials:Pass", "111" },
                     { "Rest:OutputOriginalData", "true" },
                     { "Socket:OutputOriginalData", "false" },
                     { "Rest:Proxy:Host", "host" },
