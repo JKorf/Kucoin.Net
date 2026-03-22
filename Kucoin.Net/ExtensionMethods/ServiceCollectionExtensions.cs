@@ -108,8 +108,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IKucoinSocketClient), x => { return new KucoinSocketClient(x.GetRequiredService<IOptions<KucoinSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
-            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
-            services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
             services.AddTransient<IKucoinTrackerFactory, KucoinTrackerFactory>();
             services.AddTransient<ITrackerFactory, KucoinTrackerFactory>();

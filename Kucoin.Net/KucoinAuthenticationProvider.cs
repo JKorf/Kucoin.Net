@@ -21,8 +21,6 @@ namespace Kucoin.Net
 
         public KucoinAuthenticationProvider(KucoinCredentials credentials): base(credentials, credentials)
         {
-            if (string.IsNullOrEmpty(Credential.Pass))
-                throw new ArgumentNullException(nameof(Credential.Pass), "Passphrase is required for Kucoin authentication");
         }
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
