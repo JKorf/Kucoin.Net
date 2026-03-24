@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Clients;
@@ -62,11 +63,11 @@ namespace Kucoin.Net.SymbolOrderBooks
             _clientOwner = socketClient == null;
             _socketClient = socketClient ?? new KucoinSocketClient(x =>
             {
-                x.ApiCredentials = options.ApiCredentials?.Copy() ?? KucoinSocketOptions.Default.ApiCredentials?.Copy();
+                x.ApiCredentials = (KucoinCredentials?)options.ApiCredentials?.Copy() ?? (KucoinCredentials?)KucoinSocketOptions.Default.ApiCredentials?.Copy();
             });
             _restClient = restClient ?? new KucoinRestClient(x =>
             {
-                x.ApiCredentials = options.ApiCredentials?.Copy() ?? KucoinRestOptions.Default.ApiCredentials?.Copy();
+                x.ApiCredentials = (KucoinCredentials?)options.ApiCredentials?.Copy() ?? (KucoinCredentials?)KucoinRestOptions.Default.ApiCredentials?.Copy();
             });
         }
 

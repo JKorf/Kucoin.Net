@@ -120,7 +120,7 @@ namespace Kucoin.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, KucoinCredentials credentials, SpotUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IKucoinUserClientProvider>() ?? new KucoinUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -149,7 +149,7 @@ namespace Kucoin.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, KucoinCredentials credentials, FuturesUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IKucoinUserClientProvider>() ?? new KucoinUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

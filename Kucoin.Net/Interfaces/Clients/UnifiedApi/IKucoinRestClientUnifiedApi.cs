@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Interfaces.Clients;
 using System;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
@@ -6,7 +7,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Unified API endpoints
     /// </summary>
-    public interface IKucoinRestClientUnifiedApi : IRestApiClient, IDisposable
+    public interface IKucoinRestClientUnifiedApi : IRestApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

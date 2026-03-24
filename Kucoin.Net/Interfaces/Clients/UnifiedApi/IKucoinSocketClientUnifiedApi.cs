@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -12,7 +13,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Unified socket api
     /// </summary>
-    public interface IKucoinSocketClientUnifiedApi : ISocketApiClient, IDisposable
+    public interface IKucoinSocketClientUnifiedApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to updates for a symbol ticker

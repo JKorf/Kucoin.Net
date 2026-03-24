@@ -26,7 +26,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Account", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -56,7 +56,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -76,7 +76,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.kucoin.com", IsAuthenticated, "data");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolsAsync(), "GetSymbols");
@@ -100,7 +100,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Margin", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -126,7 +126,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Earn", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -139,7 +139,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/Trading", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -180,7 +180,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Account", "https://api-futures.kucoin.com", IsAuthenticated, "data");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetAccountOverviewAsync(), "GetAccountOverview");
@@ -209,7 +209,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api-futures.kucoin.com", IsAuthenticated, "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(), "GetOpenContracts", ignoreProperties: new List<string> { "nextFundingRateTime" });
@@ -236,7 +236,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Futures/Trading", "https://api-futures.kucoin.com", IsAuthenticated, "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.NewOrderType.Market, 1, 1), "PlaceOrder");
@@ -263,7 +263,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Spot/HfTrading", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -307,7 +307,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Unified/Account", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -333,7 +333,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Unified/ExchangeData", "https://api.kucoin.com", IsAuthenticated, "data");
@@ -361,7 +361,7 @@ namespace Kucoin.Net.UnitTests
             var client = new KucoinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new KucoinCredentials("123", "456", "789");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<KucoinRestClient>(client, "Endpoints/Unified/Trading", "https://api.kucoin.com", IsAuthenticated, "data"); 

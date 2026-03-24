@@ -49,7 +49,7 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, KucoinEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, KucoinCredentials credentials, KucoinEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -63,7 +63,7 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        public IKucoinRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, KucoinEnvironment? environment = null)
+        public IKucoinRestClient GetRestClient(string userIdentifier, KucoinCredentials? credentials = null, KucoinEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -72,7 +72,7 @@ namespace Kucoin.Net.Clients
         }
 
         /// <inheritdoc />
-        public IKucoinSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, KucoinEnvironment? environment = null)
+        public IKucoinSocketClient GetSocketClient(string userIdentifier, KucoinCredentials? credentials = null, KucoinEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -80,7 +80,7 @@ namespace Kucoin.Net.Clients
             return client;
         }
 
-        private IKucoinRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, KucoinEnvironment? environment)
+        private IKucoinRestClient CreateRestClient(string userIdentifier, KucoinCredentials? credentials, KucoinEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new KucoinRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -92,7 +92,7 @@ namespace Kucoin.Net.Clients
             return client;
         }
 
-        private IKucoinSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, KucoinEnvironment? environment)
+        private IKucoinSocketClient CreateSocketClient(string userIdentifier, KucoinCredentials? credentials, KucoinEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new KucoinSocketClient(clientSocketOptions!, _loggerFactory);

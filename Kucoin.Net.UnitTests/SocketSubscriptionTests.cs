@@ -56,7 +56,7 @@ namespace Kucoin.Net.UnitTests
 
             var client = new KucoinSocketClient(Options.Create(new Objects.Options.KucoinSocketOptions
             {
-                ApiCredentials = new ApiCredentials("123", "456", "789"),
+                ApiCredentials = new KucoinCredentials("123", "456", "789"),
                 OutputOriginalData = true,
                 Environment = KucoinEnvironment.CreateCustom(
                     "UnitTesting",
@@ -125,7 +125,7 @@ namespace Kucoin.Net.UnitTests
 
             var client = new KucoinSocketClient(Options.Create(new Objects.Options.KucoinSocketOptions
             {
-                ApiCredentials = new ApiCredentials("123", "456", "789"),
+                ApiCredentials = new KucoinCredentials("123", "456", "789"),
                 OutputOriginalData = true,
                 Environment = KucoinEnvironment.CreateCustom(
                     "UnitTesting",
@@ -167,7 +167,7 @@ namespace Kucoin.Net.UnitTests
 
             var client = new KucoinSocketClient(Options.Create(new Objects.Options.KucoinSocketOptions
             {
-                ApiCredentials = new ApiCredentials("123", "456", "789"),
+                ApiCredentials = new KucoinCredentials("123", "456", "789"),
                 OutputOriginalData = true,
                 Environment = KucoinEnvironment.CreateCustom(
                     "UnitTesting",

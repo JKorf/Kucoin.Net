@@ -9,13 +9,14 @@ using Kucoin.Net.Objects.Models.Spot.Socket;
 using System.Collections.Generic;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// Futures socket api
     /// </summary>
-    public interface IKucoinSocketClientFuturesApi : ISocketApiClient, IDisposable
+    public interface IKucoinSocketClientFuturesApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

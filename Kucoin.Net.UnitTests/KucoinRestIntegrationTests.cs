@@ -31,7 +31,7 @@ namespace Kucoin.Net.UnitTests
             return new KucoinRestClient(null, loggerFactory, Options.Create(new KucoinRestOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new ApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new KucoinCredentials(key, sec, pass) : null
             }));
         }
 

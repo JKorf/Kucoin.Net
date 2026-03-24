@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.UnifiedApi
 {
     /// <inheritdoc cref="IKucoinRestClientUnifiedApi" />
-    internal partial class KucoinRestClientUnifiedApi : RestApiClient, IKucoinRestClientUnifiedApi
+    internal partial class KucoinRestClientUnifiedApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientUnifiedApi
     {
         private KucoinRestClient _baseClient;
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
@@ -57,7 +57,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
             => new KucoinAuthenticationProvider(credentials);
 
         /// <inheritdoc />

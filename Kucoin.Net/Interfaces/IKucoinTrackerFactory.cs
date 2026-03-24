@@ -17,7 +17,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="config">Configuration</param>
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
-        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null);
+        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, KucoinCredentials credentials, SpotUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null);
         /// <summary>
         /// Create a new spot user data tracker
         /// </summary>
@@ -31,7 +31,7 @@ namespace Kucoin.Net.Interfaces
         /// <param name="config">Configuration</param>
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
-        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null);
+        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, KucoinCredentials credentials, FuturesUserDataTrackerConfig? config = null, KucoinEnvironment? environment = null);
         /// <summary>
         /// Create a new futures user data tracker
         /// </summary>

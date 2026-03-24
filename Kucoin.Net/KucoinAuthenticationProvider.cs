@@ -14,20 +14,13 @@ using System.Text;
 
 namespace Kucoin.Net
 {
-    internal class KucoinAuthenticationProvider : AuthenticationProvider
+    internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinCredentials, KucoinCredentials>
     {
         private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
         private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
-
-        public KucoinAuthenticationProvider(ApiCredentials credentials): base(credentials)
+        public KucoinAuthenticationProvider(KucoinCredentials credentials): base(credentials, credentials)
         {
-            if (credentials.CredentialType != ApiCredentialsType.Hmac)
-                throw new Exception("Only Hmac authentication is supported");
-
-            if (string.IsNullOrEmpty(credentials.Pass))
-                throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for Kucoin authentication");
         }
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
@@ -40,12 +33,12 @@ namespace Kucoin.Net
             
             var timestamp = GetMillisecondTimestamp(apiClient).ToString();
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers.Add("KC-API-KEY", _credentials.Key);
+            request.Headers.Add("KC-API-KEY", Credential.Key);
             request.Headers.Add("KC-API-TIMESTAMP", timestamp);
-            var phraseKey = _credentials.Key + "|" + _credentials.Pass;
+            var phraseKey = Credential.Key + "|" + Credential.Pass;
             if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
             {
-                phraseSign = SignHMACSHA256(_credentials.Pass!, SignOutputType.Base64);
+                phraseSign = SignHMACSHA256(Credential.Pass!, SignOutputType.Base64);
                 _phraseCache.TryAdd(phraseKey, phraseSign);
             }
 
@@ -63,7 +56,7 @@ namespace Kucoin.Net
 
             // Partner info
             request.Headers.Add("KC-API-PARTNER", brokerName!);
-            var partnerSignData = $"{timestamp}{brokerName}{_credentials.Key}";
+            var partnerSignData = $"{timestamp}{brokerName}{Credential.Key}";
 
             using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey!));
             byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));

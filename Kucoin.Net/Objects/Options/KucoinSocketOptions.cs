@@ -1,11 +1,12 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 
 namespace Kucoin.Net.Objects.Options
 {
     /// <summary>
     /// Kucoin socket client options
     /// </summary>
-    public class KucoinSocketOptions : SocketExchangeOptions<KucoinEnvironment>
+    public class KucoinSocketOptions : SocketExchangeOptions<KucoinEnvironment, KucoinCredentials>
     {
         /// <summary>
         /// Default options for new clients

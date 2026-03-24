@@ -15,7 +15,7 @@ using CryptoExchange.Net.Authentication;
 namespace Kucoin.Net.Clients
 {
     /// <inheritdoc cref="IKucoinSocketClient" />
-    public class KucoinSocketClient : BaseSocketClient, IKucoinSocketClient
+    public class KucoinSocketClient : BaseSocketClient<KucoinEnvironment, KucoinCredentials>, IKucoinSocketClient
     {
         #region Api clients
 
@@ -52,14 +52,6 @@ namespace Kucoin.Net.Clients
             UnifiedApi = AddApiClient(new KucoinSocketClientUnifiedApi(_logger, this, options.Value));
         }
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            FuturesApi.SetOptions(options);
-            UnifiedApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -67,17 +59,6 @@ namespace Kucoin.Net.Clients
         public static void SetDefaultOptions(Action<KucoinSocketOptions> optionsDelegate)
         {
             KucoinSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <summary>
-        /// Set the API credentials to use in this client
-        /// </summary>
-        /// <param name="credentials">Credentials to use</param>
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            SpotApi.SetApiCredentials(credentials);
-            FuturesApi.SetApiCredentials(credentials);
-            UnifiedApi.SetApiCredentials(credentials);
         }
     }
 }

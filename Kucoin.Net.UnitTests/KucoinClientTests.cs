@@ -16,6 +16,7 @@ using CryptoExchange.Net.Objects;
 using System.Text.Json;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Authentication;
+using Kucoin.Net.Clients.SpotApi;
 
 namespace Kucoin.Net.UnitTests
 {
@@ -89,7 +90,7 @@ namespace Kucoin.Net.UnitTests
         public void CheckSignatureExample()
         {
             var authProvider = new KucoinAuthenticationProvider(
-                new ApiCredentials("5c2db93503aa674c74a31734", "f03a5284-5c39-4aaa-9b20-dea10bdcf8e3", "QWIxMjM0NTY3OCkoKiZeJSQjQA==")
+                new KucoinCredentials("5c2db93503aa674c74a31734", "f03a5284-5c39-4aaa-9b20-dea10bdcf8e3", "QWIxMjM0NTY3OCkoKiZeJSQjQA==")
                 );
             var client = (RestApiClient)new KucoinRestClient().SpotApi;
 
@@ -209,8 +210,8 @@ namespace Kucoin.Net.UnitTests
 
             Assert.That(((BaseApiClient)restClient.SpotApi).OutputOriginalData, Is.True);
             Assert.That(((BaseApiClient)socketClient.SpotApi).OutputOriginalData, Is.False);
-            Assert.That(((BaseApiClient)restClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("123"));
-            Assert.That(((BaseApiClient)socketClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("456"));
+            Assert.That(((KucoinRestClientSpotApi)restClient.SpotApi).AuthenticationProvider.Key, Is.EqualTo("123"));
+            Assert.That(((KucoinSocketClientSpotApi)socketClient.SpotApi).AuthenticationProvider.Key, Is.EqualTo("456"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(80));
             Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host2"));

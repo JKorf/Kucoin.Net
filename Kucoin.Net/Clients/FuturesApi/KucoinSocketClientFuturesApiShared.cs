@@ -168,7 +168,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (status == ExtendedOrderStatus.New || status == ExtendedOrderStatus.Open || updateType == MatchUpdateType.Open || updateType == MatchUpdateType.Received) return SharedOrderStatus.Open;
             if (updateType == MatchUpdateType.Canceled) return SharedOrderStatus.Canceled;
             if (updateType == MatchUpdateType.Filled) return SharedOrderStatus.Filled;
-            return SharedOrderStatus.Open;
+            return SharedOrderStatus.Unknown;
         }
         #endregion
 

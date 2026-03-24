@@ -180,7 +180,7 @@ namespace Kucoin.Net.Clients.SpotApi
                             update.OrderId.ToString(),
                             update.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             update.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            ParseStatus(update.Status, update.UpdateType),
+                            ParseOrderStatus(update.Status, update.UpdateType),
                             update.OrderTime)
                 {
                     ClientOrderId = update.ClientOrderid?.ToString(),
@@ -199,7 +199,7 @@ namespace Kucoin.Net.Clients.SpotApi
                             matchUpdate.OrderId.ToString(),
                             matchUpdate.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : matchUpdate.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             matchUpdate.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            ParseStatus(matchUpdate.Status, matchUpdate.UpdateType),
+                            ParseOrderStatus(matchUpdate.Status, matchUpdate.UpdateType),
                             matchUpdate.OrderTime)
                 {
                     ClientOrderId = matchUpdate.ClientOrderid?.ToString(),
@@ -223,7 +223,7 @@ namespace Kucoin.Net.Clients.SpotApi
                             upd.OrderId.ToString(),
                             upd.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : upd.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             upd.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            ParseStatus(upd.Status, upd.UpdateType),
+                            ParseOrderStatus(upd.Status, upd.UpdateType),
                             upd.OrderTime)
                 {
                     ClientOrderId = upd.ClientOrderid?.ToString(),
@@ -238,18 +238,12 @@ namespace Kucoin.Net.Clients.SpotApi
             throw new Exception("Unknown order update type");
         }
 
-        private SharedOrderStatus ParseStatus(ExtendedOrderStatus? status, MatchUpdateType? updateType)
+        private SharedOrderStatus ParseOrderStatus(ExtendedOrderStatus? status, MatchUpdateType? updateType)
         {
-            if (status == ExtendedOrderStatus.New)
-                return SharedOrderStatus.Open;
-
-            if (updateType == MatchUpdateType.Canceled)
-                return SharedOrderStatus.Canceled;
-
-            if (updateType == MatchUpdateType.Filled)
-                return SharedOrderStatus.Filled;
-
-            return SharedOrderStatus.Open;
+            if (status == ExtendedOrderStatus.New || status == ExtendedOrderStatus.Open || updateType == MatchUpdateType.Open || updateType == MatchUpdateType.Received) return SharedOrderStatus.Open;
+            if (updateType == MatchUpdateType.Canceled) return SharedOrderStatus.Canceled;
+            if (updateType == MatchUpdateType.Filled) return SharedOrderStatus.Filled;
+            return SharedOrderStatus.Unknown;
         }
     }
 }
