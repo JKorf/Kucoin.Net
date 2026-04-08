@@ -210,6 +210,27 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToLiteUserTradeUpdatesAsync(
+            UnifiedAccountType tradeType,
+            Action<DataEvent<KucoinUaLiteUserTradeUpdate>> onData,
+            CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, KucoinUnifiedSocketUpdate<KucoinUaLiteUserTradeUpdate>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.PushTime);
+
+                onData.Invoke(
+                    new DataEvent<KucoinUaLiteUserTradeUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Type)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Data.TradeTime, GetTimeOffset())
+                    );
+            });
+            var subscription = new KucoinUnifiedSubscription<KucoinUaLiteUserTradeUpdate>(_logger, this, "execution.lite", tradeType, null, internalHandler, true);
+            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaPositionUpdate>> onData,

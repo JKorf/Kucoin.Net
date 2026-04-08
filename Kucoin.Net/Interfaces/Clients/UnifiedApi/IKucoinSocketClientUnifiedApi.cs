@@ -149,6 +149,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to lite user trade updates. This update has lower latency than <see cref="SubscribeToUserTradeUpdatesAsync"/> but excludes fee info
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470264w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: execution.lite
+        /// </para>
+        /// </summary>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="onData">The data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToLiteUserTradeUpdatesAsync(
+            UnifiedAccountType tradeType,
+            Action<DataEvent<KucoinUaLiteUserTradeUpdate>> onData,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to position updates
         /// <para>
         /// Docs:<br />
