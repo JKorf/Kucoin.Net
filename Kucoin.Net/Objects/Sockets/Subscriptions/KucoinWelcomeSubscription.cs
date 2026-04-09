@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using Microsoft.Extensions.Logging;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions

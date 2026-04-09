@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using Kucoin.Net.Objects.Internal;
 using System;
 

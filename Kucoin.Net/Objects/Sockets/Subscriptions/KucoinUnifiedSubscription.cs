@@ -3,6 +3,7 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Sockets.Queries;

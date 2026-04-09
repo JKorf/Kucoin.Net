@@ -3,6 +3,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;

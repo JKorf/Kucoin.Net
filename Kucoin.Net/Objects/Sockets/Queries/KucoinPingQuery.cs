@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using System;
 
 namespace Kucoin.Net.Objects.Sockets.Queries
