@@ -362,10 +362,12 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("pageSize", pageSize);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get, 
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/position/open-list",

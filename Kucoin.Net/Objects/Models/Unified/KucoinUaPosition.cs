@@ -74,6 +74,11 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("maintenanceMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
+        /// ["<c>liquidationPrice</c>"] Liquidation price
+        /// </summary>
+        [JsonPropertyName("liquidationPrice")]
+        public decimal? LiquidationPrice { get; set; }
+        /// <summary>
         /// ["<c>creationTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("creationTime")]

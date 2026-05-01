@@ -309,8 +309,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="accountMode">Account mode</param>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDTM`</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
