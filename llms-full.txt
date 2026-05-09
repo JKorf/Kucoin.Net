@@ -1,0 +1,432 @@
+# Kucoin.Net Full LLM Context
+
+> Detailed AI/LLM reference for generating correct C#/.NET code with Kucoin.Net. Use this file when `llms.txt` is too brief and the task needs concrete examples, endpoint routing guidance, or anti-hallucination rules.
+
+Kucoin.Net is a strongly typed .NET client library for the Kucoin REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
+
+Current package version in this repository: 8.12.0.
+CryptoExchange.Net dependency: 11.1.0.
+Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Native AOT: supported on compatible .NET targets.
+
+Primary documentation:
+- README.md: overview, installation, feature table, release notes, basic examples
+- docs site: https://cryptoexchange.jkorf.dev/Kucoin.Net/
+- API quick map: `docs/ai-api-map.md`
+- source interfaces: `Kucoin.Net/Interfaces/Clients/**`
+- AI examples: `Examples/ai-friendly/`
+
+## Golden Rules For AI Code Generation
+
+- Use `KucoinRestClient` for REST and `KucoinSocketClient` for WebSocket.
+- Do not generate raw `HttpClient` calls to Kucoin endpoints.
+- Use `KucoinCredentials`, not generic `ApiCredentials`.
+- Kucoin credentials require key, secret, and passphrase.
+- Always check `.Success` before reading `.Data`.
+- REST methods return `WebCallResult<T>` or `WebCallResult`.
+- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- Reuse clients. Do not instantiate a client per request in production code.
+- Prefer dependency injection for services and long-running applications.
+- Store WebSocket subscriptions and unsubscribe during shutdown.
+- Do not call `.Result` or `.Wait()` on async methods.
+- Do not invent method names. Inspect `Kucoin.Net/Interfaces/Clients/**`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`.
+- Spot symbols use dashes: `BTC-USDT`.
+- Futures symbols use contract names: `XBTUSDTM`, `ETHUSDTM`.
+
+## Required Usings
+
+Typical REST/trading code:
+
+```csharp
+using Kucoin.Net;
+using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
+```
+
+Shared API code:
+
+```csharp
+using Kucoin.Net.Clients;
+using CryptoExchange.Net.SharedApis;
+```
+
+Retry/error helper code:
+
+```csharp
+using CryptoExchange.Net.Objects;
+```
+
+Dependency injection:
+
+```csharp
+using Kucoin.Net;
+using Microsoft.Extensions.DependencyInjection;
+```
+
+Client interfaces:
+
+```csharp
+using Kucoin.Net.Interfaces.Clients;
+```
+
+## Client Setup
+
+Public market data:
+
+```csharp
+var client = new KucoinRestClient();
+
+var ticker = await client.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
+if (!ticker.Success)
+{
+    Console.WriteLine(ticker.Error);
+    return;
+}
+
+Console.WriteLine(ticker.Data.LastPrice);
+```
+
+Private account and trading endpoints:
+
+```csharp
+var client = new KucoinRestClient(options =>
+{
+    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+});
+```
+
+Socket client with credentials:
+
+```csharp
+var socketClient = new KucoinSocketClient(options =>
+{
+    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+});
+```
+
+Environments:
+
+```csharp
+var live = new KucoinRestClient(options => options.Environment = KucoinEnvironment.Live);
+var europe = new KucoinRestClient(options => options.Environment = KucoinEnvironment.Europe);
+var australia = new KucoinRestClient(options => options.Environment = KucoinEnvironment.Australia);
+```
+
+## Dependency Injection
+
+```csharp
+services.AddKucoin(options =>
+{
+    options.Rest.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+    options.Socket.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+});
+```
+
+Inject:
+
+```csharp
+public class MyService
+{
+    private readonly IKucoinRestClient _restClient;
+    private readonly IKucoinSocketClient _socketClient;
+
+    public MyService(IKucoinRestClient restClient, IKucoinSocketClient socketClient)
+    {
+        _restClient = restClient;
+        _socketClient = socketClient;
+    }
+}
+```
+
+## Main API Surface
+
+REST:
+
+```text
+KucoinRestClient
+  .SpotApi
+    .ExchangeData
+    .Account
+    .SubAccount
+    .Trading
+    .HfTrading
+    .Margin
+    .Earn
+    .SharedClient
+  .FuturesApi
+    .ExchangeData
+    .Account
+    .Trading
+    .SharedClient
+  .UnifiedApi
+    .ExchangeData
+    .Account
+    .Trading
+```
+
+WebSocket:
+
+```text
+KucoinSocketClient
+  .SpotApi
+  .FuturesApi
+  .UnifiedApi
+```
+
+Important: Kucoin does not use a Binance-style `GeneralApi`. Sub-account endpoints are under `SpotApi.SubAccount`. Earn endpoints are under `SpotApi.Earn`. Margin has a dedicated `SpotApi.Margin` group and margin trading methods under `SpotApi.Trading` and `SpotApi.HfTrading`.
+
+## Intent To Method Map
+
+For a broader table reference, see `docs/ai-api-map.md`.
+
+Common REST tasks:
+
+```text
+Get spot ticker -> client.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT")
+Get all spot tickers -> client.SpotApi.ExchangeData.GetTickersAsync()
+Get spot symbols -> client.SpotApi.ExchangeData.GetSymbolsAsync()
+Get spot symbol -> client.SpotApi.ExchangeData.GetSymbolAsync("BTC-USDT")
+Get spot order book -> client.SpotApi.ExchangeData.GetAggregatedPartialOrderBookAsync("BTC-USDT", 20)
+Get spot klines -> client.SpotApi.ExchangeData.GetKlinesAsync("BTC-USDT", KlineInterval.OneMinute)
+Get balances -> client.SpotApi.Account.GetAccountsAsync()
+Place spot order -> client.SpotApi.Trading.PlaceOrderAsync(...)
+Place spot test order -> client.SpotApi.Trading.PlaceTestOrderAsync(...)
+Get spot order -> client.SpotApi.Trading.GetOrderAsync(orderId)
+Cancel spot order -> client.SpotApi.Trading.CancelOrderAsync(orderId)
+Place OCO order -> client.SpotApi.Trading.PlaceOcoOrderAsync(...)
+High Frequency place order -> client.SpotApi.HfTrading.PlaceOrderAsync(...)
+Margin configuration -> client.SpotApi.Margin.GetMarginConfigurationAsync()
+Place margin order -> client.SpotApi.Trading.PlaceMarginOrderAsync(...)
+Get futures ticker -> client.FuturesApi.ExchangeData.GetTickerAsync("ETHUSDTM")
+Get futures contract -> client.FuturesApi.ExchangeData.GetContractAsync("ETHUSDTM")
+Place futures order -> client.FuturesApi.Trading.PlaceOrderAsync(...)
+Get futures position -> client.FuturesApi.Account.GetPositionAsync("ETHUSDTM")
+Get futures positions -> client.FuturesApi.Account.GetPositionsAsync()
+Set futures cross leverage -> client.FuturesApi.Account.SetCrossMarginLeverageAsync(symbol, leverage)
+Set futures margin mode -> client.FuturesApi.Account.SetMarginModeAsync(symbol, FuturesMarginMode.Isolated)
+Get unified balances -> client.UnifiedApi.Account.GetBalancesAsync()
+Unified tickers -> client.UnifiedApi.ExchangeData.GetTickersAsync(productType, symbol)
+Unified place order -> client.UnifiedApi.Trading.PlaceOrderAsync(...)
+```
+
+Common WebSocket tasks:
+
+```text
+Subscribe spot ticker -> socketClient.SpotApi.SubscribeToTickerUpdatesAsync(symbol, handler)
+Subscribe spot klines -> socketClient.SpotApi.SubscribeToKlineUpdatesAsync(symbol, interval, handler)
+Subscribe spot order book -> socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(symbol, limit, handler)
+Subscribe spot trades -> socketClient.SpotApi.SubscribeToTradeUpdatesAsync(symbol, handler)
+Subscribe spot private order updates -> socketClient.SpotApi.SubscribeToOrderUpdatesAsync(...)
+Subscribe spot balance updates -> socketClient.SpotApi.SubscribeToBalanceUpdatesAsync(handler)
+Subscribe futures trades -> socketClient.FuturesApi.SubscribeToTradeUpdatesAsync(symbol, handler)
+Subscribe futures klines -> socketClient.FuturesApi.SubscribeToKlineUpdatesAsync(symbol, interval, handler)
+Subscribe futures book ticker -> socketClient.FuturesApi.SubscribeToBookTickerUpdatesAsync(symbol, handler)
+Subscribe futures private order updates -> socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)
+Subscribe unified ticker -> socketClient.UnifiedApi.SubscribeToTickerUpdatesAsync(tradeType, symbol, handler)
+```
+
+## Spot Order Example
+
+```csharp
+using Kucoin.Net;
+using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
+
+var client = new KucoinRestClient(options =>
+{
+    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+});
+
+var order = await client.SpotApi.Trading.PlaceOrderAsync(
+    symbol: "BTC-USDT",
+    side: OrderSide.Buy,
+    type: NewOrderType.Limit,
+    quantity: 0.001m,
+    price: 50000m,
+    timeInForce: TimeInForce.GoodTillCanceled);
+
+if (!order.Success)
+{
+    Console.WriteLine(order.Error);
+    return;
+}
+
+Console.WriteLine(order.Data.Id);
+```
+
+For spot market buy by quote amount, use `quoteQuantity` and omit `quantity`:
+
+```csharp
+var order = await client.SpotApi.Trading.PlaceOrderAsync(
+    symbol: "BTC-USDT",
+    side: OrderSide.Buy,
+    type: NewOrderType.Market,
+    quoteQuantity: 100m);
+```
+
+## Futures Order Example
+
+```csharp
+using Kucoin.Net;
+using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
+
+var client = new KucoinRestClient(options =>
+{
+    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+});
+
+var order = await client.FuturesApi.Trading.PlaceOrderAsync(
+    symbol: "ETHUSDTM",
+    side: OrderSide.Buy,
+    type: NewOrderType.Market,
+    leverage: 5m,
+    quantity: 1,
+    marginMode: FuturesMarginMode.Isolated);
+
+if (!order.Success)
+{
+    Console.WriteLine(order.Error);
+    return;
+}
+```
+
+In hedge mode add `positionSide: PositionSide.Long` or `PositionSide.Short`. To close a position without opening the other side, use `reduceOnly: true`.
+
+## WebSocket Subscription Example
+
+```csharp
+using Kucoin.Net.Clients;
+using Kucoin.Net.Enums;
+
+var socketClient = new KucoinSocketClient();
+
+var tickerSub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "BTC-USDT",
+    update => Console.WriteLine(update.Data.LastPrice));
+
+if (!tickerSub.Success)
+{
+    Console.WriteLine(tickerSub.Error);
+    return;
+}
+
+Console.ReadLine();
+await socketClient.UnsubscribeAsync(tickerSub.Data);
+```
+
+Private spot user updates:
+
+```csharp
+var socketClient = new KucoinSocketClient(options =>
+{
+    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
+});
+
+var orderSub = await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(
+    onNewOrder: update => Console.WriteLine(update.Data.OrderId),
+    onOrderData: update => Console.WriteLine(update.Data.OrderId),
+    onTradeData: update => Console.WriteLine(update.Data.OrderId));
+```
+
+## SharedApis Multi-Exchange Pattern
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Clients;
+
+ISpotTickerRestClient tickerClient = new KucoinRestClient().SpotApi.SharedClient;
+var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
+
+var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+if (!ticker.Success)
+{
+    Console.WriteLine(ticker.Error);
+    return;
+}
+
+Console.WriteLine(ticker.Data.LastPrice);
+```
+
+For shared socket subscriptions, keep the concrete socket client for unsubscribe:
+
+```csharp
+var socketClient = new KucoinSocketClient();
+ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+
+var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
+    new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")),
+    update => Console.WriteLine(update.Data.LastPrice));
+
+if (!sub.Success)
+{
+    Console.WriteLine(sub.Error);
+    return;
+}
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Error Handling Notes
+
+Kucoin.Net returns API, network, and rate-limit errors through `.Error` on result objects. It generally does not throw for normal API failures. Exceptions are for misconfiguration, disposal, cancellation, or programming errors.
+
+Common Kucoin issues:
+
+```text
+Missing passphrase: construct KucoinCredentials with key, secret, passphrase.
+Wrong symbol format: use BTC-USDT for Spot and ETHUSDTM/XBTUSDTM for Futures.
+Insufficient balance: permanent; surface to caller.
+Invalid size/price increment: fetch symbol/contract metadata and adjust values to allowed increments.
+Rate limit/network/server errors: check Error.IsTransient before retrying.
+Wrong environment: use KucoinEnvironment.Live, Europe, or Australia consistently for REST and socket clients.
+```
+
+## AI-Friendly Examples
+
+```text
+Examples/ai-friendly/01-spot-quickstart.cs
+  Client setup, public ticker, authenticated balances, limit spot order, order status, cancellation.
+
+Examples/ai-friendly/02-futures.cs
+  Futures contract ticker, market order with leverage, position lookup, reduce-only close.
+
+Examples/ai-friendly/03-websocket.cs
+  Spot ticker stream, kline stream, authenticated order and balance streams, teardown.
+
+Examples/ai-friendly/04-multi-exchange.cs
+  CryptoExchange.Net.SharedApis REST and socket patterns.
+
+Examples/ai-friendly/05-error-handling.cs
+  WebCallResult pattern, transient retry, Kucoin-specific errors, symbol metadata.
+```
+
+## Anti-Hallucination Checklist
+
+- Does it compile with the current package?
+- Does it include `using Kucoin.Net;` when using credentials or environments?
+- Does it use three-part `KucoinCredentials`?
+- Does every REST/socket result check `.Success` before `.Data`?
+- Does it use the correct API branch: `SpotApi`, `FuturesApi`, or `UnifiedApi`?
+- Does it avoid raw Kucoin URLs and manual signing?
+- Does it avoid custom client order IDs unless requested?
+- Does it avoid `.Result` and `.Wait()`?
+- Are WebSocket subscriptions unsubscribed on shutdown?
+- Are spot symbols dash-separated?
+- Are futures symbols contract names?
+- Does futures order quantity use contract count unless base/quote quantity is explicitly chosen?
+- For shared socket interfaces, does it keep the concrete socket client for unsubscribe?
+
+## Source Of Truth For Method Names
+
+```text
+Kucoin.Net/Interfaces/Clients/IKucoinRestClient.cs
+Kucoin.Net/Interfaces/Clients/IKucoinSocketClient.cs
+Kucoin.Net/Interfaces/Clients/SpotApi/IKucoinRestClientSpotApi*.cs
+Kucoin.Net/Interfaces/Clients/SpotApi/IKucoinSocketClientSpotApi*.cs
+Kucoin.Net/Interfaces/Clients/FuturesApi/IKucoinRestClientFuturesApi*.cs
+Kucoin.Net/Interfaces/Clients/FuturesApi/IKucoinSocketClientFuturesApi*.cs
+Kucoin.Net/Interfaces/Clients/UnifiedApi/IKucoinRestClientUnifiedApi*.cs
+Kucoin.Net/Interfaces/Clients/UnifiedApi/IKucoinSocketClientUnifiedApi*.cs
+```

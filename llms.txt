@@ -1,0 +1,38 @@
+# Kucoin.Net
+
+> Strongly typed .NET client library for the Kucoin REST and WebSocket APIs. Supports Spot, Margin, High Frequency spot trading, Futures, Unified Account endpoints, and CryptoExchange.Net SharedApis integration.
+
+Kucoin.Net provides typed REST and WebSocket clients, automatic request signing, Kucoin passphrase credentials, rate limiting, WebSocket reconnection, local order book support, native AOT support, and `WebCallResult<T>` / `CallResult<T>` error handling. Current version in this repository: 8.12.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+
+## Documentation
+
+- [README](https://github.com/JKorf/Kucoin.Net/blob/master/README.md): Overview, installation, supported features, basic usage examples, release notes
+- [Documentation Site](https://cryptoexchange.jkorf.dev/Kucoin.Net/): Documentation hub for clients, WebSocket subscriptions, dependency injection, and shared interfaces
+- [AI API Quick Map](https://github.com/JKorf/Kucoin.Net/blob/master/docs/ai-api-map.md): Table-style intent-to-method map for Spot, Futures, Unified, WebSocket, and SharedApis
+- [Full LLM Context](https://github.com/JKorf/Kucoin.Net/blob/master/llms-full.txt): Detailed AI/LLM guide with endpoint routing, code patterns, and anti-hallucination rules
+
+## Examples
+
+- [AI-friendly examples directory](https://github.com/JKorf/Kucoin.Net/tree/master/Examples/ai-friendly): Compact, compilable examples optimized for AI assistants and quick onboarding
+- [Spot Quickstart](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/01-spot-quickstart.cs): Client setup, ticker, account balances, limit order, order status
+- [Futures Trading](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/02-futures.cs): Futures contract ticker, leverage parameter, order placement, positions, reduce-only close
+- [WebSocket Streams](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/03-websocket.cs): Spot ticker, klines, authenticated order and balance streams, teardown
+- [Multi-Exchange Pattern](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/04-multi-exchange.cs): CryptoExchange.Net SharedApis for exchange-agnostic code
+- [Error Handling](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/05-error-handling.cs): `WebCallResult` checks, retry logic, Kucoin-specific symbol and credentials pitfalls
+
+## Critical Rules
+
+- Use `KucoinRestClient` and `KucoinSocketClient`; do not generate raw HTTP calls.
+- Use `KucoinCredentials("key", "secret", "passphrase")`; Kucoin needs the passphrase.
+- Spot symbols are dash-separated, for example `BTC-USDT`.
+- Futures symbols are contract names, for example `XBTUSDTM` or `ETHUSDTM`.
+- Check `.Success` before `.Data` for every REST and socket result.
+- Store `UpdateSubscription` values and unsubscribe with the concrete socket client.
+- Inspect `Kucoin.Net/Interfaces/Clients/**` before generating endpoint names.
+
+## Reference
+
+- [CryptoExchange.Net base library](https://github.com/JKorf/CryptoExchange.Net)
+- [NuGet Package](https://www.nuget.org/packages/Kucoin.Net)
+- [GitHub Issues](https://github.com/JKorf/Kucoin.Net/issues)
+
