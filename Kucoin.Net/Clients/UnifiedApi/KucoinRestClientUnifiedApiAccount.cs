@@ -353,6 +353,30 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Set Cross Margin Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaLeverage>> SetCrossMarginLeverageAsync(
+            UnifiedAccountMode accountMode,
+            string asset,
+            decimal leverage,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", asset);
+            parameters.AddString("leverage", leverage);
+            var request = _definitions.GetOrCreate(
+                HttpMethod.Post,
+                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/account/modify-leverage-margin-cross",
+                KucoinExchange.RateLimiter.UnifiedRest,
+                20,
+                true);
+            var result = await _baseClient.SendAsync<KucoinUaLeverage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {

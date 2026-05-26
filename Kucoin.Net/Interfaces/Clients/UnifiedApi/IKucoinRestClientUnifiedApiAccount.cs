@@ -322,5 +322,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             FeeDeductType? feeDeductType = null,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Set cross margin leverage
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta?lang=en_US&" /><br />
+        /// Endpoint:<br />
+        /// POST /api/ua/v1/{accountMode}/account/modify-leverage-margin-cross<br />
+        /// </para>
+        /// </summary>
+        /// <param name="accountMode">["<c>accountMode</c>"] Account mode</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaLeverage>> SetCrossMarginLeverageAsync(
+            UnifiedAccountMode accountMode,
+            string asset,
+            decimal leverage,
+            CancellationToken ct = default);
+
     }
 }

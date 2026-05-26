@@ -1,0 +1,5 @@
+POST
+/api/ua/v1/unified/account/modify-leverage-margin-cross
+true
+BodyParams: {"currency": "123","leverage": 0.1}
+{"code":"200000","data":{"currency":"BTC","leverage":"5"}}
