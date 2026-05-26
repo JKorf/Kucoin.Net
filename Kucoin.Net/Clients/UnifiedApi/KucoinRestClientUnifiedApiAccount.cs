@@ -377,6 +377,28 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Get Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaLeverageSetting[]>> GetLeverageAsync(
+            UnifiedSimpleAccountType tradeType,
+            MarginMode marginMode,
+            string? asset = null,
+            string? symbol = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("tradeType", tradeType);
+            parameters.AddEnum("marginMode", marginMode);
+            parameters.AddOptional("currency", asset);
+            parameters.AddOptional("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/unified/account/leverage", KucoinExchange.RateLimiter.ManagementRest, 10, true);
+            var result = await _baseClient.SendAsync<KucoinUaLeverageSetting[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {

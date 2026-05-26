@@ -341,5 +341,27 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             decimal leverage,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Get leverage settings
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-leverage?lang=en_US&" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/unified/account/leverage<br />
+        /// </para>
+        /// </summary>
+        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaLeverageSetting[]>> GetLeverageAsync(
+            UnifiedSimpleAccountType tradeType,
+            MarginMode marginMode,
+            string? asset = null,
+            string? symbol = null,
+            CancellationToken ct = default);
+
+
     }
 }

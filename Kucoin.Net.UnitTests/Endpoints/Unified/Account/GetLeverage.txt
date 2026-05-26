@@ -1,0 +1,14 @@
+GET
+/api/ua/v1/unified/account/leverage
+true
+UriParams: {"tradeType": "FUTURES","marginMode": "CROSS"}
+{
+    "code": "200000",
+    "data": [
+        {
+            "symbol": "XBTUSDTM",
+            "leverage": "80",
+            "marginMode": "CROSS"
+        }
+    ]
+}
