@@ -18,6 +18,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private readonly string _channel;
         private readonly string _type;
         private readonly string? _symbol;
+        private readonly string[]? _symbols;
         private readonly string? _interval;
         private readonly string? _depth;
         private readonly Action<DateTime, string?, KucoinUnifiedSocketUpdate<T>> _handler;
@@ -28,6 +29,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             string channel,
             UnifiedAccountType type,
             string? symbol,
+            string[]? symbols,
             Action<DateTime, string?, KucoinUnifiedSocketUpdate<T>> handler,
             bool authenticated,
             KlineInterval? interval = null,
@@ -38,6 +40,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _channel = channel;
             _type = EnumConverter.GetString(type);
             _symbol = symbol;
+            _symbols = symbols;
             _handler = handler;
             _interval = EnumConverter.GetString(interval);
             _depth = EnumConverter.GetString(depth);
@@ -51,14 +54,20 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             return new KucoinUnifiedQuery(
                 _client,
-                new KucoinUnifiedRequest(ExchangeHelpers.NextId().ToString(), Authenticated ? "SUBSCRIBE" : "subscribe", _channel, _type, _symbol, _interval, _depth),
+                new KucoinUnifiedRequest(ExchangeHelpers.NextId().ToString(), Authenticated ? "SUBSCRIBE" : "subscribe", _channel, _type, _symbol, _interval, _depth)
+                {
+                    Symbols = _symbols
+                },
                 Authenticated);
         }
         protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             return new KucoinUnifiedQuery(
                 _client,
-                new KucoinUnifiedRequest(ExchangeHelpers.NextId().ToString(), Authenticated ? "UNSUBSCRIBE" : "unsubscribe", _channel, _type, _symbol, _interval, _depth),
+                new KucoinUnifiedRequest(ExchangeHelpers.NextId().ToString(), Authenticated ? "UNSUBSCRIBE" : "unsubscribe", _channel, _type, _symbol, _interval, _depth)
+                {
+                    Symbols = _symbols
+                },
                 Authenticated);
         }
 

@@ -11,12 +11,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// ["<c>buy</c>"] Buy order
         /// </summary>
-        [Map("buy")]
+        [Map("buy", "BUY")]
         Buy,
         /// <summary>
         /// ["<c>sell</c>"] Sell order
         /// </summary>
-        [Map("sell")]
+        [Map("sell", "SELL")]
         Sell
     }
 }

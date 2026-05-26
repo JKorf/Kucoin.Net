@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Authentication;
@@ -30,6 +32,22 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, string symbol, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to updates for a symbol ticker
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470222w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: ticker
+        /// </para>
+        /// </summary>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="symbols">The symbols to subscribe to, for example `ETH-USDT`</param>
+        /// <param name="onData">The data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, IEnumerable<string> symbols, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker

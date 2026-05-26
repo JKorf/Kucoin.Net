@@ -65,9 +65,17 @@ namespace Kucoin.Net.Clients.SpotApi
             => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
+        public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
             UnifiedAccountType tradeType,
             string symbol,
+            Action<DataEvent<KucoinUaTickerUpdate>> onData,
+            CancellationToken ct = default)
+            => SubscribeToTickerUpdatesAsync(tradeType, new[] { symbol }, onData, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
+            UnifiedAccountType tradeType,
+            IEnumerable<string> symbols,
             Action<DataEvent<KucoinUaTickerUpdate>> onData,
             CancellationToken ct = default)
         {
@@ -83,7 +91,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.UpdateTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaTickerUpdate>(_logger, this, "ticker", tradeType, symbol, internalHandler, false);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaTickerUpdate>(_logger, this, "ticker", tradeType, null, symbols.ToArray(), internalHandler, false);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -106,7 +114,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.PushTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaKlineUpdate>(_logger, this, "kline", tradeType, symbol, internalHandler, false, interval);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaKlineUpdate>(_logger, this, "kline", tradeType, symbol, null, internalHandler, false, interval);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -130,7 +138,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.UpdateTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaOrderBookUpdate>(_logger, this, "obu", tradeType, symbol, internalHandler, false, depth: depth);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaOrderBookUpdate>(_logger, this, "obu", tradeType, symbol, null, internalHandler, false, depth: depth);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -153,7 +161,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.UpdateTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaTradeUpdate>(_logger, this, "trade", tradeType, symbol, internalHandler, false);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaTradeUpdate>(_logger, this, "trade", tradeType, symbol, null, internalHandler, false);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -184,7 +192,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.UpdateTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaOrderUpdate>(_logger, this, "orderAll", tradeType, null, internalHandler, true);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaOrderUpdate>(_logger, this, "orderAll", tradeType, null, null, internalHandler, true);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -205,7 +213,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.TradeTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaUserTradeUpdate>(_logger, this, "execution", tradeType, null, internalHandler, true);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaUserTradeUpdate>(_logger, this, "execution", tradeType, null, null, internalHandler, true);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -226,7 +234,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.TradeTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaLiteUserTradeUpdate>(_logger, this, "execution.lite", tradeType, null, internalHandler, true);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaLiteUserTradeUpdate>(_logger, this, "execution.lite", tradeType, null, null, internalHandler, true);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -247,7 +255,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.UpdateTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaPositionUpdate>(_logger, this, "positionAll", tradeType, null, internalHandler, true);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaPositionUpdate>(_logger, this, "positionAll", tradeType, null, null, internalHandler, true);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -268,7 +276,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.PushTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaLeverageUpdate>(_logger, this, "leverage", tradeType, null, internalHandler, true);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaLeverageUpdate>(_logger, this, "leverage", tradeType, null, null, internalHandler, true);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
@@ -289,7 +297,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.UpdateTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaLiquidationWarningUpdate>(_logger, this, "lw", tradeType, null, internalHandler, true);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaLiquidationWarningUpdate>(_logger, this, "lw", tradeType, null, null, internalHandler, true);
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 

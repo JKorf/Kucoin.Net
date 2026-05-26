@@ -14,6 +14,8 @@ namespace Kucoin.Net.Objects.Internal
         public string Channel { get; set; }
         [JsonPropertyName("symbol"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Symbol { get; set; }
+        [JsonPropertyName("symbols"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string[]? Symbols { get; set; }
         [JsonPropertyName("interval"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Interval { get; set; }
         [JsonPropertyName("depth"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
