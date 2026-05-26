@@ -15,6 +15,11 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("oi")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>ci</c>"] Client order id
+        /// </summary>
+        [JsonPropertyName("ci")]
+        public string? ClientOrderId { get; set; }
+        /// <summary>
         /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
