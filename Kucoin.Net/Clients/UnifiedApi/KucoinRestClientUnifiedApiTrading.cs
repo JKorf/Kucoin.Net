@@ -171,7 +171,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public async Task<WebCallResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
             UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType, 
+            UnifiedSimpleAccountType accountType, 
             string symbol,
             MarginMode? marginMode = null, 
             OrderFilter? orderFilter = null, 

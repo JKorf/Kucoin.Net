@@ -143,7 +143,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
             UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType,
+            UnifiedSimpleAccountType accountType,
             string symbol,
             MarginMode? marginMode = null,
             OrderFilter? orderFilter = null,
