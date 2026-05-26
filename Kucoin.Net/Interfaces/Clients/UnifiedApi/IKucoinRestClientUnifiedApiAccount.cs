@@ -276,5 +276,22 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaApiKeyInfo>> GetApiKeyInfoAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get withdrawal quotas
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-withdrawal-quotas?lang=en_US&" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/withdrawals/quotas<br />
+        /// </para>
+        /// </summary>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="network">["<c>chainId</c>"] Network</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaWithdrawalQuota>> GetWithdrawalQuotasAsync(
+            string asset,
+            string network,
+            CancellationToken ct = default);
+
     }
 }

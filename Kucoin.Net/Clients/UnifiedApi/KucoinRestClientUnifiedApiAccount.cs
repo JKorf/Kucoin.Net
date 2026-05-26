@@ -305,6 +305,24 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Get Withdrawal Quotas
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaWithdrawalQuota>> GetWithdrawalQuotasAsync(
+            string asset,
+            string network,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", asset);
+            parameters.Add("chainId", network);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/withdrawals/quotas", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var result = await _baseClient.SendAsync<KucoinUaWithdrawalQuota>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/bullet-private", KucoinExchange.RateLimiter.ManagementRest, 10, true);
