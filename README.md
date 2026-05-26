@@ -195,6 +195,21 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.13.0 - 26 May 2026
+    * Updated CryptoExchange.Net to version 11.2.0
+    * Added restClient.UnifiedApi.Account.GetApiKeyInfoAsync endpoint
+    * Added client.UnifiedApi.Account.GetWithdrawalQuotasAsync endpoint
+    * Added client.UnifiedApi.Account.WithdrawAsync endpoint
+    * Added restClient.UnifiedApi.ExchangeData.GetKYCRegionsAsync endpoint
+    * Added client.UnifiedApi.Account.SetCrossMarginLeverageAsync endpoint
+    * Added client.UnifiedApi.Account.GetLeverageAsync endpoint
+    * Added client.UnifiedApi.Account.GetFundingFeeHistoryAsync endpoint
+    * Added multiple symbol overload for UnifiedApi.SubscribeToTickerUpdatesAsync subscription
+    * Added AdlPercentage property to KucoinUaPosition model
+    * Added ClientOrderId property to KucoinUaLiteUserTradeUpdate model
+    * Updated client.UnifiedApi.Trading.CancelSymbolOrdersAsync accountType parameter to UnifiedSimpleAccountType type
+    * Removed deprecated client.SpotApi.ExchangeData.GetLeveragedTokensAsync
+
 * Version 8.12.0 - 01 May 2026
     * Added page, pageSize parameters, LiquidationPrice response property to restClient.UnifiedApi.Trading.GetPositionsAsync
 
