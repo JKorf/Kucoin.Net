@@ -83,7 +83,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("creationTime")]
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// ["<c>adlPercentage</c>"] ADL ranking percentile of the futures position. For example, 0.12 indicates a ranking position at 12%.
+        /// </summary>
+        [JsonPropertyName("adlPercentage")]
+        public decimal? AdlPercentage { get; set; }
     }
-
-
 }
