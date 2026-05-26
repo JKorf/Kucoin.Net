@@ -11,12 +11,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// ["<c>maker</c>"] Maker, order was on the order book and got filled
         /// </summary>
-        [Map("maker")]
+        [Map("maker", "MAKER")]
         Maker,
         /// <summary>
         /// ["<c>taker</c>"] Taker, trade filled an existing order on the order book
         /// </summary>
-        [Map("taker")]
+        [Map("taker", "TAKER")]
         Taker
     }
 }

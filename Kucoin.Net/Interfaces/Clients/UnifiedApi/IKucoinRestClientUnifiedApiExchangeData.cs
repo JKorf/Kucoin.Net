@@ -275,7 +275,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get KYC regions
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-kyc-region?lang=en_US&" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-kyc-region?lang=en_US" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v1/user/kyc-region<br />
         /// </para>

@@ -1,4 +1,4 @@
-> { "id": "|1|", "action": "subscribe", "channel":"ticker", "tradeType": "SPOT", "symbol": "ETH-USDT"}
+> { "id": "|1|", "action": "subscribe", "channel":"ticker", "tradeType": "SPOT", "symbols": ["ETH-USDT"]}
 < { "id": "|1|", "result": true }
 = 
 {

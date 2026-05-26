@@ -11,12 +11,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// ["<c>limit</c>"] Limit order
         /// </summary>
-        [Map("limit")]
+        [Map("limit", "LIMIT")]
         Limit,
         /// <summary>
         /// ["<c>market</c>"] Market order
         /// </summary>
-        [Map("market")]
+        [Map("market", "MARKET")]
         Market,
         /// <summary>
         /// ["<c>limit_stop</c>"] Limit stop order

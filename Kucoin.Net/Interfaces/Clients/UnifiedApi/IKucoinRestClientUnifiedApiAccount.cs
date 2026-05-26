@@ -326,7 +326,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set cross margin leverage
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta?lang=en_US&" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta?lang=en_US" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v1/{accountMode}/account/modify-leverage-margin-cross<br />
         /// </para>
@@ -345,7 +345,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get leverage settings
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-leverage?lang=en_US&" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-leverage?lang=en_US" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v1/unified/account/leverage<br />
         /// </para>
