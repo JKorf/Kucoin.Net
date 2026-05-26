@@ -1,0 +1,34 @@
+GET
+/api/ua/v1/position/funding-history
+true
+UriParams: {}
+{
+    "code": "200000",
+    "data": {
+        "lastId": 2125247172539515,
+        "items": [
+            {
+                "symbol": "XBTUSDTM",
+                "marginMode": "CROSS",
+                "fundingRate": "-0.000147",
+                "markPrice": "74540.89",
+                "size": "5",
+                "positionValue": "372.70445",
+                "fundingFee": "0.05478755",
+                "settleCurrency": "USDT",
+                "settlementTime": 1776153600000
+            },
+            {
+                "symbol": "XBTUSDTM",
+                "marginMode": "CROSS",
+                "fundingRate": "-0.000315",
+                "markPrice": "74403.4",
+                "size": "3",
+                "positionValue": "223.2102",
+                "fundingFee": "0.07031121",
+                "settleCurrency": "USDT",
+                "settlementTime": 1776124800000
+            }
+        ]
+    }
+}

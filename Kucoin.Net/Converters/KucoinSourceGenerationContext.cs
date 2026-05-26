@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinResult<KucoinUaFundingFeeHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaLeverageSetting[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaLeverage>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaKYCRegion[]>))]

@@ -362,6 +362,28 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? symbol = null,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Get funding fee history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-private-funding-fee-history?lang=en_US" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/position/funding-history<br />
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDT`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="lastId">["<c>lastId</c>"] Previous last id for pagination</param>
+        /// <param name="limit">["<c>pageSize</c>"] Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaFundingFeeHistory>> GetFundingFeeHistoryAsync(
+            string? symbol = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            long? lastId = null,
+            int? limit = null,
+            CancellationToken ct = default);
 
     }
 }

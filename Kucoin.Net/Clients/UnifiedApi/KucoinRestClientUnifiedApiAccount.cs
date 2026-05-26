@@ -399,6 +399,30 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Get Funding Fee History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaFundingFeeHistory>> GetFundingFeeHistoryAsync(
+            string? symbol = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            long? lastId = null,
+            int? limit = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            parameters.AddOptionalMillisecondsString("startAt", startTime);
+            parameters.AddOptionalMillisecondsString("endAt", endTime);
+            parameters.AddOptional("lastId", lastId);
+            parameters.AddOptional("pageSize", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/position/funding-history", KucoinExchange.RateLimiter.ManagementRest, 15, true);
+            var result = await _baseClient.SendAsync<KucoinUaFundingFeeHistory>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
 
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {
