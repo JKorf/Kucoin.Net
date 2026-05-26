@@ -280,7 +280,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal quotas
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-withdrawal-quotas?lang=en_US&" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-withdrawal-quotas?lang=en_US" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v1/withdrawals/quotas<br />
         /// </para>

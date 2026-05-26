@@ -2,6 +2,7 @@ using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
@@ -288,6 +289,18 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.AddEnum("tradeType", productType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/server/status", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaServiceStatus>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get KYC Regions
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaKYCRegion[]>> GetKYCRegionsAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/user/kyc-region", KucoinExchange.RateLimiter.PublicRest, 20, true);
+            var result = await _baseClient.SendAsync<KucoinUaKYCRegion[]>(request, null, ct).ConfigureAwait(false);
             return result;
         }
 

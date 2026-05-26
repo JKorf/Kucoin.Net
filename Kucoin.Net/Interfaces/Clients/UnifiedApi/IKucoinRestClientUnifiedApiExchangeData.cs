@@ -1,5 +1,6 @@
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
@@ -269,6 +270,18 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaServiceStatus>> GetServiceStatusAsync(ProductType productType, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get KYC regions
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-kyc-region?lang=en_US&" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/user/kyc-region<br />
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaKYCRegion[]>> GetKYCRegionsAsync(CancellationToken ct = default);
 
     }
 }
