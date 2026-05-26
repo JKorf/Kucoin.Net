@@ -169,13 +169,6 @@ namespace Kucoin.Net.Clients.SpotApi
             return await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, ct).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<KucoinLeveragedToken[]>> GetLeveragedTokensAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v3/etf/info", KucoinExchange.RateLimiter.SpotRest, 25, true);
-            return await _baseClient.SendAsync<KucoinLeveragedToken[]>(request, null, ct).ConfigureAwait(false);
-        }
-
         #region Get Announcements
 
         /// <inheritdoc />

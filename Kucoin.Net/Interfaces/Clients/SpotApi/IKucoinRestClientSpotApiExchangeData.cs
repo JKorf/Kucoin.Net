@@ -212,19 +212,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? assets = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get leveraged token information
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-etf-info" /><br />
-        /// Endpoint:<br />
-        /// GET /api/v3/etf/info
-        /// </para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param> 
-        /// <returns></returns>
-        Task<WebCallResult<KucoinLeveragedToken[]>> GetLeveragedTokensAsync(CancellationToken ct = default);
-
-        /// <summary>
         /// Get system announcements
         /// <para>
         /// Docs:<br />
