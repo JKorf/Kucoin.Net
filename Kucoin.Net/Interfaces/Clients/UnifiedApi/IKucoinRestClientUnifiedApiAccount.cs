@@ -293,5 +293,34 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string network,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Withdraw from platform
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/withdrawal?lang=en_US" /><br />
+        /// Endpoint:<br />
+        /// POST /api/ua/v1/withdrawal<br />
+        /// </para>
+        /// </summary>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="toAddress">["<c>toAddress</c>"] To address</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity</param>
+        /// <param name="withdrawType">["<c>withdrawType</c>"] Withdraw type</param>
+        /// <param name="network">["<c>chainId</c>"] Network id</param>
+        /// <param name="memo">["<c>memo</c>"] Memo</param>
+        /// <param name="isInternal">["<c>isInner</c>"] Is internal</param>
+        /// <param name="feeDeductType">["<c>feeDeductType</c>"] Fee deduct type</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaWithdrawResult>> WithdrawAsync(
+            string asset,
+            string toAddress,
+            decimal quantity,
+            WithdrawType withdrawType,
+            string? network = null,
+            string? memo = null,
+            bool? isInternal = null,
+            FeeDeductType? feeDeductType = null,
+            CancellationToken ct = default);
+
     }
 }

@@ -323,6 +323,37 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Withdraw
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaWithdrawResult>> WithdrawAsync(
+            string asset,
+            string toAddress,
+            decimal quantity,
+            WithdrawType withdrawType,
+            string? network = null,
+            string? memo = null,
+            bool? isInternal = null,
+            FeeDeductType? feeDeductType = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", asset);
+            parameters.Add("toAddress", toAddress);
+            parameters.AddString("amount", quantity);
+            parameters.AddEnum("withdrawType", withdrawType);
+            parameters.AddOptional("chainId", network);
+            parameters.AddOptional("memo", memo);
+            parameters.AddOptional("isInner", isInternal);
+            parameters.AddOptionalEnum("feeDeductType", feeDeductType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/ua/v1/withdrawal", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var result = await _baseClient.SendAsync<KucoinUaWithdrawResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+
         internal async Task<WebCallResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v2/bullet-private", KucoinExchange.RateLimiter.ManagementRest, 10, true);

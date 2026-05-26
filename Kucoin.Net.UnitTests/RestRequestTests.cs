@@ -326,6 +326,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetDepositAddressAsync("123", "123"), "GetDepositAddress", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetApiKeyInfoAsync(), "GetApiKeyInfo", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetWithdrawalQuotasAsync("123", "123"), "GetWithdrawalQuotas", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.WithdrawAsync("123", "123", 0.1m, WithdrawType.Address), "Withdraw", nestedJsonProperty: "data");
         }
 
         [Test]

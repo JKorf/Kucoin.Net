@@ -1,0 +1,5 @@
+POST
+/api/ua/v1/withdrawal
+true
+BodyParams: {"currency": "123","toAddress": "123","amount": 0.1,"withdrawType": "ADDRESS"}
+{"code":"200000","data":{"withdrawalId":"670deec84d64da0007d7c946"}}

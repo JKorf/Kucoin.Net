@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinResult<KucoinUaWithdrawResult>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaWithdrawalQuota>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaApiKeyInfo>))]
     [JsonSerializable(typeof(KucoinUnifiedRequest))]
