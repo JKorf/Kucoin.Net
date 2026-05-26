@@ -1,0 +1,19 @@
+GET
+/api/ua/v1/user/api-key
+true
+UriParams: {}
+{
+    "code": "200000",
+    "data": {
+        "remark": "123",
+        "apiKey": "698048adf5eaf900017f3e82",
+        "apiVersion": 3,
+        "permission": "General,Futures,Unified,Spot,Earn,InnerTransfer,Margin",
+        "createdAt": 1770014893000,
+        "uid": 157267400,
+        "isMaster": true,
+        "region": "ID",
+        "kycStatus": 1,
+        "siteType": "global"
+    }
+}

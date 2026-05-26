@@ -3,6 +3,7 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
@@ -287,6 +288,18 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.AddOptional("chain", network);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/asset/deposit/address", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaDepositAddress[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Api Key Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<KucoinUaApiKeyInfo>> GetApiKeyInfoAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/ua/v1/user/api-key", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var result = await _baseClient.SendAsync<KucoinUaApiKeyInfo>(request, null, ct).ConfigureAwait(false);
             return result;
         }
 

@@ -324,6 +324,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetInterestHistoryAsync(UnifiedAccountType.Unified), "GetInterestHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.SetLeverageAsync("ETHUSDTM", 0.1m), "SetLeverage");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetDepositAddressAsync("123", "123"), "GetDepositAddress", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetApiKeyInfoAsync(), "GetApiKeyInfo", nestedJsonProperty: "data");
         }
 
         [Test]
@@ -367,7 +368,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.PlaceOrderAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT", OrderSide.Buy, OrderType.Limit, 0.1m), "PlaceOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelOrderAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT", "123"), "CancelOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelOrdersAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, [new KucoinUaCancelOrderRequest { Symbol = "ETH-USDT", OrderId = "123" }]), "CancelOrders", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelSymbolOrdersAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT"), "CancelSymbolOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Trading.CancelSymbolOrdersAsync(UnifiedAccountMode.Unified, UnifiedSimpleAccountType.Spot, "ETH-USDT"), "CancelSymbolOrders", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetOrderAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot, "ETH-USDT", "123"), "GetOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetOpenOrdersAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot), "GetOpenOrders", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetOrderHistoryAsync(UnifiedAccountMode.Unified, UnifiedAccountType.Spot), "GetOrderHistory", nestedJsonProperty: "data");

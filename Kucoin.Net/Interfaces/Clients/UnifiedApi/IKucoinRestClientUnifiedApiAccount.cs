@@ -1,5 +1,6 @@
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
@@ -262,6 +263,18 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="network">["<c>chain</c>"] The network, for example `eth`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<KucoinUaDepositAddress[]>> GetDepositAddressAsync(string asset, string? network = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get API key info
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-apikey-info?lang=en_US" /><br />
+        /// Endpoint:<br />
+        /// GET api/ua/v1/user/api-key<br />
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<KucoinUaApiKeyInfo>> GetApiKeyInfoAsync(CancellationToken ct = default);
 
     }
 }
