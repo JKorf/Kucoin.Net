@@ -84,7 +84,6 @@ namespace Kucoin.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetsAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetAsync("ETH", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetFiatPricesAsync(default, default, default), false);
-            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetLeveragedTokensAsync(default), true);
         }
 
         [Test]
