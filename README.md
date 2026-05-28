@@ -1,6 +1,7 @@
 # ![.Kucoin.Net](https://github.com/JKorf/Kucoin.Net/blob/master/Kucoin.Net/Icon/icon.png?raw=true) Kucoin.Net
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Kucoin.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Kucoin.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Kucoin.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2019-brightgreen?style=for-the-badge)
 
 Kucoin.Net is a strongly typed client library for accessing the [Kucoin REST and Websocket API](https://www.kucoin.com/docs/beginners/introduction).
 ## Features
