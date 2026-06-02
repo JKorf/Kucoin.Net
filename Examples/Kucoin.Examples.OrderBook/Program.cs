@@ -1,22 +1,21 @@
-﻿using Kucoin.Net.Interfaces;
+using Kucoin.Net;
+using Kucoin.Net.Interfaces;
 using CryptoExchange.Net;
 using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
-using Kucoin.Net.Objects;
-using CryptoExchange.Net.Authentication;
 
 var collection = new ServiceCollection();
 collection.AddKucoin(opts =>
 {
     // NOTE Kucoin requires credentials to subscribe order book data
-    opts.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET", "APIPASS");
+    opts.ApiCredentials = new KucoinCredentials("APIKEY", "APISECRET", "APIPASS");
 });
 var provider = collection.BuildServiceProvider();
 
 var trackerFactory = provider.GetRequiredService<IKucoinOrderBookFactory>();
 
-// Creat and start the order book
+// Create and start the order book
 var book = trackerFactory.Create(new SharedSymbol(TradingMode.Spot, "ETH", "USDT"));
 var result = await book.StartAsync();
 
@@ -34,7 +33,7 @@ table.AddColumn("Bid Quantity", x => { x.RightAligned(); })
      .AddColumn("Ask Price", x => { x.LeftAligned(); })
      .AddColumn("Ask Quantity", x => { x.LeftAligned(); });
 
-for(var i = 0; i < 10; i++)
+for (var i = 0; i < 10; i++)
     table.AddEmptyRow();
 
 await AnsiConsole.Live(table)
@@ -43,7 +42,8 @@ await AnsiConsole.Live(table)
         while (true)
         {
             var snapshot = book.Book;
-            for (var i = 0; i < 10; i++)
+            var rowCount = Math.Min(10, Math.Min(snapshot.bids.Count(), snapshot.asks.Count()));
+            for (var i = 0; i < rowCount; i++)
             {
                 var bid = snapshot.bids.ElementAt(i);
                 var ask = snapshot.asks.ElementAt(i);

@@ -1,8 +1,6 @@
+using Kucoin.Net;
 using Kucoin.Net.Interfaces.Clients;
-using CryptoExchange.Net.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Kucoin.Net.Clients;
-using Kucoin.Net.Objects;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +13,9 @@ builder.Services.AddKucoin();
 // OR to provide API credentials for accessing private endpoints, or setting other options:
 /*
 builder.Services.AddKucoin(options =>
-{    
-   options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
-   options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
+{
+    options.ApiCredentials = new KucoinCredentials("APIKEY", "APISECRET", "APIPASS");
+    options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
 
@@ -26,18 +24,22 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
-// Map the endpoints and inject the Kucoin rest client
+// Map the endpoint and inject the rest client
 app.MapGet("/{Symbol}", async ([FromServices] IKucoinRestClient client, string symbol) =>
 {
     var result = await client.SpotApi.ExchangeData.GetTickerAsync(symbol);
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data.LastPrice)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
 app.MapGet("/Balances", async ([FromServices] IKucoinRestClient client) =>
 {
     var result = await client.SpotApi.Account.GetAccountsAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 

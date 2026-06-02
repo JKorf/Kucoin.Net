@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.OrderBook", "Kucoin.Examples.OrderBook\Kucoin.Examples.OrderBook.csproj", "{2FEAA7EE-782F-4C56-AE24-DB734B1B5F5F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.Tracker", "Kucoin.Examples.Tracker\Kucoin.Examples.Tracker.csproj", "{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kucoin.Examples.OrderPlacement", "Kucoin.Examples.OrderPlacement\Kucoin.Examples.OrderPlacement.csproj", "{E7B8A2B1-82B7-4316-B222-17B89D0004D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C3D888D-CF72-40E9-B0D2-0FD272A716A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B8A2B1-82B7-4316-B222-17B89D0004D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B8A2B1-82B7-4316-B222-17B89D0004D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B8A2B1-82B7-4316-B222-17B89D0004D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B8A2B1-82B7-4316-B222-17B89D0004D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,3 +53,4 @@ Global
 		SolutionGuid = {84A4E6CE-9D3A-43FF-97B1-D91CE93B7E8F}
 	EndGlobalSection
 EndGlobal
+
