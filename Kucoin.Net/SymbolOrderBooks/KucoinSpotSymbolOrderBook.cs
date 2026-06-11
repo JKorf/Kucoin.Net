@@ -74,17 +74,17 @@ namespace Kucoin.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            CallResult<UpdateSubscription> subResult;
+            WebSocketResult<UpdateSubscription> subResult;
             if (Levels == null)
             {
                 subResult = await _socketClient.SpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(Symbol, HandleFullUpdate).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+                if (!subResult.Success)
+                    return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
                 if (ct.IsCancellationRequested)
                 {
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                    return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
                 }
 
                 Status = OrderBookStatus.Syncing;
@@ -93,11 +93,11 @@ namespace Kucoin.Net.SymbolOrderBooks
                 await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
 
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
-                if (!bookResult)
+                if (!bookResult.Success)
                 {
-                    _logger.Log(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
+                    _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book: " + bookResult.Error);
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(bookResult.Error!);
+                    return CallResult.Fail<UpdateSubscription>(bookResult.Error!);
                 }
 
                 SetSnapshot(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
@@ -105,33 +105,32 @@ namespace Kucoin.Net.SymbolOrderBooks
             else
             {
                 subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+                if (!subResult.Success)
+                    return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
                 if (ct.IsCancellationRequested)
                 {
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                    return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
                 }
 
                 Status = OrderBookStatus.Syncing;
                 var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!setResult)
+                if (!setResult.Success)
                 {
-
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return setResult.As(subResult.Data);
+                    return CallResult.Fail<UpdateSubscription>(setResult.Error);
                 }
             }
 
-            if (!subResult)
-                return new CallResult<UpdateSubscription>(subResult.Error!);
+            if (!subResult.Success)
+                return CallResult.Fail<UpdateSubscription>(subResult.Error!);
 
-            return new CallResult<UpdateSubscription>(subResult.Data);
+            return CallResult.Ok(subResult.Data);
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
@@ -140,11 +139,11 @@ namespace Kucoin.Net.SymbolOrderBooks
             await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
 
             var bookResult = await _restClient.SpotApi.ExchangeData.GetAggregatedFullOrderBookAsync(Symbol).ConfigureAwait(false);
-            if (!bookResult)
-                return new CallResult<bool>(bookResult.Error!);
+            if (!bookResult.Success)
+                return CallResult.Fail(bookResult.Error!);
 
             SetSnapshot(bookResult.Data.Sequence!.Value, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<bool>(true);
+            return CallResult.Ok();
         }
 
         private void HandleFullUpdate(DataEvent<KucoinStreamOrderBook> data)

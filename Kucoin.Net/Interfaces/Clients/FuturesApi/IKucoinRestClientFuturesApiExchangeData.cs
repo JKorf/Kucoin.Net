@@ -24,7 +24,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinContract[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinContract[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a contract
@@ -38,7 +38,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinContract>> GetContractAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinContract>> GetContractAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the ticker for a contract
@@ -52,7 +52,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the tickers for all contracts
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesTick[]>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesTick[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the full order book, aggregated by price
@@ -79,7 +79,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the partial order book, aggregated by price
@@ -94,7 +94,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="depth">Amount of rows in the book, either 20 or 100</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int depth, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int depth, CancellationToken ct = default);
 
         /// <summary>
         /// Get interest rate list
@@ -113,7 +113,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="forward">["<c>forward</c>"] Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginatedSlider<KucoinFuturesInterest>>> GetInterestRatesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginatedSlider<KucoinFuturesInterest>>> GetInterestRatesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get index list
@@ -132,7 +132,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="forward">["<c>forward</c>"] Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginatedSlider<KucoinIndex>>> GetIndexListAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginatedSlider<KucoinIndex>>> GetIndexListAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current mark price
@@ -146,7 +146,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinMarkPrice>> GetCurrentMarkPriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinMarkPrice>> GetCurrentMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get premium index
@@ -165,7 +165,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="forward">["<c>forward</c>"] Forward or backwards direction</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginatedSlider<KucoinPremiumIndex>>> GetPremiumIndexAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginatedSlider<KucoinPremiumIndex>>> GetPremiumIndexAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current funding rate
@@ -179,7 +179,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the most recent trades
@@ -193,7 +193,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Symbol of the contract, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the server time
@@ -206,7 +206,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the service status
@@ -219,7 +219,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesServiceStatus>> GetServiceStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesServiceStatus>> GetServiceStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data
@@ -236,7 +236,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">["<c>to</c>"] End time to retrieve klines for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h transaction volume
@@ -249,7 +249,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinTransactionVolume>> Get24HourTransactionVolumeAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinTransactionVolume>> Get24HourTransactionVolumeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate history for a symbol
@@ -265,6 +265,6 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">["<c>to</c>"] End time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+        Task<HttpResult<KucoinFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default);
     }
 }

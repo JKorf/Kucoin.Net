@@ -21,7 +21,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinPaginated<KucoinSubUser>>> GetSubAccountsAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinSubUser>>> GetSubAccountsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Create a new sub account
@@ -37,7 +37,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="permissions">Permission (types include Spot, Futures, Margin permissions, which can be used alone or in combination).</param>
         /// <param name="remarks">Remarks(1~24 characters)</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinSubUser>> CreateSubAccountAsync(string subName, string password, string permissions, string? remarks = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinSubUser>> CreateSubAccountAsync(string subName, string password, string permissions, string? remarks = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get balances of a sub account
@@ -52,7 +52,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="includeZeroBalances">["<c>includeBaseAmount</c>"] Include zero balance assets or not</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinSubUserBalances>> GetSubAccountBalancesAsync(string subAccountId, bool? includeZeroBalances = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinSubUserBalances>> GetSubAccountBalancesAsync(string subAccountId, bool? includeZeroBalances = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get balances of all sub accounts
@@ -67,7 +67,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] page size, max 100</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinSubUserBalances>>> GetSubAccountsBalancesAsync(int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinSubUserBalances>>> GetSubAccountsBalancesAsync(int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on sub account api keys
@@ -82,7 +82,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="apiKey">["<c>apiKey</c>"] Filter by API key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinSubUserKey[]>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinSubUserKey[]>> GetSubAccountApiKeyAsync(string subAccountName, string? apiKey = null, CancellationToken ct = default);
 
         /// <summary>
         /// Create a new API key for a sub account
@@ -101,7 +101,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="expire">["<c>expire</c>"] Expiration time in days; Never expire(default) -1，30: 30, 90, 180 or 360 days</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinSubUserKeyDetails>> CreateSubAccountApiKeyAsync(
+        Task<HttpResult<KucoinSubUserKeyDetails>> CreateSubAccountApiKeyAsync(
             string subAccountName,
             string passphrase,
             string remark,
@@ -127,7 +127,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="expire">["<c>expire</c>"] New expire time in days</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinSubUserKeyEdited>> EditSubAccountApiKeyAsync(
+        Task<HttpResult<KucoinSubUserKeyEdited>> EditSubAccountApiKeyAsync(
             string subAccountName,
             string apiKey,
             string passphrase,
@@ -150,7 +150,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="apiKey">["<c>apiKey</c>"] The api key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinSubUserKeyEdited>> DeleteSubAccountApiKeyAsync(
+        Task<HttpResult<KucoinSubUserKeyEdited>> DeleteSubAccountApiKeyAsync(
             string subAccountName,
             string apiKey,
             string passphrase,
@@ -167,7 +167,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="subAccountId">["<c>subName</c>"] Sub account id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EnableMarginPermissionsAsync(string subAccountId, CancellationToken ct = default);
+        Task<HttpResult> EnableMarginPermissionsAsync(string subAccountId, CancellationToken ct = default);
 
         /// <summary>
         /// Allow subaccount futures permissions
@@ -180,6 +180,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="subAccountId">["<c>subName</c>"] Sub account id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EnableFuturesPermissionsAsync(string subAccountId, CancellationToken ct = default);
+        Task<HttpResult> EnableFuturesPermissionsAsync(string subAccountId, CancellationToken ct = default);
     }
 }

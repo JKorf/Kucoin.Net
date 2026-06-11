@@ -50,7 +50,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionSide">["<c>positionSide</c>"] Position side (required in HedgeMode)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
+        Task<HttpResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -112,7 +112,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionSide">["<c>positionSide</c>"] Position side (required in HedgeMode)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
+        Task<HttpResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -176,7 +176,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionSide">["<c>positionSide</c>"] Position side (required in HedgeMode)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order details</returns>
-        Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
+        Task<HttpResult<KucoinOrderId>> PlaceTpSlOrderAsync(
             string symbol,
             OrderSide? side,
             NewOrderType type,
@@ -216,7 +216,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orders">The orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order results. Each result should be checked for success</returns>
-        Task<WebCallResult<CallResult<KucoinFuturesOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<HttpResult<CallResult<KucoinFuturesOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order
@@ -230,7 +230,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderId">Id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled id</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel multiple orders
@@ -246,7 +246,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderIds">["<c>clientOidsList</c>"] Client order ids to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by client order id
@@ -261,7 +261,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderId">Client order id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders
@@ -275,7 +275,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Cancel only orders for this symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled ids</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open stop orders
@@ -289,7 +289,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Cancel only orders for this symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Canceled ids</returns>
-        Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of orders
@@ -310,7 +310,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="pageSize">["<c>pageSize</c>"] Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of untriggered stop orders
@@ -330,7 +330,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="pageSize">["<c>pageSize</c>"] Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of 1000 most recent orders in the last 24 hours
@@ -344,7 +344,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `XBTUSDM`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get details on an order
@@ -358,7 +358,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderId">Id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get details on an order
@@ -372,7 +372,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id of order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of orders</returns>
-        Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of user trades
@@ -394,7 +394,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="pageSize">["<c>pageSize</c>"] Size of a page</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of 1000 most recent user trades in the last 24 hours
@@ -407,7 +407,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades</returns>
-        Task<WebCallResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the max position size
@@ -423,7 +423,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default);
+        Task<HttpResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default);
 
     }
 }

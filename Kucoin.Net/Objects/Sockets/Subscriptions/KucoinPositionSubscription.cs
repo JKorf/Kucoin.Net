@@ -40,10 +40,10 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
             var routerTopic = symbol == null ? "/contract/positionAll" : "/contract/position";
             MessageRouter = MessageRouter.Create([
-                    MessageRoute<KucoinSocketUpdate<KucoinPositionUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.change", symbol, DoHandleMessage),
-                    MessageRoute<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.changemarkPriceChange", symbol, DoHandleMessage),
-                    MessageRoute<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.settlement", symbol, DoHandleMessage),
-                    MessageRoute<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>.CreateWithOptionalTopicFilter(routerTopic + "position.adjustRiskLimit",symbol, DoHandleMessage),
+                    MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinPositionUpdate>>(routerTopic + "position.change", symbol, DoHandleMessage),
+                    MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinPositionMarkPriceUpdate>>(routerTopic + "position.changemarkPriceChange", symbol, DoHandleMessage),
+                    MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate>>(routerTopic + "position.settlement", symbol, DoHandleMessage),
+                    MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate>>(routerTopic + "position.adjustRiskLimit",symbol, DoHandleMessage),
                 ]);
         }
 
@@ -67,7 +67,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionUpdate> message)
@@ -81,7 +81,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithSymbol(message.Data.Symbol)
                         .WithDataTimestamp(message.Data.CurrentTime, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionFundingSettlementUpdate> message)
@@ -93,7 +93,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinPositionRiskAdjustResultUpdate> message)
@@ -103,7 +103,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithStreamId(message.Topic)
                         .WithUpdateType(SocketUpdateType.Update)
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

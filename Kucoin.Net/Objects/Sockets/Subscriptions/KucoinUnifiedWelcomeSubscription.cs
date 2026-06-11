@@ -17,13 +17,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public KucoinUnifiedWelcomeSubscription(SocketApiClient client, ILogger logger) : base(logger, false)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinUnifiedWelcome>("welcome", HandleUpdate);
+            MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedWelcome>("welcome", HandleUpdate);
         }
 
         private CallResult? HandleUpdate(SocketConnection connection, DateTime time, string? arg3, KucoinUnifiedWelcome welcome)
         {
             if (connection.Properties.ContainsKey("periodicPingSet"))
-                return CallResult.SuccessResult;
+                return CallResult.Ok();
 
             connection.QueryPeriodic(
                 "Ping",
@@ -40,7 +40,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                  });
 
             connection.Properties.Add("periodicPingSet", true);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

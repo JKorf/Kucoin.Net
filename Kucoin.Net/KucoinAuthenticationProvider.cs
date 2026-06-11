@@ -17,7 +17,7 @@ namespace Kucoin.Net
     internal class KucoinAuthenticationProvider : AuthenticationProvider<KucoinCredentials, KucoinCredentials>
     {
         private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
-        private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange._serializerContext));
 
         public KucoinAuthenticationProvider(KucoinCredentials credentials): base(credentials, credentials)
         {
@@ -25,7 +25,7 @@ namespace Kucoin.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             var brokerName = LibraryHelpers.GetClientReference(() => ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerName, "Kucoin", apiClient is KucoinRestClientFuturesApi ? "FuturesName" : "SpotName");
@@ -46,12 +46,12 @@ namespace Kucoin.Net
             request.Headers.Add("KC-API-KEY-VERSION", "3");
 
             var bodyData = request.ParameterPosition == HttpMethodParameterPosition.InBody 
-                ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
+                ? GetSerializedBody(_serializer, request.BodyParameters ?? new Parameters(KucoinExchange._parameterSerializationSettings)) : string.Empty;
             var queryString = request.GetQueryString(false);
             if (!string.IsNullOrEmpty(queryString))
                 queryString = $"?{queryString}";
 
-            var signData = $"{timestamp}{request.Method}{request.Path}{queryString}{bodyData}";
+            var signData = $"{timestamp}{request.RequestDefinition.Method}{request.RequestDefinition.Path}{queryString}{bodyData}";
             request.Headers.Add("KC-API-SIGN", SignHMACSHA256(signData, SignOutputType.Base64));
 
             // Partner info

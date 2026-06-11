@@ -35,8 +35,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                 var routes = new List<MessageRoute>();
                 foreach (var symbol in symbols)
                 {
-                    routes.Add(MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>.CreateWithTopicFilter(topic + "mark.index.price",  symbol, DoHandleMessage));
-                    routes.Add(MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>.CreateWithTopicFilter(topic + "funding.rate", symbol, DoHandleMessage));
+                    routes.Add(MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + "mark.index.price",  symbol, DoHandleMessage));
+                    routes.Add(MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + "funding.rate", symbol, DoHandleMessage));
                 }
 
                 MessageRouter = MessageRouter.Create(routes.ToArray());
@@ -44,8 +44,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             else
             {
                 MessageRouter = MessageRouter.Create(
-                    MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>.CreateWithoutTopicFilter(topic + "mark.index.price", DoHandleMessage),
-                    MessageRoute<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>.CreateWithoutTopicFilter(topic + "funding.rate", DoHandleMessage));
+                    MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamFuturesMarkIndexPrice>>(topic + "mark.index.price", DoHandleMessage),
+                    MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamFuturesFundingRate>>(topic + "funding.rate", DoHandleMessage));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Topic.Split(new char[] { ':' }).Last())
                     .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamFuturesFundingRate> message)
@@ -84,7 +84,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Topic.Split(new char[] { ':' }).Last())
                     .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

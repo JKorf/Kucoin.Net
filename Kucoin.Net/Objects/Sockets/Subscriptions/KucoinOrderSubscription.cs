@@ -34,12 +34,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onNewOrder = onNewOrder;
 
             MessageRouter = MessageRouter.Create([
-                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>>.CreateWithoutTopicFilter(_topic + "match", DoHandleMatchMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>>.CreateWithoutTopicFilter(_topic + "received", DoHandleNewMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "open", DoHandleUpdateMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "update", DoHandleUpdateMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "filled", DoHandleUpdateMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinStreamOrderUpdate>>.CreateWithoutTopicFilter(_topic + "canceled", DoHandleUpdateMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamOrderMatchUpdate>>(_topic + "match", DoHandleMatchMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamOrderNewUpdate>>(_topic + "received", DoHandleNewMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "open", DoHandleUpdateMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "update", DoHandleUpdateMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "filled", DoHandleUpdateMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinStreamOrderUpdate>>(_topic + "canceled", DoHandleUpdateMessage),
                 ]);
         }
 
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
             
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderUpdate> message)
@@ -79,7 +79,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleNewMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinStreamOrderNewUpdate> message)
@@ -93,7 +93,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

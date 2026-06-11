@@ -44,7 +44,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
 
         internal KucoinSocketClientUnifiedApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
-            : base(logger, options.Environment.SpotAddress, options, options.SpotOptions)
+            : base(logger, KucoinExchange.Metadata.Id, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             _baseClient = baseClient;
 
@@ -53,7 +53,7 @@ namespace Kucoin.Net.Clients.SpotApi
             AddSystemSubscription(new KucoinUnifiedWelcomeSubscription(this, _logger));
         }
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketUnifiedMessageHandler();
 
         /// <inheritdoc />
@@ -65,7 +65,7 @@ namespace Kucoin.Net.Clients.SpotApi
             => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
             UnifiedAccountType tradeType,
             string symbol,
             Action<DataEvent<KucoinUaTickerUpdate>> onData,
@@ -73,7 +73,7 @@ namespace Kucoin.Net.Clients.SpotApi
             => SubscribeToTickerUpdatesAsync(tradeType, new[] { symbol }, onData, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(
             UnifiedAccountType tradeType,
             IEnumerable<string> symbols,
             Action<DataEvent<KucoinUaTickerUpdate>> onData,
@@ -96,7 +96,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(
             UnifiedAccountType tradeType, string symbol, 
             KlineInterval interval,
             Action<DataEvent<KucoinUaKlineUpdate>> onData, 
@@ -119,7 +119,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(
             UnifiedAccountType tradeType,
             string symbol,
             OrderBookDepth depth,
@@ -143,7 +143,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(
             UnifiedAccountType tradeType,
             string symbol,
             Action<DataEvent<KucoinUaTradeUpdate>> onData,
@@ -166,7 +166,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaBalanceUpdate>> onData,
             CancellationToken ct = default)
@@ -176,7 +176,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaOrderUpdate>> onData,
             CancellationToken ct = default)
@@ -197,7 +197,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaUserTradeUpdate>> onData,
             CancellationToken ct = default)
@@ -218,7 +218,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToLiteUserTradeUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToLiteUserTradeUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaLiteUserTradeUpdate>> onData,
             CancellationToken ct = default)
@@ -239,7 +239,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaPositionUpdate>> onData,
             CancellationToken ct = default)
@@ -260,7 +260,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToLeverageUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToLeverageUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaLeverageUpdate>> onData,
             CancellationToken ct = default)
@@ -281,7 +281,7 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationWarningUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToLiquidationWarningUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaLiquidationWarningUpdate>> onData,
             CancellationToken ct = default)
@@ -310,10 +310,10 @@ namespace Kucoin.Net.Clients.SpotApi
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
             if (ClientOptions.Environment.Name == "UnitTesting")
-                return new CallResult<string?>(address);
+                return CallResult.Ok<string?>(address);
 
             if (!authenticated)
-                return new CallResult<string?>(address);
+                return CallResult.Ok<string?>(address);
 
             using (var restClient = new KucoinRestClient((options) =>
             {
@@ -322,10 +322,10 @@ namespace Kucoin.Net.Clients.SpotApi
             }))
             {
                 var tokenResult = await ((KucoinRestClientUnifiedApiAccount)restClient.UnifiedApi.Account).GetWebsocketTokenPrivateAsync().ConfigureAwait(false);
-                if (!tokenResult)
-                    return tokenResult.As<string?>(null);
+                if (!tokenResult.Success)
+                    return CallResult.Fail<string?>(tokenResult.Error);
 
-                return new CallResult<string?>(ClientOptions.Environment.UnifiedSocketPrivateAddress + "?token=" + tokenResult.Data.Token);
+                return CallResult.Ok<string?>(ClientOptions.Environment.UnifiedSocketPrivateAddress + "?token=" + tokenResult.Data.Token);
             }
         }
 
@@ -333,7 +333,7 @@ namespace Kucoin.Net.Clients.SpotApi
         protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
             var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.HasAuthenticatedSubscription).ConfigureAwait(false);
-            if (!result)
+            if (!result.Success)
                 return null;
 
             return new Uri(result.Data!);

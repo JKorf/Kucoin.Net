@@ -31,7 +31,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
+        public async Task<HttpResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -60,10 +60,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             PositionSide? positionSide = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddParameter("symbol", symbol);
-            parameters.AddEnum("side", side);
-            parameters.AddEnum("type", type);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
             parameters.AddOptionalParameter("leverage", leverage?.ToString(CultureInfo.InvariantCulture));
 
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
@@ -72,28 +72,28 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalEnum("stop", stopType);
-            parameters.AddOptionalEnum("stopPriceType", stopPriceType);
+            parameters.Add("stop", stopType);
+            parameters.Add("stopPriceType", stopPriceType);
             parameters.AddOptionalParameter("stopPrice", stopPrice?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
             parameters.AddOptionalParameter("forceHold", forceHold?.ToString());
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalEnum("timeInForce", timeInForce);
+            parameters.Add("timeInForce", timeInForce);
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
             parameters.AddOptionalParameter("iceberg", iceberg);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
-            parameters.AddOptionalEnum("stp", selfTradePrevention);
-            parameters.AddOptionalEnum("marginMode", marginMode);
-            parameters.AddOptionalEnum("positionSide", positionSide);
+            parameters.Add("stp", selfTradePrevention);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("positionSide", positionSide);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
+        public async Task<HttpResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -122,10 +122,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             PositionSide? positionSide = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddParameter("symbol", symbol);
-            parameters.AddEnum("side", side);
-            parameters.AddEnum("type", type);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
             parameters.AddOptionalParameter("leverage", leverage?.ToString(CultureInfo.InvariantCulture));
 
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
@@ -134,29 +134,29 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
-            parameters.AddOptionalEnum("stop", stopType);
-            parameters.AddOptionalEnum("stopPriceType", stopPriceType);
+            parameters.Add("stop", stopType);
+            parameters.Add("stopPriceType", stopPriceType);
             parameters.AddOptionalParameter("stopPrice", stopPrice?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
             parameters.AddOptionalParameter("forceHold", forceHold?.ToString());
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalEnum("timeInForce", timeInForce);
+            parameters.Add("timeInForce", timeInForce);
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
             parameters.AddOptionalParameter("iceberg", iceberg);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
-            parameters.AddOptionalEnum("stp", selfTradePrevention);
-            parameters.AddOptionalEnum("marginMode", marginMode);
-            parameters.AddOptionalEnum("marginMode", marginMode);
-            parameters.AddOptionalEnum("positionSide", positionSide);
+            parameters.Add("stp", selfTradePrevention);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("positionSide", positionSide);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/test", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/orders/test", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinOrderId>> PlaceTpSlOrderAsync(
+        public async Task<HttpResult<KucoinOrderId>> PlaceTpSlOrderAsync(
             string symbol,
             OrderSide? side,
             NewOrderType type,
@@ -185,10 +185,10 @@ namespace Kucoin.Net.Clients.FuturesApi
             PositionSide? positionSide = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddParameter("symbol", symbol);
-            parameters.AddOptionalEnum("side", side);
-            parameters.AddEnum("type", type);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
             parameters.AddOptionalParameter("leverage", leverage?.ToString(CultureInfo.InvariantCulture));
 
             parameters.AddOptionalParameter("size", quantity?.ToString(CultureInfo.InvariantCulture));
@@ -198,152 +198,151 @@ namespace Kucoin.Net.Clients.FuturesApi
             parameters.AddParameter("clientOid", clientOrderId ?? Guid.NewGuid().ToString());
             parameters.AddOptionalParameter("remark", remark);
 
-            parameters.AddOptionalString("triggerStopUpPrice", triggerStopUpPrice);
-            parameters.AddOptionalEnum("stopPriceType", stopPriceType);
-            parameters.AddOptionalString("triggerStopDownPrice", triggerStopDownPrice);
+            parameters.Add("triggerStopUpPrice", triggerStopUpPrice);
+            parameters.Add("stopPriceType", stopPriceType);
+            parameters.Add("triggerStopDownPrice", triggerStopDownPrice);
             parameters.AddOptionalParameter("reduceOnly", reduceOnly?.ToString());
             parameters.AddOptionalParameter("closeOrder", closeOrder?.ToString());
             parameters.AddOptionalParameter("forceHold", forceHold?.ToString());
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalEnum("timeInForce", timeInForce);
+            parameters.Add("timeInForce", timeInForce);
             parameters.AddOptionalParameter("postOnly", postOnly?.ToString());
             parameters.AddOptionalParameter("hidden", hidden?.ToString());
             parameters.AddOptionalParameter("iceberg", iceberg);
             parameters.AddOptionalParameter("visibleSize", visibleSize?.ToString());
-            parameters.AddOptionalEnum("stp", selfTradePrevention);
-            parameters.AddOptionalEnum("positionSide", positionSide);
+            parameters.Add("stp", selfTradePrevention);
+            parameters.Add("positionSide", positionSide);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/st-orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/st-orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CallResult<KucoinFuturesOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default)
+        public async Task<HttpResult<CallResult<KucoinFuturesOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinFuturesOrderRequestEntry> orders, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.SetBody(orders.ToArray());
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"api/v1/orders/multi", KucoinExchange.RateLimiter.FuturesRest, 20, true);
+            var parameters = new Parameters(orders.ToArray(), KucoinExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/orders/multi", KucoinExchange.RateLimiter.FuturesRest, 20, true);
             var resultData = await _baseClient.SendAsync<KucoinFuturesOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
-            if (!resultData)
-                return resultData.As<CallResult<KucoinFuturesOrderResult>[]>(default);
+            if (!resultData.Success)
+                return HttpResult.Fail<CallResult<KucoinFuturesOrderResult>[]>(resultData);
 
             var result = new List<CallResult<KucoinFuturesOrderResult>>();
             foreach (var item in resultData.Data)
             {
                 if (item.Message != "success")
-                    result.Add(new CallResult<KucoinFuturesOrderResult>(item, null, new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, item.Message))));
+                    result.Add(CallResult<KucoinFuturesOrderResult>.Fail(new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, item.Message))));
                 else
-                    result.Add(new CallResult<KucoinFuturesOrderResult>(item));
+                    result.Add(CallResult.Ok(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
+                return HttpResult.Fail<CallResult<KucoinFuturesOrderResult>[]>(resultData, new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
-            return resultData.As(result.ToArray());
+            return HttpResult.Ok(resultData, result.ToArray());
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinCanceledOrders>> CancelOrderAsync(string orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/" + orderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "api/v1/orders/" + orderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinFuturesOrderResult[]>> CancelMultipleOrdersAsync(string? symbol = null, IEnumerable<string>? orderIds = null, IEnumerable<KucoinCancelRequest>? clientOrderIds = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("orderIdsList", orderIds?.ToArray());
-            parameters.AddOptional("clientOidsList", clientOrderIds?.ToArray());
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/multi-cancel", KucoinExchange.RateLimiter.FuturesRest, 30, true, parameterPosition: HttpMethodParameterPosition.InBody);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.AddArray("orderIdsList", orderIds?.ToArray());
+            parameters.AddArray("clientOidsList", clientOrderIds?.ToArray());
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "api/v1/orders/multi-cancel", KucoinExchange.RateLimiter.FuturesRest, 30, true, parameterPosition: HttpMethodParameterPosition.InBody);
             return await _baseClient.SendAsync<KucoinFuturesOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinCanceledOrder>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/orders/client-order/" + clientOrderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "api/v1/orders/client-order/" + clientOrderId, KucoinExchange.RateLimiter.FuturesRest, 1, true);
             return await _baseClient.SendAsync<KucoinCanceledOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinCanceledOrders>> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v3/orders", KucoinExchange.RateLimiter.FuturesRest, 30, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "api/v3/orders", KucoinExchange.RateLimiter.FuturesRest, 30, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
         }
 
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinCanceledOrders>> CancelAllStopOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, $"api/v1/stopOrders", KucoinExchange.RateLimiter.FuturesRest, 15, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "api/v1/stopOrders", KucoinExchange.RateLimiter.FuturesRest, 15, true);
             return await _baseClient.SendAsync<KucoinCanceledOrders>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinPaginated<KucoinFuturesOrder>>> GetOrdersAsync(string? symbol = null, OrderStatus? status = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalEnum("status", status);
-            parameters.AddOptionalEnum("side", side);
-            parameters.AddOptionalEnum("type", type );
+            parameters.Add("status", status);
+            parameters.Add("side", side);
+            parameters.Add("type", type );
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/orders", KucoinExchange.RateLimiter.FuturesRest, 2, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinPaginated<KucoinFuturesOrder>>> GetUntriggeredStopOrdersAsync(string? symbol = null, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalEnum("side", side);
-            parameters.AddOptionalEnum("type", type);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/stopOrders", KucoinExchange.RateLimiter.FuturesRest, 6, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/stopOrders", KucoinExchange.RateLimiter.FuturesRest, 6, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinFuturesOrder[]>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/recentDoneOrders", KucoinExchange.RateLimiter.FuturesRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/recentDoneOrders", KucoinExchange.RateLimiter.FuturesRest, 5, true);
             return await _baseClient.SendAsync<KucoinFuturesOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinFuturesOrder>> GetOrderAsync(string orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders/" + orderId, KucoinExchange.RateLimiter.FuturesRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/orders/" + orderId, KucoinExchange.RateLimiter.FuturesRest, 5, true);
             return await _baseClient.SendAsync<KucoinFuturesOrder>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinFuturesOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("clientOid", clientOrderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/orders/byClientOid", KucoinExchange.RateLimiter.FuturesRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/orders/byClientOid", KucoinExchange.RateLimiter.FuturesRest, 5, true);
             return await _baseClient.SendAsync<KucoinFuturesOrder>(request, parameters, ct).ConfigureAwait(false);
         }
         #endregion
@@ -351,27 +350,27 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Fills
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinPaginated<KucoinFuturesUserTrade>>> GetUserTradesAsync(string? orderId = null, string? symbol = null, OrderSide? side = null, OrderType? type = null, IEnumerable<FuturesTradeType>? tradeTypes = null, DateTime? startTime = null, DateTime? endTime = null, int? currentPage = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("orderId", orderId);
-            parameters.AddOptionalEnum("side", side);
-            parameters.AddOptionalEnum("type", type);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
             if (tradeTypes?.Any() == true)
                 parameters.Add("tradeTypes", string.Join(",", tradeTypes.Select(EnumConverter.GetString)));
             parameters.AddOptionalParameter("startAt", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endAt", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("currentPage", currentPage);
             parameters.AddOptionalParameter("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/fills", KucoinExchange.RateLimiter.FuturesRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/fills", KucoinExchange.RateLimiter.FuturesRest, 5, true);
             return await _baseClient.SendAsync<KucoinPaginated<KucoinFuturesUserTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default)
+        public async Task<HttpResult<KucoinFuturesUserTrade[]>> GetRecentUserTradesAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/recentFills", KucoinExchange.RateLimiter.FuturesRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/recentFills", KucoinExchange.RateLimiter.FuturesRest, 3, true);
             return await _baseClient.SendAsync<KucoinFuturesUserTrade[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -380,13 +379,13 @@ namespace Kucoin.Net.Clients.FuturesApi
         #region Get Max Open Position Size
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinMaxOpenSize>> GetMaxOpenPositionSizeAsync(string symbol, decimal price, decimal leverage, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
             parameters.Add("price", price);
             parameters.Add("leverage", leverage);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v2/getMaxOpenSize", KucoinExchange.RateLimiter.PublicRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v2/getMaxOpenSize", KucoinExchange.RateLimiter.PublicRest, 2, true);
             return await _baseClient.SendAsync<KucoinMaxOpenSize>(request, parameters, ct).ConfigureAwait(false);
         }
 

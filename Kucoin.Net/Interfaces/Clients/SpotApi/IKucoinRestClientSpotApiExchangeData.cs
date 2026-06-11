@@ -25,7 +25,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The time of the server</returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of symbols supported by the server
@@ -39,7 +39,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="market">["<c>market</c>"] Only get symbols for a specific market, for example 'ALTS'</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of symbols</returns>
-        Task<WebCallResult<KucoinSymbol[]>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinSymbol[]>> GetSymbolsAsync(string? market = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific symbol
@@ -53,7 +53,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">The symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinSymbol>> GetSymbolAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinSymbol>> GetSymbolAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Gets ticker info of a symbol
@@ -67,7 +67,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get info for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Ticker info</returns>
-        Task<WebCallResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinTick>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the ticker for all trading pairs
@@ -80,7 +80,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of tickers</returns>
-        Task<WebCallResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinTicks>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets the 24 hour stats of a symbol
@@ -94,7 +94,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get stats for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>24 hour stats</returns>
-        Task<WebCallResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<Kucoin24HourStat>> Get24HourStatsAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of supported markets
@@ -107,7 +107,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of markets</returns>
-        Task<WebCallResult<string[]>> GetMarketsAsync(CancellationToken ct = default);
+        Task<HttpResult<string[]>> GetMarketsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a partial aggregated order book for a symbol. Orders for the same price are combined and amount results are limited.
@@ -122,7 +122,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The limit of results (20 / 100)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Partial aggregated order book</returns>
-        Task<WebCallResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int limit, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderBook>> GetAggregatedPartialOrderBookAsync(string symbol, int limit, CancellationToken ct = default);
 
         /// <summary>
         /// Get a full aggregated order book for a symbol. Orders for the same price are combined.
@@ -136,7 +136,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get order book for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Full aggregated order book</returns>
-        Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the recent trade history for a symbol
@@ -150,7 +150,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get trade history for, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of trades for the symbol</returns>
-        Task<WebCallResult<KucoinTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinTrade[]>> GetTradeHistoryAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data for a symbol
@@ -167,7 +167,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>endAt</c>"] The end time of the data</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of klines</returns>
-        Task<WebCallResult<KucoinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of supported currencies
@@ -180,7 +180,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of currencies</returns>
-        Task<WebCallResult<KucoinAssetDetails[]>> GetAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinAssetDetails[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific asset
@@ -194,7 +194,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">The asset to get, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Asset info</returns>
-        Task<WebCallResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<KucoinAssetDetails>> GetAssetAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of prices for all 
@@ -209,7 +209,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["<c>currencies</c>"] The assets to get price for. Defaults to all, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of prices</returns>
-        Task<WebCallResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? assets = null, CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, decimal>>> GetFiatPricesAsync(string? fiatBase = null, IEnumerable<string>? assets = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get system announcements
@@ -227,7 +227,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinPaginated<KucoinAnnouncement>>> GetAnnouncementsAsync(int? page = null, int? pageSize = null, string? announcementType = null, string? language = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinAnnouncement>>> GetAnnouncementsAsync(int? page = null, int? pageSize = null, string? announcementType = null, string? language = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get Call Auction order book
@@ -241,7 +241,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol name, for example `ETH-USDT`</param>
         /// <param name="depth">Depth of the book, 20 or 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinOrderBook>> GetCallAuctionOrderBookAsync(string symbol, int depth, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderBook>> GetCallAuctionOrderBookAsync(string symbol, int depth, CancellationToken ct = default);
 
         /// <summary>
         /// Get call auction info for a symbol
@@ -254,6 +254,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol name, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default);
     }
 }

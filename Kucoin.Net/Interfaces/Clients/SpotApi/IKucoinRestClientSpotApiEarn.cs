@@ -28,6 +28,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Number of results per request. Minimum is 10, maximum is 500.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinEarnHolding>>> GetEarnHoldingAsync(string? asset = null, string? productId = null, EarnProductCategory? productCategory = default, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinEarnHolding>>> GetEarnHoldingAsync(string? asset = null, string? productId = null, EarnProductCategory? productCategory = default, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

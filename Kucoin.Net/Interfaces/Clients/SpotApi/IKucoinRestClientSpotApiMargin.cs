@@ -26,7 +26,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinMarginConfig>> GetMarginConfigurationAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the mark price of a symbol
@@ -40,7 +40,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">The symbol to retrieve, for example `USDT-BTC`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinIndexBase>> GetMarginMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the mark price for all symbols
@@ -53,7 +53,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinIndexBase[]>> GetMarginMarkPricesAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinIndexBase[]>> GetMarginMarkPricesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get Margin symbols
@@ -66,7 +66,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<KucoinTradingPairConfiguration[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinTradingPairConfiguration[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin risk limit and asset configuration info
@@ -79,7 +79,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<KucoinCrossRiskLimitConfig[]>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
+        Task<HttpResult<KucoinCrossRiskLimitConfig[]>> GetCrossMarginRiskLimitAndConfig(CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin risk limit and asset configuration info
@@ -93,7 +93,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param> 
         /// <returns></returns>
-        Task<WebCallResult<KucoinIsolatedRiskLimitConfig[]>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinIsolatedRiskLimitConfig[]>> GetIsolatedMarginRiskLimitAndConfig(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Borrow an asset
@@ -112,7 +112,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="isHf">["<c>isHf</c>"] HighFrequency/ProAccount borrowing</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinNewBorrowOrder>> BorrowAsync(
+        Task<HttpResult<KucoinNewBorrowOrder>> BorrowAsync(
             string asset,
             BorrowOrderType timeInForce,
             decimal quantity,
@@ -137,7 +137,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="isHf">["<c>isHf</c>"] HighFrequency/ProAccount repayment</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinNewBorrowOrder>> RepayAsync(
+        Task<HttpResult<KucoinNewBorrowOrder>> RepayAsync(
             string asset,
             decimal quantity,
             bool? isIsolated = null,
@@ -164,7 +164,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] The page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinBorrowOrderV3>>> GetBorrowHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinBorrowOrderV3>>> GetBorrowHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get repayment history
@@ -185,7 +185,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] The page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinBorrowOrderV3>>> GetRepayHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinBorrowOrderV3>>> GetRepayHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin interest records
@@ -205,7 +205,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] The page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinMarginInterest>>> GetInterestHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinMarginInterest>>> GetInterestHistoryAsync(string asset, bool? isIsolated = null, string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get lending asset info
@@ -219,7 +219,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinLendingAsset[]>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinLendingAsset[]>> GetLendingAssetsAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get lending interest rates
@@ -233,7 +233,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinLendingInterest[]>> GetInterestRatesAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<KucoinLendingInterest[]>> GetInterestRatesAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Initiate subscriptions of margin lending
@@ -249,7 +249,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="interestRate">["<c>interestRate</c>"] Interest rate</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinLendingResult>> SubscribeAsync(string asset, decimal quantity, decimal interestRate, CancellationToken ct = default);
+        Task<HttpResult<KucoinLendingResult>> SubscribeAsync(string asset, decimal quantity, decimal interestRate, CancellationToken ct = default);
 
         /// <summary>
         /// Initiate redemptions of margin lending.
@@ -265,7 +265,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="subscribeOrderId">["<c>purchaseOrderNo</c>"] Subscribe order number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinLendingResult>> RedeemAsync(string asset, decimal quantity, string subscribeOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinLendingResult>> RedeemAsync(string asset, decimal quantity, string subscribeOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Update interest rate of a subscription order
@@ -281,7 +281,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="subscribeOrderId">["<c>purchaseOrderNo</c>"] Subscribe order number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> EditSubscriptionOrderAsync(string asset, decimal interestRate, string subscribeOrderId, CancellationToken ct = default);
+        Task<HttpResult> EditSubscriptionOrderAsync(string asset, decimal interestRate, string subscribeOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get redemption orders
@@ -299,7 +299,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinRedemption>>> GetRedemptionOrdersAsync(string asset, string status, string? redeemOrderId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinRedemption>>> GetRedemptionOrdersAsync(string asset, string status, string? redeemOrderId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get subscription orders
@@ -317,7 +317,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinLendSubscription>>> GetSubscriptionOrdersAsync(string asset, string status, string? purchaseOrderId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinLendSubscription>>> GetSubscriptionOrdersAsync(string asset, string status, string? purchaseOrderId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Modify the leverage multiplier for cross margin or isolated margin.
@@ -328,7 +328,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="isolatedMargin">["<c>isIsolated</c>"] Is isolated margin</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> SetLeverageMultiplierAsync(decimal leverage, string? symbol = null, bool? isolatedMargin = null, CancellationToken ct = default);
+        Task<HttpResult> SetLeverageMultiplierAsync(decimal leverage, string? symbol = null, bool? isolatedMargin = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin symbols
@@ -337,7 +337,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinCrossMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinCrossMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get borrow interest rates
@@ -346,7 +346,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Asset filter, comma separated up to 50</param>
         /// <param name="vipLevel">["<c>vipLevel</c>"] VIP level</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<KucoinBorrowInterestRates>> GetBorrowInterestRateAsync(string? asset = null, int? vipLevel = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinBorrowInterestRates>> GetBorrowInterestRateAsync(string? asset = null, int? vipLevel = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get collateral ratios
@@ -355,6 +355,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">["<c>currencyList</c>"]</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinCollateralRatios[]>> GetMarginCollateralRatioAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinCollateralRatios[]>> GetMarginCollateralRatioAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
     }
 }

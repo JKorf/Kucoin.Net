@@ -10,7 +10,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
 {
     internal class KucoinSocketFuturesMessageHandler : JsonSocketMessageHandler
     {
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(KucoinExchange.SerializerContext);
+        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(KucoinExchange._serializerContext);
 
         public KucoinSocketFuturesMessageHandler()
         {

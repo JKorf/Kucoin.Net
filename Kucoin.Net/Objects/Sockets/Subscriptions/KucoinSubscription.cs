@@ -27,13 +27,13 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
             if (symbols?.Count > 0)
             {
-                MessageRouter = MessageRouter.CreateWithTopicFilters<KucoinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
+                MessageRouter = MessageRouter.CreateForEvent<KucoinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
             }
             else
             {
                 if (topic.EndsWith(":all"))
                     topic = topic.Replace(":all", "");
-                MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
+                MessageRouter = MessageRouter.CreateForEvent<KucoinSocketUpdate<T>>(topic, DoHandleMessage);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
             var id = $"{channel}.{EnumConverter.GetString(type)}";
             var filter = _symbol != null || _interval != null ? $"{_symbol}{_interval}" : null;
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<KucoinUnifiedSocketUpdate<T>>(id, filter, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(id, filter, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -74,7 +74,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private CallResult? DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinUnifiedSocketUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
     }

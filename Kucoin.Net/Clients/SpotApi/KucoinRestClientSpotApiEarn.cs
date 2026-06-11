@@ -22,17 +22,17 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<WebCallResult<KucoinPaginated<KucoinEarnHolding>>> GetEarnHoldingAsync(string? asset = null, string? productId = null, EarnProductCategory? productCategory = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public Task<HttpResult<KucoinPaginated<KucoinEarnHolding>>> GetEarnHoldingAsync(string? asset = null, string? productId = null, EarnProductCategory? productCategory = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             pageSize?.ValidateIntBetween(nameof(pageSize), 10, 500);
 
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("currency", asset);
-            parameters.AddOptional("productId", productId);
-            parameters.AddOptionalEnum("productCategory", productCategory);
-            parameters.AddOptional("currentPage", page);
-            parameters.AddOptional("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/earn/hold-assets", KucoinExchange.RateLimiter.EarnRest, 5, true);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("currency", asset);
+            parameters.Add("productId", productId);
+            parameters.Add("productCategory", productCategory);
+            parameters.Add("currentPage", page);
+            parameters.Add("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/earn/hold-assets", KucoinExchange.RateLimiter.EarnRest, 5, true);
             return _baseClient.SendAsync<KucoinPaginated<KucoinEarnHolding>>(request, parameters, ct);
         }
     }

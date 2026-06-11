@@ -36,9 +36,9 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _topic = "/margin/loan:" + asset;
 
             MessageRouter = MessageRouter.Create([
-                MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.open", asset, DoHandleOpenMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinMarginOrderUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.update",  asset, DoHandleUpdateMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>.CreateWithTopicFilter("/margin/loan" + "order.done",  asset, DoHandleDoneMessage)
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinMarginOrderUpdate>>("/margin/loan" + "order.open", asset, DoHandleOpenMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinMarginOrderUpdate>>("/margin/loan" + "order.update",  asset, DoHandleUpdateMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinMarginOrderDoneUpdate>>("/margin/loan" + "order.done",  asset, DoHandleDoneMessage)
                 ]);
         }
 
@@ -62,7 +62,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleOpenMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
@@ -75,7 +75,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleUpdateMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginOrderUpdate> message)
@@ -88,7 +88,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

@@ -63,7 +63,13 @@ namespace Kucoin.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = JsonSerializerContextCache.GetOrCreate<KucoinSourceGenerationContext>();
+        internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<KucoinSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String,
+            Bool = BoolSerialization.String,
+
+        };
 
         /// <summary>
         /// Aliases for Kucoin assets

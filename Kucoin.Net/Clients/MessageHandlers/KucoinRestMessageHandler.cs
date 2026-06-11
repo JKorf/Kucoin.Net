@@ -15,7 +15,7 @@ namespace Kucoin.Net.Clients.MessageHandlers
     {
         private readonly ErrorMapping _errorMapping;
 
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(KucoinExchange.SerializerContext);
+        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(KucoinExchange._serializerContext);
 
         public KucoinRestMessageHandler(ErrorMapping errorMapping)
         {
