@@ -39,8 +39,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public IKucoinRestClientUnifiedApiTrading Trading { get; }
 
-        internal KucoinRestClientUnifiedApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
-            : base(logger, KucoinExchange.Metadata.Id, httpClient, options.Environment.UnifiedRestAddress, options, options.UnifiedOptions)
+        internal KucoinRestClientUnifiedApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, httpClient, options.Environment.UnifiedRestAddress, options, options.UnifiedOptions)
         {
             _baseClient = baseClient;
 

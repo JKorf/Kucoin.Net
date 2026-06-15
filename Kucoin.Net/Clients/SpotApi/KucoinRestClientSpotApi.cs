@@ -50,8 +50,8 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public IKucoinRestClientSpotApiEarn Earn { get; }
 
-        internal KucoinRestClientSpotApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
-            : base(logger, KucoinExchange.Metadata.Id, httpClient, options.Environment.SpotAddress, options, options.SpotOptions)
+        internal KucoinRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, httpClient, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             Account = new KucoinRestClientSpotApiAccount(this);
             SubAccount = new KucoinRestClientSpotApiSubAccount(this);

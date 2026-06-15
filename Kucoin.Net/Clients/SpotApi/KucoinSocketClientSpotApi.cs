@@ -41,8 +41,8 @@ namespace Kucoin.Net.Clients.SpotApi
         /// <inheritdoc />
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
 
-        internal KucoinSocketClientSpotApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
-            : base(logger, KucoinExchange.Metadata.Id, options.Environment.SpotAddress, options, options.SpotOptions)
+        internal KucoinSocketClientSpotApi(ILoggerFactory? loggerFactory, KucoinSocketClient baseClient, KucoinSocketOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             _baseClient = baseClient;
 

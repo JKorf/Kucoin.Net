@@ -40,8 +40,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
 
-        internal KucoinSocketClientFuturesApi(ILogger logger, KucoinSocketClient baseClient, KucoinSocketOptions options)
-            : base(logger, KucoinExchange.Metadata.Id, options.Environment.FuturesAddress, options, options.FuturesOptions)
+        internal KucoinSocketClientFuturesApi(ILoggerFactory? loggerFactory, KucoinSocketClient baseClient, KucoinSocketOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
             _baseClient = baseClient;
 

@@ -39,8 +39,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public IKucoinRestClientFuturesApiTrading Trading { get; }
 
-        internal KucoinRestClientFuturesApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
-            : base(logger, KucoinExchange.Metadata.Id, httpClient, options.Environment.FuturesAddress, options, options.FuturesOptions)
+        internal KucoinRestClientFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, httpClient, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
             _baseClient = baseClient;
             _options = options;

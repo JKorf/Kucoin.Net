@@ -47,9 +47,9 @@ namespace Kucoin.Net.Clients
         {
             Initialize(options.Value);
 
-            SpotApi = AddApiClient(new KucoinSocketClientSpotApi(_logger, this, options.Value));
-            FuturesApi = AddApiClient(new KucoinSocketClientFuturesApi(_logger, this, options.Value));
-            UnifiedApi = AddApiClient(new KucoinSocketClientUnifiedApi(_logger, this, options.Value));
+            SpotApi = AddApiClient(new KucoinSocketClientSpotApi(loggerFactory, this, options.Value));
+            FuturesApi = AddApiClient(new KucoinSocketClientFuturesApi(loggerFactory, this, options.Value));
+            UnifiedApi = AddApiClient(new KucoinSocketClientUnifiedApi(loggerFactory, this, options.Value));
         }
 
         /// <summary>

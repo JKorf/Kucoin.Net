@@ -16,7 +16,6 @@ namespace Kucoin.Net.Clients.SpotApi
     {
         private const string _exchangeName = "Kucoin";
         private const string _topicId = "KucoinSpot";
-        public string Exchange => KucoinExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
