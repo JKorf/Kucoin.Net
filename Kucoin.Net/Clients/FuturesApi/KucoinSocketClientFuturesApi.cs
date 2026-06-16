@@ -358,7 +358,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
         {
             if (ClientOptions.Environment.Name == "UnitTesting")
-                return CallResult<string?>.Ok("wss://ws-api-spot.kucoin.com");
+                return CallResult<string?>.Ok("wss://ws-api-futures.kucoin.com");
 
             using (var restClient = new KucoinRestClient((options) =>
             {
@@ -386,6 +386,45 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return null;
 
             return new Uri(result.Data!);
+        }
+
+        protected override async Task<CallResult<SocketConnection>> GetSocketConnection(
+           string address,
+           bool authenticated,
+           bool dedicatedRequestConnection,
+           CancellationToken ct,
+           string? topic = null,
+           int individualSubscriptionCount = 1)
+        {
+            // address is either spot or futures
+            var connection = _socketConnections.Values.Where(x => x.Tag == address)
+                    .OrderBy(s => s.UserSubscriptionCount)
+                    .FirstOrDefault();
+
+            bool maxConnectionsReached = _socketConnections.Count >= (ApiOptions.MaxSocketConnections ?? ClientOptions.MaxSocketConnections);
+            if (connection != null)
+            {
+                bool lessThanBatchSubCombineTarget = connection.UserSubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget;
+                bool lessThanIndividualSubCombineTarget = connection.Subscriptions.Sum(x => x.IndividualSubscriptionCount) < ClientOptions.SocketIndividualSubscriptionCombineTarget;
+
+                if ((lessThanBatchSubCombineTarget && lessThanIndividualSubCombineTarget)
+                    || maxConnectionsReached)
+                {
+                    // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
+                    // If there is a max subscriptions per connection limit also only use existing if the new subscription doesn't go over the limit
+                    if (MaxIndividualSubscriptionsPerConnection == null)
+                        return CallResult.Ok(connection);
+
+                    var currentCount = connection.Subscriptions.Sum(x => x.IndividualSubscriptionCount);
+                    if (currentCount + individualSubscriptionCount <= MaxIndividualSubscriptionsPerConnection)
+                        return CallResult.Ok(connection);
+                }
+            }
+#warning test
+            var result = await base.GetSocketConnection(address, authenticated, dedicatedRequestConnection, ct, topic, individualSubscriptionCount).ConfigureAwait(false);
+            if (result.Success)
+                result.Data.Tag = address;
+            return result;
         }
     }
 }

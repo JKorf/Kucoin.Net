@@ -37,7 +37,7 @@ Kucoin credentials require three values: API key, API secret, and API passphrase
 
 ## Core Pattern: Result Handling
 
-REST methods return `WebCallResult<T>` or `WebCallResult`. WebSocket subscription methods return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
 
 ```csharp
 var ticker = await publicClient.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");

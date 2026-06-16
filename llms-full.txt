@@ -23,8 +23,8 @@ Primary documentation:
 - Use `KucoinCredentials`, not generic `ApiCredentials`.
 - Kucoin credentials require key, secret, and passphrase.
 - Always check `.Success` before reading `.Data`.
-- REST methods return `WebCallResult<T>` or `WebCallResult`.
-- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- REST methods return `HttpResult<T>` or `HttpResult`.
+- WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`.
 - Reuse clients. Do not instantiate a client per request in production code.
 - Prefer dependency injection for services and long-running applications.
 - Store WebSocket subscriptions and unsubscribe during shutdown.
@@ -399,7 +399,7 @@ Examples/ai-friendly/04-multi-exchange.cs
   CryptoExchange.Net.SharedApis REST and socket patterns.
 
 Examples/ai-friendly/05-error-handling.cs
-  WebCallResult pattern, transient retry, Kucoin-specific errors, symbol metadata.
+  HttpResult pattern, transient retry, Kucoin-specific errors, symbol metadata.
 ```
 
 ## Anti-Hallucination Checklist

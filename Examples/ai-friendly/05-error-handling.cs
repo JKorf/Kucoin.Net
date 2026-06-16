@@ -1,6 +1,6 @@
 // 05-error-handling.cs
 //
-// Demonstrates: WebCallResult patterns, retry logic, and common Kucoin-specific issues.
+// Demonstrates: HttpResult patterns, retry logic, and common Kucoin-specific issues.
 //
 // Setup: dotnet add package Kucoin.Net
 
@@ -15,7 +15,7 @@ var client = new KucoinRestClient(options =>
 });
 
 // ---- 1. THE BASIC PATTERN ----
-// Every REST method returns WebCallResult<T> or WebCallResult.
+// Every REST method returns HttpResult<T> or HttpResult.
 // .Success is true/false. .Data is only valid when .Success is true.
 var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
 
@@ -32,11 +32,11 @@ else
 }
 
 // ---- 2. SIMPLE RETRY WITH BACKOFF ----
-async Task<WebCallResult<T>> WithRetry<T>(
-    Func<Task<WebCallResult<T>>> call,
+async Task<HttpResult<T>> WithRetry<T>(
+    Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
     for (var attempt = 1; attempt <= maxAttempts; attempt++)
     {
         last = await call();
@@ -118,7 +118,7 @@ decimal RoundDownToIncrement(decimal value, decimal increment)
 }
 
 // ---- 5. EXCEPTIONS VS ERROR RESULTS ----
-// Kucoin.Net returns API/network/rate-limit failures via WebCallResult.Error.
+// Kucoin.Net returns API/network/rate-limit failures via HttpResult.Error.
 // Exceptions are for cancellation, disposal, invalid local arguments, or misconfiguration.
 
 // Common variations:

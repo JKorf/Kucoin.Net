@@ -41,7 +41,7 @@ namespace Kucoin.Net.UnitTests
                     KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-spot.kucoin.com", "data");
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Spot", "wss://ws-api-futures.kucoin.com", "data");
             await tester.ValidateConcurrentAsync<KucoinStreamCandle>(
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),
@@ -110,7 +110,7 @@ namespace Kucoin.Net.UnitTests
                     KucoinApiAddresses.Default.UnifiedSocketFuturesAddress)
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-spot.kucoin.com", "data");
+            var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Futures", "wss://ws-api-futures.kucoin.com", "data");
             await tester.ValidateConcurrentAsync<KucoinStreamFuturesKline>(
                 (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("XBTUSDTM", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("XBTUSDTM", Enums.KlineInterval.OneHour, handler),

@@ -15,7 +15,7 @@ These examples are optimized for AI coding assistants and quick onboarding. Each
 | `02-futures.cs` | Futures contracts: market data, leverage parameter, market order, position lookup, reduce-only close |
 | `03-websocket.cs` | Subscribe to ticker updates, klines, private order/balance streams, with teardown |
 | `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern for exchange-agnostic code |
-| `05-error-handling.cs` | `WebCallResult` patterns, retry, common Kucoin symbol/credential issues |
+| `05-error-handling.cs` | `HttpResult` patterns, retry, common Kucoin symbol/credential issues |
 
 ## Running
 
@@ -27,4 +27,3 @@ dotnet add package Kucoin.Net
 # Replace API_KEY / API_SECRET / API_PASSPHRASE placeholders for private examples
 dotnet run
 ```
-

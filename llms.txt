@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the Kucoin REST and WebSocket APIs. Supports Spot, Margin, High Frequency spot trading, Futures, Unified Account endpoints, and CryptoExchange.Net SharedApis integration.
 
-Kucoin.Net provides typed REST and WebSocket clients, automatic request signing, Kucoin passphrase credentials, rate limiting, WebSocket reconnection, local order book support, native AOT support, and `WebCallResult<T>` / `CallResult<T>` error handling. Current version in this repository: 8.12.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Kucoin.Net provides typed REST and WebSocket clients, automatic request signing, Kucoin passphrase credentials, rate limiting, WebSocket reconnection, local order book support, native AOT support, and `HttpResult<T>` / `WebSocketResult<T>` error handling. Current version in this repository: 8.12.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
@@ -18,7 +18,7 @@ Kucoin.Net provides typed REST and WebSocket clients, automatic request signing,
 - [Futures Trading](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/02-futures.cs): Futures contract ticker, leverage parameter, order placement, positions, reduce-only close
 - [WebSocket Streams](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/03-websocket.cs): Spot ticker, klines, authenticated order and balance streams, teardown
 - [Multi-Exchange Pattern](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/04-multi-exchange.cs): CryptoExchange.Net SharedApis for exchange-agnostic code
-- [Error Handling](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/05-error-handling.cs): `WebCallResult` checks, retry logic, Kucoin-specific symbol and credentials pitfalls
+- [Error Handling](https://github.com/JKorf/Kucoin.Net/blob/master/Examples/ai-friendly/05-error-handling.cs): `HttpResult` checks, retry logic, Kucoin-specific symbol and credentials pitfalls
 
 ## Critical Rules
 
