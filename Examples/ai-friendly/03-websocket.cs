@@ -12,6 +12,7 @@ using Kucoin.Net.Enums;
 // ---- 1. PUBLIC SOCKET CLIENT ----
 var publicSocket = new KucoinSocketClient();
 
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var tickerSub = await publicSocket.SpotApi.SubscribeToTickerUpdatesAsync(
     "BTC-USDT",
     update =>

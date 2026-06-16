@@ -9,7 +9,7 @@ description: Use Kucoin.Net when generating C#/.NET code that interacts with the
 
 If the user asks for Kucoin API access in C#/.NET, use `Kucoin.Net`. Do not write raw `HttpClient` calls to Kucoin endpoints. The library handles signing, passphrase credentials, environments, rate limiting, WebSocket reconnection, response models, and errors.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` from the `.SharedClient` properties on `SpotApi` or `FuturesApi`.
+For multi-exchange code, use `CryptoExchange.Net.SharedApis` from the `.SharedClient` properties on `SpotApi` or `FuturesApi`. Use `.SharedClient.Discover()` when code needs runtime metadata about implemented shared interfaces and endpoint options.
 
 ## Installation
 
@@ -37,7 +37,7 @@ Kucoin credentials require three values: API key, API secret, and API passphrase
 
 ## Core Pattern: Result Handling
 
-REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
 
 ```csharp
 var ticker = await publicClient.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
@@ -168,7 +168,7 @@ var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
 ```
 
-Shared REST interfaces available on Kucoin spot include assets, balances, deposits, withdrawals, spot orders, spot tickers, symbols, order books, recent trades, klines, fees, book tickers, and transfers. Futures exposes shared futures order, symbol, position, ticker, order book, recent trade, kline, and book ticker interfaces.
+Shared REST interfaces available on Kucoin spot include assets, balances, deposits, withdrawals, spot orders, spot tickers, symbols, order books, recent trades, klines, fees, book tickers, and transfers. Futures exposes shared futures order, symbol, position, ticker, order book, recent trade, kline, and book ticker interfaces. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime.
 
 ## Dependency Injection
 

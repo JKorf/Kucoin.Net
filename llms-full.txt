@@ -24,13 +24,14 @@ Primary documentation:
 - Kucoin credentials require key, secret, and passphrase.
 - Always check `.Success` before reading `.Data`.
 - REST methods return `HttpResult<T>` or `HttpResult`.
-- WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`.
+- WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`.
+- Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
 - Reuse clients. Do not instantiate a client per request in production code.
 - Prefer dependency injection for services and long-running applications.
 - Store WebSocket subscriptions and unsubscribe during shutdown.
 - Do not call `.Result` or `.Wait()` on async methods.
 - Do not invent method names. Inspect `Kucoin.Net/Interfaces/Clients/**`.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`; use `.SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
 - Spot symbols use dashes: `BTC-USDT`.
 - Futures symbols use contract names: `XBTUSDTM`, `ETHUSDTM`.
 
@@ -349,7 +350,14 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-For shared socket subscriptions, keep the concrete socket client for unsubscribe:
+Shared clients expose `Discover()` for runtime metadata about implemented shared interfaces, supported request options, and supported subscription options.
+
+```csharp
+var info = new KucoinRestClient().SpotApi.SharedClient.Discover();
+Console.WriteLine(string.Join(", ", info.Features.Where(x => x.Supported).Select(x => x.EndpointName)));
+```
+
+Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. For shared socket subscriptions, keep the concrete socket client for unsubscribe:
 
 ```csharp
 var socketClient = new KucoinSocketClient();
@@ -396,10 +404,10 @@ Examples/ai-friendly/03-websocket.cs
   Spot ticker stream, kline stream, authenticated order and balance streams, teardown.
 
 Examples/ai-friendly/04-multi-exchange.cs
-  CryptoExchange.Net.SharedApis REST and socket patterns.
+  CryptoExchange.Net.SharedApis REST, socket, and discovery patterns.
 
 Examples/ai-friendly/05-error-handling.cs
-  HttpResult pattern, transient retry, Kucoin-specific errors, symbol metadata.
+  HttpResult, WebSocketResult, ExchangeCallResult, transient retry, Kucoin-specific errors, symbol metadata.
 ```
 
 ## Anti-Hallucination Checklist

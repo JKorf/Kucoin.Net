@@ -1,6 +1,7 @@
 // 05-error-handling.cs
 //
-// Demonstrates: HttpResult patterns, retry logic, and common Kucoin-specific issues.
+// Demonstrates: HttpResult, WebSocketResult and ExchangeCallResult patterns,
+// retry logic, and common Kucoin-specific issues.
 //
 // Setup: dotnet add package Kucoin.Net
 
@@ -16,6 +17,8 @@ var client = new KucoinRestClient(options =>
 
 // ---- 1. THE BASIC PATTERN ----
 // Every REST method returns HttpResult<T> or HttpResult.
+// Every socket subscription returns WebSocketResult<UpdateSubscription>.
+// Shared symbol/cache helpers can return ExchangeCallResult<T>.
 // .Success is true/false. .Data is only valid when .Success is true.
 var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
 
