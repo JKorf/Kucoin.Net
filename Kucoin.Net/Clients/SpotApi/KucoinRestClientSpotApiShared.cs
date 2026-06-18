@@ -1066,7 +1066,13 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.CreateTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
-                        new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == WithdrawalStatus.Success, x.CreateTime)
+                        new SharedWithdrawal(
+                            x.Asset,
+                            x.Address,
+                            x.Quantity, 
+                            x.Status == WithdrawalStatus.Success, 
+                            x.CreateTime,
+                            GetWithdrawalStatus(x))
                         {
                             Id = x.Id,
                             Network = x.Network,
@@ -1074,6 +1080,20 @@ namespace Kucoin.Net.Clients.SpotApi
                             TransactionId = x.WalletTransactionId,
                             Fee = x.Fee
                         }).ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(KucoinWithdrawal x)
+        {
+            if (x.Status == WithdrawalStatus.Failure)
+                return SharedTransferStatus.Failed;
+
+            if (x.Status == WithdrawalStatus.Success)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == WithdrawalStatus.Processing || x.Status == WithdrawalStatus.WalletProcessing)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
