@@ -18,7 +18,7 @@ namespace Kucoin.Net.Clients.SpotApi
         private const string _topicId = "KucoinSpot";
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(KucoinExchange.Metadata, this);
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -87,20 +87,20 @@ namespace Kucoin.Net.Clients.SpotApi
                 MinNotionalValue = s.MinFunds
             }).ToArray());
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data!);
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
             return response;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicId))
+            if (!ExchangeSymbolCache.HasCached(_topicId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<SharedSymbol[]>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicId, baseAsset));
+            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicId, EnvironmentName, null, baseAsset));
         }
 
         async Task<ExchangeCallResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
@@ -108,26 +108,26 @@ namespace Kucoin.Net.Clients.SpotApi
             if (symbol.TradingMode != TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
 
-            if (!ExchangeSymbolCache.HasCached(_topicId))
+            if (!ExchangeSymbolCache.HasCached(_topicId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbol));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, EnvironmentName, null, symbol));
         }
 
         async Task<ExchangeCallResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicId))
+            if (!ExchangeSymbolCache.HasCached(_topicId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbolName));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, EnvironmentName, null, symbolName));
         }
         #endregion
 
@@ -145,7 +145,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker>(result);
 
-            return HttpResult.Ok(result, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100)
+            return HttpResult.Ok(result, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100)
             {
                 QuoteVolume = result.Data.QuoteVolume
             });
@@ -162,7 +162,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)
+            return HttpResult.Ok(result, result.Data.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)
             {
                 QuoteVolume = x.QuoteVolume
             }).ToArray());
@@ -185,7 +185,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Fail<SharedBookTicker>(resultTicker);
 
             return HttpResult.Ok(resultTicker, new SharedBookTicker(
-                ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
                 symbol,
                 resultTicker.Data.BestAskPrice ?? 0,
                 resultTicker.Data.BestAskQuantity ?? 0,
@@ -341,7 +341,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder>(order);
 
                 return HttpResult.Ok(order, new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, order.Data.Symbol),
                     order.Data.Symbol,
                     order.Data.Id.ToString(),
                     ParseOrderType(order.Data.Type, order.Data.PostOnly),
@@ -367,7 +367,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder>(order);
 
                 return HttpResult.Ok(order, new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, order.Data.Symbol),
                     order.Data.Symbol,
                     order.Data.Id.ToString(),
                     ParseOrderType(order.Data.Type, order.Data.PostOnly),
@@ -404,7 +404,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Items.Select(x => new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -434,7 +434,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Select(x => new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -493,7 +493,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.CreateTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
                         new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                             x.Symbol,
                             x.Id.ToString(),
                             ParseOrderType(x.Type, x.PostOnly),
@@ -542,7 +542,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.CreateTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
                         new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                             x.Symbol,
                             x.Id.ToString(),
                             ParseOrderType(x.Type, x.PostOnly),
@@ -578,7 +578,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedUserTrade[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Items.Select(x => new SharedUserTrade(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -600,7 +600,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedUserTrade[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Items.Select(x => new SharedUserTrade(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -652,7 +652,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                     .Select(x => 
                         new SharedUserTrade(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                             x.Symbol,
                             x.OrderId.ToString(),
                             x.Id.ToString(),
@@ -696,7 +696,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                     .Select(x => 
                         new SharedUserTrade(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                             x.Symbol,
                             x.OrderId.ToString(),
                             x.Id.ToString(),
@@ -798,7 +798,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder>(order);
 
                 return HttpResult.Ok(order, new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, order.Data.Symbol),
                     order.Data.Symbol,
                     order.Data.Id.ToString(),
                     ParseOrderType(order.Data.Type, order.Data.PostOnly),
@@ -824,7 +824,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder>(order);
 
                 return HttpResult.Ok(order, new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, order.Data.Symbol),
                     order.Data.Symbol,
                     order.Data.Id.ToString(),
                     ParseOrderType(order.Data.Type, order.Data.PostOnly),
@@ -1189,7 +1189,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Fail<SharedSpotTriggerOrder>(order);
 
             return HttpResult.Ok(order, new SharedSpotTriggerOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, order.Data.Symbol),
                 order.Data.Symbol!,
                 order.Data.Id,
                 order.Data.Type == OrderType.Market ? SharedOrderType.Market: SharedOrderType.Limit,

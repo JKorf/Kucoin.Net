@@ -28,7 +28,8 @@ namespace Kucoin.Net
                 "https://www.kucoin.com",
                 ["https://www.kucoin.com/docs/beginners/introduction"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                KucoinEnvironment.All
                 );
 
         /// <summary>
