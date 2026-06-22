@@ -45,9 +45,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedBalance[]>(resultUsdc.Result);
 
             var result = new List<SharedBalance>();
-            result.Add(new SharedBalance(resultXbt.Result.Data.Asset, resultXbt.Result.Data.AvailableBalance, resultXbt.Result.Data.AccountEquity));
-            result.Add(new SharedBalance(resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.AvailableBalance, resultUsdt.Result.Data.AccountEquity));
-            result.Add(new SharedBalance(resultUsdc.Result.Data.Asset, resultUsdc.Result.Data.AvailableBalance, resultUsdc.Result.Data.AccountEquity));
+            result.Add(new SharedBalance(SupportedTradingModes, resultXbt.Result.Data.Asset, resultXbt.Result.Data.AvailableBalance, resultXbt.Result.Data.AccountEquity));
+            result.Add(new SharedBalance(SupportedTradingModes, resultUsdt.Result.Data.Asset, resultUsdt.Result.Data.AvailableBalance, resultUsdt.Result.Data.AccountEquity));
+            result.Add(new SharedBalance(SupportedTradingModes, resultUsdc.Result.Data.Asset, resultUsdc.Result.Data.AvailableBalance, resultUsdc.Result.Data.AccountEquity));
             return HttpResult.Ok(resultXbt.Result, result.ToArray());
         }
 

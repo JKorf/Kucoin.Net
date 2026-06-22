@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
@@ -416,6 +417,8 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(long?))]
     [JsonSerializable(typeof(decimal?))]
     [JsonSerializable(typeof(DateTime?))]
+    [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     internal partial class KucoinSourceGenerationContext : JsonSerializerContext
     {
     }

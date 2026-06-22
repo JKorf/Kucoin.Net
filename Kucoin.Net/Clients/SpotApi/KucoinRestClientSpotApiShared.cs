@@ -260,7 +260,12 @@ namespace Kucoin.Net.Clients.SpotApi
                 data = result.Data.Where(x => x.Type == AccountType.Margin || x.Type == AccountType.Isolated || x.Type == AccountType.IsolatedMarginHf || x.Type == AccountType.MarginHf);
             }
 
-            return HttpResult.Ok(result, data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Holds)).ToArray());
+            return HttpResult.Ok(result, data.Select(x => 
+                new SharedBalance(
+                    SupportedTradingModes, 
+                    x.Asset, 
+                    x.Available,
+                    x.Available + x.Holds)).ToArray());
         }
 
         #endregion

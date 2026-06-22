@@ -143,7 +143,12 @@ namespace Kucoin.Net.Clients.SpotApi
                     if (!update.Data.RelationEvent.StartsWith("trade"))
                         return;
 
-                    handler(update.ToType<SharedBalance[]>(new[] { new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Total) }));
+                    handler(update.ToType<SharedBalance[]>(new[] {
+                        new SharedBalance(
+                            SupportedTradingModes,
+                            update.Data.Asset, 
+                            update.Data.Available, 
+                            update.Data.Total) }));
                 },
                 ct: ct).ConfigureAwait(false);
 
