@@ -386,7 +386,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.Trading.GetPositionTiersAsync(UnifiedAccountMode.Unified, ["ETHUSDTM"]), "GetPositionTiers", nestedJsonProperty: "data");
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestHeaders.Any(h => h.Key == "KC-API-SIGN");
         }

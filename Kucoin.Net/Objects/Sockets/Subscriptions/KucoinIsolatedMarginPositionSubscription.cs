@@ -29,7 +29,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onPositionChange = onPositionChange;
             _topic = "/margin/isolatedPosition:" + symbol;
 
-            MessageRouter = MessageRouter.CreateWithTopicFilter<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>("/margin/isolatedPosition", symbol, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<KucoinSocketUpdate<KucoinIsolatedMarginPositionUpdate>>("/margin/isolatedPosition", symbol, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -53,7 +53,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
 
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

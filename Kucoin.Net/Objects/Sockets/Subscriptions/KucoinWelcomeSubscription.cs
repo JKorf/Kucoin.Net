@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
     {
         public KucoinWelcomeSubscription(ILogger logger) : base(logger, false)
         {
-            MessageRouter = MessageRouter.CreateWithoutHandler<KucoinWelcome>("welcome");
+            MessageRouter = MessageRouter.CreateVoid<KucoinWelcome>("welcome");
         }
     }
 }

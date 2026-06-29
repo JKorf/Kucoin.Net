@@ -14,6 +14,8 @@ using Kucoin.Net.Clients;
 // ---- THE PATTERN ----
 // Each exchange client exposes a `.SharedClient` property on supported API surfaces.
 ISpotTickerRestClient kucoinShared = new KucoinRestClient().SpotApi.SharedClient;
+var capabilities = kucoinShared.Discover();
+Console.WriteLine($"Shared features: {capabilities.Features.Count(x => x.Supported)}");
 
 // SharedSymbol normalizes symbols for each exchange. Kucoin spot is "BTC-USDT",
 // Binance spot is "BTCUSDT", but shared APIs let you describe base/quote once.

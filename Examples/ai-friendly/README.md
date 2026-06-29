@@ -14,8 +14,8 @@ These examples are optimized for AI coding assistants and quick onboarding. Each
 | `01-spot-quickstart.cs` | Client setup, public ticker, authenticated balances, place limit order, query order status |
 | `02-futures.cs` | Futures contracts: market data, leverage parameter, market order, position lookup, reduce-only close |
 | `03-websocket.cs` | Subscribe to ticker updates, klines, private order/balance streams, with teardown |
-| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern for exchange-agnostic code |
-| `05-error-handling.cs` | `WebCallResult` patterns, retry, common Kucoin symbol/credential issues |
+| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern and discovery metadata for exchange-agnostic code |
+| `05-error-handling.cs` | `HttpResult`, `WebSocketResult`, and `ExchangeCallResult` patterns, retry, common Kucoin symbol/credential issues |
 
 ## Running
 
@@ -27,4 +27,3 @@ dotnet add package Kucoin.Net
 # Replace API_KEY / API_SECRET / API_PASSPHRASE placeholders for private examples
 dotnet run
 ```
-

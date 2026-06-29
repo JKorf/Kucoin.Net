@@ -31,8 +31,8 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _onPositionStatusChange = onPositionStatusChange;
 
             MessageRouter = MessageRouter.Create([
-                MessageRoute<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>.CreateWithoutTopicFilter(_topic + "debt.ratio", DoHandleMessage),
-                MessageRoute<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>.CreateWithoutTopicFilter(_topic + "position.status", DoHandleMessage)
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinMarginDebtRatioUpdate>>(_topic + "debt.ratio", DoHandleMessage),
+                MessageRoute.CreateForEvent<KucoinSocketUpdate<KucoinMarginPositionStatusUpdate>>(_topic + "position.status", DoHandleMessage)
                 ]);
         }
 
@@ -56,7 +56,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinSocketUpdate<KucoinMarginPositionStatusUpdate> message)
@@ -69,7 +69,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(message.Data.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

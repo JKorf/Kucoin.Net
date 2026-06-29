@@ -104,7 +104,7 @@ namespace Kucoin.Net.UnitTests
                     return headers["KC-API-SIGN"].ToString();
                 },
                 "7QP/oM0ykidMdrfNEUmng8eZjg/ZvPafjIqmxiVfYu4=",
-                new Dictionary<string, object>
+                new Parameters(KucoinExchange._parameterSerializationSettings)
                 {
                     { "currency", "BTC" }
                 },

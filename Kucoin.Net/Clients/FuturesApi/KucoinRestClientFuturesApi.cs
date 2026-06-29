@@ -39,8 +39,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public IKucoinRestClientFuturesApiTrading Trading { get; }
 
-        internal KucoinRestClientFuturesApi(ILogger logger, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
-            : base(logger, httpClient, options.Environment.FuturesAddress, options, options.FuturesOptions)
+        internal KucoinRestClientFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, httpClient, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
             _baseClient = baseClient;
             _options = options;
@@ -55,7 +55,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 StandardRequestHeaders.Add("X-SITE-TYPE", "australia");
         }
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange.SerializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange._serializerContext));
 
         /// <inheritdoc />
         protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
@@ -65,32 +65,32 @@ namespace Kucoin.Net.Clients.FuturesApi
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
-        internal async Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await base.SendAsync<KucoinResult>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-            if (!result)
-                return result.AsDatalessError(result.Error!);
+            var result = await base.SendAsync<KucoinResult>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail(result);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
+                return HttpResult.Fail(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
-            return result.AsDataless();
+            return HttpResult.Ok(result);
         }
 
-        internal async Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await base.SendAsync<KucoinResult<T>>(BaseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-            if (!result)
-                return result.AsError<T>(result.Error!);
+            var result = await base.SendAsync<KucoinResult<T>>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<T>(result);
 
             if (result.Data.Code != 200000 && result.Data.Code != 200)
-                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
+                return HttpResult.Fail<T>(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
-            return result.As(result.Data.Data);
+            return HttpResult.Ok(result, result.Data.Data);
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
         public IKucoinRestClientFuturesApiShared SharedClient => this;

@@ -41,7 +41,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaOrderResult>> PlaceOrderAsync(
+        public async Task<HttpResult<KucoinUaOrderResult>> PlaceOrderAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType,
             string symbol,
@@ -72,34 +72,35 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             LogBetaWarning();
 
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
             parameters.Add("symbol", symbol);
-            parameters.AddEnum("side", side);
-            parameters.AddEnum("orderType", orderType);
-            parameters.AddString("size", quantity);
-            parameters.AddOptionalEnum("sizeUnit", quantityUnit);
-            parameters.AddOptionalString("price", price);
-            parameters.AddOptionalEnum("timeInForce", timeInForce);
-            parameters.AddOptional("clientOid", clientOrderId);
-            parameters.AddOptional("postOnly", postOnly);
-            parameters.AddOptional("reduceOnly", reduceOnly);
-            parameters.AddOptionalEnum("stp", stpMode);
-            parameters.AddOptionalString("triggerPrice", triggerPrice);
-            parameters.AddOptionalEnum("triggerPriceType", triggerPriceType);
-            parameters.AddOptionalEnum("triggerDirection", triggerDirection);
-            parameters.AddOptional("cancelAfter", cancelAfter);
-            parameters.AddOptional("autoBorrow", autoBorrow);
-            parameters.AddOptional("autoRepay", autoRepay);
-            parameters.AddOptionalEnum("positionSide", positionSide);
-            parameters.AddOptionalEnum("marginMode", marginMode);
-            parameters.AddOptionalString("leverage", leverage);
-            parameters.AddOptionalEnum("tpTriggerPriceType", tpTriggerPriceType);
-            parameters.AddOptionalString("tpTriggerPrice", tpTriggerPrice);
-            parameters.AddOptionalEnum("slTriggerPriceType", slTriggerPriceType);
-            parameters.AddOptionalString("slTriggerPrice", slTriggerPrice);
+            parameters.Add("side", side);
+            parameters.Add("orderType", orderType);
+            parameters.Add("size", quantity);
+            parameters.Add("sizeUnit", quantityUnit);
+            parameters.Add("price", price);
+            parameters.Add("timeInForce", timeInForce);
+            parameters.Add("clientOid", clientOrderId);
+            parameters.Add("postOnly", postOnly);
+            parameters.Add("reduceOnly", reduceOnly);
+            parameters.Add("stp", stpMode);
+            parameters.Add("triggerPrice", triggerPrice);
+            parameters.Add("triggerPriceType", triggerPriceType);
+            parameters.Add("triggerDirection", triggerDirection);
+            parameters.Add("cancelAfter", cancelAfter);
+            parameters.Add("autoBorrow", autoBorrow);
+            parameters.Add("autoRepay", autoRepay);
+            parameters.Add("positionSide", positionSide);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("leverage", leverage);
+            parameters.Add("tpTriggerPriceType", tpTriggerPriceType);
+            parameters.Add("tpTriggerPrice", tpTriggerPrice);
+            parameters.Add("slTriggerPriceType", slTriggerPriceType);
+            parameters.Add("slTriggerPrice", slTriggerPrice);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/place?tradeType={EnumConverter.GetString(accountType)}",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 1,
@@ -113,7 +114,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Cancel Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaOrderResult>> CancelOrderAsync(
+        public async Task<HttpResult<KucoinUaOrderResult>> CancelOrderAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType, 
             string? symbol = null, 
@@ -123,13 +124,14 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             LogBetaWarning();
 
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("orderId", orderId);
-            parameters.AddOptional("clientOid", clientOrderId);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
+            parameters.Add("symbol", symbol);
+            parameters.Add("orderId", orderId);
+            parameters.Add("clientOid", clientOrderId);
             var request = _definitions.GetOrCreate(
-                HttpMethod.Post, 
+                HttpMethod.Post,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel?tradeType={EnumConverter.GetString(accountType)}",
                 KucoinExchange.RateLimiter.UnifiedRest, 
                 1, 
@@ -143,7 +145,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Cancel Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaBatchCancelResult>> CancelOrdersAsync(
+        public async Task<HttpResult<KucoinUaBatchCancelResult>> CancelOrdersAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType, 
             IEnumerable<KucoinUaCancelOrderRequest> orders, 
@@ -151,11 +153,12 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             LogBetaWarning();
 
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
-            parameters.AddOptional("cancelOrderList", orders.ToArray());
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
+            parameters.Add("cancelOrderList", orders.ToArray());
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel-batch?tradeType={EnumConverter.GetString(accountType)}",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 4,
@@ -169,7 +172,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Cancel Symbol Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
+        public async Task<HttpResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
             UnifiedAccountMode accountMode,
             UnifiedSimpleAccountType accountType, 
             string symbol,
@@ -179,13 +182,14 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             LogBetaWarning();
 
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
             parameters.Add("symbol", symbol);
-            parameters.AddOptionalEnum("marginMode", marginMode);
-            parameters.AddOptionalEnum("orderFilter", orderFilter);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("orderFilter", orderFilter);
             var request = _definitions.GetOrCreate(
-                HttpMethod.Post, 
+                HttpMethod.Post,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel-all",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 20, 
@@ -199,7 +203,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaOrder>> GetOrderAsync(
+        public async Task<HttpResult<KucoinUaOrder>> GetOrderAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType, 
             string symbol, 
@@ -207,13 +211,14 @@ namespace Kucoin.Net.Clients.UnifiedApi
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
             parameters.Add("symbol", symbol);
-            parameters.AddOptional("orderId", orderId);
-            parameters.AddOptional("clientOid", clientOrderId);
+            parameters.Add("orderId", orderId);
+            parameters.Add("clientOid", clientOrderId);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/detail", 
                 KucoinExchange.RateLimiter.UnifiedRest, 
                 4,
@@ -227,7 +232,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaOrders>> GetOpenOrdersAsync(
+        public async Task<HttpResult<KucoinUaOrders>> GetOpenOrdersAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType, 
             string? symbol = null,
@@ -238,16 +243,17 @@ namespace Kucoin.Net.Clients.UnifiedApi
             int? pageSize = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptionalEnum("orderFilter", orderFilter);
-            parameters.AddOptionalMillisecondsString("startAt", startTime);
-            parameters.AddOptionalMillisecondsString("endAt", endTime);
-            parameters.AddOptional("pageNumber", page);
-            parameters.AddOptional("pageSize", pageSize);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
+            parameters.Add("symbol", symbol);
+            parameters.Add("orderFilter", orderFilter);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("pageNumber", page);
+            parameters.Add("pageSize", pageSize);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/open-list", 
                 KucoinExchange.RateLimiter.UnifiedRest,
                 4, 
@@ -261,7 +267,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Order History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaOrderHistory>> GetOrderHistoryAsync(
+        public async Task<HttpResult<KucoinUaOrderHistory>> GetOrderHistoryAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType, 
             string? symbol = null, 
@@ -272,17 +278,18 @@ namespace Kucoin.Net.Clients.UnifiedApi
             long? lastId = null, 
             int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptionalEnum("side", side);
-            parameters.AddOptionalEnum("orderFilter", orderFilter);
-            parameters.AddOptionalMillisecondsString("startAt", startTime);
-            parameters.AddOptionalMillisecondsString("endAt", endTime);
-            parameters.AddOptional("lastId", lastId);
-            parameters.AddOptional("pageSize", pageSize);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
+            parameters.Add("symbol", symbol);
+            parameters.Add("side", side);
+            parameters.Add("orderFilter", orderFilter);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("lastId", lastId);
+            parameters.Add("pageSize", pageSize);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/history", 
                 KucoinExchange.RateLimiter.UnifiedRest, 
                 4,
@@ -296,7 +303,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaUserTrades>> GetUserTradesAsync(
+        public async Task<HttpResult<KucoinUaUserTrades>> GetUserTradesAsync(
             UnifiedAccountMode accountMode,
             UnifiedAccountType accountType, 
             string? symbol = null,
@@ -308,17 +315,18 @@ namespace Kucoin.Net.Clients.UnifiedApi
             int? pageSize = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", accountType);
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("orderId", orderId);
-            parameters.AddOptionalEnum("side", orderSide);
-            parameters.AddOptionalMillisecondsString("startAt", startTime);
-            parameters.AddOptionalMillisecondsString("endAt", endTime);
-            parameters.AddOptional("lastId", lastId);
-            parameters.AddOptional("pageSize", pageSize);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", accountType);
+            parameters.Add("symbol", symbol);
+            parameters.Add("orderId", orderId);
+            parameters.Add("side", orderSide);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("lastId", lastId);
+            parameters.Add("pageSize", pageSize);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/execution",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 4, 
@@ -332,13 +340,13 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Set Dcp
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaDcp>> SetDcpAsync(UnifiedSimpleAccountType tradeType, long timeout, string? symbols = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinUaDcp>> SetDcpAsync(UnifiedSimpleAccountType tradeType, long timeout, string? symbols = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", tradeType);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", tradeType);
             parameters.Add("timeout", timeout);
-            parameters.AddOptional("symbols", symbols);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/ua/v1/dcp/set", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
+            parameters.Add("symbols", symbols);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/dcp/set", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaDcp>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -348,11 +356,11 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Dcp
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaDcp>> GetDcpAsync(UnifiedSimpleAccountType tradeType, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinUaDcp>> GetDcpAsync(UnifiedSimpleAccountType tradeType, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddEnum("tradeType", tradeType);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/dcp/query", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", tradeType);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/dcp/query", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaDcp>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -362,14 +370,15 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("page", page);
-            parameters.AddOptional("pageSize", pageSize);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.Add("page", page);
+            parameters.Add("pageSize", pageSize);
             var request = _definitions.GetOrCreate(
-                HttpMethod.Get, 
+                HttpMethod.Get,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/position/open-list",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 3, 
@@ -383,15 +392,15 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Position History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaPositionHistory>> GetPositionHistoryAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, long? lastId = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinUaPositionHistory>> GetPositionHistoryAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, long? lastId = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptionalMillisecondsString("startAt", startTime);
-            parameters.AddOptionalMillisecondsString("endAt", endTime);
-            parameters.AddOptional("lastId", lastId);
-            parameters.AddOptional("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/ua/v1/position/history", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("lastId", lastId);
+            parameters.Add("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/position/history", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaPositionHistory>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -401,19 +410,20 @@ namespace Kucoin.Net.Clients.UnifiedApi
         #region Get Position Tiers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
+        public async Task<HttpResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
             UnifiedAccountMode accountMode,
             IEnumerable<string> symbols,
             UnifiedSimpleAccountType? tradeType = null,
             MarginMode? marginMode = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddCommaSeparated("symbol", symbols.ToArray());
-            parameters.AddOptionalEnum("tradeType", tradeType);
-            parameters.AddOptionalEnum("marginMode", marginMode);
+            parameters.Add("tradeType", tradeType);
+            parameters.Add("marginMode", marginMode);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
+                _baseClient.BaseAddress,
                 $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/position/tiers",
                 KucoinExchange.RateLimiter.ManagementRest,
                 20, 

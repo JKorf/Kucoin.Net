@@ -40,7 +40,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinOrderId>> PlaceOrderAsync(
+        Task<HttpResult<KucoinOrderId>> PlaceOrderAsync(
             string symbol,
             OrderSide side,
             NewOrderType type,
@@ -84,7 +84,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinHfOrder>> PlaceOrderWaitAsync(
+        Task<HttpResult<KucoinHfOrder>> PlaceOrderWaitAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -128,7 +128,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinOrderId>> PlaceTestOrderAsync(
+        Task<HttpResult<KucoinOrderId>> PlaceTestOrderAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -162,7 +162,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="newPrice">["<c>newPrice</c>"] New order price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the modified order</returns>
-        Task<WebCallResult<KucoinModifiedOrder>> EditOrderAsync(
+        Task<HttpResult<KucoinModifiedOrder>> EditOrderAsync(
             string symbol,
             string? orderId = null,
             string? clientOrderId = null,
@@ -182,7 +182,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">["<c>orderList</c>"] Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<CallResult<KucoinBulkMinimalResponseEntry>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<HttpResult<CallResult<KucoinBulkMinimalResponseEntry>[]>> PlaceMultipleOrdersAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders and wait for and return the full order results. This is the slower version of <see cref="PlaceMultipleOrdersAsync" />
@@ -196,7 +196,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">["<c>orderList</c>"] Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<CallResult<KucoinHfBulkOrderResponse>[]>> PlaceMultipleOrdersWaitAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
+        Task<HttpResult<CallResult<KucoinHfBulkOrderResponse>[]>> PlaceMultipleOrdersWaitAsync(IEnumerable<KucoinHfBulkOrderRequestEntry> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order and only wait for confirmation. This is the faster version of <see cref="CancelOrderWaitAsync" />
@@ -211,7 +211,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of cancelled orders</returns>
-        Task<WebCallResult<KucoinOrderId>> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderId>> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order and wait for and return the full order results. This is the slower version of <see cref="CancelOrderAsync" />
@@ -226,7 +226,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>List of cancelled orders</returns>
-        Task<WebCallResult<KucoinHfOrder>> CancelOrderWaitAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrder>> CancelOrderWaitAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by clientOrderId and only wait for confirmation. This is the faster version of <see cref="CancelOrderWaitAsync" />
@@ -241,7 +241,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinClientOrderId>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinClientOrderId>> CancelOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an order by clientOrderId and wait for and return the full order results. This is the slower version of <see cref="CancelOrderByClientOrderIdAsync" />
@@ -256,7 +256,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfOrder>> CancelOrderByClientOrderIdWaitAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrder>> CancelOrderByClientOrderIdWaitAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific order
@@ -271,7 +271,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order info</returns>
-        Task<WebCallResult<KucoinHfOrderDetails>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrderDetails>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a specific order by clientOrderId
@@ -286,7 +286,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">The clientOrderId of the order</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfOrderDetails>> GetOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrderDetails>> GetOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders on a symbol
@@ -300,7 +300,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> CancelAllOrdersBySymbolAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult> CancelAllOrdersBySymbolAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders on all symbols
@@ -313,7 +313,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinCanceledSymbols>> CancelAllOrdersAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinCanceledSymbols>> CancelAllOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// DEPRECATED, use <see cref="GetOpenOrdersV2Async(string, int?, int?, CancellationToken)"/> instead
@@ -327,7 +327,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfOrderDetails[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrderDetails[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get open orders page
@@ -343,7 +343,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size, max 50</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinPaginated<KucoinHfOrderDetails>>> GetOpenOrdersV2Async(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinPaginated<KucoinHfOrderDetails>>> GetOpenOrdersV2Async(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of symbols which have open orders
@@ -356,7 +356,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinOpenOrderSymbols>> GetSymbolsWithOpenOrdersAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinOpenOrderSymbols>> GetSymbolsWithOpenOrdersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get list of closed orders
@@ -376,7 +376,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfPaginated<KucoinHfOrderDetails>>> GetClosedOrdersAsync(string symbol, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfPaginated<KucoinHfOrderDetails>>> GetClosedOrdersAsync(string symbol, OrderSide? side = null, OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of user trades
@@ -398,7 +398,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfPaginated<KucoinUserTrade>>> GetUserTradesAsync(string symbol, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, TradeType? tradeType = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfPaginated<KucoinUserTrade>>> GetUserTradesAsync(string symbol, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, TradeType? tradeType = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders after a certain period. Calling this endpoint again will reset the timer. Using TimeSpan.Zero will disable the timer
@@ -413,7 +413,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">["<c>symbols</c>"] Symbols to cancel orders on, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinCancelAfter>> CancelAfterAsync(TimeSpan cancelAfter, IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinCancelAfter>> CancelAfterAsync(TimeSpan cancelAfter, IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get cancel after status
@@ -426,7 +426,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinCancelAfterStatus?>> GetCancelAfterStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<KucoinCancelAfterStatus?>> GetCancelAfterStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Place a new Margin Order
@@ -457,7 +457,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="quoteQuantity">["<c>funds</c>"] The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinNewMarginOrder>> PlaceMarginOrderAsync(
+        Task<HttpResult<KucoinNewMarginOrder>> PlaceMarginOrderAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -507,7 +507,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="quoteQuantity">["<c>funds</c>"] The quote quantity to use for the order. Only valid for market orders. If used, quantity needs to be empty</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>The id of the new order</returns>
-        Task<WebCallResult<KucoinNewMarginOrder>> PlaceTestMarginOrderAsync(
+        Task<HttpResult<KucoinNewMarginOrder>> PlaceTestMarginOrderAsync(
             string symbol,
             Enums.OrderSide side,
             NewOrderType type,
@@ -541,7 +541,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinOrderId>> CancelMarginOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinOrderId>> CancelMarginOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a margin order by clientOrderId
@@ -556,7 +556,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinClientOrderId>> CancelMarginOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinClientOrderId>> CancelMarginOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all margin orders on a symbol
@@ -570,7 +570,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> CancelAllMarginOrdersBySymbolAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult> CancelAllMarginOrdersBySymbolAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get open margin orders
@@ -585,7 +585,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="type">["<c>tradeType</c>"] Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfOrderDetails[]>> GetOpenMarginOrdersAsync(string symbol, TradeType type, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrderDetails[]>> GetOpenMarginOrdersAsync(string symbol, TradeType type, CancellationToken ct = default);
 
         /// <summary>
         /// Get closed margin orders
@@ -606,7 +606,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfPaginated<KucoinHfOrderDetails>>> GetClosedMarginOrdersAsync(string symbol, OrderSide? side = null, OrderType? type = null, TradeType? tradeType = null, DateTime? startTime = null, DateTime? endTime = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfPaginated<KucoinHfOrderDetails>>> GetClosedMarginOrdersAsync(string symbol, OrderSide? side = null, OrderType? type = null, TradeType? tradeType = null, DateTime? startTime = null, DateTime? endTime = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a margin order by order id
@@ -621,7 +621,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfOrderDetails>> GetMarginOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrderDetails>> GetMarginOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get a margin order by clientOrderId
@@ -636,7 +636,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfOrderDetails>> GetMarginOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfOrderDetails>> GetMarginOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of margin trades
@@ -658,7 +658,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinHfPaginated<KucoinUserTrade>>> GetMarginUserTradesAsync(string symbol, TradeType tradeType, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinHfPaginated<KucoinUserTrade>>> GetMarginUserTradesAsync(string symbol, TradeType tradeType, Enums.OrderSide? side = null, Enums.OrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string? orderId = null, long? lastId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get symbols with active margin orders
@@ -672,6 +672,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="isolated">["<c>tradeType</c>"] true for isolated margin, false for cross margin</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<KucoinMarginOpenOrderSymbols>> GetMarginSymbolsWithOpenOrdersAsync(bool isolated, CancellationToken ct = default);
+        Task<HttpResult<KucoinMarginOpenOrderSymbols>> GetMarginSymbolsWithOpenOrdersAsync(bool isolated, CancellationToken ct = default);
     }
 }

@@ -32,7 +32,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _handler = handler;
 
             var id = $"balance.{EnumConverter.GetString(type)}";
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<KucoinUnifiedSocketUpdate<KucoinUaBalanceUpdate>>(id, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<KucoinUaBalanceUpdate>>(id, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -59,7 +59,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
                     .WithStreamId(message.Type)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.PushTime, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
     }

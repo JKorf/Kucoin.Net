@@ -31,7 +31,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, string symbol, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, string symbol, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
@@ -47,7 +47,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, IEnumerable<string> symbols, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, IEnumerable<string> symbols, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
@@ -64,7 +64,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(
             UnifiedAccountType tradeType, string symbol,
             KlineInterval interval,
             Action<DataEvent<KucoinUaKlineUpdate>> onData,
@@ -85,7 +85,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(
             UnifiedAccountType tradeType,
             string symbol,
             OrderBookDepth depth,
@@ -106,7 +106,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(
             UnifiedAccountType tradeType,
             string symbol,
             Action<DataEvent<KucoinUaTradeUpdate>> onData,
@@ -125,7 +125,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaBalanceUpdate>> onData,
             CancellationToken ct = default);
@@ -143,7 +143,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaOrderUpdate>> onData,
             CancellationToken ct = default);
@@ -161,7 +161,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaUserTradeUpdate>> onData,
             CancellationToken ct = default);
@@ -179,7 +179,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToLiteUserTradeUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToLiteUserTradeUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaLiteUserTradeUpdate>> onData,
             CancellationToken ct = default);
@@ -197,7 +197,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaPositionUpdate>> onData,
             CancellationToken ct = default);
@@ -215,7 +215,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToLeverageUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToLeverageUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaLeverageUpdate>> onData,
             CancellationToken ct = default);
@@ -233,7 +233,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToLiquidationWarningUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToLiquidationWarningUpdatesAsync(
             UnifiedAccountType tradeType,
             Action<DataEvent<KucoinUaLiquidationWarningUpdate>> onData,
             CancellationToken ct = default);

@@ -9,7 +9,7 @@ namespace Kucoin.Net.Objects.Sockets.Queries
         public KucoinPingQuery(string id) : base(new KucoinPing { Id = id, Type = "ping" }, false)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageRouter = MessageRouter.CreateWithoutHandler<KucoinPong>(id);
+            MessageRouter = MessageRouter.CreateVoid<KucoinPong>(id);
         }
     }
 }
