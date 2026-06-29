@@ -7,7 +7,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
     public record KucoinPositionRiskAdjustResultUpdate
     {
         /// <summary>
-        /// ["<c>success</c>"] Successfull or not
+        /// ["<c>success</c>"] Successful or not
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
@@ -15,7 +15,7 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         /// ["<c>riskLimitLevel</c>"] Current risk limit level
         /// </summary>
         [JsonPropertyName("riskLimitLevel")]
-        public bool RiskLimitLevel { get; set; }
+        public int RiskLimitLevel { get; set; }
         /// <summary>
         /// ["<c>msg</c>"] Failure reason
         /// </summary>
