@@ -420,7 +420,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                         return CallResult.Ok(connection);
                 }
             }
-#warning test
+
             var result = await base.GetSocketConnection(address, authenticated, dedicatedRequestConnection, ct, topic, individualSubscriptionCount).ConfigureAwait(false);
             if (result.Success)
                 result.Data.Tag = address;
