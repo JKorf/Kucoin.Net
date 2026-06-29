@@ -297,6 +297,11 @@ namespace Kucoin.Net.Enums
         /// ["<c>COUPON_RETURNED_FEES</c>"] Coupon returned fees
         /// </summary>
         [Map("COUPON_RETURNED_FEES")]
-        CouponReturnedFees
+        CouponReturnedFees,
+        /// <summary>
+        /// ["<c>EARN_LOCK</c>"] Earn lock
+        /// </summary>
+        [Map("EARN_LOCK")]
+        EarnLock
     }
 }
