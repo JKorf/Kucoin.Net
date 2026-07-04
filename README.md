@@ -197,6 +197,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.0.1 - 04 Jul 2026
+    * Fixed subscribing to user streams not triggering socket authentication if a public socket was already connected
+
 * Version 9.0.0 - 29 Jun 2026
     * Result types:
       * (Web)CallResult types are replaced by HttpResult, WebSocketResult and QueryResult with the same logic
