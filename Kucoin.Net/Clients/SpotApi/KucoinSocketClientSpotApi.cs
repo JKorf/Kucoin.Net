@@ -478,7 +478,7 @@ namespace Kucoin.Net.Clients.SpotApi
            int individualSubscriptionCount = 1)
         {
             // address is either spot or futures
-            var connection = _socketConnections.Values.Where(x => x.Tag == address)
+            var connection = _socketConnections.Values.Where(x => x.Tag == address && x.Authenticated == authenticated)
                     .OrderBy(s => s.UserSubscriptionCount)
                     .FirstOrDefault();
 
