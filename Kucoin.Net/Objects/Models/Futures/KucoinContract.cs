@@ -1,5 +1,6 @@
 using System;
 using Kucoin.Net.Converters;
+using Kucoin.Net.Enums;
 
 
 namespace Kucoin.Net.Objects.Models.Futures
@@ -100,6 +101,11 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("maxOrderQty")]
         public decimal MaxOrderQuantity { get; set; }
+        /// <summary>
+        /// ["<c>marketMaxOrderQty</c>"] Maximum market order quantity
+        /// </summary>
+        [JsonPropertyName("marketMaxOrderQty")]
+        public decimal MaxMarketOrderQuantity { get; set; }
         /// <summary>
         /// ["<c>maxPrice</c>"] Maximum price
         /// </summary>
@@ -254,12 +260,9 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonPropertyName("predictedFundingFeeRate")]
         public decimal? PredictedFundingFeeRate { get; set; }
         /// <summary>
-        /// ["<c>nextFundingRateTime</c>"] Next funding rate time. This time may not be accurate up to a couple of seconds.
-        /// This is due to the fact that the API returns this value as an offset from the current time, 
-        /// but we have no way of knowing the exact time the API returned this value.
+        /// ["<c>nextFundingRateDateTime</c>"] Next funding rate time
         /// </summary>
-        [JsonConverter(typeof(NextFundingRateTimeConverter))]
-        [JsonPropertyName("nextFundingRateTime")]
+        [JsonPropertyName("nextFundingRateDateTime")]
         public DateTime? NextFundingRateTime { get; set; }
         /// <summary>
         /// ["<c>sourceExchanges</c>"] Source exchanges
@@ -326,5 +329,80 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("currentFundingRateGranularity")]
         public int? CurrentFundingRateGranularity { get; set; }
+        /// <summary>
+        /// ["<c>dailyInterestRate</c>"] Daily interest rate
+        /// </summary>
+        [JsonPropertyName("dailyInterestRate")]
+        public decimal? DailyInterestRate { get; set; }
+        /// <summary>
+        /// ["<c>fundingRateGranularity</c>"] Funding rate granularity
+        /// </summary>
+        [JsonPropertyName("fundingRateGranularity")]
+        public long? FundingRateGranularity { get; set; }
+        /// <summary>
+        /// ["<c>fundingRateFloor</c>"] Funding rate floor
+        /// </summary>
+        [JsonPropertyName("fundingRateFloor")]
+        public decimal? FundingRateFloor { get; set; }
+        /// <summary>
+        /// ["<c>fundingRateCap</c>"] Funding rate cap
+        /// </summary>
+        [JsonPropertyName("fundingRateCap")]
+        public decimal? FundingRateCap { get; set; }
+        /// <summary>
+        /// ["<c>mmrLimit</c>"] Maintenance margin requirement limit
+        /// </summary>
+        [JsonPropertyName("mmrLimit")]
+        public decimal? MmrLimit { get; set; }
+        /// <summary>
+        /// ["<c>mmrLevConstant</c>"] Maintenance margin rate leverage constant
+        /// </summary>
+        [JsonPropertyName("mmrLevConstant")]
+        public decimal? MmrLeverageConstant { get; set; }
+        /// <summary>
+        /// ["<c>adjustK</c>"] Pending effective k value
+        /// </summary>
+        [JsonPropertyName("adjustK")]
+        public decimal? AdjustK { get; set; }
+        /// <summary>
+        /// ["<c>adjustM</c>"] Pending effective m value
+        /// </summary>
+        [JsonPropertyName("adjustM")]
+        public decimal? AdjustM { get; set; }
+        /// <summary>
+        /// ["<c>adjustMmrLevConstant</c>"] Pending effective MmrLeverageConstant
+        /// </summary>
+        [JsonPropertyName("adjustMmrLevConstant")]
+        public decimal? AdjustMmrLeverageConstant { get; set; }
+        /// <summary>
+        /// ["<c>adjustActiveTime</c>"] Adjust effective time for AdjustK, AdjustM, AdjustMmrLevConstant
+        /// </summary>
+        [JsonPropertyName("adjustActiveTime")]
+        public DateTime? AdjustActiveTime { get; set; }
+        /// <summary>
+        /// ["<c>crossRiskLimit</c>"] Cross margin risk limit
+        /// </summary>
+        [JsonPropertyName("crossRiskLimit")]
+        public decimal CrossMarginRiskLimit { get; set; }
+        /// <summary>
+        /// ["<c>orderPriceRange</c>"] Order price range
+        /// </summary>
+        [JsonPropertyName("orderPriceRange")]
+        public decimal OrderPriceRange { get; set; }
+        /// <summary>
+        /// ["<c>marketStage</c>"] Pre-market stage
+        /// </summary>
+        [JsonPropertyName("marketStage")]
+        public PreMarketStage Stage { get; set; }
+        /// <summary>
+        /// ["<c>preMarketToPerpDate</c>"] Pre-market transition to perpetual contract date
+        /// </summary>
+        [JsonPropertyName("preMarketToPerpDate")]
+        public DateTime? PreMarketEndTime { get; set; }
+        /// <summary>
+        /// ["<c>marketType</c>"] Market type
+        /// </summary>
+        [JsonPropertyName("marketType")]
+        public MarketType MarketType { get; set; }
     }
 }
