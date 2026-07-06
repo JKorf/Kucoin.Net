@@ -50,5 +50,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// ["<c>contractId</c>"] Contract id
+        /// </summary>
+        [JsonPropertyName("contractId")]
+        public long ContractId { get; set; }
     }
 }
