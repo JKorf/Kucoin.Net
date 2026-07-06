@@ -72,5 +72,50 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("updatedAt")]
         public DateTime UpdateTime { get; set; }
+        /// <summary>
+        /// ["<c>id</c>"] Deposit id
+        /// </summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>subStatus</c>"] Additional status info
+        /// </summary>
+        [JsonPropertyName("subStatus")]
+        public string? SubStatus { get; set; }
+        /// <summary>
+        /// ["<c>url</c>"] Url
+        /// </summary>
+        [JsonPropertyName("url")]
+        public string? Url { get; set; }
+        /// <summary>
+        /// ["<c>needSubmitWht</c>"] Need submit WHT
+        /// </summary>
+        [JsonPropertyName("needSubmitWht")]
+        public string? NeedSubmitWht { get; set; }
+        /// <summary>
+        /// ["<c>arrears</c>"] Is debt. A quick rollback will cause the deposit to fail. If the deposit fails, you will need to repay the balance.
+        /// </summary>
+        [JsonPropertyName("arrears")]
+        public bool Arrears { get; set; }
+        /// <summary>
+        /// ["<c>preConfirmationCount</c>"] Pre-confirmation count
+        /// </summary>
+        [JsonPropertyName("preConfirmationCount")]
+        public int? PreConfirmations { get; set; }
+        /// <summary>
+        /// ["<c>confirmationCount</c>"] Confirmation count
+        /// </summary>
+        [JsonPropertyName("confirmationCount")]
+        public int? ConfirmationCount { get; set; }
+        /// <summary>
+        /// ["<c>confirmation</c>"] Confirmations
+        /// </summary>
+        [JsonPropertyName("confirmation")]
+        public int? Confirmations { get; set; }
+        /// <summary>
+        /// ["<c>failureReason</c>"] Failure reason
+        /// </summary>
+        [JsonPropertyName("failureReason")]
+        public string? FailureReason { get; set; }
     }
 }
