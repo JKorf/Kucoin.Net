@@ -86,5 +86,20 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("chain")]
         public string? Network { get; set; }
+        /// <summary>
+        /// ["<c>failureReason</c>"] Failure reason
+        /// </summary>
+        [JsonPropertyName("failureReason")]
+        public string? FailureReason { get; set; }
+        /// <summary>
+        /// ["<c>failureReason</c>"] Failure reason message
+        /// </summary>
+        [JsonPropertyName("failureReasonMsg")]
+        public string? FailureReasonMessage { get; set; }
+        /// <summary>
+        /// ["<c>subStatus</c>"] Additional status info
+        /// </summary>
+        [JsonPropertyName("subStatus")]
+        public string? SubStatus { get; set; }
     }
 }
