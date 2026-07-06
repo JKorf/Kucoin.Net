@@ -57,6 +57,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonPropertyName("low")]
         public decimal? LowPrice { get; set; }
         /// <summary>
+        /// ["<c>open</c>"] The open price
+        /// </summary>
+        [JsonPropertyName("open")]
+        public decimal? OpenPrice { get; set; }
+        /// <summary>
         /// ["<c>vol</c>"] The volume in this tick
         /// </summary>
         [JsonPropertyName("vol")]
@@ -71,6 +76,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("last")]
         public decimal? LastPrice { get; set; }
+        /// <summary>
+        /// ["<c>lastSize</c>"] The last trade quantity
+        /// </summary>
+        [JsonPropertyName("lastSize")]
+        public decimal? LastQuantity { get; set; }
         /// <summary>
         /// ["<c>averagePrice</c>"] The average trade price in the last 24 hours
         /// </summary>
