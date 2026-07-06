@@ -16,6 +16,11 @@ namespace Kucoin.Net.Objects.Models.Spot
         [JsonPropertyName("sequence")]
         public long Sequence { get; set; }
         /// <summary>
+        /// ["<c>tradeId</c>"] The trade id
+        /// </summary>
+        [JsonPropertyName("tradeId")]
+        public long TradeId { get; set; }
+        /// <summary>
         /// ["<c>price</c>"] The price of the trade
         /// </summary>
         [JsonPropertyName("price")]
