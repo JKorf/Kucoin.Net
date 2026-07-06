@@ -21,5 +21,10 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal MakerFeeRate { get; set; }
+        /// <summary>
+        /// ["<c>feeTaxRate</c>"] Fee tax rate
+        /// </summary>
+        [JsonPropertyName("feeTaxRate")]
+        public decimal? FeeTaxRate { get; set; }
     }
 }
