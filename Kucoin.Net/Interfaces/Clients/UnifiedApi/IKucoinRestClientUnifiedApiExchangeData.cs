@@ -165,10 +165,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="interval">["<c>interval</c>"] Interval</param>
+        /// <param name="type">Kline type</param>
         /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaKline[]>> GetKlinesAsync(ProductType productType, string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinUaKline[]>> GetKlinesAsync(ProductType productType, string symbol, KlineInterval interval, KlineType? type = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate
