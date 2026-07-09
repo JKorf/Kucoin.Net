@@ -360,6 +360,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingRateAsync("ETHUSDTM"), "GetFundingRate", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFuturesOpenInterestAsync(), "GetFuturesOpenInterest", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetKYCRegionsAsync(), "GetKYCRegions", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFiatPricesAsync(), "GetFiatPrice", nestedJsonProperty: "data");
         }
 
         [Test]

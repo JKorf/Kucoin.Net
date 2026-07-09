@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinResult<Dictionary<string, decimal>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinMarginModesResults>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaFundingFeeHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaLeverageSetting[]>))]

@@ -330,5 +330,23 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Get Fiat Price
+
+        /// <inheritdoc />
+        public async Task<HttpResult<Dictionary<string, decimal>>> GetFiatPricesAsync(
+            string? @base = null,
+            string? assets = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("base", @base);
+            parameters.Add("currencies", assets);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/fiat-price", KucoinExchange.RateLimiter.UnifiedRest, 3, false);
+            var result = await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

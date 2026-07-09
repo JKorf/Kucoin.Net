@@ -283,5 +283,23 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaKYCRegion[]>> GetKYCRegionsAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get fiat prices for assets
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3477216e0?lang=en_US" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/market/fiat-price<br />
+        /// </para>
+        /// </summary>
+        /// <param name="base">["<c>base</c>"] The fiat currency, for example USD or EUR</param>
+        /// <param name="assets">["<c>currencies</c>"] Filter by asset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<Dictionary<string, decimal>>> GetFiatPricesAsync(
+            string? @base = null,
+            string? assets = null,
+            CancellationToken ct = default);
+
+
     }
 }
