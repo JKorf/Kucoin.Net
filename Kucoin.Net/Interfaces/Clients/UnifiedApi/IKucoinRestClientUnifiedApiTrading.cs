@@ -51,6 +51,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="tpTriggerPrice">["<c>tpTriggerPrice</c>"] Take profit trigger price</param>
         /// <param name="slTriggerPriceType">["<c>slTriggerPriceType</c>"] Stop loss trigger price type</param>
         /// <param name="slTriggerPrice">["<c>slTriggerPrice</c>"] Stop loss trigger price</param>
+        /// <param name="closeOrder">["<c>closeOrder</c>"] Close order</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderResult>> PlaceOrderAsync(
             UnifiedAccountMode accountMode,
@@ -79,6 +80,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             decimal? tpTriggerPrice = null,
             StopPriceType? slTriggerPriceType = null, 
             decimal? slTriggerPrice = null,
+            bool? closeOrder = null,
             CancellationToken ct = default);
 
         /// <summary>

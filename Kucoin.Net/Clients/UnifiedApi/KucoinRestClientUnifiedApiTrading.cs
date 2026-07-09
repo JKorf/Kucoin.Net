@@ -68,6 +68,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             decimal? tpTriggerPrice = null,
             StopPriceType? slTriggerPriceType = null,
             decimal? slTriggerPrice = null,
+            bool? closeOrder = null,
             CancellationToken ct = default)
         {
             LogBetaWarning();
@@ -98,6 +99,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("tpTriggerPrice", tpTriggerPrice);
             parameters.Add("slTriggerPriceType", slTriggerPriceType);
             parameters.Add("slTriggerPrice", slTriggerPrice);
+            parameters.Add("closeOrder", closeOrder);
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
