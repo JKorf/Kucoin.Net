@@ -88,5 +88,15 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("adlPercentage")]
         public decimal? AdlPercentage { get; set; }
+        /// <summary>
+        /// ["<c>riskRatio</c>"] Risk ratio of an isolated futures position. For example, 0.65 represents 65%
+        /// </summary>
+        [JsonPropertyName("riskRatio")]
+        public decimal? RiskRatio { get; set; }
+        /// <summary>
+        /// ["<c>positionMargin</c>"] Position margin
+        /// </summary>
+        [JsonPropertyName("positionMargin")]
+        public decimal? PositionMargin { get; set; }
     }
 }

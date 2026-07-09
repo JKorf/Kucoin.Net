@@ -94,5 +94,15 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("O")]
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// ["<c>r</c>"] Risk ratio of an isolated futures position. For example, 0.65 represents 65%
+        /// </summary>
+        [JsonPropertyName("r")]
+        public decimal? RiskRatio { get; set; }
+        /// <summary>
+        /// ["<c>pM</c>"] Position margin
+        /// </summary>
+        [JsonPropertyName("pM")]
+        public decimal? PositionMargin { get; set; }
     }
 }
