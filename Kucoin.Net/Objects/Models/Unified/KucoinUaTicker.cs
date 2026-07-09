@@ -70,6 +70,26 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("quoteVolume")]
         public decimal QuoteVolume { get; set; }
+        /// <summary>
+        /// ["<c>priceChange</c>"] Price change
+        /// </summary>
+        [JsonPropertyName("priceChange")]
+        public decimal? PriceChange { get; set; }
+        /// <summary>
+        /// ["<c>priceChangePercent</c>"] Price change percentage
+        /// </summary>
+        [JsonPropertyName("priceChangePercent")]
+        public decimal? PriceChangePercent { get; set; }
+        /// <summary>
+        /// ["<c>indexPrice</c>"] Index price
+        /// </summary>
+        [JsonPropertyName("indexPrice")]
+        public decimal? IndexPrice { get; set; }
+        /// <summary>
+        /// ["<c>markPrice</c>"] Mark price
+        /// </summary>
+        [JsonPropertyName("markPrice")]
+        public decimal? MarkPrice { get; set; }
     }
 
 
