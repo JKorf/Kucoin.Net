@@ -197,6 +197,29 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.1.0 - 09 Jul 2026
+    * Updated CryptoExchange.Net to v12.1.0
+    * Added OpenPrice, LastQuantity to KucoinAllTick model
+    * Added TradeId to KucoinTrade model
+    * Added ContractId to KucoinFuturesTrade model
+    * Added DailyInterestRate to KucoinFundingRate model
+    * Added FeeTaxRate to KucoinTradeFee model
+    * Added OptionSubQuantity, MaxOptionSubQuantity to KucoinUserInfo model, updated quantity properties to int type
+    * Added FailureReason, FailureReasonMessage, SubStatus properties to KucoinWithdrawal model
+    * Added RiskRatio, PositionMargin to KucoinUaPosition and KucoinUaPositionUpdate models
+    * Added restClient.UnifiedApi.Account.SetMarginModeAsync endpoint
+    * Added restClient.UnifiedApi.Account.SetIsolatedMarginAsync endpoint
+    * Added closeOrder parameter to restClient.UnifiedApi.Trading.PlaceOrderAsync
+    * Added restClient.UnifiedApi.ExchangeData.GetFiatPricesAsync endpoint
+    * Added type parameter to restClient.UnifiedApi.ExchangeData.GetKlinesAsync endpoint
+    * Added PriceChange, PriceChangePercent, IndexPrice and MarkPrice to KucoinUaTicker model
+    * Added CollateralStatus to KucoinUaBalanceAsset and KucoinUaBalanceUpdate models
+    * Added SubscribeToFundingFeeUpdatesAsync and SubscribeToMarkPriceUpdatesAsync subscriptions to UnifiedApi websocket client
+    * Updated KucoinContract with various missing properties
+    * Updated KucoinDeposit with missing properties
+    * Updated DepositStatus enum values
+    * Removed Incremental value for OrderBookDepth enum, added Incremental10Ms value
+
 * Version 9.0.1 - 04 Jul 2026
     * Fixed subscribing to user streams not triggering socket authentication if a public socket was already connected
 
