@@ -58,7 +58,7 @@ namespace Kucoin.Net.Clients.SpotApi
                      pageParams);
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
-                    .Select(x => 
+                    .Select(x =>
                         new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
                     .ToArray(), nextPageRequest);
         }
@@ -260,10 +260,10 @@ namespace Kucoin.Net.Clients.SpotApi
                 data = result.Data.Where(x => x.Type == AccountType.Margin || x.Type == AccountType.Isolated || x.Type == AccountType.IsolatedMarginHf || x.Type == AccountType.MarginHf);
             }
 
-            return HttpResult.Ok(result, data.Select(x => 
+            return HttpResult.Ok(result, data.Select(x =>
                 new SharedBalance(
-                    SupportedTradingModes, 
-                    x.Asset, 
+                    SupportedTradingModes,
+                    x.Asset,
                     x.Available,
                     x.Available + x.Holds)).ToArray());
         }
@@ -409,7 +409,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Items.Select(x => new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -439,7 +439,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedSpotOrder[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Select(x => new SharedSpotOrder(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                     x.Symbol,
                     x.Id.ToString(),
                     ParseOrderType(x.Type, x.PostOnly),
@@ -477,7 +477,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
                 // Get data
                 var result = await Trading.GetOrdersAsync(
-                    request.Symbol!.GetSymbol(FormatSymbol), 
+                    request.Symbol!.GetSymbol(FormatSymbol),
                     status: OrderStatus.Done,
                     startTime: pageParams.StartTime,
                     endTime: pageParams.EndTime,
@@ -496,9 +496,9 @@ namespace Kucoin.Net.Clients.SpotApi
                          pageParams);
 
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.CreateTime, request.StartTime, request.EndTime, direction)
-                    .Select(x => 
+                    .Select(x =>
                         new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.Id.ToString(),
                             ParseOrderType(x.Type, x.PostOnly),
@@ -547,7 +547,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.CreateTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
                         new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.Id.ToString(),
                             ParseOrderType(x.Type, x.PostOnly),
@@ -578,12 +578,12 @@ namespace Kucoin.Net.Clients.SpotApi
             var hfAccount = ExchangeParameters.GetValue<bool?>(request.ExchangeParameters, Exchange, "HfTrading");
             if (hfAccount == false)
             {
-                var order = await Trading.GetUserTradesAsync(orderId: request.OrderId,ct: ct).ConfigureAwait(false);
+                var order = await Trading.GetUserTradesAsync(orderId: request.OrderId, ct: ct).ConfigureAwait(false);
                 if (!order.Success)
                     return HttpResult.Fail<SharedUserTrade[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Items.Select(x => new SharedUserTrade(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -605,7 +605,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     return HttpResult.Fail<SharedUserTrade[]>(order);
 
                 return HttpResult.Ok(order, order.Data.Items.Select(x => new SharedUserTrade(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                     x.Symbol,
                     x.OrderId.ToString(),
                     x.Id.ToString(),
@@ -655,9 +655,9 @@ namespace Kucoin.Net.Clients.SpotApi
                          pageParams);
 
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.Timestamp, request.StartTime, request.EndTime, direction)
-                    .Select(x => 
+                    .Select(x =>
                         new SharedUserTrade(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.OrderId.ToString(),
                             x.Id.ToString(),
@@ -699,9 +699,9 @@ namespace Kucoin.Net.Clients.SpotApi
                          TimeSpan.FromDays(7));
 
                 return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.Timestamp, request.StartTime, request.EndTime, direction)
-                    .Select(x => 
+                    .Select(x =>
                         new SharedUserTrade(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.OrderId.ToString(),
                             x.Id.ToString(),
@@ -986,7 +986,7 @@ namespace Kucoin.Net.Clients.SpotApi
                      TimeSpan.FromDays(30));
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data.Items, x => x.CreateTime, request.StartTime, request.EndTime, direction)
-                    .Select(x => 
+                    .Select(x =>
                         new SharedDeposit(
                             x.Asset,
                             x.Quantity,
@@ -1005,11 +1005,21 @@ namespace Kucoin.Net.Clients.SpotApi
             if (status == DepositStatus.Success)
                 return SharedTransferStatus.Completed;
 
-            if (status == DepositStatus.Failure)
+            if (status == DepositStatus.Failure
+                || status == DepositStatus.ComplianceVerificationFailed
+                || status == DepositStatus.RollingBack
+                || status == DepositStatus.RolledBack
+                || status == DepositStatus.RiskManagementRejected)
+            {
                 return SharedTransferStatus.Failed;
+            }
 
-            if (status == DepositStatus.Processing)
+            if (status == DepositStatus.Processing
+                || status == DepositStatus.WaitingComplianceVerification
+                || status == DepositStatus.WaitingRiskManagement)
+            {
                 return SharedTransferStatus.InProgress;
+            }
 
             return SharedTransferStatus.Unknown;
         }
