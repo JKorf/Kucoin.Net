@@ -21,6 +21,8 @@ namespace Kucoin.Net.Clients.MessageHandlers
             AddTopicMapping<KucoinUnifiedSocketUpdate<KucoinUaKlineUpdate>>(x => x.Data.Symbol + x.Data.Interval);
             AddTopicMapping<KucoinUnifiedSocketUpdate<KucoinUaOrderBookUpdate>>(x => x.Data.Symbol);
             AddTopicMapping<KucoinUnifiedSocketUpdate<KucoinUaTradeUpdate>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinUnifiedSocketUpdate<KucoinUaFundingFeeUpdate>>(x => x.Data.Symbol);
+            AddTopicMapping<KucoinUnifiedSocketUpdate<KucoinUaMarkPriceUpdate>>(x => x.Data.Symbol);
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [

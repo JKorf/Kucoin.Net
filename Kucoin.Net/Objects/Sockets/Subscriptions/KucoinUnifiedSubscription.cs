@@ -45,9 +45,12 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _interval = EnumConverter.GetString(interval);
             _depth = EnumConverter.GetString(depth);
 
-            var id = $"{channel}.{EnumConverter.GetString(type)}";
+            var ids = new[] { $"{channel}.{EnumConverter.GetString(type)}", $"{channel}" };
             var filter = _symbol != null || _interval != null ? $"{_symbol}{_interval}" : null;
-            MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(id, filter, DoHandleMessage);
+            if (filter == null)
+                MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(ids, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(ids, [filter], DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

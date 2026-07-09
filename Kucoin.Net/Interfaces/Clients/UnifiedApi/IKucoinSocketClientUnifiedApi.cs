@@ -50,7 +50,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(UnifiedAccountType tradeType, IEnumerable<string> symbols, Action<DataEvent<KucoinUaTickerUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to updates for a symbol ticker
+        /// Subscribe to kline updates
         /// <para>
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3470222w0" /><br />
@@ -71,7 +71,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to updates for a symbol ticker
+        /// Subscribe to order book updates
         /// <para>
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3470221w0" /><br />
@@ -93,7 +93,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to updates for a symbol ticker
+        /// Subscribe to trade updates
         /// <para>
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3470224w0" /><br />
@@ -110,6 +110,42 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             UnifiedAccountType tradeType,
             string symbol,
             Action<DataEvent<KucoinUaTradeUpdate>> onData,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to funding fee updates for a symbol
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470224w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: funding-fee
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
+        /// <param name="onData">The data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingFeeUpdatesAsync(
+            string symbol,
+            Action<DataEvent<KucoinUaFundingFeeUpdate>> onData,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mark price updates
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470272w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: mark-price
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETH-USDT`</param>
+        /// <param name="onData">The data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(
+            string symbol,
+            Action<DataEvent<KucoinUaMarkPriceUpdate>> onData,
             CancellationToken ct = default);
 
         /// <summary>

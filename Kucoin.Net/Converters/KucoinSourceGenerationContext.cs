@@ -25,6 +25,8 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinUnifiedRequest))]
     [JsonSerializable(typeof(KucoinUnifiedAccountRequest))]
     [JsonSerializable(typeof(KucoinUnifiedWelcome))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaMarkPriceUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaFundingFeeUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaTickerUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaKlineUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaOrderBookUpdate>))]
