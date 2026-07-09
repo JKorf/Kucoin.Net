@@ -89,5 +89,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("iUP")]
         public decimal? IsolatedUnrealizedPnl { get; set; }
+        /// <summary>
+        /// ["<c>cS</c>"] Collateral status
+        /// </summary>
+        [JsonPropertyName("cS")]
+        public CollateralStatus CollateralStatus { get; set; }
     }
 }

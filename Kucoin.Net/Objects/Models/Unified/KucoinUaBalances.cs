@@ -76,5 +76,15 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("liability")]
         public decimal Liability { get; set; }
+        /// <summary>
+        /// ["<c>potentialBorrow</c>"] Potential borrow
+        /// </summary>
+        [JsonPropertyName("potentialBorrow")]
+        public decimal PotentialBorrow { get; set; }
+        /// <summary>
+        /// ["<c>collateralStatus</c>"] Collateral status
+        /// </summary>
+        [JsonPropertyName("collateralStatus")]
+        public CollateralStatus CollateralStatus { get; set; }
     }
 }
