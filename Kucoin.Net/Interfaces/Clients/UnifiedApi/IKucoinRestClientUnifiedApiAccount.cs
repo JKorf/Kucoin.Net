@@ -385,5 +385,22 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             int? limit = null,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Set margin mode for one or multiple symbols
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-modify-margin-mode?lang=en_US&" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/unified/position/margin-mode<br />
+        /// </para>
+        /// </summary>
+        /// <param name="symbols">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinMarginModesResults>> SetMarginModeAsync(
+            IEnumerable<string> symbols,
+            MarginMode marginMode,
+            CancellationToken ct = default);
+
     }
 }

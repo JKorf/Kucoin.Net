@@ -427,6 +427,24 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Set Margin Mode
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinMarginModesResults>> SetMarginModeAsync(
+            IEnumerable<string> symbols,
+            MarginMode marginMode,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.AddCommaSeparated("symbol", symbols);
+            parameters.Add("marginMode", marginMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/unified/position/margin-mode", KucoinExchange.RateLimiter.UnifiedRest, 10, true);
+            var result = await _baseClient.SendAsync<KucoinMarginModesResults>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         internal async Task<HttpResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v2/bullet-private", KucoinExchange.RateLimiter.ManagementRest, 10, true);

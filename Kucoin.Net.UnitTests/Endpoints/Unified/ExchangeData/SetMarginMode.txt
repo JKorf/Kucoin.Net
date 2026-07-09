@@ -1,0 +1,24 @@
+GET
+/api/ua/v1/unified/position/margin-mode
+true
+UriParams: {"symbol": "123","marginMode": "ISOLATED"}
+{
+    "code": "200000",
+    "data": {
+        "ts": 1779370293039,
+        "items": [
+            {
+                "symbol": "ETHUSDTM",
+                "marginMode": "ISOLATED",
+                "code": "200000",
+                "msg": "success"
+            },
+            {
+                "symbol": "XRPUSDTM",
+                "marginMode": "ISOLATED",
+                "code": "200000",
+                "msg": "success"
+            }
+        ]
+    }
+}
