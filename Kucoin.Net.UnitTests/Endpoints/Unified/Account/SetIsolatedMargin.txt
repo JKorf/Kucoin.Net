@@ -1,0 +1,10 @@
+POST
+/api/ua/v1/unified/position/modify-margin
+true
+BodyParams: {"type": "DEPOSIT","amount": 0.1,"symbol": "ETHUSDTM"}
+{
+    "code": "200000",
+    "data": {
+        "ts": 1779367360372
+    }
+}

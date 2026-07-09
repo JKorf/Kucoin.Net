@@ -402,5 +402,26 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             MarginMode marginMode,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Set isolated margin
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-isolated-futures-margin?lang=en_US&" /><br />
+        /// Endpoint:<br />
+        /// POST /api/ua/v1/unified/position/modify-margin<br />
+        /// </para>
+        /// </summary>
+        /// <param name="direction">["<c>type</c>"] Direction</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDTM`</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Position side</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult> SetIsolatedMarginAsync(
+            MarginDirection direction,
+            decimal quantity,
+            string symbol,
+            PositionSide? positionSide = null,
+            CancellationToken ct = default);
+
     }
 }

@@ -438,12 +438,36 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddCommaSeparated("symbol", symbols);
             parameters.Add("marginMode", marginMode);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/unified/position/margin-mode", KucoinExchange.RateLimiter.UnifiedRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/unified/position/margin-mode", KucoinExchange.RateLimiter.UnifiedRest, 10, true);
             var result = await _baseClient.SendAsync<KucoinMarginModesResults>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         #endregion
+
+        #region Set Isolated Margin
+
+        /// <inheritdoc />
+        public async Task<HttpResult> SetIsolatedMarginAsync(
+            MarginDirection direction,
+            decimal quantity,
+            string symbol,
+            PositionSide? positionSide = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("type", direction);
+            parameters.Add("amount", quantity);
+            parameters.Add("symbol", symbol);
+            parameters.Add("tradeType", "FUTURES");
+            parameters.Add("positionSide", positionSide);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/unified/position/modify-margin", KucoinExchange.RateLimiter.UnifiedRest, 5, true);
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
 
         internal async Task<HttpResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {

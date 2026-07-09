@@ -1,4 +1,4 @@
-GET
+POST
 /api/ua/v1/unified/position/margin-mode
 true
 UriParams: {"symbol": "123","marginMode": "ISOLATED"}

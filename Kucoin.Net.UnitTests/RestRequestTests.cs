@@ -330,7 +330,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.Account.SetCrossMarginLeverageAsync(UnifiedAccountMode.Unified, "123", 0.1m), "SetCrossMarginLeverage", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetLeverageAsync(UnifiedSimpleAccountType.Futures, MarginMode.CrossMode), "GetLeverage", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetFundingFeeHistoryAsync(), "GetFundingFeeHistory", nestedJsonProperty: "data.items");
-            await tester.ValidateAsync(client => client.UnifiedApi.Account.SetMarginModeAsync(new[] { "123" }, MarginMode.IsolatedMode), "SetMarginMode", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.SetIsolatedMarginAsync(MarginDirection.Deposit, 0.1m, "ETHUSDTM"), "SetIsolatedMargin");
         }
 
         [Test]
