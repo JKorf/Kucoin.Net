@@ -389,7 +389,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set margin mode for one or multiple symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-modify-margin-mode?lang=en_US&" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-modify-margin-mode?lang=en_US" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v1/unified/position/margin-mode<br />
         /// </para>
@@ -406,7 +406,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set isolated margin
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-isolated-futures-margin?lang=en_US&" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-isolated-futures-margin?lang=en_US" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v1/unified/position/modify-margin<br />
         /// </para>

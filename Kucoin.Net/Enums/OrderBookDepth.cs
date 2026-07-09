@@ -29,9 +29,9 @@ namespace Kucoin.Net.Enums
         [Map("50")]
         Top50,
         /// <summary>
-        /// ["<c>increment</c>"] Incremental full order book
+        /// ["<c>increment@10ms</c>"] Incremental order book for 500 depth with 10ms update frequency
         /// </summary>
-        [Map("increment")]
-        Incremental
+        [Map("increment@10ms")]
+        Incremental10Ms
     }
 }

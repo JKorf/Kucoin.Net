@@ -181,7 +181,7 @@ namespace Kucoin.Net.UnitTests
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Unified", "wss://x-push-spot.kucoin.com", "d");
             await tester.ValidateAsync<KucoinUaTickerUpdate>((client, handler) => client.UnifiedApi.SubscribeToTickerUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", handler), "Ticker");
             await tester.ValidateAsync<KucoinUaKlineUpdate>((client, handler) => client.UnifiedApi.SubscribeToKlineUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", KlineInterval.FifteenMinutes, handler), "Kline");
-            await tester.ValidateAsync<KucoinUaOrderBookUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderBookUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", OrderBookDepth.Incremental, handler), "OrderBook");
+            await tester.ValidateAsync<KucoinUaOrderBookUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderBookUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", OrderBookDepth.Incremental10Ms, handler), "OrderBook");
             await tester.ValidateAsync<KucoinUaTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToTradeUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", handler), "Trade");
 
             await tester.ValidateAsync<KucoinUaBalanceUpdate>((client, handler) => client.UnifiedApi.SubscribeToBalanceUpdatesAsync(UnifiedAccountType.Futures, handler), "Balance");
