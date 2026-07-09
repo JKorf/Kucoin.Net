@@ -1,9 +1,9 @@
-> { "id": "|1|", "action": "subscribe", "channel":"obu", "tradeType": "SPOT", "symbol": "ETH-USDT", "depth":"increment" }
+> { "id": "|1|", "action": "subscribe", "channel":"obu", "tradeType": "SPOT", "symbol": "ETH-USDT", "depth":"increment@10ms" }
 < { "id": "|1|", "result": true }
 = 
 {
     "T": "obu.SPOT",
-    "dp": "increment",
+    "dp": "increment@10ms",
     "t": "snapshot",
     "P": 1768217874990007701,
     "d": {
