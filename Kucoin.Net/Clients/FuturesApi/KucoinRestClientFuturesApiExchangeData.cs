@@ -60,7 +60,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinFuturesTick[]>> GetTickersAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/allTickers", KucoinExchange.RateLimiter.PublicRest, 15);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/allTickers", KucoinExchange.RateLimiter.PublicRest, 5);
             return await _baseClient.SendAsync<KucoinFuturesTick[]>(request, null, ct).ConfigureAwait(false);
         }
 
