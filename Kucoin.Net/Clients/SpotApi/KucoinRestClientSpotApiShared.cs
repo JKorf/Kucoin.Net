@@ -23,6 +23,8 @@ namespace Kucoin.Net.Clients.SpotApi
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
+        private static readonly HashSet<string> _exchangeFiat = ["USD", "EUR", "BRL"];
+
         #region Kline client
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, false, true, true, 100, false);
@@ -67,6 +69,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Spot Symbol client
 
+        SharedSymbolCatalog? ISpotSymbolRestClient.SpotSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicId, EnvironmentName, null);
         GetSpotSymbolsOptions ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new GetSpotSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedSpotSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
@@ -78,17 +81,42 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.EnableTrading)
+            var data = result.Data
+               .Select(x => ParseSymbol(x))
+               .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedSpotSymbol ParseSymbol(KucoinSymbol s)
+        {
+            var result = new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.EnableTrading)
             {
                 MinTradeQuantity = s.BaseMinQuantity,
                 MaxTradeQuantity = s.BaseMaxQuantity,
                 QuantityStep = s.BaseIncrement,
                 PriceStep = s.PriceIncrement,
-                MinNotionalValue = s.MinFunds
-            }).ToArray());
+                MinNotionalValue = s.MinFunds,
+                DisplayName = s.Name,
+                BaseAssetType = SharedAssetType.Crypto
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (LibraryHelpers.IsStableCoin(result.BaseAsset))
+                result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+
+            if (_exchangeFiat.Contains(result.QuoteAsset))
+            {
+                result.QuoteAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.QuoteAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(result.QuoteAsset))
+                    result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
