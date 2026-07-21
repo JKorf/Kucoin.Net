@@ -197,6 +197,16 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.2.0 - 21 Jul 2026
+    * Updated CryptoExchange.Net to v12.2.0 
+    * Added SpotSymbolCatalog to Shared ISpotSymbolRestClient interface
+    * Added FuturesSymbolCatalog to Shared IFuturesSymbolRestClient interface
+    * Added BaseAssetType, BaseAssetSubType, QuoteAssetType and QuoteAssetSubType to GetSymbolsRequest model
+    * Added DisplayName to SharedSpotSymbol and SharedFuturesSymbol models
+    * Added BaseAssetType, BaseAssetSubType, QuoteAssetType and QuoteAssetSubType to SharedSpotSymbol and SharedFuturesSymbol models
+    * Added DebuggerDisplay attributes to Shared models
+    * Updated GetTickersAsync request weight from 15 to 5
+
 * Version 9.1.0 - 09 Jul 2026
     * Updated CryptoExchange.Net to v12.1.0
     * Added OpenPrice, LastQuantity to KucoinAllTick model

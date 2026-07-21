@@ -231,6 +231,10 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 | Shared spot socket client | `new KucoinSocketClient().SpotApi.SharedClient` |
 | Shared futures socket client | `new KucoinSocketClient().FuturesApi.SharedClient` |
 | Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
+| Shared spot symbols and filters | `ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest)` |
+| Shared futures symbols and filters | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest)` |
+| Cached shared spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
+| Cached shared futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
@@ -238,6 +242,8 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
+
+`GetSymbolsRequest` can filter shared symbols by base/quote asset type and subtype. `SharedSpotSymbol` and `SharedFuturesSymbol` include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 

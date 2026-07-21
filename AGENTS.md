@@ -170,6 +170,8 @@ var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol))
 
 Shared REST interfaces available on Kucoin spot include assets, balances, deposits, withdrawals, spot orders, spot tickers, symbols, order books, recent trades, klines, fees, book tickers, and transfers. Futures exposes shared futures order, symbol, position, ticker, order book, recent trade, kline, and book ticker interfaces. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime.
 
+Shared spot and futures symbol interfaces expose the cached `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Their symbol requests support `GetSymbolsRequest` filters, including base/quote asset type and subtype. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` models include `DisplayName` plus classified base/quote asset type and subtype metadata.
+
 ## Dependency Injection
 
 ```csharp

@@ -81,6 +81,8 @@ var ticker = await shared.GetSpotTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
 ```
 
+Shared symbol interfaces expose cached `SpotSymbolCatalog` / `FuturesSymbolCatalog` properties. Symbol requests support asset type/subtype filters and return display names plus base/quote asset classification metadata.
+
 ## Hard rules
 
 - Never write raw `HttpClient` to Kucoin endpoints.

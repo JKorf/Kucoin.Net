@@ -4,8 +4,8 @@
 
 Kucoin.Net is a strongly typed .NET client library for the Kucoin REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 8.12.0.
-CryptoExchange.Net dependency: 11.1.0.
+Current package version in this repository: 9.2.0.
+CryptoExchange.Net dependency: 12.2.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -351,6 +351,8 @@ Console.WriteLine(ticker.Data.LastPrice);
 ```
 
 Shared clients expose `Discover()` for runtime metadata about implemented shared interfaces, supported request options, and supported subscription options.
+
+Shared symbol clients expose cached catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` apply `GetSymbolsRequest` filters, including base/quote asset type and subtype. Their `SharedSpotSymbol` and `SharedFuturesSymbol` results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
 
 ```csharp
 var info = new KucoinRestClient().SpotApi.SharedClient.Discover();
