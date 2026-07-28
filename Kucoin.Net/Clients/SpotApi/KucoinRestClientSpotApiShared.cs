@@ -61,7 +61,15 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol,
+                            x.OpenTime,
+                            x.ClosePrice, 
+                            x.HighPrice, 
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(x.Volume, x.QuoteVolume)))
                     .ToArray(), nextPageRequest);
         }
 
@@ -173,9 +181,15 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker>(result);
 
-            return HttpResult.Ok(result, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, result.Data.LastPrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.ChangePercentage * 100)
+            return HttpResult.Ok(result, new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), 
+                symbol, 
+                result.Data.LastPrice ?? 0,
+                result.Data.HighPrice ?? 0, 
+                result.Data.LowPrice ?? 0, 
+                new SharedOrderQuantity(result.Data.Volume, result.Data.QuoteVolume),
+                result.Data.ChangePercentage * 100)
             {
-                QuoteVolume = result.Data.QuoteVolume
             });
         }
 
@@ -190,10 +204,17 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.ChangePercentage * 100)
-            {
-                QuoteVolume = x.QuoteVolume
-            }).ToArray());
+            return HttpResult.Ok(result, result.Data.Data.Select(x => 
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    x.LastPrice ?? 0, 
+                    x.HighPrice ?? 0, 
+                    x.LowPrice ?? 0,
+                    new SharedOrderQuantity(x.Volume, x.QuoteVolume),
+                    x.ChangePercentage * 100)
+                {
+                }).ToArray());
         }
 
         #endregion
@@ -240,7 +261,7 @@ namespace Kucoin.Net.Clients.SpotApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Select(x =>
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());

@@ -31,9 +31,16 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeTo24HTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.LastPrice, null, null, update.Data.Volume, update.Data.PriceChangePercentage * 100)
+            var result = await SubscribeTo24HTickerUpdatesAsync(symbol, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), 
+                    symbol, 
+                    update.Data.LastPrice,
+                    null, 
+                    null, 
+                    new SharedOrderQuantity(update.Data.Volume, update.Data.Turnover),
+                    update.Data.PriceChangePercentage * 100)
             {
-                QuoteVolume = update.Data.Turnover
             })), ct).ConfigureAwait(false);
 
             return result;
@@ -51,7 +58,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.ToType<SharedTrade[]>(new[] { 
-                new SharedTrade(request.Symbol, symbol, update.Data.Quantity, update.Data.Price, update.Data.Timestamp){
+                new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: update.Data.Quantity), update.Data.Price, update.Data.Timestamp){
                 Side = update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             } })), ct).ConfigureAwait(false);
 
@@ -87,7 +94,15 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => handler(update.ToType(
-                new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.OpenPrice, update.Data.Volume))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    request.Symbol,
+                    symbol, 
+                    update.Data.OpenTime, 
+                    update.Data.ClosePrice, 
+                    update.Data.HighPrice, 
+                    update.Data.LowPrice,
+                    update.Data.OpenPrice,
+                    new SharedOrderQuantity(contractQuantity: update.Data.Volume)))), ct).ConfigureAwait(false);
 
             return result;
         }

@@ -72,7 +72,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                     result.Data.LastTradePrice,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
-                    result.Data.Volume24H,
+                    new SharedOrderQuantity(result.Data.Volume24H, result.Data.Turnover24H),
                     result.Data.PriceChangePercentage * 100)
                 {
                     IndexPrice = result.Data.IndexPrice,
@@ -104,7 +104,14 @@ namespace Kucoin.Net.Clients.FuturesApi
             }
 
             return HttpResult.Ok(result, result.Data.Select(x =>
-                new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastTradePrice, x.HighPrice, x.LowPrice, x.Volume24H, x.PriceChangePercentage * 100)
+                new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    x.LastTradePrice,
+                    x.HighPrice, 
+                    x.LowPrice,
+                    new SharedOrderQuantity(x.Volume24H, x.Turnover24H),
+                    x.PriceChangePercentage * 100)
                 {
                     IndexPrice = x.IndexPrice,
                     MarkPrice = x.MarkPrice,
@@ -758,7 +765,15 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x =>
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol, 
+                            x.OpenTime, 
+                            x.ClosePrice, 
+                            x.HighPrice,
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(null, x.QuoteVolume, x.Volume)))
                     .ToArray(), nextPageRequest);
         }
 
@@ -781,7 +796,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Take(request.Limit ?? 100).Select(x =>
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());
