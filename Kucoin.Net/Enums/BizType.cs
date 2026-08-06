@@ -301,7 +301,12 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// ["<c>EARN_LOCK</c>"] Earn lock
         /// </summary>
-        [Map("EARN_LOCK")]
-        EarnLock
+        [Map("EARN_LOCK", "KuCoin Earn Locked")]
+        EarnLock,
+        /// <summary>
+        /// ["<c>EARN_REDEEM</c>"] Earn redeem
+        /// </summary>
+        [Map("EARN_REDEEM", "KuCoin Earn Redemptions")]
+        EarnRedeem
     }
 }
