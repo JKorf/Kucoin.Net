@@ -91,6 +91,16 @@ namespace Kucoin.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("withdrawPrecision")]
         public decimal? WithdrawPrecision { get; set; }
+        /// <summary>
+        /// ["<c>memoRegex</c>"] Memo regex validation
+        /// </summary>
+        [JsonPropertyName("memoRegex")]
+        public string? MemoRegex { get; set; }
+        /// <summary>
+        /// ["<c>addressRegex</c>"] Address regex validation
+        /// </summary>
+        [JsonPropertyName("addressRegex")]
+        public string? AddressRegex { get; set; }
 
     }
 }
