@@ -361,6 +361,9 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFuturesOpenInterestAsync(), "GetFuturesOpenInterest", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetKYCRegionsAsync(), "GetKYCRegions", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFiatPricesAsync(), "GetFiatPrice", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetInterestRateIndexAsync("ETHUSDTM"), "GetInterestRateIndex", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetPlatformStatsAsync(), "GetPlatformStats", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCallAuctionInfoAsync("GROVE-USDT"), "GetCallAuctionInfo", nestedJsonProperty: "data");
         }
 
         [Test]

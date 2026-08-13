@@ -38,7 +38,11 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaPositionUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaLeverageUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaLiquidationWarningUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaCallAuctionInfoUpdate>))]
 
+    [JsonSerializable(typeof(KucoinResult<KucoinUaCallAuctionInfo>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaPlatformStats>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaInterestRateIndexes>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionTier[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPosition[]>))]

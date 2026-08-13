@@ -1,0 +1,16 @@
+GET
+/api/ua/v1/market/interest-rate-index
+false
+{
+    "code": "200000",
+    "data": {
+        "items": [
+            {
+                "ts": 1716438000000,
+                "symbol": "XBTUSDTM",
+                "interestRate": "0.000123"
+            }
+        ],
+        "lastId": 1716438000000
+    }
+}

@@ -209,6 +209,27 @@ namespace Kucoin.Net.Clients.SpotApi
             return await SubscribeAsync(GetConnectionUrl(UnifiedAccountType.Futures), subscription, ct).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToCallAuctionInfoUpdatesAsync(
+            string symbol,
+            Action<DataEvent<KucoinUaCallAuctionInfoUpdate>> onData,
+            CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, KucoinUnifiedSocketUpdate<KucoinUaCallAuctionInfoUpdate>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.PushTime);
+
+                onData.Invoke(
+                    new DataEvent<KucoinUaCallAuctionInfoUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Type)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(data.Data.Symbol)
+                        .WithDataTimestamp(data.PushTime, GetTimeOffset())
+                    );
+            });
+            var subscription = new KucoinUnifiedSubscription<KucoinUaCallAuctionInfoUpdate>(_logger, this, "callAuctionInfo", UnifiedAccountType.Spot, symbol, null, internalHandler, false);
+            return await SubscribeAsync(GetConnectionUrl(UnifiedAccountType.Spot), subscription, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(

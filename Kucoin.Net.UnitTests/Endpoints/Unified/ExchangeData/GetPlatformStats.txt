@@ -1,0 +1,14 @@
+GET
+/api/ua/v1/trade-statistics
+false
+{
+    "code": "200000",
+    "data": {
+        "spot": {
+            "turnoverOf24h": "1196823373.22"
+        },
+        "futures": {
+            "turnoverOf24h": "2136351344.85"
+        }
+    }
+}

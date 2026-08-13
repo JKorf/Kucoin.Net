@@ -301,6 +301,52 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? assets = null,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Get interest rate history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-interest-rate-index" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/market/interest-rate-index<br />
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETHUSDTM`</param>
+        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Max number of results</param>
+        /// <param name="lastId">["<c>interval</c>"] Interval</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinUaInterestRateIndexes>> GetInterestRateIndexAsync(
+            string symbol,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            long? lastId = null,
+            int? pageSize = null,
+            CancellationToken ct = default);
 
+        /// <summary>
+        /// Get 24h platform stats
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-statistics" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/trade-statistics<br />
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinUaPlatformStats>> GetPlatformStatsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get call auction info for a symbol
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-call-auction-info" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v1/trade-statistics<br />
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `GROVE-USDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinUaCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default);
     }
 }

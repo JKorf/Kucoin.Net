@@ -3,6 +3,7 @@ using CryptoExchange.Net.Objects;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Models;
+using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
@@ -351,5 +352,54 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Get Interest Rate Index
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaInterestRateIndexes>> GetInterestRateIndexAsync(
+            string symbol,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            long? lastId = null,
+            int? pageSize = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("lastId", lastId);
+            parameters.Add("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/interest-rate-index", KucoinExchange.RateLimiter.PublicRest, 5, false);
+            var result = await _baseClient.SendAsync<KucoinUaInterestRateIndexes>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Platform Stats
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaPlatformStats>> GetPlatformStatsAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/trade-statistics", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var result = await _baseClient.SendAsync<KucoinUaPlatformStats>(request, null, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Call Auction Info
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/call-auction-info", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var result = await _baseClient.SendAsync<KucoinUaCallAuctionInfo>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
     }
 }
