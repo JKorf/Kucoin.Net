@@ -98,5 +98,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("positionMargin")]
         public decimal? PositionMargin { get; set; }
+        /// <summary>
+        /// ["<c>updateTime</c>"] Last update timestamp
+        /// </summary>
+        [JsonPropertyName("updateTime")]
+        public DateTime UpdateTime { get; set; }
     }
 }
