@@ -91,10 +91,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// ["<c>liquidityRole</c>"] Liquidity role
+        /// ["<c>liquidityRole</c>"] Liquidity role, can be null for ADL
         /// </summary>
         [JsonPropertyName("liquidityRole")]
-        public LiquidityType LiquidityRole { get; set; }
+        public LiquidityType? LiquidityRole { get; set; }
         /// <summary>
         /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
