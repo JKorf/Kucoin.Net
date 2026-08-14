@@ -258,6 +258,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.4.0 - 14 Aug 2026
+    * Added restClient.UnifiedApi.ExchangeData.GetCallAuctionInfoAsync GetInterestRateIndexAsync and GetPlatformStatsAsync
+    * Added socketClient.UnifiedApi.SubscribeToCallAuctionInfoUpdatesAsync subscription
+    * Added MemoRegex and AddressRegex to KucoinAssetNetwork model
+    * Added BizType EarnRedeem and updated EarnLock mapping values
+    * Added UpdateTime to KucoinUaPosition model
+    * Updated LiquidityRole on KucoinUaUserTrade to nullable
+
 * Version 9.3.0 - 29 Jul 2026
     * Updated CryptoExchange.Net to version 12.4.0
     * Added calculation of AveragePrice on Shared order models if data is available and AveragePrice is not set
