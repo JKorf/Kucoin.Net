@@ -245,6 +245,8 @@ Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared socket subscr
 
 `GetSymbolsRequest` can filter shared symbols by base/quote asset type and subtype. `SharedSpotSymbol` and `SharedFuturesSymbol` include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
 
+Shared result quantities use `SharedOrderQuantity`; read `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` as applicable. `SharedOrderBook.QuantityType` is `BaseAsset` for Kucoin spot books and `Contracts` for futures books.
+
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
 ## Result Handling

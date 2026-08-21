@@ -172,6 +172,8 @@ Shared REST interfaces available on Kucoin spot include assets, balances, deposi
 
 Shared spot and futures symbol interfaces expose the cached `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Their symbol requests support `GetSymbolsRequest` filters, including base/quote asset type and subtype. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` models include `DisplayName` plus classified base/quote asset type and subtype metadata.
 
+Shared API quantities use `SharedOrderQuantity`; read `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` rather than assuming a unit. Kucoin spot data uses asset quantities, futures data uses contract quantities, and shared order books identify their unit through `QuantityType`.
+
 ## Dependency Injection
 
 ```csharp

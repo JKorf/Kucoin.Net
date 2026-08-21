@@ -59,6 +59,8 @@ For code that needs to work across multiple exchanges, use `CryptoExchange.Net.S
 
 Shared spot/futures symbol interfaces expose cached symbol catalogs. Their symbol requests support base/quote asset type and subtype filters, and the returned shared symbols include display names and asset classification metadata.
 
+Shared API quantities use `SharedOrderQuantity`; select its base asset, quote asset, or contract value explicitly. Shared order books expose `QuantityType` (`BaseAsset` for Kucoin spot and `Contracts` for futures).
+
 ## Avoid
 
 - Legacy or guessed `KucoinClient` class; use `KucoinRestClient`

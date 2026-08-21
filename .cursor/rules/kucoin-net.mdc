@@ -83,6 +83,8 @@ var ticker = await shared.GetSpotTickerAsync(
 
 Shared symbol interfaces expose cached `SpotSymbolCatalog` / `FuturesSymbolCatalog` properties. Symbol requests support asset type/subtype filters and return display names plus base/quote asset classification metadata.
 
+Shared API quantities use `SharedOrderQuantity`. Read its base asset, quote asset, or contract value explicitly; shared order books expose `QuantityType` (`BaseAsset` for Kucoin spot, `Contracts` for futures).
+
 ## Hard rules
 
 - Never write raw `HttpClient` to Kucoin endpoints.

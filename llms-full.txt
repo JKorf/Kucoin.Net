@@ -4,8 +4,8 @@
 
 Kucoin.Net is a strongly typed .NET client library for the Kucoin REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 9.4.0.
-CryptoExchange.Net dependency: 12.2.0.
+Current package version in this repository: 9.5.0.
+CryptoExchange.Net dependency: 12.5.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -32,6 +32,7 @@ Primary documentation:
 - Do not call `.Result` or `.Wait()` on async methods.
 - Do not invent method names. Inspect `Kucoin.Net/Interfaces/Clients/**`.
 - For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`; use `.SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
+- Shared API result quantities use `SharedOrderQuantity`; select `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` instead of assuming a unit.
 - Spot symbols use dashes: `BTC-USDT`.
 - Futures symbols use contract names: `XBTUSDTM`, `ETHUSDTM`.
 
@@ -353,6 +354,8 @@ Console.WriteLine(ticker.Data.LastPrice);
 Shared clients expose `Discover()` for runtime metadata about implemented shared interfaces, supported request options, and supported subscription options.
 
 Shared symbol clients expose cached catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` apply `GetSymbolsRequest` filters, including base/quote asset type and subtype. Their `SharedSpotSymbol` and `SharedFuturesSymbol` results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
+
+Shared result models represent quantities with `SharedOrderQuantity`, which can carry base asset, quote asset, and contract values. Use the applicable `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` value instead of treating every quantity as the same unit. Kucoin maps spot book tickers, trades, user trades, and order data to asset quantities; futures equivalents, positions, open interest, and position history use contract quantities. `SharedOrderBook.QuantityType` is `BaseAsset` for Kucoin spot books and `Contracts` for futures books.
 
 ```csharp
 var info = new KucoinRestClient().SpotApi.SharedClient.Discover();

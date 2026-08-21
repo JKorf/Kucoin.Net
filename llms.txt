@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the Kucoin REST and WebSocket APIs. Supports Spot, Margin, High Frequency spot trading, Futures, Unified Account endpoints, and CryptoExchange.Net SharedApis integration.
 
-Kucoin.Net provides typed REST and WebSocket clients, automatic request signing, Kucoin passphrase credentials, rate limiting, WebSocket reconnection, local order book support, native AOT support, `HttpResult<T>` / `HttpResult` REST handling, and `WebSocketResult<UpdateSubscription>` subscription handling. Current version in this repository: 9.4.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Kucoin.Net provides typed REST and WebSocket clients, automatic request signing, Kucoin passphrase credentials, rate limiting, WebSocket reconnection, local order book support, native AOT support, `HttpResult<T>` / `HttpResult` REST handling, and `WebSocketResult<UpdateSubscription>` subscription handling. Current version in this repository: 9.5.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
@@ -31,6 +31,7 @@ Kucoin.Net provides typed REST and WebSocket clients, automatic request signing,
 - Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
 - For multi-exchange code, use `.SharedClient`; call `SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
 - Shared spot/futures symbol interfaces expose cached symbol catalogs, support asset type/subtype filters, and return display names plus asset classification metadata.
+- Shared API quantities use `SharedOrderQuantity`; choose its base asset, quote asset, or contract value explicitly. Shared order books expose `QuantityType`; Kucoin spot books use base asset units and futures books use contracts.
 - Store `UpdateSubscription` values and unsubscribe with the concrete socket client.
 - Inspect `Kucoin.Net/Interfaces/Clients/**` before generating endpoint names.
 

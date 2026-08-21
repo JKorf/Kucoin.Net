@@ -258,6 +258,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.5.0 - 21 Aug 2026
+    * Updated to CryptoExchange.Net v12.5.0
+    * Added LastFundingRate to KucoinContract model
+    * Added MakerFeePercentage, TakerFeePercentage, MaxLongLeverage, TakerFeePercentage, MaxLongLeverage, MaxShortLeverage, UpperFundingCap, LowerFundingCap, LowerPriceLimitPercentage, UpperPriceLimitPercentage to SharedFuturesSymbol mapping
+
 * Version 9.4.0 - 14 Aug 2026
     * Added restClient.UnifiedApi.ExchangeData.GetCallAuctionInfoAsync GetInterestRateIndexAsync and GetPlatformStatsAsync
     * Added socketClient.UnifiedApi.SubscribeToCallAuctionInfoUpdatesAsync subscription
