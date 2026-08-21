@@ -237,9 +237,9 @@ namespace Kucoin.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
                 symbol,
                 resultTicker.Data.BestAskPrice ?? 0,
-                resultTicker.Data.BestAskQuantity ?? 0,
+                new SharedOrderQuantity(resultTicker.Data.BestAskQuantity),
                 resultTicker.Data.BestBidPrice ?? 0,
-                resultTicker.Data.BestBidQuantity ?? 0));
+                new SharedOrderQuantity(resultTicker.Data.BestBidQuantity)));
         }
 
         #endregion
@@ -637,7 +637,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     x.OrderId.ToString(),
                     x.Id.ToString(),
                     x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                    x.Quantity,
+                    new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     x.Price,
                     x.Timestamp)
                 {
@@ -659,7 +659,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     x.OrderId.ToString(),
                     x.Id.ToString(),
                     x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                    x.Quantity,
+                    new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                     x.Price,
                     x.Timestamp)
                 {
@@ -711,7 +711,7 @@ namespace Kucoin.Net.Clients.SpotApi
                             x.OrderId.ToString(),
                             x.Id.ToString(),
                             x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity,
+                            new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                             x.Price,
                             x.Timestamp)
                         {
@@ -755,7 +755,7 @@ namespace Kucoin.Net.Clients.SpotApi
                             x.OrderId.ToString(),
                             x.Id.ToString(),
                             x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity,
+                            new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                             x.Price,
                             x.Timestamp)
                         {
@@ -1090,7 +1090,7 @@ namespace Kucoin.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion

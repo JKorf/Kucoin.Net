@@ -404,5 +404,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("marketType")]
         public MarketType MarketType { get; set; }
+        /// <summary>
+        /// ["<c>lastTimeFundingRate</c>"] Last time funding rate
+        /// </summary>
+        [JsonPropertyName("lastTimeFundingRate")]
+        public decimal? LastFundingRate { get; set; }
     }
 }

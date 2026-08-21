@@ -76,7 +76,15 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                        update.Data.Symbol,
+                        update.Data.BestAskPrice,
+                        new SharedOrderQuantity(contractQuantity: update.Data.BestAskQuantity), 
+                        update.Data.BestBidPrice,
+                        new SharedOrderQuantity(contractQuantity: update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -117,7 +125,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbol, request.Limit ?? 5, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbol, request.Limit ?? 5, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.Contracts, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -173,11 +183,20 @@ namespace Kucoin.Net.Clients.FuturesApi
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: update.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: update.QuantityFilled),
                 OrderPrice = update.Price == 0 ? null : update.Price,
-                LastTrade = update.UpdateType != MatchUpdateType.Match ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), update.Symbol, update.OrderId, update.TradeId!, update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.MatchQuantity ?? 0, update.MatchPrice ?? 0, update.Timestamp)
-                {
-                    ClientOrderId = update.ClientOrderId,
-                    Role = update.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
-                }
+                LastTrade = update.UpdateType != MatchUpdateType.Match ? null :
+                    new SharedUserTrade(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), 
+                        update.Symbol, 
+                        update.OrderId,
+                        update.TradeId!,
+                        update.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        new SharedOrderQuantity(contractQuantity: update.MatchQuantity), 
+                        update.MatchPrice ?? 0,
+                        update.Timestamp)
+                    {
+                        ClientOrderId = update.ClientOrderId,
+                        Role = update.Liquidity == LiquidityType.Maker ? SharedRole.Maker : SharedRole.Taker
+                    }
             };
         }
 
@@ -199,15 +218,20 @@ namespace Kucoin.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToPositionUpdatesAsync(
-                update => handler(update.ToType<SharedPosition[]>(new[] { new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.CurrentQuantity, update.Data.CurrentTime)
-                {
-                    AverageOpenPrice = update.Data.AverageEntryPrice,
-                    PositionMode = update.Data.PositionSide == PositionSide.Both ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = update.Data.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    LiquidationPrice = update.Data.LiquidationPrice,
-                    Leverage = update.Data.RealLeverage,
-                    UnrealizedPnl = update.Data.UnrealizedPnl
-                }})),
+                update => handler(update.ToType<SharedPosition[]>(new[] { 
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), 
+                        update.Data.Symbol,
+                        new SharedOrderQuantity(contractQuantity: update.Data.CurrentQuantity),
+                        update.Data.CurrentTime)
+                        {
+                            AverageOpenPrice = update.Data.AverageEntryPrice,
+                            PositionMode = update.Data.PositionSide == PositionSide.Both ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                            PositionSide = update.Data.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
+                            LiquidationPrice = update.Data.LiquidationPrice,
+                            Leverage = update.Data.RealLeverage,
+                            UnrealizedPnl = update.Data.UnrealizedPnl
+                        }})),
                 ct: ct).ConfigureAwait(false);
 
             return result;

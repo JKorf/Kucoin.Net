@@ -94,7 +94,15 @@ namespace Kucoin.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), update.Symbol!, update.Data.BestAsk.Price, update.Data.BestAsk.Quantity, update.Data.BestBid.Price, update.Data.BestBid.Quantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), 
+                        update.Symbol!,
+                        update.Data.BestAsk.Price,
+                        new SharedOrderQuantity(update.Data.BestAsk.Quantity), 
+                        update.Data.BestBid.Price, 
+                        new SharedOrderQuantity(update.Data.BestBid.Quantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -143,7 +151,9 @@ namespace Kucoin.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToOrderBookUpdatesAsync(symbols, request.Limit ?? 5, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToOrderBookUpdatesAsync(symbols, request.Limit ?? 5, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -233,11 +243,19 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderPrice = matchUpdate.Price == 0 ? null : matchUpdate.Price,
                     UpdateTime = matchUpdate.Timestamp,
                     IsTriggerOrder = matchUpdate.OrderType == OrderType.Stop || matchUpdate.OrderType == OrderType.MarketStop || matchUpdate.OrderType == OrderType.LimitStop,
-                    LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId, matchUpdate.TradeId, matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.MatchQuantity, matchUpdate.MatchPrice, matchUpdate.Timestamp)
-                    {
-                        ClientOrderId = matchUpdate.ClientOrderid,
-                        Role = matchUpdate.Liquidity == LiquidityType.Taker ? SharedRole.Taker : SharedRole.Maker
-                    }
+                    LastTrade = new SharedUserTrade(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, matchUpdate.Symbol), 
+                        matchUpdate.Symbol, 
+                        matchUpdate.OrderId, 
+                        matchUpdate.TradeId, 
+                        matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        new SharedOrderQuantity(matchUpdate.MatchQuantity), 
+                        matchUpdate.MatchPrice, 
+                        matchUpdate.Timestamp)
+                        {
+                            ClientOrderId = matchUpdate.ClientOrderid,
+                            Role = matchUpdate.Liquidity == LiquidityType.Taker ? SharedRole.Taker : SharedRole.Maker
+                        }
                 };
             }
             if (orderUpdate is KucoinStreamOrderUpdate upd)

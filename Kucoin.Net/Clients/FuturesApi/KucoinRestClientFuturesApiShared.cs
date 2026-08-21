@@ -140,9 +140,9 @@ namespace Kucoin.Net.Clients.FuturesApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultTicker.Data.Symbol),
                 resultTicker.Data.Symbol,
                 resultTicker.Data.BestAskPrice,
-                resultTicker.Data.BestAskQuantity,
+                new SharedOrderQuantity(contractQuantity: resultTicker.Data.BestAskQuantity),
                 resultTicker.Data.BestBidPrice,
-                resultTicker.Data.BestBidQuantity));
+                new SharedOrderQuantity(contractQuantity: resultTicker.Data.BestBidQuantity)));
         }
 
         #endregion
@@ -187,7 +187,15 @@ namespace Kucoin.Net.Clients.FuturesApi
                 QuantityStep = s.LotSize,
                 ContractSize = s.Multiplier == -1 ? 1 : s.Multiplier,
                 DeliveryTime = s.SettleDate,
-                DisplayName = s.DisplaySymbol
+                DisplayName = s.DisplaySymbol,
+                MakerFeePercentage = s.MakerFeeRate * 100,
+                TakerFeePercentage = s.TakerFeeRate * 100,
+                MaxLongLeverage = s.MaxLeverage,
+                MaxShortLeverage = s.MaxLeverage,
+                UpperFundingCap = s.FundingRateCap,
+                LowerFundingCap = s.FundingRateFloor,
+                LowerPriceLimitPercentage = -s.OrderPriceRange * 100,
+                UpperPriceLimitPercentage = s.OrderPriceRange * 100
             };
 
             if (result.TradingMode.IsInverse())
@@ -467,7 +475,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 x.OrderId.ToString(),
                 x.Id,
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(contractQuantity: x.Quantity),
                 x.Price,
                 x.Timestamp)
             {
@@ -518,7 +526,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                         x.OrderId.ToString(),
                         x.Id,
                         x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        x.Quantity,
+                        new SharedOrderQuantity(contractQuantity: x.Quantity),
                         x.Price,
                         x.Timestamp)
                     {
@@ -558,15 +566,20 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (symbol != null)
                 data = data.Where(x => x.Symbol == symbol);
 
-            return HttpResult.Ok(result, data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity), x.OpenTime)
-            {
-                UnrealizedPnl = x.UnrealizedPnl,
-                LiquidationPrice = x.LiquidationPrice,
-                Leverage = x.RealLeverage,
-                AverageOpenPrice = x.AverageEntryPrice,
-                PositionMode = x.PositionSide == PositionSide.Both ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                PositionSide = x.CurrentQuantity >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short,
-            }).ToArray());
+            return HttpResult.Ok(result, data.Select(x =>
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    x.Symbol,
+                    new SharedOrderQuantity(contractQuantity: Math.Abs(x.CurrentQuantity)),
+                    x.OpenTime)
+                {
+                    UnrealizedPnl = x.UnrealizedPnl,
+                    LiquidationPrice = x.LiquidationPrice,
+                    Leverage = x.RealLeverage,
+                    AverageOpenPrice = x.AverageEntryPrice,
+                    PositionMode = x.PositionSide == PositionSide.Both ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                    PositionSide = x.CurrentQuantity >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short,
+                }).ToArray());
         }
 
         ClosePositionOptions IFuturesOrderRestClient.ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
@@ -819,7 +832,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -837,7 +850,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOpenInterest>(result);
 
-            return HttpResult.Ok(result, new SharedOpenInterest(result.Data.OpenInterest ?? 0));
+            return HttpResult.Ok(result, new SharedOpenInterest(new SharedOrderQuantity(contractQuantity: result.Data.OpenInterest)));
         }
 
         #endregion
@@ -920,7 +933,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                             x.Side == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                             x.OpenPrice ?? 0,
                             x.ClosePrice ?? 0,
-                            x.CloseQuantity ?? 0,
+                            new SharedOrderQuantity(contractQuantity: x.CloseQuantity ?? 0),
                             x.ProfitAndLoss ?? 0,
                             x.CloseTime ?? x.OpenTime)
                         {
