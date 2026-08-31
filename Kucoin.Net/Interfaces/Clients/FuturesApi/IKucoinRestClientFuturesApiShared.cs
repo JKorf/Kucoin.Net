@@ -23,4 +23,41 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         ILeverageRestClient
     {
     }
+
+    /// <summary>
+    /// Shared API interface. Shared APIs provide a common,
+    /// exchange-independent contract for accessing functionality across different
+    /// exchange client libraries.
+    /// </summary>
+    public interface IKucoinRestClientFuturesSharedApi :
+        IGetBalancesEndpoint,
+        IGetFuturesTickerEndpoint,
+        IGetAllFuturesTickersEndpoint,
+        IGetFuturesSymbolsEndpoint,
+        IPlaceFuturesOrderEndpoint,
+        IGetFuturesOrderEndpoint,
+        IGetOpenFuturesOrdersEndpoint,
+        IGetClosedFuturesOrdersEndpoint,
+        IGetFuturesOrderTradesEndpoint,
+        IGetFuturesUserTradeHistoryEndpoint,
+        ICancelFuturesOrderEndpoint,
+        IGetPositionsEndpoint,
+        IClosePositionEndpoint,
+        IGetKlinesEndpoint,
+        IGetRecentTradesEndpoint,
+        IGetOrderBookEndpoint,
+        IGetOpenInterestEndpoint,
+        IGetFundingRateHistoryEndpoint,
+        IGetPositionHistoryEndpoint,
+        IGetFeesEndpoint,
+        IGetFuturesOrderByClientOrderIdEndpoint,
+        ICancelFuturesOrderByClientOrderIdEndpoint,
+        ISetFuturesTpSlEndpoint,
+        ICancelFuturesTpSlEndpoint,
+        IGetBookTickerEndpoint,
+        IGetLeverageEndpoint,
+        ISetLeverageEndpoint
+    {
+
+    }
 }

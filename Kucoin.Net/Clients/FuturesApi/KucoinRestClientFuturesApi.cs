@@ -22,6 +22,8 @@ namespace Kucoin.Net.Clients.FuturesApi
     /// <inheritdoc cref="IKucoinRestClientFuturesApi" />
     internal partial class KucoinRestClientFuturesApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientFuturesApi
     {
+        private readonly KucoinRestClientFuturesSharedApi _sharedApi;
+
         private readonly KucoinRestClient _baseClient;
         private readonly KucoinRestOptions _options;
         protected override ErrorMapping ErrorMapping => KucoinErrors.FuturesErrors;
@@ -48,6 +50,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             Account = new KucoinRestClientFuturesApiAccount(this);
             ExchangeData = new KucoinRestClientFuturesApiExchangeData(this);
             Trading = new KucoinRestClientFuturesApiTrading(this);
+
+            _sharedApi = new KucoinRestClientFuturesSharedApi(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 
@@ -93,6 +97,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
-        public IKucoinRestClientFuturesApiShared SharedClient => this;
+        public IKucoinRestClientFuturesApiShared SharedClient => _sharedApi;
+        public IKucoinRestClientFuturesSharedApi SharedApi => _sharedApi;
     }
 }

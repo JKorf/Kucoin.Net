@@ -35,6 +35,8 @@ namespace Kucoin.Net.Clients.FuturesApi
     /// <inheritdoc cref="IKucoinSocketClientFuturesApi" />
     internal partial class KucoinSocketClientFuturesApi : SocketApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientFuturesApi
     {
+        private readonly KucoinSocketClientFuturesSharedApi _sharedApi;
+
         private readonly KucoinSocketClient _baseClient;
 
         /// <inheritdoc />
@@ -44,6 +46,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             : base(loggerFactory, KucoinExchange.Metadata.Id, options.Environment.FuturesAddress, options, options.FuturesOptions)
         {
             _baseClient = baseClient;
+
+            _sharedApi = new KucoinSocketClientFuturesSharedApi(this);
 
             AddSystemSubscription(new KucoinWelcomeSubscription(_logger));
             RegisterPeriodicQuery(
@@ -64,7 +68,8 @@ namespace Kucoin.Net.Clients.FuturesApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketFuturesMessageHandler();
 
-        public IKucoinSocketClientFuturesApiShared SharedClient => this;
+        public IKucoinSocketClientFuturesApiShared SharedClient => _sharedApi;
+        public IKucoinSocketClientFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)

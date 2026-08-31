@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using System;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
@@ -52,9 +53,16 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         public IKucoinRestClientSpotApiEarn Earn { get; }
 
         /// <summary>
-        /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// Get the shared rest requests client. For new implementations prefer <see cref="SharedApi"/>
         /// </summary>
         IKucoinRestClientSpotApiShared SharedClient { get; }
+
+        /// <summary>
+        /// Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        public IKucoinRestClientSpotSharedApi SharedApi { get; }
 
     }
 }

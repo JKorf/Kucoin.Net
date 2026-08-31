@@ -170,7 +170,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/timestamp", KucoinExchange.RateLimiter.PublicRest, 2);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/timestamp", KucoinExchange.RateLimiter.PublicRest, 2, false,
+                preventCaching: true,
+                preventRequestCoalescing: true);
             var result = await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<DateTime>(result);
@@ -185,7 +187,9 @@ namespace Kucoin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinFuturesServiceStatus>> GetServiceStatusAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/status", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/status", KucoinExchange.RateLimiter.PublicRest, 4, false,
+                preventCaching: true,
+                preventRequestCoalescing: true);
             return await _baseClient.SendAsync<KucoinFuturesServiceStatus>(request, null, ct).ConfigureAwait(false);
         }
 

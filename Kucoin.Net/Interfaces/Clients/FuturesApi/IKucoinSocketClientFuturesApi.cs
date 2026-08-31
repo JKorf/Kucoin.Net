@@ -19,9 +19,15 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     public interface IKucoinSocketClientFuturesApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. For new implementations prefer <see cref="SharedApi"/>
         /// </summary>
         IKucoinSocketClientFuturesApiShared SharedClient { get; }
+        /// <summary>
+        /// Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IKucoinSocketClientFuturesSharedApi SharedApi { get; }
 
         /// <summary>
         /// Subscribe to trade updates

@@ -12,6 +12,7 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using CryptoExchange.Net.Sockets.Interfaces;
+using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
@@ -37,6 +38,8 @@ namespace Kucoin.Net.Clients.SpotApi
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
     internal partial class KucoinSocketClientSpotApi : SocketApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientSpotApi
     {
+        private readonly KucoinSocketClientSpotSharedApi _sharedApi;
+
         private readonly KucoinSocketClient _baseClient;
 
         /// <inheritdoc />
@@ -46,6 +49,8 @@ namespace Kucoin.Net.Clients.SpotApi
             : base(loggerFactory, KucoinExchange.Metadata.Id, options.Environment.SpotAddress, options, options.SpotOptions)
         {
             _baseClient = baseClient;
+
+            _sharedApi = new KucoinSocketClientSpotSharedApi(this);
 
             RateLimiter = KucoinExchange.RateLimiter.Socket;
 
@@ -76,7 +81,8 @@ namespace Kucoin.Net.Clients.SpotApi
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => KucoinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
-        public IKucoinSocketClientSpotApiShared SharedClient => this;
+        public IKucoinSocketClientSpotApiShared SharedClient => _sharedApi;
+        public IKucoinSocketClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<KucoinStreamTick>> onData, CancellationToken ct = default) => SubscribeToTickerUpdatesAsync(new[] { symbol }, onData, ct);

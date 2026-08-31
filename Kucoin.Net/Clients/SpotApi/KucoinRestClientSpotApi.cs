@@ -6,6 +6,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
@@ -23,6 +24,8 @@ namespace Kucoin.Net.Clients.SpotApi
     /// <inheritdoc cref="IKucoinRestClientSpotApi" />
     internal partial class KucoinRestClientSpotApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientSpotApi
     {
+        private readonly KucoinRestClientSpotSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
 
         protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.SpotErrors);
@@ -60,6 +63,8 @@ namespace Kucoin.Net.Clients.SpotApi
             HfTrading = new KucoinRestClientSpotApiHfTrading(this);
             Margin = new KucoinRestClientSpotApiMargin(this);
             Earn = new KucoinRestClientSpotApiEarn(this);
+
+            _sharedApi = new KucoinRestClientSpotSharedApi(this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 
@@ -110,7 +115,8 @@ namespace Kucoin.Net.Clients.SpotApi
         protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
-        public IKucoinRestClientSpotApiShared SharedClient => this;
+        public IKucoinRestClientSpotSharedApi SharedApi => _sharedApi;
+        public IKucoinRestClientSpotApiShared SharedClient => _sharedApi;
 
     }
 }

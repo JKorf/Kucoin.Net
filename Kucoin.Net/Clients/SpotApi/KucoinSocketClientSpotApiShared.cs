@@ -1,44 +1,69 @@
-using Kucoin.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Clients.FuturesApi;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Objects.Models.Spot.Socket;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Objects.Sockets;
-using Kucoin.Net.Objects.Models.Spot.Socket;
-using Kucoin.Net.Enums;
-using CryptoExchange.Net;
-using System.Linq;
 
 namespace Kucoin.Net.Clients.SpotApi
 {
-    internal partial class KucoinSocketClientSpotApi : IKucoinSocketClientSpotApiShared
+    internal class KucoinSocketClientSpotSharedApi : 
+        SharedApiBase,
+        IKucoinSocketClientSpotApiShared,
+        IKucoinSocketClientSpotSharedApi
     {
+        private readonly KucoinSocketClientSpotApi _api;
+
         private const string _exchangeName = "Kucoin";
         private const string _topicId = "KucoinSpot";
-        public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(KucoinExchange.Metadata, this);
+        public override SharedClientInfo Discover() => SharedUtils.GetClientInfo(KucoinExchange.Metadata, this);
 
-        public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
-        public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
+        public KucoinSocketClientSpotSharedApi(KucoinSocketClientSpotApi api)
+            : base(
+                  api.Exchange,
+                  [TradingMode.Spot],
+                  () => api.Authenticated,
+                  api.FormatSymbol)
+        {
+            _api = api;
+
+            SetCapabilities(
+                SubscribeTickerOptions,
+                SubscribeTradeOptions,
+                SubscribeBookTickerOptions,
+                SubscribeKlineOptions,
+                SubscribeOrderBookOptions,
+                SubscribeBalanceOptions,
+                SubscribeSpotOrderOptions
+                );
+        }
 
         #region Ticker client
-        SubscribeTickerOptions ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscribeTickerOptions(_exchangeName)
+        async Task<WebSocketResult<UpdateSubscription>> ISubscribeTickerOperation.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
+            => await SubscribeToTickerUpdatesAsync(request, x => handler(x.ToType<SharedTicker>(x.Data)), ct).ConfigureAwait(false);
+
+        public SubscribeTickerOptions SubscribeTickerOptions { get; } = new SubscribeTickerOptions(_exchangeName)
         {
             SupportsMultipleSymbols = true,
             MaxSymbolCount = 100
         };
-        async Task<WebSocketResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedSpotTicker>> handler, CancellationToken ct)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedSpotTicker>> handler, CancellationToken ct)
         {
-            var validationError = SharedClient.SubscribeTickerOptions.ValidateRequest(request, this);
+            var validationError = SubscribeTickerOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToSnapshotUpdatesAsync(symbols, update => handler(update.ToType(
+            var result = await _api.SubscribeToSnapshotUpdatesAsync(symbols, update => handler(update.ToType(
                 new SharedSpotTicker(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Data.Symbol),
                     update.Data.Symbol,
                     update.Data.LastPrice ?? 0,
                     update.Data.HighPrice ?? 0,
@@ -54,21 +79,21 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Trade client
 
-        SubscribeTradeOptions ITradeSocketClient.SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
+        public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
         {
             SupportsMultipleSymbols = true,
             MaxSymbolCount = 100
         };
-        async Task<WebSocketResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
-            var validationError = SharedClient.SubscribeTradeOptions.ValidateRequest(request, this);
+            var validationError = SubscribeTradeOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.ToType<SharedTrade[]>(new[] {
+            var result = await _api.SubscribeToTradeUpdatesAsync(symbols, update => handler(update.ToType<SharedTrade[]>(new[] {
                 new SharedTrade(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Data.Symbol),
                     update.Data.Symbol!,
                     new SharedOrderQuantity(update.Data.Quantity),
                     update.Data.Price,
@@ -82,22 +107,22 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Book Ticker client
 
-        SubscribeBookTickerOptions IBookTickerSocketClient.SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
+        public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
         {
             SupportsMultipleSymbols = true,
             MaxSymbolCount = 100
         };
-        async Task<WebSocketResult<UpdateSubscription>> IBookTickerSocketClient.SubscribeToBookTickerUpdatesAsync(SubscribeBookTickerRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(SubscribeBookTickerRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
         {
-            var validationError = SharedClient.SubscribeBookTickerOptions.ValidateRequest(request, this);
+            var validationError = SubscribeBookTickerOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(
+            var result = await _api.SubscribeToBookTickerUpdatesAsync(symbols, update => handler(
                 update.ToType(
                     new SharedBookTicker(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), 
+                        ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Symbol), 
                         update.Symbol!,
                         update.Data.BestAsk.Price,
                         new SharedOrderQuantity(update.Data.BestAsk.Quantity), 
@@ -109,23 +134,23 @@ namespace Kucoin.Net.Clients.SpotApi
         #endregion
 
         #region Kline client
-        SubscribeKlineOptions IKlineSocketClient.SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false)
+        public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false)
         {
             MaxSymbolCount = 100,
             SupportsMultipleSymbols = true
         };
-        async Task<WebSocketResult<UpdateSubscription>> IKlineSocketClient.SubscribeToKlineUpdatesAsync(SubscribeKlineRequest request, Action<DataEvent<SharedKline>> handler, CancellationToken ct)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(SubscribeKlineRequest request, Action<DataEvent<SharedKline>> handler, CancellationToken ct)
         {
             var interval = (Enums.KlineInterval)request.Interval;
 
-            var validationError = SharedClient.SubscribeKlineOptions.ValidateRequest(request, this);
+            var validationError = SubscribeKlineOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update => handler(update.ToType(
+            var result = await _api.SubscribeToKlineUpdatesAsync(symbols, interval, update => handler(update.ToType(
                 new SharedKline(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Data.Symbol),
                     update.Data.Symbol!,
                     update.Data.Candles.OpenTime,
                     update.Data.Candles.ClosePrice, 
@@ -139,34 +164,34 @@ namespace Kucoin.Net.Clients.SpotApi
         #endregion
 
         #region Order Book client
-        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 50 })
+        public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 50 })
         {
             SupportsMultipleSymbols = true,
             MaxSymbolCount = 100
         };
-        async Task<WebSocketResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
-            var validationError = SharedClient.SubscribeOrderBookOptions.ValidateRequest(request, this);
+            var validationError = SubscribeOrderBookOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToOrderBookUpdatesAsync(symbols, request.Limit ?? 5, update => handler(
+            var result = await _api.SubscribeToOrderBookUpdatesAsync(symbols, request.Limit ?? 5, update => handler(
                 update.ToType(
-                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.SequenceNumber, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
         #endregion
 
         #region Balance client
-        SubscribeBalanceOptions IBalanceSocketClient.SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
-        async Task<WebSocketResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
+        public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
-            var validationError = SharedClient.SubscribeBalanceOptions.ValidateRequest(request, this);
+            var validationError = SubscribeBalanceOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
-            var result = await SubscribeToBalanceUpdatesAsync(
+            var result = await _api.SubscribeToBalanceUpdatesAsync(
                 update =>
                 {
                     // Only trade/trade_hf account updates should be passed through
@@ -188,29 +213,32 @@ namespace Kucoin.Net.Clients.SpotApi
 
         #region Spot Order client
 
-        SubscribeSpotOrderOptions ISpotOrderSocketClient.SubscribeSpotOrderOptions { get; } = new SubscribeSpotOrderOptions(_exchangeName, false);
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
+            => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
+
+        public SubscribeSpotOrderOptions SubscribeSpotOrderOptions { get; } = new SubscribeSpotOrderOptions(_exchangeName, false);
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrderUpdate[]>> handler, CancellationToken ct)
         {
-            var validationError = SharedClient.SubscribeSpotOrderOptions.ValidateRequest(request, this);
+            var validationError = SubscribeSpotOrderOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
-            var result = await SubscribeToOrderUpdatesAsync(
-                update => handler(update.ToType<SharedSpotOrder[]>(new[] { ParseOrder(update.Data) })),
-                update => handler(update.ToType<SharedSpotOrder[]>(new[] { ParseOrder(update.Data) })),
-                update => handler(update.ToType<SharedSpotOrder[]>(new[] { ParseOrder(update.Data) })),
+            var result = await _api.SubscribeToOrderUpdatesAsync(
+                update => handler(update.ToType(new[] { ParseOrder(update.Data) })),
+                update => handler(update.ToType(new[] { ParseOrder(update.Data) })),
+                update => handler(update.ToType(new[] { ParseOrder(update.Data) })),
                 ct: ct).ConfigureAwait(false);
 
             return result;
         }
         #endregion
 
-        private SharedSpotOrder ParseOrder(KucoinStreamOrderBaseUpdate orderUpdate)
+        private SharedSpotOrderUpdate ParseOrder(KucoinStreamOrderBaseUpdate orderUpdate)
         {
             if (orderUpdate is KucoinStreamOrderNewUpdate update)
             {
-                return new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol),
+                return new SharedSpotOrderUpdate(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Symbol),
                             update.Symbol,
                             update.OrderId.ToString(),
                             update.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
@@ -222,14 +250,16 @@ namespace Kucoin.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(update.OriginalQuantity == 0 ? null : update.OriginalQuantity, update.OriginalValue),
                     QuantityFilled = new SharedOrderQuantity(0, 0),
                     OrderPrice = update.Price == 0 ? null : update.Price,
+#pragma warning disable CS0618 // Type or member is obsolete
                     Fee = 0,
+#pragma warning restore CS0618 // Type or member is obsolete
                     IsTriggerOrder = update.OrderType == OrderType.Stop || update.OrderType == OrderType.MarketStop || update.OrderType == OrderType.LimitStop
                 };
             }
             if (orderUpdate is KucoinStreamOrderMatchUpdate matchUpdate)
             {
-                return new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, matchUpdate.Symbol),
+                return new SharedSpotOrderUpdate(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, matchUpdate.Symbol),
                             matchUpdate.Symbol,
                             matchUpdate.OrderId.ToString(),
                             matchUpdate.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : matchUpdate.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
@@ -244,7 +274,7 @@ namespace Kucoin.Net.Clients.SpotApi
                     UpdateTime = matchUpdate.Timestamp,
                     IsTriggerOrder = matchUpdate.OrderType == OrderType.Stop || matchUpdate.OrderType == OrderType.MarketStop || matchUpdate.OrderType == OrderType.LimitStop,
                     LastTrade = new SharedUserTrade(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, matchUpdate.Symbol), 
+                        ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, matchUpdate.Symbol), 
                         matchUpdate.Symbol, 
                         matchUpdate.OrderId, 
                         matchUpdate.TradeId, 
@@ -260,8 +290,8 @@ namespace Kucoin.Net.Clients.SpotApi
             }
             if (orderUpdate is KucoinStreamOrderUpdate upd)
             {
-                return new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, upd.Symbol),
+                return new SharedSpotOrderUpdate(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, upd.Symbol),
                             upd.Symbol,
                             upd.OrderId.ToString(),
                             upd.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : upd.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,

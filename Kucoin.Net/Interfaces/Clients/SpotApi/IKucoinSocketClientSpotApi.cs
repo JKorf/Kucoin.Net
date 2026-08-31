@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -20,9 +21,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     public interface IKucoinSocketClientSpotApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. For new implementations prefer <see cref="SharedApi"/>
         /// </summary>
         IKucoinSocketClientSpotApiShared SharedClient { get; }
+        /// <summary>
+        /// Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IKucoinSocketClientSpotSharedApi SharedApi { get; }
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
