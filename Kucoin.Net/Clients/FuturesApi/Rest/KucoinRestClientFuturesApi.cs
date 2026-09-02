@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;

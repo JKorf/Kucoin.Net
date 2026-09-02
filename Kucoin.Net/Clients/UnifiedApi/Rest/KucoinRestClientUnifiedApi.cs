@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
@@ -6,7 +6,6 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 using Kucoin.Net.Objects.Internal;
@@ -19,52 +18,35 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.SpotApi
+namespace Kucoin.Net.Clients.UnifiedApi
 {
-    /// <inheritdoc cref="IKucoinRestClientSpotApi" />
-    internal partial class KucoinRestClientSpotApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientSpotApi
+    /// <inheritdoc cref="IKucoinRestClientUnifiedApi" />
+    internal partial class KucoinRestClientUnifiedApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientUnifiedApi
     {
-        private readonly KucoinRestClientSpotSharedApi _sharedApi;
-
+        private KucoinRestClient _baseClient;
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
-
         protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.SpotErrors);
+
+        internal new KucoinRestOptions ClientOptions => (KucoinRestOptions)base.ClientOptions;
 
         /// <inheritdoc />
         public string ExchangeName => "Kucoin";
 
         /// <inheritdoc />
-        public IKucoinRestClientSpotApiAccount Account { get; }
+        public IKucoinRestClientUnifiedApiAccount Account { get; }
         /// <inheritdoc />
-        public IKucoinRestClientSpotApiSubAccount SubAccount { get; }
-
+        public IKucoinRestClientUnifiedApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
-        public IKucoinRestClientSpotApiExchangeData ExchangeData { get; }
+        public IKucoinRestClientUnifiedApiTrading Trading { get; }
 
-        /// <inheritdoc />
-        public IKucoinRestClientSpotApiTrading Trading { get; }
-
-        /// <inheritdoc />
-        public IKucoinRestClientSpotApiHfTrading HfTrading { get; }
-
-        /// <inheritdoc />
-        public IKucoinRestClientSpotApiMargin Margin { get; }
-
-        /// <inheritdoc />
-        public IKucoinRestClientSpotApiEarn Earn { get; }
-
-        internal KucoinRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
-            : base(loggerFactory, KucoinExchange.Metadata.Id, httpClient, options.Environment.SpotAddress, options, options.SpotOptions)
+        internal KucoinRestClientUnifiedApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, KucoinRestClient baseClient, KucoinRestOptions options)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, httpClient, options.Environment.UnifiedRestAddress, options, options.UnifiedOptions)
         {
-            Account = new KucoinRestClientSpotApiAccount(this);
-            SubAccount = new KucoinRestClientSpotApiSubAccount(this);
-            ExchangeData = new KucoinRestClientSpotApiExchangeData(this);
-            Trading = new KucoinRestClientSpotApiTrading(this);
-            HfTrading = new KucoinRestClientSpotApiHfTrading(this);
-            Margin = new KucoinRestClientSpotApiMargin(this);
-            Earn = new KucoinRestClientSpotApiEarn(this);
+            _baseClient = baseClient;
 
-            _sharedApi = new KucoinRestClientSpotSharedApi(this);
+            Account = new KucoinRestClientUnifiedApiAccount(this);
+            ExchangeData = new KucoinRestClientUnifiedApiExchangeData(this);
+            Trading = new KucoinRestClientUnifiedApiTrading(_logger, this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 
@@ -106,17 +88,8 @@ namespace Kucoin.Net.Clients.SpotApi
             return HttpResult.Ok(result, result.Data.Data);
         }
 
-        internal async Task<HttpResult<T>> SendRawAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-        {
-            return await base.SendAsync<T>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-        }
-
         /// <inheritdoc />
         protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
-            => ExchangeData.GetServerTimeAsync();
-
-        public IKucoinRestClientSpotSharedApi SharedApi => _sharedApi;
-        public IKucoinRestClientSpotApiShared SharedClient => _sharedApi;
-
+            => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
     }
 }

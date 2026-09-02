@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Kucoin.Net.Enums;
