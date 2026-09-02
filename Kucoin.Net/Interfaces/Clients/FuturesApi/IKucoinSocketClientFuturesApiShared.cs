@@ -23,14 +23,14 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// exchange client libraries.
     /// </summary>
     public interface IKucoinSocketClientFuturesSharedApi :
-        ISubscribeTickerOperation,
-        ISubscribeTradesOperation,
-        ISubscribeBookTickerOperation,
-        ISubscribeKlinesOperation,
-        ISubscribeOrderBookOperation,
-        ISubscribeBalancesOperation,
-        ISubscribeFuturesOrdersOperation,
-        ISubscribePositionsOperation
+        ISubscribeTickerSocket,
+        ISubscribeTradesSocket,
+        ISubscribeBookTickerSocket,
+        ISubscribeKlinesSocket,
+        ISubscribeOrderBookSocket,
+        ISubscribeBalancesSocket,
+        ISubscribeFuturesOrdersSocket,
+        ISubscribePositionsSocket
     {
     }
 }

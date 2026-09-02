@@ -23,13 +23,13 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     /// exchange client libraries.
     /// </summary>
     public interface IKucoinSocketClientSpotSharedApi :
-        ISubscribeTickerOperation,
-        ISubscribeTradesOperation,
-        ISubscribeBookTickerOperation,
-        ISubscribeKlinesOperation,
-        ISubscribeOrderBookOperation,
-        ISubscribeBalancesOperation,
-        ISubscribeSpotOrdersOperation
+        ISubscribeTickerSocket,
+        ISubscribeTradesSocket,
+        ISubscribeBookTickerSocket,
+        ISubscribeKlinesSocket,
+        ISubscribeOrderBookSocket,
+        ISubscribeBalancesSocket,
+        ISubscribeSpotOrdersSocket
     {
     }
 }
