@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,11 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinRestClientFuturesSharedApi
     {
-        #region Futures Ticker client
+
+        #region Get Futures Ticker
+
+        async Task<ICallResult<SharedFuturesTicker>> IGetFuturesTicker.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
+            => await GetFuturesTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTickerOptions GetFuturesTickerOptions { get; } = new GetFuturesTickerOptions(_exchangeName);
         public async Task<HttpResult<SharedFuturesTicker>> GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
@@ -42,6 +46,13 @@ namespace Kucoin.Net.Clients.FuturesApi
                     NextFundingTime = result.Data.NextFundingRateTime
                 });
         }
+
+        #endregion
+
+        #region Get All Futures Tickers
+
+        async Task<ICallResult<SharedFuturesTicker[]>> IGetAllFuturesTickers.GetAllFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => await GetAllFuturesTickersAsync(request, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedFuturesTicker[]>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
             => GetAllFuturesTickersAsync(request, ct);
@@ -87,5 +98,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

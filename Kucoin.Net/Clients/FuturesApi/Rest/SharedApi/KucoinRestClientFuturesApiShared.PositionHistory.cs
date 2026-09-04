@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,11 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinRestClientFuturesSharedApi
     {
-        #region Position History client
+
+        #region Get Position History
+
+        async Task<ICallResult<SharedPositionHistory[]>> IGetPositionHistory.GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetPositionHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, true, 200);
         public async Task<HttpResult<SharedPositionHistory[]>> GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -64,6 +68,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                             PositionId = x.PositionId
                         }).ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

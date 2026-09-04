@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients.FuturesApi;
@@ -15,7 +15,11 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinRestClientSpotSharedApi
     {
-        #region Fee Client
+        #region Get Fees
+
+        async Task<ICallResult<SharedFee>> IGetFees.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
+            => await GetFeesAsync(request, ct).ConfigureAwait(false);
+
         public GetFeeOptions GetFeeOptions { get; } = new GetFeeOptions(_exchangeName, true);
 
         public async Task<HttpResult<SharedFee>> GetFeesAsync(GetFeeRequest request, CancellationToken ct)
@@ -34,6 +38,7 @@ namespace Kucoin.Net.Clients.SpotApi
             // Return
             return HttpResult.Ok(result, new SharedFee(result.Data.Single().MakerFeeRate * 100, result.Data.Single().TakerFeeRate * 100));
         }
+
         #endregion
     }
 }

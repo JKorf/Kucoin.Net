@@ -111,6 +111,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IKucoinOrderBookFactory, KucoinOrderBookFactory>();
             services.AddTransient<IKucoinTrackerFactory, KucoinTrackerFactory>();
             services.AddTransient<ITrackerFactory, KucoinTrackerFactory>();
+            services.AddTransient<IKucoinSharedApiClient, KucoinSharedApiClient>();
             services.AddSingleton<IKucoinUserClientProvider, KucoinUserClientProvider>(x =>
             new KucoinUserClientProvider(
                 x.GetRequiredService<IHttpClientFactory>().CreateClient(typeof(IKucoinRestClient).Name),
@@ -122,6 +123,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedClient);
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedApi);
 
             return services;
         }

@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients.FuturesApi;
@@ -15,7 +15,11 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinRestClientSpotSharedApi
     {
-        #region Balance client
+        #region Get Balances
+
+        async Task<ICallResult<SharedBalance[]>> IGetBalances.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
+            => await GetBalancesAsync(request, ct).ConfigureAwait(false);
+
         public GetBalancesOptions GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, [AccountTypeFilter.Spot, AccountTypeFilter.Funding, AccountTypeFilter.Margin]);
 
         public async Task<HttpResult<SharedBalance[]>> GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
@@ -64,5 +68,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

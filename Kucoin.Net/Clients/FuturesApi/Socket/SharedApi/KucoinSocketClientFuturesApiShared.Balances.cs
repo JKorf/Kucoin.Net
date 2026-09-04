@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Threading;
@@ -13,7 +13,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinSocketClientFuturesSharedApi
     {
-        #region Balance client
+        #region Subscribe Balances
+
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
@@ -29,6 +30,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

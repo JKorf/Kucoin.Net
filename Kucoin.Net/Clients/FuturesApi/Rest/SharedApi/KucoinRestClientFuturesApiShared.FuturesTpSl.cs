@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,11 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinRestClientFuturesSharedApi
     {
-        #region Tp/SL Client
+        #region Set Futures TP/SL
+
+        async Task<ICallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+            => await SetFuturesTpSlAsync(request, ct).ConfigureAwait(false);
+
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -46,6 +50,8 @@ namespace Kucoin.Net.Clients.FuturesApi
             return HttpResult.Ok(result, new SharedId(result.Data.Id.ToString()));
         }
 
+        #endregion
+
         private StopType GetStopType(SetTpSlRequest request)
         {
             if (request.PositionSide == SharedPositionSide.Long)
@@ -61,6 +67,11 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             return OrderSide.Buy;
         }
+
+        #region Cancel Futures TP/SL
+
+        async Task<ICallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+            => await CancelFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
@@ -87,5 +98,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

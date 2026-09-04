@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Threading;
@@ -13,7 +13,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinSocketClientFuturesSharedApi
     {
-        #region Position client
+        #region Subscribe Positions
+
         public SubscribePositionOptions SubscribePositionOptions { get; } = new SubscribePositionOptions(_exchangeName, true);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<DataEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
@@ -42,5 +43,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

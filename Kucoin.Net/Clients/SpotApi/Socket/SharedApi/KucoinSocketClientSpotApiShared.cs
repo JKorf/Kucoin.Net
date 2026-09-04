@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -27,6 +27,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
         public KucoinSocketClientSpotSharedApi(KucoinSocketClientSpotApi api)
             : base(
+                  SharedTransport.Socket,
                   api.Exchange,
                   [TradingMode.Spot],
                   () => api.Authenticated,

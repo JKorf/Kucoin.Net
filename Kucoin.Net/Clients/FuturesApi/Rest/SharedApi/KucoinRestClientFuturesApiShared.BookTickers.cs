@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,11 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinRestClientFuturesSharedApi
     {
-        #region Book Ticker client
+
+        #region Get Book Ticker
+
+        async Task<ICallResult<SharedBookTicker>> IGetBookTicker.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+            => await GetBookTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetBookTickerOptions GetBookTickerOptions { get; } = new GetBookTickerOptions(_exchangeName, false);
         public async Task<HttpResult<SharedBookTicker>> GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
@@ -37,5 +41,6 @@ namespace Kucoin.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

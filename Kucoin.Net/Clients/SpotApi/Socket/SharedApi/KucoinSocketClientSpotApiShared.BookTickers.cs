@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -15,7 +15,8 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinSocketClientSpotSharedApi
     {
-        #region Book Ticker client
+
+        #region Subscribe Book Ticker
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
         {
@@ -41,6 +42,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

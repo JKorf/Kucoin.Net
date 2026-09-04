@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -15,7 +15,8 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinSocketClientSpotSharedApi
     {
-        #region Kline client
+        #region Subscribe Klines
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false)
         {
             MaxSymbolCount = 100,
@@ -43,6 +44,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

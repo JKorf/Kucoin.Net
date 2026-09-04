@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Threading;
@@ -13,7 +13,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinSocketClientFuturesSharedApi
     {
-        #region Book Ticker client
+
+        #region Subscribe Book Ticker
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(SubscribeBookTickerRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
@@ -35,6 +36,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

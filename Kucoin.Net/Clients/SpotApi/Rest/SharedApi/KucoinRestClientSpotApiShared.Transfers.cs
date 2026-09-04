@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients.FuturesApi;
@@ -15,7 +15,11 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinRestClientSpotSharedApi
     {
-        #region Transfer client
+
+        #region Transfer
+
+        async Task<ICallResult<SharedId>> ITransfer.TransferAsync(TransferRequest request, CancellationToken ct)
+            => await TransferAsync(request, ct).ConfigureAwait(false);
 
         public TransferOptions TransferOptions { get; } = new TransferOptions(_exchangeName, [
             SharedAccountType.Funding,
@@ -52,6 +56,8 @@ namespace Kucoin.Net.Clients.SpotApi
             return HttpResult.Ok(transfer, new SharedId(transfer.Data.OrderId.ToString()));
         }
 
+        #endregion
+
         private TransferAccountType? GetTransferType(SharedAccountType type)
         {
             if (type == SharedAccountType.Funding) return TransferAccountType.Main;
@@ -63,6 +69,5 @@ namespace Kucoin.Net.Clients.SpotApi
             return null;
         }
 
-        #endregion
     }
 }

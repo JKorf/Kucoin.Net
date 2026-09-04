@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -15,7 +15,8 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinSocketClientSpotSharedApi
     {
-        #region Ticker client
+        #region Subscribe Ticker
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
             => await SubscribeToTickerUpdatesAsync(request, x => handler(x.ToType<SharedTicker>(x.Data)), ct).ConfigureAwait(false);
 
@@ -45,6 +46,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

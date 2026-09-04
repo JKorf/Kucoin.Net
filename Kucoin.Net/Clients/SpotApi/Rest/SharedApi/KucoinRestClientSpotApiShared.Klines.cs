@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients.FuturesApi;
@@ -15,7 +15,11 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinRestClientSpotSharedApi
     {
-        #region Kline client
+
+        #region Get Klines
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, false, true, true, 100, false);
         public async Task<HttpResult<SharedKline[]>> GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -64,5 +68,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

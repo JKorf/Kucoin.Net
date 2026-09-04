@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients.FuturesApi;
@@ -15,7 +15,11 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinRestClientSpotSharedApi
     {
-        #region Withdrawal client
+
+        #region Get Withdrawal History
+
+        async Task<ICallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetWithdrawalHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetWithdrawalHistoryAsync(request, pageRequest, ct);
@@ -70,6 +74,8 @@ namespace Kucoin.Net.Clients.SpotApi
                         }).ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus GetWithdrawalStatus(KucoinWithdrawal x)
         {
             if (x.Status == WithdrawalStatus.Failure)
@@ -84,9 +90,10 @@ namespace Kucoin.Net.Clients.SpotApi
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
+        #region Withdraw
 
-        #region Withdraw client
+        async Task<ICallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
+            => await WithdrawAsync(request, ct).ConfigureAwait(false);
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName);
 
@@ -112,5 +119,6 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

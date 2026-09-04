@@ -1,4 +1,4 @@
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -15,7 +15,8 @@ namespace Kucoin.Net.Clients.SpotApi
 {
     internal partial class KucoinSocketClientSpotSharedApi
     {
-        #region Spot Order client
+
+        #region Subscribe Spot Orders
 
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
             => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -35,6 +36,7 @@ namespace Kucoin.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
 
         private SharedSpotOrderUpdate ParseOrder(KucoinStreamOrderBaseUpdate orderUpdate)

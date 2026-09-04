@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -27,6 +27,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         public KucoinRestClientFuturesSharedApi(KucoinRestClientFuturesApi api)
             : base(
+                  SharedTransport.Rest,
                   api.Exchange,
                   [TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse],
                   () => api.Authenticated,

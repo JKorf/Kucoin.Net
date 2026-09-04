@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Threading;
@@ -13,7 +13,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 {
     internal partial class KucoinSocketClientFuturesSharedApi
     {
-        #region Futures Order client
+
+        #region Subscribe Futures Orders
 
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -32,6 +33,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             return result;
         }
+
+        #endregion
 
         private SharedFuturesOrderUpdate ParseOrder(KucoinStreamFuturesOrderUpdate update)
         {
@@ -72,6 +75,5 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (updateType == MatchUpdateType.Filled) return SharedOrderStatus.Filled;
             return SharedOrderStatus.Unknown;
         }
-        #endregion
     }
 }

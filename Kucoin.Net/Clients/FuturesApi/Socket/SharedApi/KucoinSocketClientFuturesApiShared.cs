@@ -1,4 +1,4 @@
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Threading;
@@ -25,6 +25,7 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         public KucoinSocketClientFuturesSharedApi(KucoinSocketClientFuturesApi api)
             : base(
+                  SharedTransport.Socket,
                   api.Exchange,
                   [TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse],
                   () => api.Authenticated,
