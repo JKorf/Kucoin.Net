@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.SharedApis;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -46,8 +46,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         IGetSpotUserTradeHistoryRest,
         ICancelSpotOrderRest,
         IGetSpotSymbolsRest,
-        IGetSpotTickerRest,
-        IGetAllSpotTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetWithdrawalHistoryRest,
         IWithdrawRest,
         IGetFeesRest,

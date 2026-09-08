@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.SharedApis;
 
 namespace Kucoin.Net.Interfaces.Clients.FuturesApi
 {
@@ -31,8 +31,8 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
     /// </summary>
     public interface IKucoinRestClientFuturesSharedApi :
         IGetBalancesRest,
-        IGetFuturesTickerRest,
-        IGetAllFuturesTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetFuturesSymbolsRest,
         IPlaceFuturesOrderRest,
         IGetFuturesOrderRest,

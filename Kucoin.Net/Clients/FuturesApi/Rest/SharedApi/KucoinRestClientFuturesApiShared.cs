@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
@@ -37,8 +37,8 @@ namespace Kucoin.Net.Clients.FuturesApi
 
             SetCapabilities(
                 GetBalancesOptions,
-                GetFuturesTickerOptions,
-                GetAllFuturesTickersOptions,
+                GetTickerOptions,
+                GetAllTickersOptions,
                 GetBookTickerOptions,
                 GetFuturesSymbolsOptions,
                 PlaceFuturesOrderOptions,
