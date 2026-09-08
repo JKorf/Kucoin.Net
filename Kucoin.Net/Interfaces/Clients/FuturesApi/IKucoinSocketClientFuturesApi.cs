@@ -241,7 +241,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to snapshot updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/transaction-statistics-timer-event" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/3470089w0" /><br />
         /// Endpoint:<br />
         /// Channel: /contractMarket/snapshot
         /// </para>
@@ -256,7 +256,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to snapshot updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs/websocket/futures-trading/public-channels/transaction-statistics-timer-event" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/3470089w0" /><br />
         /// Endpoint:<br />
         /// Channel: /contractMarket/snapshot
         /// </para>

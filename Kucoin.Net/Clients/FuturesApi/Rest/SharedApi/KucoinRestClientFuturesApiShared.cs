@@ -49,7 +49,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 GetFuturesOrderTradesOptions,
                 GetFuturesUserTradeHistoryOptions,
                 GetPositionsOptions,
-                ClosePositionOptions,
+                CloseFullPositionOptions,
                 GetFuturesOrderByClientOrderIdOptions,
                 CancelFuturesOrderByClientOrderIdOptions,
                 GetKlinesOptions,

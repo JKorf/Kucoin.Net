@@ -327,7 +327,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get margin account info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs/rest/funding/funding-overview/get-account-detail-margin" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/abandoned-endpoints/margin-trading/get-account-detail-margin/" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/margin/account
         /// </para>

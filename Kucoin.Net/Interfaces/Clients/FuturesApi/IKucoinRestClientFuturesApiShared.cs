@@ -42,7 +42,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         IGetFuturesUserTradeHistoryRest,
         ICancelFuturesOrderRest,
         IGetPositionsRest,
-        IClosePositionRest,
+        ICloseFullPositionRest,
         IGetKlinesRest,
         IGetRecentTradesRest,
         IGetOrderBookRest,

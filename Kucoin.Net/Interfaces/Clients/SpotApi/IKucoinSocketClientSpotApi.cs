@@ -215,7 +215,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates for stop orders
-        /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/private-channels/stop-order-event" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/3470139w0" /></para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -310,7 +310,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to margin order updates for an asset
-        /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/margin-trade-order-event" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/3470257w0" /></para>
         /// </summary>
         /// <param name="symbol">Asset, for example `ETH-USDT`</param>
         /// <param name="onOrderPlaced">Data handler for order placement updates</param>

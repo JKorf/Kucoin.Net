@@ -113,7 +113,7 @@ namespace Kucoin.Net.Interfaces.Clients.FuturesApi
         /// Enable/disable auto deposit margin
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs/rest/futures-trading/positions/modify-auto-deposit-margin-status" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/abandoned-endpoints/futures-trading/modify-isolated-margin-auto-deposit-status" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/position/margin/auto-deposit-status
         /// </para>

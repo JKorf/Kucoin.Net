@@ -1,14 +1,15 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Requests;
 using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
+using Kucoin.Net.Objects.Models.Futures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Kucoin.Net.Enums;
-using Kucoin.Net.Interfaces.Clients.FuturesApi;
-using CryptoExchange.Net;
-using Kucoin.Net.Objects.Models.Futures;
 
 namespace Kucoin.Net.Clients.FuturesApi
 {
@@ -387,8 +388,24 @@ namespace Kucoin.Net.Clients.FuturesApi
 
         #region Close Position
 
-        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
-            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
+        async Task<ICallResult<SharedId>> ICloseFullPosition.CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+            => await CloseFullPositionAsync(request, ct).ConfigureAwait(false);
+
+        public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.PositionSide)
+            ]
+        };
+
+        public async Task<HttpResult<SharedId>> CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+        {
+            var validationError = CloseFullPositionOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedId>(Exchange, validationError);
+
+            return await ClosePositionCoreAsync(request.Symbol!, request.PositionSide!.Value, ct).ConfigureAwait(false);
+        }
 
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
@@ -402,9 +419,14 @@ namespace Kucoin.Net.Clients.FuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
+            return await ClosePositionCoreAsync(request.Symbol!, request.PositionSide!.Value, ct).ConfigureAwait(false);
+        }
+
+        private async Task<HttpResult<SharedId>> ClosePositionCoreAsync(SharedSymbol symbol, SharedPositionSide side, CancellationToken ct)
+        {
             var result = await _api.Trading.PlaceOrderAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
-                request.PositionSide == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
+                symbol.GetSymbol(FormatSymbol),
+                side == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
                 NewOrderType.Market,
                 0,
                 0,
