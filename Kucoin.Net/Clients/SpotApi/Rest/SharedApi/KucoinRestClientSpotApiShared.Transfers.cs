@@ -32,7 +32,7 @@ namespace Kucoin.Net.Clients.SpotApi
             SharedAccountType.IsolatedMargin
             ])
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<TransferRequest>.NotSupported(x => x.FromSymbol),
                 RequestParameterRuleOverride<TransferRequest>.NotSupported(x => x.ToSymbol),
                 ]
