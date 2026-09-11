@@ -1,4 +1,5 @@
-﻿using Kucoin.Net.Interfaces.Clients.FuturesApi;
+﻿using CryptoExchange.Net.SharedApis;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
 
 namespace Kucoin.Net.Interfaces.Clients
@@ -6,7 +7,7 @@ namespace Kucoin.Net.Interfaces.Clients
     /// <summary>
     /// Client for the shared REST and WebSocket API implementations of Kucoin
     /// </summary>
-    public interface IKucoinSharedApiClient
+    public interface IKucoinSharedApiClient : ISharedApiClientBase
     {
         /// <summary>
         /// Spot REST shared API implementations
