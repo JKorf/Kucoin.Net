@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.SharedApis;
 using Kucoin.Net;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Interfaces;
@@ -119,19 +120,18 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<KucoinRestOptions>>(),
                 x.GetRequiredService<IOptions<KucoinSocketOptions>>()));
 
-            services.AddTransient<IKucoinSharedApiClient, KucoinSharedApiClient>();
-
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedClient);
 
-            services.RegisterSharedApiClientCapabilities<IKucoinSharedApiClient>();
-
-            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedApi);
+            services.RegisterSharedApiClient<
+                IKucoinSharedApiClient,
+                KucoinSharedApiClient>(sharedApis => sharedApis
+                    .Add(client => client.SpotRest)
+                    .Add(client => client.FuturesRest)
+                    .Add(client => client.SpotSocket)
+                    .Add(client => client.FuturesSocket));
 
             return services;
         }
