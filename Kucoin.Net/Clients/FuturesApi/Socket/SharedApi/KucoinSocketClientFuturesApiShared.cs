@@ -26,7 +26,7 @@ namespace Kucoin.Net.Clients.FuturesApi
         public KucoinSocketClientFuturesSharedApi(KucoinSocketClientFuturesApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   [TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse],
                   () => api.Authenticated,
                   api.FormatSymbol)

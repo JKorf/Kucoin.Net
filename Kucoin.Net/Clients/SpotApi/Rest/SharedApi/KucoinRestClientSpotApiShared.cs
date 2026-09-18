@@ -30,7 +30,7 @@ namespace Kucoin.Net.Clients.SpotApi
         public KucoinRestClientSpotSharedApi(KucoinRestClientSpotApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   [TradingMode.Spot],
                   () => api.Authenticated,
                   api.FormatSymbol)
