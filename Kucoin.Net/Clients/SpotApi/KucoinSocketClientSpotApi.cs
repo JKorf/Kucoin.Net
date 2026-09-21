@@ -445,6 +445,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 options.ApiCredentials = ApiCredentials;
                 options.Environment = ClientOptions.Environment;
+                options.Proxy = ClientOptions.Proxy;
             }))
             {
                 HttpResult<KucoinToken> tokenResult;
