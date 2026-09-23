@@ -369,6 +369,7 @@ namespace Kucoin.Net.Clients.FuturesApi
             {
                 options.ApiCredentials = ApiCredentials;
                 options.Environment = ClientOptions.Environment;
+                options.Proxy = ClientOptions.Proxy;
             }))
             {
                 HttpResult<KucoinToken> tokenResult;

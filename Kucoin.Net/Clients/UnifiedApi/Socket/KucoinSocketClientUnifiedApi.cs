@@ -385,6 +385,7 @@ namespace Kucoin.Net.Clients.SpotApi
             {
                 options.ApiCredentials = ApiCredentials;
                 options.Environment = ClientOptions.Environment;
+                options.Proxy = ClientOptions.Proxy;
             }))
             {
                 var tokenResult = await ((KucoinRestClientUnifiedApiAccount)restClient.UnifiedApi.Account).GetWebsocketTokenPrivateAsync().ConfigureAwait(false);
