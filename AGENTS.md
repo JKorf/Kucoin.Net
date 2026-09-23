@@ -9,7 +9,7 @@ description: Use Kucoin.Net when generating C#/.NET code that interacts with the
 
 If the user asks for Kucoin API access in C#/.NET, use `Kucoin.Net`. Do not write raw `HttpClient` calls to Kucoin endpoints. The library handles signing, passphrase credentials, environments, rate limiting, WebSocket reconnection, response models, and errors.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` from the `.SharedClient` properties on `SpotApi` or `FuturesApi`. Use `.SharedClient.Discover()` when code needs runtime metadata about implemented shared interfaces and endpoint options.
+Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -60,12 +60,12 @@ restClient.SpotApi.Trading
 restClient.SpotApi.HfTrading
 restClient.SpotApi.Margin
 restClient.SpotApi.Earn
-restClient.SpotApi.SharedClient
+restClient.SpotApi.SharedApi
 
 restClient.FuturesApi.ExchangeData
 restClient.FuturesApi.Account
 restClient.FuturesApi.Trading
-restClient.FuturesApi.SharedClient
+restClient.FuturesApi.SharedApi
 
 restClient.UnifiedApi.ExchangeData
 restClient.UnifiedApi.Account
@@ -162,13 +162,13 @@ var orderSub = await authSocket.SpotApi.SubscribeToOrderUpdatesAsync(
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients;
 
-ISpotTickerRestClient tickerClient = new KucoinRestClient().SpotApi.SharedClient;
+IGetTickerRest tickerClient = new KucoinRestClient().SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 ```
 
-Shared REST interfaces available on Kucoin spot include assets, balances, deposits, withdrawals, spot orders, spot tickers, symbols, order books, recent trades, klines, fees, book tickers, and transfers. Futures exposes shared futures order, symbol, position, ticker, order book, recent trade, kline, and book ticker interfaces. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime.
+Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 Shared spot and futures symbol interfaces expose the cached `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Their symbol requests support `GetSymbolsRequest` filters, including base/quote asset type and subtype. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` models include `DisplayName` plus classified base/quote asset type and subtype metadata.
 

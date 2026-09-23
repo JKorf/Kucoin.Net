@@ -36,8 +36,8 @@ var price = ticker.Data.LastPrice;
 
 ## API surface
 
-- `restClient.SpotApi.{ExchangeData|Account|SubAccount|Trading|HfTrading|Margin|Earn|SharedClient}`
-- `restClient.FuturesApi.{ExchangeData|Account|Trading|SharedClient}`
+- `restClient.SpotApi.{ExchangeData|Account|SubAccount|Trading|HfTrading|Margin|Earn|SharedApi}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading|SharedApi}`
 - `restClient.UnifiedApi.{ExchangeData|Account|Trading}`
 - `socketClient.SpotApi`
 - `socketClient.FuturesApi`
@@ -76,8 +76,8 @@ For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 ```csharp
 using CryptoExchange.Net.SharedApis;
 
-var shared = new KucoinRestClient().SpotApi.SharedClient;
-var ticker = await shared.GetSpotTickerAsync(
+var shared = new KucoinRestClient().SpotApi.SharedApi;
+var ticker = await shared.GetTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
 ```
 

@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Enums;
+using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Spot.Socket;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Kucoin.Net.Interfaces.Clients.SpotApi
 {
@@ -20,9 +21,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     public interface IKucoinSocketClientSpotApi : ISocketApiClient<KucoinCredentials>, IDisposable
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. For new implementations prefer <see cref="SharedApi"/>
         /// </summary>
         IKucoinSocketClientSpotApiShared SharedClient { get; }
+        /// <summary>
+        /// [V2] Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IKucoinSocketClientSpotSharedApi SharedApi { get; }
 
         /// <summary>
         /// Subscribe to updates for a symbol ticker
@@ -208,7 +215,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates for stop orders
-        /// <para><a href="https://www.kucoin.com/docs/websocket/spot-trading/private-channels/stop-order-event" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/3470139w0" /></para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -303,7 +310,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to margin order updates for an asset
-        /// <para><a href="https://www.kucoin.com/docs/websocket/margin-trading/private-channels/margin-trade-order-event" /></para>
+        /// <para><a href="https://www.kucoin.com/docs-new/3470257w0" /></para>
         /// </summary>
         /// <param name="symbol">Asset, for example `ETH-USDT`</param>
         /// <param name="onOrderPlaced">Data handler for order placement updates</param>

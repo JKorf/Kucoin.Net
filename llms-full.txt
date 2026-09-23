@@ -31,7 +31,7 @@ Primary documentation:
 - Store WebSocket subscriptions and unsubscribe during shutdown.
 - Do not call `.Result` or `.Wait()` on async methods.
 - Do not invent method names. Inspect `Kucoin.Net/Interfaces/Clients/**`.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`; use `.SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
+- Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Shared API result quantities use `SharedOrderQuantity`; select `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` instead of assuming a unit.
 - Spot symbols use dashes: `BTC-USDT`.
 - Futures symbols use contract names: `XBTUSDTM`, `ETHUSDTM`.
@@ -155,12 +155,12 @@ KucoinRestClient
     .HfTrading
     .Margin
     .Earn
-    .SharedClient
+    .SharedApi
   .FuturesApi
     .ExchangeData
     .Account
     .Trading
-    .SharedClient
+    .SharedApi
   .UnifiedApi
     .ExchangeData
     .Account
@@ -338,10 +338,10 @@ var orderSub = await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients;
 
-ISpotTickerRestClient tickerClient = new KucoinRestClient().SpotApi.SharedClient;
+IGetTickerRest tickerClient = new KucoinRestClient().SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
 {
     Console.WriteLine(ticker.Error);
@@ -351,22 +351,21 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-Shared clients expose `Discover()` for runtime metadata about implemented shared interfaces, supported request options, and supported subscription options.
+Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
-Shared symbol clients expose cached catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` apply `GetSymbolsRequest` filters, including base/quote asset type and subtype. Their `SharedSpotSymbol` and `SharedFuturesSymbol` results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
+Shared symbol clients expose cached catalogs through `IGetSpotSymbolsRest.SpotSymbolCatalog` and `IGetFuturesSymbolsRest.FuturesSymbolCatalog`. `GetSpotSymbolsAsync` and `GetFuturesSymbolsAsync` apply `GetSymbolsRequest` filters, including base/quote asset type and subtype. Their `SharedSpotSymbol` and `SharedFuturesSymbol` results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
 
 Shared result models represent quantities with `SharedOrderQuantity`, which can carry base asset, quote asset, and contract values. Use the applicable `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` value instead of treating every quantity as the same unit. Kucoin maps spot book tickers, trades, user trades, and order data to asset quantities; futures equivalents, positions, open interest, and position history use contract quantities. `SharedOrderBook.QuantityType` is `BaseAsset` for Kucoin spot books and `Contracts` for futures books.
 
 ```csharp
-var info = new KucoinRestClient().SpotApi.SharedClient.Discover();
-Console.WriteLine(string.Join(", ", info.Features.Where(x => x.Supported).Select(x => x.EndpointName)));
+// Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
 Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. For shared socket subscriptions, keep the concrete socket client for unsubscribe:
 
 ```csharp
 var socketClient = new KucoinSocketClient();
-ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+ISubscribeTickerSocket tickerSocket = socketClient.SpotApi.SharedApi;
 
 var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
     new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")),

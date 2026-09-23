@@ -284,7 +284,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
-        #region Get Futures Open Interest
+        #region Get Futures Open Interest History
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOpenInterest[]>> GetFuturesOpenInterestHistoryAsync(
