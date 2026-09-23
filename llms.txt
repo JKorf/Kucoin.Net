@@ -29,7 +29,7 @@ Kucoin.Net provides typed REST and WebSocket clients, automatic request signing,
 - Check `.Success` before `.Data` for every REST and socket result.
 - REST calls return `HttpResult<T>` or `HttpResult`; socket subscriptions return `WebSocketResult<UpdateSubscription>`.
 - Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
-- For multi-exchange code, use `.SharedClient`; call `SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
+- Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Shared spot/futures symbol interfaces expose cached symbol catalogs, support asset type/subtype filters, and return display names plus asset classification metadata.
 - Shared API quantities use `SharedOrderQuantity`; choose its base asset, quote asset, or contract value explicitly. Shared order books expose `QuantityType`; Kucoin spot books use base asset units and futures books use contracts.
 - Store `UpdateSubscription` values and unsubscribe with the concrete socket client.

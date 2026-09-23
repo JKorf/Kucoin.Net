@@ -226,20 +226,20 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 
 | User intent | Kucoin.Net member or interface |
 |---|---|
-| Shared spot REST client | `new KucoinRestClient().SpotApi.SharedClient` |
-| Shared futures REST client | `new KucoinRestClient().FuturesApi.SharedClient` |
-| Shared spot socket client | `new KucoinSocketClient().SpotApi.SharedClient` |
-| Shared futures socket client | `new KucoinSocketClient().FuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
-| Shared spot symbols and filters | `ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest)` |
-| Shared futures symbols and filters | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest)` |
-| Cached shared spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
-| Cached shared futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
-| Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
-| Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+| Shared spot REST client | `new KucoinRestClient().SpotApi.SharedApi` |
+| Shared futures REST client | `new KucoinRestClient().FuturesApi.SharedApi` |
+| Shared spot socket client | `new KucoinSocketClient().SpotApi.SharedApi` |
+| Shared futures socket client | `new KucoinSocketClient().FuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IKucoinSharedApiClient.GetCapability(...)` |
+| Shared spot symbols and filters | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(GetSymbolsRequest)` |
+| Shared futures symbols and filters | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(GetSymbolsRequest)` |
+| Cached shared spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` |
+| Cached shared futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` |
+| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
+| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
+| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
 
@@ -274,5 +274,5 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | `SpotApi.ExchangeData.GetOrderBookAsync(...)` | `GetAggregatedPartialOrderBookAsync(...)` or `GetAggregatedFullOrderBookAsync(...)` |
 | `FuturesApi.Account.ChangeInitialLeverageAsync(...)` | `FuturesApi.Trading.PlaceOrderAsync(..., leverage: ...)` or `SetCrossMarginLeverageAsync(...)` |
 | `.Data` without `.Success` check | Check `.Success` first |
-| `ITickerSocketClient.UnsubscribeAsync(...)` | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
 
