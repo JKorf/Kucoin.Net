@@ -310,7 +310,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v1/market/interest-rate-index<br />
         /// </para>
         /// </summary>
-        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETHUSDTM`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `.XBTINT`</param>
         /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
         /// <param name="pageSize">["<c>pageSize</c>"] Max number of results</param>

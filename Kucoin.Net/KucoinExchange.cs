@@ -121,19 +121,19 @@ namespace Kucoin.Net
     {
         private static readonly Dictionary<VipLevel, int> _unifiedLimits = new()
         {
-            { VipLevel.Vip0, 200 },
-            { VipLevel.Vip1, 200 },
-            { VipLevel.Vip2, 400 },
+            { VipLevel.Vip0, 300 },
+            { VipLevel.Vip1, 400 },
+            { VipLevel.Vip2, 450 },
             { VipLevel.Vip3, 500 },
-            { VipLevel.Vip4, 600 },
-            { VipLevel.Vip5, 700 },
-            { VipLevel.Vip6, 800 },
-            { VipLevel.Vip7, 1000 },
-            { VipLevel.Vip8, 1200 },
-            { VipLevel.Vip9, 1400 },
-            { VipLevel.Vip10, 1600 },
-            { VipLevel.Vip11, 1800 },
-            { VipLevel.Vip12, 2000 },
+            { VipLevel.Vip4, 750 },
+            { VipLevel.Vip5, 900 },
+            { VipLevel.Vip6, 1100 },
+            { VipLevel.Vip7, 1200 },
+            { VipLevel.Vip8, 1500 },
+            { VipLevel.Vip9, 2000 },
+            { VipLevel.Vip10, 2500 },
+            { VipLevel.Vip11, 3500 },
+            { VipLevel.Vip12, 4000 },
         };
 
         private static readonly Dictionary<VipLevel, int> _spotLimits = new()
