@@ -45,5 +45,8 @@ namespace Kucoin.Net.Clients.SpotApi
                 SubscribeSpotOrderOptions
                 );
         }
+
+        /// <inheritdoc />
+        public Task UnsubscribeAllAsync() => _api.UnsubscribeAllAsync();
     }
 }
