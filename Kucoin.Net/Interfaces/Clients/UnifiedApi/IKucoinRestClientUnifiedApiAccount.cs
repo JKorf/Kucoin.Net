@@ -286,11 +286,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
-        /// <param name="network">["<c>chainId</c>"] Network</param>
+        /// <param name="network">["<c>chain</c>"] Network</param>
+        /// <param name="isInner">["<c>isInner</c>"] Is inner</param>
+        /// <param name="withdrawType">["<c>withdrawType</c>"] Withdraw type</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaWithdrawalQuota>> GetWithdrawalQuotasAsync(
             string asset,
             string network,
+            WithdrawType withdrawType,
+            bool? isInner = null,
             CancellationToken ct = default);
 
         /// <summary>

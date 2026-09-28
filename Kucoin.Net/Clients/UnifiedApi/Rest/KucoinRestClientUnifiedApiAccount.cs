@@ -314,11 +314,15 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public async Task<HttpResult<KucoinUaWithdrawalQuota>> GetWithdrawalQuotasAsync(
             string asset,
             string network,
+            WithdrawType withdrawType,
+            bool? isInner = null,
             CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
-            parameters.Add("chainId", network);
+            parameters.Add("chain", network);
+            parameters.Add("isInner", isInner);
+            parameters.Add("withdrawType", withdrawType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/withdrawals/quotas", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             var result = await _baseClient.SendAsync<KucoinUaWithdrawalQuota>(request, parameters, ct).ConfigureAwait(false);
             return result;

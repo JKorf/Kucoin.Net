@@ -40,24 +40,24 @@ public record KucoinUaWithdrawalQuota
     [JsonPropertyName("usedQuotaCurrencyAmount")]
     public decimal UsedQuotaAssetQuantity { get; set; }
     /// <summary>
-    /// ["<c>remainAmount</c>"] Remain quantity
+    /// ["<c>remainingQuotaAmount</c>"] Remaining quota quantity
     /// </summary>
-    [JsonPropertyName("remainAmount")]
+    [JsonPropertyName("remainingQuotaAmount")]
     public decimal RemainQuantity { get; set; }
     /// <summary>
-    /// ["<c>availableAmount</c>"] Available quantity
+    /// ["<c>availableWithdrawAmount</c>"] Available withdraw quantity
     /// </summary>
-    [JsonPropertyName("availableAmount")]
+    [JsonPropertyName("availableWithdrawAmount")]
     public decimal AvailableQuantity { get; set; }
     /// <summary>
-    /// ["<c>withdrawMinFee</c>"] Withdraw min fee
+    /// ["<c>minWithdrawFee</c>"] Withdraw min fee
     /// </summary>
-    [JsonPropertyName("withdrawMinFee")]
+    [JsonPropertyName("minWithdrawFee")]
     public decimal WithdrawMinFee { get; set; }
     /// <summary>
-    /// ["<c>innerWithdrawMinFee</c>"] Inner withdraw min fee
+    /// ["<c>minInnerWithdrawFee</c>"] Inner withdraw min fee
     /// </summary>
-    [JsonPropertyName("innerWithdrawMinFee")]
+    [JsonPropertyName("minInnerWithdrawFee")]
     public decimal InnerWithdrawMinFee { get; set; }
     /// <summary>
     /// ["<c>withdrawMinSize</c>"] Withdraw min quantity
@@ -80,10 +80,10 @@ public record KucoinUaWithdrawalQuota
     [JsonPropertyName("chainName")]
     public string NetworkName { get; set; } = string.Empty;
     /// <summary>
-    /// ["<c>chainId</c>"] Network id
+    /// ["<c>chain</c>"] Network
     /// </summary>
-    [JsonPropertyName("chainId")]
-    public string NetworkId { get; set; } = string.Empty;
+    [JsonPropertyName("chain")]
+    public string Network { get; set; } = string.Empty;
     /// <summary>
     /// ["<c>reason</c>"] Reason
     /// </summary>
