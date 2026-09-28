@@ -195,6 +195,26 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingFeeUpdatesAsync(
+            Action<DataEvent<KucoinUaFundingFeeUpdate[]>> onData,
+            CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, KucoinUnifiedSocketUpdate<KucoinUaFundingFeeUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.PushTime);
+
+                onData.Invoke(
+                    new DataEvent<KucoinUaFundingFeeUpdate[]>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Type)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.PushTime, GetTimeOffset())
+                    );
+            });
+            var subscription = new KucoinUnifiedSubscription<KucoinUaFundingFeeUpdate[]>(_logger, this, "funding-fee-all-symbols", UnifiedAccountType.Futures, null, null, internalHandler, false);
+            return await SubscribeAsync(GetConnectionUrl(UnifiedAccountType.Futures), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(
             string symbol,
             Action<DataEvent<KucoinUaMarkPriceUpdate>> onData,
