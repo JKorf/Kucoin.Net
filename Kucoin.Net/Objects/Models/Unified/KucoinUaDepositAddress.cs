@@ -24,15 +24,15 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
-        /// ["<c>chainId</c>"] Network id
+        /// ["<c>chain</c>"] Network
         /// </summary>
-        [JsonPropertyName("chainId")]
-        public string NetworkId { get; set; } = string.Empty;
+        [JsonPropertyName("chain")]
+        public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// ["<c>to</c>"] To
+        /// ["<c>toAccountType</c>"] To
         /// </summary>
-        [JsonPropertyName("to")]
-        public UnifiedAccountType To { get; set; }
+        [JsonPropertyName("toAccountType")]
+        public UnifiedAccountType ToAccountType { get; set; }
         /// <summary>
         /// ["<c>expirationDate</c>"] Expiration date
         /// </summary>
