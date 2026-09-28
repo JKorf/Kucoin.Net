@@ -297,7 +297,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["<c>currencies</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<Dictionary<string, decimal>>> GetFiatPricesAsync(
-            string? @base = null,
+            string @base,
             string? assets = null,
             CancellationToken ct = default);
 

@@ -338,7 +338,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<Dictionary<string, decimal>>> GetFiatPricesAsync(
-            string? @base = null,
+            string @base,
             string? assets = null,
             CancellationToken ct = default)
         {
