@@ -26,25 +26,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("precision")]
         public int Precision { get; set; }
         /// <summary>
-        /// ["<c>isMarginEnabled</c>"] Is margin enabled
-        /// </summary>
-        [JsonPropertyName("isMarginEnabled")]
-        public bool? IsMarginEnabled { get; set; }
-        /// <summary>
-        /// ["<c>isDebitEnabled</c>"] Is debit enabled
-        /// </summary>
-        [JsonPropertyName("isDebitEnabled")]
-        public bool? IsDebitEnabled { get; set; }
-        /// <summary>
         /// ["<c>items</c>"] Networks
         /// </summary>
-        [JsonPropertyName("items")]
+        [JsonPropertyName("list")]
         public KucoinUaAssetNetwork[] Networks { get; set; } = [];
-        [JsonInclude(), JsonPropertyName("list")]
-        internal KucoinUaAssetNetwork[] NetworksInt
-        {
-            set => Networks = value;
-        }
     }
 
     /// <summary>
@@ -128,10 +113,45 @@ namespace Kucoin.Net.Objects.Models.Unified
             set => IsMemoRequired = value;
         }
         /// <summary>
-        /// ["<c>chainId</c>"] Network id
+        /// ["<c>chain</c>"] Network
         /// </summary>
-        [JsonPropertyName("chainId")]
-        public string NetworkId { get; set; } = string.Empty;
+        [JsonPropertyName("chain")]
+        public string Network { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>addressRegex</c>"] Address regex
+        /// </summary>
+        [JsonPropertyName("addressRegex")]
+        public string AddressRegex { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>memoRegex</c>"] Memo regex
+        /// </summary>
+        [JsonPropertyName("memoRegex")]
+        public string MemoRegex { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>depositFeeRate</c>"] Deposit fee rate
+        /// </summary>
+        [JsonPropertyName("depositFeeRate")]
+        public decimal? DepositFeeRate { get; set; }
+        /// <summary>
+        /// ["<c>fixedDepositFee</c>"] Fixed deposit fee
+        /// </summary>
+        [JsonPropertyName("fixedDepositFee")]
+        public decimal? FixedDepositFee { get; set; }
+        /// <summary>
+        /// ["<c>maxDepositFee</c>"] Max deposit fee
+        /// </summary>
+        [JsonPropertyName("maxDepositFee")]
+        public decimal? MaxDepositFee { get; set; }
+        /// <summary>
+        /// ["<c>maxWithdrawFee</c>"] Max withdraw fee
+        /// </summary>
+        [JsonPropertyName("maxWithdrawFee")]
+        public decimal? MaxWithdrawFee { get; set; }
+        /// <summary>
+        /// ["<c>depositTierFee</c>"] Deposit tier fee
+        /// </summary>
+        [JsonPropertyName("depositTierFee")]
+        public decimal? DepositTierFee { get; set; }
     }
 
 
