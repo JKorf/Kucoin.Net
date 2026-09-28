@@ -10,24 +10,24 @@ namespace Kucoin.Net.Enums
     public enum UnifiedTransferType
     {
         /// <summary>
-        /// ["<c>0</c>"] Internal
+        /// ["<c>INTERNAL</c>"] Internal
         /// </summary>
-        [Map("0")]
+        [Map("INTERNAL")]
         Internal,
         /// <summary>
-        /// ["<c>1</c>"] Parent to sub
+        /// ["<c>PARENT_TO_SUB</c>"] Parent to sub
         /// </summary>
-        [Map("1")]
+        [Map("PARENT_TO_SUB")]
         ParentToSub,
         /// <summary>
-        /// ["<c>2</c>"] Sub to parent
+        /// ["<c>SUB_TO_PARENT</c>"] Sub to parent
         /// </summary>
-        [Map("2")]
+        [Map("SUB_TO_PARENT")]
         SubToParent,
         /// <summary>
-        /// ["<c>3</c>"] Sub to sub
+        /// ["<c>SUB_TO_SUB</c>"] Sub to sub
         /// </summary>
-        [Map("3")]
+        [Map("SUB_TO_SUB")]
         SubToSub
     }
 }

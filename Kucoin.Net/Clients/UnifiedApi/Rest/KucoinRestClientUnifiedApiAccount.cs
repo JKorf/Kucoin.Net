@@ -129,14 +129,14 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
             parameters.Add("amount", quantity);
-            parameters.Add("type", transferType);
+            parameters.Add("transferType", transferType);
             parameters.Add("fromAccountType", fromAccountType);
             parameters.Add("toAccountType", toAccountType);
             parameters.Add("clientOid", clientOrderId ?? ExchangeHelpers.RandomString(24));
             parameters.Add("fromUid", fromSubAccountId);
             parameters.Add("toUid", toSubAccountId);
-            parameters.Add("fromAccountSymbol", fromIsolatedMarginSymbol);
-            parameters.Add("toAccountSymbol", toIsolatedMarginSymbol);
+            parameters.Add("fromAccountTag", fromIsolatedMarginSymbol ?? "DEFAULT");
+            parameters.Add("toAccountTag", toIsolatedMarginSymbol ?? "DEFAULT");
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/account/transfer", KucoinExchange.RateLimiter.ManagementRest, 4, true);
             var result = await _baseClient.SendAsync<KucoinUaResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
