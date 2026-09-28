@@ -61,6 +61,8 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("hold")]
         public decimal Hold { get; set; }
+        [JsonInclude, JsonPropertyName("locked")]
+        internal decimal Locked { set => Hold = value; }
         /// <summary>
         /// ["<c>balance</c>"] Balance
         /// </summary>

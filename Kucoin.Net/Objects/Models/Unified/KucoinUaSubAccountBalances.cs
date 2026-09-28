@@ -31,9 +31,9 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("uid")]
         public long Id { get; set; }
         /// <summary>
-        /// ["<c>accountList</c>"] Account list
+        /// ["<c>accounts</c>"] Account list
         /// </summary>
-        [JsonPropertyName("accountList")]
+        [JsonPropertyName("accounts")]
         public KucoinUaSubAccount[] Accounts { get; set; } = [];
     }
 
@@ -48,14 +48,14 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("accountType")]
         public UnifiedAccountType AccountType { get; set; }
         /// <summary>
-        /// ["<c>accountSubType</c>"] Account sub type
+        /// ["<c>subAccountType</c>"] Account sub type
         /// </summary>
-        [JsonPropertyName("accountSubType")]
+        [JsonPropertyName("subAccountType")]
         public string? AccountSubType { get; set; }
         /// <summary>
-        /// ["<c>currencyList</c>"] Asset balances
+        /// ["<c>currencies</c>"] Asset balances
         /// </summary>
-        [JsonPropertyName("currencyList")]
+        [JsonPropertyName("currencies")]
         public KucoinUaSubAccountBalance[] Assets { get; set; } = [];
     }
 
@@ -65,10 +65,10 @@ namespace Kucoin.Net.Objects.Models.Unified
     public record KucoinUaSubAccountBalance
     {
         /// <summary>
-        /// ["<c>liabilityPrinciple</c>"] Liability principle
+        /// ["<c>liabilityPrincipal</c>"] Liability principal
         /// </summary>
-        [JsonPropertyName("liabilityPrinciple")]
-        public decimal? LiabilityPrinciple { get; set; }
+        [JsonPropertyName("liabilityPrincipal")]
+        public decimal? LiabilityPrincipal { get; set; }
         /// <summary>
         /// ["<c>liabilityInterest</c>"] Liability interest
         /// </summary>
@@ -90,10 +90,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("equity")]
         public decimal? Equity { get; set; }
         /// <summary>
-        /// ["<c>hold</c>"] Hold
+        /// ["<c>locked</c>"] Locked
         /// </summary>
-        [JsonPropertyName("hold")]
-        public decimal Hold { get; set; }
+        [JsonPropertyName("locked")]
+        public decimal Locked { get; set; }
         /// <summary>
         /// ["<c>balance</c>"] Balance
         /// </summary>
