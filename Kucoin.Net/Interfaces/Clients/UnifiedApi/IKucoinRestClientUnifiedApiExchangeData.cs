@@ -20,7 +20,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473237e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/announcement
+        /// GET /api/ua/v2/market/announcement
         /// </para>
         /// </summary>
         /// <param name="language">["<c>language</c>"] Language, for example `en_US`</param>
@@ -38,7 +38,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/instrument
+        /// GET /api/ua/v2/market/instrument
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
@@ -52,7 +52,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/instrument
+        /// GET /api/ua/v2/market/instrument
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
@@ -66,7 +66,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/instrument
+        /// GET /api/ua/v2/market/instrument
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
@@ -80,7 +80,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/instrument
+        /// GET /api/ua/v2/market/instrument
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
@@ -94,7 +94,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473238e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/currency
+        /// GET /api/ua/v2/market/currency
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Filter asset, for example `ETH`</param>
@@ -116,7 +116,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473241e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/ticker
+        /// GET /api/ua/v2/market/ticker
         /// </para>
         /// </summary>
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
@@ -130,7 +130,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473243e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/orderbook
+        /// GET /api/ua/v2/market/orderbook
         /// </para>
         /// </summary>
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
@@ -145,7 +145,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473242e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/trade
+        /// GET /api/ua/v2/market/trade
         /// </para>
         /// </summary>
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
@@ -159,7 +159,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473244e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/kline
+        /// GET /api/ua/v2/market/kline
         /// </para>
         /// </summary>
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
@@ -177,7 +177,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473245e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/funding-rate
+        /// GET /api/ua/v2/market/funding-rate
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDTM`</param>
@@ -190,7 +190,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473246e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/funding-rate-history
+        /// GET /api/ua/v2/market/funding-rate-history
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
@@ -205,7 +205,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473248e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/cross-config
+        /// GET /api/ua/v2/market/cross-config
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -217,7 +217,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-collateral-ratio" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/collateral-discount-ratio
+        /// GET /api/ua/v2/market/collateral-discount-ratio
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -229,7 +229,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/open-interest
+        /// GET /api/ua/v2/market/open-interest
         /// </para>
         /// </summary>
         /// <param name="symbols">["<c>symbol</c>"] Filter by symbols</param>
@@ -242,7 +242,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/open-interest
+        /// GET /api/ua/v2/market/open-interest
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `ETHUSDTM`</param>
@@ -265,7 +265,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3473248e0" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/server/status
+        /// GET /api/ua/v2/server/status
         /// </para>
         /// </summary>
         /// <param name="productType">["<c>tradeType</c>"] Product type</param>
@@ -278,7 +278,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-kyc-region?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/user/kyc-region<br />
+        /// GET /api/ua/v2/user/kyc-region<br />
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -290,7 +290,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/3477216e0?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/fiat-price<br />
+        /// GET /api/ua/v2/market/fiat-price<br />
         /// </para>
         /// </summary>
         /// <param name="base">["<c>base</c>"] The fiat currency, for example USD or EUR</param>
@@ -307,7 +307,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-interest-rate-index" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/market/interest-rate-index<br />
+        /// GET /api/ua/v2/market/interest-rate-index<br />
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `.XBTINT`</param>
@@ -330,7 +330,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-statistics" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/trade-statistics<br />
+        /// GET /api/ua/v2/trade-statistics<br />
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -342,7 +342,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-call-auction-info" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/trade-statistics<br />
+        /// GET /api/ua/v2/trade-statistics<br />
         /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `GROVE-USDT`</param>

@@ -103,7 +103,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/place?tradeType={EnumConverter.GetString(accountType)}",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/place?tradeType={EnumConverter.GetString(accountType)}",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 1,
                 true);
@@ -134,7 +134,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel?tradeType={EnumConverter.GetString(accountType)}",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel?tradeType={EnumConverter.GetString(accountType)}",
                 KucoinExchange.RateLimiter.UnifiedRest, 
                 1, 
                 true);
@@ -161,7 +161,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel-batch?tradeType={EnumConverter.GetString(accountType)}",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel-batch?tradeType={EnumConverter.GetString(accountType)}",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 4,
                 true);
@@ -192,7 +192,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel-all",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/cancel-all",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 20, 
                 true);
@@ -221,7 +221,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/detail", 
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/detail", 
                 KucoinExchange.RateLimiter.UnifiedRest, 
                 4,
                 true);
@@ -256,7 +256,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/open-list", 
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/open-list", 
                 KucoinExchange.RateLimiter.UnifiedRest,
                 4, 
                 true);
@@ -292,7 +292,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/history", 
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/history", 
                 KucoinExchange.RateLimiter.UnifiedRest, 
                 4,
                 true);
@@ -329,7 +329,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/order/execution",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/order/execution",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 4, 
                 true);
@@ -348,7 +348,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("tradeType", tradeType);
             parameters.Add("timeout", timeout);
             parameters.Add("symbols", symbols);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/dcp/set", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/dcp/set", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaDcp>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -362,7 +362,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", tradeType);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/dcp/query", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/dcp/query", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaDcp>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -381,7 +381,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/position/open-list",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/position/open-list",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 3, 
                 true);
@@ -402,7 +402,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("endAt", endTime);
             parameters.Add("lastId", lastId);
             parameters.Add("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/position/history", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/position/history", KucoinExchange.RateLimiter.UnifiedRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaPositionHistory>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -426,7 +426,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Get,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/position/tiers",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/position/tiers",
                 KucoinExchange.RateLimiter.ManagementRest,
                 20, 
                 true);

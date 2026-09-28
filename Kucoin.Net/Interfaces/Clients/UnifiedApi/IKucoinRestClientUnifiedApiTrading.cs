@@ -22,7 +22,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/place-order" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/{accountMode}/order/place
+        /// POST /api/ua/v2/{accountMode}/order/place
         /// </para>
         /// </summary>
         /// <param name="accountMode">Mode of the account</param>
@@ -90,7 +90,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/cancel-order" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/{accountMode}/order/cancel
+        /// POST /api/ua/v2/{accountMode}/order/cancel
         /// </para>
         /// </summary>
         /// <param name="accountMode">Mode of the account</param>
@@ -114,7 +114,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/{accountMode}/order/cancel-batch
+        /// POST /api/ua/v2/{accountMode}/order/cancel-batch
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -134,7 +134,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/{accountMode}/order/cancel-all
+        /// POST /api/ua/v2/{accountMode}/order/cancel-all
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -158,7 +158,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-order-details" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/{accountMode}/order/detail
+        /// GET /api/ua/v2/{accountMode}/order/detail
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -182,7 +182,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/{accountMode}/order/open-list
+        /// GET /api/ua/v2/{accountMode}/order/open-list
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -212,7 +212,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-order-history" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/{accountMode}/order/history
+        /// GET /api/ua/v2/{accountMode}/order/history
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -244,7 +244,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/{accountMode}/order/execution
+        /// GET /api/ua/v2/{accountMode}/order/execution
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -276,7 +276,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/set-dcp-classic" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/dcp/set
+        /// POST /api/ua/v2/dcp/set
         /// </para>
         /// </summary>
         /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
@@ -292,7 +292,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-dcp-classic" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/dcp/query
+        /// GET /api/ua/v2/dcp/query
         /// </para>
         /// </summary>
         /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
@@ -306,7 +306,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/{accountMode}/position/open-list
+        /// GET /api/ua/v2/{accountMode}/position/open-list
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>
@@ -323,7 +323,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/position/history
+        /// GET /api/ua/v2/position/history
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDTM`</param>
@@ -347,7 +347,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-position-tiers" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/{accountMode}/position/tiers
+        /// GET /api/ua/v2/{accountMode}/position/tiers
         /// </para>
         /// </summary>
         /// <param name="accountMode">Account mode</param>

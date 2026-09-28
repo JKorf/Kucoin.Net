@@ -30,7 +30,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public async Task<HttpResult<KucoinUaAccountOverview>> GetAccountOverviewAsync(CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/unified/account/overview", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/unified/account/overview", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaAccountOverview>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -43,7 +43,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public async Task<HttpResult<KucoinUaBalances>> GetBalancesAsync(CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/unified/account/balance", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/unified/account/balance", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaBalances>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -63,7 +63,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("accountType", accountType);
             parameters.Add("accountSubtype", accountSubType);
             parameters.Add("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/account/balance", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/account/balance", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaBalances>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -80,10 +80,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
             CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            parameters.Add("UID", subAccountId);
+            parameters.Add("uid", subAccountId);
             parameters.Add("pageSize", pageSize);
             parameters.Add("lastId", lastId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/sub-account/balance", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/sub-account/balance", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaSubAccountBalances>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -103,7 +103,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("currency", asset);
             parameters.Add("accountType", accountType);
             parameters.Add("symbol", isolatedMarginSymbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/account/transfer-quota", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/account/transfer-quota", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             var result = await _baseClient.SendAsync<KucoinUaTransferQuotas>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -137,7 +137,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("toUid", toSubAccountId);
             parameters.Add("fromAccountSymbol", fromIsolatedMarginSymbol);
             parameters.Add("toAccountSymbol", toIsolatedMarginSymbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/account/transfer", KucoinExchange.RateLimiter.ManagementRest, 4, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/account/transfer", KucoinExchange.RateLimiter.ManagementRest, 4, true);
             var result = await _baseClient.SendAsync<KucoinUaResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -155,7 +155,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddCommaSeparated("subUids", subAccountIds);
             parameters.Add("subToSub", allowSubToSub);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/sub-account/canTransferOut", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/sub-account/canTransferOut", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaTransferPermission[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -168,7 +168,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public async Task<HttpResult<KucoinUaAccountMode>> GetAccountModeAsync(CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/account/mode", KucoinExchange.RateLimiter.ManagementRest, 30, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/account/mode", KucoinExchange.RateLimiter.ManagementRest, 30, true);
             var result = await _baseClient.SendAsync<KucoinUaAccountMode>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -182,7 +182,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("accountType", accountMode);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/account/mode", KucoinExchange.RateLimiter.ManagementRest, 30, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/account/mode", KucoinExchange.RateLimiter.ManagementRest, 30, true);
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -200,7 +200,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", accountType);
             parameters.AddCommaSeparated("symbol", symbols);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/user/fee-rate", KucoinExchange.RateLimiter.ManagementRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/user/fee-rate", KucoinExchange.RateLimiter.ManagementRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinUaFeeRates>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinUaFeeRate[]>(result);
@@ -233,7 +233,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("startAt", startTime);
             parameters.Add("endAt", endTime);
             parameters.Add("pageSize", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/account/ledger", KucoinExchange.RateLimiter.ManagementRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/account/ledger", KucoinExchange.RateLimiter.ManagementRest, 2, true);
             var result = await _baseClient.SendAsync<KucoinUaAccountLedger>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -259,7 +259,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("endTime", endTime);
             parameters.Add("page", page);
             parameters.Add("size", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/account/interest-history", KucoinExchange.RateLimiter.ManagementRest, 15, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/account/interest-history", KucoinExchange.RateLimiter.ManagementRest, 15, true);
             var result = await _baseClient.SendAsync<KucoinUaInterestHistory>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -274,7 +274,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
             parameters.Add("leverage", leverage);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/unified/account/modify-leverage", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/unified/account/modify-leverage", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -289,7 +289,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
             parameters.Add("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/asset/deposit/address", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/asset/deposit/address", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaDepositAddress[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -301,7 +301,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaApiKeyInfo>> GetApiKeyInfoAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/ua/v1/user/api-key", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/ua/v2/user/api-key", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             var result = await _baseClient.SendAsync<KucoinUaApiKeyInfo>(request, null, ct).ConfigureAwait(false);
             return result;
         }
@@ -319,7 +319,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
             parameters.Add("chainId", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/withdrawals/quotas", KucoinExchange.RateLimiter.ManagementRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/withdrawals/quotas", KucoinExchange.RateLimiter.ManagementRest, 20, true);
             var result = await _baseClient.SendAsync<KucoinUaWithdrawalQuota>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -349,7 +349,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("memo", memo);
             parameters.Add("isInner", isInternal);
             parameters.Add("feeDeductType", feeDeductType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/withdrawal", KucoinExchange.RateLimiter.ManagementRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/withdrawal", KucoinExchange.RateLimiter.ManagementRest, 5, true);
             var result = await _baseClient.SendAsync<KucoinUaWithdrawResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -371,7 +371,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
-                $"/api/ua/v1/{EnumConverter.GetString(accountMode).ToLower()}/account/modify-leverage-margin-cross",
+                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/account/modify-leverage-margin-cross",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 20,
                 true);
@@ -396,7 +396,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("marginMode", marginMode);
             parameters.Add("currency", asset);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/unified/account/leverage", KucoinExchange.RateLimiter.ManagementRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/unified/account/leverage", KucoinExchange.RateLimiter.ManagementRest, 10, true);
             var result = await _baseClient.SendAsync<KucoinUaLeverageSetting[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -420,7 +420,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("endAt", endTime);
             parameters.Add("lastId", lastId);
             parameters.Add("pageSize", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/position/funding-history", KucoinExchange.RateLimiter.ManagementRest, 15, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/position/funding-history", KucoinExchange.RateLimiter.ManagementRest, 15, true);
             var result = await _baseClient.SendAsync<KucoinUaFundingFeeHistory>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -438,7 +438,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddCommaSeparated("symbol", symbols);
             parameters.Add("marginMode", marginMode);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/unified/position/margin-mode", KucoinExchange.RateLimiter.UnifiedRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/unified/position/margin-mode", KucoinExchange.RateLimiter.UnifiedRest, 10, true);
             var result = await _baseClient.SendAsync<KucoinMarginModesResults>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -461,7 +461,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("symbol", symbol);
             parameters.Add("tradeType", "FUTURES");
             parameters.Add("positionSide", positionSide);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v1/unified/position/modify-margin", KucoinExchange.RateLimiter.UnifiedRest, 5, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/ua/v2/unified/position/modify-margin", KucoinExchange.RateLimiter.UnifiedRest, 5, true);
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

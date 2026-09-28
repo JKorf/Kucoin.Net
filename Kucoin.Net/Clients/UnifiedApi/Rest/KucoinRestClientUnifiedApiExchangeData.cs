@@ -43,7 +43,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("endTime", endTime);
             parameters.Add("pageSize", pageSize);
             parameters.Add("pageNumber", page);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/announcement", KucoinExchange.RateLimiter.PublicRest, 20, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/announcement", KucoinExchange.RateLimiter.PublicRest, 20, false);
             var result = await _baseClient.SendAsync<KucoinUaList<KucoinUaAnnouncement[]>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -58,7 +58,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", ProductType.Spot);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinSpotSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinSpotSymbol[]>(result);
@@ -72,7 +72,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", ProductType.Futures);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinFuturesSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinFuturesSymbol[]>(result);
@@ -86,7 +86,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", ProductType.CrossMargin);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinMarginSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinMarginSymbol[]>(result);
@@ -100,7 +100,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", ProductType.IsolatedMargin);
             parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinIsolatedMarginSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinIsolatedMarginSymbol[]>(result);
@@ -117,7 +117,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("currency", asset);
             parameters.Add("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/currency", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/currency", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaAsset>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -128,7 +128,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddCommaSeparated("currencyList", assets);
             parameters.Add("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/asset/currencies", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/asset/currencies", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaAsset[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -143,7 +143,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", productType);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/ticker", KucoinExchange.RateLimiter.PublicRest, 15, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/ticker", KucoinExchange.RateLimiter.PublicRest, 15, false);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinUaTicker[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinUaTicker[]>(result);
@@ -162,7 +162,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("tradeType", productType);
             parameters.Add("symbol", symbol);
             parameters.Add("limit", limit == null ? "FULL" : limit.ToString());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/orderbook", KucoinExchange.RateLimiter.PublicRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/orderbook", KucoinExchange.RateLimiter.PublicRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinUaOrderBook>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -177,7 +177,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", productType);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/trade", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/trade", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinUaTrade[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinUaTrade[]>(result);
@@ -201,7 +201,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("interval", interval);
             parameters.Add("startAt", startTime, DateTimeSerialization.SecondsString);
             parameters.Add("endAt", endTime, DateTimeSerialization.SecondsString);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/kline", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/kline", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinUaKline[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinUaKline[]>(result);
@@ -218,7 +218,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/funding-rate", KucoinExchange.RateLimiter.PublicRest, 2, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/funding-rate", KucoinExchange.RateLimiter.PublicRest, 2, false);
             var result = await _baseClient.SendAsync<KucoinUaFundingRate>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -234,7 +234,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("symbol", symbol);
             parameters.Add("startAt", startTime);
             parameters.Add("endAt", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/funding-rate-history", KucoinExchange.RateLimiter.PublicRest, 5, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/funding-rate-history", KucoinExchange.RateLimiter.PublicRest, 5, false);
             var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinUaFundingRateEntry[]>>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<KucoinUaFundingRateEntry[]>(result);
@@ -250,7 +250,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public async Task<HttpResult<KucoinUaCrossMarginConfig>> GetCrossMarginConfigAsync(CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/cross-config", KucoinExchange.RateLimiter.PublicRest, 25, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/cross-config", KucoinExchange.RateLimiter.PublicRest, 25, false);
             var result = await _baseClient.SendAsync<KucoinUaCrossMarginConfig>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -263,7 +263,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public async Task<HttpResult<KucoinUaCollateralRatio[]>> GetCollateralRatioAsync(CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/collateral-discount-ratio", KucoinExchange.RateLimiter.PublicRest, 10, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/collateral-discount-ratio", KucoinExchange.RateLimiter.PublicRest, 10, false);
             var result = await _baseClient.SendAsync<KucoinUaCollateralRatio[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -277,7 +277,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.AddCommaSeparated("symbol", symbols);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/open-interest", KucoinExchange.RateLimiter.PublicRest, 10, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/open-interest", KucoinExchange.RateLimiter.PublicRest, 10, false);
             var result = await _baseClient.SendAsync<KucoinUaOpenInterest[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -301,7 +301,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("startAt", startTime);
             parameters.Add("endAt", endTime);
             parameters.Add("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/open-interest", KucoinExchange.RateLimiter.PublicRest, 10, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/open-interest", KucoinExchange.RateLimiter.PublicRest, 10, false);
             var result = await _baseClient.SendAsync<KucoinUaOpenInterest[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -315,7 +315,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", productType);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/server/status", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/server/status", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaServiceStatus>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -327,7 +327,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaKYCRegion[]>> GetKYCRegionsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/user/kyc-region", KucoinExchange.RateLimiter.PublicRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/user/kyc-region", KucoinExchange.RateLimiter.PublicRest, 20, true);
             var result = await _baseClient.SendAsync<KucoinUaKYCRegion[]>(request, null, ct).ConfigureAwait(false);
             return result;
         }
@@ -345,7 +345,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("base", @base);
             parameters.Add("currencies", assets);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/fiat-price", KucoinExchange.RateLimiter.UnifiedRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/fiat-price", KucoinExchange.RateLimiter.UnifiedRest, 3, false);
             var result = await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -369,7 +369,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("endAt", endTime);
             parameters.Add("lastId", lastId);
             parameters.Add("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/interest-rate-index", KucoinExchange.RateLimiter.PublicRest, 5, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/interest-rate-index", KucoinExchange.RateLimiter.PublicRest, 5, false);
             var result = await _baseClient.SendAsync<KucoinUaInterestRateIndexes>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -381,7 +381,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaPlatformStats>> GetPlatformStatsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/trade-statistics", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/trade-statistics", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaPlatformStats>(request, null, ct).ConfigureAwait(false);
             return result;
         }
@@ -395,7 +395,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v1/market/call-auction-info", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/call-auction-info", KucoinExchange.RateLimiter.PublicRest, 3, false);
             var result = await _baseClient.SendAsync<KucoinUaCallAuctionInfo>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

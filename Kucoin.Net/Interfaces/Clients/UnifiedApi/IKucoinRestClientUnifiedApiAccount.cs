@@ -21,7 +21,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/account/get-account-overview-uta" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/unified/account/overview
+        /// GET /api/ua/v2/unified/account/overview
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -33,7 +33,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/unified/account/balance
+        /// GET /api/ua/v2/unified/account/balance
         /// </para>
         /// </summary>        
         /// <param name="ct">Cancellation token</param>
@@ -45,7 +45,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/account/balance
+        /// GET /api/ua/v2/account/balance
         /// </para>
         /// </summary>
         /// <param name="accountType">["<c>accountType</c>"] Account type</param>
@@ -77,7 +77,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-transfer-quotas" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/account/transfer-quota
+        /// GET /api/ua/v2/account/transfer-quota
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
@@ -96,7 +96,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/flex-transfer" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/account/transfer
+        /// POST /api/ua/v2/account/transfer
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
@@ -129,7 +129,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/set-sub-account-transfer-permission" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/sub-account/canTransferOut
+        /// POST /api/ua/v2/sub-account/canTransferOut
         /// </para>
         /// </summary>
         /// <param name="subAccountIds">["<c>subUids</c>"] Ids of sub accounts to update</param>
@@ -146,7 +146,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-mode" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/account/mode
+        /// GET /api/ua/v2/account/mode
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -158,7 +158,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/set-account-mode" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/account/mode
+        /// POST /api/ua/v2/account/mode
         /// </para>
         /// </summary>
         /// <param name="accountMode">["<c>accountType</c>"] New mode</param>
@@ -171,7 +171,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-actual-fee" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/user/fee-rate
+        /// GET /api/ua/v2/user/fee-rate
         /// </para>
         /// </summary>
         /// <param name="accountType">["<c>tradeType</c>"] Account type, Spot or Futures</param>
@@ -188,7 +188,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-ledger" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/account/ledger
+        /// GET /api/ua/v2/account/ledger
         /// </para>
         /// </summary>
         /// <param name="accountType">["<c>accountType</c>"] Account type</param>
@@ -217,7 +217,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-interest-history-uta" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/account/interest-history
+        /// GET /api/ua/v2/account/interest-history
         /// </para>
         /// </summary>
         /// <param name="accountType">["<c>accountType</c>"] Account type</param>
@@ -242,7 +242,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/unified/account/modify-leverage
+        /// POST /api/ua/v2/unified/account/modify-leverage
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDTM`</param>
@@ -256,7 +256,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-deposit-address" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/asset/deposit/address
+        /// GET /api/ua/v2/asset/deposit/address
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
@@ -270,7 +270,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-apikey-info?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET api/ua/v1/user/api-key<br />
+        /// GET api/ua/v2/user/api-key<br />
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -282,7 +282,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-withdrawal-quotas?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/withdrawals/quotas<br />
+        /// GET /api/ua/v2/withdrawals/quotas<br />
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
@@ -299,7 +299,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/withdrawal?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/withdrawal<br />
+        /// POST /api/ua/v2/withdrawal<br />
         /// </para>
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
@@ -328,7 +328,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/{accountMode}/account/modify-leverage-margin-cross<br />
+        /// POST /api/ua/v2/{accountMode}/account/modify-leverage-margin-cross<br />
         /// </para>
         /// </summary>
         /// <param name="accountMode">["<c>accountMode</c>"] Account mode</param>
@@ -347,7 +347,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-leverage?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/unified/account/leverage<br />
+        /// GET /api/ua/v2/unified/account/leverage<br />
         /// </para>
         /// </summary>
         /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
@@ -368,7 +368,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-private-funding-fee-history?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/position/funding-history<br />
+        /// GET /api/ua/v2/position/funding-history<br />
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDT`</param>
@@ -391,7 +391,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-modify-margin-mode?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v1/unified/position/margin-mode<br />
+        /// GET /api/ua/v2/unified/position/margin-mode<br />
         /// </para>
         /// </summary>
         /// <param name="symbols">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
@@ -408,7 +408,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Docs:<br />
         /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-isolated-futures-margin?lang=en_US" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v1/unified/position/modify-margin<br />
+        /// POST /api/ua/v2/unified/position/modify-margin<br />
         /// </para>
         /// </summary>
         /// <param name="direction">["<c>type</c>"] Direction</param>
