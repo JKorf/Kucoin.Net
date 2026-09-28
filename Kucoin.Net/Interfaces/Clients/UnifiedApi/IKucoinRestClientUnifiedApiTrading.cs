@@ -289,6 +289,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
         /// <param name="orderId">["<c>orderId</c>"] Filter by order id</param>
         /// <param name="orderSide">["<c>side</c>"] Filter by order side</param>
+        /// <param name="tradeType">["<c>fillType</c>"] Filter by trade type</param>
         /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
         /// <param name="lastId">["<c>lastId</c>"] Filter by last id</param>
@@ -300,6 +301,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             string? symbol = null,
             long? orderId = null,
             OrderSide? orderSide = null, 
+            UnifiedTradeType? tradeType = null,
             DateTime? startTime = null,
             DateTime? endTime = null, 
             long? lastId = null, 

@@ -356,6 +356,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             string? symbol = null,
             long? orderId = null,
             OrderSide? orderSide = null,
+            UnifiedTradeType? tradeType = null,
             DateTime? startTime = null,
             DateTime? endTime = null, 
             long? lastId = null, 
@@ -367,6 +368,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("symbol", symbol);
             parameters.Add("orderId", orderId);
             parameters.Add("side", orderSide);
+            parameters.Add("fillType", tradeType);
             parameters.Add("startAt", startTime);
             parameters.Add("endAt", endTime);
             parameters.Add("lastId", lastId);
