@@ -211,15 +211,16 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
-        #region Get Funding Rate
+        #region Get Funding Rates
 
         /// <inheritdoc />
-        public async Task<HttpResult<KucoinUaFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default)
+        public async Task<HttpResult<KucoinUaFundingRate[]>> GetFundingRatesAsync(string? symbol = null, FuturesProductType? productType = null, CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
+            parameters.Add("productType", productType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/funding-rate", KucoinExchange.RateLimiter.PublicRest, 2, false);
-            var result = await _baseClient.SendAsync<KucoinUaFundingRate>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<KucoinUaFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

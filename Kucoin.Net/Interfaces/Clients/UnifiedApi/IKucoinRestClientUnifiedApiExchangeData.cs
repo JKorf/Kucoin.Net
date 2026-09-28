@@ -175,14 +175,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get funding rate
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473245e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-current-funding" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/funding-rate
         /// </para>
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDTM`</param>
+        /// <param name="productType">["<c>productType</c>"] The product type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<KucoinUaFundingRate[]>> GetFundingRatesAsync(string? symbol = null, FuturesProductType? productType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding history

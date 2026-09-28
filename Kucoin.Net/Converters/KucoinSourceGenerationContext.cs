@@ -74,6 +74,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinResult<KucoinUaCrossMarginConfig>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaFundingRateEntry[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaFundingRate>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaFundingRate[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaKline[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaResponse<KucoinUaTrade[]>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaOrderBook>))]
