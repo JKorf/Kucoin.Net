@@ -349,7 +349,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("toAddress", toAddress);
             parameters.Add("amount", quantity);
             parameters.Add("withdrawType", withdrawType);
-            parameters.Add("chainId", network);
+            parameters.Add("chain", network);
             parameters.Add("memo", memo);
             parameters.Add("isInner", isInternal);
             parameters.Add("feeDeductType", feeDeductType);

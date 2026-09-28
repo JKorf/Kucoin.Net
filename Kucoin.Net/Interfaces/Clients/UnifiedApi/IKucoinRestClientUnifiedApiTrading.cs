@@ -85,6 +85,43 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
+        /// Edit an open order
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/amend-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/ua/v2/unified/order/amend
+        /// </para>
+        /// </summary>
+        /// <param name="orderId">Find order by orderId, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Find order by clientOrderId, either this or orderId should be provided</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDTM`</param>
+        /// <param name="quantity">The new quantity for the order</param>
+        /// <param name="price">The new price for the order</param>
+        /// <param name="quantityUnit">The unit of the quantity</param>
+        /// <param name="cxlOnFail">Whether to cancel the order if the amendment fails</param>
+        /// <param name="tpTriggerPriceType">The trigger price type for take profit</param>
+        /// <param name="tpTriggerPrice">The trigger price for take profit</param>
+        /// <param name="slTriggerPriceType">The trigger price type for stop loss</param>
+        /// <param name="slTriggerPrice">The trigger price for stop loss</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<HttpResult<KucoinUaOrderEditResult>> EditOrderAsync(
+            string? orderId,
+            string? clientOrderId,
+            string symbol,
+            decimal? quantity = null,
+            decimal? price = null,
+            QuantityUnit? quantityUnit = null,
+            bool? cxlOnFail = null,
+            StopPriceType? tpTriggerPriceType = null,
+            decimal? tpTriggerPrice = null,
+            StopPriceType? slTriggerPriceType = null,
+            decimal? slTriggerPrice = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel an open order
         /// <para>
         /// Docs:<br />

@@ -113,6 +113,51 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Edit Order
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaOrderEditResult>> EditOrderAsync(
+            string? orderId,
+            string? clientOrderId,
+            string symbol,
+            decimal? quantity = null,
+            decimal? price = null,
+            QuantityUnit? quantityUnit = null,
+            bool? cxlOnFail = null,
+            StopPriceType? tpTriggerPriceType = null,
+            decimal? tpTriggerPrice = null,
+            StopPriceType? slTriggerPriceType = null,
+            decimal? slTriggerPrice = null,
+            CancellationToken ct = default)
+        {
+            LogBetaWarning();
+
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.Add("newSize", quantity);
+            parameters.Add("sizeUnit", quantityUnit);
+            parameters.Add("newPrice", price);
+            parameters.Add("orderId", orderId);
+            parameters.Add("clientOid", clientOrderId);
+            parameters.Add("cxlOnFail", cxlOnFail);
+            parameters.Add("tpTriggerPriceType", tpTriggerPriceType);
+            parameters.Add("tpTriggerPrice", tpTriggerPrice);
+            parameters.Add("slTriggerPriceType", slTriggerPriceType);
+            parameters.Add("slTriggerPrice", slTriggerPrice);
+
+            var request = _definitions.GetOrCreate(
+                HttpMethod.Post,
+                _baseClient.BaseAddress,
+                $"/api/ua/v2/unified/order/amend",
+                KucoinExchange.RateLimiter.UnifiedRest,
+                1,
+                true);
+            var result = await _baseClient.SendAsync<KucoinUaOrderEditResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Cancel Order
 
         /// <inheritdoc />
