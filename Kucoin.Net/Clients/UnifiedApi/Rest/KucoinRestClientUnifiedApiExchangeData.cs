@@ -192,12 +192,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaKline[]>> GetKlinesAsync(ProductType productType, string symbol, KlineInterval interval, KlineType? type = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
-            if (type == null || type != KlineType.LastPrice)
-                symbol += "-" + EnumConverter.GetString(type);
-
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", productType);
             parameters.Add("symbol", symbol);
+            parameters.Add("type", type);
             parameters.Add("interval", interval);
             parameters.Add("startAt", startTime, DateTimeSerialization.SecondsString);
             parameters.Add("endAt", endTime, DateTimeSerialization.SecondsString);

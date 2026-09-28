@@ -11,21 +11,22 @@ namespace Kucoin.Net.Enums
         /// <summary>
         /// Last price
         /// </summary>
+        [Map("TRADE")]
         LastPrice,
         /// <summary>
         /// Index price
         /// </summary>
-        [Map("index-price")]
+        [Map("INDEX_PRICE")]
         IndexPrice,
         /// <summary>
         /// Mark price
         /// </summary>
-        [Map("mark-price")]
+        [Map("MARK_PRICE")]
         MarkPrice,
         /// <summary>
         /// Premium index
         /// </summary>
-        [Map("premium-index")]
+        [Map("PREMIUM_INDEX")]
         PremiumIndex,
     }
 }
