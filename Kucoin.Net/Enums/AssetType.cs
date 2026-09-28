@@ -3,20 +3,30 @@ using CryptoExchange.Net.Attributes;
 namespace Kucoin.Net.Enums
 {
     /// <summary>
-    /// Asset type
+    /// Asset class
     /// </summary>
-    [JsonConverter(typeof(EnumConverter<AssetType>))]
-    public enum AssetType
+    [JsonConverter(typeof(EnumConverter<AssetClass>))]
+    public enum AssetClass
     {
         /// <summary>
-        /// ["<c>0</c>"] Crypto currency
+        /// ["<c>CRYPTO</c>"] Crypto currency
         /// </summary>
-        [Map("0")]
-        CryptoCurrency,
+        [Map("CRYPTO")]
+        Crypto,
         /// <summary>
-        /// ["<c>1</c>"] Fiat
+        /// ["<c>METAL</c>"] Metal
         /// </summary>
-        [Map("1")]
-        Fiat
+        [Map("METAL")]
+        Metal,
+        /// <summary>
+        /// ["<c>COMMODITY</c>"] Commodity
+        /// </summary>
+        [Map("COMMODITY")]
+        Commodity,
+        /// <summary>
+        /// ["<c>STOCK</c>"] Stock
+        /// </summary>
+        [Map("STOCK")]
+        Stock
     }
 }

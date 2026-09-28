@@ -81,22 +81,20 @@ namespace Kucoin.Net.Clients.FuturesApi
                 result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
             }
 
-            if (s.MarketType == MarketType.Nasdaq)
+            if (s.AssetClass == AssetClass.Stock)
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Equity;
             }
+            else if (s.AssetClass == AssetClass.Metal
+                || s.AssetClass == AssetClass.Commodity)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
             else
             {
-                if (LibraryHelpers.IsCommodity(s.BaseAsset))
-                {
-                    result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
-                }
-                else
-                {
-                    result.BaseAssetType = SharedAssetType.Crypto;
-                }
+                result.BaseAssetType = SharedAssetType.Crypto;
             }
 
             return result;
