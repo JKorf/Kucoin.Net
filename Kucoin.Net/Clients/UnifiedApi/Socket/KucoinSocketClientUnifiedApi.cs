@@ -166,8 +166,15 @@ namespace Kucoin.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingFeeUpdatesAsync(
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingFeeUpdatesAsync(
             string symbol,
+            Action<DataEvent<KucoinUaFundingFeeUpdate>> onData,
+            CancellationToken ct = default)
+            => SubscribeToFundingFeeUpdatesAsync([symbol], onData, ct);
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingFeeUpdatesAsync(
+            IEnumerable<string> symbols,
             Action<DataEvent<KucoinUaFundingFeeUpdate>> onData,
             CancellationToken ct = default)
         {
@@ -183,7 +190,7 @@ namespace Kucoin.Net.Clients.SpotApi
                         .WithDataTimestamp(data.PushTime, GetTimeOffset())
                     );
             });
-            var subscription = new KucoinUnifiedSubscription<KucoinUaFundingFeeUpdate>(_logger, this, "funding-fee", UnifiedAccountType.Futures, symbol, null, internalHandler, false);
+            var subscription = new KucoinUnifiedSubscription<KucoinUaFundingFeeUpdate>(_logger, this, "funding-fee", UnifiedAccountType.Futures, null, symbols.ToArray(), internalHandler, false);
             return await SubscribeAsync(GetConnectionUrl(UnifiedAccountType.Futures), subscription, ct).ConfigureAwait(false);
         }
 

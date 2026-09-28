@@ -131,6 +131,24 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to funding fee updates for symbols
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470224w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: funding-fee
+        /// </para>
+        /// </summary>
+        /// <param name="symbols">The symbols to subscribe to, for example `ETHUSDTM`</param>
+        /// <param name="onData">The data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingFeeUpdatesAsync(
+            IEnumerable<string> symbols,
+            Action<DataEvent<KucoinUaFundingFeeUpdate>> onData,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to mark price updates
         /// <para>
         /// Docs:<br />

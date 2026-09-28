@@ -44,6 +44,11 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("ff")]
         public decimal? MinFundingRate { get; set; }
+        /// <summary>
+        /// ["<c>lfr</c>"] Last funding rate
+        /// </summary>
+        [JsonPropertyName("lfr")]
+        public decimal? LastFundingRate { get; set; }
 
     }
 }
