@@ -65,6 +65,11 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("t")]
         public decimal? TotalTax { get; set; }
         /// <summary>
+        /// ["<c>fP</c>"] Profit and loss
+        /// </summary>
+        [JsonPropertyName("fP")]
+        public decimal? Pnl { get; set; }
+        /// <summary>
         /// ["<c>E</c>"] Trade time
         /// </summary>
         [JsonPropertyName("E")]

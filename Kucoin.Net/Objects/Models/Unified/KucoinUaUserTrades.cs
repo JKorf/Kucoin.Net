@@ -104,7 +104,12 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// ["<c>tax</c>"] Tax
         /// </summary>
         [JsonPropertyName("tax")]
-        public decimal Tax { get; set; }
+        public decimal? Tax { get; set; }
+        /// <summary>
+        /// ["<c>fillPnl</c>"] Profit and loss
+        /// </summary>
+        [JsonPropertyName("fillPnl")]
+        public decimal? Pnl { get; set; }
     }
 
 
