@@ -9,29 +9,56 @@ namespace Kucoin.Net.Enums
     public enum TradingStatus
     {
         /// <summary>
-        /// ["<c>0</c>"] Not enabled
+        /// ["<c>TradingDisabled</c>"] [Spot] Trading disabled
         /// </summary>
-        [Map("0")]
-        NotEnabled,
+        [Map("TradingDisabled")]
+        TradingDisabled,
         /// <summary>
-        /// ["<c>1</c>"] Currently trading
+        /// ["<c>TradingEnabled</c>"] [Spot] Trading enabled
         /// </summary>
-        [Map("1")]
-        Trading,
+        [Map("TradingEnabled")]
+        TradingEnabled,
+
+
         /// <summary>
-        /// ["<c>2</c>"] [Futures] Settling
+        /// ["<c>Init</c>"] [Futures] Init
         /// </summary>
-        [Map("2")]
-        Settling,
+        [Map("Init")]
+        Init,
         /// <summary>
-        /// ["<c>3</c>"] [Futures] Settled
+        /// ["<c>Settled</c>"] [Futures] Settled
         /// </summary>
-        [Map("3")]
+        [Map("Settled")]
         Settled,
         /// <summary>
-        /// ["<c>4</c>"] [Futures] Paused
+        /// ["<c>Paused</c>"] [Futures] Paused
         /// </summary>
-        [Map("4")]
-        Paused
+        [Map("Paused")]
+        Paused,
+        /// <summary>
+        /// ["<c>Open</c>"] [Futures] Open
+        /// </summary>
+        [Map("Open")]
+        Open,
+        /// <summary>
+        /// ["<c>PrepareSettled</c>"] [Futures] Preparing settlement
+        /// </summary>
+        [Map("PrepareSettled")]
+        PrepareSettled,
+        /// <summary>
+        /// ["<c>BeingSettled</c>"] [Futures] Being settled
+        /// </summary>
+        [Map("BeingSettled")]
+        BeingSettled,
+        /// <summary>
+        /// ["<c>Closed</c>"] [Futures] Closed
+        /// </summary>
+        [Map("Closed")]
+        Closed,
+        /// <summary>
+        /// ["<c>CancelOnly</c>"] [Futures] CancelOnly
+        /// </summary>
+        [Map("CancelOnly")]
+        CancelOnly,
     }
 }

@@ -128,6 +128,16 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("mmrLevConstant")]
         public decimal MaintenanceMarginRatioLeverageConstant { get; set; }
+        /// <summary>
+        /// ["<c>maxMarketOrderSize</c>"] Max market order size
+        /// </summary>
+        [JsonPropertyName("maxMarketOrderSize")]
+        public decimal MaxMarketOrderSize { get; set; }
+        /// <summary>
+        /// ["<c>preMarketToPerpDate</c>"] Time when a pre-market contract converts to a perpetual contract
+        /// </summary>
+        [JsonPropertyName("preMarketToPerpDate")]
+        public DateTime? PreMarketToPerpDate { get; set; }
     }
 
 

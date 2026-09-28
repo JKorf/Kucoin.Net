@@ -91,7 +91,7 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// ["<c>feeCategory</c>"] Fee category
         /// </summary>
         [JsonPropertyName("feeCategory")]
-        public int FeeCategory { get; set; }
+        public FeeCategory FeeCategory { get; set; }
         /// <summary>
         /// ["<c>makerFeeCoefficient</c>"] Maker fee coefficient
         /// </summary>
