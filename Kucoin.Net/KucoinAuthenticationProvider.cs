@@ -56,6 +56,7 @@ namespace Kucoin.Net
 
             // Partner info
             request.Headers.Add("KC-API-PARTNER", brokerName!);
+            request.Headers.Add("KC-API-PARTNER-VERIFY", "true");
             var partnerSignData = $"{timestamp}{brokerName}{Credential.Key}";
 
             using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey!));

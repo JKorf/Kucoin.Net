@@ -76,8 +76,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
             parameters.Add("tradeType", accountType);
             parameters.Add("symbol", symbol);
-            parameters.Add("side", side);
-            parameters.Add("orderType", orderType);
+            parameters.Add("side", EnumConverter.GetString(side).ToUpperInvariant());
+            parameters.Add("orderType", EnumConverter.GetString(orderType).ToUpperInvariant());
             parameters.Add("size", quantity);
             parameters.Add("sizeUnit", quantityUnit);
             parameters.Add("price", price);
