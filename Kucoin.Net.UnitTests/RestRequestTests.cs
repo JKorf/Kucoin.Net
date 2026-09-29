@@ -325,7 +325,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.Account.SetLeverageAsync("ETHUSDTM", 0.1m), "SetLeverage");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetDepositAddressAsync("123", "123"), "GetDepositAddress", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetApiKeyInfoAsync(), "GetApiKeyInfo", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetWithdrawalQuotasAsync("123", "123"), "GetWithdrawalQuotas", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.Account.GetWithdrawalQuotasAsync("123", "123", WithdrawType.Address), "GetWithdrawalQuotas", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.WithdrawAsync("123", "123", 0.1m, WithdrawType.Address), "Withdraw", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.SetCrossMarginLeverageAsync(UnifiedAccountMode.Unified, "123", 0.1m), "SetCrossMarginLeverage", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.Account.GetLeverageAsync(UnifiedSimpleAccountType.Futures, MarginMode.CrossMode), "GetLeverage", nestedJsonProperty: "data");
@@ -357,10 +357,10 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCrossMarginConfigAsync(), "GetCrossMarginConfig", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetServiceStatusAsync(ProductType.Spot), "GetServiceStatus", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCollateralRatioAsync(), "GetCollateralRatio", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingRateAsync("ETHUSDTM"), "GetFundingRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFundingRatesAsync("ETHUSDTM"), "GetFundingRates", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFuturesOpenInterestAsync(), "GetFuturesOpenInterest", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetKYCRegionsAsync(), "GetKYCRegions", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFiatPricesAsync(), "GetFiatPrice", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetFiatPricesAsync("USD"), "GetFiatPrice", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetInterestRateIndexAsync("ETHUSDTM"), "GetInterestRateIndex", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetPlatformStatsAsync(), "GetPlatformStats", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetCallAuctionInfoAsync("GROVE-USDT"), "GetCallAuctionInfo", nestedJsonProperty: "data");

@@ -1,5 +1,5 @@
 POST
-/api/ua/v1/unified/position/modify-margin
+/api/ua/v2/unified/position/modify-margin
 true
 BodyParams: {"type": "DEPOSIT","amount": 0.1,"symbol": "ETHUSDTM"}
 {

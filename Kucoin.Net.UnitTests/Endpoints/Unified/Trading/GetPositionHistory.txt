@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/position/history
+/api/ua/v2/position/history
 true
 {
     "code": "200000",

@@ -1,5 +1,5 @@
 POST
-/api/ua/v1/sub-account/canTransferOut
+/api/ua/v2/sub-account/canTransferOut
 true
 {
     "code": "200000",

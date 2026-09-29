@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/user/fee-rate
+/api/ua/v2/user/fee-rate
 true
 {
     "code": "200000",

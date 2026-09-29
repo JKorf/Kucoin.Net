@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/announcement
+/api/ua/v2/market/announcement
 false
 {
     "code": "200000",

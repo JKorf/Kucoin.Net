@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/collateral-discount-ratio
+/api/ua/v2/market/collateral-discount-ratio
 false
 {
     "code": "200000",

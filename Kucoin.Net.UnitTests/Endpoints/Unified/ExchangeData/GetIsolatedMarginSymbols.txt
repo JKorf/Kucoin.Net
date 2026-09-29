@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/instrument
+/api/ua/v2/market/instrument
 false
 {
     "code": "200000",

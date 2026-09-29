@@ -1,5 +1,5 @@
 POST
-/api/ua/v1/unified/order/place
+/api/ua/v2/unified/order/place
 true
 {
     "code": "200000",

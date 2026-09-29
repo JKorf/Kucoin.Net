@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/account/transfer-quota
+/api/ua/v2/account/transfer-quota
 true
 {
     "code": "200000",

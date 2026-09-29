@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/user/api-key
+/api/ua/v2/user/api-key
 true
 UriParams: {}
 {

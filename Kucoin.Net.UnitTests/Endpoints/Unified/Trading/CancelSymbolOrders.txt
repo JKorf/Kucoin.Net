@@ -1,5 +1,5 @@
 POST
-/api/ua/v1/unified/order/cancel-all
+/api/ua/v2/unified/order/cancel-all
 true
 {
     "code": "200000",

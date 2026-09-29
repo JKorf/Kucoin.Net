@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/open-interest
+/api/ua/v2/market/open-interest
 false
 {
     "code": "200000",

@@ -1,0 +1,18 @@
+GET
+/api/ua/v2/market/funding-rate
+false
+{
+    "code": "200000",
+    "data": [
+        {
+            "symbol": "XBTUSDTM",
+            "nextFundingRate": "0.000071",
+            "fundingTime": 1787760000000,
+            "fundingRateCap": "0.003",
+            "fundingRateFloor": "-0.003",
+            "currentGranularity": 28800000,
+            "newGranularity": 28800000,
+            "newGranularityStartTime": 1750147200000
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/asset/deposit/address
+/api/ua/v2/asset/deposit/address
 true
 {
     "code": "200000",
@@ -8,8 +8,8 @@ true
             "address": "***",
             "memo": "",
             "remark": "",
-            "chainId": "ton2",
-            "to": "FUNDING",
+            "chain": "ton2",
+            "toAccountType": "FUNDING",
             "expirationDate": 0,
             "currency": "USDT",
             "contractAddress": "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",

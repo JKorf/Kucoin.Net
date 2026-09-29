@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/account/balance
+/api/ua/v2/account/balance
 true
 {
     "code": "200000",

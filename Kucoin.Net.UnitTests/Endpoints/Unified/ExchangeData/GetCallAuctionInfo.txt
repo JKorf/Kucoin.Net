@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/call-auction-info
+/api/ua/v2/market/call-auction-info
 false
 {
     "code": "200000",

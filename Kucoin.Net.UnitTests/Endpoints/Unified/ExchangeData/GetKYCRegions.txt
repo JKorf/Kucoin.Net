@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/user/kyc-region
+/api/ua/v2/user/kyc-region
 true
 UriParams: {}
 {

@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/fiat-price
+/api/ua/v2/market/fiat-price
 false
 UriParams: {}
 {

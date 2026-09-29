@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/unified/position/tiers
+/api/ua/v2/unified/position/tiers
 true
 {
     "code": "200000",

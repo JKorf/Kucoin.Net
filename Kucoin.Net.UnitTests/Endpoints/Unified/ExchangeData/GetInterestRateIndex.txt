@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/interest-rate-index
+/api/ua/v2/market/interest-rate-index
 false
 {
     "code": "200000",

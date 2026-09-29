@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/unified/account/overview
+/api/ua/v2/unified/account/overview
 true
 {
     "code": "200000",

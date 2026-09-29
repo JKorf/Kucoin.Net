@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/asset/currencies
+/api/ua/v2/asset/currencies
 false
 {
 	"code":"200000",
@@ -9,9 +9,7 @@ false
 			"name":"CSP",
 			"fullName":"Caspian",
 			"precision":8,
-			"isMarginEnabled":false,
-			"isDebitEnabled":false,
-			"items":[
+			"list":[
 				{
 				"chainName":"ERC20",
 				"minWithdrawSize":"2999",
@@ -27,7 +25,7 @@ false
 				"maxWithdrawSize":null,
 				"maxDepositSize":null,
 				"isMemoRequired":false,
-				"chainId":"eth"
+				"chain":"eth"
 				}
 			]
 		}

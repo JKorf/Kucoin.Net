@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/account/interest-history
+/api/ua/v2/account/interest-history
 true
 {
     "code": "200000",

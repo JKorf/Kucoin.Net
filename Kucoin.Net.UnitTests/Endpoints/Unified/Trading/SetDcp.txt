@@ -1,5 +1,5 @@
 POST
-/api/ua/v1/dcp/set
+/api/ua/v2/dcp/set
 true
 {
     "code": "200000",

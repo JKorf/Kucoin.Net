@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/orderbook
+/api/ua/v2/market/orderbook
 true
 {
     "code": "200000",

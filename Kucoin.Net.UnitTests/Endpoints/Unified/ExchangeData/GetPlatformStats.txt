@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/trade-statistics
+/api/ua/v2/trade-statistics
 false
 {
     "code": "200000",

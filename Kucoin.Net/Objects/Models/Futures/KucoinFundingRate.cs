@@ -39,5 +39,10 @@ namespace Kucoin.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("dailyInterestRate")]
         public decimal? DailyInterestRate { get; set; }
+        /// <summary>
+        /// ["<c>lastTimeFundingRate</c>"] Last funding rate
+        /// </summary>
+        [JsonPropertyName("lastTimeFundingRate")]
+        public decimal? LastFundingRate { get; set; }
     }
 }

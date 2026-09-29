@@ -32,5 +32,22 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("fundingRateFloor")]
         public decimal FundingRateFloor { get; set; }
+
+        /// <summary>
+        /// ["<c>currentGranularity</c>"] Current funding interval
+        /// </summary>
+        [JsonPropertyName("currentGranularity")]
+        public long FundingInterval { get; set; }
+        /// <summary>
+        /// ["<c>newGranularity</c>"] New funding interval
+        /// </summary>
+        [JsonPropertyName("newGranularity")]
+        public long? NewFundingInterval { get; set; }
+
+        /// <summary>
+        /// ["<c>newGranularityStartTime</c>"] New funding interval start time
+        /// </summary>
+        [JsonPropertyName("newGranularityStartTime")]
+        public DateTime? NewFundingIntervalStartTime { get; set; }
     }
 }

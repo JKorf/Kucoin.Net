@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/trade
+/api/ua/v2/market/trade
 false
 {
     "code": "200000",

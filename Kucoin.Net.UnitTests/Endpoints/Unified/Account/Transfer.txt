@@ -1,5 +1,5 @@
 POST
-/api/ua/v1/account/transfer
+/api/ua/v2/account/transfer
 true
 {
     "code": "200000",

@@ -1,26 +1,26 @@
 GET
-/api/ua/v1/withdrawals/quotas
+/api/ua/v2/withdrawals/quotas
 true
-UriParams: {"currency": "123","chainId": "123"}
+UriParams: {"currency": "123","chain": "123"}
 {
     "code": "200000",
     "data": {
-        "currency": "BTC",
-        "limitBTCAmount": "12.79888956",
+        "currency": "USDT",
+        "limitBTCAmount": "0.48780487",
         "usedBTCAmount": "0.00000000",
         "quotaCurrency": "USDT",
-        "limitQuotaCurrencyAmount": "999999.00000000",
+        "limitQuotaCurrencyAmount": "25000.00000000",
         "usedQuotaCurrencyAmount": "0",
-        "remainAmount": "12.79888956",
-        "availableAmount": "0",
-        "withdrawMinFee": "0.00009",
-        "innerWithdrawMinFee": "0",
-        "withdrawMinSize": "0.00018",
+        "withdrawMinSize": "0",
         "isWithdrawEnabled": true,
-        "precision": 8,
-        "chainName": "BTC",
-        "chainId": "btc",
+        "precision": 6,
+        "chainName": "TRC20",
+        "chain": "trx",
         "reason": null,
-        "lockedAmount": "0"
+        "lockedAmount": "0",
+        "remainingQuotaAmount": "25000.000000",
+        "availableWithdrawAmount": "488942.00000108",
+        "minWithdrawFee": "0",
+        "minInnerWithdrawFee": "0"
     }
 }

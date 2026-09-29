@@ -1,5 +1,5 @@
 GET
-/api/ua/v1/market/cross-config
+/api/ua/v2/market/cross-config
 false
 {
     "code": "200000",
