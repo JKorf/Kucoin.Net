@@ -241,6 +241,26 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.7.0 - 30 Sep 2026
+    * Updated CryptoExchange.Net to V13.1.0
+    * Added withdrawType, isInner parameters to UTA GetWithdrawalQuotasAsync, updated response model
+    * Added UTA EditOrderAsync endpoint
+    * Added tradeType parameter to UTA GetUserTradesAsync endpoint
+    * Added UTA SubscribeToFundingFeeUpdatesAsync overload accepting multiple symbols, added LastFundingRate to update model
+    * Added UTA SubscribeToFundingFeeUpdatesAsync overload without symbol parameter for all symbols
+    * Added Pnl to KucoinUaUserTrade and KucoinUaUserTradeUpdate models, made Tax nullable
+    * Added AssetClass, SubMarketType to KucoinContract model
+    * Updated Shared API GetFuturesSymbolsAsync asset type mapping
+    * Updated UTA GetFundingRateAsync to GetFundingRatesAsync, updated response model
+    * Updated KucoinUaAsset model
+    * Updated UTA GetFiatPricesAsync base parameter to required
+    * Updated UTA GetSpotSymbolsAsync, GetFuturesSymbolsAsync response models and enums
+    * Updated UTA rate limits
+    * Updated UTA endpoints to V2
+    * Renamed Hold to Locked in KucoinUaSubAccountBalance model
+    * Renamed To to ToAccountType and NetworkId to Network in KucoinUaDepositAddress model
+    * Fixed side and orderType parameter serialization UTA trading
+
 * Version 9.6.0 - 24 Sep 2026
     * Updated CryptoExchange.Net to v13.0.0
     * Shared APIs
