@@ -18,7 +18,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get announcements
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473237e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-announcements" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/announcement
         /// </para>
@@ -36,7 +36,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets a list of supported spot symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/instrument" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/instrument
         /// </para>
@@ -50,7 +50,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Gets a list of supported symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/instrument" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/instrument
         /// </para>
@@ -61,38 +61,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<HttpResult<KucoinFuturesSymbol[]>> GetFuturesSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of supported symbols
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
-        /// Endpoint:<br />
-        /// GET /api/ua/v2/market/instrument
-        /// </para>
-        /// </summary>
-        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>List of symbols</returns>
-        Task<HttpResult<KucoinMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Gets a list of supported symbols
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473247e0" /><br />
-        /// Endpoint:<br />
-        /// GET /api/ua/v2/market/instrument
-        /// </para>
-        /// </summary>
-        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>List of symbols</returns>
-        Task<HttpResult<KucoinIsolatedMarginSymbol[]>> GetIsolatedMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default);
-
-        /// <summary>
         /// Get asset
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473238e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/currency" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/currency
         /// </para>
@@ -104,6 +76,12 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get assets
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/currencies" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v2/market/currencies
+        /// </para>
         /// </summary>
         /// <param name="assets">["<c>currencyList</c>"] Assets filter, null for all assets</param>
         /// <param name="network">["<c>chain</c>"] Filter network, for example `eth`</param>
@@ -114,7 +92,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get 24h price ticker info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473241e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-ticker" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/ticker
         /// </para>
@@ -128,22 +106,22 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get snapshot of the current order book
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473243e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-orderbook" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/orderbook
         /// </para>
         /// </summary>
-        /// <param name="productType">["<c>tradeType</c>"] Product type</param>
+        /// <param name="type">["<c>tradeType</c>"] Product type</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="limit">["<c>limit</c>"] Number of rows, 20, 100 or null for full book</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType productType, string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType type, string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of the most recent trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473242e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-trades" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/trade
         /// </para>
@@ -157,7 +135,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get candlestick/kline data
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473244e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-klines" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/kline
         /// </para>
@@ -189,7 +167,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get funding history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473246e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-history-funding-rate" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/funding-rate-history
         /// </para>
@@ -201,22 +179,10 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         Task<HttpResult<KucoinUaFundingRateEntry[]>> GetFundingHistoryAsync(string symbol, DateTime startTime, DateTime endTime, CancellationToken ct = default);
 
         /// <summary>
-        /// Get cross margin configuration
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473248e0" /><br />
-        /// Endpoint:<br />
-        /// GET /api/ua/v2/market/cross-config
-        /// </para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaCrossMarginConfig>> GetCrossMarginConfigAsync(CancellationToken ct = default);
-
-        /// <summary>
         /// Get collateral discount ratio
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-collateral-ratio" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-collateral-ratio" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/collateral-discount-ratio
         /// </para>
@@ -228,7 +194,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get open interest for futures symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-futures-open-interest" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/open-interest
         /// </para>
@@ -241,7 +207,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get open interest history for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-futures-open-interest" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/open-interest
         /// </para>
@@ -264,7 +230,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get service status
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3473248e0" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-service-status" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/server/status
         /// </para>
@@ -277,7 +243,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get KYC regions
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-kyc-region?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-kyc-region" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/user/kyc-region<br />
         /// </para>
@@ -289,7 +255,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get fiat prices for assets
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/3477216e0?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/fiat-price" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/fiat-price<br />
         /// </para>
@@ -306,7 +272,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get interest rate history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-interest-rate-index" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-interest-rate-index" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/market/interest-rate-index<br />
         /// </para>
@@ -329,7 +295,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get 24h platform stats
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-statistics" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-trade-statistics" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/trade-statistics<br />
         /// </para>
@@ -341,7 +307,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get call auction info for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-call-auction-info" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-call-auction-info" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/trade-statistics<br />
         /// </para>
@@ -349,5 +315,30 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">Symbol, for example `GROVE-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaCallAuctionInfo>> GetCallAuctionInfoAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get position tiers
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-position-tiers" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v2/market/position-tiers<br />
+        /// </para>
+        /// </summary>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="marginMode">Margin mode</param>
+        /// <param name="accountMode">Account mode</param>
+        /// <param name="data">Data type, RISK_LIMIT or BORROW</param>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="asset">Asset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
+            UnifiedSimpleAccountType tradeType,
+            MarginMode marginMode,
+            UnifiedAccountMode accountMode,
+            string? data = "RISK_LIMIT",
+            string? symbol = null,
+            string? asset = null,
+            CancellationToken ct = default);
     }
 }

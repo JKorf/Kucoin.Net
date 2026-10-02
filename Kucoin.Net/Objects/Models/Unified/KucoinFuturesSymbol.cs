@@ -34,7 +34,7 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// ["<c>maxBaseOrderSize</c>"] Max order quantity in base asset
+        /// ["<c>maxBaseOrderSize</c>"] Max order quantity in contracts
         /// </summary>
         [JsonPropertyName("maxBaseOrderSize")]
         public decimal MaxBaseOrderQuantity { get; set; }
@@ -138,6 +138,48 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("preMarketToPerpDate")]
         public DateTime? PreMarketToPerpDate { get; set; }
+
+
+        /// <summary>
+        /// ["<c>feeCurrency</c>"] Fee asset
+        /// </summary>
+        [JsonPropertyName("feeCurrency")]
+        public string FeeAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>priceLimitRatio</c>"] Price limit ratio
+        /// </summary>
+        [JsonPropertyName("priceLimitRatio")]
+        public decimal PriceLimitRatio { get; set; }
+        /// <summary>
+        /// ["<c>buyLimit</c>"] Max current buy price
+        /// </summary>
+        [JsonPropertyName("buyLimit")]
+        public decimal BuyLimit { get; set; }
+        /// <summary>
+        /// ["<c>sellLimit</c>"] Min current sell price
+        /// </summary>
+        [JsonPropertyName("sellLimit")]
+        public decimal SellLimit { get; set; }
+        /// <summary>
+        /// ["<c>marketStage</c>"] Market stage
+        /// </summary>
+        [JsonPropertyName("marketStage")]
+        public string MarketStage { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>assetClass</c>"] Asset class
+        /// </summary>
+        [JsonPropertyName("assetClass")]
+        public AssetClass AssetClass { get; set; }
+        /// <summary>
+        /// ["<c>subMarketType</c>"] Sub market type
+        /// </summary>
+        [JsonPropertyName("subMarketType")]
+        public SubMarketType SubMarketType { get; set; }
+        /// <summary>
+        /// ["<c>indexPriceTickSize</c>"] Index price tick size
+        /// </summary>
+        [JsonPropertyName("indexPriceTickSize")]
+        public decimal IndexPriceTickSize { get; set; }
     }
 
 

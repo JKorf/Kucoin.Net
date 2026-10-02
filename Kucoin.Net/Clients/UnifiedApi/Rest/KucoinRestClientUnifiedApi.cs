@@ -8,6 +8,7 @@ using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients.UnifiedApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
     /// <inheritdoc cref="IKucoinRestClientUnifiedApi" />
     internal partial class KucoinRestClientUnifiedApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientUnifiedApi
     {
+        private readonly KucoinRestClientUnifiedSharedApi _sharedApi;
+
         private KucoinRestClient _baseClient;
         protected override ErrorMapping ErrorMapping => KucoinErrors.SpotErrors;
         protected override IRestMessageHandler MessageHandler { get; } = new KucoinRestMessageHandler(KucoinErrors.SpotErrors);
@@ -49,6 +52,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
             Trading = new KucoinRestClientUnifiedApiTrading(_logger, this);
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
+
+            _sharedApi = new KucoinRestClientUnifiedSharedApi(this);
 
             if (options.Environment.Name == KucoinEnvironment.Australia.Name)
                 StandardRequestHeaders.Add("X-SITE-TYPE", "australia");
@@ -91,5 +96,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
+
+        public IKucoinRestClientUnifiedSharedApi SharedApi => _sharedApi;
     }
 }

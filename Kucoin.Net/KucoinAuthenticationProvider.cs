@@ -4,6 +4,7 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Clients.FuturesApi;
+using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 
 using System;
@@ -65,6 +66,33 @@ namespace Kucoin.Net
 
             request.SetBodyContent(bodyData);
             request.SetQueryString(queryString);
+        }
+
+        internal KucoinUnifiedAuthRequest GetSocketAuth(SocketApiClient apiClient)
+        {
+            var partnerName = "";
+            var partnerKey = "";
+
+            var timestamp = GetMillisecondTimestampLong(apiClient);
+            var signStr = timestamp + "POST/api/websocket/users/verify";
+            var sign = SignHMACSHA256(signStr, SignOutputType.Base64);
+            var phraseSign = SignHMACSHA256(Credential.Pass!, SignOutputType.Base64);
+            using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(partnerKey!));
+            var partnerSignData = $"{timestamp}{partnerName}{Credential.Key}";
+            byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
+            var partnerSign = BytesToBase64String(buff);
+
+            return new KucoinUnifiedAuthRequest
+            {
+                Id = ExchangeHelpers.NextId().ToString(),
+                Operation = "auth",
+                ApiKey = Key,
+                Timestamp = timestamp,
+                Passphrase = phraseSign,
+                Sign = sign,
+                //Partner = partnerName,
+                //PartnerSign = partnerSign
+            };
         }
     }
 }

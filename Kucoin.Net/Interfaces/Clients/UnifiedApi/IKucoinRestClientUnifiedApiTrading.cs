@@ -16,17 +16,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
     public interface IKucoinRestClientUnifiedApiTrading
     {
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Place a new order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/place-order" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/place-order" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v2/{accountMode}/order/place
+        /// POST /api/ua/v2/unified/order/place
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Mode of the account</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Type of trade</param>
+        /// <param name="type">["<c>tradeType</c>"] Type of trade</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="side">["<c>side</c>"] Order side</param>
         /// <param name="orderType">["<c>orderType</c>"] Type of order</param>
@@ -54,8 +52,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="closeOrder">["<c>closeOrder</c>"] Close order</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderResult>> PlaceOrderAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType,
+            UnifiedSimpleAccountType type,
             string symbol,
             OrderSide side,
             OrderType orderType,
@@ -84,7 +81,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Edit an open order
         /// <para>
         /// Docs:<br />
@@ -121,68 +117,59 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel an open order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/cancel-order" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/cancel-order" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v2/{accountMode}/order/cancel
+        /// POST /api/ua/v2/unified/order/cancel
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Mode of the account</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Type of trade</param>
+        /// <param name="type">["<c>tradeType</c>"] Type of trade</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`, not required from Unified account Futures order</param>
         /// <param name="orderId">["<c>orderId</c>"] Order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderResult>> CancelOrderAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType,
+            UnifiedSimpleAccountType type,
             string? symbol = null, 
             string? orderId = null, 
             string? clientOrderId = null, 
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel multiple orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/batch-cancel-order-by-id" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v2/{accountMode}/order/cancel-batch
+        /// POST /api/ua/v2/unified/order/cancel-batch
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="type">["<c>tradeType</c>"] Account type</param>
         /// <param name="orders">["<c>cancelOrderList</c>"] Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaBatchCancelResult>> CancelOrdersAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType,
+            UnifiedSimpleAccountType type,
             IEnumerable<KucoinUaCancelOrderRequest> orders,
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Cancel orders on a specific symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/batch-cancel-order-by-symbol" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v2/{accountMode}/order/cancel-all
+        /// POST /api/ua/v2/unified/order/cancel-all
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="type">["<c>tradeType</c>"] Account type</param>
         /// <param name="symbol">["<c>symbol</c>"] Symbol</param>
         /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
         /// <param name="orderFilter">["<c>orderFilter</c>"] Order filter, defaults to Normal</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedSimpleAccountType accountType,
+            UnifiedSimpleAccountType type,
             string symbol,
             MarginMode? marginMode = null,
             OrderFilter? orderFilter = null,
@@ -193,67 +180,56 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get order info by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-order-details" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-order-details" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v2/{accountMode}/order/detail
+        /// GET /api/ua/v2/unified/order/detail
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="type">["<c>tradeType</c>"] Account type</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">["<c>orderId</c>"] Order id. Either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id. Either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrder>> GetOrderAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType,
+            UnifiedSimpleAccountType type,
             string symbol,
             string? orderId = null,
             string? clientOrderId = null,
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get open orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-open-order-list" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v2/{accountMode}/order/open-list
+        /// GET /api/ua/v2/unified/order/open-list
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="type">["<c>tradeType</c>"] Type</param>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for Classic account spot/margin</param>
         /// <param name="orderFilter">["<c>orderFilter</c>"] Filter by order type</param>
-        /// <param name="startTime">["<c>startAt</c>"] Filter by start time</param>
-        /// <param name="endTime">["<c>endAt</c>"] Filter by end time</param>
         /// <param name="page">["<c>pageNumber</c>"] Page number</param>
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrders>> GetOpenOrdersAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType, 
+            UnifiedSimpleAccountType type,
             string? symbol = null,
             OrderFilter? orderFilter = null,
-            DateTime? startTime = null, 
-            DateTime? endTime = null,
             int? page = null, 
             int? pageSize = null, 
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get order history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-order-history" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-order-history" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v2/{accountMode}/order/history
+        /// GET /api/ua/v2/unified/order/history
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="type">["<c>tradeType</c>"] Account type</param>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
         /// <param name="side">["<c>side</c>"] Filter by side</param>
         /// <param name="orderFilter">["<c>orderFilter</c>"] Filter by order type</param>
@@ -263,8 +239,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderHistory>> GetOrderHistoryAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType, 
+            UnifiedSimpleAccountType type,
             string? symbol = null, 
             OrderSide? side = null,
             OrderFilter? orderFilter = null, 
@@ -275,17 +250,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get user trade history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-trade-history" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v2/{accountMode}/order/execution
+        /// GET /api/ua/v2/unified/order/execution
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type</param>
+        /// <param name="type">["<c>tradeType</c>"] Account type</param>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH-USDT`, required for spot/margin</param>
         /// <param name="orderId">["<c>orderId</c>"] Filter by order id</param>
         /// <param name="orderSide">["<c>side</c>"] Filter by order side</param>
@@ -296,10 +269,9 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaUserTrades>> GetUserTradesAsync(
-            UnifiedAccountMode accountMode,
-            UnifiedAccountType accountType, 
+            UnifiedSimpleAccountType type,
             string? symbol = null,
-            long? orderId = null,
+            string? orderId = null,
             OrderSide? orderSide = null, 
             UnifiedTradeType? tradeType = null,
             DateTime? startTime = null,
@@ -309,58 +281,25 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
-        /// Set disconnect protection
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/set-dcp-classic" /><br />
-        /// Endpoint:<br />
-        /// POST /api/ua/v2/dcp/set
-        /// </para>
-        /// </summary>
-        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
-        /// <param name="timeout">["<c>timeout</c>"] Timeout in seconds</param>
-        /// <param name="symbols">["<c>symbols</c>"] Set for specific symbols</param>
-        /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaDcp>> SetDcpAsync(UnifiedSimpleAccountType tradeType, long timeout, string? symbols = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
-        /// Get disconnection protection status
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-dcp-classic" /><br />
-        /// Endpoint:<br />
-        /// GET /api/ua/v2/dcp/query
-        /// </para>
-        /// </summary>
-        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
-        /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaDcp>> GetDcpAsync(UnifiedSimpleAccountType tradeType, CancellationToken ct = default);
-
-        /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get open positions
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-position-list-uta" /><br />
         /// Endpoint:<br />
-        /// GET /api/ua/v2/{accountMode}/position/open-list
+        /// GET /api/ua/v2/unified/position/open-list
         /// </para>
         /// </summary>
-        /// <param name="accountMode">Account mode</param>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDTM`</param>
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaPosition[]>> GetPositionsAsync(UnifiedAccountMode accountMode, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<KucoinUaPosition[]>> GetPositionsAsync(string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
         /// Get position history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-position-history-uta" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/position/history
         /// </para>
@@ -377,28 +316,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             DateTime? endTime = null, 
             long? lastId = null,
             int? pageSize = null,
-            CancellationToken ct = default);
-
-        /// <summary>
-        /// [Warning: UTA/Unified API is currently in BETA phase and should not be used in product]<br />
-        /// Get position tiers
-        /// <para>
-        /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-position-tiers" /><br />
-        /// Endpoint:<br />
-        /// GET /api/ua/v2/{accountMode}/position/tiers
-        /// </para>
-        /// </summary>
-        /// <param name="accountMode">Account mode</param>
-        /// <param name="symbols">["<c>symbol</c>"] Symbols, for example `ETHUSDTM`</param>
-        /// <param name="tradeType">["<c>tradeType</c>"] Trade type</param>
-        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
-        /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
-            UnifiedAccountMode accountMode,
-            IEnumerable<string> symbols,
-            UnifiedSimpleAccountType? tradeType = null, 
-            MarginMode? marginMode = null,
             CancellationToken ct = default);
 
     }

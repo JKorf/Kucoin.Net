@@ -7,6 +7,7 @@ using Kucoin.Net.Objects.Models.Spot;
 using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -80,33 +81,6 @@ namespace Kucoin.Net.Clients.UnifiedApi
             return HttpResult.Ok(result, result.Data.Data);
         }
 
-        /// <inheritdoc />
-        public async Task<HttpResult<KucoinMarginSymbol[]>> GetCrossMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default)
-        {
-            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            parameters.Add("tradeType", ProductType.CrossMargin);
-            parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
-            var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinMarginSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
-            if (!result.Success)
-                return HttpResult.Fail<KucoinMarginSymbol[]>(result);
-
-            return HttpResult.Ok(result, result.Data.Data);
-        }
-
-        /// <inheritdoc />
-        public async Task<HttpResult<KucoinIsolatedMarginSymbol[]>> GetIsolatedMarginSymbolsAsync(string? symbol = null, CancellationToken ct = default)
-        {
-            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            parameters.Add("tradeType", ProductType.IsolatedMargin);
-            parameters.AddOptionalParameter("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/instrument", KucoinExchange.RateLimiter.PublicRest, 4);
-            var result = await _baseClient.SendAsync<KucoinUaResponse<KucoinIsolatedMarginSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
-            if (!result.Success)
-                return HttpResult.Fail<KucoinIsolatedMarginSymbol[]>(result);
-
-            return HttpResult.Ok(result, result.Data.Data);
-        }
         #endregion
 
         #region Get Assets
@@ -243,19 +217,6 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
-        #region Get Cross Margin Config
-
-        /// <inheritdoc />
-        public async Task<HttpResult<KucoinUaCrossMarginConfig>> GetCrossMarginConfigAsync(CancellationToken ct = default)
-        {
-            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/cross-config", KucoinExchange.RateLimiter.PublicRest, 25, false);
-            var result = await _baseClient.SendAsync<KucoinUaCrossMarginConfig>(request, parameters, ct).ConfigureAwait(false);
-            return result;
-        }
-
-        #endregion
-
         #region Get Collateral Ratio
 
         /// <inheritdoc />
@@ -287,7 +248,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOpenInterest[]>> GetFuturesOpenInterestHistoryAsync(
-            string symbol, 
+            string symbol,
             DataPeriod interval,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -400,5 +361,38 @@ namespace Kucoin.Net.Clients.UnifiedApi
         }
 
         #endregion
+
+        #region Get Position Tiers
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
+            UnifiedSimpleAccountType tradeType,
+            MarginMode marginMode,
+            UnifiedAccountMode accountMode,
+            string? data = "RISK_LIMIT",
+            string? symbol = null,
+            string? asset = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.Add("tradeType", tradeType);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("data", data);
+            parameters.Add("currency", asset);
+            parameters.Add("accountType", accountMode);
+            var request = _definitions.GetOrCreate(
+                HttpMethod.Get,
+                _baseClient.BaseAddress,
+                $"/api/ua/v2/market/position-tiers",
+                KucoinExchange.RateLimiter.PublicRest,
+                15,
+                true);
+            var result = await _baseClient.SendAsync<KucoinUaPositionTier[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

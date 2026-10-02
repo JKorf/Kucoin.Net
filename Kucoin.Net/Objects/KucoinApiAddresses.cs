@@ -21,7 +21,7 @@
         public string UnifiedRestAddress { get; set; } = string.Empty;
 
         /// <summary>
-        /// The address used by the KucoinSocketClient for the spot subscription for the Unified trading API
+        /// The address used by the KucoinSocketClient for private subscription for the Unified trading API
         /// </summary>
         public string UnifiedSocketPrivateAddress { get; set; } = string.Empty;
 
@@ -36,6 +36,11 @@
         public string UnifiedSocketFuturesAddress { get; set; } = string.Empty;
 
         /// <summary>
+        /// The address used by the KucoinSocketClient for private trade operations for the Unified trading API
+        /// </summary>
+        public string UnifiedSocketPrivateTradeAddress { get; set; } = string.Empty;
+
+        /// <summary>
         /// The default addresses to connect to the kucoin.com API
         /// </summary>
         public static KucoinApiAddresses Default = new KucoinApiAddresses
@@ -45,7 +50,8 @@
             UnifiedRestAddress = "https://api.kucoin.com/",
             UnifiedSocketSpotAddress = "wss://x-push-spot.kucoin.com",
             UnifiedSocketFuturesAddress = "wss://x-push-futures.kucoin.com",
-            UnifiedSocketPrivateAddress = "wss://wsapi-push.kucoin.com"
+            UnifiedSocketPrivateAddress = "wss://wsapi-push.kucoin.com",
+            UnifiedSocketPrivateTradeAddress = "wss://wsapi.kucoin.com"
         };
 
         /// <summary>
@@ -58,7 +64,8 @@
             UnifiedRestAddress = "https://api.kucoin.com/",
             UnifiedSocketSpotAddress = "wss://x-push-spot.kucoin.com",
             UnifiedSocketFuturesAddress = "wss://x-push-futures.kucoin.com",
-            UnifiedSocketPrivateAddress = "wss://wsapi-push.kucoin.com"
+            UnifiedSocketPrivateAddress = "wss://wsapi-push.kucoin.com",
+            UnifiedSocketPrivateTradeAddress = "wss://wsapi.kucoin.com",
         };
 
         /// <summary>
@@ -71,7 +78,8 @@
             UnifiedRestAddress = "https://api.kucoin.eu/",
             UnifiedSocketSpotAddress = "wss://x-push-spot.kucoin.eu",
             UnifiedSocketFuturesAddress = "wss://x-push-futures.kucoin.eu",
-            UnifiedSocketPrivateAddress = "wss://wsapi-push.kucoin.eu"
+            UnifiedSocketPrivateAddress = "wss://wsapi-push.kucoin.eu",
+            UnifiedSocketPrivateTradeAddress = "wss://wsapi.kucoin.eu"
         };
     }
 }

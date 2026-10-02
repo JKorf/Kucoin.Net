@@ -11,10 +11,12 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using CryptoExchange.Net.Sockets.Interfaces;
+using Kucoin.Net.Clients.FuturesApi;
 using Kucoin.Net.Clients.MessageHandlers;
 using Kucoin.Net.Clients.UnifiedApi;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients.UnifiedApi;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Futures.Socket;
@@ -33,20 +35,24 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kucoin.Net.Clients.SpotApi
+namespace Kucoin.Net.Clients.UnifiedApi
 {
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
     internal partial class KucoinSocketClientUnifiedApi : SocketApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientUnifiedApi
     {
+        private readonly KucoinSocketClientUnifiedSharedApi _sharedApi;
         private readonly KucoinSocketClient _baseClient;
 
         /// <inheritdoc />
         public new KucoinSocketOptions ClientOptions => (KucoinSocketOptions)base.ClientOptions;
 
+        public IKucoinSocketClientUnifiedSharedApi SharedApi => _sharedApi;
+
         internal KucoinSocketClientUnifiedApi(ILoggerFactory? loggerFactory, KucoinSocketClient baseClient, KucoinSocketOptions options)
-            : base(loggerFactory, KucoinExchange.Metadata.Id, options.Environment.SpotAddress, options, options.SpotOptions)
+            : base(loggerFactory, KucoinExchange.Metadata.Id, options.Environment.UnifiedSocketPrivateAddress, options, options.UnifiedOptions)
         {
             _baseClient = baseClient;
+            _sharedApi = new KucoinSocketClientUnifiedSharedApi(this);
 
             RateLimiter = KucoinExchange.RateLimiter.UnifiedSocket;
 
@@ -394,43 +400,208 @@ namespace Kucoin.Net.Clients.SpotApi
             return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
         }
 
+        public async Task<QueryResult<KucoinUaOrderResult>> PlaceOrderAsync(
+            UnifiedSimpleAccountType type,
+            string symbol,
+            OrderSide side,
+            OrderType orderType,
+            decimal quantity,
+            decimal? price = null,
+            TimeInForce? timeInForce = null,
+            QuantityUnit? quantityUnit = null,
+            string? clientOrderId = null,
+            bool? postOnly = null,
+            bool? reduceOnly = null,
+            SelfTradePrevention? stpMode = null,
+            long? cancelAfter = null,
+            decimal? triggerPrice = null,
+            StopType? triggerDirection = null,
+            StopPriceType? triggerPriceType = null,
+            bool? autoBorrow = null,
+            bool? autoRepay = null,
+            PositionSide? positionSide = null,
+            MarginMode? marginMode = null,
+            decimal? leverage = null,
+            StopPriceType? tpTriggerPriceType = null,
+            decimal? tpTriggerPrice = null,
+            StopPriceType? slTriggerPriceType = null,
+            decimal? slTriggerPrice = null,
+            bool? closeOrder = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", type);
+            parameters.Add("symbol", symbol);
+            parameters.Add("side", EnumConverter.GetString(side).ToUpperInvariant());
+            parameters.Add("orderType", EnumConverter.GetString(orderType).ToUpperInvariant());
+            parameters.Add("size", quantity);
+            parameters.Add("sizeUnit", quantityUnit);
+            parameters.Add("price", price);
+            parameters.Add("timeInForce", timeInForce);
+            parameters.Add("clientOid", clientOrderId);
+            parameters.Add("postOnly", postOnly);
+            parameters.Add("reduceOnly", reduceOnly);
+            parameters.Add("stp", stpMode);
+            parameters.Add("triggerPrice", triggerPrice);
+            parameters.Add("triggerPriceType", triggerPriceType);
+            parameters.Add("triggerDirection", triggerDirection);
+            parameters.Add("cancelAfter", cancelAfter);
+            parameters.Add("autoBorrow", autoBorrow);
+            parameters.Add("autoRepay", autoRepay);
+            parameters.Add("positionSide", positionSide);
+            parameters.Add("marginMode", marginMode);
+            parameters.Add("leverage", leverage);
+            parameters.Add("tpTriggerPriceType", tpTriggerPriceType);
+            parameters.Add("tpTriggerPrice", tpTriggerPrice);
+            parameters.Add("slTriggerPriceType", slTriggerPriceType);
+            parameters.Add("slTriggerPrice", slTriggerPrice);
+            parameters.Add("closeOrder", closeOrder);
+
+            var request = new KucoinUnifiedOpRequest(ExchangeHelpers.NextId().ToString(), "uta.order", parameters);
+            var query = new KucoinUnifiedOpQuery<KucoinUaOrderResult>(this, request, true);
+            var result = await QueryAsync(ClientOptions.Environment.UnifiedSocketPrivateTradeAddress.AppendPath("v2/private"), query, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        public async Task<QueryResult<KucoinUaOrderEditResult>> EditOrderAsync(
+            string? orderId,
+            string? clientOrderId,
+            string symbol,
+            decimal? quantity = null,
+            decimal? price = null,
+            QuantityUnit? quantityUnit = null,
+            bool? cxlOnFail = null,
+            StopPriceType? tpTriggerPriceType = null,
+            decimal? tpTriggerPrice = null,
+            StopPriceType? slTriggerPriceType = null,
+            decimal? slTriggerPrice = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("symbol", symbol);
+            parameters.Add("newSize", quantity);
+            parameters.Add("sizeUnit", quantityUnit);
+            parameters.Add("newPrice", price);
+            parameters.Add("orderId", orderId);
+            parameters.Add("clientOid", clientOrderId);
+            parameters.Add("cxlOnFail", cxlOnFail);
+            parameters.Add("tpTriggerPriceType", tpTriggerPriceType);
+            parameters.Add("tpTriggerPrice", tpTriggerPrice);
+            parameters.Add("slTriggerPriceType", slTriggerPriceType);
+            parameters.Add("slTriggerPrice", slTriggerPrice);
+
+            var request = new KucoinUnifiedOpRequest(ExchangeHelpers.NextId().ToString(), "uta.amend", parameters);
+            var query = new KucoinUnifiedOpQuery<KucoinUaOrderEditResult>(this, request, true);
+            var result = await QueryAsync(ClientOptions.Environment.UnifiedSocketPrivateTradeAddress.AppendPath("v2/private"), query, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        public async Task<QueryResult<KucoinUaOrderResult>> CancelOrderAsync(
+            UnifiedSimpleAccountType type,
+            string? symbol = null,
+            string? orderId = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("tradeType", type);
+            parameters.Add("symbol", symbol);
+            parameters.Add("orderId", orderId);
+            parameters.Add("clientOid", clientOrderId);
+
+            var request = new KucoinUnifiedOpRequest(ExchangeHelpers.NextId().ToString(), "uta.cancel", parameters);
+            var query = new KucoinUnifiedOpQuery<KucoinUaOrderResult>(this, request, true);
+            var result = await QueryAsync(ClientOptions.Environment.UnifiedSocketPrivateTradeAddress.AppendPath("v2/private"), query, ct).ConfigureAwait(false);
+            return result;
+        }
+
         private string GetConnectionUrl(UnifiedAccountType type) => 
             type == UnifiedAccountType.Futures 
                 ? ClientOptions.Environment.UnifiedSocketFuturesAddress 
                 : ClientOptions.Environment.UnifiedSocketSpotAddress;
 
-        /// <inheritdoc />
-        protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
+        public override async Task<CallResult> AuthenticateSocketAsync(SocketConnection socket)
         {
-            if (ClientOptions.Environment.Name == "UnitTesting")
-                return CallResult.Ok<string?>(address);
-
-            if (!authenticated)
-                return CallResult.Ok<string?>(address);
-
-            using (var restClient = new KucoinRestClient((options) =>
-            {
-                options.ApiCredentials = ApiCredentials;
-                options.Environment = ClientOptions.Environment;
-                options.Proxy = ClientOptions.Proxy;
-            }))
-            {
-                var tokenResult = await ((KucoinRestClientUnifiedApiAccount)restClient.UnifiedApi.Account).GetWebsocketTokenPrivateAsync().ConfigureAwait(false);
-                if (!tokenResult.Success)
-                    return CallResult.Fail<string?>(tokenResult.Error);
-
-                return CallResult.Ok<string?>(ClientOptions.Environment.UnifiedSocketPrivateAddress + "?token=" + tokenResult.Data.Token);
-            }
-        }
-
-        /// <inheritdoc />
-        protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
-        {
-            var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.HasAuthenticatedSubscription).ConfigureAwait(false);
+            var auth = AuthenticationProvider!.GetSocketAuth(this);
+            var query = new KucoinUnifiedAuthQuery(this, auth, false);
+            var result = await socket.SendAndWaitQueryAsync(query).ConfigureAwait(false);
             if (!result.Success)
-                return null;
+                return CallResult.Fail(result.Error);
 
-            return new Uri(result.Data!);
+            return CallResult.Ok();
         }
+
+        ///// <inheritdoc />
+        //protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)
+        //{
+        //    if (ClientOptions.Environment.Name == "UnitTesting")
+        //        return CallResult.Ok<string?>(address);
+
+        //    if (!authenticated)
+        //        return CallResult.Ok<string?>(address);
+
+        //    using (var restClient = new KucoinRestClient((options) =>
+        //    {
+        //        options.ApiCredentials = ApiCredentials;
+        //        options.Environment = ClientOptions.Environment;
+        //        options.Proxy = ClientOptions.Proxy;
+        //    }))
+        //    {
+        //        var tokenResult = await ((KucoinRestClientUnifiedApiAccount)restClient.UnifiedApi.Account).GetWebsocketTokenPrivateAsync().ConfigureAwait(false);
+        //        if (!tokenResult.Success)
+        //            return CallResult.Fail<string?>(tokenResult.Error);
+
+        //        return CallResult.Ok<string?>(ClientOptions.Environment.UnifiedSocketPrivateAddress + "?token=" + tokenResult.Data.Token);
+        //    }
+        //}
+
+        ///// <inheritdoc />
+        //protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
+        //{
+        //    var result = await GetConnectionUrlAsync(connection.ConnectionUri.ToString(), connection.HasAuthenticatedSubscription).ConfigureAwait(false);
+        //    if (!result.Success)
+        //        return null;
+
+        //    return new Uri(result.Data!);
+        //}
+
+        //protected override async Task<CallResult<SocketConnection>> GetSocketConnection(
+        //   string address,
+        //   bool authenticated,
+        //   bool dedicatedRequestConnection,
+        //   CancellationToken ct,
+        //   string? topic = null,
+        //   int individualSubscriptionCount = 1)
+        //{
+        //    // address is either spot or futures
+        //    var connection = _socketConnections.Values.Where(x => x.Tag == address && x.Authenticated == authenticated)
+        //            .OrderBy(s => s.UserSubscriptionCount)
+        //            .FirstOrDefault();
+
+        //    bool maxConnectionsReached = _socketConnections.Count >= (ApiOptions.MaxSocketConnections ?? ClientOptions.MaxSocketConnections);
+        //    if (connection != null)
+        //    {
+        //        bool lessThanBatchSubCombineTarget = connection.UserSubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget;
+        //        bool lessThanIndividualSubCombineTarget = connection.Subscriptions.Sum(x => x.IndividualSubscriptionCount) < ClientOptions.SocketIndividualSubscriptionCombineTarget;
+
+        //        if ((lessThanBatchSubCombineTarget && lessThanIndividualSubCombineTarget)
+        //            || maxConnectionsReached)
+        //        {
+        //            // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
+        //            // If there is a max subscriptions per connection limit also only use existing if the new subscription doesn't go over the limit
+        //            if (MaxIndividualSubscriptionsPerConnection == null)
+        //                return CallResult.Ok(connection);
+
+        //            var currentCount = connection.Subscriptions.Sum(x => x.IndividualSubscriptionCount);
+        //            if (currentCount + individualSubscriptionCount <= MaxIndividualSubscriptionsPerConnection)
+        //                return CallResult.Ok(connection);
+        //        }
+        //    }
+
+        //    var result = await base.GetSocketConnection(address, authenticated, dedicatedRequestConnection, ct, topic, individualSubscriptionCount).ConfigureAwait(false);
+        //    if (result.Success)
+        //        result.Data.Tag = address;
+        //    return result;
+        //}
     }
 }
