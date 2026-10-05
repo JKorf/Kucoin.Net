@@ -271,7 +271,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             CancellationToken ct = default)
         {
             var subscription = new KucoinUnifiedBalanceSubscription(_logger, this, tradeType, onData);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -292,7 +292,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     );
             });
             var subscription = new KucoinUnifiedSubscription<KucoinUaOrderUpdate>(_logger, this, "orderAll", tradeType, null, null, internalHandler, true);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -313,7 +313,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     );
             });
             var subscription = new KucoinUnifiedSubscription<KucoinUaUserTradeUpdate>(_logger, this, "execution", tradeType, null, null, internalHandler, true);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -334,7 +334,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     );
             });
             var subscription = new KucoinUnifiedSubscription<KucoinUaLiteUserTradeUpdate>(_logger, this, "execution.lite", tradeType, null, null, internalHandler, true);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -355,7 +355,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     );
             });
             var subscription = new KucoinUnifiedSubscription<KucoinUaPositionUpdate>(_logger, this, "positionAll", tradeType, null, null, internalHandler, true);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -376,7 +376,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     );
             });
             var subscription = new KucoinUnifiedSubscription<KucoinUaLeverageUpdate>(_logger, this, "leverage", tradeType, null, null, internalHandler, true);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -397,7 +397,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     );
             });
             var subscription = new KucoinUnifiedSubscription<KucoinUaLiquidationWarningUpdate>(_logger, this, "lw", tradeType, null, null, internalHandler, true);
-            return await SubscribeAsync(GetConnectionUrl(tradeType), subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
         public async Task<QueryResult<KucoinUaOrderResult>> PlaceOrderAsync(
@@ -520,16 +520,21 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 ? ClientOptions.Environment.UnifiedSocketFuturesAddress 
                 : ClientOptions.Environment.UnifiedSocketSpotAddress;
 
-        public override async Task<CallResult> AuthenticateSocketAsync(SocketConnection socket)
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
             var auth = AuthenticationProvider!.GetSocketAuth(this);
             var query = new KucoinUnifiedAuthQuery(this, auth, false);
-            var result = await socket.SendAndWaitQueryAsync(query).ConfigureAwait(false);
-            if (!result.Success)
-                return CallResult.Fail(result.Error);
-
-            return CallResult.Ok();
+            return Task.FromResult<Query?>(query);
         }
+
+        //public override async Task<CallResult> AuthenticateSocketAsync(SocketConnection socket)
+        //{
+        //    var result = await socket.SendAndWaitQueryAsync(query).ConfigureAwait(false);
+        //    if (!result.Success)
+        //        return CallResult.Fail(result.Error);
+
+        //    return CallResult.Ok();
+        //}
 
         ///// <inheritdoc />
         //protected override async Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authenticated)

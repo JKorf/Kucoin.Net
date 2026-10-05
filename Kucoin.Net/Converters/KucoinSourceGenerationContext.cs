@@ -17,6 +17,8 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinUnifiedAuthRequest))]
     [JsonSerializable(typeof(KucoinSocketOpResponse<KucoinUaOrderResult>))]
     [JsonSerializable(typeof(KucoinSocketOpResponse<KucoinUaOrderEditResult>))]
+    [JsonSerializable(typeof(KucoinUnifiedAuthResult))]
+    [JsonSerializable(typeof(KucoinUnifiedPing))]
 
     [JsonSerializable(typeof(KucoinResult<KucoinUaWithdrawalHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaDepositHistory>))]

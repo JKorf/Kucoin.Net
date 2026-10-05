@@ -47,7 +47,16 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 SubscribeFuturesOrderOptions,
                 SubscribeUserTradeOptions,
                 SubscribeBalanceOptions,
-                PlaceSpotOrderOptions
+                PlaceSpotOrderOptions,
+                EditSpotOrderOptions,
+                EditSpotOrderByClientOrderIdOptions,
+                CancelSpotOrderOptions,
+                CancelSpotOrderByClientOrderIdOptions,
+                PlaceFuturesOrderOptions,
+                EditFuturesOrderOptions,
+                EditFuturesOrderByClientOrderIdOptions,
+                CancelFuturesOrderOptions,
+                CancelFuturesOrderByClientOrderIdOptions
                 );
         }
 

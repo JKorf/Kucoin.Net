@@ -19,9 +19,9 @@ namespace Kucoin.Net.Objects.Internal
         public string Sign { get; set; } = string.Empty;
         [JsonPropertyName("kc-api-passphrase")]
         public string Passphrase { get; set; } = string.Empty;
-        [JsonPropertyName("kc-api-partner")]
-        public string Partner { get; set; } = string.Empty;
-        [JsonPropertyName("kc-api-partner-sign")]
-        public string PartnerSign { get; set; } = string.Empty;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault), JsonPropertyName("kc-api-partner")]
+        public string? Partner { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault), JsonPropertyName("kc-api-partner-sign")]
+        public string? PartnerSign { get; set; }
     }
 }

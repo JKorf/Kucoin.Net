@@ -33,7 +33,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedBalance[]>(result);
 
             return HttpResult.Ok(result, result.Data.Accounts.SelectMany(x => x.Assets.Select(x =>
-                new SharedBalance(SupportedTradingModes, x.Asset, x.Available, x.Hold)
+                new SharedBalance(SupportedTradingModes, x.Asset, x.Available, x.Balance)
             )).ToArray());
         }
 
