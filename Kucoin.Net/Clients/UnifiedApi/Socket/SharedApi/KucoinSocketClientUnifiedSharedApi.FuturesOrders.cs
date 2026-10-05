@@ -36,7 +36,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             if (validationError != null)
                 return QueryResult.Fail<SharedId>(Exchange, validationError);
 
-            var result = await _api.Trading.PlaceOrderAsync(
+            var result = await _api.PlaceOrderAsync(
                 UnifiedSimpleAccountType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
@@ -51,9 +51,9 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 clientOrderId: request.ClientOrderId).ConfigureAwait(false);
 
             if (!result.Success)
-                return HttpResult.Fail<SharedId>(result);
+                return QueryResult.Fail<SharedId>(result);
 
-            return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
+            return QueryResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
         }
 
         #endregion
