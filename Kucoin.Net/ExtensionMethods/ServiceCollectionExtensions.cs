@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(Options.Options.Create(options.Socket));
             services.AddSingleton(Options.Options.Create(options));
 
-            return AddKucoinCore(services, options.SocketClientLifeTime);
+            return AddKucoinCore(services, options.SharedApi.ApiVersion, options.SocketClientLifeTime);
         }
 
         /// <summary>
@@ -57,11 +57,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(Options.Options.Create(options.Socket));
             services.AddSingleton(Options.Options.Create(options));
 
-            return AddKucoinCore(services, options.SocketClientLifeTime);
+            return AddKucoinCore(services, options.SharedApi.ApiVersion, options.SocketClientLifeTime);
         }
 
         private static IServiceCollection AddKucoinCore(
             this IServiceCollection services,
+            KucoinApiVersion sharedApiVersion,
             ServiceLifetime? socketClientLifeTime = null)
         {
             services.AddHttpClient<IKucoinRestClient, KucoinRestClient>((client, serviceProvider) =>
@@ -85,18 +86,29 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<KucoinRestOptions>>(),
                 x.GetRequiredService<IOptions<KucoinSocketOptions>>()));
 
-            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.SharedClient);
-            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient);
-            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedClient);
-            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedClient);
+            if (sharedApiVersion == KucoinApiVersion.Classic)
+            {
+                services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().SpotApi.SharedClient);
+                services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().SpotApi.SharedClient);
+                services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IKucoinRestClient>().FuturesApi.SharedClient);
+                services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IKucoinSocketClient>().FuturesApi.SharedClient);
 
-            services.RegisterSharedApiClient<
-                IKucoinSharedApiClient,
-                KucoinSharedApiClient>(sharedApis => sharedApis
-                    .Add(client => client.SpotRest)
-                    .Add(client => client.FuturesRest)
-                    .Add(client => client.SpotSocket)
-                    .Add(client => client.FuturesSocket));
+                services.RegisterSharedApiClient<
+                    IKucoinSharedApiClient,
+                    KucoinSharedApiClient>(sharedApis => sharedApis
+                        .Add(client => client.SpotRest)
+                        .Add(client => client.FuturesRest)
+                        .Add(client => client.SpotSocket)
+                        .Add(client => client.FuturesSocket));
+            }
+            else
+            {
+                services.RegisterSharedApiClient<
+                    IKucoinSharedApiClient,
+                    KucoinSharedApiClient>(sharedApis => sharedApis
+                        .Add(client => client.UnifiedRest)
+                        .Add(client => client.UnifiedSocket));
+            }
 
             return services;
         }
