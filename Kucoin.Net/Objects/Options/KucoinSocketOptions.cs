@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
+using System;
 
 namespace Kucoin.Net.Objects.Options
 {
@@ -41,11 +42,19 @@ namespace Kucoin.Net.Objects.Options
             MaxSocketConnections = 800
         };
 
+        /// <summary>
+        /// Unified API options
+        /// </summary>
+        public SocketApiOptions UnifiedOptions { get; private set; } = new SocketApiOptions()
+        {
+        };
+
         internal KucoinSocketOptions Set(KucoinSocketOptions targetOptions)
         {
             targetOptions = base.Set<KucoinSocketOptions>(targetOptions);
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
+            targetOptions.UnifiedOptions = UnifiedOptions.Set(targetOptions.UnifiedOptions);
             return targetOptions;
         }
     }

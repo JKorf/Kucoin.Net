@@ -3,6 +3,7 @@ using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Interfaces.Clients.SpotApi;
+using Kucoin.Net.Interfaces.Clients.UnifiedApi;
 
 namespace Kucoin.Net.Interfaces.Clients
 {

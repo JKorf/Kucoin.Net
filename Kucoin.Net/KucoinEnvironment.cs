@@ -29,6 +29,11 @@ namespace Kucoin.Net
         public string UnifiedSocketPrivateAddress { get; }
 
         /// <summary>
+        /// Unified websocket API private trade address
+        /// </summary>
+        public string UnifiedSocketPrivateTradeAddress { get; }
+
+        /// <summary>
         /// Unified websocket API spot address
         /// </summary>
         public string UnifiedSocketSpotAddress { get; }
@@ -45,7 +50,8 @@ namespace Kucoin.Net
             string unifiedRestAddress,
             string unifiedSocketPrivateAddress,
             string unifiedSocketSpotAddress,
-            string unifiedSocketFuturesAddress) : 
+            string unifiedSocketFuturesAddress,
+            string unifiedSocketPrivateTradeAddress) : 
             base(name)
         {
             SpotAddress = spotAddress;
@@ -54,6 +60,7 @@ namespace Kucoin.Net
             UnifiedSocketPrivateAddress = unifiedSocketPrivateAddress;
             UnifiedSocketSpotAddress = unifiedSocketSpotAddress;
             UnifiedSocketFuturesAddress = unifiedSocketFuturesAddress;
+            UnifiedSocketPrivateTradeAddress = unifiedSocketPrivateTradeAddress;
         }
 
         /// <summary>
@@ -94,7 +101,8 @@ namespace Kucoin.Net
             KucoinApiAddresses.Default.UnifiedRestAddress,
             KucoinApiAddresses.Default.UnifiedSocketPrivateAddress,
             KucoinApiAddresses.Default.UnifiedSocketSpotAddress,
-            KucoinApiAddresses.Default.UnifiedSocketFuturesAddress);
+            KucoinApiAddresses.Default.UnifiedSocketFuturesAddress,
+            KucoinApiAddresses.Default.UnifiedSocketPrivateTradeAddress);
 
         /// <summary>
         /// Australian live environment
@@ -106,7 +114,8 @@ namespace Kucoin.Net
             KucoinApiAddresses.Australia.UnifiedRestAddress,
             KucoinApiAddresses.Australia.UnifiedSocketPrivateAddress,
             KucoinApiAddresses.Australia.UnifiedSocketSpotAddress,
-            KucoinApiAddresses.Australia.UnifiedSocketFuturesAddress);
+            KucoinApiAddresses.Australia.UnifiedSocketFuturesAddress,
+            KucoinApiAddresses.Australia.UnifiedSocketPrivateTradeAddress);
 
         /// <summary>
         /// European live environment
@@ -118,7 +127,8 @@ namespace Kucoin.Net
             KucoinApiAddresses.Europe.UnifiedRestAddress,
             KucoinApiAddresses.Europe.UnifiedSocketPrivateAddress,
             KucoinApiAddresses.Europe.UnifiedSocketSpotAddress,
-            KucoinApiAddresses.Europe.UnifiedSocketFuturesAddress);
+            KucoinApiAddresses.Europe.UnifiedSocketFuturesAddress,
+            KucoinApiAddresses.Europe.UnifiedSocketPrivateTradeAddress);
 
         /// <summary>
         /// Create a custom environment
@@ -130,7 +140,9 @@ namespace Kucoin.Net
             string unifiedRestAddress, 
             string unifiedSocketPrivateAddress,
             string unifiedSocketSpotAddress,
-            string unifiedSocketFuturesAddress)
-            => new KucoinEnvironment(name, spotAddress, futuresAddress, unifiedRestAddress, unifiedSocketPrivateAddress, unifiedSocketSpotAddress, unifiedSocketFuturesAddress);
+            string unifiedSocketFuturesAddress,
+            string unifiedSocketPrivateTradeAddress)
+            => new KucoinEnvironment(name, spotAddress, futuresAddress, unifiedRestAddress, 
+                unifiedSocketPrivateAddress, unifiedSocketSpotAddress, unifiedSocketFuturesAddress, unifiedSocketPrivateTradeAddress);
     }
 }

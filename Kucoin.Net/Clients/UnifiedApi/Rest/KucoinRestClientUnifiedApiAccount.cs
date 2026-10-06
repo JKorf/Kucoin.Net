@@ -193,12 +193,12 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaFeeRate[]>> GetFeeRateAsync(
-            UnifiedAccountType accountType,
+            UnifiedSimpleAccountType type,
             IEnumerable<string> symbols,
             CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            parameters.Add("tradeType", accountType);
+            parameters.Add("tradeType", type);
             parameters.AddCommaSeparated("symbol", symbols);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/user/fee-rate", KucoinExchange.RateLimiter.ManagementRest, 3, true);
             var result = await _baseClient.SendAsync<KucoinUaFeeRates>(request, parameters, ct).ConfigureAwait(false);
@@ -364,7 +364,6 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaLeverage>> SetCrossMarginLeverageAsync(
-            UnifiedAccountMode accountMode,
             string asset,
             decimal leverage,
             CancellationToken ct = default)
@@ -375,7 +374,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var request = _definitions.GetOrCreate(
                 HttpMethod.Post,
                 _baseClient.BaseAddress,
-                $"/api/ua/v2/{EnumConverter.GetString(accountMode).ToLower()}/account/modify-leverage-margin-cross",
+                $"/api/ua/v2/unified/account/modify-leverage-margin-cross",
                 KucoinExchange.RateLimiter.UnifiedRest,
                 20,
                 true);
@@ -390,7 +389,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaLeverageSetting[]>> GetLeverageAsync(
             UnifiedSimpleAccountType tradeType,
-            MarginMode marginMode,
+            MarginMode? marginMode = null,
             string? asset = null,
             string? symbol = null,
             CancellationToken ct = default)
@@ -472,6 +471,62 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
+        #region Get Deposit History
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaDepositHistory>> GetDepositHistoryAsync(
+            string? asset = null,
+            string? id = null,
+            DepositStatus? status = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("currency", asset);
+            parameters.Add("id", id);
+            parameters.Add("status", status);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("currentPage", page);
+            parameters.Add("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/asset/deposit/history", KucoinExchange.RateLimiter.ManagementRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinUaDepositHistory>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+
+        #region Get Withdrawal History
+
+        /// <inheritdoc />
+        public async Task<HttpResult<KucoinUaWithdrawalHistory>> GetWithdrawalHistoryAsync(
+            string? asset = null,
+            string? id = null,
+            WithdrawalStatus? status = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
+            parameters.Add("currency", asset);
+            parameters.Add("id", id);
+            parameters.Add("status", status);
+            parameters.Add("startAt", startTime);
+            parameters.Add("endAt", endTime);
+            parameters.Add("currentPage", page);
+            parameters.Add("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/asset/withdrawal/history", KucoinExchange.RateLimiter.ManagementRest, 2, true);
+            var result = await _baseClient.SendAsync<KucoinUaWithdrawalHistory>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
 
         internal async Task<HttpResult<KucoinToken>> GetWebsocketTokenPrivateAsync(CancellationToken ct = default)
         {

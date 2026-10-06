@@ -14,7 +14,7 @@ namespace Kucoin.Net.Objects.Options
         /// <summary>
         /// Options for Shared API usage
         /// </summary>
-        public SharedApiOptions SharedApi { get; set; } = new();
+        public KucoinSharedApiOptions SharedApi { get; set; } = new();
         /// <summary>
         /// Create KucoinOptions instance using the provided configuration action
         /// </summary>

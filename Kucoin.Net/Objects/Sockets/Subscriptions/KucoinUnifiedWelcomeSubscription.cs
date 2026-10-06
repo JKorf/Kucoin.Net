@@ -28,7 +28,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             connection.QueryPeriodic(
                 "Ping",
                 TimeSpan.FromMilliseconds(welcome.PingInterval),
-                 x => new KucoinPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!),
+                 x => new KucoinUnifiedPingQuery(DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!),
                  (connection, result) =>
                  {
                      if (result.Error?.ErrorType == ErrorType.Timeout)
