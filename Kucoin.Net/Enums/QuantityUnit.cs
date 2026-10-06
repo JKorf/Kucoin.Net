@@ -17,6 +17,11 @@ namespace Kucoin.Net.Enums
         /// ["<c>QUOTECCY</c>"] Quote asset
         /// </summary>
         [Map("QUOTECCY")]
-        QuoteAsset
+        QuoteAsset,
+        /// <summary>
+        /// ["<c>UNIT</c>"] Contracts
+        /// </summary>
+        [Map("UNIT")]
+        Contracts
     }
 }

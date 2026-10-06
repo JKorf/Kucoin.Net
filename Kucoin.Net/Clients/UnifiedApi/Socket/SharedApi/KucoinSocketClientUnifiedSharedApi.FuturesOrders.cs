@@ -43,6 +43,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 GetPlaceOrderType(request.OrderType),
                 request.Quantity?.QuantityInContracts ?? 0,
                 request.Price,
+                quantityUnit: QuantityUnit.Contracts,
                 timeInForce: GetTimeInForce(request.TimeInForce),
                 postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
                 reduceOnly: request.ReduceOnly,
@@ -75,6 +76,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 null,
                 symbol: request.SymbolName(FormatSymbol),
                 quantity: request.Quantity?.QuantityInBaseAsset ?? request.Quantity?.QuantityInQuoteAsset,
+                quantityUnit: QuantityUnit.Contracts,
                 price: request.Price,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -105,6 +107,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 request.OrderId,
                 symbol: request.SymbolName(FormatSymbol),
                 quantity: request.Quantity?.QuantityInBaseAsset ?? request.Quantity?.QuantityInQuoteAsset,
+                quantityUnit: QuantityUnit.Contracts,
                 price: request.Price,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -191,7 +194,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                             update.Data.OrderId,
                             ParseOrderType(update.Data.OrderType, update.Data.PostOnly),
                             update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            ParseOrderStatus(update.Data.Status),
+                            ParseOrderStatus(update.Data),
                             update.Data.CreateTime
                             )
                         {
@@ -200,9 +203,14 @@ namespace Kucoin.Net.Clients.UnifiedApi
                             ClientOrderId = update.Data.ClientOrderId,
                             IsTriggerOrder = update.Data.TriggerPrice != null,
                             OrderPrice = update.Data.Price,
-#warning check quantity unit
-                            OrderQuantity = new SharedOrderQuantity(update.Data.Quantity),
-                            QuantityFilled = new SharedOrderQuantity(update.Data.TotalQuantityFilled),
+                            OrderQuantity = new SharedOrderQuantity(
+                                update.Data.QuantityUnit == QuantityUnit.BaseAsset ? update.Data.Quantity : null,
+                                update.Data.QuantityUnit == QuantityUnit.QuoteAsset ? update.Data.Quantity : null,
+                                update.Data.QuantityUnit == QuantityUnit.Contracts ? update.Data.Quantity : null),
+                            QuantityFilled = new SharedOrderQuantity(
+                                update.Data.QuantityUnit == QuantityUnit.BaseAsset ? update.Data.TotalQuantityFilled : null,
+                                update.Data.QuantityUnit == QuantityUnit.QuoteAsset ? update.Data.TotalQuantityFilled : null,
+                                update.Data.QuantityUnit == QuantityUnit.Contracts ? update.Data.TotalQuantityFilled : null),
                             TriggerPrice = update.Data.TriggerPrice,
                             UpdateTime = update.Data.UpdateTime,
                             Leverage = update.Data.Leverage,
@@ -217,8 +225,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
                                     update.Data.OrderId,
                                     update.Data.LastTradeId!.ToString()!,
                                     update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-#warning check quantity unit
-                                    new SharedOrderQuantity(update.Data.LastTradeQuantity),
+                                    new SharedOrderQuantity(
+                                        update.Data.QuantityUnit == QuantityUnit.BaseAsset ? update.Data.LastTradeQuantity : null,
+                                        update.Data.QuantityUnit == QuantityUnit.QuoteAsset ? update.Data.LastTradeQuantity : null,
+                                        update.Data.QuantityUnit == QuantityUnit.Contracts ? update.Data.LastTradeQuantity : null),
                                     update.Data.LastTradePrice!.Value,
                                     update.Data.UpdateTime)
                                 {

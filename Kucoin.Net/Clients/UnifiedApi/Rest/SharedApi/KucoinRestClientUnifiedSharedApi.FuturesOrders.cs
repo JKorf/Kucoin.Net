@@ -46,6 +46,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 GetPlaceOrderType(request.OrderType),
                 request.Quantity?.QuantityInContracts ?? 0,
                 request.Price,
+                quantityUnit: QuantityUnit.Contracts,
                 timeInForce: GetTimeInForce(request.TimeInForce),
                 postOnly: request.OrderType == SharedOrderType.LimitMaker ? true : null,
                 reduceOnly: request.ReduceOnly,
@@ -86,7 +87,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 order.Data.OrderId.ToString(),
                 ParseOrderType(order.Data.OrderType, order.Data.PostOnly),
                 order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(order.Data.Status),
+                ParseOrderStatus(order.Data),
                 order.Data.OrderTime)
             {
                 ClientOrderId = order.Data.ClientOrderId,
@@ -134,7 +135,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 order.Data.OrderId.ToString(),
                 ParseOrderType(order.Data.OrderType, order.Data.PostOnly),
                 order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(order.Data.Status),
+                ParseOrderStatus(order.Data),
                 order.Data.OrderTime)
             {
                 ClientOrderId = order.Data.ClientOrderId,
@@ -167,14 +168,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var validationError = GetOpenFuturesOrdersOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesOrder[]>(Exchange, validationError);
-                        
-            if (request.Symbol == null)
-                return HttpResult.Fail<SharedFuturesOrder[]>(Exchange, ArgumentError.Missing("Symbol", "Symbol parameter is required for HfTrading account"));
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
             var order = await _api.Trading.GetOpenOrdersAsync(
                 UnifiedSimpleAccountType.Futures,
-                symbol).ConfigureAwait(false);
+                request.Symbol?.GetSymbol(FormatSymbol)).ConfigureAwait(false);
             if (!order.Success)
                 return HttpResult.Fail<SharedFuturesOrder[]>(order);
 
@@ -184,7 +181,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 x.OrderId.ToString(),
                 ParseOrderType(x.OrderType, x.PostOnly),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.Status),
+                ParseOrderStatus(x),
                 x.OrderTime)
             {
                 ClientOrderId = x.ClientOrderId,
@@ -250,7 +247,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 x.OrderId.ToString(),
                 ParseOrderType(x.OrderType, x.PostOnly),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(x.Status),
+                ParseOrderStatus(x),
                 x.OrderTime)
             {
                 ClientOrderId = x.ClientOrderId,
@@ -457,6 +454,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 null,
                 symbol: request.SymbolName(FormatSymbol),
                 quantity: request.Quantity?.QuantityInBaseAsset ?? request.Quantity?.QuantityInQuoteAsset,
+                quantityUnit: QuantityUnit.Contracts,
                 price: request.Price,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -487,6 +485,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 request.OrderId,
                 symbol: request.SymbolName(FormatSymbol),
                 quantity: request.Quantity?.QuantityInBaseAsset ?? request.Quantity?.QuantityInQuoteAsset,
+                quantityUnit: QuantityUnit.Contracts,
                 price: request.Price,
                 ct: ct
                 ).ConfigureAwait(false);

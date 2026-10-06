@@ -5,6 +5,7 @@ using CryptoExchange.Net.SharedApis;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Futures;
+using Kucoin.Net.Objects.Models.Unified;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,14 +88,19 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 order.Data.OrderId.ToString(),
                 ParseOrderType(order.Data.OrderType, order.Data.PostOnly),
                 order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                ParseOrderStatus(order.Data.Status),
+                ParseOrderStatus(order.Data),
                 order.Data.OrderTime)
             {
                 ClientOrderId = order.Data.ClientOrderId,
                 OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
-#warning how is quote quantity handled?
-                OrderQuantity = new SharedOrderQuantity(order.Data.Quantity),
-                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled),
+                OrderQuantity = new SharedOrderQuantity(
+                                order.Data.QuantityUnit == QuantityUnit.BaseAsset ? order.Data.Quantity : null,
+                                order.Data.QuantityUnit == QuantityUnit.QuoteAsset ? order.Data.Quantity : null,
+                                order.Data.QuantityUnit == QuantityUnit.Contracts ? order.Data.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(
+                                order.Data.QuantityUnit == QuantityUnit.BaseAsset ? order.Data.QuantityFilled : null,
+                                order.Data.QuantityUnit == QuantityUnit.QuoteAsset ? order.Data.QuantityFilled : null,
+                                order.Data.QuantityUnit == QuantityUnit.Contracts ? order.Data.QuantityFilled : null),
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                 TriggerPrice = order.Data.TriggerPrice,
                 IsTriggerOrder = order.Data.TriggerPrice > 0,
@@ -132,14 +138,19 @@ namespace Kucoin.Net.Clients.UnifiedApi
                    order.Data.OrderId.ToString(),
                    ParseOrderType(order.Data.OrderType, order.Data.PostOnly),
                    order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                   ParseOrderStatus(order.Data.Status),
+                   ParseOrderStatus(order.Data),
                    order.Data.OrderTime)
             {
                 ClientOrderId = order.Data.ClientOrderId,
                 OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
-#warning how is quote quantity handled?
-                OrderQuantity = new SharedOrderQuantity(order.Data.Quantity),
-                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled),
+                OrderQuantity = new SharedOrderQuantity(
+                                order.Data.QuantityUnit == QuantityUnit.BaseAsset ? order.Data.Quantity : null,
+                                order.Data.QuantityUnit == QuantityUnit.QuoteAsset ? order.Data.Quantity : null,
+                                order.Data.QuantityUnit == QuantityUnit.Contracts ? order.Data.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(
+                                order.Data.QuantityUnit == QuantityUnit.BaseAsset ? order.Data.QuantityFilled : null,
+                                order.Data.QuantityUnit == QuantityUnit.QuoteAsset ? order.Data.QuantityFilled : null,
+                                order.Data.QuantityUnit == QuantityUnit.Contracts ? order.Data.QuantityFilled : null),
                 TimeInForce = ParseTimeInForce(order.Data.TimeInForce),
                 TriggerPrice = order.Data.TriggerPrice,
                 IsTriggerOrder = order.Data.TriggerPrice > 0,
@@ -161,14 +172,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
             var validationError = GetOpenSpotOrdersOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return HttpResult.Fail<SharedSpotOrder[]>(Exchange, validationError);
-                        
-            if (request.Symbol == null)
-                return HttpResult.Fail<SharedSpotOrder[]>(Exchange, ArgumentError.Missing("Symbol", "Symbol parameter is required for HfTrading account"));
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
             var order = await _api.Trading.GetOpenOrdersAsync(
                 UnifiedSimpleAccountType.Spot,
-                symbol).ConfigureAwait(false);
+                request.Symbol?.GetSymbol(FormatSymbol)).ConfigureAwait(false);
             if (!order.Success)
                 return HttpResult.Fail<SharedSpotOrder[]>(order);
 
@@ -178,14 +185,19 @@ namespace Kucoin.Net.Clients.UnifiedApi
                    x.OrderId.ToString(),
                    ParseOrderType(x.OrderType, x.PostOnly),
                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                   ParseOrderStatus(x.Status),
+                   ParseOrderStatus(x),
                    x.OrderTime)
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-#warning how is quote quantity handled?
-                OrderQuantity = new SharedOrderQuantity(x.Quantity),
-                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled),
+                OrderQuantity = new SharedOrderQuantity(
+                                x.QuantityUnit == QuantityUnit.BaseAsset ? x.Quantity : null,
+                                x.QuantityUnit == QuantityUnit.QuoteAsset ? x.Quantity : null,
+                                x.QuantityUnit == QuantityUnit.Contracts ? x.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(
+                                x.QuantityUnit == QuantityUnit.BaseAsset ? x.QuantityFilled : null,
+                                x.QuantityUnit == QuantityUnit.QuoteAsset ? x.QuantityFilled : null,
+                                x.QuantityUnit == QuantityUnit.Contracts ? x.QuantityFilled : null),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 TriggerPrice = x.TriggerPrice,
                 IsTriggerOrder = x.TriggerPrice > 0,
@@ -240,14 +252,19 @@ namespace Kucoin.Net.Clients.UnifiedApi
                x.OrderId.ToString(),
                ParseOrderType(x.OrderType, x.PostOnly),
                x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-               ParseOrderStatus(x.Status),
+               ParseOrderStatus(x),
                x.OrderTime)
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-#warning how is quote quantity handled?
-                OrderQuantity = new SharedOrderQuantity(x.Quantity),
-                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled),
+                OrderQuantity = new SharedOrderQuantity(
+                                x.QuantityUnit == QuantityUnit.BaseAsset ? x.Quantity : null,
+                                x.QuantityUnit == QuantityUnit.QuoteAsset ? x.Quantity : null,
+                                x.QuantityUnit == QuantityUnit.Contracts ? x.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(
+                                x.QuantityUnit == QuantityUnit.BaseAsset ? x.QuantityFilled : null,
+                                x.QuantityUnit == QuantityUnit.QuoteAsset ? x.QuantityFilled : null,
+                                x.QuantityUnit == QuantityUnit.Contracts ? x.QuantityFilled : null),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 TriggerPrice = x.TriggerPrice,
                 IsTriggerOrder = x.TriggerPrice > 0,
@@ -377,11 +394,18 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         #endregion
 
-        private SharedOrderStatus ParseOrderStatus(UnifiedOrderStatus status)
+        private SharedOrderStatus ParseOrderStatus(KucoinUaOrder order)
         {
-            if (status == UnifiedOrderStatus.Live || status == UnifiedOrderStatus.NotTriggered || status == UnifiedOrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
-            if (status == UnifiedOrderStatus.Canceled || status == UnifiedOrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
-            if (status == UnifiedOrderStatus.Filled) return SharedOrderStatus.Filled;
+            if (order.Status == UnifiedOrderStatus.Live || order.Status == UnifiedOrderStatus.NotTriggered || order.Status == UnifiedOrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
+            if (order.Status == UnifiedOrderStatus.Filled) return SharedOrderStatus.Filled;
+            if (order.Status == UnifiedOrderStatus.PartiallyCanceled && order.QuantityUnit == QuantityUnit.QuoteAsset && order.CancelReason == "ZERO_SIZE")
+            {
+                // A filled market order cancels the last tiny bit of value it can't fill, for example when it's filled 9.99943/10
+                // Treat this as a filled order
+                return SharedOrderStatus.Filled;
+            }
+
+            if (order.Status == UnifiedOrderStatus.Canceled || order.Status == UnifiedOrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
             return SharedOrderStatus.Unknown;
         }
 

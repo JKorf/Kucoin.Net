@@ -8,6 +8,7 @@ using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.FuturesApi;
 using Kucoin.Net.Objects.Models.Futures.Socket;
 using CryptoExchange.Net;
+using Kucoin.Net.Objects.Models.Unified;
 
 namespace Kucoin.Net.Clients.UnifiedApi
 {
@@ -209,7 +210,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                             update.Data.OrderId,
                             ParseOrderType(update.Data.OrderType, update.Data.PostOnly),
                             update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            ParseOrderStatus(update.Data.Status),
+                            ParseOrderStatus(update.Data),
                             update.Data.CreateTime
                             )
                         {
@@ -218,9 +219,14 @@ namespace Kucoin.Net.Clients.UnifiedApi
                             ClientOrderId = update.Data.ClientOrderId,
                             IsTriggerOrder = update.Data.TriggerPrice != null,
                             OrderPrice = update.Data.Price,
-#warning check quantity unit
-                            OrderQuantity = new SharedOrderQuantity(update.Data.Quantity),
-                            QuantityFilled = new SharedOrderQuantity(update.Data.TotalQuantityFilled),
+                            OrderQuantity = new SharedOrderQuantity(
+                                update.Data.QuantityUnit == QuantityUnit.BaseAsset ? update.Data.Quantity : null,
+                                update.Data.QuantityUnit == QuantityUnit.QuoteAsset ? update.Data.Quantity : null,
+                                update.Data.QuantityUnit == QuantityUnit.Contracts ? update.Data.Quantity : null),
+                            QuantityFilled = new SharedOrderQuantity(
+                                update.Data.QuantityUnit == QuantityUnit.BaseAsset ? update.Data.TotalQuantityFilled : null,
+                                update.Data.QuantityUnit == QuantityUnit.QuoteAsset ? update.Data.TotalQuantityFilled : null,
+                                update.Data.QuantityUnit == QuantityUnit.Contracts ? update.Data.TotalQuantityFilled : null),
                             TriggerPrice = update.Data.TriggerPrice,
                             UpdateTime = update.Data.UpdateTime,
                             LastTrade = update.Data.LastTradeId == null ? null :
@@ -230,8 +236,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
                                     update.Data.OrderId,
                                     update.Data.LastTradeId!.ToString()!,
                                     update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-#warning check quantity unit
-                                    new SharedOrderQuantity(update.Data.LastTradeQuantity),
+                                    new SharedOrderQuantity(
+                                        update.Data.QuantityUnit == QuantityUnit.BaseAsset ? update.Data.LastTradeQuantity : null,
+                                        update.Data.QuantityUnit == QuantityUnit.QuoteAsset ? update.Data.LastTradeQuantity : null,
+                                        update.Data.QuantityUnit == QuantityUnit.Contracts ? update.Data.LastTradeQuantity : null),
                                     update.Data.LastTradePrice!.Value,
                                     update.Data.UpdateTime)
                                 {
@@ -244,11 +252,18 @@ namespace Kucoin.Net.Clients.UnifiedApi
             return result;
         }
 
-        private SharedOrderStatus ParseOrderStatus(UnifiedOrderStatus status)
+        private SharedOrderStatus ParseOrderStatus(KucoinUaOrderUpdate order)
         {
-            if (status == UnifiedOrderStatus.Live || status == UnifiedOrderStatus.NotTriggered || status == UnifiedOrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
-            if (status == UnifiedOrderStatus.Canceled || status == UnifiedOrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
-            if (status == UnifiedOrderStatus.Filled) return SharedOrderStatus.Filled;
+            if (order.Status == UnifiedOrderStatus.Live || order.Status == UnifiedOrderStatus.NotTriggered || order.Status == UnifiedOrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
+            if (order.Status == UnifiedOrderStatus.Filled) return SharedOrderStatus.Filled;
+            if (order.Status == UnifiedOrderStatus.PartiallyCanceled && order.QuantityUnit == QuantityUnit.QuoteAsset && order.CancellationReason == "ZERO_SIZE")
+            {
+                // A filled market order cancels the last tiny bit of value it can't fill, for example when it's filled 9.99943/10
+                // Treat this as a filled order
+                return SharedOrderStatus.Filled;
+            }
+
+            if (order.Status == UnifiedOrderStatus.Canceled || order.Status == UnifiedOrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
             return SharedOrderStatus.Unknown;
         }
 
