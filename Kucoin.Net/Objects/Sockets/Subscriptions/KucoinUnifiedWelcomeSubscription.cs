@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         public KucoinUnifiedWelcomeSubscription(SocketApiClient client, ILogger logger) : base(logger, false)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedWelcome>("welcome", HandleUpdate);
+            MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedWelcome>("welcome", HandleUpdate, multipleReaders: true);
         }
 
         private CallResult? HandleUpdate(SocketConnection connection, DateTime time, string? arg3, KucoinUnifiedWelcome welcome)

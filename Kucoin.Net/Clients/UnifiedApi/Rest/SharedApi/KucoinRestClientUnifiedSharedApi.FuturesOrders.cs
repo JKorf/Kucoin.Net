@@ -295,7 +295,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 x.OrderId,
                 x.TradeId.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                new SharedOrderQuantity(x.Quantity, x.Value),
+                new SharedOrderQuantity(quoteAssetQuantity: x.Value, contractQuantity: x.Quantity),
                 x.Price,
                 x.ExecutionTime)
             {
@@ -351,7 +351,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 x.OrderId,
                 x.TradeId.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                new SharedOrderQuantity(x.Quantity, x.Value),
+                new SharedOrderQuantity(quoteAssetQuantity: x.Value, contractQuantity: x.Quantity),
                 x.Price,
                 x.ExecutionTime)
                 {

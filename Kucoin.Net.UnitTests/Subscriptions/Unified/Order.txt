@@ -1,31 +1,51 @@
-> { "id": "|1|", "action": "SUBSCRIBE", "channel":"orderAll", "tradeType": "SPOT" }
+< {"sessionId":"81f56400-e7e3-4f2b-b0f6-5e649f48c302","message":"welcome","pingInterval":18000}
+> {"id": "|2|", "op": "auth","kc-api-key": "123"}
+< {"id":"|2|","result":true}
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"orderAll", "tradeType": "UNIFIED" }
 < { "id": "|1|", "result": true }
 = 
 {
-    "P": 1770107561274139265,
-    "T": "orderAll.SPOT",
+    "P": 1770380108536802787,
+    "T": "orderAll.UNIFIED",
     "d": {
-        "O": 1770107561253000000,
+        "O": 1770380108442909926,
         "S": "BUY",
-        "U": 1770107561263000000,
-        "f": "0.000788236",
-        "p": "0",
+        "U": 1770380108526000000,
+        "f": "0.00066421",
+        "p": "",
         "q": "0.00001",
         "s": "BTC-USDT",
         "t": "0",
-        "aP": "78823.6",
+        "aP": "66421",
+        "cR": "",
         "cS": "0",
-        "ci": "9a1840ed0b5746459ede8e6f222daf2d",
+        "ci": "39350f44-56ef-4b91-9788-708d9ed83e95",
         "eT": "FILL",
         "fC": "USDT",
         "fS": "0.00001",
+        "lP": "",
+        "lR": "TAKER",
+        "lS": "0.00001",
+        "ls": "66421",
+        "oS": "USER",
         "oT": "MARKET",
-        "oi": "6981b2a91c6fcb0007422784",
+        "oi": "409225265957388288",
         "os": 3,
         "pO": false,
+        "pP": "",
         "qU": "BASECCY",
+        "rO": false,
         "rS": "0",
-        "ti": "21002796345212928",
-        "tIF": "GTC"
+        "tD": "",
+        "tP": "",
+        "tT": "SPOT",
+        "ti": "21105572357619712",
+        "lPT": "",
+        "pPT": "",
+        "stp": "",
+        "tIF": "GTC",
+        "tPT": "",
+        "toi": "",
+        "bT": ""
     }
 }

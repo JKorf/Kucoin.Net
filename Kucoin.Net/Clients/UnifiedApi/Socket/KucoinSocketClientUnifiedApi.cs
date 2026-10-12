@@ -38,7 +38,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.UnifiedApi
 {
     /// <inheritdoc cref="IKucoinSocketClientSpotApi" />
-    internal partial class KucoinSocketClientUnifiedApi : SocketApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientUnifiedApi
+    internal partial class KucoinSocketClientUnifiedApi : SocketApiClient<KucoinEnvironment, KucoinUnifiedAuthenticationProvider, KucoinCredentials>, IKucoinSocketClientUnifiedApi
     {
         private readonly KucoinSocketClientUnifiedSharedApi _sharedApi;
         private readonly KucoinSocketClient _baseClient;
@@ -63,8 +63,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new KucoinSocketUnifiedMessageHandler();
 
         /// <inheritdoc />
-        protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
-            => new KucoinAuthenticationProvider(credentials);
+        protected override KucoinUnifiedAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
+            => new KucoinUnifiedAuthenticationProvider(credentials);
         
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
@@ -435,7 +435,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("side", EnumConverter.GetString(side).ToUpperInvariant());
             parameters.Add("orderType", EnumConverter.GetString(orderType).ToUpperInvariant());
             parameters.Add("size", quantity);
-            parameters.Add("sizeUnit", quantityUnit);
+            parameters.Add("sizeUnit", quantityUnit ?? QuantityUnit.BaseAsset);
             parameters.Add("price", price);
             parameters.Add("timeInForce", timeInForce);
             parameters.Add("clientOid", clientOrderId);

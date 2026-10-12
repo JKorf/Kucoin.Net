@@ -28,6 +28,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
                     if (update.Data.TradeType != UnifiedTradeType.Normal)
                         return;
 
+                    var isFutures = !update.Data.Symbol.Contains("-");
+
                     var sharedSymbol = ExchangeSymbolCache.ParseSymbol(_topicSpotId, _api.EnvironmentName, null, update.Data.Symbol)
                         ?? ExchangeSymbolCache.ParseSymbol(_topicFuturesId, _api.EnvironmentName, null, update.Data.Symbol);
                     handler(update.ToType<SharedUserTrade[]>(
@@ -37,8 +39,10 @@ namespace Kucoin.Net.Clients.UnifiedApi
                             update.Data.OrderId,
                             update.Data.TradeId!.ToString()!,
                             update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-#warning check quantity unit
-                            new SharedOrderQuantity(update.Data.Quantity),
+                            new SharedOrderQuantity(
+                                isFutures ? null : update.Data.Quantity,
+                                null,
+                                isFutures ? update.Data.Quantity : null),
                             update.Data.Price,
                             update.Data.TradeTime)
                         {

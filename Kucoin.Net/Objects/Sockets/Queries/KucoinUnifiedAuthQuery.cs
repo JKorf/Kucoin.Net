@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Sockets.Queries
             _client = client;
             MessageRouter = MessageRouter.Create(
                 MessageRoute.CreateForQuery<KucoinUnifiedAuthResult>(request.Id, HandleMessage), // For wss://wsapi-push.kucoin.com
-                MessageRoute.CreateForQuery<KucoinUnifiedWelcome, KucoinUnifiedAuthResult>("welcome", HandleMessage) // For wss://wsapi.kucoin.com/v2/private
+                MessageRoute.CreateForQuery<KucoinUnifiedWelcome, KucoinUnifiedAuthResult>("welcome", HandleMessage, multipleReaders: true) // For wss://wsapi.kucoin.com/v2/private
                 );
         }
 

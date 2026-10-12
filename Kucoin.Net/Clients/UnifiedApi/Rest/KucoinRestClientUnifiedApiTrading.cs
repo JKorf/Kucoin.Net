@@ -66,7 +66,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("side", EnumConverter.GetString(side).ToUpperInvariant());
             parameters.Add("orderType", EnumConverter.GetString(orderType).ToUpperInvariant());
             parameters.Add("size", quantity);
-            parameters.Add("sizeUnit", quantityUnit);
+            parameters.Add("sizeUnit", quantityUnit ?? QuantityUnit.BaseAsset);
             parameters.Add("price", price);
             parameters.Add("timeInForce", timeInForce);
             parameters.Add("clientOid", clientOrderId);

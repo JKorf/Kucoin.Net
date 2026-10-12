@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace Kucoin.Net.Clients.UnifiedApi
 {
     /// <inheritdoc cref="IKucoinRestClientUnifiedApi" />
-    internal partial class KucoinRestClientUnifiedApi : RestApiClient<KucoinEnvironment, KucoinAuthenticationProvider, KucoinCredentials>, IKucoinRestClientUnifiedApi
+    internal partial class KucoinRestClientUnifiedApi : RestApiClient<KucoinEnvironment, KucoinUnifiedAuthenticationProvider, KucoinCredentials>, IKucoinRestClientUnifiedApi
     {
         private readonly KucoinRestClientUnifiedSharedApi _sharedApi;
 
@@ -62,8 +62,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange._serializerContext));
 
         /// <inheritdoc />
-        protected override KucoinAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
-            => new KucoinAuthenticationProvider(credentials);
+        protected override KucoinUnifiedAuthenticationProvider CreateAuthenticationProvider(KucoinCredentials credentials)
+            => new KucoinUnifiedAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

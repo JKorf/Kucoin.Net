@@ -1,24 +1,20 @@
-> { "id": "|1|", "action": "SUBSCRIBE", "channel":"balance", "accountType": "FUTURES" }
+< {"sessionId":"81f56400-e7e3-4f2b-b0f6-5e649f48c302","message":"welcome","pingInterval":18000}
+> {"id": "|2|", "op": "auth","kc-api-key": "123"}
+< {"id":"|2|","result":true}
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"balance", "accountType": "UNIFIED" }
 < { "id": "|1|", "result": true }
 = 
 {
-    "P": 1770113416497653438,
-    "T": "balance.FUTURES",
+    "P": 1770116995060810093,
+    "T": "balance.UNIFIED",
     "d": {
-        "E": 488,
-        "U": 1770113416495000000,
-        "a": "12.94776376",
-        "b": "13.96916376",
-        "c": "USDT",
-        "e": "14.07876376",
-        "h": "0",
-        "cOM": "0",
-        "cPM": "0.0642",
-        "cUP": "0.0022",
-        "iFF": "-0.01171253",
-        "iOM": "0",
-        "iPM": "0.94548747",
-        "iUP": "0.1074",
-        "tCM": "13.02587629"
+        "U": 1770116995058000000,
+        "a": "0.0000517000",
+        "b": "0.0000517000",
+        "c": "BTC",
+        "e": "0.0000517000",
+        "h": "0.0000000000",
+        "l": "0.0000000000",
+        "cS": "1"
     }
 }

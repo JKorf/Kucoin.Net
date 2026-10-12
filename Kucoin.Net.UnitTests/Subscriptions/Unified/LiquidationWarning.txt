@@ -1,8 +1,11 @@
-> { "id": "|1|", "action": "SUBSCRIBE", "channel":"lw", "tradeType": "FUTURES" }
+< {"sessionId":"81f56400-e7e3-4f2b-b0f6-5e649f48c302","message":"welcome","pingInterval":18000}
+> {"id": "|2|", "op": "auth","kc-api-key": "123"}
+< {"id":"|2|","result":true}
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"lw", "tradeType": "UNIFIED" }
 < { "id": "|1|", "result": true }
 = 
 {
-  "T": "lw.FUTURES",
+  "T": "lw.UNIFIED",
   "P": 1729842192785164840,
   "d": {
     "eT": "MARGIN_CALL",
