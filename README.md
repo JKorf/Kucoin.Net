@@ -241,6 +241,30 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.8.0 - 13 Oct 2026
+    * Updated CryptoExchange.Net to v13.2.0
+    * Added Shared API implementation for the Unified API
+    * Added UnifiedRest and UnifiedSocket to (I)KucoinSharedApiClient
+    * Added ApiVersion selector to SharedApi client options, defaults to Classic
+    * Added UnifiedOptions to KucoinSocketOptions
+    * Added restClient.UnifiedApi.Account.GetDepositHistoryAsync endpoint
+    * Added restClient.UnifiedApi.Account.GetWithdrawalHistoryAsync endpoint
+    * Moved restClient.UnifiedApi.ExchangeData.GetPositionTiersAsync endpoint from Trading to ExchangeData
+    * Added Contracts value to QuantityUnit Enum
+    * Added AutoDeleverage to KucoinUaPositionUpdate model
+    * Added ClientOrderId, TradeType to KucoinUaUserTradeUpdate model
+    * Added UnifiedSocketPrivateTradeAddress to KucoinApiAddresses and KucoinEnvironment for WebSocket trade operations
+    * Updated ProductType Enum values
+    * Updated Unified API endpoints different Enum types for account/product types to ProductType Enum
+    * Updated restClient.UnifiedApi.Trading.GetUserTradesAsync orderId type from long to string
+    * Updated KucoinFuturesSymbol model
+    * Updated KucoinUaLeverageUpdate model
+    * Removed Unified API Enum parameters where Unified is only supported
+    * Removed deprecated restClient.UnifiedApi.ExchangeData.GetCrossMarginSymbolsAsync, GetIsolatedMarginSymbolsAsync, GetCrossMarginConfigAsync endpoints
+    * Removed deprecated restClient.UnifiedApi.Trading.SetDcpAsync, GetDcpAsync endpoints
+    * Removed Unified API production warning
+    * Fixed sizeUnit default value in Unified API PlaceOrder methods
+
 * Version 9.7.0 - 30 Sep 2026
     * Updated CryptoExchange.Net to V13.1.0
     * Added withdrawType, isInner parameters to UTA GetWithdrawalQuotasAsync, updated response model
