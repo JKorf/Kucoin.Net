@@ -185,10 +185,10 @@ namespace Kucoin.Net.UnitTests
                     KucoinApiAddresses.Default.UnifiedSocketPrivateTradeAddress)
             }), logFactory);
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Unified", "wss://x-push-spot.kucoin.com", "d");
-            await tester.ValidateAsync<KucoinUaTickerUpdate>((client, handler) => client.UnifiedApi.SubscribeToTickerUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", handler), "Ticker");
-            await tester.ValidateAsync<KucoinUaKlineUpdate>((client, handler) => client.UnifiedApi.SubscribeToKlineUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", KlineInterval.FifteenMinutes, handler), "Kline");
-            await tester.ValidateAsync<KucoinUaOrderBookUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderBookUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", OrderBookDepth.Incremental10Ms, handler), "OrderBook");
-            await tester.ValidateAsync<KucoinUaTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToTradeUpdatesAsync(UnifiedAccountType.Spot, "ETH-USDT", handler), "Trade");
+            await tester.ValidateAsync<KucoinUaTickerUpdate>((client, handler) => client.UnifiedApi.SubscribeToTickerUpdatesAsync(ProductType.Spot, "ETH-USDT", handler), "Ticker");
+            await tester.ValidateAsync<KucoinUaKlineUpdate>((client, handler) => client.UnifiedApi.SubscribeToKlineUpdatesAsync(ProductType.Spot, "ETH-USDT", KlineInterval.FifteenMinutes, handler), "Kline");
+            await tester.ValidateAsync<KucoinUaOrderBookUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderBookUpdatesAsync(ProductType.Spot, "ETH-USDT", OrderBookDepth.Incremental10Ms, handler), "OrderBook");
+            await tester.ValidateAsync<KucoinUaTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToTradeUpdatesAsync(ProductType.Spot, "ETH-USDT", handler), "Trade");
         }
 
         [Test]
@@ -213,12 +213,12 @@ namespace Kucoin.Net.UnitTests
             }), logFactory);
             var tester = new SocketSubscriptionValidator<KucoinSocketClient>(client, "Subscriptions/Unified", "wss://wsapi-push.kucoin.com", "d");
 
-            await tester.ValidateAsync<KucoinUaBalanceUpdate>((client, handler) => client.UnifiedApi.SubscribeToBalanceUpdatesAsync(UnifiedAccountType.Unified, handler), "Balance");
-            await tester.ValidateAsync<KucoinUaOrderUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderUpdatesAsync(UnifiedAccountType.Unified, handler), "Order", ignoreProperties: ["bT"]);
-            await tester.ValidateAsync<KucoinUaUserTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToUserTradeUpdatesAsync(UnifiedAccountType.Unified, handler), "UserTrade");
-            await tester.ValidateAsync<KucoinUaPositionUpdate>((client, handler) => client.UnifiedApi.SubscribeToPositionUpdatesAsync(UnifiedAccountType.Unified, handler), "Position");
-            await tester.ValidateAsync<KucoinUaLeverageUpdate>((client, handler) => client.UnifiedApi.SubscribeToLeverageUpdatesAsync(UnifiedAccountType.Unified, handler), "Leverage");
-            await tester.ValidateAsync<KucoinUaLiquidationWarningUpdate>((client, handler) => client.UnifiedApi.SubscribeToLiquidationWarningUpdatesAsync(UnifiedAccountType.Unified, handler), "LiquidationWarning");
+            await tester.ValidateAsync<KucoinUaBalanceUpdate>((client, handler) => client.UnifiedApi.SubscribeToBalanceUpdatesAsync(handler), "Balance");
+            await tester.ValidateAsync<KucoinUaOrderUpdate>((client, handler) => client.UnifiedApi.SubscribeToOrderUpdatesAsync(handler), "Order", ignoreProperties: ["bT"]);
+            await tester.ValidateAsync<KucoinUaUserTradeUpdate>((client, handler) => client.UnifiedApi.SubscribeToUserTradeUpdatesAsync(handler), "UserTrade");
+            await tester.ValidateAsync<KucoinUaPositionUpdate>((client, handler) => client.UnifiedApi.SubscribeToPositionUpdatesAsync(handler), "Position");
+            await tester.ValidateAsync<KucoinUaLeverageUpdate>((client, handler) => client.UnifiedApi.SubscribeToLeverageUpdatesAsync(handler), "Leverage");
+            await tester.ValidateAsync<KucoinUaLiquidationWarningUpdate>((client, handler) => client.UnifiedApi.SubscribeToLiquidationWarningUpdatesAsync(handler), "LiquidationWarning");
         }
     }
 }

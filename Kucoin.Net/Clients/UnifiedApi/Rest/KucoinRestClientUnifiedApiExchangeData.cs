@@ -366,7 +366,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
-            UnifiedSimpleAccountType tradeType,
+            ProductType tradeType,
             MarginMode marginMode,
             UnifiedAccountMode accountMode,
             string? data = "RISK_LIMIT",

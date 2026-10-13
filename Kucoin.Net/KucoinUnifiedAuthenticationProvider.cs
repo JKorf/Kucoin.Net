@@ -4,6 +4,7 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Clients.FuturesApi;
+using Kucoin.Net.Enums;
 using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 
@@ -71,10 +72,10 @@ namespace Kucoin.Net
             request.SetQueryString(queryString);
         }
 
-        internal KucoinUnifiedAuthRequest GetSocketAuth(SocketApiClient apiClient)
+        internal KucoinUnifiedAuthRequest GetSocketAuth(SocketApiClient apiClient, ProductType type)
         {
-            var partnerName = "";
-            var partnerKey = "";
+            var partnerName = LibraryHelpers.GetClientReference(() => null, "Kucoin", type == ProductType.Futures ? "FuturesName" : "SpotName");
+            var partnerKey = LibraryHelpers.GetClientReference(() => null, "Kucoin", type == ProductType.Futures ? "FuturesKey" : "SpotKey");
 
             var timestamp = GetMillisecondTimestampLong(apiClient);
             var signStr = timestamp + "POST/api/websocket/users/verify";
@@ -93,8 +94,8 @@ namespace Kucoin.Net
                 Timestamp = timestamp,
                 Passphrase = phraseSign,
                 Sign = sign,
-                //Partner = partnerName,
-                //PartnerSign = partnerSign
+                Partner = partnerName,
+                PartnerSign = partnerSign
             };
         }
     }

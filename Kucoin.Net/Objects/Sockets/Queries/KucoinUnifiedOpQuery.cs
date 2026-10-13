@@ -8,13 +8,20 @@ using System;
 
 namespace Kucoin.Net.Objects.Sockets.Queries
 {
-    internal class KucoinUnifiedOpQuery<TResponse> : Query<TResponse>
+    internal interface IKucoinUnifiedOpQuery
+    {
+        bool IsFutures { get; }
+    }
+
+    internal class KucoinUnifiedOpQuery<TResponse> : Query<TResponse>, IKucoinUnifiedOpQuery
     {
         private readonly SocketApiClient _client;
+        public bool IsFutures { get; }
 
-        public KucoinUnifiedOpQuery(SocketApiClient client, KucoinUnifiedOpRequest request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
+        public KucoinUnifiedOpQuery(SocketApiClient client, KucoinUnifiedOpRequest request, bool futures) : base(request, true, 1)
         {
             _client = client;
+            IsFutures = futures;
             MessageRouter = MessageRouter.CreateForQuery<KucoinSocketOpResponse<TResponse>, TResponse>(request.Id, HandleMessage);
         }
 

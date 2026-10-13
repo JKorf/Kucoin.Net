@@ -52,7 +52,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="closeOrder">["<c>closeOrder</c>"] Close order</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderResult>> PlaceOrderAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string symbol,
             OrderSide side,
             OrderType orderType,
@@ -131,7 +131,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderResult>> CancelOrderAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null, 
             string? orderId = null, 
             string? clientOrderId = null, 
@@ -150,7 +150,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">["<c>cancelOrderList</c>"] Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaBatchCancelResult>> CancelOrdersAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             IEnumerable<KucoinUaCancelOrderRequest> orders,
             CancellationToken ct = default);
 
@@ -169,7 +169,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="orderFilter">["<c>orderFilter</c>"] Order filter, defaults to Normal</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string symbol,
             MarginMode? marginMode = null,
             OrderFilter? orderFilter = null,
@@ -191,7 +191,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOid</c>"] Client order id. Either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrder>> GetOrderAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string symbol,
             string? orderId = null,
             string? clientOrderId = null,
@@ -213,7 +213,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrders>> GetOpenOrdersAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null,
             OrderFilter? orderFilter = null,
             int? page = null, 
@@ -239,7 +239,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderHistory>> GetOrderHistoryAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null, 
             OrderSide? side = null,
             OrderFilter? orderFilter = null, 
@@ -269,7 +269,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaUserTrades>> GetUserTradesAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null,
             string? orderId = null,
             OrderSide? orderSide = null, 

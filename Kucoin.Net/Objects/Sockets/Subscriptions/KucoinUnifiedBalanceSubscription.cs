@@ -22,16 +22,15 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
 
         public KucoinUnifiedBalanceSubscription(
             ILogger logger, 
-            SocketApiClient client,            
-            UnifiedAccountType type,            
+            SocketApiClient client,    
             Action<DataEvent<KucoinUaBalanceUpdate>> handler)
             : base(logger, true)
         {
             _client = client;
-            _type = type == UnifiedAccountType.Spot ? "TRADING" : EnumConverter.GetString(type);
+            _type = "UNIFIED";
             _handler = handler;
 
-            var id = $"balance.{EnumConverter.GetString(type)}";
+            var id = $"balance.UNIFIED";
             MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<KucoinUaBalanceUpdate>>(id, DoHandleMessage);
         }
 

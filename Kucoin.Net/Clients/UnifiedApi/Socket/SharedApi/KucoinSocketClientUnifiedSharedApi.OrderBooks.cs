@@ -24,7 +24,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await _api.SubscribeToOrderBookUpdatesAsync(
-                request.TradingMode == TradingMode.Spot ? UnifiedAccountType.Spot : UnifiedAccountType.Futures,
+                request.TradingMode == TradingMode.Spot ? ProductType.Spot : ProductType.Futures,
                 symbol,
                 OrderBookDepth.Top5,
                 update => handler(update.ToType(
@@ -58,7 +58,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 OrderBookDepth.Top50;
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await _api.SubscribeToOrderBookUpdatesAsync(
-                request.TradingMode == TradingMode.Spot ? UnifiedAccountType.Spot : UnifiedAccountType.Futures,
+                request.TradingMode == TradingMode.Spot ? ProductType.Spot : ProductType.Futures,
                 symbol,
                 depth,
                 update => handler(update.ToType(

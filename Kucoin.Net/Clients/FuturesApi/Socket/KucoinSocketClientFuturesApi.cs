@@ -399,6 +399,7 @@ namespace Kucoin.Net.Clients.FuturesApi
            bool authenticated,
            bool dedicatedRequestConnection,
            CancellationToken ct,
+           IMessageProcessor? processor,
            string? topic = null,
            int individualSubscriptionCount = 1)
         {
@@ -427,7 +428,7 @@ namespace Kucoin.Net.Clients.FuturesApi
                 }
             }
 
-            var result = await base.GetSocketConnection(address, authenticated, dedicatedRequestConnection, ct, topic, individualSubscriptionCount).ConfigureAwait(false);
+            var result = await base.GetSocketConnection(address, authenticated, dedicatedRequestConnection, ct, processor, topic, individualSubscriptionCount).ConfigureAwait(false);
             if (result.Success)
                 result.Data.Tag = address;
             return result;

@@ -37,7 +37,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return QueryResult.Fail<SharedId>(Exchange, validationError);
 
             var result = await _api.PlaceOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType),
@@ -134,7 +134,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return QueryResult.Fail<SharedId>(Exchange, validationError);
 
             var order = await _api.CancelOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderId,
                 ct: ct).ConfigureAwait(false);
@@ -159,7 +159,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return QueryResult.Fail<SharedId>(Exchange, validationError);
 
             var order = await _api.CancelOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 clientOrderId: request.OrderId,
                 ct: ct).ConfigureAwait(false);
@@ -181,9 +181,8 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var result = await _api.SubscribeToOrderUpdatesAsync(
-                UnifiedAccountType.Unified,
                 update => {
-                    if (update.Data.TradeType != UnifiedAccountType.Futures)
+                    if (update.Data.TradeType != ProductType.Futures)
                         return;
 
                     var sharedSymbol = ExchangeSymbolCache.ParseSymbol(_topicFuturesId, _api.EnvironmentName, null, update.Data.Symbol);

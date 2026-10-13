@@ -29,7 +29,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedLeverage>(Exchange, validationError);
 
             var result = await _api.Account.GetLeverageAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 symbol: request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<SharedLeverage>(result);
@@ -77,7 +77,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedLeverageTier[]>(Exchange, validationError);
 
             var result = await _api.ExchangeData.GetPositionTiersAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 MarginMode.CrossMode,
                 UnifiedAccountMode.Unified,
                 symbol: request.Symbol!.GetSymbol(FormatSymbol),

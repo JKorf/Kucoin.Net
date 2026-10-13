@@ -28,7 +28,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
             var result = await _api.Trading.PlaceOrderAsync(
-                UnifiedSimpleAccountType.Spot,
+                ProductType.Spot,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderSide == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 request.OrderPrice == null ? OrderType.Market : OrderType.Limit,
@@ -63,7 +63,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedSpotTriggerOrder>(Exchange, validationError);
                        
             var order = await _api.Trading.GetOrderAsync(
-                UnifiedSimpleAccountType.Spot,
+                ProductType.Spot,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderId).ConfigureAwait(false);
             if (!order.Success)
@@ -115,7 +115,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
                         
             var order = await _api.Trading.CancelOrderAsync(
-                UnifiedSimpleAccountType.Spot,
+                ProductType.Spot,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderId,
                 ct: ct).ConfigureAwait(false);

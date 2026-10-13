@@ -33,7 +33,7 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// ["<c>tT</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tT")]
-        public UnifiedAccountType TradeType { get; set; }
+        public ProductType TradeType { get; set; }
         /// <summary>
         /// ["<c>s</c>"] Symbol
         /// </summary>

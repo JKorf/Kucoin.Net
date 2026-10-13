@@ -29,7 +29,7 @@ namespace Kucoin.Net.Objects.Sockets.Queries
                 return CallResult.Ok<KucoinUnifiedAuthResult>(new KucoinUnifiedAuthResult(), originalData);
             }
 
-            return null;
+            return null!;
         }
 
         public CallResult<KucoinUnifiedAuthResult> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, KucoinUnifiedAuthResult message)

@@ -30,7 +30,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
             // Get data
             var result = await _api.Account.GetFeeRateAsync(
-                request.Symbol!.TradingMode == TradingMode.Spot ? UnifiedSimpleAccountType.Spot : UnifiedSimpleAccountType.Futures,
+                request.Symbol!.TradingMode == TradingMode.Spot ? ProductType.Spot : ProductType.Futures,
                 [request.Symbol!.GetSymbol(FormatSymbol)],
                 ct: ct).ConfigureAwait(false);
             if (!result.Success)

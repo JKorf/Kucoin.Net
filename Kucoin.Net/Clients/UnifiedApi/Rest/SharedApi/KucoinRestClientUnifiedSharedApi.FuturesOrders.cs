@@ -40,7 +40,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
             var result = await _api.Trading.PlaceOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType),
@@ -75,7 +75,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedFuturesOrder>(Exchange, validationError);
                        
             var order = await _api.Trading.GetOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderId).ConfigureAwait(false);
             if (!order.Success)
@@ -123,7 +123,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedFuturesOrder>(Exchange, validationError);
 
             var order = await _api.Trading.GetOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 clientOrderId: request.OrderId).ConfigureAwait(false);
             if (!order.Success)
@@ -170,7 +170,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedFuturesOrder[]>(Exchange, validationError);
 
             var order = await _api.Trading.GetOpenOrdersAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol?.GetSymbol(FormatSymbol)).ConfigureAwait(false);
             if (!order.Success)
                 return HttpResult.Fail<SharedFuturesOrder[]>(order);
@@ -222,7 +222,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
             // Get data
             var result = await _api.Trading.GetOrderHistoryAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 startTime: pageParams.StartTime,
                 endTime: pageParams.EndTime,
@@ -283,7 +283,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                         
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var order = await _api.Trading.GetUserTradesAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 symbol,
                 orderId: request.OrderId).ConfigureAwait(false);
             if (!order.Success)
@@ -326,7 +326,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
             // Get data
             var result = await _api.Trading.GetUserTradesAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 startTime: pageParams.StartTime,
                 endTime: pageParams.EndTime,
@@ -376,7 +376,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
                         
             var order = await _api.Trading.CancelOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderId,
                 ct: ct).ConfigureAwait(false);
@@ -401,7 +401,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
                         
             var order = await _api.Trading.CancelOrderAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 clientOrderId: request.OrderId,
                 ct: ct).ConfigureAwait(false);
@@ -426,7 +426,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
             var order = await _api.Trading.CancelSymbolOrdersAsync(
-                UnifiedSimpleAccountType.Futures,
+                ProductType.Futures,
                 request.Symbol!.GetSymbol(FormatSymbol),
                 ct: ct).ConfigureAwait(false);
             if (!order.Success)

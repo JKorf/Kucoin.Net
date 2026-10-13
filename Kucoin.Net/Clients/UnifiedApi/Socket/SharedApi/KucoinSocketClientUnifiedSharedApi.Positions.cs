@@ -23,7 +23,6 @@ namespace Kucoin.Net.Clients.UnifiedApi
                 return WebSocketResult.Fail<UpdateSubscription>(Exchange, validationError);
 
             var result = await _api.SubscribeToPositionUpdatesAsync(
-                UnifiedAccountType.Unified,
                 update => {
                     handler(update.ToType<SharedPosition[]>(
                         [new SharedPosition(

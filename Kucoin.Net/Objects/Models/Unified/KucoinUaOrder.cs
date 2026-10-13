@@ -171,7 +171,7 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
-        public UnifiedAccountType? AccountType { get; set; }
+        public ProductType? TradeType { get; set; }
         /// <summary>
         /// ["<c>tradeId</c>"] Last order trade id
         /// </summary>

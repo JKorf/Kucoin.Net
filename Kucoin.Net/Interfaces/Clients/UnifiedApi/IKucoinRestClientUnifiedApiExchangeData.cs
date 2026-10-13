@@ -333,7 +333,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Asset</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaPositionTier[]>> GetPositionTiersAsync(
-            UnifiedSimpleAccountType tradeType,
+            ProductType tradeType,
             MarginMode marginMode,
             UnifiedAccountMode accountMode,
             string? data = "RISK_LIMIT",

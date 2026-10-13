@@ -193,7 +193,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaFeeRate[]>> GetFeeRateAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             IEnumerable<string> symbols,
             CancellationToken ct = default)
         {
@@ -244,7 +244,6 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaInterestHistory>> GetInterestHistoryAsync(
-            UnifiedAccountType accountType,
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -253,7 +252,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
             CancellationToken ct = default)
         {
             var parameters = new Parameters(KucoinExchange._parameterSerializationSettings);
-            parameters.Add("accountType", accountType);
+            parameters.Add("accountType", "UNIFIED");
             parameters.Add("currency", asset);
             parameters.Add("startTime", startTime);
             parameters.Add("endTime", endTime);
@@ -388,7 +387,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaLeverageSetting[]>> GetLeverageAsync(
-            UnifiedSimpleAccountType tradeType,
+            ProductType tradeType,
             MarginMode? marginMode = null,
             string? asset = null,
             string? symbol = null,

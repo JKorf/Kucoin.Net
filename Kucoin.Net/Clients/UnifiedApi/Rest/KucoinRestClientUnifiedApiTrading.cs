@@ -32,7 +32,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOrderResult>> PlaceOrderAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string symbol,
             OrderSide side,
             OrderType orderType,
@@ -147,7 +147,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOrderResult>> CancelOrderAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null, 
             string? orderId = null,
             string? clientOrderId = null, 
@@ -175,7 +175,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaBatchCancelResult>> CancelOrdersAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             IEnumerable<KucoinUaCancelOrderRequest> orders, 
             CancellationToken ct = default)
         {
@@ -199,7 +199,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaBatchCancelResult>> CancelSymbolOrdersAsync(
-            UnifiedSimpleAccountType type, 
+            ProductType type, 
             string symbol,
             MarginMode? marginMode = null, 
             OrderFilter? orderFilter = null, 
@@ -227,7 +227,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOrder>> GetOrderAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string symbol, 
             string? orderId = null, 
             string? clientOrderId = null,
@@ -255,7 +255,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOrders>> GetOpenOrdersAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null,
             OrderFilter? orderFilter = null,
             int? page = null,
@@ -285,7 +285,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaOrderHistory>> GetOrderHistoryAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             string? symbol = null, 
             OrderSide? side = null,
             OrderFilter? orderFilter = null, 
@@ -320,7 +320,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
         /// <inheritdoc />
         public async Task<HttpResult<KucoinUaUserTrades>> GetUserTradesAsync(
-            UnifiedSimpleAccountType type, 
+            ProductType type, 
             string? symbol = null,
             string? orderId = null,
             OrderSide? orderSide = null,

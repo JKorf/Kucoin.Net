@@ -24,7 +24,7 @@ namespace Kucoin.Net.Clients.UnifiedApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await _api.SubscribeToTradeUpdatesAsync(
-                request.TradingMode == TradingMode.Spot ? UnifiedAccountType.Spot : UnifiedAccountType.Futures,
+                request.TradingMode == TradingMode.Spot ? ProductType.Spot : ProductType.Futures,
                 symbol,
                 update => handler(update.ToType<SharedTrade[]>(
                     [

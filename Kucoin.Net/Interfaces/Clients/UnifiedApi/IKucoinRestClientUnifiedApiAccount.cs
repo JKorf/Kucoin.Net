@@ -178,7 +178,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">["<c>symbol</c>"] Symbols, spot max: 10, futures max: 1</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaFeeRate[]>> GetFeeRateAsync(
-            UnifiedSimpleAccountType type,
+            ProductType type,
             IEnumerable<string> symbols,
             CancellationToken ct = default);
 
@@ -220,7 +220,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// GET /api/ua/v2/account/interest-history
         /// </para>
         /// </summary>
-        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
@@ -228,7 +227,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>size</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaInterestHistory>> GetInterestHistoryAsync(
-            UnifiedAccountType accountType,
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -358,7 +356,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaLeverageSetting[]>> GetLeverageAsync(
-            UnifiedSimpleAccountType tradeType,
+            ProductType tradeType,
             MarginMode? marginMode = null,
             string? asset = null,
             string? symbol = null,

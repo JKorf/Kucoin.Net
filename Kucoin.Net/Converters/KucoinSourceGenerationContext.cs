@@ -57,7 +57,6 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionTier[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPosition[]>))]
-    [JsonSerializable(typeof(KucoinResult<KucoinUaDcp>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaUserTrades>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaOrderHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaOrders>))]
