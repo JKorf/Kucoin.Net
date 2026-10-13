@@ -1,0 +1,102 @@
+﻿using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Objects;
+using Kucoin.Net.Clients.FuturesApi;
+using Kucoin.Net.Enums;
+using Kucoin.Net.Objects.Internal;
+using Kucoin.Net.Objects.Options;
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Kucoin.Net
+{
+    internal class KucoinUnifiedAuthenticationProvider : AuthenticationProvider<KucoinCredentials, KucoinCredentials>
+    {
+        private readonly static ConcurrentDictionary<string, string> _phraseCache = new();
+        private readonly static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(KucoinExchange._serializerContext));
+
+        public KucoinUnifiedAuthenticationProvider(KucoinCredentials credentials): base(credentials, credentials)
+        {
+        }
+
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
+        {
+            if (!request.RequestDefinition.Authenticated)
+                return;
+
+            request.GetPositionParameters().TryGetValue("tradeType", out var tradeTypeParam);
+            var tradeType = tradeTypeParam?.ToString() ?? "FUTURES";
+
+            var brokerName = LibraryHelpers.GetClientReference(() => ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerName, "Kucoin", tradeType == "FUTURES" ? "FuturesName" : "SpotName");
+            var brokerKey = LibraryHelpers.GetClientReference(() => ((KucoinRestApiOptions)apiClient.ApiOptions).BrokerKey, "Kucoin", tradeType == "FUTURES" ? "FuturesKey" : "SpotKey");
+            
+            var timestamp = GetMillisecondTimestamp(apiClient).ToString();
+            request.Headers ??= new Dictionary<string, string>();
+            request.Headers.Add("KC-API-KEY", Credential.Key);
+            request.Headers.Add("KC-API-TIMESTAMP", timestamp);
+            var phraseKey = Credential.Key + "|" + Credential.Pass;
+            if (!_phraseCache.TryGetValue(phraseKey, out var phraseSign))
+            {
+                phraseSign = SignHMACSHA256(Credential.Pass!, SignOutputType.Base64);
+                _phraseCache.TryAdd(phraseKey, phraseSign);
+            }
+
+            request.Headers.Add("KC-API-PASSPHRASE", phraseSign);
+            request.Headers.Add("KC-API-KEY-VERSION", "3");
+
+            var bodyData = request.ParameterPosition == HttpMethodParameterPosition.InBody 
+                ? GetSerializedBody(_serializer, request.BodyParameters ?? new Parameters(KucoinExchange._parameterSerializationSettings)) : string.Empty;
+            var queryString = request.GetQueryString(false);
+            if (!string.IsNullOrEmpty(queryString))
+                queryString = $"?{queryString}";
+
+            var signData = $"{timestamp}{request.RequestDefinition.Method}{request.RequestDefinition.Path}{queryString}{bodyData}";
+            request.Headers.Add("KC-API-SIGN", SignHMACSHA256(signData, SignOutputType.Base64));
+
+            // Partner info
+            request.Headers.Add("KC-API-PARTNER", brokerName!);
+            request.Headers.Add("KC-API-PARTNER-VERIFY", "true");
+            var partnerSignData = $"{timestamp}{brokerName}{Credential.Key}";
+
+            using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(brokerKey!));
+            byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
+            request.Headers.Add("KC-API-PARTNER-SIGN", BytesToBase64String(buff));
+
+            request.SetBodyContent(bodyData);
+            request.SetQueryString(queryString);
+        }
+
+        internal KucoinUnifiedAuthRequest GetSocketAuth(SocketApiClient apiClient, ProductType type)
+        {
+            var partnerName = LibraryHelpers.GetClientReference(() => null, "Kucoin", type == ProductType.Futures ? "FuturesName" : "SpotName");
+            var partnerKey = LibraryHelpers.GetClientReference(() => null, "Kucoin", type == ProductType.Futures ? "FuturesKey" : "SpotKey");
+
+            var timestamp = GetMillisecondTimestampLong(apiClient);
+            var signStr = timestamp + "POST/api/websocket/users/verify";
+            var sign = SignHMACSHA256(signStr, SignOutputType.Base64);
+            var phraseSign = SignHMACSHA256(Credential.Pass!, SignOutputType.Base64);
+            using HMACSHA256 hMACSHA = new HMACSHA256(Encoding.UTF8.GetBytes(partnerKey!));
+            var partnerSignData = $"{timestamp}{partnerName}{Credential.Key}";
+            byte[] buff = hMACSHA.ComputeHash(Encoding.UTF8.GetBytes(partnerSignData));
+            var partnerSign = BytesToBase64String(buff);
+
+            return new KucoinUnifiedAuthRequest
+            {
+                Id = ExchangeHelpers.NextId().ToString(),
+                Operation = "auth",
+                ApiKey = Key,
+                Timestamp = timestamp,
+                Passphrase = phraseSign,
+                Sign = sign,
+                Partner = partnerName,
+                PartnerSign = partnerSign
+            };
+        }
+    }
+}

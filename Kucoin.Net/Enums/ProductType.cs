@@ -19,14 +19,9 @@ namespace Kucoin.Net.Enums
         [Map("FUTURES")]
         Futures,
         /// <summary>
-        /// ["<c>CROSS</c>"] Cross margin
+        /// ["<c>MARGIN</c>"] Margin
         /// </summary>
-        [Map("CROSS")]
-        CrossMargin,
-        /// <summary>
-        /// ["<c>ISOLATED</c>"] Isolated margin
-        /// </summary>
-        [Map("ISOLATED")]
-        IsolatedMargin
+        [Map("MARGIN")]
+        Margin
     }
 }

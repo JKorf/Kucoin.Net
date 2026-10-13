@@ -11,6 +11,8 @@ using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Options;
 using CryptoExchange.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
+using Kucoin.Net.Interfaces.Clients.UnifiedApi;
+using Kucoin.Net.Clients.UnifiedApi;
 
 namespace Kucoin.Net.Clients
 {

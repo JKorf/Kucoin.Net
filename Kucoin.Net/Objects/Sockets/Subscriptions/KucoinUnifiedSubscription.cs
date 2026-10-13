@@ -27,7 +27,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             ILogger logger, 
             SocketApiClient client, 
             string channel,
-            UnifiedAccountType type,
+            ProductType? type,
             string? symbol,
             string[]? symbols,
             Action<DateTime, string?, KucoinUnifiedSocketUpdate<T>> handler,
@@ -38,14 +38,14 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         {
             _client = client;
             _channel = channel;
-            _type = EnumConverter.GetString(type);
+            _type = EnumConverter.GetString(type) ?? "UNIFIED";
             _symbol = symbol;
             _symbols = symbols;
             _handler = handler;
             _interval = EnumConverter.GetString(interval);
             _depth = EnumConverter.GetString(depth);
 
-            var ids = new[] { $"{channel}.{EnumConverter.GetString(type)}", $"{channel}" };
+            var ids = new[] { $"{channel}.{_type}", $"{channel}" };
             var filter = _symbol != null || _interval != null ? $"{_symbol}{_interval}" : null;
             if (filter == null)
                 MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(ids, DoHandleMessage);

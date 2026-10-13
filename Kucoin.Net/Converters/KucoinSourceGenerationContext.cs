@@ -13,6 +13,15 @@ using System.Collections.Generic;
 
 namespace Kucoin.Net.Converters
 {
+    [JsonSerializable(typeof(KucoinUnifiedOpRequest))]
+    [JsonSerializable(typeof(KucoinUnifiedAuthRequest))]
+    [JsonSerializable(typeof(KucoinSocketOpResponse<KucoinUaOrderResult>))]
+    [JsonSerializable(typeof(KucoinSocketOpResponse<KucoinUaOrderEditResult>))]
+    [JsonSerializable(typeof(KucoinUnifiedAuthResult))]
+    [JsonSerializable(typeof(KucoinUnifiedPing))]
+
+    [JsonSerializable(typeof(KucoinResult<KucoinUaWithdrawalHistory>))]
+    [JsonSerializable(typeof(KucoinResult<KucoinUaDepositHistory>))]
     [JsonSerializable(typeof(KucoinResult<Dictionary<string, decimal>>))]
     [JsonSerializable(typeof(KucoinResult<KucoinMarginModesResults>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaFundingFeeHistory>))]
@@ -48,7 +57,6 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionTier[]>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPositionHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPosition[]>))]
-    [JsonSerializable(typeof(KucoinResult<KucoinUaDcp>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaUserTrades>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaOrderHistory>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaOrders>))]

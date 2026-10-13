@@ -4,6 +4,7 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Kucoin.Net.Clients.FuturesApi;
+using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Options;
 
 using System;

@@ -32,6 +32,12 @@ namespace Kucoin.Net.Clients.MessageHandlers
                 ],
                 StaticIdentifier = "welcome"
             },
+            new MessageTypeDefinition {
+                Fields = [
+                    new PropertyFieldReference("data").WithEqualConstraint("welcome"),
+                ],
+                StaticIdentifier = "welcome"
+            },
 
             new MessageTypeDefinition {
                 Fields = [

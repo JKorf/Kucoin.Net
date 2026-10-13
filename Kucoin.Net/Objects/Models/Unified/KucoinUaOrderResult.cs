@@ -21,7 +21,7 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// ["<c>tradeType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("tradeType")]
-        public UnifiedAccountType TradeType { get; set; }
+        public ProductType TradeType { get; set; }
         /// <summary>
         /// ["<c>ts</c>"] Timestamp
         /// </summary>

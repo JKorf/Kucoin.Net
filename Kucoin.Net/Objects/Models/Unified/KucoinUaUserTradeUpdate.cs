@@ -15,6 +15,11 @@ namespace Kucoin.Net.Objects.Models.Unified
         [JsonPropertyName("oi")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>ci</c>"] Client order id
+        /// </summary>
+        [JsonPropertyName("ci")]
+        public string? ClientOrderId { get; set; }
+        /// <summary>
         /// ["<c>s</c>"] Symbol
         /// </summary>
         [JsonPropertyName("s")]
@@ -38,12 +43,12 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// ["<c>p</c>"] Order price
         /// </summary>
         [JsonPropertyName("p")]
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         /// <summary>
         /// ["<c>ti</c>"] Trade id
         /// </summary>
         [JsonPropertyName("ti")]
-        public long? TradeId { get; set; }
+        public long TradeId { get; set; }
         /// <summary>
         /// ["<c>q</c>"] Order quantity
         /// </summary>
@@ -74,5 +79,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("E")]
         public DateTime TradeTime { get; set; }
+        /// <summary>
+        /// ["<c>fT</c>"] Trade type
+        /// </summary>
+        [JsonPropertyName("fT")]
+        public UnifiedTradeType TradeType { get; set; }
     }
 }

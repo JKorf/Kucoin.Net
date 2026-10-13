@@ -104,5 +104,10 @@ namespace Kucoin.Net.Objects.Models.Unified
         /// </summary>
         [JsonPropertyName("pM")]
         public decimal? PositionMargin { get; set; }
+        /// <summary>
+        /// ["<c>adl</c>"] Auto deleverage
+        /// </summary>
+        [JsonPropertyName("adl")]
+        public decimal? AutoDeleverage { get; set; }
     }
 }

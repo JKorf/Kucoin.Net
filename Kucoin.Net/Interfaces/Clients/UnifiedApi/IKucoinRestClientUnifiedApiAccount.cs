@@ -19,7 +19,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get account overview for UTA account
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/account/get-account-overview-uta" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/account/get-account-overview-uta" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/unified/account/overview
         /// </para>
@@ -31,7 +31,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get account balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-account-currency-assets-uta" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/unified/account/balance
         /// </para>
@@ -43,7 +43,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get classic account balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/classic-account-balance" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/account/balance
         /// </para>
@@ -75,7 +75,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get transfer quotas
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-transfer-quotas" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/transfer-quota" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/account/transfer-quota
         /// </para>
@@ -94,7 +94,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Transfer between accounts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/flex-transfer" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/flex-transfer" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v2/account/transfer
         /// </para>
@@ -144,7 +144,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get account mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-mode" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-account-mode" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/account/mode
         /// </para>
@@ -156,7 +156,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set account to unified mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/set-account-mode" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/set-account-mode" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v2/account/mode
         /// </para>
@@ -169,16 +169,16 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get fee rates for symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-actual-fee" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/rest/ua/actual-fee" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/user/fee-rate
         /// </para>
         /// </summary>
-        /// <param name="accountType">["<c>tradeType</c>"] Account type, Spot or Futures</param>
+        /// <param name="type">["<c>tradeType</c>"] Account type, Spot or Futures</param>
         /// <param name="symbols">["<c>symbol</c>"] Symbols, spot max: 10, futures max: 1</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaFeeRate[]>> GetFeeRateAsync(
-            UnifiedAccountType accountType,
+            ProductType type,
             IEnumerable<string> symbols,
             CancellationToken ct = default);
 
@@ -186,7 +186,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get account transfer in/out history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-account-ledger" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/account-ledger" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/account/ledger
         /// </para>
@@ -215,12 +215,11 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get interest history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-interest-history-uta" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-interest-history-uta" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/account/interest-history
         /// </para>
         /// </summary>
-        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
@@ -228,7 +227,6 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>size</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaInterestHistory>> GetInterestHistoryAsync(
-            UnifiedAccountType accountType,
             string? asset = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
@@ -240,7 +238,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set leverage for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/modify-leverage-uta" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v2/unified/account/modify-leverage
         /// </para>
@@ -254,7 +252,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get deposit addresses
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-deposit-address" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/deposit-address" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/asset/deposit/address
         /// </para>
@@ -268,7 +266,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get API key info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-apikey-info?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/api-key" /><br />
         /// Endpoint:<br />
         /// GET api/ua/v2/user/api-key<br />
         /// </para>
@@ -280,7 +278,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal quotas
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-withdrawal-quotas?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/withdrawal-quota" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/withdrawals/quotas<br />
         /// </para>
@@ -301,7 +299,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Withdraw from platform
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/withdrawal?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/withdrawal" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v2/withdrawal<br />
         /// </para>
@@ -310,7 +308,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="toAddress">["<c>toAddress</c>"] To address</param>
         /// <param name="quantity">["<c>amount</c>"] Quantity</param>
         /// <param name="withdrawType">["<c>withdrawType</c>"] Withdraw type</param>
-        /// <param name="network">["<c>chainId</c>"] Network id</param>
+        /// <param name="network">["<c>chain</c>"] Network id</param>
         /// <param name="memo">["<c>memo</c>"] Memo</param>
         /// <param name="isInternal">["<c>isInner</c>"] Is internal</param>
         /// <param name="feeDeductType">["<c>feeDeductType</c>"] Fee deduct type</param>
@@ -330,17 +328,15 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set cross margin leverage
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/modify-cross-margin-leverage-uta" /><br />
         /// Endpoint:<br />
-        /// POST /api/ua/v2/{accountMode}/account/modify-leverage-margin-cross<br />
+        /// POST /api/ua/v2/unified/account/modify-leverage-margin-cross<br />
         /// </para>
         /// </summary>
-        /// <param name="accountMode">["<c>accountMode</c>"] Account mode</param>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
         /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaLeverage>> SetCrossMarginLeverageAsync(
-            UnifiedAccountMode accountMode,
             string asset,
             decimal leverage,
             CancellationToken ct = default);
@@ -349,7 +345,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get leverage settings
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-leverage?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-leverage" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/unified/account/leverage<br />
         /// </para>
@@ -360,8 +356,8 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaLeverageSetting[]>> GetLeverageAsync(
-            UnifiedSimpleAccountType tradeType,
-            MarginMode marginMode,
+            ProductType tradeType,
+            MarginMode? marginMode = null,
             string? asset = null,
             string? symbol = null,
             CancellationToken ct = default);
@@ -370,7 +366,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Get funding fee history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/get-private-funding-fee-history?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/get-private-funding-fee-history" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/position/funding-history<br />
         /// </para>
@@ -393,7 +389,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set margin mode for one or multiple symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/batch-modify-margin-mode?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/batch-modify-margin-mode" /><br />
         /// Endpoint:<br />
         /// GET /api/ua/v2/unified/position/margin-mode<br />
         /// </para>
@@ -410,7 +406,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// Set isolated margin
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.kucoin.com/docs-new/rest/ua/modify-isolated-futures-margin?lang=en_US" /><br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/modify-isolated-futures-margin" /><br />
         /// Endpoint:<br />
         /// POST /api/ua/v2/unified/position/modify-margin<br />
         /// </para>
@@ -427,5 +423,58 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
             PositionSide? positionSide = null,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Get deposit history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/deposit-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v2/asset/deposit/history<br />
+        /// </para>
+        /// </summary>
+        /// <param name="asset">Filter by asset</param>
+        /// <param name="id">Filter by id</param>
+        /// <param name="status">Filter by status</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinUaDepositHistory>> GetDepositHistoryAsync(
+            string? asset = null,
+            string? id = null,
+            DepositStatus? status = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Get withdrawal history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/v2/rest/ua/withdrawal-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/ua/v2/asset/withdrawal/history<br />
+        /// </para>
+        /// </summary>
+        /// <param name="asset">Filter by asset</param>
+        /// <param name="id">Filter by id</param>
+        /// <param name="status">Filter by status</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<KucoinUaWithdrawalHistory>> GetWithdrawalHistoryAsync(
+            string? asset = null,
+            string? id = null,
+            WithdrawalStatus? status = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default);
     }
 }
