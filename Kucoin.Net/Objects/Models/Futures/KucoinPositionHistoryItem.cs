@@ -106,6 +106,16 @@ namespace Kucoin.Net.Objects.Models.Futures
         [JsonPropertyName("closePrice")]
         public decimal? ClosePrice { get; set; }
         /// <summary>
+        /// ["<c>liquidPrice</c>"] Liquidation settlement price before the additional liquidation charge
+        /// </summary>
+        [JsonPropertyName("liquidPrice")]
+        public decimal? LiquidationPrice { get; set; }
+        /// <summary>
+        /// ["<c>liquidAmount</c>"] Additional liquidation charge in the settlement currency, absent when not reported
+        /// </summary>
+        [JsonPropertyName("liquidAmount")]
+        public decimal? LiquidationAmount { get; set; }
+        /// <summary>
         /// ["<c>type</c>"] Closing type
         /// </summary>
         [JsonPropertyName("type")]
