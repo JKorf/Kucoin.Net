@@ -169,9 +169,9 @@ namespace Kucoin.Net.Enums
         [Map("Instant Exchange")]
         InstantExchange,
         /// <summary>
-        /// ["<c>Sub Account Transfer</c>"] Sub-account transfer
+        /// ["<c>Sub Account Transfer</c>", "<c>SUB_TRANSFER</c>"] Sub-account transfer
         /// </summary>
-        [Map("Sub Account Transfer")]
+        [Map("Sub Account Transfer", "SUB_TRANSFER")]
         SubAccountTransfer,
         /// <summary>
         /// ["<c>Liquidation Fees</c>"] Liquidation Fees
