@@ -122,6 +122,12 @@ namespace Kucoin.Net.Objects.Models.Futures.Socket
         public FuturesMarginMode? MarginMode { get; set; }
 
         /// <summary>
+        /// ["<c>positionSide</c>"] Position side; BOTH denotes one-way mode
+        /// </summary>
+        [JsonPropertyName("positionSide")]
+        public PositionSide? PositionSide { get; set; }
+
+        /// <summary>
         /// ["<c>tradeType</c>"] Trade type
         /// </summary>
 
