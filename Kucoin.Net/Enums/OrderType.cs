@@ -32,6 +32,11 @@ namespace Kucoin.Net.Enums
         /// ["<c>stop</c>"] Stop order
         /// </summary>
         [Map("stop")]
-        Stop
+        Stop,
+        /// <summary>
+        /// ["<c>liquid</c>"] Forced liquidation settlement
+        /// </summary>
+        [Map("liquid")]
+        Liquidation
     }
 }
