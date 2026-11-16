@@ -1,0 +1,21 @@
+< {"sessionId":"81f56400-e7e3-4f2b-b0f6-5e649f48c302","message":"welcome","pingInterval":18000}
+> {"id": "|2|", "op": "auth","kc-api-key": "123"}
+< {"id":"|2|","result":true}
+> { "id": "|1|", "action": "SUBSCRIBE", "channel":"fundingFeeSettleAll" }
+< { "id": "|1|", "result": true }
+= 
+{
+    "P": 1792500505152726138,
+    "T": "fundingFeeSettleAll",
+    "d": {
+        "s": "XBTUSDTM",
+        "mp": "70834.169",
+        "q": "-17",
+        "mM": "CROSS",
+        "sc": "USDT",
+        "ft": 1792500504000,
+        "ff": "-24.08361746",
+        "fr": "-0.02",
+        "pV": "-1204.180873"
+    }
+}

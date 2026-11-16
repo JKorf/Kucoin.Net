@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using Kucoin.Net.Enums;
 using Kucoin.Net.Interfaces.Clients.UnifiedApi;
+using Kucoin.Net.Objects.Models;
 using Kucoin.Net.Objects.Models.Unified;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Kucoin.Net.Interfaces.Clients.UnifiedApi
 {
@@ -435,6 +436,22 @@ namespace Kucoin.Net.Interfaces.Clients.UnifiedApi
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
         Task<WebSocketResult<UpdateSubscription>> SubscribeToLiquidationWarningUpdatesAsync(
             Action<DataEvent<KucoinUaLiquidationWarningUpdate>> onData,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to funding settlement updates
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.kucoin.com/docs-new/3470415w0" /><br />
+        /// Endpoint:<br />
+        /// Channel: fundingFeeSettleAll
+        /// </para>
+        /// </summary>
+        /// <param name="onData">The data handler</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected and to unsubscribe</returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingSettlementUpdatesAsync(
+            Action<DataEvent<KucoinUaFundingSettlementUpdate>> onData,
             CancellationToken ct = default);
     }
 }

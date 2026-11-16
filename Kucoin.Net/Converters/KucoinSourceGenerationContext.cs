@@ -50,6 +50,7 @@ namespace Kucoin.Net.Converters
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaLeverageUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaLiquidationWarningUpdate>))]
     [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaCallAuctionInfoUpdate>))]
+    [JsonSerializable(typeof(KucoinUnifiedSocketUpdate<KucoinUaFundingSettlementUpdate>))]
 
     [JsonSerializable(typeof(KucoinResult<KucoinUaCallAuctionInfo>))]
     [JsonSerializable(typeof(KucoinResult<KucoinUaPlatformStats>))]

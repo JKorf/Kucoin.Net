@@ -396,6 +396,26 @@ namespace Kucoin.Net.Clients.UnifiedApi
             return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingSettlementUpdatesAsync(
+            Action<DataEvent<KucoinUaFundingSettlementUpdate>> onData,
+            CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, KucoinUnifiedSocketUpdate<KucoinUaFundingSettlementUpdate>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.PushTime);
+
+                onData.Invoke(
+                    new DataEvent<KucoinUaFundingSettlementUpdate>(KucoinExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithStreamId(data.Type)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Data.FundingTime, GetTimeOffset())
+                    );
+            });
+            var subscription = new KucoinUnifiedSubscription<KucoinUaFundingSettlementUpdate>(_logger, this, "fundingFeeSettleAll", null, null, null, internalHandler, true);
+            return await SubscribeAsync(ClientOptions.Environment.UnifiedSocketPrivateAddress, subscription, ct).ConfigureAwait(false);
+        }
+
         public async Task<QueryResult<KucoinUaOrderResult>> PlaceOrderAsync(
             ProductType type,
             string symbol,

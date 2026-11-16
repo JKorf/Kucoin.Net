@@ -219,6 +219,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync<KucoinUaPositionUpdate>((client, handler) => client.UnifiedApi.SubscribeToPositionUpdatesAsync(handler), "Position");
             await tester.ValidateAsync<KucoinUaLeverageUpdate>((client, handler) => client.UnifiedApi.SubscribeToLeverageUpdatesAsync(handler), "Leverage");
             await tester.ValidateAsync<KucoinUaLiquidationWarningUpdate>((client, handler) => client.UnifiedApi.SubscribeToLiquidationWarningUpdatesAsync(handler), "LiquidationWarning");
+            await tester.ValidateAsync<KucoinUaFundingSettlementUpdate>((client, handler) => client.UnifiedApi.SubscribeToFundingSettlementUpdatesAsync(handler), "FundingSettlement");
         }
     }
 }
