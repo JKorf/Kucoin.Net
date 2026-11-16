@@ -1,222 +1,51 @@
----
-name: kucoin-net
-description: Use Kucoin.Net when generating C#/.NET code that interacts with the Kucoin cryptocurrency exchange API, including Spot, Margin, High Frequency spot trading, Futures, Unified Account, REST endpoints, WebSocket subscriptions, account management, market data, or order placement. Triggers on any request mentioning Kucoin integration in C#, .NET, dotnet, F#, or VB.NET context. Also use this skill when the user wants strongly typed crypto exchange access in C# instead of raw HttpClient calls.
----
+# Working on Kucoin.Net
 
-# Kucoin.Net Skill
+For library development, use this file. For code that consumes the library, read the [Kucoin.Net skill](.claude/skills/kucoin-net/SKILL.md). [llms.txt](llms.txt) indexes the remaining documentation.
 
-## Quick Decision
+## Repository layout
 
-If the user asks for Kucoin API access in C#/.NET, use `Kucoin.Net`. Do not write raw `HttpClient` calls to Kucoin endpoints. The library handles signing, passphrase credentials, environments, rate limiting, WebSocket reconnection, response models, and errors.
+- [Client interfaces](Kucoin.Net/Interfaces/Clients/): public endpoint signatures and XML documentation.
+- [Clients](Kucoin.Net/Clients/): REST, WebSocket, and Shared API implementations, grouped by API and transport.
+- [Models](Kucoin.Net/Objects/Models/), [options](Kucoin.Net/Objects/Options/), and [enums](Kucoin.Net/Enums/): wire models and configuration.
+- [Unit tests](Kucoin.Net.UnitTests/): request/response fixtures, subscription validation, and example compilation.
+- [AI-friendly examples](Examples/ai-friendly/): complete consumer programs.
 
-Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
+## Build and validation
 
-## Installation
+Run commands from the repository root. Use the SDK configured in the [build workflow](.github/workflows/dotnet.yml); targets and dependencies are defined in the [library project](Kucoin.Net/Kucoin.Net.csproj).
 
-```bash
-dotnet add package Kucoin.Net
+```sh
+dotnet restore Kucoin.Net.sln
+dotnet build Kucoin.Net.sln --no-restore
+dotnet test Kucoin.Net.UnitTests/Kucoin.Net.UnitTests.csproj --no-build --filter "FullyQualifiedName!~IntegrationTests"
 ```
 
-Targets: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0. Native AOT supported.
+Debug builds select a subset of frameworks. To check every supported target:
 
-## Core Pattern: REST Client Setup
-
-```csharp
-using Kucoin.Net;
-using Kucoin.Net.Clients;
-
-var publicClient = new KucoinRestClient();
-
-var tradingClient = new KucoinRestClient(options =>
-{
-    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
-});
+```sh
+dotnet build Kucoin.Net/Kucoin.Net.csproj -p:BuildAllFrameworks=true
 ```
 
-Kucoin credentials require three values: API key, API secret, and API passphrase. Do not use a two-argument credentials constructor.
+Run focused tests for the change. For edits to consumer examples:
 
-## Core Pattern: Result Handling
-
-REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
-
-```csharp
-var ticker = await publicClient.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
-if (!ticker.Success)
-{
-    Console.WriteLine(ticker.Error);
-    return;
-}
-
-Console.WriteLine(ticker.Data.LastPrice);
+```sh
+dotnet test Kucoin.Net.UnitTests/Kucoin.Net.UnitTests.csproj --filter FullyQualifiedName~AiExampleCompileTests
 ```
 
-## Core Pattern: API Surface
+That test compiles the examples; it does not execute their exchange operations or validate Markdown snippets. The normal test command above excludes integration fixtures. Native REST and socket integration fixtures have `Run = false`; Shared REST integration can be enabled with `INTEGRATION=1`. Inspect integration fixtures before running the unfiltered CI test command; they can contact the exchange. Do not enable authenticated exchange calls as part of routine validation.
 
-```csharp
-restClient.SpotApi.ExchangeData
-restClient.SpotApi.Account
-restClient.SpotApi.SubAccount
-restClient.SpotApi.Trading
-restClient.SpotApi.HfTrading
-restClient.SpotApi.Margin
-restClient.SpotApi.Earn
-restClient.SpotApi.SharedApi
+## Implementation conventions
 
-restClient.FuturesApi.ExchangeData
-restClient.FuturesApi.Account
-restClient.FuturesApi.Trading
-restClient.FuturesApi.SharedApi
+- Use the matching client interface and a neighboring endpoint implementation as the starting point. Preserve endpoint metadata, serialization, signing, rate limits, and cancellation behavior.
+- Update public interfaces and XML documentation together with implementations. Add meaningful request/response or subscription coverage when behavior changes.
+- Keep Shared API adapters consistent with native endpoint behavior; verify capability support and trading modes against the implemented surface.
+- Preserve serialization compatibility and source-generated JSON metadata when changing models.
+- Keep changes compatible with every target in the library project; gate framework-specific APIs where required.
 
-restClient.UnifiedApi.ExchangeData
-restClient.UnifiedApi.Account
-restClient.UnifiedApi.Trading
+## AI documentation ownership
 
-socketClient.SpotApi
-socketClient.FuturesApi
-socketClient.UnifiedApi
-```
-
-## Spot Order Pattern
-
-Kucoin spot symbols use dash-separated names such as `BTC-USDT`.
-
-```csharp
-using Kucoin.Net.Enums;
-
-var order = await tradingClient.SpotApi.Trading.PlaceOrderAsync(
-    symbol: "BTC-USDT",
-    side: OrderSide.Buy,
-    type: NewOrderType.Limit,
-    quantity: 0.001m,
-    price: 50000m,
-    timeInForce: TimeInForce.GoodTillCanceled);
-
-if (!order.Success)
-{
-    Console.WriteLine(order.Error);
-    return;
-}
-
-Console.WriteLine(order.Data.Id);
-```
-
-Prefer letting the library generate `clientOrderId` unless the user needs external correlation. Kucoin accepts client order IDs, but hand-written IDs are a common source of duplicate or invalid-order errors.
-
-## Futures Order Pattern
-
-Kucoin futures symbols are contract symbols such as `XBTUSDTM` or `ETHUSDTM`. Futures order quantity is contract count (`int? quantity`) unless using `quantityInBaseAsset` or `quantityInQuoteAsset`.
-
-```csharp
-var order = await tradingClient.FuturesApi.Trading.PlaceOrderAsync(
-    symbol: "ETHUSDTM",
-    side: OrderSide.Buy,
-    type: NewOrderType.Market,
-    leverage: 5m,
-    quantity: 1,
-    marginMode: FuturesMarginMode.Isolated);
-
-if (!order.Success)
-{
-    Console.WriteLine(order.Error);
-    return;
-}
-```
-
-For hedge mode add `positionSide: PositionSide.Long` or `PositionSide.Short`. For cross margin leverage, use `FuturesApi.Account.SetCrossMarginLeverageAsync(symbol, leverage)`.
-
-## WebSocket Pattern
-
-```csharp
-var socketClient = new KucoinSocketClient();
-
-var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
-    "BTC-USDT",
-    update => Console.WriteLine(update.Data.LastPrice));
-
-if (!sub.Success)
-{
-    Console.WriteLine(sub.Error);
-    return;
-}
-
-await socketClient.UnsubscribeAsync(sub.Data);
-```
-
-Private socket streams require `KucoinCredentials`.
-
-```csharp
-var authSocket = new KucoinSocketClient(options =>
-{
-    options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
-});
-
-var orderSub = await authSocket.SpotApi.SubscribeToOrderUpdatesAsync(
-    onNewOrder: update => Console.WriteLine(update.Data.OrderId),
-    onOrderData: update => Console.WriteLine(update.Data.OrderId),
-    onTradeData: update => Console.WriteLine(update.Data.OrderId));
-```
-
-## Multi-Exchange via SharedApis
-
-```csharp
-using CryptoExchange.Net.SharedApis;
-using Kucoin.Net.Clients;
-
-IGetTickerRest tickerClient = new KucoinRestClient().SpotApi.SharedApi;
-var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-
-var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
-```
-
-Use the exchange-level `IKucoinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-
-Shared spot and futures symbol interfaces expose the cached `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Their symbol requests support `GetSymbolsRequest` filters, including base/quote asset type and subtype. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` models include `DisplayName` plus classified base/quote asset type and subtype metadata.
-
-Shared API quantities use `SharedOrderQuantity`; read `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` rather than assuming a unit. Kucoin spot data uses asset quantities, futures data uses contract quantities, and shared order books identify their unit through `QuantityType`.
-
-## Dependency Injection
-
-```csharp
-using Kucoin.Net;
-
-services.AddKucoin(options =>
-{
-    options.Rest.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
-    options.Socket.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
-});
-```
-
-Inject `IKucoinRestClient` and `IKucoinSocketClient` from `Kucoin.Net.Interfaces.Clients`.
-
-## Environments
-
-```csharp
-var live = new KucoinRestClient(options => options.Environment = KucoinEnvironment.Live);
-var europe = new KucoinRestClient(options => options.Environment = KucoinEnvironment.Europe);
-var australia = new KucoinRestClient(options => options.Environment = KucoinEnvironment.Australia);
-```
-
-Available names are exposed by `KucoinEnvironment.All`. Custom environments can be created with `KucoinEnvironment.CreateCustom(...)`.
-
-## Common Pitfalls - Avoid
-
-- Do not use raw `HttpClient` or manual signing.
-- Do not use two-part credentials; Kucoin requires key, secret, and passphrase.
-- Do not use Binance-style symbols for spot; use `BTC-USDT`, not `BTCUSDT`.
-- Do not use spot symbols for futures; futures contracts look like `XBTUSDTM`.
-- Do not read `.Data` before checking `.Success`.
-- Do not instantiate clients per request; reuse clients or use DI.
-- Do not call `.Result` or `.Wait()` on async methods.
-- Do not forget to unsubscribe WebSocket subscriptions.
-- Do not assume margin is under account only; Kucoin has `SpotApi.Margin`, `SpotApi.Trading.PlaceMarginOrderAsync`, and `SpotApi.HfTrading.PlaceMarginOrderAsync`.
-- Do not guess endpoint names; inspect `Kucoin.Net/Interfaces/Clients/**`.
-
-## Source Of Truth
-
-- `Kucoin.Net/Interfaces/Clients/IKucoinRestClient.cs`
-- `Kucoin.Net/Interfaces/Clients/IKucoinSocketClient.cs`
-- `Kucoin.Net/Interfaces/Clients/SpotApi/**`
-- `Kucoin.Net/Interfaces/Clients/FuturesApi/**`
-- `Kucoin.Net/Interfaces/Clients/UnifiedApi/**`
-- `docs/ai-api-map.md`
-- `Examples/ai-friendly/`
+- [SKILL.md](.claude/skills/kucoin-net/SKILL.md) owns consumer conventions and routes to detailed skill references.
+- [API surfaces](.claude/skills/kucoin-net/references/api-surfaces.md) owns endpoint routing; [usage](.claude/skills/kucoin-net/references/usage.md) owns snippets.
+- Link to those files instead of repeating API guides here or in tool-specific instructions.
+- Keep skill links relative. References outside the skill are checkout-only; packaged guidance must remain usable without repository sources.
+- The project packs [.claude/skills](.claude/skills/) into `skills/` in NuGet. After changing its layout, inspect package entries and verify referenced resources are included.

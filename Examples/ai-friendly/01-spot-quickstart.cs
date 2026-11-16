@@ -16,7 +16,7 @@ using Kucoin.Net.Enums;
 
 // ---- 1. PUBLIC CLIENT (no credentials needed for market data) ----
 // Reuse this client across the application; do not create per request.
-var publicClient = new KucoinRestClient();
+using var publicClient = new KucoinRestClient();
 
 // Kucoin spot symbols use a dash: BTC-USDT, ETH-USDT, etc.
 var ticker = await publicClient.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
@@ -30,7 +30,7 @@ Console.WriteLine($"BTC/USDT last price: {ticker.Data.LastPrice}");
 
 // ---- 2. AUTHENTICATED CLIENT (for account / trading) ----
 // Kucoin credentials require key, secret, and passphrase.
-var tradingClient = new KucoinRestClient(options =>
+using var tradingClient = new KucoinRestClient(options =>
 {
     options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
 });
@@ -48,16 +48,27 @@ foreach (var account in accounts.Data.Where(x => x.Total > 0))
 }
 
 // ---- 3. PLACE A LIMIT BUY ORDER ----
-// Limit, Buy, 0.001 BTC at a price 5% below current price; likely will not fill immediately.
+// This executable limit order can fill before cancellation. Use symbol increments for sizing.
 // Let the library generate clientOrderId unless you need external correlation.
-var safePrice = Math.Round((ticker.Data.LastPrice ?? 0m) * 0.95m, 2);
+if (ticker.Data.LastPrice is not decimal lastPrice || lastPrice <= 0)
+    return;
+var metadata = await tradingClient.SpotApi.ExchangeData.GetSymbolAsync("BTC-USDT");
+if (!metadata.Success)
+{
+    Console.WriteLine(metadata.Error);
+    return;
+}
+var increment = metadata.Data.PriceIncrement;
+if (increment <= 0)
+    return;
+var limitPrice = Math.Floor(lastPrice * 0.95m / increment) * increment;
 
 var order = await tradingClient.SpotApi.Trading.PlaceOrderAsync(
     symbol: "BTC-USDT",
     side: OrderSide.Buy,
     type: NewOrderType.Limit,
     quantity: 0.001m,
-    price: safePrice,
+    price: limitPrice,
     timeInForce: TimeInForce.GoodTillCanceled);
 
 if (!order.Success)
@@ -66,7 +77,7 @@ if (!order.Success)
     return;
 }
 
-Console.WriteLine($"Placed order {order.Data.Id} at {safePrice}");
+Console.WriteLine($"Placed order {order.Data.Id} at {limitPrice}");
 
 // ---- 4. CHECK ORDER STATUS ----
 var status = await tradingClient.SpotApi.Trading.GetOrderAsync(order.Data.Id);

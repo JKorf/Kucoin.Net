@@ -10,7 +10,7 @@ using Kucoin.Net;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 
-var client = new KucoinRestClient(options =>
+using var client = new KucoinRestClient(options =>
 {
     options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
 });
@@ -35,6 +35,7 @@ else
 }
 
 // ---- 2. SIMPLE RETRY WITH BACKOFF ----
+// Public reads only; reconcile uncertain account changes before resubmitting.
 async Task<HttpResult<T>> WithRetry<T>(
     Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
@@ -77,7 +78,7 @@ if (ticker.Success)
 //   Permanent. Surface to the caller instead of retrying.
 //
 // Rate limit, timeout, network, or 5xx:
-//   Check result.Error?.IsTransient before retrying.
+//   Retry transient public reads with bounded backoff; reconcile uncertain writes first.
 
 // ---- 4. ORDER PLACEMENT WITH SYMBOL METADATA ----
 var symbolInfo = await client.SpotApi.ExchangeData.GetSymbolAsync("BTC-USDT");

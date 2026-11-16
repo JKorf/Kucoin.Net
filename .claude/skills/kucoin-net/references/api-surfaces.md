@@ -1,18 +1,10 @@
-# Kucoin.Net AI API Quick Map
+# Kucoin.Net API surfaces
 
-Use this file to route common user intents to the correct Kucoin.Net client member. If a method name or parameter is not listed here, inspect `Kucoin.Net/Interfaces/Clients/**` before generating code.
+## Client roots
 
-## Client Roots
+`KucoinRestClient` / `IKucoinRestClient` exposes `SpotApi.{ExchangeData|Account|SubAccount|Trading|HfTrading|Margin|Earn}`, `FuturesApi.{ExchangeData|Account|Trading}`, and `UnifiedApi.{ExchangeData|Account|Trading}`. `KucoinSocketClient` / `IKucoinSocketClient` exposes methods directly on `SpotApi`, `FuturesApi`, and `UnifiedApi`. Unified socket also supports order requests. `IKucoinTrackerFactory` supplies trackers.
 
-| Intent | Use |
-|---|---|
-| REST calls | `new KucoinRestClient()` |
-| WebSocket streams | `new KucoinSocketClient()` |
-| API key authentication | `options.ApiCredentials = new KucoinCredentials("key", "secret", "passphrase")` |
-| Live environment | `KucoinEnvironment.Live` |
-| Europe environment | `KucoinEnvironment.Europe` |
-| Australia environment | `KucoinEnvironment.Australia` |
-| Dependency injection | `services.AddKucoin(options => { ... })` |
+Configure `KucoinEnvironment.Live`, `Europe`, or `Australia` for the intended deployment. A region does not imply sandbox behavior.
 
 ## Spot REST
 
@@ -44,7 +36,6 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 | Get withdrawal quota | `client.SpotApi.Account.GetWithdrawalQuotasAsync(asset, network)` |
 | Withdraw asset | `client.SpotApi.Account.WithdrawAsync(...)` |
 | Cancel withdrawal | `client.SpotApi.Account.CancelWithdrawalAsync(withdrawalId)` |
-| Internal transfer | `client.SpotApi.Account.InnerTransferAsync(...)` |
 | Universal transfer | `client.SpotApi.Account.UniversalTransferAsync(...)` |
 | Place spot order | `client.SpotApi.Trading.PlaceOrderAsync(...)` |
 | Place spot test order | `client.SpotApi.Trading.PlaceTestOrderAsync(...)` |
@@ -157,13 +148,15 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 | Unified deposit address | `client.UnifiedApi.Account.GetDepositAddressAsync(asset, network)` |
 | Unified spot symbols | `client.UnifiedApi.ExchangeData.GetSpotSymbolsAsync(symbol)` |
 | Unified futures symbols | `client.UnifiedApi.ExchangeData.GetFuturesSymbolsAsync(symbol)` |
-| Unified margin symbols | `client.UnifiedApi.ExchangeData.GetCrossMarginSymbolsAsync(symbol)` |
 | Unified assets | `client.UnifiedApi.ExchangeData.GetAssetsAsync(assets, network)` |
 | Unified tickers | `client.UnifiedApi.ExchangeData.GetTickersAsync(productType, symbol)` |
 | Unified order book | `client.UnifiedApi.ExchangeData.GetOrderBookAsync(productType, symbol, limit)` |
 | Unified recent trades | `client.UnifiedApi.ExchangeData.GetRecentTradesAsync(productType, symbol)` |
 | Unified klines | `client.UnifiedApi.ExchangeData.GetKlinesAsync(productType, symbol, interval)` |
-| Unified funding rate | `client.UnifiedApi.ExchangeData.GetFundingRateAsync(symbol)` |
+| Unified platform statistics | `client.UnifiedApi.ExchangeData.GetPlatformStatsAsync()` |
+| Unified interest rate index | `client.UnifiedApi.ExchangeData.GetInterestRateIndexAsync(...)` |
+| Unified position tiers | `client.UnifiedApi.ExchangeData.GetPositionTiersAsync(...)` |
+| Unified funding rate | `client.UnifiedApi.ExchangeData.GetFundingRatesAsync(symbol)` |
 | Unified place order | `client.UnifiedApi.Trading.PlaceOrderAsync(...)` |
 | Unified cancel order | `client.UnifiedApi.Trading.CancelOrderAsync(...)` |
 | Unified cancel orders | `client.UnifiedApi.Trading.CancelOrdersAsync(...)` |
@@ -171,7 +164,7 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 | Unified open orders | `client.UnifiedApi.Trading.GetOpenOrdersAsync(...)` |
 | Unified order history | `client.UnifiedApi.Trading.GetOrderHistoryAsync(...)` |
 | Unified user trades | `client.UnifiedApi.Trading.GetUserTradesAsync(...)` |
-| Unified positions | `client.UnifiedApi.Trading.GetPositionsAsync(accountMode, symbol)` |
+| Unified positions | `client.UnifiedApi.Trading.GetPositionsAsync(symbol: symbol)` |
 
 ## Spot WebSocket
 
@@ -222,57 +215,37 @@ Use this file to route common user intents to the correct Kucoin.Net client memb
 | Subscribe unified positions | `socketClient.UnifiedApi.SubscribeToPositionUpdatesAsync(...)` |
 | Subscribe unified leverage updates | `socketClient.UnifiedApi.SubscribeToLeverageUpdatesAsync(...)` |
 
-## SharedApis
+## Additional native workflows
 
-| User intent | Kucoin.Net member or interface |
-|---|---|
-| Shared spot REST client | `new KucoinRestClient().SpotApi.SharedApi` |
-| Shared futures REST client | `new KucoinRestClient().FuturesApi.SharedApi` |
-| Shared spot socket client | `new KucoinSocketClient().SpotApi.SharedApi` |
-| Shared futures socket client | `new KucoinSocketClient().FuturesApi.SharedApi` |
-| Resolve a runtime-selected Shared API capability | `IKucoinSharedApiClient.GetCapability(...)` |
-| Shared spot symbols and filters | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(GetSymbolsRequest)` |
-| Shared futures symbols and filters | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(GetSymbolsRequest)` |
-| Cached shared spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` |
-| Cached shared futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` |
-| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
-| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
+Classic Spot regular, HF, and margin trading are separate workflows. `SpotApi.SubAccount` owns subaccount creation, API key management, and permissions. `SpotApi.Margin` owns borrow/repay, lending subscription/redemption, interest history, risk and collateral configuration. `SpotApi.Earn` owns product/holding discovery and purchase/redemption flows. Preserve their distinct account prerequisites.
 
-Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
+Unified account workflows include mode discovery/change, balances, fee rates, ledger, leverage, transfers, withdrawal quotas, and withdrawals. Unified trading includes position history and order edits. Native Unified socket requests are `PlaceOrderAsync`, `EditOrderAsync`, and `CancelOrderAsync`; they return query results. Unified subscriptions include order book, trades, funding, mark price, balances, orders, positions, leverage, and liquidation warnings. Select `ProductType` or `UnifiedAccountType` according to the method signature rather than copying an enum from another call.
 
-`GetSymbolsRequest` can filter shared symbols by base/quote asset type and subtype. `SharedSpotSymbol` and `SharedFuturesSymbol` include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata.
+## Shared API V2
 
-Shared result quantities use `SharedOrderQuantity`; read `QuantityInBaseAsset`, `QuantityInQuoteAsset`, or `QuantityInContracts` as applicable. `SharedOrderBook.QuantityType` is `BaseAsset` for Kucoin spot books and `Contracts` for futures books.
+`IKucoinSharedApiClient` exposes these properties. Each matching native root exposes `.SharedApi`.
 
-For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
+- `FuturesRest` (`IKucoinRestClientFuturesSharedApi`): `IGetBalancesRest`, `IGetTickerRest`, `IGetAllTickersRest`, `IGetFuturesSymbolsRest`, `IPlaceFuturesOrderRest`, `IGetFuturesOrderRest`, `IGetOpenFuturesOrdersRest`, `IGetClosedFuturesOrdersRest`, `IGetFuturesOrderTradesRest`, `IGetFuturesUserTradeHistoryRest`, `ICancelFuturesOrderRest`, `IGetPositionsRest`, `ICloseFullPositionRest`, `IGetKlinesRest`, `IGetRecentTradesRest`, `IGetOrderBookRest`, `IGetOpenInterestRest`, `IGetFundingRateHistoryRest`, `IGetPositionHistoryRest`, `IGetFeesRest`, `IGetFuturesOrderByClientOrderIdRest`, `ICancelFuturesOrderByClientOrderIdRest`, `ISetFuturesTpSlRest`, `ICancelFuturesTpSlRest`, `IGetBookTickerRest`, `IGetLeverageRest`, `ISetLeverageRest`.
+- `FuturesSocket` (`IKucoinSocketClientFuturesSharedApi`): `ISubscribeTickerSocket`, `ISubscribeTradesSocket`, `ISubscribeBookTickerSocket`, `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeBalancesSocket`, `ISubscribeFuturesOrdersSocket`, `ISubscribePositionsSocket`.
+- `SpotRest` (`IKucoinRestClientSpotSharedApi`): `IGetAssetRest`, `IGetAllAssetsRest`, `IGetBalancesRest`, `IGetKlinesRest`, `IGetOrderBookRest`, `IGetRecentTradesRest`, `IPlaceSpotOrderRest`, `IGetSpotOrderRest`, `IGetOpenSpotOrdersRest`, `IGetClosedSpotOrdersRest`, `IGetSpotOrderTradesRest`, `IGetSpotUserTradeHistoryRest`, `ICancelSpotOrderRest`, `IGetSpotSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, `IGetWithdrawalHistoryRest`, `IWithdrawRest`, `IGetFeesRest`, `IGetSpotOrderByClientOrderIdRest`, `ICancelSpotOrderByClientOrderIdRest`, `IGetSpotTriggerOrderRest`, `IPlaceSpotTriggerOrderRest`, `ICancelSpotTriggerOrderRest`, `IGetBookTickerRest`, `ITransferRest`, `IGetDepositAddressesRest`, `IGetDepositHistoryRest`.
+- `SpotSocket` (`IKucoinSocketClientSpotSharedApi`): `ISubscribeTickerSocket`, `ISubscribeTradesSocket`, `ISubscribeBookTickerSocket`, `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeBalancesSocket`, `ISubscribeSpotOrdersSocket`.
+- `UnifiedRest` (`IKucoinRestClientUnifiedSharedApi`): `IGetTickerRest`, `IGetAllTickersRest`, `IGetAssetRest`, `IGetAllAssetsRest`, `IGetBalancesRest`, `IGetDepositAddressesRest`, `IGetDepositHistoryRest`, `IGetFeesRest`, `IGetFundingInfoRest`, `IGetFundingRateHistoryRest`, `IGetUserFundingHistoryRest`, `IGetIndexPriceRest`, `IGetAllIndexPricesRest`, `IGetMarkPriceRest`, `IGetAllMarkPricesRest`, `IGetIndexPriceKlinesRest`, `IGetMarkPriceKlinesRest`, `IGetKlinesRest`, `IGetLedgerRest`, `IGetLeverageRest`, `ISetLeverageRest`, `IGetLeverageTiersRest`, `IGetOpenInterestRest`, `IGetBookTickerRest`, `IGetOrderBookRest`, `IGetSpotSymbolsRest`, `IGetFuturesSymbolsRest`, `IGetRecentTradesRest`, `ITransferRest`, `IGetWithdrawalHistoryRest`, `IPlaceSpotOrderRest`, `IGetSpotOrderRest`, `IGetSpotOrderByClientOrderId`, `IGetOpenSpotOrdersRest`, `IGetClosedSpotOrdersRest`, `IGetSpotOrderTradesRest`, `IGetSpotUserTradeHistoryRest`, `ICancelSpotOrderRest`, `ICancelSpotOrderByClientOrderIdRest`, `ICancelAllSpotSymbolOrdersRest`, `IEditSpotOrderRest`, `IEditSpotOrderByClientOrderIdRest`, `IPlaceFuturesOrderRest`, `IGetFuturesOrderRest`, `IGetFuturesOrderByClientOrderId`, `IGetOpenFuturesOrdersRest`, `IGetClosedFuturesOrdersRest`, `IGetFuturesOrderTradesRest`, `IGetFuturesUserTradeHistoryRest`, `ICancelFuturesOrderRest`, `ICancelFuturesOrderByClientOrderIdRest`, `ICancelAllFuturesSymbolOrdersRest`, `IEditFuturesOrderRest`, `IEditFuturesOrderByClientOrderIdRest`, `IGetPositionsRest`, `IGetPositionHistoryRest`, `IPlaceSpotTriggerOrderRest`, `IGetSpotTriggerOrderRest`, `ICancelSpotTriggerOrderRest`, `IPlaceFuturesTriggerOrderRest`, `IGetFuturesTriggerOrderRest`, `ICancelFuturesTriggerOrderRest`.
+- `UnifiedSocket` (`IKucoinSocketClientUnifiedSharedApi`): `ISubscribeKlinesSocket`, `ISubscribeTradesSocket`, `ISubscribeBookTickerSocket`, `ISubscribeOrderBookSocket`, `ISubscribeIncrementalOrderBookSocket`, `ISubscribeMarkPriceSocket`, `ISubscribeIndexPriceSocket`, `ISubscribeFundingInfoSocket`, `ISubscribeSpotOrdersSocket`, `ISubscribeFuturesOrdersSocket`, `ISubscribeUserTradesSocket`, `ISubscribeBalancesSocket`, `ISubscribePositionsSocket`, `IPlaceSpotOrderSocket`, `IEditSpotOrderSocket`, `IEditSpotOrderByClientOrderIdSocket`, `ICancelSpotOrderSocket`, `ICancelSpotOrderByClientOrderIdSocket`, `IPlaceFuturesOrderSocket`, `IEditFuturesOrderSocket`, `IEditFuturesOrderByClientOrderIdSocket`, `ICancelFuturesOrderSocket`, `ICancelFuturesOrderByClientOrderIdSocket`.
 
-## Result Handling
+Use aggregate properties or inject narrow capabilities for known operations. For dynamic selection, call `aggregate.GetCapability(SharedCapabilities.Tickers.GetTicker.Rest, tradingMode: TradingMode.Spot)` and check for null before using `Capability` and `Options`. A descriptor identifies an operation; it does not guarantee support. `GetCapabilities` enumerates matches and `Discover` summarizes metadata. Classic and Unified surfaces can implement the same capability: explicitly select the surface appropriate to the account. With several exchanges registered, inject `IEnumerable<TCapability>` and select by exchange, supported mode, and surface options.
 
-| Situation | Pattern |
-|---|---|
-| REST success check | REST methods return `HttpResult<T>` or `HttpResult`; use `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | Socket subscriptions return `WebSocketResult<UpdateSubscription>`; use `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
-| Read result data | Read `result.Data` or `sub.Data` only after `.Success` |
-| Shared helper success check | Shared symbol/cache helpers can return `ExchangeCallResult<T>`; use the same `.Success` and `.Error` pattern |
-| Retry decision | Retry only when `result.Error?.IsTransient == true` |
-| Cancellation | Pass `ct: cancellationToken` |
+Unified socket supports order place/edit/cancel capabilities and several market/account streams, but does not implement `ISubscribeTickerSocket`. For a portable ticker subscription use a classic surface that declares it. Unified native ticker methods remain available. Shared capabilities do not replace native account-mode or permission checks.
 
-## Common Routing Pitfalls
+## Symbols, catalogs, and quantities
 
-| Do not use | Use instead |
-|---|---|
-| `KucoinClient` | `KucoinRestClient` |
-| `ApiCredentials` | `KucoinCredentials` |
-| Two-argument credentials | `new KucoinCredentials("key", "secret", "passphrase")` |
-| Spot symbol `BTCUSDT` | Spot symbol `BTC-USDT` |
-| Futures symbol `ETH-USDT` | Futures contract `ETHUSDTM` |
-| `GeneralApi.SubAccount` | `SpotApi.SubAccount` |
-| `SpotApi.ExchangeData.GetExchangeInfoAsync()` | `SpotApi.ExchangeData.GetSymbolsAsync()` |
-| `SpotApi.ExchangeData.GetOrderBookAsync(...)` | `GetAggregatedPartialOrderBookAsync(...)` or `GetAggregatedFullOrderBookAsync(...)` |
-| `FuturesApi.Account.ChangeInitialLeverageAsync(...)` | `FuturesApi.Trading.PlaceOrderAsync(..., leverage: ...)` or `SetCrossMarginLeverageAsync(...)` |
-| `.Data` without `.Success` check | Check `.Success` first |
-| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+Spot uses `BTC-USDT`; classic Futures uses contract identifiers such as `XBTUSDTM` and `ETHUSDTM`. The BTC/XBT mapping matters. Choose metadata from the same API/account workflow as the call. Unified native requests take explicit product types where required; account type/mode parameters are method-specific and are not interchangeable with `ProductType`.
 
+Load `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest())` or `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest())`, check success, then inspect `SpotSymbolCatalog` or `FuturesSymbolCatalog` on the selected capability. Symbol requests honor base/quote asset type and subtype filters. Metadata carries display names and crypto/stablecoin/fiat/TradFi classifications where populated; do not assume every surface fills every subtype. Futures metadata includes contract size, precision, lot constraints, and settlement/trading mode.
+
+Classic Futures `quantity` is integer contracts; provide exactly one sizing form when choosing `quantity`, `quantityInBaseAsset`, or `quantityInQuoteAsset`. Use contract metadata before conversion; do not truncate fractional input to fit an integer. Classic Shared Futures orders and books use contracts; Spot books use base-asset quantities. Shared results expose `SharedOrderQuantity` with base, quote, or contracts fields; inspect quantity support/options before choosing one. Unified native `quantity` uses its `QuantityUnit`; Unified Shared Futures adapters use contract quantities. Spot market buys can use base or quote sizing where supported.
+
+## Checkout-only sources
+
+- [Public interfaces](../../../../Kucoin.Net/Interfaces/Clients/): exact signatures, account/product types, and cancellation tokens.
+- [Client implementations](../../../../Kucoin.Net/Clients/): Shared options, conversion, and classification.
+- [Complete examples](../../../../Examples/ai-friendly/): independent consumer programs.

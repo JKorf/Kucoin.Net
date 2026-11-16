@@ -10,7 +10,7 @@ using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 
 // ---- 1. PUBLIC SOCKET CLIENT ----
-var publicSocket = new KucoinSocketClient();
+using var publicSocket = new KucoinSocketClient();
 
 // Subscription methods return WebSocketResult<UpdateSubscription>.
 var tickerSub = await publicSocket.SpotApi.SubscribeToTickerUpdatesAsync(
@@ -43,7 +43,7 @@ if (!klineSub.Success)
 }
 
 // ---- 2. AUTHENTICATED SOCKET CLIENT ----
-var authSocket = new KucoinSocketClient(options =>
+using var authSocket = new KucoinSocketClient(options =>
 {
     options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
 });

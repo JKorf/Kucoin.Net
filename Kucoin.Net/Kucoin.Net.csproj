@@ -4,7 +4,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'&#xD;&#xA;                       and '$(BuildAllFrameworks)' != 'true'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug' and '$(BuildAllFrameworks)' != 'true'">
     <TargetFrameworks>netstandard2.0;net11.0</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -52,6 +52,7 @@
   <ItemGroup>
     <None Include="Icon\icon.png" Pack="true" PackagePath="\" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\.claude\skills\**\*" Pack="true" PackagePath="skills\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0.1">

@@ -10,7 +10,7 @@ using Kucoin.Net;
 using Kucoin.Net.Clients;
 using Kucoin.Net.Enums;
 
-var client = new KucoinRestClient(options =>
+using var client = new KucoinRestClient(options =>
 {
     options.ApiCredentials = new KucoinCredentials("API_KEY", "API_SECRET", "API_PASSPHRASE");
 });
@@ -35,6 +35,19 @@ if (!ticker.Success)
 
 Console.WriteLine($"{symbol} last trade price: {ticker.Data.Price}");
 
+// This example assumes one-way position mode. Refuse to trade in hedge mode.
+var mode = await client.FuturesApi.Account.GetPositionModeAsync();
+if (!mode.Success)
+{
+    Console.WriteLine(mode.Error);
+    return;
+}
+if (mode.Data.PositionMode != PositionMode.OneWay)
+{
+    Console.WriteLine("This example requires one-way position mode");
+    return;
+}
+
 // ---- 2. PLACE MARKET ORDER (open long position) ----
 // Futures quantity is contract count. Use quantityInBaseAsset or quantityInQuoteAsset
 // if your workflow is sized in asset/quote value instead of contracts.
@@ -52,7 +65,7 @@ if (!openOrder.Success)
     return;
 }
 
-Console.WriteLine($"Opened position via order {openOrder.Data.Id}");
+Console.WriteLine($"Submitted opening order {openOrder.Data.Id}; verify fills and positions.");
 
 // ---- 3. GET CURRENT POSITION ----
 var positions = await client.FuturesApi.Account.GetPositionAsync(symbol);
@@ -73,20 +86,27 @@ Console.WriteLine($"Position: {position.CurrentQuantity} contracts at avg {posit
 Console.WriteLine($"Unrealized PnL: {position.UnrealizedPnl}");
 Console.WriteLine($"Liquidation price: {position.LiquidationPrice}");
 
+var closeQuantity = Math.Abs(position.CurrentQuantity);
+if (closeQuantity != decimal.Truncate(closeQuantity) || closeQuantity > int.MaxValue)
+{
+    Console.WriteLine("Position quantity cannot be expressed as integer contracts");
+    return;
+}
+
 // ---- 4. CLOSE THE POSITION ----
 // Opposite side, same absolute contract quantity, reduceOnly=true to avoid flipping position.
 var closeOrder = await client.FuturesApi.Trading.PlaceOrderAsync(
     symbol: symbol,
-    side: OrderSide.Sell,
+    side: position.CurrentQuantity > 0 ? OrderSide.Sell : OrderSide.Buy,
     type: NewOrderType.Market,
     leverage: 5m,
-    quantity: (int)Math.Abs(position.CurrentQuantity),
+    quantity: (int)closeQuantity,
     reduceOnly: true,
     marginMode: FuturesMarginMode.Isolated);
 
 if (closeOrder.Success)
 {
-    Console.WriteLine($"Closed position via order {closeOrder.Data.Id}");
+    Console.WriteLine($"Submitted close order {closeOrder.Data.Id}; verify remaining exposure.");
 }
 
 // Common variations:
