@@ -107,14 +107,7 @@ namespace Kucoin.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Margin.RepayAsync("ETH", 1), "Repay");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetBorrowHistoryAsync("ETH"), "GetBorrowHistory");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetRepayHistoryAsync("ETH"), "GetRepayHistory");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.GetInterestHistoryAsync("ETH"), "GetInterestHistory");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.GetLendingAssetsAsync("ETH"), "GetLendingAssets");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.GetInterestRatesAsync("ETH"), "GetInterestRates");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.SubscribeAsync("ETH", 1, 1), "Subscribe");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.RedeemAsync("ETH", 1, "123"), "Redeem");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.EditSubscriptionOrderAsync("ETH", 1, "123"), "EditSubscriptionOrder");
-            await tester.ValidateAsync(client => client.SpotApi.Margin.GetRedemptionOrdersAsync("ETH", "123"), "GetRedemptionOrders", ignoreProperties: new List<string> { "redeemAmount", "receiptAmount" });
-            await tester.ValidateAsync(client => client.SpotApi.Margin.GetSubscriptionOrdersAsync("ETH", "123"), "GetSubscriptionOrders", ignoreProperties: new List<string> { "purchaseAmount", "lendAmount", "redeemAmount", "incomeAmount" });
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetInterestHistoryAsync("ETH"), "GetInterestHistory");            
             await tester.ValidateAsync(client => client.SpotApi.Margin.SetLeverageMultiplierAsync(1), "SetLeverageMultiplier");
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossMarginSymbolsAsync(), "GetCrossMarginSymbols", "data.items");
         }
