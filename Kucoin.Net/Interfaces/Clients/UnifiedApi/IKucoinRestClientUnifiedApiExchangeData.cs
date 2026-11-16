@@ -113,7 +113,7 @@ namespace Kucoin.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="type">["<c>tradeType</c>"] Product type</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH-USDT`</param>
-        /// <param name="limit">["<c>limit</c>"] Number of rows, 20, 100 or null for full book</param>
+        /// <param name="limit">["<c>limit</c>"] Number of rows, null for full book</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<KucoinUaOrderBook>> GetOrderBookAsync(ProductType type, string symbol, int? limit = null, CancellationToken ct = default);
 

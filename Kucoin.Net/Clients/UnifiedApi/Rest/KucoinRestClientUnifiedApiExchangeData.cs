@@ -136,8 +136,9 @@ namespace Kucoin.Net.Clients.UnifiedApi
             parameters.Add("tradeType", productType);
             parameters.Add("symbol", symbol);
             parameters.Add("limit", limit == null ? "FULL" : limit.ToString());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/orderbook", KucoinExchange.RateLimiter.PublicRest, 3, true);
-            var result = await _baseClient.SendAsync<KucoinUaOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            var weight = limit <= 20 ? 5 : limit <= 100 ? 20 : limit <= 500 ? 50 : 250;
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/ua/v2/market/orderbook", KucoinExchange.RateLimiter.PublicRest, 3, false);
+            var result = await _baseClient.SendAsync<KucoinUaOrderBook>(request, parameters, ct, weight: weight).ConfigureAwait(false);
             return result;
         }
 
