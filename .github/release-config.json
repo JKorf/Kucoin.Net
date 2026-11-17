@@ -1,0 +1,18 @@
+{
+  "baseBranch": "master",
+  "sdk": "11.0.100",
+  "packages": [
+    {
+      "key": "kucoin",
+      "project": "Kucoin.Net/Kucoin.Net.csproj",
+      "testProjects": [
+        "Kucoin.Net.UnitTests/Kucoin.Net.UnitTests.csproj"
+      ],
+      "packageId": "Kucoin.Net",
+      "readme": "README.md",
+      "tagPrefix": "Kucoin.Net.",
+      "releaseIntegrationTests": false,
+      "publishToGitHubPackages": true
+    }
+  ]
+}
