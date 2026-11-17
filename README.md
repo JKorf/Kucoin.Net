@@ -232,6 +232,16 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.9.0 - 17 Nov 2026
+    * Updated CryptoExchange.Net to v13.3.0
+    * Added LiquidationPrice, LiquidationAmount properties to KucoinPositionHistoryItem
+    * Added PositionSide property to KucoinStreamFuturesOrderUpdate
+    * Added Liquidation enum value to OrderType
+    * Added socketClient.UnifiedApi.SubscribeToFundingSettlementUpdatesAsync subscription
+    * Updated Unified API GetOrderBookAsync weight and update to public
+    * Updated SubAccountTransfer mapping to include SUB_TRANSFER value
+    * Removed deprecated lending endpoints
+
 * Version 9.8.0 - 13 Oct 2026
     * Updated CryptoExchange.Net to v13.2.0
     * Added Shared API implementation for the Unified API
