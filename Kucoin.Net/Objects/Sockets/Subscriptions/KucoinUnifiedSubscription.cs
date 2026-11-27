@@ -9,6 +9,7 @@ using Kucoin.Net.Objects.Internal;
 using Kucoin.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace Kucoin.Net.Objects.Sockets.Subscriptions
 {
@@ -46,11 +47,18 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _depth = EnumConverter.GetString(depth);
 
             var ids = new[] { $"{channel}.{_type}", $"{channel}" };
-            var filter = _symbol != null || _interval != null ? $"{_symbol}{_interval}" : null;
-            if (filter == null)
+            string[]? filters;
+            if (_symbols?.Length > 0)
+                filters = _symbols.Select(x => $"{x}{_interval}").ToArray();
+            else if (_symbol != null || _interval != null)
+                filters = new[] { $"{_symbol}{_interval}" };
+            else
+                filters = null;
+
+            if (filters == null)
                 MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(ids, DoHandleMessage);
             else
-                MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(ids, [filter], DoHandleMessage);
+                MessageRouter = MessageRouter.CreateForEvent<KucoinUnifiedSocketUpdate<T>>(ids, filters, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

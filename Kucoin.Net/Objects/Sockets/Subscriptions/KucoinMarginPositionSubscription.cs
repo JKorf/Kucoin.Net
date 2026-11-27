@@ -17,7 +17,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
         private readonly Action<DataEvent<KucoinMarginDebtRatioUpdate>>? _onDebtRatioChange;
         private readonly Action<DataEvent<KucoinMarginPositionStatusUpdate>>? _onPositionStatusChange;
         private readonly string _topic = "/margin/position";
-        
+
 
         public KucoinMarginPositionSubscription(
             ILogger logger,

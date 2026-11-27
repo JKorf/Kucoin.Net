@@ -14,7 +14,7 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
     internal class KucoinFundingFeeSettlementSubscription : Subscription
     {
         private readonly SocketApiClient _client;
-        private string _topic;
+        private string _topic = "/contract/announcement";
         private Action<DataEvent<KucoinContractAnnouncement>> _dataHandler;
 
         public KucoinFundingFeeSettlementSubscription(ILogger logger, SocketApiClient client, Action<DataEvent<KucoinContractAnnouncement>> dataHandler) : base(logger, false)
@@ -22,7 +22,6 @@ namespace Kucoin.Net.Objects.Sockets.Subscriptions
             _client = client;
             MessageRouter = MessageRouter.CreateForEvent<KucoinSocketUpdate<KucoinContractAnnouncement>>("/contract/announcement", DoHandleMessage);
 
-            _topic = "/contract/announcement";
             _dataHandler = dataHandler;
         }
 
